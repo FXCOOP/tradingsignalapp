@@ -203,7 +203,7 @@ export default async function ArticlePage({ params }: PageProps) {
               </h2>
 
               <div
-                className="article-content prose prose-invert max-w-none"
+                className="article-content max-w-none text-gray-300 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: article.content }}
               />
             </section>

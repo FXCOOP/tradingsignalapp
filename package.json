@@ -5,8 +5,11 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
-    "start": "next start",
+    "start": "next start -p ${PORT:-3000}",
     "lint": "eslint"
+  },
+  "engines": {
+    "node": "20.x"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.8",

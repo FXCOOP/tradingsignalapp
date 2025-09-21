@@ -1,10 +1,10 @@
 import type { Config } from "tailwindcss";
+import typography from "@tailwindcss/typography";
 
 const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./messages/**/*.{json,js,ts,mdx}"
   ],
   theme: {
     extend: {
@@ -40,41 +40,12 @@ const config: Config = {
         'urdu': ['Noto Nastaliq Urdu', 'serif'],
         'arabic': ['Noto Naskh Arabic', 'serif'],
       },
-      typography: {
-        DEFAULT: {
-          css: {
-            maxWidth: 'none',
-            color: 'inherit',
-            a: {
-              color: 'inherit',
-              textDecoration: 'underline',
-              fontWeight: '500',
-            },
-            '[class~="lead"]': {
-              color: 'inherit',
-            },
-            strong: {
-              color: 'inherit',
-              fontWeight: '600',
-            },
-            'h1, h2, h3, h4': {
-              color: 'inherit',
-            },
-            blockquote: {
-              color: 'inherit',
-              borderLeftColor: 'rgb(var(--primary-500))',
-            },
-          },
-        },
-      },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [typography],
   future: {
     hoverOnlyWhenSupported: true,
   },
-}
+};
 
 export default config;
