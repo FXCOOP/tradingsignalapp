@@ -62,7 +62,7 @@ FinSignals is a comprehensive trading signals platform designed for the Pakistan
    ```env
    DATABASE_URL="postgresql://username:password@localhost:5432/finsignals"
    OPENAI_API_KEY="your_openai_api_key_here"
-   OPENAI_MODEL="gpt-4"
+   OPENAI_MODEL="gpt-5-nano"
    NEXTAUTH_SECRET="your_nextauth_secret_here"
    NEXTAUTH_URL="http://localhost:3000"
    AFFILIATE_JSON='{"default": [{"label": "Exness — Sign Up", "url": "https://one.exnessonelink.com/a/c_8f0nxidtbt", "rel": "sponsored nofollow"}], "banners": [...]}'

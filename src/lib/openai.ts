@@ -4,7 +4,7 @@ export const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
 })
 
-export const GPT_MODEL = process.env.OPENAI_MODEL || 'gpt-4'
+export const GPT_MODEL = process.env.OPENAI_MODEL || 'gpt-5-nano'
 
 export interface GeneratedSignal {
   instrument: string
