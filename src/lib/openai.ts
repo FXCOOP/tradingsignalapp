@@ -1,8 +1,10 @@
 import OpenAI from 'openai'
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+export const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY!,
 })
+
+export const GPT_MODEL = process.env.OPENAI_MODEL || 'gpt-4'
 
 export interface GeneratedSignal {
   instrument: string
@@ -70,7 +72,7 @@ Generate signals for today's date and current market conditions.`
 export async function generateDailySignals(): Promise<GeneratedArticle> {
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4',
+      model: GPT_MODEL,
       messages: [
         {
           role: 'system',
@@ -101,7 +103,7 @@ export async function generateDailySignals(): Promise<GeneratedArticle> {
 export async function translateToUrdu(content: string): Promise<string> {
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4',
+      model: GPT_MODEL,
       messages: [
         {
           role: 'system',
