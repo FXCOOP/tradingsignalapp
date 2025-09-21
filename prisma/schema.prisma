@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      Role     @default(EDITOR)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  articles Article[]
+
+  @@map("users")
+}
+
+model Article {
+  id           String        @id @default(cuid())
+  slug         String        @unique
+  lang         Language
+  title        String
+  excerpt      String
+  content      String        @db.Text
+  publishedAt  DateTime?
+  status       ArticleStatus @default(DRAFT)
+  affiliateKey String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
+
+  signals Signal[]
+  sources Source[]
+
+  @@map("articles")
+}
+
+model Signal {
+  id          String      @id @default(cuid())
+  instrument  String
+  class       SignalClass
+  bias        SignalBias
+  entry       Float
+  stopLoss    Float
+  takeProfit1 Float
+  takeProfit2 Float?
+  timeframe   String
+  confidence  Int
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  articleId String
+  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@map("signals")
+}
+
+model Source {
+  id    String @id @default(cuid())
+  title String
+  url   String
+
+  articleId String
+  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@map("sources")
+}
+
+enum Role {
+  EDITOR
+  PUBLISHER
+  ADMIN
+}
+
+enum Language {
+  EN
+  UR
+}
+
+enum ArticleStatus {
+  DRAFT
+  PENDING
+  PUBLISHED
+  ARCHIVED
+}
+
+enum SignalClass {
+  FOREX
+  CRYPTO
+  COMMODITIES
+  INDICES
+  STOCKS
+}
+
+enum SignalBias {
+  BULLISH
+  BEARISH
+  NEUTRAL
+}

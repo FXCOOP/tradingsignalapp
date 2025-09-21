@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #0b1220;
+  --foreground: #e5e7eb;
+  --primary-500: #0ea5e9;
+  --primary-600: #0284c7;
+  --accent-500: #8b5cf6;
+  --accent-600: #7c3aed;
+  --success-500: #10b981;
+  --warning-500: #f59e0b;
+  --danger-500: #ef4444;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-feature-settings: "rlig" 1, "calt" 1;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Urdu/Arabic font styling */
+.font-urdu {
+  font-family: 'Noto Nastaliq Urdu', serif;
+  line-height: 1.8;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Signal card animations */
+.signal-card {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.signal-card:hover {
+  @apply transform -translate-y-1 shadow-lg;
+}
+
+/* Article content styling */
+.article-content {
+  @apply prose prose-invert max-w-none;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3 {
+  @apply text-white font-semibold;
+}
+
+.article-content p {
+  @apply text-gray-300 leading-relaxed;
+}
+
+.article-content a {
+  @apply text-primary-400 hover:text-primary-300;
+}
+
+/* Loading states */
+.loading-skeleton {
+  @apply animate-pulse bg-gray-700 rounded;
+}
+
+/* Focus states for accessibility */
+.focus-ring {
+  @apply focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-900 focus:outline-none;
+}
+
+/* Custom gradient backgrounds */
+.gradient-bg {
+  background: radial-gradient(1200px 500px at 90% -10%, rgba(139,92,246,.25), transparent 60%),
+              linear-gradient(180deg, #0b1220, #0b1220 60%, #0c1322);
+}

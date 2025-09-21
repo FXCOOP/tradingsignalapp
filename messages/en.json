@@ -1,0 +1,51 @@
+{
+  "common": {
+    "signUp": "Sign Up",
+    "readMore": "Read More",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "navigation": {
+    "home": "Home",
+    "signals": "Signals",
+    "archive": "Archive",
+    "about": "About"
+  },
+  "signals": {
+    "title": "Trading Signals",
+    "subtitle": "Professional trading insights and market analysis",
+    "instrument": "Instrument",
+    "bias": "Bias",
+    "entry": "Entry",
+    "stopLoss": "Stop Loss",
+    "takeProfit": "Take Profit",
+    "confidence": "Confidence",
+    "timeframe": "Timeframe",
+    "bullish": "Bullish",
+    "bearish": "Bearish",
+    "neutral": "Neutral"
+  },
+  "article": {
+    "publishedOn": "Published on",
+    "sources": "Sources",
+    "disclaimer": "Trading involves significant risk and may result in the loss of your invested capital. You should not invest more than you can afford to lose and should ensure that you fully understand the risks involved.",
+    "exnessPromo": "Start trading with Exness - trusted by over 625,000 traders worldwide"
+  },
+  "archive": {
+    "title": "Signal Archive",
+    "filterBy": "Filter by",
+    "sortBy": "Sort by",
+    "date": "Date",
+    "instrument": "Instrument",
+    "class": "Class",
+    "newest": "Newest First",
+    "oldest": "Oldest First"
+  },
+  "seo": {
+    "homeTitle": "FinSignals - Professional Trading Signals & Market Analysis",
+    "homeDescription": "Get daily trading signals with professional market analysis. Expert insights for Forex, Crypto, Commodities and more.",
+    "signalsTitle": "Trading Signals - FinSignals",
+    "archiveTitle": "Signal Archive - FinSignals"
+  }
+}
