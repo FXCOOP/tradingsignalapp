@@ -44,11 +44,6 @@ async function getLatestSignals() {
       include: {
         signals: true,
         sources: true,
-        author: {
-          select: {
-            name: true,
-          },
-        },
       },
       orderBy: {
         publishedAt: 'desc',
