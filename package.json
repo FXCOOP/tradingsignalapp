@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start -p ${PORT:-3000}",
     "lint": "eslint",
-    "db:seed": "tsx prisma/seed.ts",
-    "db:reset": "prisma migrate reset --force && npm run db:seed"
+    "db:seed": "tsx prisma/new-seed.ts",
+    "db:reset": "prisma migrate reset --force && npm run db:seed",
+    "postbuild": "prisma generate"
   },
   "engines": {
     "node": "20.x"
