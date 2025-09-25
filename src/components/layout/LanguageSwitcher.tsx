@@ -34,7 +34,7 @@ export default function LanguageSwitcher({ currentLocale }: LanguageSwitcherProp
           <button
             onClick={() => switchLanguage('en')}
             className={`w-full px-4 py-2 text-left rtl:text-right text-sm hover:bg-gray-700 transition-colors ${
-              currentLocale === 'en' ? 'text-primary-400 font-medium' : 'text-gray-300'
+              currentLocale === 'en' ? 'text-blue-400 font-medium' : 'text-gray-300'
             }`}
           >
             English
@@ -42,7 +42,7 @@ export default function LanguageSwitcher({ currentLocale }: LanguageSwitcherProp
           <button
             onClick={() => switchLanguage('ur')}
             className={`w-full px-4 py-2 text-left rtl:text-right text-sm hover:bg-gray-700 transition-colors ${
-              currentLocale === 'ur' ? 'text-primary-400 font-medium' : 'text-gray-300'
+              currentLocale === 'ur' ? 'text-blue-400 font-medium' : 'text-gray-300'
             }`}
           >
             اردو

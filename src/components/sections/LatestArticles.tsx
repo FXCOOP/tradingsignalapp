@@ -133,7 +133,7 @@ export default function LatestArticles({ articles, locale }: LatestArticlesProps
                 {article.signals.length > 0 && (
                   <div className="flex items-center space-x-4 rtl:space-x-reverse mb-4">
                     <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                      <TrendingUp className="w-4 h-4 text-primary-400" />
+                      <TrendingUp className="w-4 h-4 text-blue-400" />
                       <span className="text-sm text-gray-400">
                         {article.signals.length} {locale === 'ur' ? 'سگنلز' : 'signals'}
                       </span>
@@ -159,7 +159,7 @@ export default function LatestArticles({ articles, locale }: LatestArticlesProps
 
                 <Link
                   href={`/${locale}/article/${article.slug}`}
-                  className="inline-flex items-center text-primary-400 hover:text-primary-300 transition-colors text-sm font-medium"
+                  className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium"
                 >
                   {locale === 'ur' ? 'مکمل پڑھیں' : 'Read More'}
                   <svg

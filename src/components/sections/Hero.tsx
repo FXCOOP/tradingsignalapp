@@ -19,13 +19,13 @@ export default function Hero({ locale }: HeroProps) {
           {/* Content */}
           <div className={`${isRTL ? 'lg:order-2' : ''}`}>
             <div className="flex items-center space-x-2 rtl:space-x-reverse mb-6">
-              <span className="px-3 py-1 bg-accent-500/20 border border-accent-500/30 text-accent-300 text-sm font-medium rounded-full">
+              <span className="px-3 py-1 bg-green-500/20 border border-green-500/30 text-green-300 text-sm font-medium rounded-full">
                 {locale === 'ur' ? 'PRD' : 'PRD'}
               </span>
-              <span className="px-3 py-1 bg-primary-500/20 border border-primary-500/30 text-primary-300 text-sm font-medium rounded-full">
+              <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/30 text-blue-300 text-sm font-medium rounded-full">
                 EN/UR
               </span>
-              <span className="px-3 py-1 bg-success-500/20 border border-success-500/30 text-success-300 text-sm font-medium rounded-full">
+              <span className="px-3 py-1 bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-sm font-medium rounded-full">
                 {locale === 'ur' ? 'پاکستان' : 'Pakistan First SEO'}
               </span>
             </div>
@@ -67,8 +67,8 @@ export default function Hero({ locale }: HeroProps) {
           <div className={`${isRTL ? 'lg:order-1' : ''}`}>
             <div className="grid grid-cols-1 gap-6">
               <div className="flex items-center space-x-4 rtl:space-x-reverse bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800">
-                <div className="w-12 h-12 bg-primary-500/20 rounded-lg flex items-center justify-center">
-                  <TrendingUp className="w-6 h-6 text-primary-400" />
+                <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="w-6 h-6 text-blue-400" />
                 </div>
                 <div>
                   <h3 className="text-white font-semibold mb-1">
@@ -84,8 +84,8 @@ export default function Hero({ locale }: HeroProps) {
               </div>
 
               <div className="flex items-center space-x-4 rtl:space-x-reverse bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800">
-                <div className="w-12 h-12 bg-accent-500/20 rounded-lg flex items-center justify-center">
-                  <BarChart3 className="w-6 h-6 text-accent-400" />
+                <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
+                  <BarChart3 className="w-6 h-6 text-green-400" />
                 </div>
                 <div>
                   <h3 className="text-white font-semibold mb-1">
@@ -101,8 +101,8 @@ export default function Hero({ locale }: HeroProps) {
               </div>
 
               <div className="flex items-center space-x-4 rtl:space-x-reverse bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800">
-                <div className="w-12 h-12 bg-success-500/20 rounded-lg flex items-center justify-center">
-                  <Shield className="w-6 h-6 text-success-400" />
+                <div className="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center">
+                  <Shield className="w-6 h-6 text-emerald-400" />
                 </div>
                 <div>
                   <h3 className="text-white font-semibold mb-1">
