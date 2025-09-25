@@ -4,7 +4,7 @@ services:
     name: finsignals
     env: node
     plan: starter
-    buildCommand: npm ci && npm run build && npx prisma generate && npx prisma migrate deploy
+    buildCommand: npm install && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
@@ -17,8 +17,6 @@ services:
         generateValue: true
       - key: NEXTAUTH_URL
         value: https://finsignals.onrender.com
-      - key: OPENAI_MODEL
-        value: gpt-4o-mini
 
   # PostgreSQL Database
   - type: pgsql
