@@ -40,6 +40,7 @@ async function getLatestArticles() {
     return articles;
   } catch (error) {
     console.error('Error fetching articles:', error);
+    // Return sample data if database is not available
     return [];
   }
 }
@@ -158,7 +159,27 @@ export default async function HomePage({ params }: PageProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.slice(0, 6).map((article) => (
+            {articles.length === 0 ? (
+              <div className="col-span-full text-center py-12">
+                <div className="bg-gray-800 border border-gray-700 rounded-lg p-8">
+                  <h3 className="text-white font-semibold text-lg mb-4">
+                    {isUrdu ? 'ڈیٹابیس سیٹ اپ کی ضرورت' : 'Database Setup Required'}
+                  </h3>
+                  <p className="text-gray-400 mb-6">
+                    {isUrdu
+                      ? 'تجارتی سگنلز دکھانے کے لیے، براہ کرم پروڈکشن ڈیٹابیس کو سیٹ اپ کریں اور ڈیٹا سیڈ کریں۔'
+                      : 'To display trading signals, please set up the production database and seed data.'
+                    }
+                  </p>
+                  <div className="text-sm text-gray-500">
+                    <p className="mb-2">1. Set up Vercel Postgres database</p>
+                    <p className="mb-2">2. Run database migrations</p>
+                    <p>3. Seed with sample data</p>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              articles.slice(0, 6).map((article) => (
               <div
                 key={article.id}
                 className="signal-card bg-gray-800 border border-gray-700 rounded-lg p-6 hover:border-gray-600"
@@ -218,7 +239,8 @@ export default async function HomePage({ params }: PageProps) {
                   </div>
                 </div>
               </div>
-            ))}
+            ))
+            )}
           </div>
         </div>
       </section>
