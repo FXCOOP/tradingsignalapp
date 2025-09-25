@@ -45,6 +45,8 @@ async function getLatestArticles() {
   }
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
   const articles = await getLatestArticles();

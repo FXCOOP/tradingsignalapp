@@ -7,6 +7,8 @@ interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function ArticlePage({ params }: PageProps) {
   const { locale, slug } = await params;
   

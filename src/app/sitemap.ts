@@ -15,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
       select: {
         slug: true,
-        lang: true,
+        language: true,
         updatedAt: true,
       },
     });
@@ -62,7 +62,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Article pages
     const articlePages = articles.map((article) => ({
-      url: `${baseUrl}/${article.lang.toLowerCase()}/article/${article.slug}`,
+      url: `${baseUrl}/${article.language.toLowerCase()}/article/${article.slug}`,
       lastModified: article.updatedAt,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
