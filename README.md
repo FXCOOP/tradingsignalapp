@@ -1,4 +1,26 @@
-# FinSignals - Professional Trading Signals Platform
+# Trading Signal App - PK Signal Pulse
+
+## 🚀 **RENDER DEPLOYMENT INSTRUCTIONS**
+
+**⚠️ IMPORTANT:** This repository contains the application in the `pksignalpulse` directory.
+
+### For Render Web Service Configuration:
+1. **Root Directory**: `pksignalpulse`
+2. **Build Command**: `npm ci && npm run build`
+3. **Start Command**: `npm start`
+4. **Branch**: `main`
+
+### Environment Variables Required:
+```
+NODE_ENV=production
+DATABASE_URL=<from_postgresql_database>
+EXNESS_AFFILIATE_URL=https://one.exnessonelink.com/a/c_8f0nxidtbt
+APP_BASE_URL=https://tradingsignalapp.onrender.com
+```
+
+---
+
+# PK Signal Pulse - Professional Trading Signals Platform
 
 A bilingual (English/Urdu) trading signals platform built with Next.js 14, featuring daily signal generation, market analysis, and Exness affiliate integration.
 
