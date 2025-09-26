@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,58 +7,40 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-model Article {
-  id           String        @id @default(cuid())
-  slug         String        @unique
-  language     String        @default("en")
-  title        String
-  titleUrdu    String?
-  excerpt      String
-  excerptUrdu  String?
-  content      String
-  contentUrdu  String?
-  publishedAt  DateTime?
-  status       String        @default("PUBLISHED")
-  affiliateKey String?
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-
-  signals Signal[]
-  sources Source[]
-
-  @@map("articles")
-}
-
 model Signal {
-  id          String      @id @default(cuid())
-  instrument  String
-  class       String
-  bias        String
-  entry       Float
-  stopLoss    Float
-  takeProfit1 Float
-  takeProfit2 Float?
-  timeframe   String
-  confidence  Int
-  reasoning   String?
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-
-  articleId String
-  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
-
-  @@map("signals")
+  id            String   @id @default(cuid())
+  date          DateTime
+  instrument    String
+  direction     String
+  entry         Float
+  stopLoss      Float
+  takeProfits   String
+  timeframe     String
+  confidence    Int
+  rationale_en  String
+  rationale_ur  String
+  newsRefs      String
+  calendarRefs  String
+  indicators    String
+  sentiment     String
+  slug          String   @unique
+  htmlPath      String
+  createdAt     DateTime @default(now())
 }
 
-model Source {
-  id    String @id @default(cuid())
-  title String
-  url   String
-
-  articleId String
-  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
-
-  @@map("sources")
+model Subscriber {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  createdAt    DateTime @default(now())
+  lastLoginAt  DateTime?
+  isActive     Boolean  @default(true)
 }
 
+model MagicToken {
+  id          String   @id @default(cuid())
+  email       String
+  token       String   @unique
+  expiresAt   DateTime
+  used        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}

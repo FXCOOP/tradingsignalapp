@@ -1,0 +1,54 @@
+{
+  "home": {
+    "title": "PK Signal Pulse",
+    "subtitle": "Professional Trading Signals for Pakistani Traders",
+    "description": "Daily trade ideas with technical analysis, market updates, and comprehensive signal data. English/Urdu bilingual platform.",
+    "viewSignals": "View Signals",
+    "subscribe": "Subscribe Now",
+    "features": {
+      "title": "Why Choose PK Signal Pulse?",
+      "daily": "3-4 Daily Signals",
+      "dailyDesc": "Fresh trading opportunities every day",
+      "bilingual": "English & Urdu",
+      "bilingualDesc": "Complete bilingual support for Pakistani traders",
+      "analysis": "Technical Analysis",
+      "analysisDesc": "In-depth market analysis and rationale",
+      "realtime": "Real-time Updates",
+      "realtimeDesc": "Instant notifications and market updates"
+    },
+    "signals": {
+      "latest": "Latest Trading Signals",
+      "instrument": "Instrument",
+      "direction": "Direction",
+      "entry": "Entry",
+      "stopLoss": "Stop Loss",
+      "takeProfit": "Take Profit",
+      "confidence": "Confidence",
+      "timeframe": "Timeframe",
+      "open": "View Details",
+      "subscribe": "Subscribe to Unlock"
+    },
+    "cta": {
+      "title": "Ready to Start Trading?",
+      "subtitle": "Join thousands of Pakistani traders making informed decisions",
+      "getStarted": "Get Started Today"
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "signals": "Signals",
+    "about": "About",
+    "subscribe": "Subscribe",
+    "login": "Login"
+  },
+  "footer": {
+    "about": "About PK Signal Pulse",
+    "aboutText": "Professional trading signals and market analysis platform designed specifically for Pakistani traders.",
+    "quickLinks": "Quick Links",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "disclaimer": "Disclaimer",
+    "terms": "Terms of Service",
+    "contact": "Contact Us"
+  }
+}
