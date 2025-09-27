@@ -102,10 +102,15 @@ async function main() {
 
 main()
   .catch((e) => {
-    console.error('❌ Seeding failed:', e);
-    process.exit(1);
+    console.error('❌ Seeding failed:', e.message);
+    // Don't exit with error in production to allow deployment to continue
+    if (process.env.NODE_ENV !== 'production') {
+      process.exit(1);
+    }
   })
   .finally(async () => {
     await prisma.$disconnect();
-    process.exit(0);
+    if (process.env.NODE_ENV !== 'production') {
+      process.exit(0);
+    }
   });
