@@ -1,43 +1,12 @@
 export default function HomePage() {
-  const containerStyle = {
-    minHeight: '100vh',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    padding: '20px',
-    color: 'white'
-  }
-
-  const cardStyle = {
-    background: 'rgba(255, 255, 255, 0.95)',
-    color: '#333',
-    borderRadius: '10px',
-    padding: '30px',
-    margin: '20px auto',
-    maxWidth: '800px',
-    boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
-  }
-
-  const signalCardStyle = {
-    background: 'rgba(255, 255, 255, 0.9)',
-    borderRadius: '8px',
-    padding: '20px',
-    margin: '15px',
-    display: 'inline-block',
-    width: '300px',
-    verticalAlign: 'top'
-  }
-
-  const buySignalStyle = {
-    ...signalCardStyle,
-    borderLeft: '5px solid #22c55e'
-  }
-
-  const sellSignalStyle = {
-    ...signalCardStyle,
-    borderLeft: '5px solid #ef4444'
-  }
-
   return (
-    <div style={containerStyle}>
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      padding: '20px',
+      color: 'white',
+      fontFamily: 'Arial, sans-serif'
+    }}>
       <div style={{ textAlign: 'center', padding: '40px 0' }}>
         <h1 style={{ fontSize: '3.5rem', margin: '0 0 20px 0', fontWeight: 'bold' }}>
           🚀 PK Signal Pulse
@@ -47,13 +16,30 @@ export default function HomePage() {
         </p>
       </div>
 
-      <div style={cardStyle}>
+      <div style={{
+        background: 'rgba(255, 255, 255, 0.95)',
+        color: '#333',
+        borderRadius: '10px',
+        padding: '30px',
+        margin: '20px auto',
+        maxWidth: '800px',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
+      }}>
         <h2 style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '30px', color: '#333' }}>
           Today's Premium Signals
         </h2>
 
         <div style={{ textAlign: 'center' }}>
-          <div style={buySignalStyle}>
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.9)',
+            borderRadius: '8px',
+            padding: '20px',
+            margin: '15px',
+            display: 'inline-block',
+            width: '300px',
+            verticalAlign: 'top',
+            borderLeft: '5px solid #22c55e'
+          }}>
             <h3 style={{ color: '#22c55e', fontSize: '1.8rem', margin: '0 0 15px 0' }}>
               XAUUSD - BUY 📈
             </h3>
@@ -66,7 +52,16 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div style={sellSignalStyle}>
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.9)',
+            borderRadius: '8px',
+            padding: '20px',
+            margin: '15px',
+            display: 'inline-block',
+            width: '300px',
+            verticalAlign: 'top',
+            borderLeft: '5px solid #ef4444'
+          }}>
             <h3 style={{ color: '#ef4444', fontSize: '1.8rem', margin: '0 0 15px 0' }}>
               EURUSD - SELL 📉
             </h3>
@@ -81,7 +76,15 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div style={cardStyle}>
+      <div style={{
+        background: 'rgba(255, 255, 255, 0.95)',
+        color: '#333',
+        borderRadius: '10px',
+        padding: '30px',
+        margin: '20px auto',
+        maxWidth: '800px',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
+      }}>
         <h2 style={{ textAlign: 'center', fontSize: '2rem', marginBottom: '20px', color: '#333' }}>
           Why Choose PK Signal Pulse?
         </h2>
