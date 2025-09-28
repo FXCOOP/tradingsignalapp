@@ -99,6 +99,42 @@ export default function HomePage() {
     setShowPremiumModal(true)
   }
 
+  const handleSubscribeAlerts = () => {
+    showNotification('Subscribed to trading alerts!')
+    setActiveTab('pricing')
+  }
+
+  const handleContactSales = () => {
+    setShowContactForm(true)
+    showNotification('Contact form opened')
+  }
+
+  const handleScheduleDemo = () => {
+    showNotification('Demo scheduled! Check your email for details.')
+  }
+
+  const handleOpenAccount = (brokerName: string) => {
+    showNotification(`Opening account with ${brokerName}...`)
+    setTimeout(() => {
+      window.open('#', '_blank') // Would be actual broker link
+    }, 1000)
+  }
+
+  const handleLearnMore = (brokerName: string) => {
+    showNotification(`Learning more about ${brokerName}`)
+    setSelectedBroker(brokerName)
+  }
+
+  const handleStartCourse = (courseId: number, courseName: string) => {
+    if (enrolledCourses.includes(courseId)) {
+      showNotification(`Continuing ${courseName}...`)
+    } else {
+      handleEnrollCourse(courseId)
+      showNotification(`Started ${courseName}!`)
+    }
+    setSelectedCourse(courseId)
+  }
+
   // Live Market Data for Asian Markets
   const asianMarkets = [
     { name: 'USD/PKR', price: '278.45', change: '+0.35', changePercent: '+0.13%', trend: 'up', volume: '2.4M' },
@@ -1065,7 +1101,9 @@ export default function HomePage() {
                 </p>
               </div>
               <div style={{ display: 'flex', gap: '12px' }}>
-                <button style={{
+                <button
+                  onClick={handleSubscribeAlerts}
+                  style={{
                   background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                   border: 'none',
                   color: 'white',
@@ -1774,6 +1812,7 @@ export default function HomePage() {
               }}>
                 {[
                   {
+                    id: 1,
                     title: 'Complete Forex Trading Masterclass',
                     description: 'Learn forex trading from scratch with our comprehensive 40-hour course covering everything from basics to advanced strategies.',
                     instructor: 'Ahmad Khan',
@@ -1786,6 +1825,7 @@ export default function HomePage() {
                     topics: ['Currency Pairs', 'Technical Analysis', 'Risk Management', 'Trading Psychology']
                   },
                   {
+                    id: 2,
                     title: 'Cryptocurrency Trading Essentials',
                     description: 'Master crypto trading with practical strategies for Bitcoin, Ethereum, and altcoins in the Pakistani market.',
                     instructor: 'Sarah Ahmed',
@@ -1798,6 +1838,7 @@ export default function HomePage() {
                     topics: ['Blockchain Basics', 'Crypto Analysis', 'Portfolio Management', 'Security']
                   },
                   {
+                    id: 3,
                     title: 'Stock Market Analysis for PSX',
                     description: 'Deep dive into Pakistan Stock Exchange with sector analysis, fundamental research, and investment strategies.',
                     instructor: 'Dr. Hassan Ali',
@@ -1808,6 +1849,45 @@ export default function HomePage() {
                     price: '$79',
                     image: '📊',
                     topics: ['PSX Fundamentals', 'Company Analysis', 'Sector Rotation', 'Portfolio Building']
+                  },
+                  {
+                    id: 4,
+                    title: 'Advanced Options Trading Strategies',
+                    description: 'Master complex options strategies including spreads, butterflies, iron condors, and advanced hedging techniques.',
+                    instructor: 'Fatima Malik',
+                    rating: 4.9,
+                    students: 4532,
+                    duration: '35 hours',
+                    level: 'Advanced',
+                    price: '$149',
+                    image: '⚡',
+                    topics: ['Options Greeks', 'Complex Spreads', 'Volatility Trading', 'Risk Management']
+                  },
+                  {
+                    id: 5,
+                    title: 'Islamic Finance & Halal Trading',
+                    description: 'Learn Shariah-compliant trading methods, halal investment principles, and Islamic banking fundamentals.',
+                    instructor: 'Imam Muhammad Qasim',
+                    rating: 4.8,
+                    students: 9876,
+                    duration: '20 hours',
+                    level: 'Beginner',
+                    price: 'Free',
+                    image: '☪️',
+                    topics: ['Islamic Finance Principles', 'Halal Investments', 'Sukuk Trading', 'Ethical Trading']
+                  },
+                  {
+                    id: 6,
+                    title: 'Algorithmic Trading & Quantitative Analysis',
+                    description: 'Build automated trading systems using Python, machine learning, and statistical analysis for systematic trading.',
+                    instructor: 'Ali Raza (PhD)',
+                    rating: 4.6,
+                    students: 3241,
+                    duration: '50 hours',
+                    level: 'Advanced',
+                    price: '$199',
+                    image: '🤖',
+                    topics: ['Python for Trading', 'Machine Learning', 'Backtesting', 'Strategy Development']
                   }
                 ].map((course, index) => (
                   <div key={index} style={{
@@ -1905,7 +1985,9 @@ export default function HomePage() {
                         }}>
                           {course.price}
                         </span>
-                        <button style={{
+                        <button
+                          onClick={() => handleStartCourse(course.id, course.title)}
+                          style={{
                           background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
                           border: 'none',
                           color: 'white',
@@ -1916,7 +1998,10 @@ export default function HomePage() {
                           cursor: 'pointer',
                           boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
                         }}>
-                          {course.price === 'Free' ? 'Start Free' : 'Enroll Now'}
+                          {enrolledCourses.includes(course.id)
+                            ? 'Continue Course'
+                            : (course.price === 'Free' ? 'Start Free' : 'Enroll Now')
+                          }
                         </button>
                       </div>
                     </div>
@@ -1985,6 +2070,51 @@ export default function HomePage() {
                     category: 'Psychology',
                     publishDate: '5 days ago',
                     icon: '🧠'
+                  },
+                  {
+                    title: 'Technical Analysis Masterclass: Chart Patterns That Actually Work',
+                    excerpt: 'Discover the most reliable chart patterns with real Pakistani market examples and proven entry/exit strategies...',
+                    author: 'Technical Analyst',
+                    readTime: '18 min read',
+                    category: 'Technical Analysis',
+                    publishDate: '1 day ago',
+                    icon: '📊'
+                  },
+                  {
+                    title: 'Fundamental Analysis of Pakistani Blue Chip Stocks',
+                    excerpt: 'Deep dive into financial statements, ratios, and valuation methods for PSX listed companies...',
+                    author: 'Financial Analyst',
+                    readTime: '25 min read',
+                    category: 'Fundamental Analysis',
+                    publishDate: '4 days ago',
+                    icon: '📋'
+                  },
+                  {
+                    title: 'Day Trading vs Swing Trading: Which Strategy Suits Pakistani Markets?',
+                    excerpt: 'Compare trading styles, time commitments, and profit potential in the context of Pakistani financial markets...',
+                    author: 'Strategy Expert',
+                    readTime: '14 min read',
+                    category: 'Trading Strategies',
+                    publishDate: '6 days ago',
+                    icon: '⚡'
+                  },
+                  {
+                    title: 'Islamic Banking and Sharia-Compliant Investment Options in Pakistan',
+                    excerpt: 'Complete guide to halal investment opportunities including Islamic bonds, mutual funds, and ethical trading...',
+                    author: 'Islamic Finance Scholar',
+                    readTime: '20 min read',
+                    category: 'Islamic Finance',
+                    publishDate: '1 week ago',
+                    icon: '☪️'
+                  },
+                  {
+                    title: 'Building Your First Trading Portfolio: A Pakistani Investor\'s Guide',
+                    excerpt: 'Step-by-step portfolio construction with asset allocation strategies suitable for Pakistani investors...',
+                    author: 'Portfolio Manager',
+                    readTime: '16 min read',
+                    category: 'Portfolio Management',
+                    publishDate: '3 days ago',
+                    icon: '💼'
                   }
                 ].map((article, index) => (
                   <article key={index} style={{
@@ -3644,7 +3774,9 @@ export default function HomePage() {
                     </div>
 
                     <div style={{ display: 'flex', gap: '8px' }}>
-                      <button style={{
+                      <button
+                        onClick={() => handleOpenAccount(broker.name)}
+                        style={{
                         background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
                         border: 'none',
                         color: 'white',
@@ -3658,7 +3790,9 @@ export default function HomePage() {
                       }}>
                         Open Account
                       </button>
-                      <button style={{
+                      <button
+                        onClick={() => handleLearnMore(broker.name)}
+                        style={{
                         background: 'transparent',
                         border: `2px solid ${broker.color}`,
                         color: broker.color,
@@ -4453,7 +4587,9 @@ export default function HomePage() {
                 paddingTop: '24px',
                 borderTop: '1px solid rgba(255, 255, 255, 0.2)'
               }}>
-                <button style={{
+                <button
+                  onClick={handleContactSales}
+                  style={{
                   background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                   border: 'none',
                   color: 'white',
@@ -4466,7 +4602,9 @@ export default function HomePage() {
                 }}>
                   Contact Sales
                 </button>
-                <button style={{
+                <button
+                  onClick={handleScheduleDemo}
+                  style={{
                   background: 'transparent',
                   border: '2px solid white',
                   color: 'white',
