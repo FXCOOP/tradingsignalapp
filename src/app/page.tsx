@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState('dashboard')
@@ -7,17 +7,21 @@ export default function HomePage() {
   const [authMode, setAuthMode] = useState('login')
   const [selectedSignal, setSelectedSignal] = useState<number | null>(null)
   const [selectedNews, setSelectedNews] = useState<number | null>(null)
+  const [currentTime, setCurrentTime] = useState(new Date())
 
-  const currentTime = new Date().toLocaleString()
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000)
+    return () => clearInterval(timer)
+  }, [])
 
   // Live Market Data for Asian Markets
   const asianMarkets = [
-    { name: 'USD/PKR', price: '278.45', change: '+0.35', changePercent: '+0.13%', trend: 'up' },
-    { name: 'KSE-100', price: '91,247', change: '+125', changePercent: '+0.14%', trend: 'up' },
-    { name: 'PSX (KSE)', price: '45,623', change: '-89', changePercent: '-0.19%', trend: 'down' },
-    { name: 'Nikkei 225', price: '40,875', change: '+145', changePercent: '+0.36%', trend: 'up' },
-    { name: 'Hang Seng', price: '19,250', change: '-78', changePercent: '-0.40%', trend: 'down' },
-    { name: 'Shanghai', price: '3,127', change: '+12', changePercent: '+0.39%', trend: 'up' }
+    { name: 'USD/PKR', price: '278.45', change: '+0.35', changePercent: '+0.13%', trend: 'up', volume: '2.4M' },
+    { name: 'KSE-100', price: '91,247', change: '+125', changePercent: '+0.14%', trend: 'up', volume: '45.2M' },
+    { name: 'PSX (KSE)', price: '45,623', change: '-89', changePercent: '-0.19%', trend: 'down', volume: '12.8M' },
+    { name: 'Nikkei 225', price: '40,875', change: '+145', changePercent: '+0.36%', trend: 'up', volume: '89.1M' },
+    { name: 'Hang Seng', price: '19,250', change: '-78', changePercent: '-0.40%', trend: 'down', volume: '67.3M' },
+    { name: 'Shanghai', price: '3,127', change: '+12', changePercent: '+0.39%', trend: 'up', volume: '234.5M' }
   ]
 
   // Breaking News for Pakistan & Asian Markets
@@ -29,6 +33,8 @@ export default function HomePage() {
       category: 'Monetary Policy',
       time: '2 hours ago',
       impact: 'High',
+      readTime: '3 min read',
+      imageUrl: '📊',
       content: 'The State Bank of Pakistan (SBP) has decided to keep the policy rate unchanged at 15% in its latest monetary policy meeting. The decision comes as inflation remains above target levels at 28.3% year-on-year. Governor Jameel Ahmad cited ongoing fiscal challenges and external account pressures as key factors in the decision. The central bank expects inflation to moderate gradually in the coming quarters, with targeted measures to support economic stability while maintaining price stability as the primary objective.'
     },
     {
@@ -38,6 +44,8 @@ export default function HomePage() {
       category: 'Stock Market',
       time: '4 hours ago',
       impact: 'High',
+      readTime: '4 min read',
+      imageUrl: '📈',
       content: 'Pakistan Stock Exchange (PSX) witnessed unprecedented foreign investment inflows totaling $89 million in January 2025, driving the KSE-100 index to new monthly highs. Key sectors including banking, cement, and textiles led the rally. Foreign institutional investors showed particular interest in blue-chip stocks, with HBL, UBL, and Lucky Cement being major beneficiaries. Market analysts attribute this to improved macroeconomic indicators and positive developments in the IMF program review.'
     },
     {
@@ -47,331 +55,164 @@ export default function HomePage() {
       category: 'Economic Development',
       time: '6 hours ago',
       impact: 'Medium',
+      readTime: '5 min read',
+      imageUrl: '🏗️',
       content: 'The governments of China and Pakistan have formally approved Phase II of the China-Pakistan Economic Corridor (CPEC), involving $8.2 billion in infrastructure development projects. The new phase focuses on industrial cooperation, agricultural modernization, and digital connectivity. Key projects include the establishment of Special Economic Zones in Gwadar, Rashakai, and Dhabeji, expected to create over 200,000 jobs and significantly boost bilateral trade volumes.'
     }
   ]
 
   // Economic Calendar Events
   const economicEvents = [
-    { time: '09:30', event: 'Pakistan CPI (YoY)', importance: 'High', forecast: '28.1%', previous: '28.3%' },
-    { time: '11:00', event: 'China GDP (QoQ)', importance: 'High', forecast: '1.2%', previous: '0.9%' },
-    { time: '14:30', event: 'India Trade Balance', importance: 'Medium', forecast: '-$22.1B', previous: '-$21.8B' },
-    { time: '16:00', event: 'Japan Core CPI', importance: 'Medium', forecast: '2.8%', previous: '2.7%' }
+    { time: '09:30', event: 'Pakistan CPI (YoY)', importance: 'High', forecast: '28.1%', previous: '28.3%', impact: 'PKR' },
+    { time: '11:00', event: 'China GDP (QoQ)', importance: 'High', forecast: '1.2%', previous: '0.9%', impact: 'CNY' },
+    { time: '14:30', event: 'India Trade Balance', importance: 'Medium', forecast: '-$22.1B', previous: '-$21.8B', impact: 'INR' },
+    { time: '16:00', event: 'Japan Core CPI', importance: 'Medium', forecast: '2.8%', previous: '2.7%', impact: 'JPY' }
   ]
 
   // Comprehensive signal data with detailed analysis
   const signals = [
     {
       id: 1,
-      symbol: 'XAU/USD (Gold)',
+      symbol: 'XAU/USD',
+      pair: 'Gold',
       type: 'BUY',
       entry: '2640.50',
       sl: '2630.00',
       tp1: '2650.00',
       tp2: '2660.00',
-      confidence: '85%',
+      confidence: 85,
       pips: '+95',
       status: 'ACTIVE',
-      color: '#28a745',
+      color: '#10b981',
       category: 'Commodities',
       timeframe: '4H',
       riskReward: '1:2.1',
-      analysis: `
-        **COMPREHENSIVE GOLD (XAU/USD) ANALYSIS - BUY SIGNAL**
-
-        **Executive Summary:**
-        Our advanced technical and fundamental analysis indicates a strong bullish opportunity in Gold (XAU/USD) with an 85% confidence rating. The current market structure, combined with macroeconomic factors, presents an optimal entry point at $2640.50 with carefully calculated risk management parameters.
-
-        **Technical Analysis Deep Dive:**
-        Gold has been consolidating within a ascending triangle pattern on the 4-hour timeframe, with multiple touches of the $2630 support level demonstrating strong institutional buying interest. The 50-period Exponential Moving Average ($2635) is acting as dynamic support, while the Relative Strength Index (RSI) at 58.4 indicates momentum building without being overbought.
-
-        The MACD histogram shows bullish divergence, with the signal line crossing above the zero line, confirming upward momentum. Fibonacci retracement levels from the recent swing high to low show the 38.2% level coinciding perfectly with our entry point, providing additional confluence for the trade setup.
-
-        **Fundamental Drivers:**
-        Several macroeconomic factors support our bullish gold outlook. The Federal Reserve's dovish commentary in recent FOMC meetings suggests potential interest rate cuts in Q2 2025, traditionally bullish for non-yielding assets like gold. Additionally, increasing geopolitical tensions in Eastern Europe and concerns over banking sector stability following recent credit events have increased safe-haven demand.
-
-        The US Dollar Index (DXY) is showing signs of weakness below the 103.50 level, which historically correlates with gold strength. Inflation expectations remain elevated above the Fed's 2% target, supporting gold's inflation hedge narrative.
-
-        **Market Sentiment & Positioning:**
-        Commitment of Traders (COT) reports show commercial traders (typically contrarian indicators) reducing their short positions by 15% in the past two weeks, while large speculators maintain net long positions. This positioning suggests institutional confidence in gold's upward trajectory.
-
-        **Risk Management Strategy:**
-        Our stop loss at $2630 represents a 0.4% risk, positioned below the key support level and 50-EMA confluence. This level has been tested three times without breaking, making it a logical invalidation point. The 1:2.1 risk-reward ratio ensures profitable trading even with a 60% win rate.
-
-        **Price Targets & Expectations:**
-        Primary target at $2650 represents the next resistance level and coincides with the 61.8% Fibonacci extension. Secondary target at $2660 aligns with the upper trendline of the ascending triangle and psychological resistance. We anticipate reaching these targets within 48-72 hours based on current momentum.
-
-        **Trading Strategy:**
-        Enter long position at $2640.50 with position size calculated using 1% portfolio risk. Monitor price action closely around the $2650 level for potential partial profit-taking. Consider trailing stop above $2645 once initial target is achieved to maximize potential gains while protecting capital.
-
-        **Market Context:**
-        This signal aligns with our broader precious metals outlook, expecting continued strength in the sector. Silver (XAG/USD) and platinum are showing similar technical patterns, confirming sector-wide bullish sentiment. Economic data releases this week, including NFP and CPI, could provide additional catalysts for the move.
-
-        **Conclusion:**
-        The confluence of technical analysis, fundamental drivers, and market sentiment creates a compelling bullish case for gold. Our systematic approach and rigorous risk management parameters provide an asymmetric risk-reward opportunity with high probability of success.
-      `
+      accuracy: 89,
+      volume: 'High',
+      trend: 'Bullish'
     },
     {
       id: 2,
       symbol: 'EUR/USD',
+      pair: 'Euro',
       type: 'SELL',
       entry: '1.1120',
       sl: '1.1150',
       tp1: '1.1090',
       tp2: '1.1060',
-      confidence: '78%',
+      confidence: 78,
       pips: '+30',
       status: 'ACTIVE',
-      color: '#dc3545',
+      color: '#ef4444',
       category: 'Forex',
       timeframe: '1H',
       riskReward: '1:1.8',
-      analysis: `
-        **COMPREHENSIVE EUR/USD ANALYSIS - SELL SIGNAL**
-
-        **Executive Summary:**
-        The EUR/USD pair presents a compelling short opportunity at 1.1120, supported by diverging monetary policies between the European Central Bank and Federal Reserve. Our technical analysis reveals a bearish reversal pattern with strong institutional selling pressure, warranting a 78% confidence rating for this downward move.
-
-        **Technical Analysis Framework:**
-        EUR/USD has formed a clear bearish engulfing pattern on the 1-hour chart at the 1.1120 resistance level, which coincides with the 200-period Simple Moving Average. The pair has failed to break above this critical level three times in the past week, indicating strong selling interest from institutional players.
-
-        Volume analysis shows increased selling volume on each retest of the 1.1120 level, confirming distribution by smart money. The Average True Range (ATR) has expanded to 0.0045, suggesting increased volatility favorable for our short-term trading strategy. The Stochastic oscillator is in overbought territory above 80, while showing negative divergence with price action.
-
-        Bollinger Bands analysis reveals the pair touching the upper band at 1.1125, with bandwidth contracting over the past 5 sessions, typically preceding significant directional moves. Our proprietary momentum indicator signals bearish momentum building, with sell signals triggered across multiple timeframes.
-
-        **Fundamental Analysis Deep Dive:**
-        The European Central Bank's recent dovish shift contrasts sharply with the Federal Reserve's hawkish stance. ECB President Christine Lagarde's comments regarding "data-dependent" policy decisions suggest potential rate cuts as early as March 2025, while Fed Chair Powell maintains a restrictive monetary policy bias.
-
-        Eurozone economic indicators continue deteriorating, with Manufacturing PMI dropping to 46.2 (below 50 expansion threshold) and Services PMI showing concerning weakness. German factory orders declined 3.7% month-over-month, exceeding analyst expectations and highlighting industrial sector struggles.
-
-        In contrast, US economic resilience persists with robust employment data and consumer spending. The yield differential between 10-year US Treasuries and German Bunds has widened to 1.8%, the highest in six months, supporting USD strength against EUR.
-
-        **Geopolitical & Market Sentiment:**
-        European political uncertainty continues with French budget concerns and Italian fiscal challenges weighing on EUR sentiment. The ongoing Russia-Ukraine conflict's energy implications disproportionately affect European economies, creating additional headwinds for the common currency.
-
-        Market positioning data from our prime brokerage partners indicates net short EUR positions among institutional clients have increased 23% week-over-week. Currency futures positioning shows large speculators reducing EUR long positions while increasing USD exposure.
-
-        **Risk Assessment & Management:**
-        Our stop loss at 1.1150 represents a 27-pip risk, positioned above the recent swing high and psychological resistance. This level provides adequate buffer while maintaining favorable risk-reward dynamics. The 1:1.8 risk-reward ratio ensures profitability with win rates above 55%.
-
-        **Technical Price Targets:**
-        Initial target at 1.1090 corresponds with the 38.2% Fibonacci retracement of the recent uptrend and prior support-turned-resistance. This level also aligns with the 100-period EMA on the 4-hour chart. Secondary target at 1.1060 represents the 61.8% Fibonacci level and significant psychological support.
-
-        **Execution Strategy:**
-        Enter short position at 1.1120 with appropriate position sizing based on 1.5% account risk. Monitor European session opening for increased volatility and potential momentum acceleration. Consider partial profit-taking at first target while trailing stop to breakeven once price moves 15 pips in our favor.
-
-        **Economic Calendar Considerations:**
-        Key events this week include Eurozone inflation data (Tuesday), ECB monetary policy meeting minutes (Wednesday), and US retail sales (Thursday). These events could provide additional volatility and catalyst for our anticipated downward move.
-
-        **Correlation Analysis:**
-        EUR/USD typically correlates negatively with DXY (correlation coefficient -0.87), which shows bullish momentum. Additionally, EUR crosses (EUR/GBP, EUR/JPY) display similar bearish patterns, confirming broad EUR weakness rather than isolated USD strength.
-
-        **Market Microstructure:**
-        Order flow analysis reveals significant sell orders clustered around the 1.1120-1.1125 zone, with limited buying interest below 1.1100. High-frequency trading algorithms appear positioned for downside moves, as evidenced by bid-ask spread behavior and depth of market indicators.
-
-        **Conclusion:**
-        The convergence of technical bearish signals, fundamental EUR weakness, and favorable risk-reward parameters creates an attractive short opportunity. Our systematic approach and proven methodology support high conviction in this trade setup, with clear invalidation levels and profit targets defined.
-      `
+      accuracy: 82,
+      volume: 'Medium',
+      trend: 'Bearish'
     },
     {
       id: 3,
       symbol: 'BTC/USD',
+      pair: 'Bitcoin',
       type: 'BUY',
       entry: '43,250',
       sl: '42,800',
       tp1: '44,000',
       tp2: '44,500',
-      confidence: '92%',
+      confidence: 92,
       pips: '+750',
       status: 'ACTIVE',
-      color: '#28a745',
+      color: '#10b981',
       category: 'Crypto',
       timeframe: '4H',
       riskReward: '1:2.7',
-      analysis: `
-        **COMPREHENSIVE BITCOIN (BTC/USD) ANALYSIS - BUY SIGNAL**
-
-        **Executive Summary:**
-        Bitcoin presents an exceptional bullish opportunity at $43,250, driven by institutional adoption acceleration, favorable regulatory developments, and strong technical momentum. Our multi-faceted analysis yields a 92% confidence rating, representing one of our highest conviction trades this quarter.
-
-        **Technical Analysis Masterclass:**
-        Bitcoin has successfully broken above the critical $43,000 resistance level with substantial volume confirmation, printing a decisive bullish breakout on the 4-hour timeframe. The move was accompanied by a 340% increase in trading volume compared to the 20-period average, indicating strong institutional participation.
-
-        The weekly chart reveals Bitcoin completing a textbook cup-and-handle pattern with a measured target of $47,500. The handle formation shows healthy consolidation with decreasing volume, followed by our current breakout surge. Ichimoku cloud analysis on daily timeframe shows price trading above all cloud components, confirming bullish momentum.
-
-        On-chain metrics provide additional technical confirmation. The Network Value to Transactions (NVT) ratio has normalized to 35.2, suggesting fair valuation. The MVRV Z-Score remains in neutral territory at 1.8, indicating significant upside potential before reaching historically overvalued levels.
-
-        **Fundamental Catalysts Driving the Move:**
-        The primary catalyst for our bullish outlook centers on the imminent Bitcoin ETF approval by the Securities and Exchange Commission. Industry sources suggest announcement timing within the next 7-14 days, with Grayscale's GBTC conversion and BlackRock's IBTC leading the approval queue.
-
-        Corporate treasury adoption continues accelerating, with three Fortune 500 companies announcing Bitcoin allocations in the past month. MicroStrategy's additional $850M purchase and Tesla's renewed interest signal institutional FOMO building. Marathon Digital and Riot Platforms expanding mining operations by 45% demonstrates infrastructure confidence.
-
-        **Regulatory Environment Analysis:**
-        The regulatory landscape has markedly improved following the SEC's constructive engagement with ETF applicants. Commissioner Hester Peirce's recent comments regarding "crypto spring" and Chairman Gensler's softened rhetoric create a favorable approval environment.
-
-        International developments support our bullish thesis, with the European Union's MiCA regulation providing clarity and Japan's recent crypto-friendly tax amendments encouraging institutional participation. El Salvador's continued Bitcoin accumulation and rumored sovereign wealth fund adoption by other nations add geopolitical tailwinds.
-
-        **Market Structure & Liquidity:**
-        Futures markets show healthy backwardation with March contracts trading at a modest premium, indicating balanced sentiment without excessive speculation. Options skew has normalized, with 25-delta call implied volatility only 8% above puts, suggesting rational positioning.
-
-        Exchange balances continue declining, with Coinbase and Binance reporting 12% and 18% outflows respectively over the past 30 days. This supply reduction coincides with increasing demand from ETF preparation and institutional custody solutions.
-
-        **Institutional Flow Analysis:**
-        Our prime brokerage data reveals net long positioning from hedge funds increasing 67% month-over-month. Family offices allocated an average 4.2% to crypto in Q4 2024, up from 1.8% in Q3. Pension funds in Texas, Michigan, and Wisconsin have initiated pilot programs totaling $2.3B in potential allocations.
-
-        **Technical Price Targets & Strategy:**
-        Primary target at $44,000 represents the next psychological resistance and coincides with the 1.618 Fibonacci extension from the recent consolidation. This level previously acted as support in November 2024, creating natural resistance expectations.
-
-        Secondary target at $44,500 aligns with the monthly pivot point and represents a logical profit-taking zone before anticipated consolidation. The measured move from our cup-and-handle pattern suggests ultimate target near $47,500 over the coming weeks.
-
-        **Risk Management Protocol:**
-        Stop loss at $42,800 provides 1.04% downside protection while remaining above the breakout retest level. This positioning allows for normal volatility while protecting against reversal. Our 1:2.7 risk-reward ratio ensures profitability with win rates above 37%.
-
-        **Macroeconomic Considerations:**
-        Bitcoin's correlation with traditional risk assets has decreased to 0.23 with the S&P 500, supporting its evolution toward digital gold status. Federal Reserve dovish commentary regarding 2025 rate cuts benefits non-yielding assets like Bitcoin.
-
-        Inflation expectations above 3% support Bitcoin's inflation hedge narrative, while banking sector stress following regional bank concerns in Q4 2024 increases alternative store-of-value demand.
-
-        **Options Market Intelligence:**
-        Gamma positioning analysis reveals significant positive gamma above $43,500, creating upward acceleration potential. Maximum pain for monthly expiry sits at $41,000, well below current levels. Call option open interest peaks at $45,000 and $50,000 strikes, indicating institutional target expectations.
-
-        **Sentiment & Social Metrics:**
-        Fear & Greed Index has improved to 68 (Greed) from 25 (Fear) six weeks ago, indicating healthy sentiment recovery without euphoric extremes. Google Trends for "Bitcoin" remain 60% below 2021 peaks, suggesting mainstream FOMO hasn't yet materialized.
-
-        Social media sentiment analysis shows 73% positive mentions, while maintaining rational expectations. This balanced enthusiasm supports sustained rather than parabolic price appreciation.
-
-        **Execution Framework:**
-        Enter long position at $43,250 with position size calculated using 2% portfolio risk given high conviction rating. Consider scaling into position if price retests $43,000 support. Implement dynamic stop loss management, trailing to breakeven once position moves $800 in our favor.
-
-        **Conclusion:**
-        The convergence of technical breakout, fundamental catalysts, institutional adoption, and favorable regulatory environment creates an exceptional risk-adjusted opportunity. Our systematic analysis and proven methodology support maximum conviction in this bullish Bitcoin thesis.
-      `
-    },
-    {
-      id: 4,
-      symbol: 'SPX500',
-      type: 'BUY',
-      entry: '4,890',
-      sl: '4,850',
-      tp1: '4,920',
-      tp2: '4,950',
-      confidence: '81%',
-      pips: '+30',
-      status: 'PENDING',
-      color: '#28a745',
-      category: 'Indices',
-      timeframe: '1D',
-      riskReward: '1:1.5',
-      analysis: `
-        **COMPREHENSIVE S&P 500 (SPX500) ANALYSIS - BUY SIGNAL**
-
-        **Executive Summary:**
-        The S&P 500 index presents a strategic long opportunity at 4,890, supported by robust corporate earnings, favorable seasonal patterns, and constructive Federal Reserve policy outlook. Our comprehensive analysis incorporating technical momentum, fundamental strength, and institutional flow yields an 81% confidence rating for continued upward movement.
-
-        **Technical Analysis Framework:**
-        The SPX500 has established a solid support base at 4,870-4,880, coinciding with the 20-day exponential moving average and the 61.8% Fibonacci retracement from the January rally. The index has successfully defended this level three times over the past week, demonstrating institutional buying interest and creating a reliable foundation for the next leg higher.
-
-        Volume profile analysis reveals significant volume concentration around the 4,880-4,890 zone, establishing this as a fair value area where both buyers and sellers find equilibrium. The breakout above 4,890 on increasing volume would signal institutional accumulation and trigger algorithmic buying programs.
-
-        Momentum indicators provide bullish confirmation, with the RSI recovering from oversold levels below 30 to the current reading of 52, indicating renewed buying interest without reaching overbought extremes. The MACD histogram shows positive divergence, with the signal line approaching a bullish crossover above the zero line.
-
-        **Fundamental Earnings Analysis:**
-        Q4 2024 earnings season has exceeded expectations with 78% of S&P 500 companies beating consensus estimates by an average of 8.4%. Technology sector leadership continues with NVDA, MSFT, and GOOGL reporting exceptional results driven by AI investment and productivity gains.
-
-        Forward Price-to-Earnings ratio of 18.2x remains attractive compared to historical averages of 20.1x, suggesting equities offer compelling value despite recent gains. Earnings revisions trend positive with 67% of analyst revisions trending upward versus 33% downward, indicating improving corporate fundamentals.
-
-        **Federal Reserve Policy Impact:**
-        Recent Federal Reserve communications suggest a more dovish stance with potential rate cuts beginning in Q2 2025. Fed Chair Powell's testimony emphasized "data-dependent" decision-making while acknowledging inflation progress toward the 2% target.
-
-        Lower interest rates typically benefit equity valuations through multiple expansion and reduced discount rates for future cash flows. The yield curve normalization process supports financial sector earnings while maintaining economic growth momentum.
-
-        **Sector Rotation & Leadership:**
-        Technology sector maintains leadership with semiconductor and software subsectors driving performance. The emerging AI theme creates sustainable competitive advantages for established players while generating new revenue streams.
-
-        Healthcare sector provides defensive characteristics with pipeline drug approvals and demographic tailwinds supporting steady growth. Consumer discretionary shows resilience despite macroeconomic concerns, supported by solid employment metrics and wage growth.
-
-        **Institutional Flow & Positioning:**
-        Equity fund flows turned positive with $12.3B in net inflows over the past two weeks, the largest since November 2024. Institutional investors are reducing cash positions from 6.2% to 4.8%, indicating increased equity allocation preferences.
-
-        Options market makers delta hedging activities suggest net positive gamma above 4,880, creating upward momentum amplification potential. Put/call ratios have normalized to 0.87, indicating balanced sentiment without excessive pessimism or euphoria.
-
-        **Economic Backdrop Assessment:**
-        Leading economic indicators show resilient growth with unemployment remaining at multi-decade lows of 3.7%. Consumer spending, representing 70% of GDP, demonstrates continued strength with retail sales growing 2.4% month-over-month.
-
-        Corporate credit spreads remain tight with investment-grade spreads at 95 basis points over Treasuries, indicating healthy credit markets and low default expectations. This environment supports equity risk-taking and multiple expansion.
-
-        **Seasonal & Calendar Considerations:**
-        Historical analysis reveals February typically ranks as the 3rd strongest month for S&P 500 performance, with average gains of 1.8% over the past 20 years. The "January effect" momentum often carries into February, supported by pension fund rebalancing and tax-loss selling completion.
-
-        Earnings season provides additional catalysts with 40% of S&P 500 companies reporting this week. Historical patterns suggest positive earnings surprises drive continued outperformance through month-end.
-
-        **Technical Price Targets:**
-        Primary target at 4,920 represents the next resistance level and coincides with the 50% Fibonacci retracement from the December high. This level previously provided support in late January, creating natural resistance expectations.
-
-        Secondary target at 4,950 aligns with the monthly pivot point and represents a logical profit-taking zone before anticipated consolidation. The measured move from our current base suggests ultimate target near 5,000 psychological resistance.
-
-        **Risk Management Strategy:**
-        Stop loss at 4,850 provides 0.82% downside protection while remaining below the key support confluence zone. This positioning allows for normal market volatility while protecting against trend reversal. Our 1:1.5 risk-reward ratio ensures profitability with win rates above 67%.
-
-        **Options Strategy Enhancement:**
-        Consider implementing a bullish call spread (buy 4890 calls, sell 4920 calls) to enhance returns while limiting downside risk. This strategy provides leveraged upside participation with defined risk parameters and time decay mitigation.
-
-        **Global Market Context:**
-        International equity markets show constructive performance with European indices outperforming, suggesting global risk-on sentiment. Emerging markets demonstrate stability despite geopolitical concerns, supporting continued equity flows.
-
-        Currency markets show USD strength against major counterparts, potentially creating headwinds for multinational corporations but supporting domestic consumption and import costs.
-
-        **Market Microstructure Analysis:**
-        Order flow analysis reveals significant buying interest below 4,880 with limited selling pressure above 4,900. High-frequency trading algorithms appear positioned for upside momentum, as evidenced by bid-ask spread compression and depth improvements.
-
-        **Execution Recommendations:**
-        Enter long position at 4,890 with position size calculated using 1.2% portfolio risk. Monitor opening price action for momentum confirmation. Consider scaling additional exposure on any retest of 4,885 support level.
-
-        **Conclusion:**
-        The combination of technical momentum, fundamental earnings strength, favorable Fed policy, and seasonal tailwinds creates a compelling bullish case for the S&P 500. Our systematic approach and risk management framework support high confidence in this strategic long position.
-      `
+      accuracy: 94,
+      volume: 'Very High',
+      trend: 'Bullish'
     }
   ]
+
+  const ProgressBar = ({ value, max = 100, color = '#3b82f6' }: { value: number; max?: number; color?: string }) => (
+    <div style={{
+      width: '100%',
+      height: '6px',
+      backgroundColor: '#e5e7eb',
+      borderRadius: '3px',
+      overflow: 'hidden'
+    }}>
+      <div
+        style={{
+          width: `${(value / max) * 100}%`,
+          height: '100%',
+          backgroundColor: color,
+          borderRadius: '3px',
+          transition: 'width 0.8s ease-in-out'
+        }}
+      />
+    </div>
+  )
 
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#ffffff',
-      color: '#1a1a1a',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+      background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
+      color: '#0f172a',
+      fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+      lineHeight: 1.6
     }}>
-      {/* Top Market Ticker */}
+
+      {/* Premium Market Ticker */}
       <div style={{
-        background: '#f8f9fa',
-        borderBottom: '1px solid #e9ecef',
-        padding: '8px 0',
-        overflow: 'hidden'
+        background: 'linear-gradient(90deg, #1e293b 0%, #334155 100%)',
+        borderBottom: '1px solid #475569',
+        padding: '12px 0',
+        overflow: 'hidden',
+        position: 'relative'
       }}>
         <div style={{
           display: 'flex',
-          animation: 'scroll 30s linear infinite',
+          animation: 'marquee 40s linear infinite',
           whiteSpace: 'nowrap'
         }}>
           {asianMarkets.concat(asianMarkets).map((item, index) => (
             <div key={index} style={{
               display: 'flex',
               alignItems: 'center',
-              marginRight: '40px',
-              fontSize: '13px'
+              marginRight: '48px',
+              fontSize: '14px',
+              color: '#f8fafc',
+              fontWeight: '500'
             }}>
-              <span style={{ color: '#495057', fontWeight: '600' }}>{item.name}</span>
-              <span style={{ color: '#212529', margin: '0 8px', fontWeight: '500' }}>{item.price}</span>
               <span style={{
-                color: item.trend === 'up' ? '#28a745' : '#dc3545',
-                fontSize: '12px',
-                fontWeight: '500'
+                color: '#e2e8f0',
+                fontWeight: '600',
+                marginRight: '8px'
+              }}>
+                {item.name}
+              </span>
+              <span style={{
+                color: '#f8fafc',
+                marginRight: '8px',
+                fontWeight: '700',
+                fontSize: '15px'
+              }}>
+                {item.price}
+              </span>
+              <span style={{
+                color: item.trend === 'up' ? '#10b981' : '#ef4444',
+                fontSize: '13px',
+                fontWeight: '600',
+                padding: '2px 6px',
+                borderRadius: '4px',
+                backgroundColor: item.trend === 'up' ? '#10b98115' : '#ef444415'
               }}>
                 {item.changePercent}
               </span>
               <span style={{
-                color: item.trend === 'up' ? '#28a745' : '#dc3545',
-                fontSize: '10px',
-                marginLeft: '4px'
+                color: item.trend === 'up' ? '#10b981' : '#ef4444',
+                fontSize: '12px',
+                marginLeft: '6px'
               }}>
                 {item.trend === 'up' ? '▲' : '▼'}
               </span>
@@ -380,78 +221,123 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Main Navigation */}
+      {/* Premium Navigation Header */}
       <nav style={{
-        background: '#ffffff',
-        borderBottom: '1px solid #e9ecef',
-        padding: '12px 0',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
+        background: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(20px)',
+        borderBottom: '1px solid #e2e8f0',
+        padding: '16px 0',
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
       }}>
         <div style={{
-          maxWidth: '1400px',
+          maxWidth: '1600px',
           margin: '0 auto',
-          padding: '0 20px',
+          padding: '0 24px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '40px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '48px' }}>
             <div style={{
-              fontSize: '24px',
-              fontWeight: 'bold',
-              color: '#0d6efd',
+              fontSize: '28px',
+              fontWeight: '800',
+              background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
               display: 'flex',
               alignItems: 'center',
-              gap: '8px'
+              gap: '12px',
+              letterSpacing: '-0.025em'
             }}>
-              📊 PK Signal Pulse
+              <span style={{ fontSize: '32px' }}>📊</span>
+              PK Signal Pulse
+              <span style={{
+                fontSize: '12px',
+                fontWeight: '600',
+                color: '#10b981',
+                backgroundColor: '#10b98115',
+                padding: '3px 8px',
+                borderRadius: '12px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>
+                LIVE
+              </span>
             </div>
 
-            <div style={{ display: 'flex', gap: '30px' }}>
+            <div style={{ display: 'flex', gap: '32px' }}>
               {[
-                { key: 'dashboard', label: 'Dashboard' },
-                { key: 'signals', label: 'Live Signals' },
-                { key: 'markets', label: 'Asian Markets' },
-                { key: 'news', label: 'Market News' },
-                { key: 'calendar', label: 'Economic Calendar' },
-                { key: 'education', label: 'Education' },
-                { key: 'ai-analysis', label: 'AI Analysis' },
-                { key: 'pricing', label: 'Subscription' },
-                { key: 'brokers', label: 'Partner Brokers' },
-                { key: 'about', label: 'About Us' }
+                { key: 'dashboard', label: 'Market Overview', icon: '📈' },
+                { key: 'signals', label: 'Live Signals', icon: '⚡' },
+                { key: 'markets', label: 'Asian Markets', icon: '🌏' },
+                { key: 'news', label: 'Market News', icon: '📰' },
+                { key: 'calendar', label: 'Economic Calendar', icon: '📅' },
+                { key: 'education', label: 'Education', icon: '🎓' },
+                { key: 'ai-analysis', label: 'AI Analytics', icon: '🤖' },
+                { key: 'pricing', label: 'Premium', icon: '💎' }
               ].map(tab => (
-                <span
+                <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
                   style={{
-                    color: activeTab === tab.key ? '#0d6efd' : '#6c757d',
+                    background: activeTab === tab.key
+                      ? 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)'
+                      : 'transparent',
+                    color: activeTab === tab.key ? '#ffffff' : '#64748b',
+                    border: 'none',
                     cursor: 'pointer',
                     fontSize: '14px',
-                    fontWeight: activeTab === tab.key ? '600' : '400',
-                    borderBottom: activeTab === tab.key ? '2px solid #0d6efd' : 'none',
-                    paddingBottom: '4px',
-                    transition: 'all 0.3s ease'
+                    fontWeight: activeTab === tab.key ? '600' : '500',
+                    padding: '10px 16px',
+                    borderRadius: '8px',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    transform: activeTab === tab.key ? 'translateY(-1px)' : 'translateY(0)',
+                    boxShadow: activeTab === tab.key ? '0 4px 12px rgba(59, 130, 246, 0.3)' : 'none'
                   }}
                 >
+                  <span style={{ fontSize: '16px' }}>{tab.icon}</span>
                   {tab.label}
-                </span>
+                </button>
               ))}
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-            <span style={{ fontSize: '12px', color: '#6c757d' }}>{currentTime}</span>
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: '#64748b',
+              fontSize: '13px',
+              fontWeight: '500'
+            }}>
+              <span style={{
+                width: '8px',
+                height: '8px',
+                backgroundColor: '#10b981',
+                borderRadius: '50%',
+                animation: 'pulse 2s infinite'
+              }} />
+              LIVE • {currentTime.toLocaleTimeString()}
+            </div>
             <button
               onClick={() => { setShowAuthModal(true); setAuthMode('login') }}
               style={{
                 background: 'transparent',
-                border: '1px solid #0d6efd',
-                color: '#0d6efd',
+                border: '2px solid #3b82f6',
+                color: '#3b82f6',
                 padding: '8px 16px',
-                borderRadius: '4px',
+                borderRadius: '8px',
                 cursor: 'pointer',
-                fontSize: '13px',
-                fontWeight: '500'
+                fontSize: '14px',
+                fontWeight: '600',
+                transition: 'all 0.3s ease'
               }}
             >
               Login
@@ -459,236 +345,461 @@ export default function HomePage() {
             <button
               onClick={() => { setShowAuthModal(true); setAuthMode('register') }}
               style={{
-                background: '#0d6efd',
+                background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
                 border: 'none',
                 color: 'white',
-                padding: '8px 16px',
-                borderRadius: '4px',
+                padding: '10px 20px',
+                borderRadius: '8px',
                 cursor: 'pointer',
-                fontSize: '13px',
-                fontWeight: '500'
+                fontSize: '14px',
+                fontWeight: '600',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
               }}
             >
-              Sign Up
+              Get Premium
             </button>
           </div>
         </div>
       </nav>
 
-      {/* Main Content */}
-      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '20px' }}>
+      {/* Main Content Container */}
+      <div style={{ maxWidth: '1600px', margin: '0 auto', padding: '32px 24px' }}>
 
-        {/* Dashboard Tab */}
+        {/* Enhanced Dashboard */}
         {activeTab === 'dashboard' && (
           <div>
-            {/* Market Overview Cards */}
+            {/* Hero Section */}
+            <div style={{
+              background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+              borderRadius: '20px',
+              padding: '40px',
+              marginBottom: '32px',
+              color: 'white',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                width: '300px',
+                height: '300px',
+                background: 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)',
+                borderRadius: '50%'
+              }} />
+
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <h1 style={{
+                  fontSize: '48px',
+                  fontWeight: '800',
+                  marginBottom: '16px',
+                  background: 'linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  letterSpacing: '-0.025em'
+                }}>
+                  Pakistan's Premier Trading Intelligence
+                </h1>
+                <p style={{
+                  fontSize: '20px',
+                  color: '#cbd5e1',
+                  marginBottom: '32px',
+                  maxWidth: '600px',
+                  lineHeight: 1.6
+                }}>
+                  AI-powered market analysis with 89.4% accuracy. Real-time signals, comprehensive research, and professional-grade tools for Pakistani traders.
+                </p>
+
+                <div style={{ display: 'flex', gap: '16px' }}>
+                  <button style={{
+                    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                    border: 'none',
+                    color: 'white',
+                    padding: '14px 28px',
+                    borderRadius: '12px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 8px 24px rgba(16, 185, 129, 0.3)'
+                  }}>
+                    Start Trading Now
+                  </button>
+                  <button style={{
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    border: '2px solid rgba(255, 255, 255, 0.2)',
+                    color: 'white',
+                    padding: '14px 28px',
+                    borderRadius: '12px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    backdropFilter: 'blur(10px)'
+                  }}>
+                    View Live Signals
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Enhanced Performance Metrics */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-              gap: '20px',
-              marginBottom: '30px'
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '24px',
+              marginBottom: '40px'
             }}>
               {[
-                { title: 'Active Signals', value: '12', change: '+3 today', icon: '🎯', color: '#0d6efd' },
-                { title: 'Win Rate', value: '87.5%', change: '+2.3% this week', icon: '🏆', color: '#28a745' },
-                { title: 'Total Pips', value: '1,247', change: '+89 today', icon: '📈', color: '#fd7e14' },
-                { title: 'Subscribers', value: '2,847', change: '+47 today', icon: '👥', color: '#6f42c1' }
-              ].map((card, index) => (
+                { title: 'Active Signals', value: '24', change: '+8 today', icon: '🎯', color: '#3b82f6', progress: 85, subtitle: 'Live trading opportunities' },
+                { title: 'Success Rate', value: '89.4%', change: '+2.1% this month', icon: '🏆', color: '#10b981', progress: 89, subtitle: 'Proven accuracy' },
+                { title: 'Total Pips', value: '2,847', change: '+124 today', icon: '📈', color: '#f59e0b', progress: 76, subtitle: 'Profit generated' },
+                { title: 'Premium Members', value: '5,240', change: '+89 today', icon: '👥', color: '#8b5cf6', progress: 92, subtitle: 'Growing community' }
+              ].map((metric, index) => (
                 <div key={index} style={{
-                  background: '#ffffff',
-                  border: '1px solid #e9ecef',
-                  borderRadius: '8px',
-                  padding: '20px',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
+                  background: 'rgba(255, 255, 255, 0.9)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: '16px',
+                  padding: '28px',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  overflow: 'hidden'
                 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                    <span style={{ fontSize: '13px', color: '#6c757d', fontWeight: '500' }}>{card.title}</span>
-                    <span style={{ fontSize: '20px' }}>{card.icon}</span>
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: '80px',
+                    height: '80px',
+                    background: `radial-gradient(circle, ${metric.color}15 0%, transparent 70%)`,
+                    borderRadius: '50%'
+                  }} />
+
+                  <div style={{ position: 'relative', zIndex: 1 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                      <span style={{
+                        fontSize: '14px',
+                        color: '#64748b',
+                        fontWeight: '600',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em'
+                      }}>
+                        {metric.title}
+                      </span>
+                      <span style={{ fontSize: '28px' }}>{metric.icon}</span>
+                    </div>
+
+                    <div style={{ fontSize: '36px', fontWeight: '800', color: metric.color, marginBottom: '8px' }}>
+                      {metric.value}
+                    </div>
+
+                    <div style={{ fontSize: '13px', color: '#64748b', marginBottom: '16px' }}>
+                      {metric.subtitle}
+                    </div>
+
+                    <ProgressBar value={metric.progress} color={metric.color} />
+
+                    <div style={{ fontSize: '13px', color: '#10b981', fontWeight: '600', marginTop: '12px' }}>
+                      {metric.change}
+                    </div>
                   </div>
-                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: card.color, marginBottom: '5px' }}>
-                    {card.value}
-                  </div>
-                  <div style={{ fontSize: '12px', color: '#28a745', fontWeight: '500' }}>{card.change}</div>
                 </div>
               ))}
             </div>
 
-            {/* Live Signals with Comprehensive Analysis */}
-            <div style={{ marginBottom: '30px' }}>
-              <h2 style={{ color: '#1a1a1a', fontSize: '24px', marginBottom: '20px', fontWeight: '700' }}>
-                🔴 Live Premium Signals & Analysis
-              </h2>
+            {/* Premium Trading Signals Section */}
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.9)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              borderRadius: '20px',
+              padding: '32px',
+              marginBottom: '32px'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+                <div>
+                  <h2 style={{
+                    fontSize: '28px',
+                    fontWeight: '800',
+                    color: '#0f172a',
+                    marginBottom: '8px',
+                    letterSpacing: '-0.025em'
+                  }}>
+                    🔴 Live Premium Signals
+                  </h2>
+                  <p style={{ color: '#64748b', fontSize: '16px' }}>
+                    AI-powered trading opportunities with real-time analysis
+                  </p>
+                </div>
+                <button style={{
+                  background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+                  border: 'none',
+                  color: 'white',
+                  padding: '12px 24px',
+                  borderRadius: '12px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
+                }}>
+                  View All Signals
+                </button>
+              </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '25px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px' }}>
                 {signals.map((signal) => (
                   <div key={signal.id} style={{
-                    background: '#ffffff',
-                    border: '1px solid #e9ecef',
-                    borderRadius: '12px',
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.9) 100%)',
+                    border: '1px solid rgba(226, 232, 240, 0.5)',
+                    borderRadius: '16px',
                     padding: '0',
-                    boxShadow: '0 4px 6px rgba(0,0,0,0.07)',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    cursor: 'pointer',
+                    position: 'relative'
                   }}>
                     {/* Signal Header */}
                     <div style={{
-                      background: `linear-gradient(135deg, ${signal.color}15, ${signal.color}05)`,
-                      padding: '20px',
-                      borderBottom: '1px solid #e9ecef'
+                      background: `linear-gradient(135deg, ${signal.color}08 0%, ${signal.color}03 100%)`,
+                      padding: '24px',
+                      borderBottom: '1px solid rgba(226, 232, 240, 0.5)',
+                      borderLeft: `4px solid ${signal.color}`
                     }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
                         <div>
-                          <h3 style={{ color: '#1a1a1a', fontSize: '20px', margin: '0 0 5px 0', fontWeight: '700' }}>
-                            {signal.symbol}
-                          </h3>
-                          <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-                            <span style={{ color: '#6c757d', fontSize: '13px' }}>{signal.category}</span>
-                            <span style={{ color: '#6c757d', fontSize: '13px' }}>Timeframe: {signal.timeframe}</span>
-                            <span style={{ color: '#6c757d', fontSize: '13px' }}>R:R {signal.riskReward}</span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                            <h3 style={{
+                              fontSize: '24px',
+                              fontWeight: '800',
+                              color: '#0f172a',
+                              margin: '0',
+                              letterSpacing: '-0.025em'
+                            }}>
+                              {signal.symbol}
+                            </h3>
+                            <span style={{
+                              fontSize: '16px',
+                              color: '#64748b',
+                              fontWeight: '500'
+                            }}>
+                              {signal.pair}
+                            </span>
+                          </div>
+
+                          <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+                            <span style={{
+                              color: '#64748b',
+                              fontSize: '14px',
+                              background: 'rgba(100, 116, 139, 0.1)',
+                              padding: '4px 12px',
+                              borderRadius: '20px',
+                              fontWeight: '500'
+                            }}>
+                              {signal.category}
+                            </span>
+                            <span style={{
+                              color: '#64748b',
+                              fontSize: '14px',
+                              background: 'rgba(100, 116, 139, 0.1)',
+                              padding: '4px 12px',
+                              borderRadius: '20px',
+                              fontWeight: '500'
+                            }}>
+                              {signal.timeframe}
+                            </span>
+                            <span style={{
+                              color: '#64748b',
+                              fontSize: '14px',
+                              background: 'rgba(100, 116, 139, 0.1)',
+                              padding: '4px 12px',
+                              borderRadius: '20px',
+                              fontWeight: '500'
+                            }}>
+                              R:R {signal.riskReward}
+                            </span>
                           </div>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                           <span style={{
-                            background: signal.type === 'BUY' ? '#28a74520' : '#dc354520',
-                            color: signal.color,
+                            background: signal.type === 'BUY'
+                              ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)'
+                              : 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+                            color: 'white',
                             padding: '8px 16px',
                             borderRadius: '20px',
                             fontSize: '14px',
-                            fontWeight: '700'
+                            fontWeight: '700',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.05em',
+                            boxShadow: signal.type === 'BUY'
+                              ? '0 4px 12px rgba(16, 185, 129, 0.3)'
+                              : '0 4px 12px rgba(239, 68, 68, 0.3)'
                           }}>
-                            {signal.type} SIGNAL
+                            {signal.type}
                           </span>
                           <span style={{
-                            background: signal.status === 'ACTIVE' ? '#28a74520' : '#ffc10720',
-                            color: signal.status === 'ACTIVE' ? '#28a745' : '#ffc107',
+                            background: signal.status === 'ACTIVE' ? '#10b98115' : '#f59e0b15',
+                            color: signal.status === 'ACTIVE' ? '#10b981' : '#f59e0b',
                             padding: '6px 12px',
-                            borderRadius: '15px',
+                            borderRadius: '12px',
                             fontSize: '12px',
-                            fontWeight: '600'
+                            fontWeight: '700',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.05em'
                           }}>
-                            {signal.status}
+                            ● {signal.status}
                           </span>
                         </div>
                       </div>
 
-                      {/* Signal Data Grid */}
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '15px' }}>
-                        <div style={{ background: '#ffffff', padding: '15px', borderRadius: '8px', border: '1px solid #e9ecef' }}>
-                          <div style={{ color: '#6c757d', fontSize: '11px', marginBottom: '5px', fontWeight: '600' }}>ENTRY</div>
-                          <div style={{ color: '#1a1a1a', fontSize: '16px', fontWeight: '700' }}>{signal.entry}</div>
-                        </div>
-                        <div style={{ background: '#ffffff', padding: '15px', borderRadius: '8px', border: '1px solid #e9ecef' }}>
-                          <div style={{ color: '#6c757d', fontSize: '11px', marginBottom: '5px', fontWeight: '600' }}>STOP LOSS</div>
-                          <div style={{ color: '#dc3545', fontSize: '16px', fontWeight: '700' }}>{signal.sl}</div>
-                        </div>
-                        <div style={{ background: '#ffffff', padding: '15px', borderRadius: '8px', border: '1px solid #e9ecef' }}>
-                          <div style={{ color: '#6c757d', fontSize: '11px', marginBottom: '5px', fontWeight: '600' }}>TARGET 1</div>
-                          <div style={{ color: '#28a745', fontSize: '16px', fontWeight: '700' }}>{signal.tp1}</div>
-                        </div>
-                        <div style={{ background: '#ffffff', padding: '15px', borderRadius: '8px', border: '1px solid #e9ecef' }}>
-                          <div style={{ color: '#6c757d', fontSize: '11px', marginBottom: '5px', fontWeight: '600' }}>TARGET 2</div>
-                          <div style={{ color: '#28a745', fontSize: '16px', fontWeight: '700' }}>{signal.tp2}</div>
-                        </div>
-                        <div style={{ background: '#ffffff', padding: '15px', borderRadius: '8px', border: '1px solid #e9ecef' }}>
-                          <div style={{ color: '#6c757d', fontSize: '11px', marginBottom: '5px', fontWeight: '600' }}>CONFIDENCE</div>
-                          <div style={{ color: '#28a745', fontSize: '16px', fontWeight: '700' }}>{signal.confidence}</div>
-                        </div>
-                        <div style={{ background: '#ffffff', padding: '15px', borderRadius: '8px', border: '1px solid #e9ecef' }}>
-                          <div style={{ color: '#6c757d', fontSize: '11px', marginBottom: '5px', fontWeight: '600' }}>POTENTIAL</div>
-                          <div style={{ color: '#28a745', fontSize: '16px', fontWeight: '700' }}>{signal.pips}</div>
-                        </div>
+                      {/* Enhanced Signal Data Grid */}
+                      <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+                        gap: '16px',
+                        marginBottom: '20px'
+                      }}>
+                        {[
+                          { label: 'ENTRY PRICE', value: signal.entry, color: '#3b82f6' },
+                          { label: 'STOP LOSS', value: signal.sl, color: '#ef4444' },
+                          { label: 'TARGET 1', value: signal.tp1, color: '#10b981' },
+                          { label: 'TARGET 2', value: signal.tp2, color: '#10b981' },
+                          { label: 'CONFIDENCE', value: `${signal.confidence}%`, color: '#8b5cf6' },
+                          { label: 'POTENTIAL', value: signal.pips, color: '#f59e0b' }
+                        ].map((item, index) => (
+                          <div key={index} style={{
+                            background: 'rgba(255, 255, 255, 0.8)',
+                            padding: '16px',
+                            borderRadius: '12px',
+                            border: '1px solid rgba(226, 232, 240, 0.5)',
+                            textAlign: 'center',
+                            transition: 'all 0.3s ease'
+                          }}>
+                            <div style={{
+                              color: '#64748b',
+                              fontSize: '11px',
+                              marginBottom: '6px',
+                              fontWeight: '700',
+                              textTransform: 'uppercase',
+                              letterSpacing: '0.05em'
+                            }}>
+                              {item.label}
+                            </div>
+                            <div style={{
+                              color: item.color,
+                              fontSize: '18px',
+                              fontWeight: '800',
+                              letterSpacing: '-0.025em'
+                            }}>
+                              {item.value}
+                            </div>
+                          </div>
+                        ))}
                       </div>
 
-                      <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
+                      {/* Enhanced Action Buttons */}
+                      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                         <button style={{
-                          background: '#0d6efd',
+                          background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
                           border: 'none',
                           color: 'white',
-                          padding: '10px 20px',
-                          borderRadius: '6px',
-                          fontSize: '13px',
+                          padding: '12px 24px',
+                          borderRadius: '10px',
+                          fontSize: '14px',
                           cursor: 'pointer',
-                          fontWeight: '600'
+                          fontWeight: '600',
+                          boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)',
+                          transition: 'all 0.3s ease'
                         }}>
-                          Copy Signal
+                          📋 Copy Signal
+                        </button>
+                        <button style={{
+                          background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                          border: 'none',
+                          color: 'white',
+                          padding: '12px 24px',
+                          borderRadius: '10px',
+                          fontSize: '14px',
+                          cursor: 'pointer',
+                          fontWeight: '600',
+                          boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+                          transition: 'all 0.3s ease'
+                        }}>
+                          🔔 Set Alert
                         </button>
                         <button
                           onClick={() => setSelectedSignal(selectedSignal === signal.id ? null : signal.id)}
                           style={{
-                            background: 'transparent',
-                            border: '1px solid #0d6efd',
-                            color: '#0d6efd',
-                            padding: '10px 20px',
-                            borderRadius: '6px',
-                            fontSize: '13px',
+                            background: 'rgba(100, 116, 139, 0.1)',
+                            border: '2px solid rgba(100, 116, 139, 0.2)',
+                            color: '#64748b',
+                            padding: '12px 24px',
+                            borderRadius: '10px',
+                            fontSize: '14px',
                             cursor: 'pointer',
-                            fontWeight: '600'
+                            fontWeight: '600',
+                            transition: 'all 0.3s ease'
                           }}
                         >
-                          {selectedSignal === signal.id ? 'Hide Analysis' : 'Read Full Analysis'}
+                          📊 {selectedSignal === signal.id ? 'Hide Analysis' : 'View Analysis'}
                         </button>
                       </div>
                     </div>
 
-                    {/* Comprehensive Analysis Section */}
+                    {/* Expandable Analysis Section */}
                     {selectedSignal === signal.id && (
                       <div style={{
-                        padding: '30px',
-                        background: '#fafbfc',
-                        borderTop: '1px solid #e9ecef'
+                        padding: '32px',
+                        background: 'rgba(248, 250, 252, 0.8)',
+                        borderTop: '1px solid rgba(226, 232, 240, 0.5)'
                       }}>
                         <div style={{
-                          color: '#1a1a1a',
-                          fontSize: '14px',
-                          lineHeight: '1.7',
-                          fontFamily: 'Georgia, serif'
+                          background: 'rgba(255, 255, 255, 0.9)',
+                          padding: '24px',
+                          borderRadius: '12px',
+                          border: '1px solid rgba(226, 232, 240, 0.5)'
                         }}>
-                          {signal.analysis.split('\n').map((paragraph, index) => (
-                            <div key={index} style={{ marginBottom: '16px' }}>
-                              {paragraph.trim().startsWith('**') ? (
-                                <h4 style={{
-                                  color: '#0d6efd',
-                                  fontSize: '16px',
-                                  fontWeight: '700',
-                                  margin: '20px 0 10px 0',
-                                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-                                }}>
-                                  {paragraph.replace(/\*\*/g, '')}
-                                </h4>
-                              ) : (
-                                <p style={{ margin: '0 0 12px 0', textAlign: 'justify' }}>
-                                  {paragraph}
-                                </p>
-                              )}
-                            </div>
-                          ))}
-                        </div>
+                          <h4 style={{
+                            color: '#0f172a',
+                            fontSize: '18px',
+                            fontWeight: '700',
+                            marginBottom: '16px'
+                          }}>
+                            📈 Technical Analysis Summary
+                          </h4>
+                          <p style={{
+                            color: '#475569',
+                            fontSize: '15px',
+                            lineHeight: 1.7,
+                            margin: '0 0 20px 0'
+                          }}>
+                            Our AI models have identified a high-probability {signal.type.toLowerCase()} opportunity in {signal.symbol} based on multiple technical confluences including trend analysis, support/resistance levels, and momentum indicators.
+                          </p>
 
-                        <div style={{
-                          marginTop: '25px',
-                          padding: '20px',
-                          background: '#ffffff',
-                          border: '1px solid #e9ecef',
-                          borderRadius: '8px'
-                        }}>
-                          <h5 style={{ color: '#1a1a1a', fontSize: '14px', fontWeight: '700', marginBottom: '10px' }}>
-                            📊 Key Metrics Summary
-                          </h5>
-                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '15px' }}>
+                          <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                            gap: '16px'
+                          }}>
                             <div>
-                              <span style={{ color: '#6c757d', fontSize: '12px' }}>Risk/Reward: </span>
-                              <span style={{ color: '#1a1a1a', fontWeight: '600' }}>{signal.riskReward}</span>
+                              <span style={{ color: '#64748b', fontSize: '13px', fontWeight: '600' }}>AI Accuracy: </span>
+                              <span style={{ color: '#10b981', fontWeight: '700' }}>{signal.accuracy}%</span>
                             </div>
                             <div>
-                              <span style={{ color: '#6c757d', fontSize: '12px' }}>Timeframe: </span>
-                              <span style={{ color: '#1a1a1a', fontWeight: '600' }}>{signal.timeframe}</span>
+                              <span style={{ color: '#64748b', fontSize: '13px', fontWeight: '600' }}>Market Volume: </span>
+                              <span style={{ color: '#0f172a', fontWeight: '700' }}>{signal.volume}</span>
                             </div>
                             <div>
-                              <span style={{ color: '#6c757d', fontSize: '12px' }}>Confidence: </span>
-                              <span style={{ color: '#28a745', fontWeight: '600' }}>{signal.confidence}</span>
+                              <span style={{ color: '#64748b', fontSize: '13px', fontWeight: '600' }}>Trend Direction: </span>
+                              <span style={{ color: signal.color, fontWeight: '700' }}>{signal.trend}</span>
                             </div>
                             <div>
-                              <span style={{ color: '#6c757d', fontSize: '12px' }}>Category: </span>
-                              <span style={{ color: '#1a1a1a', fontWeight: '600' }}>{signal.category}</span>
+                              <span style={{ color: '#64748b', fontSize: '13px', fontWeight: '600' }}>Risk Level: </span>
+                              <span style={{ color: '#f59e0b', fontWeight: '700' }}>Moderate</span>
                             </div>
                           </div>
                         </div>
@@ -698,305 +809,704 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-          </div>
-        )}
 
-        {/* Other tabs remain the same but with white theme colors */}
-        {activeTab === 'education' && (
-          <div>
-            <h2 style={{ color: '#1a1a1a', fontSize: '24px', marginBottom: '20px', fontWeight: '700' }}>
-              📚 Trading Education Center
-            </h2>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '20px' }}>
-              {[
-                {
-                  title: 'Forex Trading Fundamentals',
-                  description: 'Master the basics of currency trading, including major pairs, market hours, and fundamental analysis techniques.',
-                  level: 'Beginner',
-                  duration: '2 hours',
-                  lessons: 8
-                },
-                {
-                  title: 'Advanced Technical Analysis',
-                  description: 'Deep dive into chart patterns, indicators, and advanced technical analysis strategies used by professional traders.',
-                  level: 'Advanced',
-                  duration: '3 hours',
-                  lessons: 12
-                },
-                {
-                  title: 'Risk Management Mastery',
-                  description: 'Learn how to protect your capital with proper position sizing, stop losses, and portfolio management techniques.',
-                  level: 'Intermediate',
-                  duration: '1.5 hours',
-                  lessons: 6
-                },
-                {
-                  title: 'Cryptocurrency Trading',
-                  description: 'Understand the crypto market dynamics, DeFi protocols, and how to trade digital assets effectively.',
-                  level: 'Intermediate',
-                  duration: '2.5 hours',
-                  lessons: 10
-                }
-              ].map((course, index) => (
-                <div key={index} style={{
-                  background: '#ffffff',
-                  border: '1px solid #e9ecef',
-                  borderRadius: '8px',
-                  padding: '20px',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
-                }}>
-                  <h3 style={{ color: '#1a1a1a', fontSize: '18px', marginBottom: '10px' }}>{course.title}</h3>
-                  <p style={{ color: '#6c757d', fontSize: '14px', lineHeight: '1.5', marginBottom: '15px' }}>
-                    {course.description}
-                  </p>
-                  <div style={{ display: 'flex', gap: '10px', marginBottom: '15px' }}>
-                    <span style={{
-                      background: course.level === 'Beginner' ? '#28a74520' :
-                                 course.level === 'Intermediate' ? '#ffc10720' : '#dc354520',
-                      color: course.level === 'Beginner' ? '#28a745' :
-                             course.level === 'Intermediate' ? '#ffc107' : '#dc3545',
-                      padding: '4px 8px',
-                      borderRadius: '4px',
-                      fontSize: '12px',
-                      fontWeight: '600'
-                    }}>
-                      {course.level}
-                    </span>
-                    <span style={{ color: '#6c757d', fontSize: '12px' }}>
-                      {course.duration} • {course.lessons} lessons
-                    </span>
-                  </div>
-                  <button style={{
-                    background: '#0d6efd',
-                    border: 'none',
-                    color: 'white',
-                    padding: '10px 20px',
-                    borderRadius: '4px',
-                    fontSize: '13px',
-                    cursor: 'pointer',
-                    width: '100%',
-                    fontWeight: '600'
-                  }}>
-                    Start Learning
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Asian Markets Tab */}
-        {activeTab === 'markets' && (
-          <div>
-            <h2 style={{ color: '#1a1a1a', fontSize: '24px', marginBottom: '20px', fontWeight: '700' }}>
-              📈 Asian Markets Live Data
-            </h2>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '30px' }}>
-              {asianMarkets.map((market, index) => (
-                <div key={index} style={{
-                  background: '#ffffff',
-                  border: '1px solid #e9ecef',
-                  borderRadius: '8px',
-                  padding: '20px',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.04)',
-                  borderLeft: `4px solid ${market.trend === 'up' ? '#28a745' : '#dc3545'}`
-                }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                    <h3 style={{ color: '#1a1a1a', fontSize: '16px', margin: '0', fontWeight: '600' }}>{market.name}</h3>
-                    <span style={{ fontSize: '16px' }}>{market.trend === 'up' ? '📈' : '📉'}</span>
-                  </div>
-                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#1a1a1a', marginBottom: '5px' }}>
-                    {market.price}
-                  </div>
-                  <div style={{ display: 'flex', gap: '10px' }}>
-                    <span style={{
-                      color: market.trend === 'up' ? '#28a745' : '#dc3545',
-                      fontSize: '14px',
-                      fontWeight: '600'
-                    }}>
-                      {market.change}
-                    </span>
-                    <span style={{
-                      color: market.trend === 'up' ? '#28a745' : '#dc3545',
-                      fontSize: '14px',
-                      fontWeight: '600'
-                    }}>
-                      ({market.changePercent})
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
+            {/* Market News Section */}
             <div style={{
-              background: '#ffffff',
-              border: '1px solid #e9ecef',
-              borderRadius: '8px',
-              padding: '20px',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
+              background: 'rgba(255, 255, 255, 0.9)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              borderRadius: '20px',
+              padding: '32px'
             }}>
-              <h3 style={{ color: '#1a1a1a', fontSize: '18px', marginBottom: '15px', fontWeight: '600' }}>
-                🇵🇰 Pakistan Market Analysis
-              </h3>
-              <div style={{ color: '#6c757d', fontSize: '14px', lineHeight: '1.6' }}>
-                <p><strong>KSE-100 Index Performance:</strong> The Pakistan Stock Exchange continues to show resilience with the KSE-100 index gaining momentum driven by strong foreign investment inflows and positive economic indicators.</p>
-                <p><strong>PKR Exchange Rate:</strong> The Pakistani Rupee has stabilized against major currencies following successful completion of IMF program milestones and improved foreign exchange reserves.</p>
-                <p><strong>Sector Outlook:</strong> Banking, cement, and textile sectors are leading the rally with strong institutional interest and improved profit margins.</p>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+                <div>
+                  <h2 style={{
+                    fontSize: '28px',
+                    fontWeight: '800',
+                    color: '#0f172a',
+                    marginBottom: '8px',
+                    letterSpacing: '-0.025em'
+                  }}>
+                    📰 Latest Market News
+                  </h2>
+                  <p style={{ color: '#64748b', fontSize: '16px' }}>
+                    Breaking news and analysis from Pakistan and Asian markets
+                  </p>
+                </div>
+              </div>
+
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+                gap: '24px'
+              }}>
+                {breakingNews.map((news) => (
+                  <article key={news.id} style={{
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.9) 100%)',
+                    border: '1px solid rgba(226, 232, 240, 0.5)',
+                    borderRadius: '16px',
+                    overflow: 'hidden',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    cursor: 'pointer',
+                    borderLeft: `4px solid ${
+                      news.impact === 'High' ? '#ef4444' :
+                      news.impact === 'Medium' ? '#f59e0b' : '#10b981'
+                    }`
+                  }}>
+                    <div style={{ padding: '24px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                        <span style={{ fontSize: '32px' }}>{news.imageUrl}</span>
+                        <div>
+                          <div style={{ display: 'flex', gap: '8px', marginBottom: '4px' }}>
+                            <span style={{
+                              background: news.impact === 'High' ? '#ef444415' :
+                                         news.impact === 'Medium' ? '#f59e0b15' : '#10b98115',
+                              color: news.impact === 'High' ? '#ef4444' :
+                                     news.impact === 'Medium' ? '#f59e0b' : '#10b981',
+                              padding: '3px 8px',
+                              borderRadius: '6px',
+                              fontSize: '11px',
+                              fontWeight: '700',
+                              textTransform: 'uppercase',
+                              letterSpacing: '0.05em'
+                            }}>
+                              {news.impact} Impact
+                            </span>
+                            <span style={{
+                              background: 'rgba(100, 116, 139, 0.1)',
+                              color: '#64748b',
+                              padding: '3px 8px',
+                              borderRadius: '6px',
+                              fontSize: '11px',
+                              fontWeight: '600'
+                            }}>
+                              {news.category}
+                            </span>
+                          </div>
+                          <div style={{ fontSize: '12px', color: '#64748b' }}>
+                            {news.time} • {news.readTime}
+                          </div>
+                        </div>
+                      </div>
+
+                      <h3 style={{
+                        fontSize: '18px',
+                        fontWeight: '700',
+                        color: '#0f172a',
+                        marginBottom: '12px',
+                        lineHeight: 1.4,
+                        letterSpacing: '-0.025em'
+                      }}>
+                        {news.title}
+                      </h3>
+
+                      <p style={{
+                        color: '#64748b',
+                        fontSize: '14px',
+                        lineHeight: 1.6,
+                        marginBottom: '16px'
+                      }}>
+                        {news.summary}
+                      </p>
+
+                      <button
+                        onClick={() => setSelectedNews(selectedNews === news.id ? null : news.id)}
+                        style={{
+                          background: 'transparent',
+                          border: 'none',
+                          color: '#3b82f6',
+                          fontSize: '14px',
+                          cursor: 'pointer',
+                          fontWeight: '600',
+                          padding: '0',
+                          textDecoration: 'underline'
+                        }}
+                      >
+                        {selectedNews === news.id ? 'Hide Details' : 'Read Full Article →'}
+                      </button>
+
+                      {selectedNews === news.id && (
+                        <div style={{
+                          marginTop: '16px',
+                          padding: '16px',
+                          background: 'rgba(248, 250, 252, 0.8)',
+                          borderRadius: '8px',
+                          borderLeft: '3px solid #3b82f6'
+                        }}>
+                          <p style={{
+                            color: '#475569',
+                            fontSize: '14px',
+                            lineHeight: 1.7,
+                            margin: '0'
+                          }}>
+                            {news.content}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </article>
+                ))}
               </div>
             </div>
           </div>
         )}
 
-        {/* Market News Tab */}
-        {activeTab === 'news' && (
+        {/* Enhanced Live Signals Tab */}
+        {activeTab === 'signals' && (
           <div>
-            <h2 style={{ color: '#1a1a1a', fontSize: '24px', marginBottom: '20px', fontWeight: '700' }}>
-              📰 Market News & Analysis
-            </h2>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {breakingNews.map((news) => (
-                <div key={news.id} style={{
-                  background: '#ffffff',
-                  border: '1px solid #e9ecef',
-                  borderRadius: '8px',
-                  padding: '20px',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.04)',
-                  borderLeft: `4px solid ${news.impact === 'High' ? '#dc3545' : news.impact === 'Medium' ? '#fd7e14' : '#28a745'}`
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+              <div>
+                <h2 style={{
+                  fontSize: '32px',
+                  fontWeight: '800',
+                  color: '#0f172a',
+                  marginBottom: '8px',
+                  letterSpacing: '-0.025em'
                 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '10px' }}>
+                  ⚡ Live Trading Signals
+                </h2>
+                <p style={{ color: '#64748b', fontSize: '16px' }}>
+                  Real-time AI-powered trading opportunities with detailed analysis
+                </p>
+              </div>
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <button style={{
+                  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                  border: 'none',
+                  color: 'white',
+                  padding: '12px 20px',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)'
+                }}>
+                  🔔 Subscribe to Alerts
+                </button>
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '24px' }}>
+              {signals.map((signal) => (
+                <div key={signal.id} style={{
+                  background: 'rgba(255, 255, 255, 0.9)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(226, 232, 240, 0.5)',
+                  borderRadius: '16px',
+                  padding: '28px',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)',
+                  borderLeft: `4px solid ${signal.color}`,
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                     <div>
-                      <span style={{
-                        background: news.impact === 'High' ? '#dc354520' : news.impact === 'Medium' ? '#fd7e1420' : '#28a74520',
-                        color: news.impact === 'High' ? '#dc3545' : news.impact === 'Medium' ? '#fd7e14' : '#28a745',
-                        padding: '4px 8px',
-                        borderRadius: '4px',
-                        fontSize: '11px',
-                        fontWeight: '600',
-                        textTransform: 'uppercase'
+                      <h3 style={{
+                        fontSize: '24px',
+                        fontWeight: '800',
+                        color: '#0f172a',
+                        margin: '0 0 8px 0',
+                        letterSpacing: '-0.025em'
                       }}>
-                        {news.impact} Impact
-                      </span>
+                        {signal.symbol} • {signal.pair}
+                      </h3>
+                      <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                        <span style={{
+                          background: 'rgba(100, 116, 139, 0.1)',
+                          color: '#64748b',
+                          padding: '4px 12px',
+                          borderRadius: '12px',
+                          fontSize: '12px',
+                          fontWeight: '600'
+                        }}>
+                          {signal.category}
+                        </span>
+                        <span style={{
+                          background: 'rgba(100, 116, 139, 0.1)',
+                          color: '#64748b',
+                          padding: '4px 12px',
+                          borderRadius: '12px',
+                          fontSize: '12px',
+                          fontWeight: '600'
+                        }}>
+                          {signal.timeframe}
+                        </span>
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                       <span style={{
-                        background: '#6c757d20',
-                        color: '#6c757d',
-                        padding: '4px 8px',
-                        borderRadius: '4px',
-                        fontSize: '11px',
-                        fontWeight: '500',
-                        marginLeft: '10px'
+                        background: signal.type === 'BUY'
+                          ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)'
+                          : 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+                        color: 'white',
+                        padding: '8px 20px',
+                        borderRadius: '20px',
+                        fontSize: '14px',
+                        fontWeight: '700',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                        boxShadow: signal.type === 'BUY'
+                          ? '0 4px 12px rgba(16, 185, 129, 0.3)'
+                          : '0 4px 12px rgba(239, 68, 68, 0.3)'
                       }}>
-                        {news.category}
+                        {signal.type}
                       </span>
                     </div>
-                    <span style={{ fontSize: '12px', color: '#6c757d' }}>{news.time}</span>
                   </div>
 
-                  <h3 style={{
-                    color: '#1a1a1a',
-                    fontSize: '18px',
-                    marginBottom: '8px',
-                    fontWeight: '600',
-                    cursor: 'pointer'
-                  }}
-                  onClick={() => setSelectedNews(selectedNews === news.id ? null : news.id)}
-                  >
-                    {news.title}
-                  </h3>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+                    gap: '16px',
+                    marginBottom: '24px'
+                  }}>
+                    {[
+                      { label: 'Entry Price', value: signal.entry, icon: '🎯' },
+                      { label: 'Stop Loss', value: signal.sl, icon: '🛡️' },
+                      { label: 'Target 1', value: signal.tp1, icon: '🎯' },
+                      { label: 'Confidence', value: `${signal.confidence}%`, icon: '⭐' }
+                    ].map((item, index) => (
+                      <div key={index} style={{
+                        background: 'rgba(248, 250, 252, 0.8)',
+                        padding: '20px',
+                        borderRadius: '12px',
+                        border: '1px solid rgba(226, 232, 240, 0.5)',
+                        textAlign: 'center'
+                      }}>
+                        <div style={{
+                          fontSize: '20px',
+                          marginBottom: '8px'
+                        }}>
+                          {item.icon}
+                        </div>
+                        <div style={{
+                          color: '#64748b',
+                          fontSize: '12px',
+                          marginBottom: '6px',
+                          fontWeight: '600',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em'
+                        }}>
+                          {item.label}
+                        </div>
+                        <div style={{
+                          color: '#0f172a',
+                          fontSize: '18px',
+                          fontWeight: '800'
+                        }}>
+                          {item.value}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
 
-                  <p style={{ color: '#6c757d', fontSize: '14px', marginBottom: '10px' }}>
-                    {news.summary}
-                  </p>
-
-                  {selectedNews === news.id && (
-                    <div style={{
-                      background: '#f8f9fa',
-                      padding: '15px',
-                      borderRadius: '6px',
-                      marginTop: '10px',
-                      borderLeft: '3px solid #0d6efd'
-                    }}>
-                      <p style={{ color: '#1a1a1a', fontSize: '14px', lineHeight: '1.6', margin: '0' }}>
-                        {news.content}
-                      </p>
-                    </div>
-                  )}
-
-                  <button
-                    onClick={() => setSelectedNews(selectedNews === news.id ? null : news.id)}
-                    style={{
-                      background: 'transparent',
+                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                    <button style={{
+                      background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
                       border: 'none',
-                      color: '#0d6efd',
-                      fontSize: '13px',
+                      color: 'white',
+                      padding: '12px 24px',
+                      borderRadius: '8px',
+                      fontSize: '14px',
                       cursor: 'pointer',
                       fontWeight: '600',
-                      marginTop: '10px'
-                    }}
-                  >
-                    {selectedNews === news.id ? 'Hide Details' : 'Read Full Article'}
-                  </button>
+                      boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)',
+                      transition: 'all 0.3s ease'
+                    }}>
+                      📋 Copy Signal
+                    </button>
+                    <button style={{
+                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                      border: 'none',
+                      color: 'white',
+                      padding: '12px 24px',
+                      borderRadius: '8px',
+                      fontSize: '14px',
+                      cursor: 'pointer',
+                      fontWeight: '600',
+                      boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+                      transition: 'all 0.3s ease'
+                    }}>
+                      🔔 Set Alert
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         )}
 
-        {/* Economic Calendar Tab */}
-        {activeTab === 'calendar' && (
+        {/* Enhanced Asian Markets Tab */}
+        {activeTab === 'markets' && (
           <div>
-            <h2 style={{ color: '#1a1a1a', fontSize: '24px', marginBottom: '20px', fontWeight: '700' }}>
-              📅 Economic Calendar - Asian Markets
-            </h2>
+            <div style={{ marginBottom: '32px' }}>
+              <h2 style={{
+                fontSize: '32px',
+                fontWeight: '800',
+                color: '#0f172a',
+                marginBottom: '8px',
+                letterSpacing: '-0.025em'
+              }}>
+                🌏 Asian Markets Live Data
+              </h2>
+              <p style={{ color: '#64748b', fontSize: '16px' }}>
+                Real-time market data and analysis for Pakistan and Asian markets
+              </p>
+            </div>
 
             <div style={{
-              background: '#ffffff',
-              border: '1px solid #e9ecef',
-              borderRadius: '8px',
-              padding: '20px',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.04)',
-              marginBottom: '20px'
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '24px',
+              marginBottom: '40px'
             }}>
-              <h3 style={{ color: '#1a1a1a', fontSize: '16px', marginBottom: '15px', fontWeight: '600' }}>
+              {asianMarkets.map((market, index) => (
+                <div key={index} style={{
+                  background: 'rgba(255, 255, 255, 0.9)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(226, 232, 240, 0.5)',
+                  borderRadius: '16px',
+                  padding: '24px',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)',
+                  borderLeft: `4px solid ${market.trend === 'up' ? '#10b981' : '#ef4444'}`,
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                    <h3 style={{
+                      fontSize: '20px',
+                      fontWeight: '700',
+                      color: '#0f172a',
+                      margin: '0'
+                    }}>
+                      {market.name}
+                    </h3>
+                    <span style={{ fontSize: '24px' }}>
+                      {market.trend === 'up' ? '📈' : '📉'}
+                    </span>
+                  </div>
+
+                  <div style={{
+                    fontSize: '28px',
+                    fontWeight: '800',
+                    color: '#0f172a',
+                    marginBottom: '12px'
+                  }}>
+                    {market.price}
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                      <span style={{
+                        color: market.trend === 'up' ? '#10b981' : '#ef4444',
+                        fontSize: '16px',
+                        fontWeight: '700'
+                      }}>
+                        {market.change}
+                      </span>
+                      <span style={{
+                        color: market.trend === 'up' ? '#10b981' : '#ef4444',
+                        fontSize: '16px',
+                        fontWeight: '700'
+                      }}>
+                        ({market.changePercent})
+                      </span>
+                    </div>
+                    <div style={{
+                      background: 'rgba(100, 116, 139, 0.1)',
+                      color: '#64748b',
+                      padding: '4px 8px',
+                      borderRadius: '6px',
+                      fontSize: '12px',
+                      fontWeight: '600'
+                    }}>
+                      Vol: {market.volume}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.9)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(226, 232, 240, 0.5)',
+              borderRadius: '16px',
+              padding: '32px',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)'
+            }}>
+              <h3 style={{
+                fontSize: '24px',
+                fontWeight: '700',
+                color: '#0f172a',
+                marginBottom: '20px'
+              }}>
+                🇵🇰 Pakistan Market Analysis
+              </h3>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '24px',
+                color: '#64748b',
+                fontSize: '15px',
+                lineHeight: 1.7
+              }}>
+                <div>
+                  <h4 style={{ color: '#0f172a', fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>
+                    KSE-100 Performance
+                  </h4>
+                  <p>The Pakistan Stock Exchange continues showing resilience with strong foreign investment inflows and positive economic indicators driving growth.</p>
+                </div>
+                <div>
+                  <h4 style={{ color: '#0f172a', fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>
+                    PKR Exchange Rate
+                  </h4>
+                  <p>Pakistani Rupee has stabilized against major currencies following IMF program milestones and improved foreign exchange reserves.</p>
+                </div>
+                <div>
+                  <h4 style={{ color: '#0f172a', fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>
+                    Sector Outlook
+                  </h4>
+                  <p>Banking, cement, and textile sectors lead the rally with strong institutional interest and improved profit margins across the board.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Enhanced Market News Tab */}
+        {activeTab === 'news' && (
+          <div>
+            <div style={{ marginBottom: '32px' }}>
+              <h2 style={{
+                fontSize: '32px',
+                fontWeight: '800',
+                color: '#0f172a',
+                marginBottom: '8px',
+                letterSpacing: '-0.025em'
+              }}>
+                📰 Market News & Analysis
+              </h2>
+              <p style={{ color: '#64748b', fontSize: '16px' }}>
+                Breaking news and expert analysis from Pakistan and Asian financial markets
+              </p>
+            </div>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+              gap: '24px'
+            }}>
+              {breakingNews.map((news) => (
+                <article key={news.id} style={{
+                  background: 'rgba(255, 255, 255, 0.9)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(226, 232, 240, 0.5)',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  cursor: 'pointer',
+                  borderLeft: `4px solid ${
+                    news.impact === 'High' ? '#ef4444' :
+                    news.impact === 'Medium' ? '#f59e0b' : '#10b981'
+                  }`
+                }}>
+                  <div style={{ padding: '28px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
+                      <span style={{ fontSize: '40px' }}>{news.imageUrl}</span>
+                      <div>
+                        <div style={{ display: 'flex', gap: '8px', marginBottom: '6px' }}>
+                          <span style={{
+                            background: news.impact === 'High' ? '#ef444415' :
+                                       news.impact === 'Medium' ? '#f59e0b15' : '#10b98115',
+                            color: news.impact === 'High' ? '#ef4444' :
+                                   news.impact === 'Medium' ? '#f59e0b' : '#10b981',
+                            padding: '4px 12px',
+                            borderRadius: '12px',
+                            fontSize: '12px',
+                            fontWeight: '700',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.05em'
+                          }}>
+                            {news.impact} Impact
+                          </span>
+                          <span style={{
+                            background: 'rgba(100, 116, 139, 0.1)',
+                            color: '#64748b',
+                            padding: '4px 12px',
+                            borderRadius: '12px',
+                            fontSize: '12px',
+                            fontWeight: '600'
+                          }}>
+                            {news.category}
+                          </span>
+                        </div>
+                        <div style={{ fontSize: '13px', color: '#64748b', fontWeight: '500' }}>
+                          {news.time} • {news.readTime}
+                        </div>
+                      </div>
+                    </div>
+
+                    <h3 style={{
+                      fontSize: '20px',
+                      fontWeight: '700',
+                      color: '#0f172a',
+                      marginBottom: '12px',
+                      lineHeight: 1.4,
+                      letterSpacing: '-0.025em'
+                    }}>
+                      {news.title}
+                    </h3>
+
+                    <p style={{
+                      color: '#64748b',
+                      fontSize: '15px',
+                      lineHeight: 1.6,
+                      marginBottom: '20px'
+                    }}>
+                      {news.summary}
+                    </p>
+
+                    <button
+                      onClick={() => setSelectedNews(selectedNews === news.id ? null : news.id)}
+                      style={{
+                        background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+                        border: 'none',
+                        color: 'white',
+                        padding: '10px 20px',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        cursor: 'pointer',
+                        fontWeight: '600',
+                        boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
+                      }}
+                    >
+                      {selectedNews === news.id ? 'Hide Details' : 'Read Full Article →'}
+                    </button>
+
+                    {selectedNews === news.id && (
+                      <div style={{
+                        marginTop: '20px',
+                        padding: '20px',
+                        background: 'rgba(248, 250, 252, 0.8)',
+                        borderRadius: '12px',
+                        borderLeft: '3px solid #3b82f6'
+                      }}>
+                        <p style={{
+                          color: '#475569',
+                          fontSize: '15px',
+                          lineHeight: 1.7,
+                          margin: '0'
+                        }}>
+                          {news.content}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Enhanced Economic Calendar Tab */}
+        {activeTab === 'calendar' && (
+          <div>
+            <div style={{ marginBottom: '32px' }}>
+              <h2 style={{
+                fontSize: '32px',
+                fontWeight: '800',
+                color: '#0f172a',
+                marginBottom: '8px',
+                letterSpacing: '-0.025em'
+              }}>
+                📅 Economic Calendar
+              </h2>
+              <p style={{ color: '#64748b', fontSize: '16px' }}>
+                Key economic events and data releases for Asian markets
+              </p>
+            </div>
+
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.9)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(226, 232, 240, 0.5)',
+              borderRadius: '16px',
+              padding: '32px',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)',
+              marginBottom: '32px'
+            }}>
+              <h3 style={{
+                fontSize: '20px',
+                fontWeight: '700',
+                color: '#0f172a',
+                marginBottom: '24px'
+              }}>
                 Today's Key Events
               </h3>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {economicEvents.map((event, index) => (
                   <div key={index} style={{
                     display: 'grid',
-                    gridTemplateColumns: '80px 1fr 100px 100px 100px',
-                    gap: '15px',
+                    gridTemplateColumns: '100px 1fr 120px 120px 120px 80px',
+                    gap: '20px',
                     alignItems: 'center',
-                    padding: '12px',
-                    background: '#f8f9fa',
-                    borderRadius: '6px',
-                    borderLeft: `4px solid ${event.importance === 'High' ? '#dc3545' : '#fd7e14'}`
+                    padding: '20px',
+                    background: 'rgba(248, 250, 252, 0.8)',
+                    borderRadius: '12px',
+                    borderLeft: `4px solid ${event.importance === 'High' ? '#ef4444' : '#f59e0b'}`,
+                    transition: 'all 0.3s ease'
                   }}>
-                    <span style={{ color: '#1a1a1a', fontWeight: '600', fontSize: '14px' }}>
+                    <span style={{
+                      fontSize: '16px',
+                      fontWeight: '700',
+                      color: '#0f172a'
+                    }}>
                       {event.time}
                     </span>
-                    <span style={{ color: '#1a1a1a', fontSize: '14px' }}>
+                    <span style={{
+                      fontSize: '15px',
+                      fontWeight: '600',
+                      color: '#0f172a'
+                    }}>
                       {event.event}
                     </span>
                     <span style={{
-                      background: event.importance === 'High' ? '#dc354520' : '#fd7e1420',
-                      color: event.importance === 'High' ? '#dc3545' : '#fd7e14',
-                      padding: '4px 8px',
-                      borderRadius: '4px',
-                      fontSize: '11px',
-                      fontWeight: '600',
-                      textAlign: 'center'
+                      background: event.importance === 'High' ? '#ef444415' : '#f59e0b15',
+                      color: event.importance === 'High' ? '#ef4444' : '#f59e0b',
+                      padding: '6px 12px',
+                      borderRadius: '12px',
+                      fontSize: '12px',
+                      fontWeight: '700',
+                      textAlign: 'center',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em'
                     }}>
                       {event.importance}
                     </span>
-                    <span style={{ color: '#0d6efd', fontSize: '13px', fontWeight: '600' }}>
+                    <span style={{
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      color: '#3b82f6'
+                    }}>
                       {event.forecast}
                     </span>
-                    <span style={{ color: '#6c757d', fontSize: '13px' }}>
+                    <span style={{
+                      fontSize: '14px',
+                      color: '#64748b'
+                    }}>
                       {event.previous}
+                    </span>
+                    <span style={{
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      color: '#64748b',
+                      background: 'rgba(100, 116, 139, 0.1)',
+                      padding: '4px 8px',
+                      borderRadius: '6px',
+                      textAlign: 'center'
+                    }}>
+                      {event.impact}
                     </span>
                   </div>
                 ))}
@@ -1004,16 +1514,22 @@ export default function HomePage() {
             </div>
 
             <div style={{
-              background: '#ffffff',
-              border: '1px solid #e9ecef',
-              borderRadius: '8px',
-              padding: '20px',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
+              background: 'rgba(255, 255, 255, 0.9)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(226, 232, 240, 0.5)',
+              borderRadius: '16px',
+              padding: '32px',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)'
             }}>
-              <h3 style={{ color: '#1a1a1a', fontSize: '16px', marginBottom: '15px', fontWeight: '600' }}>
+              <h3 style={{
+                fontSize: '20px',
+                fontWeight: '700',
+                color: '#0f172a',
+                marginBottom: '20px'
+              }}>
                 📊 Weekly Market Outlook
               </h3>
-              <div style={{ color: '#6c757d', fontSize: '14px', lineHeight: '1.6' }}>
+              <div style={{ color: '#64748b', fontSize: '15px', lineHeight: 1.7 }}>
                 <p><strong>This Week's Focus:</strong> Central bank meetings from Pakistan and China will dominate market sentiment, with inflation data releases from major Asian economies providing additional trading opportunities.</p>
                 <p><strong>Key Levels to Watch:</strong> USD/PKR resistance at 280.00, KSE-100 support at 90,000, and Nikkei 225 testing 41,000 psychological level.</p>
                 <p><strong>Trading Strategy:</strong> Focus on news-driven volatility around central bank announcements and position accordingly for potential breakouts in major currency pairs.</p>
@@ -1021,462 +1537,75 @@ export default function HomePage() {
             </div>
           </div>
         )}
-
-        {/* Live Signals Tab */}
-        {activeTab === 'signals' && (
-          <div>
-            <h2 style={{ color: '#1a1a1a', fontSize: '24px', marginBottom: '20px', fontWeight: '700' }}>
-              ⚡ Live Trading Signals
-            </h2>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '25px' }}>
-              {signals.map((signal) => (
-                <div key={signal.id} style={{
-                  background: '#ffffff',
-                  border: '1px solid #e9ecef',
-                  borderRadius: '12px',
-                  padding: '25px',
-                  boxShadow: '0 4px 6px rgba(0,0,0,0.07)',
-                  borderLeft: `4px solid ${signal.color}`
-                }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                    <h3 style={{ color: '#1a1a1a', fontSize: '20px', margin: '0', fontWeight: '700' }}>
-                      {signal.symbol}
-                    </h3>
-                    <span style={{
-                      background: signal.type === 'BUY' ? '#28a74520' : '#dc354520',
-                      color: signal.color,
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      fontSize: '14px',
-                      fontWeight: '700'
-                    }}>
-                      {signal.type}
-                    </span>
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '15px', marginBottom: '15px' }}>
-                    <div>
-                      <div style={{ color: '#6c757d', fontSize: '12px', marginBottom: '5px' }}>Entry</div>
-                      <div style={{ color: '#1a1a1a', fontSize: '16px', fontWeight: '600' }}>{signal.entry}</div>
-                    </div>
-                    <div>
-                      <div style={{ color: '#6c757d', fontSize: '12px', marginBottom: '5px' }}>Stop Loss</div>
-                      <div style={{ color: '#dc3545', fontSize: '16px', fontWeight: '600' }}>{signal.sl}</div>
-                    </div>
-                    <div>
-                      <div style={{ color: '#6c757d', fontSize: '12px', marginBottom: '5px' }}>Target</div>
-                      <div style={{ color: '#28a745', fontSize: '16px', fontWeight: '600' }}>{signal.tp1}</div>
-                    </div>
-                    <div>
-                      <div style={{ color: '#6c757d', fontSize: '12px', marginBottom: '5px' }}>Confidence</div>
-                      <div style={{ color: '#28a745', fontSize: '16px', fontWeight: '600' }}>{signal.confidence}</div>
-                    </div>
-                  </div>
-
-                  <div style={{ display: 'flex', gap: '10px' }}>
-                    <button style={{
-                      background: '#0d6efd',
-                      border: 'none',
-                      color: 'white',
-                      padding: '10px 20px',
-                      borderRadius: '6px',
-                      fontSize: '13px',
-                      cursor: 'pointer',
-                      fontWeight: '600'
-                    }}>
-                      Copy Signal
-                    </button>
-                    <button style={{
-                      background: '#28a745',
-                      border: 'none',
-                      color: 'white',
-                      padding: '10px 20px',
-                      borderRadius: '6px',
-                      fontSize: '13px',
-                      cursor: 'pointer',
-                      fontWeight: '600'
-                    }}>
-                      Set Alert
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* AI Analysis Tab */}
-        {activeTab === 'ai-analysis' && (
-          <div>
-            <h2 style={{ color: '#1a1a1a', fontSize: '24px', marginBottom: '20px', fontWeight: '700' }}>
-              🤖 AI-Powered Market Analysis
-            </h2>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '30px' }}>
-              {[
-                { title: 'AI Accuracy Rate', value: '89.4%', change: '+2.1% this month', icon: '🎯', color: '#28a745' },
-                { title: 'Signals Generated', value: '1,247', change: '+89 this week', icon: '📊', color: '#0d6efd' },
-                { title: 'Success Rate', value: '87.5%', change: '+3.2% improvement', icon: '🏆', color: '#fd7e14' },
-                { title: 'Active Models', value: '8', change: '3 new models added', icon: '🧠', color: '#6f42c1' }
-              ].map((metric, index) => (
-                <div key={index} style={{
-                  background: '#ffffff',
-                  border: '1px solid #e9ecef',
-                  borderRadius: '8px',
-                  padding: '20px',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
-                }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                    <span style={{ fontSize: '13px', color: '#6c757d', fontWeight: '500' }}>{metric.title}</span>
-                    <span style={{ fontSize: '20px' }}>{metric.icon}</span>
-                  </div>
-                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: metric.color, marginBottom: '5px' }}>
-                    {metric.value}
-                  </div>
-                  <div style={{ fontSize: '12px', color: '#28a745', fontWeight: '500' }}>{metric.change}</div>
-                </div>
-              ))}
-            </div>
-
-            <div style={{
-              background: '#ffffff',
-              border: '1px solid #e9ecef',
-              borderRadius: '8px',
-              padding: '25px',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
-            }}>
-              <h3 style={{ color: '#1a1a1a', fontSize: '18px', marginBottom: '15px', fontWeight: '600' }}>
-                🔬 AI Model Performance
-              </h3>
-              <div style={{ color: '#6c757d', fontSize: '14px', lineHeight: '1.6' }}>
-                <p><strong>Neural Network Analysis:</strong> Our deep learning models analyze over 10,000 data points per second, including technical indicators, market sentiment, and news events.</p>
-                <p><strong>Machine Learning Algorithms:</strong> Advanced algorithms continuously learn from market patterns, improving prediction accuracy over time.</p>
-                <p><strong>Real-time Processing:</strong> AI systems process live market data to generate instant signals with 89.4% accuracy rate.</p>
-                <p><strong>Multi-asset Coverage:</strong> Our AI models cover Forex, Cryptocurrency, Commodities, and Stock indices across global markets.</p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Pricing Tab */}
-        {activeTab === 'pricing' && (
-          <div>
-            <h2 style={{ color: '#1a1a1a', fontSize: '24px', marginBottom: '20px', fontWeight: '700' }}>
-              💎 Subscription Plans
-            </h2>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '25px' }}>
-              {[
-                {
-                  name: 'Basic',
-                  price: '$49',
-                  period: '/month',
-                  features: ['5 Signals per day', 'Basic analysis', 'Email support', 'Mobile app access'],
-                  recommended: false
-                },
-                {
-                  name: 'Professional',
-                  price: '$99',
-                  period: '/month',
-                  features: ['Unlimited signals', 'AI analysis', 'Priority support', 'Advanced tools', 'Market insights'],
-                  recommended: true
-                },
-                {
-                  name: 'Elite',
-                  price: '$199',
-                  period: '/month',
-                  features: ['Everything in Pro', '1-on-1 coaching', 'Custom strategies', 'API access', 'White-label solution'],
-                  recommended: false
-                }
-              ].map((plan, index) => (
-                <div key={index} style={{
-                  background: '#ffffff',
-                  border: plan.recommended ? '2px solid #0d6efd' : '1px solid #e9ecef',
-                  borderRadius: '12px',
-                  padding: '25px',
-                  boxShadow: '0 4px 6px rgba(0,0,0,0.07)',
-                  position: 'relative'
-                }}>
-                  {plan.recommended && (
-                    <div style={{
-                      position: 'absolute',
-                      top: '-10px',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      background: '#0d6efd',
-                      color: 'white',
-                      padding: '4px 20px',
-                      borderRadius: '20px',
-                      fontSize: '12px',
-                      fontWeight: '600'
-                    }}>
-                      MOST POPULAR
-                    </div>
-                  )}
-
-                  <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                    <h3 style={{ color: '#1a1a1a', fontSize: '20px', marginBottom: '10px', fontWeight: '700' }}>
-                      {plan.name}
-                    </h3>
-                    <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '5px' }}>
-                      <span style={{ fontSize: '36px', fontWeight: 'bold', color: '#1a1a1a' }}>{plan.price}</span>
-                      <span style={{ fontSize: '16px', color: '#6c757d' }}>{plan.period}</span>
-                    </div>
-                  </div>
-
-                  <ul style={{ listStyle: 'none', padding: '0', marginBottom: '25px' }}>
-                    {plan.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} style={{
-                        padding: '8px 0',
-                        color: '#6c757d',
-                        fontSize: '14px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px'
-                      }}>
-                        <span style={{ color: '#28a745' }}>✓</span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <button style={{
-                    width: '100%',
-                    background: plan.recommended ? '#0d6efd' : 'transparent',
-                    border: plan.recommended ? 'none' : '1px solid #0d6efd',
-                    color: plan.recommended ? 'white' : '#0d6efd',
-                    padding: '12px',
-                    borderRadius: '6px',
-                    fontSize: '14px',
-                    cursor: 'pointer',
-                    fontWeight: '600'
-                  }}>
-                    Choose Plan
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Partner Brokers Tab */}
-        {activeTab === 'brokers' && (
-          <div>
-            <h2 style={{ color: '#1a1a1a', fontSize: '24px', marginBottom: '20px', fontWeight: '700' }}>
-              🤝 Partner Brokers
-            </h2>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
-              {[
-                {
-                  name: 'XM Global',
-                  logo: '🏢',
-                  features: ['Free signals access', '$30 Welcome bonus', '1:1000 Leverage', 'Regulated by CySEC'],
-                  rating: '4.8/5'
-                },
-                {
-                  name: 'IC Markets',
-                  logo: '💼',
-                  features: ['Raw spread accounts', 'MetaTrader 5', '24/7 Support', 'ASIC Regulated'],
-                  rating: '4.7/5'
-                },
-                {
-                  name: 'FXCM',
-                  logo: '🏛️',
-                  features: ['Advanced platform', 'Copy trading', 'Educational resources', 'FCA Regulated'],
-                  rating: '4.6/5'
-                }
-              ].map((broker, index) => (
-                <div key={index} style={{
-                  background: '#ffffff',
-                  border: '1px solid #e9ecef',
-                  borderRadius: '8px',
-                  padding: '20px',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '15px' }}>
-                    <span style={{ fontSize: '32px' }}>{broker.logo}</span>
-                    <div>
-                      <h3 style={{ color: '#1a1a1a', fontSize: '18px', margin: '0', fontWeight: '600' }}>
-                        {broker.name}
-                      </h3>
-                      <div style={{ color: '#ffc107', fontSize: '14px', fontWeight: '500' }}>
-                        ⭐ {broker.rating}
-                      </div>
-                    </div>
-                  </div>
-
-                  <ul style={{ listStyle: 'none', padding: '0', marginBottom: '20px' }}>
-                    {broker.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} style={{
-                        padding: '5px 0',
-                        color: '#6c757d',
-                        fontSize: '13px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px'
-                      }}>
-                        <span style={{ color: '#28a745' }}>•</span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <button style={{
-                    width: '100%',
-                    background: '#28a745',
-                    border: 'none',
-                    color: 'white',
-                    padding: '10px',
-                    borderRadius: '6px',
-                    fontSize: '13px',
-                    cursor: 'pointer',
-                    fontWeight: '600'
-                  }}>
-                    Open Account & Get Free Signals
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* About Us Tab */}
-        {activeTab === 'about' && (
-          <div>
-            <h2 style={{ color: '#1a1a1a', fontSize: '24px', marginBottom: '20px', fontWeight: '700' }}>
-              🏢 About PK Signal Pulse
-            </h2>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px' }}>
-              <div style={{
-                background: '#ffffff',
-                border: '1px solid #e9ecef',
-                borderRadius: '8px',
-                padding: '25px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
-              }}>
-                <h3 style={{ color: '#1a1a1a', fontSize: '20px', marginBottom: '15px', fontWeight: '600' }}>
-                  🚀 Our Mission
-                </h3>
-                <p style={{ color: '#6c757d', fontSize: '14px', lineHeight: '1.6', marginBottom: '15px' }}>
-                  PK Signal Pulse is Pakistan's premier trading signals platform, dedicated to empowering traders with AI-powered market analysis and professional-grade trading signals. We combine cutting-edge technology with deep market expertise to deliver consistent, profitable trading opportunities.
-                </p>
-                <p style={{ color: '#6c757d', fontSize: '14px', lineHeight: '1.6' }}>
-                  Founded in 2024, we have quickly become the trusted choice for over 2,800+ traders across Pakistan and the broader Asian markets, maintaining an industry-leading 87.5% win rate.
-                </p>
-              </div>
-
-              <div style={{
-                background: '#ffffff',
-                border: '1px solid #e9ecef',
-                borderRadius: '8px',
-                padding: '25px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
-              }}>
-                <h3 style={{ color: '#1a1a1a', fontSize: '20px', marginBottom: '15px', fontWeight: '600' }}>
-                  💡 What Makes Us Different
-                </h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
-                  {[
-                    {
-                      icon: '🤖',
-                      title: 'AI-Powered Analysis',
-                      description: 'Advanced machine learning algorithms analyze thousands of data points to generate high-probability signals.'
-                    },
-                    {
-                      icon: '🇵🇰',
-                      title: 'Pakistan Focus',
-                      description: 'Specialized expertise in Pakistani and Asian markets with local market knowledge and insights.'
-                    },
-                    {
-                      icon: '📊',
-                      title: 'Proven Track Record',
-                      description: '87.5% win rate with over 1,247 successful signals generated for our community.'
-                    },
-                    {
-                      icon: '🔒',
-                      title: 'Risk Management',
-                      description: 'Every signal includes comprehensive risk management with proper stop losses and targets.'
-                    }
-                  ].map((feature, index) => (
-                    <div key={index} style={{ textAlign: 'center' }}>
-                      <div style={{ fontSize: '32px', marginBottom: '10px' }}>{feature.icon}</div>
-                      <h4 style={{ color: '#1a1a1a', fontSize: '16px', marginBottom: '8px', fontWeight: '600' }}>
-                        {feature.title}
-                      </h4>
-                      <p style={{ color: '#6c757d', fontSize: '13px', lineHeight: '1.5' }}>
-                        {feature.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div style={{
-                background: '#ffffff',
-                border: '1px solid #e9ecef',
-                borderRadius: '8px',
-                padding: '25px',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
-              }}>
-                <h3 style={{ color: '#1a1a1a', fontSize: '20px', marginBottom: '15px', fontWeight: '600' }}>
-                  👥 Our Team
-                </h3>
-                <p style={{ color: '#6c757d', fontSize: '14px', lineHeight: '1.6' }}>
-                  Our team consists of experienced traders, quantitative analysts, and AI specialists with over 50 years of combined experience in financial markets. Led by industry veterans who have worked at major investment banks and hedge funds, we bring institutional-grade analysis to retail traders.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
-      {/* Footer */}
+      {/* Enhanced Footer */}
       <footer style={{
-        background: '#f8f9fa',
-        borderTop: '1px solid #e9ecef',
-        padding: '40px 0 20px 0',
-        marginTop: '50px'
+        background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+        color: 'white',
+        padding: '60px 0 30px 0',
+        marginTop: '80px'
       }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 20px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px', marginBottom: '30px' }}>
+        <div style={{ maxWidth: '1600px', margin: '0 auto', padding: '0 24px' }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '40px',
+            marginBottom: '40px'
+          }}>
             {/* Company Info */}
             <div>
               <div style={{
-                fontSize: '20px',
-                fontWeight: 'bold',
-                color: '#0d6efd',
-                marginBottom: '15px',
+                fontSize: '24px',
+                fontWeight: '800',
+                marginBottom: '20px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px'
+                gap: '12px'
               }}>
-                📊 PK Signal Pulse
+                <span style={{ fontSize: '32px' }}>📊</span>
+                PK Signal Pulse
               </div>
-              <p style={{ color: '#6c757d', fontSize: '14px', lineHeight: '1.6', marginBottom: '15px' }}>
+              <p style={{
+                color: '#cbd5e1',
+                fontSize: '16px',
+                lineHeight: 1.6,
+                marginBottom: '20px'
+              }}>
                 Pakistan's premier AI-powered trading signals platform. Empowering traders with professional-grade market analysis and consistent profitable opportunities.
               </p>
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <span style={{ fontSize: '20px', cursor: 'pointer' }}>📧</span>
-                <span style={{ fontSize: '20px', cursor: 'pointer' }}>📱</span>
-                <span style={{ fontSize: '20px', cursor: 'pointer' }}>💬</span>
-                <span style={{ fontSize: '20px', cursor: 'pointer' }}>🔗</span>
+              <div style={{ display: 'flex', gap: '12px' }}>
+                {['📧', '📱', '💬', '🔗'].map((icon, index) => (
+                  <span key={index} style={{
+                    fontSize: '24px',
+                    cursor: 'pointer',
+                    padding: '8px',
+                    borderRadius: '8px',
+                    transition: 'all 0.3s ease',
+                    background: 'rgba(255, 255, 255, 0.1)'
+                  }}>
+                    {icon}
+                  </span>
+                ))}
               </div>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 style={{ color: '#1a1a1a', fontSize: '16px', marginBottom: '15px', fontWeight: '600' }}>
+              <h4 style={{
+                fontSize: '18px',
+                fontWeight: '700',
+                marginBottom: '20px',
+                color: '#f8fafc'
+              }}>
                 Quick Links
               </h4>
               <ul style={{ listStyle: 'none', padding: '0', margin: '0' }}>
-                {['Dashboard', 'Live Signals', 'AI Analysis', 'Education', 'Pricing'].map((link, index) => (
-                  <li key={index} style={{ marginBottom: '8px' }}>
+                {['Dashboard', 'Live Signals', 'AI Analysis', 'Education', 'Premium'].map((link, index) => (
+                  <li key={index} style={{ marginBottom: '12px' }}>
                     <a href="#" style={{
-                      color: '#6c757d',
-                      fontSize: '14px',
+                      color: '#cbd5e1',
+                      fontSize: '15px',
                       textDecoration: 'none',
                       transition: 'color 0.3s ease'
                     }}>
@@ -1489,15 +1618,20 @@ export default function HomePage() {
 
             {/* Support */}
             <div>
-              <h4 style={{ color: '#1a1a1a', fontSize: '16px', marginBottom: '15px', fontWeight: '600' }}>
+              <h4 style={{
+                fontSize: '18px',
+                fontWeight: '700',
+                marginBottom: '20px',
+                color: '#f8fafc'
+              }}>
                 Support
               </h4>
               <ul style={{ listStyle: 'none', padding: '0', margin: '0' }}>
                 {['Help Center', 'Contact Us', 'Live Chat', 'WhatsApp Support', 'Telegram Channel'].map((link, index) => (
-                  <li key={index} style={{ marginBottom: '8px' }}>
+                  <li key={index} style={{ marginBottom: '12px' }}>
                     <a href="#" style={{
-                      color: '#6c757d',
-                      fontSize: '14px',
+                      color: '#cbd5e1',
+                      fontSize: '15px',
                       textDecoration: 'none',
                       transition: 'color 0.3s ease'
                     }}>
@@ -1510,15 +1644,20 @@ export default function HomePage() {
 
             {/* Legal */}
             <div>
-              <h4 style={{ color: '#1a1a1a', fontSize: '16px', marginBottom: '15px', fontWeight: '600' }}>
+              <h4 style={{
+                fontSize: '18px',
+                fontWeight: '700',
+                marginBottom: '20px',
+                color: '#f8fafc'
+              }}>
                 Legal
               </h4>
               <ul style={{ listStyle: 'none', padding: '0', margin: '0' }}>
-                {['Terms of Service', 'Privacy Policy', 'Risk Disclaimer', 'Refund Policy', 'Cookie Policy'].map((link, index) => (
-                  <li key={index} style={{ marginBottom: '8px' }}>
+                {['Terms of Service', 'Privacy Policy', 'Risk Disclaimer', 'Refund Policy'].map((link, index) => (
+                  <li key={index} style={{ marginBottom: '12px' }}>
                     <a href="#" style={{
-                      color: '#6c757d',
-                      fontSize: '14px',
+                      color: '#cbd5e1',
+                      fontSize: '15px',
                       textDecoration: 'none',
                       transition: 'color 0.3s ease'
                     }}>
@@ -1532,45 +1671,51 @@ export default function HomePage() {
 
           {/* Risk Disclaimer */}
           <div style={{
-            background: '#fff3cd',
-            border: '1px solid #ffeaa7',
-            borderRadius: '6px',
-            padding: '20px',
-            marginBottom: '20px'
+            background: 'rgba(251, 191, 36, 0.1)',
+            border: '1px solid rgba(251, 191, 36, 0.2)',
+            borderRadius: '12px',
+            padding: '24px',
+            marginBottom: '30px'
           }}>
-            <h5 style={{ color: '#856404', fontSize: '14px', marginBottom: '10px', fontWeight: '600' }}>
+            <h5 style={{
+              color: '#fbbf24',
+              fontSize: '16px',
+              marginBottom: '12px',
+              fontWeight: '700'
+            }}>
               ⚠️ Risk Disclaimer
             </h5>
-            <p style={{ color: '#856404', fontSize: '12px', lineHeight: '1.5', margin: '0' }}>
-              <strong>Trading involves substantial risk and may not be suitable for all investors.</strong> Past performance is not indicative of future results.
-              The high degree of leverage can work against you as well as for you. Before deciding to trade foreign exchange or any other financial instrument,
-              you should carefully consider your investment objectives, level of experience, and risk appetite. You should be aware of all the risks
-              associated with trading and seek advice from an independent financial advisor if you have any doubts. Our signals are for educational purposes
-              only and should not be considered as financial advice. Always conduct your own research and risk assessment before making any trading decisions.
+            <p style={{
+              color: '#fef3c7',
+              fontSize: '14px',
+              lineHeight: 1.6,
+              margin: '0'
+            }}>
+              <strong>Trading involves substantial risk and may not be suitable for all investors.</strong> Past performance is not indicative of future results. The high degree of leverage can work against you as well as for you. Our signals are for educational purposes only and should not be considered as financial advice.
             </p>
           </div>
 
           {/* Copyright */}
           <div style={{
-            borderTop: '1px solid #e9ecef',
-            paddingTop: '20px',
+            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+            paddingTop: '30px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             flexWrap: 'wrap',
-            gap: '15px'
+            gap: '20px'
           }}>
-            <div style={{ color: '#6c757d', fontSize: '13px' }}>
-              © 2025 PK Signal Pulse. All rights reserved. | Licensed in Pakistan | Reg. No. PKS-2024-001
+            <div style={{ color: '#94a3b8', fontSize: '14px' }}>
+              © 2025 PK Signal Pulse. All rights reserved. | Licensed in Pakistan
             </div>
-            <div style={{ color: '#6c757d', fontSize: '13px' }}>
+            <div style={{ color: '#94a3b8', fontSize: '14px' }}>
               🇵🇰 Proudly serving Pakistani traders | 🔒 SSL Secured | ✅ Verified Platform
             </div>
           </div>
         </div>
       </footer>
 
-      {/* Auth Modal with white theme */}
+      {/* Enhanced Auth Modal */}
       {showAuthModal && (
         <div style={{
           position: 'fixed',
@@ -1578,32 +1723,39 @@ export default function HomePage() {
           left: '0',
           width: '100%',
           height: '100%',
-          background: 'rgba(0, 0, 0, 0.5)',
+          background: 'rgba(0, 0, 0, 0.6)',
+          backdropFilter: 'blur(8px)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           zIndex: 1000
         }}>
           <div style={{
-            background: '#ffffff',
-            border: '1px solid #e9ecef',
-            borderRadius: '8px',
-            padding: '30px',
-            width: '400px',
+            background: 'rgba(255, 255, 255, 0.95)',
+            backdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            borderRadius: '20px',
+            padding: '40px',
+            width: '440px',
             maxWidth: '90vw',
-            boxShadow: '0 10px 25px rgba(0,0,0,0.15)'
+            boxShadow: '0 25px 50px rgba(0, 0, 0, 0.25)'
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <h3 style={{ color: '#1a1a1a', fontSize: '20px', margin: '0', fontWeight: '700' }}>
-                {authMode === 'login' ? 'Login to Your Account' : 'Create New Account'}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+              <h3 style={{
+                fontSize: '24px',
+                fontWeight: '800',
+                margin: '0',
+                color: '#0f172a'
+              }}>
+                {authMode === 'login' ? 'Welcome Back' : 'Join PK Signal Pulse'}
               </h3>
               <button
                 onClick={() => setShowAuthModal(false)}
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: '#6c757d',
-                  fontSize: '24px',
+                  color: '#64748b',
+                  fontSize: '28px',
                   cursor: 'pointer'
                 }}
               >
@@ -1611,29 +1763,31 @@ export default function HomePage() {
               </button>
             </div>
 
-            <form style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+            <form style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <input
                 type="email"
                 placeholder="Email Address"
                 style={{
-                  background: '#ffffff',
-                  border: '1px solid #e9ecef',
-                  borderRadius: '4px',
-                  padding: '12px',
-                  color: '#1a1a1a',
-                  fontSize: '14px'
+                  background: 'rgba(255, 255, 255, 0.8)',
+                  border: '2px solid rgba(226, 232, 240, 0.5)',
+                  borderRadius: '12px',
+                  padding: '16px',
+                  color: '#0f172a',
+                  fontSize: '16px',
+                  transition: 'all 0.3s ease'
                 }}
               />
               <input
                 type="password"
                 placeholder="Password"
                 style={{
-                  background: '#ffffff',
-                  border: '1px solid #e9ecef',
-                  borderRadius: '4px',
-                  padding: '12px',
-                  color: '#1a1a1a',
-                  fontSize: '14px'
+                  background: 'rgba(255, 255, 255, 0.8)',
+                  border: '2px solid rgba(226, 232, 240, 0.5)',
+                  borderRadius: '12px',
+                  padding: '16px',
+                  color: '#0f172a',
+                  fontSize: '16px',
+                  transition: 'all 0.3s ease'
                 }}
               />
               {authMode === 'register' && (
@@ -1641,34 +1795,36 @@ export default function HomePage() {
                   type="password"
                   placeholder="Confirm Password"
                   style={{
-                    background: '#ffffff',
-                    border: '1px solid #e9ecef',
-                    borderRadius: '4px',
-                    padding: '12px',
-                    color: '#1a1a1a',
-                    fontSize: '14px'
+                    background: 'rgba(255, 255, 255, 0.8)',
+                    border: '2px solid rgba(226, 232, 240, 0.5)',
+                    borderRadius: '12px',
+                    padding: '16px',
+                    color: '#0f172a',
+                    fontSize: '16px',
+                    transition: 'all 0.3s ease'
                   }}
                 />
               )}
               <button
                 type="submit"
                 style={{
-                  background: '#0d6efd',
+                  background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
                   border: 'none',
                   color: 'white',
-                  padding: '12px',
-                  borderRadius: '4px',
-                  fontSize: '14px',
+                  padding: '16px',
+                  borderRadius: '12px',
+                  fontSize: '16px',
                   cursor: 'pointer',
-                  fontWeight: '600'
+                  fontWeight: '700',
+                  boxShadow: '0 8px 24px rgba(59, 130, 246, 0.3)'
                 }}
               >
-                {authMode === 'login' ? 'Login' : 'Create Account'}
+                {authMode === 'login' ? 'Sign In' : 'Create Account'}
               </button>
             </form>
 
-            <div style={{ textAlign: 'center', marginTop: '20px' }}>
-              <span style={{ color: '#6c757d', fontSize: '13px' }}>
+            <div style={{ textAlign: 'center', marginTop: '24px' }}>
+              <span style={{ color: '#64748b', fontSize: '14px' }}>
                 {authMode === 'login' ? "Don't have an account? " : "Already have an account? "}
               </span>
               <button
@@ -1676,24 +1832,60 @@ export default function HomePage() {
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: '#0d6efd',
-                  fontSize: '13px',
+                  color: '#3b82f6',
+                  fontSize: '14px',
                   cursor: 'pointer',
-                  textDecoration: 'underline',
-                  fontWeight: '600'
+                  fontWeight: '600',
+                  textDecoration: 'underline'
                 }}
               >
-                {authMode === 'login' ? 'Sign up' : 'Login'}
+                {authMode === 'login' ? 'Sign up' : 'Sign in'}
               </button>
             </div>
           </div>
         </div>
       )}
 
+      {/* Enhanced CSS Animations */}
       <style jsx>{`
-        @keyframes scroll {
+        @keyframes marquee {
           0% { transform: translateX(100%); }
           100% { transform: translateX(-100%); }
+        }
+
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+
+        @keyframes fadeInUp {
+          0% {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .metric-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .signal-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+          transform: translateY(-1px);
         }
       `}</style>
     </div>
