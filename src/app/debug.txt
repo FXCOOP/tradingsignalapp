@@ -1,0 +1,50 @@
+                      color: 'white',
+                      padding: '12px 24px',
+                      borderRadius: '8px',
+                      fontSize: '14px',
+                      cursor: 'pointer',
+                      fontWeight: '600',
+                      boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+                      transition: 'all 0.3s ease'
+                    }}>
+                      🔔 Set Alert
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+
+        {/* Enhanced Market News Tab */}
+        {activeTab === 'news' && (
+          <div>
+            <div style={{ marginBottom: '32px' }}>
+              <h2 style={{
+                fontSize: '32px',
+                fontWeight: '800',
+                color: '#0f172a',
+                marginBottom: '8px',
+                letterSpacing: '-0.025em'
+              }}>
+                📰 Market News & Analysis
+              </h2>
+              <p style={{ color: '#64748b', fontSize: '16px' }}>
+                Breaking news and expert analysis from Pakistan and Asian financial markets
+              </p>
+            </div>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+              gap: '24px'
+            }}>
+              {breakingNews.map((news) => (
+                <article key={news.id} style={{
+                  background: 'rgba(255, 255, 255, 0.9)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(226, 232, 240, 0.5)',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)',
