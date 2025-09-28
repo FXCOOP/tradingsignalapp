@@ -1,0 +1,56 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://pksignalpulse.com/sitemap.xml
+Sitemap: https://pksignalpulse.com/sitemap-0.xml
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /node_modules/
+
+# Allow important pages
+Allow: /signals
+Allow: /education
+Allow: /pricing
+Allow: /brokers
+Allow: /ai-analysis
+Allow: /about
+Allow: /contact
+Allow: /terms
+Allow: /privacy
+Allow: /sitemap
