@@ -9,10 +9,95 @@ export default function HomePage() {
   const [selectedNews, setSelectedNews] = useState<number | null>(null)
   const [currentTime, setCurrentTime] = useState(new Date())
 
+  // Enhanced state management for button functionality
+  const [notifications, setNotifications] = useState<string[]>([])
+  const [copiedSignals, setCopiedSignals] = useState<number[]>([])
+  const [alertsSet, setAlertsSet] = useState<number[]>([])
+  const [selectedCourse, setSelectedCourse] = useState<number | null>(null)
+  const [enrolledCourses, setEnrolledCourses] = useState<number[]>([])
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null)
+  const [showContactForm, setShowContactForm] = useState(false)
+  const [selectedBroker, setSelectedBroker] = useState<string | null>(null)
+  const [bookmarkedArticles, setBookmarkedArticles] = useState<number[]>([])
+  const [showPremiumModal, setShowPremiumModal] = useState(false)
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [modalMessage, setModalMessage] = useState('')
+
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000)
     return () => clearInterval(timer)
   }, [])
+
+  // Comprehensive button handler functions
+  const showNotification = (message: string) => {
+    setNotifications(prev => [...prev, message])
+    setTimeout(() => {
+      setNotifications(prev => prev.slice(1))
+    }, 3000)
+  }
+
+  const handleCopySignal = (signalId: number) => {
+    setCopiedSignals(prev => [...prev, signalId])
+    showNotification(`Signal ${signalId} copied to clipboard!`)
+    // Simulate copying to clipboard
+    navigator.clipboard?.writeText(`Trading Signal ${signalId} - Check PK Signal Pulse for details`)
+  }
+
+  const handleSetAlert = (signalId: number) => {
+    setAlertsSet(prev => [...prev, signalId])
+    showNotification(`Alert set for Signal ${signalId}!`)
+  }
+
+  const handleEnrollCourse = (courseId: number) => {
+    setEnrolledCourses(prev => [...prev, courseId])
+    showNotification(`Successfully enrolled in course ${courseId}!`)
+  }
+
+  const handleSelectPlan = (planName: string) => {
+    setSelectedPlan(planName)
+    setModalMessage(`Selected ${planName} plan! Redirecting to payment...`)
+    setShowSuccessModal(true)
+    setTimeout(() => setShowSuccessModal(false), 3000)
+  }
+
+  const handleStartTrading = () => {
+    showNotification('Redirecting to trading platform...')
+    setTimeout(() => {
+      window.open('https://www.metatrader4.com/en/download', '_blank')
+    }, 1000)
+  }
+
+  const handleViewSignals = () => {
+    setActiveTab('signals')
+    showNotification('Viewing live trading signals')
+  }
+
+  const handleBookmarkArticle = (articleId: number) => {
+    setBookmarkedArticles(prev =>
+      prev.includes(articleId)
+        ? prev.filter(id => id !== articleId)
+        : [...prev, articleId]
+    )
+    showNotification(
+      bookmarkedArticles.includes(articleId)
+        ? 'Article removed from bookmarks'
+        : 'Article bookmarked!'
+    )
+  }
+
+  const handleContactUs = () => {
+    setShowContactForm(true)
+    showNotification('Contact form opened')
+  }
+
+  const handleBrokerSelect = (brokerName: string) => {
+    setSelectedBroker(brokerName)
+    showNotification(`Selected ${brokerName} as preferred broker`)
+  }
+
+  const handleGetPremium = () => {
+    setShowPremiumModal(true)
+  }
 
   // Live Market Data for Asian Markets
   const asianMarkets = [
@@ -343,7 +428,7 @@ export default function HomePage() {
               Login
             </button>
             <button
-              onClick={() => { setShowAuthModal(true); setAuthMode('register') }}
+              onClick={handleGetPremium}
               style={{
                 background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
                 border: 'none',
@@ -412,7 +497,9 @@ export default function HomePage() {
                 </p>
 
                 <div style={{ display: 'flex', gap: '16px' }}>
-                  <button style={{
+                  <button
+                    onClick={handleStartTrading}
+                    style={{
                     background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                     border: 'none',
                     color: 'white',
@@ -426,7 +513,9 @@ export default function HomePage() {
                   }}>
                     Start Trading Now
                   </button>
-                  <button style={{
+                  <button
+                    onClick={handleViewSignals}
+                    style={{
                     background: 'rgba(255, 255, 255, 0.1)',
                     border: '2px solid rgba(255, 255, 255, 0.2)',
                     color: 'white',
@@ -534,7 +623,9 @@ export default function HomePage() {
                     AI-powered trading opportunities with real-time analysis
                   </p>
                 </div>
-                <button style={{
+                <button
+                  onClick={handleViewSignals}
+                  style={{
                   background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
                   border: 'none',
                   color: 'white',
@@ -703,7 +794,9 @@ export default function HomePage() {
 
                       {/* Enhanced Action Buttons */}
                       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                        <button style={{
+                        <button
+                          onClick={() => handleCopySignal(signal.id)}
+                          style={{
                           background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
                           border: 'none',
                           color: 'white',
@@ -715,9 +808,11 @@ export default function HomePage() {
                           boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)',
                           transition: 'all 0.3s ease'
                         }}>
-                          📋 Copy Signal
+                          📋 {copiedSignals.includes(signal.id) ? 'Copied!' : 'Copy Signal'}
                         </button>
-                        <button style={{
+                        <button
+                          onClick={() => handleSetAlert(signal.id)}
+                          style={{
                           background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                           border: 'none',
                           color: 'white',
@@ -729,7 +824,7 @@ export default function HomePage() {
                           boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
                           transition: 'all 0.3s ease'
                         }}>
-                          🔔 Set Alert
+                          🔔 {alertsSet.includes(signal.id) ? 'Alert Set!' : 'Set Alert'}
                         </button>
                         <button
                           onClick={() => setSelectedSignal(selectedSignal === signal.id ? null : signal.id)}
@@ -2981,7 +3076,9 @@ export default function HomePage() {
                     )}
                   </div>
 
-                  <button style={{
+                  <button
+                    onClick={() => handleSelectPlan(plan.name)}
+                    style={{
                     background: plan.isPopular
                       ? `linear-gradient(135deg, ${plan.color} 0%, ${plan.color}dd 100%)`
                       : `linear-gradient(135deg, ${plan.color} 0%, ${plan.color}dd 100%)`,
@@ -4694,11 +4791,141 @@ export default function HomePage() {
         </div>
       )}
 
+      {/* Notification System */}
+      {notifications.length > 0 && (
+        <div style={{
+          position: 'fixed',
+          top: '20px',
+          right: '20px',
+          zIndex: 10000,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px'
+        }}>
+          {notifications.map((notification, index) => (
+            <div key={index} style={{
+              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+              color: 'white',
+              padding: '16px 24px',
+              borderRadius: '12px',
+              fontSize: '14px',
+              fontWeight: '600',
+              boxShadow: '0 8px 24px rgba(16, 185, 129, 0.3)',
+              transform: 'translateX(0)',
+              animation: 'slideInRight 0.3s ease-out'
+            }}>
+              ✅ {notification}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Premium Modal */}
+      {showPremiumModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0, 0, 0, 0.8)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10000
+        }}>
+          <div style={{
+            background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+            color: 'white',
+            padding: '40px',
+            borderRadius: '20px',
+            maxWidth: '500px',
+            textAlign: 'center',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)'
+          }}>
+            <h2 style={{ fontSize: '24px', marginBottom: '16px' }}>🚀 Go Premium!</h2>
+            <p style={{ fontSize: '16px', marginBottom: '24px', opacity: 0.9 }}>
+              Unlock advanced features, real-time signals, and priority support.
+            </p>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+              <button
+                onClick={() => {
+                  setShowPremiumModal(false)
+                  setActiveTab('pricing')
+                }}
+                style={{
+                  background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+                  border: 'none',
+                  color: 'white',
+                  padding: '12px 24px',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer'
+                }}
+              >
+                View Plans
+              </button>
+              <button
+                onClick={() => setShowPremiumModal(false)}
+                style={{
+                  background: 'transparent',
+                  border: '2px solid white',
+                  color: 'white',
+                  padding: '12px 24px',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer'
+                }}
+              >
+                Maybe Later
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0, 0, 0, 0.8)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10000
+        }}>
+          <div style={{
+            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+            color: 'white',
+            padding: '40px',
+            borderRadius: '20px',
+            maxWidth: '400px',
+            textAlign: 'center',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)'
+          }}>
+            <div style={{ fontSize: '48px', marginBottom: '16px' }}>✅</div>
+            <h2 style={{ fontSize: '20px', marginBottom: '12px' }}>Success!</h2>
+            <p style={{ fontSize: '14px', margin: 0 }}>{modalMessage}</p>
+          </div>
+        </div>
+      )}
+
       {/* Enhanced CSS Animations */}
       <style jsx>{`
         @keyframes marquee {
           0% { transform: translateX(100%); }
           100% { transform: translateX(-100%); }
+        }
+
+        @keyframes slideInRight {
+          0% { transform: translateX(100%); opacity: 0; }
+          100% { transform: translateX(0); opacity: 1; }
         }
 
         @keyframes pulse {
