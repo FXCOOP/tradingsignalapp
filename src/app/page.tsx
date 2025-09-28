@@ -5,8 +5,8 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState('dashboard')
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [authMode, setAuthMode] = useState('login')
-  const [selectedSignal, setSelectedSignal] = useState(null)
-  const [selectedNews, setSelectedNews] = useState(null)
+  const [selectedSignal, setSelectedSignal] = useState<number | null>(null)
+  const [selectedNews, setSelectedNews] = useState<number | null>(null)
 
   const currentTime = new Date().toLocaleString()
 
@@ -417,7 +417,8 @@ export default function HomePage() {
                 { key: 'education', label: 'Education' },
                 { key: 'ai-analysis', label: 'AI Analysis' },
                 { key: 'pricing', label: 'Subscription' },
-                { key: 'brokers', label: 'Partner Brokers' }
+                { key: 'brokers', label: 'Partner Brokers' },
+                { key: 'about', label: 'About Us' }
               ].map(tab => (
                 <span
                   key={tab.key}
@@ -1020,7 +1021,554 @@ export default function HomePage() {
             </div>
           </div>
         )}
+
+        {/* Live Signals Tab */}
+        {activeTab === 'signals' && (
+          <div>
+            <h2 style={{ color: '#1a1a1a', fontSize: '24px', marginBottom: '20px', fontWeight: '700' }}>
+              ⚡ Live Trading Signals
+            </h2>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '25px' }}>
+              {signals.map((signal) => (
+                <div key={signal.id} style={{
+                  background: '#ffffff',
+                  border: '1px solid #e9ecef',
+                  borderRadius: '12px',
+                  padding: '25px',
+                  boxShadow: '0 4px 6px rgba(0,0,0,0.07)',
+                  borderLeft: `4px solid ${signal.color}`
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                    <h3 style={{ color: '#1a1a1a', fontSize: '20px', margin: '0', fontWeight: '700' }}>
+                      {signal.symbol}
+                    </h3>
+                    <span style={{
+                      background: signal.type === 'BUY' ? '#28a74520' : '#dc354520',
+                      color: signal.color,
+                      padding: '8px 16px',
+                      borderRadius: '20px',
+                      fontSize: '14px',
+                      fontWeight: '700'
+                    }}>
+                      {signal.type}
+                    </span>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '15px', marginBottom: '15px' }}>
+                    <div>
+                      <div style={{ color: '#6c757d', fontSize: '12px', marginBottom: '5px' }}>Entry</div>
+                      <div style={{ color: '#1a1a1a', fontSize: '16px', fontWeight: '600' }}>{signal.entry}</div>
+                    </div>
+                    <div>
+                      <div style={{ color: '#6c757d', fontSize: '12px', marginBottom: '5px' }}>Stop Loss</div>
+                      <div style={{ color: '#dc3545', fontSize: '16px', fontWeight: '600' }}>{signal.sl}</div>
+                    </div>
+                    <div>
+                      <div style={{ color: '#6c757d', fontSize: '12px', marginBottom: '5px' }}>Target</div>
+                      <div style={{ color: '#28a745', fontSize: '16px', fontWeight: '600' }}>{signal.tp1}</div>
+                    </div>
+                    <div>
+                      <div style={{ color: '#6c757d', fontSize: '12px', marginBottom: '5px' }}>Confidence</div>
+                      <div style={{ color: '#28a745', fontSize: '16px', fontWeight: '600' }}>{signal.confidence}</div>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '10px' }}>
+                    <button style={{
+                      background: '#0d6efd',
+                      border: 'none',
+                      color: 'white',
+                      padding: '10px 20px',
+                      borderRadius: '6px',
+                      fontSize: '13px',
+                      cursor: 'pointer',
+                      fontWeight: '600'
+                    }}>
+                      Copy Signal
+                    </button>
+                    <button style={{
+                      background: '#28a745',
+                      border: 'none',
+                      color: 'white',
+                      padding: '10px 20px',
+                      borderRadius: '6px',
+                      fontSize: '13px',
+                      cursor: 'pointer',
+                      fontWeight: '600'
+                    }}>
+                      Set Alert
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* AI Analysis Tab */}
+        {activeTab === 'ai-analysis' && (
+          <div>
+            <h2 style={{ color: '#1a1a1a', fontSize: '24px', marginBottom: '20px', fontWeight: '700' }}>
+              🤖 AI-Powered Market Analysis
+            </h2>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '30px' }}>
+              {[
+                { title: 'AI Accuracy Rate', value: '89.4%', change: '+2.1% this month', icon: '🎯', color: '#28a745' },
+                { title: 'Signals Generated', value: '1,247', change: '+89 this week', icon: '📊', color: '#0d6efd' },
+                { title: 'Success Rate', value: '87.5%', change: '+3.2% improvement', icon: '🏆', color: '#fd7e14' },
+                { title: 'Active Models', value: '8', change: '3 new models added', icon: '🧠', color: '#6f42c1' }
+              ].map((metric, index) => (
+                <div key={index} style={{
+                  background: '#ffffff',
+                  border: '1px solid #e9ecef',
+                  borderRadius: '8px',
+                  padding: '20px',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                    <span style={{ fontSize: '13px', color: '#6c757d', fontWeight: '500' }}>{metric.title}</span>
+                    <span style={{ fontSize: '20px' }}>{metric.icon}</span>
+                  </div>
+                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: metric.color, marginBottom: '5px' }}>
+                    {metric.value}
+                  </div>
+                  <div style={{ fontSize: '12px', color: '#28a745', fontWeight: '500' }}>{metric.change}</div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{
+              background: '#ffffff',
+              border: '1px solid #e9ecef',
+              borderRadius: '8px',
+              padding: '25px',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
+            }}>
+              <h3 style={{ color: '#1a1a1a', fontSize: '18px', marginBottom: '15px', fontWeight: '600' }}>
+                🔬 AI Model Performance
+              </h3>
+              <div style={{ color: '#6c757d', fontSize: '14px', lineHeight: '1.6' }}>
+                <p><strong>Neural Network Analysis:</strong> Our deep learning models analyze over 10,000 data points per second, including technical indicators, market sentiment, and news events.</p>
+                <p><strong>Machine Learning Algorithms:</strong> Advanced algorithms continuously learn from market patterns, improving prediction accuracy over time.</p>
+                <p><strong>Real-time Processing:</strong> AI systems process live market data to generate instant signals with 89.4% accuracy rate.</p>
+                <p><strong>Multi-asset Coverage:</strong> Our AI models cover Forex, Cryptocurrency, Commodities, and Stock indices across global markets.</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Pricing Tab */}
+        {activeTab === 'pricing' && (
+          <div>
+            <h2 style={{ color: '#1a1a1a', fontSize: '24px', marginBottom: '20px', fontWeight: '700' }}>
+              💎 Subscription Plans
+            </h2>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '25px' }}>
+              {[
+                {
+                  name: 'Basic',
+                  price: '$49',
+                  period: '/month',
+                  features: ['5 Signals per day', 'Basic analysis', 'Email support', 'Mobile app access'],
+                  recommended: false
+                },
+                {
+                  name: 'Professional',
+                  price: '$99',
+                  period: '/month',
+                  features: ['Unlimited signals', 'AI analysis', 'Priority support', 'Advanced tools', 'Market insights'],
+                  recommended: true
+                },
+                {
+                  name: 'Elite',
+                  price: '$199',
+                  period: '/month',
+                  features: ['Everything in Pro', '1-on-1 coaching', 'Custom strategies', 'API access', 'White-label solution'],
+                  recommended: false
+                }
+              ].map((plan, index) => (
+                <div key={index} style={{
+                  background: '#ffffff',
+                  border: plan.recommended ? '2px solid #0d6efd' : '1px solid #e9ecef',
+                  borderRadius: '12px',
+                  padding: '25px',
+                  boxShadow: '0 4px 6px rgba(0,0,0,0.07)',
+                  position: 'relative'
+                }}>
+                  {plan.recommended && (
+                    <div style={{
+                      position: 'absolute',
+                      top: '-10px',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      background: '#0d6efd',
+                      color: 'white',
+                      padding: '4px 20px',
+                      borderRadius: '20px',
+                      fontSize: '12px',
+                      fontWeight: '600'
+                    }}>
+                      MOST POPULAR
+                    </div>
+                  )}
+
+                  <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                    <h3 style={{ color: '#1a1a1a', fontSize: '20px', marginBottom: '10px', fontWeight: '700' }}>
+                      {plan.name}
+                    </h3>
+                    <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '5px' }}>
+                      <span style={{ fontSize: '36px', fontWeight: 'bold', color: '#1a1a1a' }}>{plan.price}</span>
+                      <span style={{ fontSize: '16px', color: '#6c757d' }}>{plan.period}</span>
+                    </div>
+                  </div>
+
+                  <ul style={{ listStyle: 'none', padding: '0', marginBottom: '25px' }}>
+                    {plan.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} style={{
+                        padding: '8px 0',
+                        color: '#6c757d',
+                        fontSize: '14px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px'
+                      }}>
+                        <span style={{ color: '#28a745' }}>✓</span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <button style={{
+                    width: '100%',
+                    background: plan.recommended ? '#0d6efd' : 'transparent',
+                    border: plan.recommended ? 'none' : '1px solid #0d6efd',
+                    color: plan.recommended ? 'white' : '#0d6efd',
+                    padding: '12px',
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    cursor: 'pointer',
+                    fontWeight: '600'
+                  }}>
+                    Choose Plan
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Partner Brokers Tab */}
+        {activeTab === 'brokers' && (
+          <div>
+            <h2 style={{ color: '#1a1a1a', fontSize: '24px', marginBottom: '20px', fontWeight: '700' }}>
+              🤝 Partner Brokers
+            </h2>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+              {[
+                {
+                  name: 'XM Global',
+                  logo: '🏢',
+                  features: ['Free signals access', '$30 Welcome bonus', '1:1000 Leverage', 'Regulated by CySEC'],
+                  rating: '4.8/5'
+                },
+                {
+                  name: 'IC Markets',
+                  logo: '💼',
+                  features: ['Raw spread accounts', 'MetaTrader 5', '24/7 Support', 'ASIC Regulated'],
+                  rating: '4.7/5'
+                },
+                {
+                  name: 'FXCM',
+                  logo: '🏛️',
+                  features: ['Advanced platform', 'Copy trading', 'Educational resources', 'FCA Regulated'],
+                  rating: '4.6/5'
+                }
+              ].map((broker, index) => (
+                <div key={index} style={{
+                  background: '#ffffff',
+                  border: '1px solid #e9ecef',
+                  borderRadius: '8px',
+                  padding: '20px',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '15px' }}>
+                    <span style={{ fontSize: '32px' }}>{broker.logo}</span>
+                    <div>
+                      <h3 style={{ color: '#1a1a1a', fontSize: '18px', margin: '0', fontWeight: '600' }}>
+                        {broker.name}
+                      </h3>
+                      <div style={{ color: '#ffc107', fontSize: '14px', fontWeight: '500' }}>
+                        ⭐ {broker.rating}
+                      </div>
+                    </div>
+                  </div>
+
+                  <ul style={{ listStyle: 'none', padding: '0', marginBottom: '20px' }}>
+                    {broker.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} style={{
+                        padding: '5px 0',
+                        color: '#6c757d',
+                        fontSize: '13px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px'
+                      }}>
+                        <span style={{ color: '#28a745' }}>•</span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <button style={{
+                    width: '100%',
+                    background: '#28a745',
+                    border: 'none',
+                    color: 'white',
+                    padding: '10px',
+                    borderRadius: '6px',
+                    fontSize: '13px',
+                    cursor: 'pointer',
+                    fontWeight: '600'
+                  }}>
+                    Open Account & Get Free Signals
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* About Us Tab */}
+        {activeTab === 'about' && (
+          <div>
+            <h2 style={{ color: '#1a1a1a', fontSize: '24px', marginBottom: '20px', fontWeight: '700' }}>
+              🏢 About PK Signal Pulse
+            </h2>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px' }}>
+              <div style={{
+                background: '#ffffff',
+                border: '1px solid #e9ecef',
+                borderRadius: '8px',
+                padding: '25px',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
+              }}>
+                <h3 style={{ color: '#1a1a1a', fontSize: '20px', marginBottom: '15px', fontWeight: '600' }}>
+                  🚀 Our Mission
+                </h3>
+                <p style={{ color: '#6c757d', fontSize: '14px', lineHeight: '1.6', marginBottom: '15px' }}>
+                  PK Signal Pulse is Pakistan's premier trading signals platform, dedicated to empowering traders with AI-powered market analysis and professional-grade trading signals. We combine cutting-edge technology with deep market expertise to deliver consistent, profitable trading opportunities.
+                </p>
+                <p style={{ color: '#6c757d', fontSize: '14px', lineHeight: '1.6' }}>
+                  Founded in 2024, we have quickly become the trusted choice for over 2,800+ traders across Pakistan and the broader Asian markets, maintaining an industry-leading 87.5% win rate.
+                </p>
+              </div>
+
+              <div style={{
+                background: '#ffffff',
+                border: '1px solid #e9ecef',
+                borderRadius: '8px',
+                padding: '25px',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
+              }}>
+                <h3 style={{ color: '#1a1a1a', fontSize: '20px', marginBottom: '15px', fontWeight: '600' }}>
+                  💡 What Makes Us Different
+                </h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+                  {[
+                    {
+                      icon: '🤖',
+                      title: 'AI-Powered Analysis',
+                      description: 'Advanced machine learning algorithms analyze thousands of data points to generate high-probability signals.'
+                    },
+                    {
+                      icon: '🇵🇰',
+                      title: 'Pakistan Focus',
+                      description: 'Specialized expertise in Pakistani and Asian markets with local market knowledge and insights.'
+                    },
+                    {
+                      icon: '📊',
+                      title: 'Proven Track Record',
+                      description: '87.5% win rate with over 1,247 successful signals generated for our community.'
+                    },
+                    {
+                      icon: '🔒',
+                      title: 'Risk Management',
+                      description: 'Every signal includes comprehensive risk management with proper stop losses and targets.'
+                    }
+                  ].map((feature, index) => (
+                    <div key={index} style={{ textAlign: 'center' }}>
+                      <div style={{ fontSize: '32px', marginBottom: '10px' }}>{feature.icon}</div>
+                      <h4 style={{ color: '#1a1a1a', fontSize: '16px', marginBottom: '8px', fontWeight: '600' }}>
+                        {feature.title}
+                      </h4>
+                      <p style={{ color: '#6c757d', fontSize: '13px', lineHeight: '1.5' }}>
+                        {feature.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{
+                background: '#ffffff',
+                border: '1px solid #e9ecef',
+                borderRadius: '8px',
+                padding: '25px',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
+              }}>
+                <h3 style={{ color: '#1a1a1a', fontSize: '20px', marginBottom: '15px', fontWeight: '600' }}>
+                  👥 Our Team
+                </h3>
+                <p style={{ color: '#6c757d', fontSize: '14px', lineHeight: '1.6' }}>
+                  Our team consists of experienced traders, quantitative analysts, and AI specialists with over 50 years of combined experience in financial markets. Led by industry veterans who have worked at major investment banks and hedge funds, we bring institutional-grade analysis to retail traders.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
+
+      {/* Footer */}
+      <footer style={{
+        background: '#f8f9fa',
+        borderTop: '1px solid #e9ecef',
+        padding: '40px 0 20px 0',
+        marginTop: '50px'
+      }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 20px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px', marginBottom: '30px' }}>
+            {/* Company Info */}
+            <div>
+              <div style={{
+                fontSize: '20px',
+                fontWeight: 'bold',
+                color: '#0d6efd',
+                marginBottom: '15px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}>
+                📊 PK Signal Pulse
+              </div>
+              <p style={{ color: '#6c757d', fontSize: '14px', lineHeight: '1.6', marginBottom: '15px' }}>
+                Pakistan's premier AI-powered trading signals platform. Empowering traders with professional-grade market analysis and consistent profitable opportunities.
+              </p>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <span style={{ fontSize: '20px', cursor: 'pointer' }}>📧</span>
+                <span style={{ fontSize: '20px', cursor: 'pointer' }}>📱</span>
+                <span style={{ fontSize: '20px', cursor: 'pointer' }}>💬</span>
+                <span style={{ fontSize: '20px', cursor: 'pointer' }}>🔗</span>
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h4 style={{ color: '#1a1a1a', fontSize: '16px', marginBottom: '15px', fontWeight: '600' }}>
+                Quick Links
+              </h4>
+              <ul style={{ listStyle: 'none', padding: '0', margin: '0' }}>
+                {['Dashboard', 'Live Signals', 'AI Analysis', 'Education', 'Pricing'].map((link, index) => (
+                  <li key={index} style={{ marginBottom: '8px' }}>
+                    <a href="#" style={{
+                      color: '#6c757d',
+                      fontSize: '14px',
+                      textDecoration: 'none',
+                      transition: 'color 0.3s ease'
+                    }}>
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Support */}
+            <div>
+              <h4 style={{ color: '#1a1a1a', fontSize: '16px', marginBottom: '15px', fontWeight: '600' }}>
+                Support
+              </h4>
+              <ul style={{ listStyle: 'none', padding: '0', margin: '0' }}>
+                {['Help Center', 'Contact Us', 'Live Chat', 'WhatsApp Support', 'Telegram Channel'].map((link, index) => (
+                  <li key={index} style={{ marginBottom: '8px' }}>
+                    <a href="#" style={{
+                      color: '#6c757d',
+                      fontSize: '14px',
+                      textDecoration: 'none',
+                      transition: 'color 0.3s ease'
+                    }}>
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <h4 style={{ color: '#1a1a1a', fontSize: '16px', marginBottom: '15px', fontWeight: '600' }}>
+                Legal
+              </h4>
+              <ul style={{ listStyle: 'none', padding: '0', margin: '0' }}>
+                {['Terms of Service', 'Privacy Policy', 'Risk Disclaimer', 'Refund Policy', 'Cookie Policy'].map((link, index) => (
+                  <li key={index} style={{ marginBottom: '8px' }}>
+                    <a href="#" style={{
+                      color: '#6c757d',
+                      fontSize: '14px',
+                      textDecoration: 'none',
+                      transition: 'color 0.3s ease'
+                    }}>
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Risk Disclaimer */}
+          <div style={{
+            background: '#fff3cd',
+            border: '1px solid #ffeaa7',
+            borderRadius: '6px',
+            padding: '20px',
+            marginBottom: '20px'
+          }}>
+            <h5 style={{ color: '#856404', fontSize: '14px', marginBottom: '10px', fontWeight: '600' }}>
+              ⚠️ Risk Disclaimer
+            </h5>
+            <p style={{ color: '#856404', fontSize: '12px', lineHeight: '1.5', margin: '0' }}>
+              <strong>Trading involves substantial risk and may not be suitable for all investors.</strong> Past performance is not indicative of future results.
+              The high degree of leverage can work against you as well as for you. Before deciding to trade foreign exchange or any other financial instrument,
+              you should carefully consider your investment objectives, level of experience, and risk appetite. You should be aware of all the risks
+              associated with trading and seek advice from an independent financial advisor if you have any doubts. Our signals are for educational purposes
+              only and should not be considered as financial advice. Always conduct your own research and risk assessment before making any trading decisions.
+            </p>
+          </div>
+
+          {/* Copyright */}
+          <div style={{
+            borderTop: '1px solid #e9ecef',
+            paddingTop: '20px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '15px'
+          }}>
+            <div style={{ color: '#6c757d', fontSize: '13px' }}>
+              © 2025 PK Signal Pulse. All rights reserved. | Licensed in Pakistan | Reg. No. PKS-2024-001
+            </div>
+            <div style={{ color: '#6c757d', fontSize: '13px' }}>
+              🇵🇰 Proudly serving Pakistani traders | 🔒 SSL Secured | ✅ Verified Platform
+            </div>
+          </div>
+        </div>
+      </footer>
 
       {/* Auth Modal with white theme */}
       {showAuthModal && (
