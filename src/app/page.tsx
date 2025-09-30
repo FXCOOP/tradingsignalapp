@@ -68,6 +68,55 @@ export default function HomePage() {
     return () => clearInterval(timer)
   }, [])
 
+  // Load verification status from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('brokerVerification')
+    if (saved) {
+      const data = JSON.parse(saved)
+      setIsVerifiedBrokerUser(data.isVerified || false)
+      setSignalsViewedCount(data.signalsViewed || 0)
+    }
+  }, [])
+
+  // Signal access logic
+  const handleSignalClick = (signalId: number) => {
+    if (isVerifiedBrokerUser) {
+      // Show full signal details
+      alert(`Full Signal Details for ${signals.find(s => s.id === signalId)?.symbol}:\n\nEntry: ${signals.find(s => s.id === signalId)?.price}\nTarget: ${signals.find(s => s.id === signalId)?.target}\nConfidence: ${signals.find(s => s.id === signalId)?.confidence}%\n\n✅ Unlimited Access Active!`)
+      return
+    }
+
+    if (signalsViewedCount < 3) {
+      const newCount = signalsViewedCount + 1
+      setSignalsViewedCount(newCount)
+      localStorage.setItem('brokerVerification', JSON.stringify({
+        isVerified: false,
+        signalsViewed: newCount
+      }))
+
+      alert(`Signal Preview ${newCount}/3:\n\n${signals.find(s => s.id === signalId)?.symbol}: ${signals.find(s => s.id === signalId)?.type}\n\nYou have ${3 - newCount} free previews remaining.${newCount === 3 ? '\n\n🔒 Open a broker account for unlimited access!' : ''}`)
+
+      if (newCount === 3) {
+        setTimeout(() => setShowBrokerVerificationModal(true), 1000)
+      }
+    } else {
+      setShowBrokerVerificationModal(true)
+    }
+  }
+
+  // Broker verification
+  const handleBrokerVerification = (brokerName: string) => {
+    // Simulate verification process
+    setIsVerifiedBrokerUser(true)
+    localStorage.setItem('brokerVerification', JSON.stringify({
+      isVerified: true,
+      broker: brokerName,
+      signalsViewed: signalsViewedCount
+    }))
+    setShowBrokerVerificationModal(false)
+    alert(`✅ Account verified with ${brokerName}!\n\nYou now have unlimited access to all signals!`)
+  }
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -249,9 +298,12 @@ export default function HomePage() {
             </h3>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {signals.slice(0, 3).map((signal, index) => (
+              {signals.slice(0, 3).map((signal, index) => {
+                const isBlurred = index >= signalsViewedCount && !isVerifiedBrokerUser
+                return (
                 <div
                   key={index}
+                  onClick={() => handleSignalClick(signal.id)}
                   style={{
                     background: 'rgba(255, 255, 255, 0.9)',
                     borderRadius: '12px',
@@ -259,8 +311,23 @@ export default function HomePage() {
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    filter: index >= 3 - signalsViewedCount && !isVerifiedBrokerUser ? 'blur(3px)' : 'none',
-                    opacity: index >= 3 - signalsViewedCount && !isVerifiedBrokerUser ? 0.7 : 1
+                    filter: isBlurred ? 'blur(3px)' : 'none',
+                    opacity: isBlurred ? 0.7 : 1,
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    border: '2px solid transparent'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isBlurred) {
+                      e.currentTarget.style.borderColor = '#6366f1'
+                      e.currentTarget.style.transform = 'translateY(-2px)'
+                      e.currentTarget.style.boxShadow = '0 8px 25px rgba(99, 102, 241, 0.2)'
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'transparent'
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.boxShadow = 'none'
                   }}
                 >
                   <div>
@@ -293,7 +360,8 @@ export default function HomePage() {
                     {signal.type}
                   </div>
                 </div>
-              ))}
+                )
+              })}
             </div>
 
             {!isVerifiedBrokerUser && (
@@ -434,8 +502,18 @@ export default function HomePage() {
                 <button
                   key={broker}
                   onClick={() => {
-                    window.open('#', '_blank')
-                    setShowBrokerVerificationModal(false)
+                    // Open broker registration page
+                    const brokerUrls: {[key: string]: string} = {
+                      'XM Trading': 'https://www.xm.com/register',
+                      'AvaTrade': 'https://www.avatrade.com/lp/new-account',
+                      'IC Markets': 'https://www.icmarkets.com/global/en/open-trading-account',
+                      'Exness': 'https://one.exness.link/a/c3k7w8s7'
+                    }
+                    window.open(brokerUrls[broker] || '#', '_blank')
+                    // Simulate verification after user opens broker page
+                    setTimeout(() => {
+                      handleBrokerVerification(broker)
+                    }, 3000)
                   }}
                   style={{
                     display: 'block',
