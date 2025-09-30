@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT API Integration Schema - PK Signal Pulse</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; margin: 20px; background: #f8fafc; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #2563eb; border-bottom: 3px solid #2563eb; padding-bottom: 10px; }
+        h2 { color: #059669; margin-top: 30px; }
+        h3 { color: #dc2626; }
+        .code-block { background: #1e293b; color: #f8fafc; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 15px 0; }
+        .api-endpoint { background: #f1f5f9; padding: 15px; border-left: 4px solid #2563eb; margin: 10px 0; }
+        .flow-diagram { background: #f8fafc; border: 2px solid #e2e8f0; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        .example-response { background: #f0fdf4; border: 1px solid #22c55e; padding: 15px; border-radius: 8px; }
+        ul { padding-left: 25px; }
+        li { margin: 8px 0; }
+        .highlight { background: #fef3c7; padding: 2px 4px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 ChatGPT API Integration Schema for PK Signal Pulse</h1>
+
+        <h2>📋 Overview</h2>
+        <p>This document outlines the complete architecture for integrating ChatGPT API to automatically generate daily trading signals, market analysis, financial news, and educational content for PK Signal Pulse subscribers with <strong>Exness broker accounts</strong>.</p>
+
+        <div class="flow-diagram">
+            <h3>🔄 Daily Content Generation Flow</h3>
+            <pre>
+1. ⏰ Scheduled Cron Job (Daily 6:00 AM PST)
+   ↓
+2. 🤖 ChatGPT API Calls (Multiple Endpoints)
+   ↓
+3. 📊 Data Processing & Validation
+   ↓
+4. 💾 Database Storage (PostgreSQL/MongoDB)
+   ↓
+5. 🌐 Frontend Display (Real-time Updates)
+   ↓
+6. 📱 Push Notifications (Exness Subscribers)
+            </pre>
+        </div>
+
+        <h2>🏗️ Backend API Architecture</h2>
+
+        <h3>1. Content Generation Service</h3>
+        <div class="code-block">
+// /api/generate-daily-content
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+export async function generateDailyContent() {
+  try {
+    // Generate Trading Signals
+    const signals = await generateTradingSignals();
+
+    // Generate Market Analysis
+    const marketAnalysis = await generateMarketAnalysis();
+
+    // Generate Financial News
+    const financialNews = await generateFinancialNews();
+
+    // Generate Educational Content
+    const educationalContent = await generateEducationalContent();
+
+    // Store in Database
+    await saveDailyContent({
+      signals,
+      marketAnalysis,
+      financialNews,
+      educationalContent,
+      timestamp: new Date(),
+      published: true
+    });
+
+    // Send Notifications to Exness Subscribers
+    await notifyExnessSubscribers();
+
+    return { success: true, message: 'Daily content generated successfully' };
+  } catch (error) {
+    console.error('Content generation error:', error);
+    return { success: false, error: error.message };
+  }
+}
+        </div>
+
+        <h3>2. Trading Signals Generation</h3>
+        <div class="code-block">
+async function generateTradingSignals() {
+  const prompt = `
+  You are a professional trading analyst for Pakistani and international markets.
+  Generate 5-8 high-quality trading signals for today with the following format:
+
+  Requirements:
+  - Include Pakistani stocks (HBL, UBL, MCB, OGDCL, PSO, etc.)
+  - Include forex pairs (USD/PKR, EUR/USD, GBP/USD)
+  - Include commodities (Gold, Oil, Silver)
+  - Provide entry price, target price, stop loss
+  - Include confidence level (70-95%)
+  - Add timeframe (1H, 4H, 1D, 1W)
+  - Include technical reasoning
+
+  Return as JSON array with this structure:
+  {
+    "symbol": "USD/PKR",
+    "type": "BUY|SELL",
+    "entry": "278.45",
+    "target": "280.50",
+    "stopLoss": "277.20",
+    "confidence": 85,
+    "timeframe": "4H",
+    "reasoning": "Technical analysis explanation",
+    "riskReward": "1:2.5",
+    "marketSentiment": "Bullish"
+  }
+  `;
+
+  const response = await openai.chat.completions.create({
+    model: "gpt-4",
+    messages: [{ role: "user", content: prompt }],
+    temperature: 0.7,
+    max_tokens: 2000,
+  });
+
+  return JSON.parse(response.choices[0].message.content);
+}
+        </div>
+
+        <h3>3. Market Analysis Generation</h3>
+        <div class="code-block">
+async function generateMarketAnalysis() {
+  const prompt = `
+  Create comprehensive daily market analysis covering:
+
+  1. Pakistani Market Overview (KSE-100, top movers)
+  2. Global Market Impact on Pakistan
+  3. Currency Analysis (USD/PKR trends)
+  4. Sector Analysis (Banking, Energy, Textiles)
+  5. Economic Indicators Impact
+  6. Tomorrow's Key Events & Levels
+
+  Format as detailed analysis with:
+  - Executive Summary (2-3 sentences)
+  - Detailed Analysis (500-700 words)
+  - Key Levels to Watch
+  - Trading Recommendations
+  - Risk Factors
+
+  Return as JSON object with proper formatting.
+  `;
+
+  const response = await openai.chat.completions.create({
+    model: "gpt-4",
+    messages: [{ role: "user", content: prompt }],
+    temperature: 0.6,
+    max_tokens: 1500,
+  });
+
+  return JSON.parse(response.choices[0].message.content);
+}
+        </div>
+
+        <h3>4. Financial News Generation</h3>
+        <div class="code-block">
+async function generateFinancialNews() {
+  const prompt = `
+  Generate 4-6 financial news articles relevant to Pakistani and international markets:
+
+  Topics to cover:
+  - Pakistani banking sector updates
+  - Currency market developments
+  - Stock market movements
+  - Energy sector news
+  - Economic policy changes
+  - International market impacts
+
+  Each article should include:
+  - Compelling headline
+  - 150-word summary
+  - 800-1200 word full article
+  - Market impact analysis
+  - Trading implications
+  - Author name (realistic Pakistani financial journalists)
+  - Publication time
+  - Tags and category
+
+  Return as JSON array with complete article data.
+  `;
+
+  const response = await openai.chat.completions.create({
+    model: "gpt-4",
+    messages: [{ role: "user", content: prompt }],
+    temperature: 0.8,
+    max_tokens: 3000,
+  });
+
+  return JSON.parse(response.choices[0].message.content);
+}
+        </div>
+
+        <h3>5. Educational Content Generation</h3>
+        <div class="code-block">
+async function generateEducationalContent() {
+  const prompt = `
+  Create daily educational content for trading education:
+
+  1. Daily Trading Tip (practical, actionable)
+  2. Market Concept Explanation (fundamental/technical)
+  3. Pakistani Market Insight (local market specifics)
+  4. Risk Management Lesson
+  5. Trading Psychology Tip
+
+  Each piece should be:
+  - Easy to understand for beginners
+  - Practical and actionable
+  - Relevant to current market conditions
+  - Include real examples
+  - 200-300 words each
+
+  Return as JSON object with structured educational content.
+  `;
+
+  const response = await openai.chat.completions.create({
+    model: "gpt-4",
+    messages: [{ role: "user", content: prompt }],
+    temperature: 0.7,
+    max_tokens: 2000,
+  });
+
+  return JSON.parse(response.choices[0].message.content);
+}
+        </div>
+
+        <h2>🗄️ Database Schema</h2>
+        <div class="code-block">
+-- Daily Content Table
+CREATE TABLE daily_content (
+  id SERIAL PRIMARY KEY,
+  date DATE UNIQUE NOT NULL,
+  signals JSONB NOT NULL,
+  market_analysis JSONB NOT NULL,
+  financial_news JSONB NOT NULL,
+  educational_content JSONB NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW(),
+  published BOOLEAN DEFAULT false
+);
+
+-- Exness Subscribers Table
+CREATE TABLE exness_subscribers (
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  exness_account_id VARCHAR(100) NOT NULL,
+  subscription_date TIMESTAMP DEFAULT NOW(),
+  is_active BOOLEAN DEFAULT true,
+  notification_preferences JSONB,
+  last_login TIMESTAMP
+);
+
+-- Content Analytics Table
+CREATE TABLE content_analytics (
+  id SERIAL PRIMARY KEY,
+  content_type VARCHAR(50) NOT NULL,
+  content_id VARCHAR(100) NOT NULL,
+  user_id INTEGER REFERENCES exness_subscribers(id),
+  action VARCHAR(50) NOT NULL, -- view, like, share, follow
+  timestamp TIMESTAMP DEFAULT NOW()
+);
+        </div>
+
+        <h2>⚡ Frontend Integration</h2>
+
+        <h3>1. Real-time Content Loading</h3>
+        <div class="code-block">
+// React component for daily content
+useEffect(() => {
+  const fetchDailyContent = async () => {
+    try {
+      const response = await fetch('/api/daily-content');
+      const data = await response.json();
+
+      // Update signals
+      setSignals(data.signals);
+
+      // Update market analysis
+      setMarketAnalysis(data.marketAnalysis);
+
+      // Update financial news
+      setFinancialNews(data.financialNews);
+
+      // Update educational content
+      setEducationalContent(data.educationalContent);
+
+      // Show notification for new content
+      addNotification('📊 Fresh market analysis available!', 'success');
+
+    } catch (error) {
+      console.error('Failed to fetch daily content:', error);
+    }
+  };
+
+  // Fetch content on component mount
+  fetchDailyContent();
+
+  // Set up interval to check for new content every 30 minutes
+  const interval = setInterval(fetchDailyContent, 30 * 60 * 1000);
+
+  return () => clearInterval(interval);
+}, []);
+        </div>
+
+        <h3>2. Exness Account Verification</h3>
+        <div class="code-block">
+const verifyExnessAccount = async (accountId, email) => {
+  try {
+    const response = await fetch('/api/verify-exness-account', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ accountId, email })
+    });
+
+    const result = await response.json();
+
+    if (result.verified) {
+      setHasExnessAccount(true);
+      localStorage.setItem('exness_verified', 'true');
+      addNotification('✅ Exness account verified! Full access unlocked.', 'success');
+    } else {
+      addNotification('❌ Unable to verify Exness account. Please check your details.', 'error');
+    }
+  } catch (error) {
+    console.error('Verification error:', error);
+  }
+};
+        </div>
+
+        <h2>🔄 Automation & Scheduling</h2>
+
+        <h3>1. Cron Job Setup (Node.js)</h3>
+        <div class="code-block">
+const cron = require('node-cron');
+
+// Generate content daily at 6:00 AM Pakistan Time
+cron.schedule('0 6 * * *', async () => {
+  console.log('🤖 Starting daily content generation...');
+
+  try {
+    await generateDailyContent();
+    console.log('✅ Daily content generated successfully');
+
+    // Send summary email to admin
+    await sendAdminSummary();
+
+  } catch (error) {
+    console.error('❌ Content generation failed:', error);
+    await sendErrorNotification(error);
+  }
+}, {
+  timezone: "Asia/Karachi"
+});
+
+// Generate signals every 4 hours for active market hours
+cron.schedule('0 */4 * * *', async () => {
+  const currentHour = new Date().getHours();
+
+  // Only during market hours (9 AM - 5 PM Pakistan time)
+  if (currentHour >= 9 && currentHour <= 17) {
+    await generateIntradaySignals();
+  }
+}, {
+  timezone: "Asia/Karachi"
+});
+        </div>
+
+        <h3>2. Content Quality Validation</h3>
+        <div class="code-block">
+const validateContent = (content) => {
+  const validations = {
+    signals: validateSignals(content.signals),
+    news: validateNews(content.financialNews),
+    analysis: validateAnalysis(content.marketAnalysis)
+  };
+
+  // Check if all validations pass
+  const isValid = Object.values(validations).every(v => v.isValid);
+
+  if (!isValid) {
+    throw new Error(`Content validation failed: ${JSON.stringify(validations)}`);
+  }
+
+  return true;
+};
+
+const validateSignals = (signals) => {
+  const requiredFields = ['symbol', 'type', 'entry', 'target', 'stopLoss', 'confidence'];
+
+  for (const signal of signals) {
+    for (const field of requiredFields) {
+      if (!signal[field]) {
+        return { isValid: false, error: `Missing ${field} in signal` };
+      }
+    }
+
+    // Validate confidence is between 70-95%
+    if (signal.confidence < 70 || signal.confidence > 95) {
+      return { isValid: false, error: 'Invalid confidence level' };
+    }
+  }
+
+  return { isValid: true };
+};
+        </div>
+
+        <h2>📱 Notification System</h2>
+
+        <div class="api-endpoint">
+            <h3>Push Notifications for Exness Subscribers</h3>
+            <strong>Endpoint:</strong> POST /api/notify-subscribers<br>
+            <strong>Triggers:</strong> New signals, market alerts, breaking news<br>
+            <strong>Delivery:</strong> Email, SMS, Push notifications
+        </div>
+
+        <div class="code-block">
+const notifyExnessSubscribers = async (content) => {
+  const subscribers = await getActiveExnessSubscribers();
+
+  for (const subscriber of subscribers) {
+    const preferences = subscriber.notification_preferences;
+
+    // Email notifications
+    if (preferences.email) {
+      await sendEmail({
+        to: subscriber.email,
+        subject: '📊 New Trading Signals & Market Analysis',
+        template: 'daily-content',
+        data: content
+      });
+    }
+
+    // SMS notifications for high-confidence signals
+    if (preferences.sms && content.signals.some(s => s.confidence > 90)) {
+      await sendSMS({
+        to: subscriber.phone,
+        message: `🚀 High-confidence signal: ${content.signals[0].symbol} ${content.signals[0].type}`
+      });
+    }
+
+    // Push notifications
+    if (preferences.push) {
+      await sendPushNotification({
+        userId: subscriber.id,
+        title: '📈 New Market Analysis Available',
+        body: 'Fresh signals and analysis generated for today',
+        data: { contentId: content.id }
+      });
+    }
+  }
+};
+        </div>
+
+        <h2>🚀 Deployment Configuration</h2>
+
+        <h3>Environment Variables</h3>
+        <div class="code-block">
+# .env file
+OPENAI_API_KEY=your_openai_api_key_here
+DATABASE_URL=postgresql://username:password@localhost:5432/pksignalpulse
+EXNESS_API_KEY=your_exness_api_key_here
+SMTP_HOST=smtp.gmail.com
+SMTP_USER=your_email@gmail.com
+SMTP_PASS=your_app_password
+SMS_API_KEY=your_sms_provider_key
+PUSH_NOTIFICATION_KEY=your_push_service_key
+ADMIN_EMAIL=admin@pksignalpulse.com
+        </div>
+
+        <h3>API Rate Limiting & Cost Optimization</h3>
+        <div class="code-block">
+// Rate limiting for ChatGPT API calls
+const rateLimiter = {
+  maxRequestsPerDay: 100,
+  currentRequests: 0,
+  lastReset: new Date().toDateString(),
+
+  canMakeRequest() {
+    const today = new Date().toDateString();
+
+    if (this.lastReset !== today) {
+      this.currentRequests = 0;
+      this.lastReset = today;
+    }
+
+    return this.currentRequests < this.maxRequestsPerDay;
+  },
+
+  incrementRequest() {
+    this.currentRequests++;
+  }
+};
+
+// Cost optimization
+const estimatedMonthlyCost = {
+  gpt4Requests: 50, // per day
+  tokensPerRequest: 2000,
+  costPerToken: 0.00003, // GPT-4 pricing
+  dailyCost: 50 * 2000 * 0.00003, // $3 per day
+  monthlyCost: 50 * 2000 * 0.00003 * 30 // ~$90 per month
+};
+        </div>
+
+        <div class="example-response">
+            <h3>📊 Example API Response</h3>
+            <pre>{
+  "success": true,
+  "data": {
+    "date": "2024-01-15",
+    "signals": [
+      {
+        "id": 1,
+        "symbol": "USD/PKR",
+        "type": "BUY",
+        "entry": "278.45",
+        "target": "280.50",
+        "stopLoss": "277.20",
+        "confidence": 85,
+        "timeframe": "4H",
+        "reasoning": "USD/PKR showing bullish divergence on 4H timeframe...",
+        "riskReward": "1:2.5"
+      }
+    ],
+    "marketAnalysis": {
+      "summary": "Pakistani markets showing strength...",
+      "fullAnalysis": "Detailed analysis...",
+      "keyLevels": ["278.50 resistance", "277.00 support"]
+    },
+    "financialNews": [
+      {
+        "title": "HBL Reports Strong Q1 Results",
+        "summary": "Habib Bank posts 28% profit growth...",
+        "fullArticle": "Complete article content...",
+        "author": "Ahmed Hassan",
+        "category": "Banking"
+      }
+    ]
+  }
+}</pre>
+        </div>
+
+        <h2>🔐 Security & Compliance</h2>
+        <ul>
+            <li><span class="highlight">API Key Protection</span> - Secure environment variable storage</li>
+            <li><span class="highlight">Data Encryption</span> - All sensitive data encrypted at rest</li>
+            <li><span class="highlight">Rate Limiting</span> - Prevent API abuse and cost overruns</li>
+            <li><span class="highlight">Content Moderation</span> - Automated validation of generated content</li>
+            <li><span class="highlight">Subscriber Verification</span> - Verify Exness account authenticity</li>
+            <li><span class="highlight">Audit Logging</span> - Track all API calls and content generation</li>
+        </ul>
+
+        <h2>📈 Monitoring & Analytics</h2>
+        <ul>
+            <li><span class="highlight">Content Performance</span> - Track engagement with generated content</li>
+            <li><span class="highlight">API Usage Monitoring</span> - Monitor ChatGPT API costs and usage</li>
+            <li><span class="highlight">Subscriber Analytics</span> - Track active Exness subscribers</li>
+            <li><span class="highlight">Signal Accuracy</span> - Monitor trading signal performance</li>
+            <li><span class="highlight">Error Tracking</span> - Log and alert on content generation failures</li>
+        </ul>
+
+        <h2>🎯 Implementation Timeline</h2>
+        <div class="flow-diagram">
+            <h3>Phase 1 (Week 1): Core API Integration</h3>
+            <ul>
+                <li>Set up ChatGPT API integration</li>
+                <li>Create basic content generation functions</li>
+                <li>Implement database schema</li>
+            </ul>
+
+            <h3>Phase 2 (Week 2): Content Generation</h3>
+            <ul>
+                <li>Build signals generation system</li>
+                <li>Create news article generation</li>
+                <li>Implement market analysis generation</li>
+            </ul>
+
+            <h3>Phase 3 (Week 3): Automation & Notifications</h3>
+            <ul>
+                <li>Set up cron jobs for daily generation</li>
+                <li>Implement notification system</li>
+                <li>Create Exness verification system</li>
+            </ul>
+
+            <h3>Phase 4 (Week 4): Testing & Launch</h3>
+            <ul>
+                <li>Quality assurance testing</li>
+                <li>Performance optimization</li>
+                <li>Production deployment</li>
+            </ul>
+        </div>
+
+        <div class="api-endpoint">
+            <strong>💡 Next Steps:</strong><br>
+            1. Set up OpenAI API account and get API key<br>
+            2. Configure database and environment<br>
+            3. Implement the content generation functions<br>
+            4. Set up Exness integration for subscriber verification<br>
+            5. Deploy and test the automated system
+        </div>
+    </div>
+</body>
+</html>

@@ -13,8 +13,9 @@ export default function HomePage() {
   const [notifications, setNotifications] = useState<any[]>([])
   const [followedSignals, setFollowedSignals] = useState<number[]>([])
   const [selectedCourse, setSelectedCourse] = useState<number | null>(null)
-  const [enrolledCourses, setEnrolledCourses] = useState<number[]>([])
+  const [hasExnessAccount, setHasExnessAccount] = useState<boolean>(false)
   const [selectedArticle, setSelectedArticle] = useState<number | null>(null)
+  const [dailyContent, setDailyContent] = useState<any>(null)
 
   // Add signal notification
   const addNotification = (message: string, type: 'success' | 'warning' | 'info' = 'info') => {
@@ -41,14 +42,20 @@ export default function HomePage() {
     }
   }
 
-  // Enroll in course function
-  const enrollInCourse = (courseId: number, courseName: string) => {
-    if (enrolledCourses.includes(courseId)) {
-      addNotification('Already enrolled in this course!', 'info')
-    } else {
-      setEnrolledCourses(prev => [...prev, courseId])
-      addNotification(`Successfully enrolled in ${courseName}!`, 'success')
+  // Access course function (for Exness subscribers)
+  const accessCourse = (courseId: number, courseName: string) => {
+    if (!hasExnessAccount) {
+      addNotification('Open an Exness account to access free education!', 'warning')
+      return
     }
+    addNotification(`Accessing ${courseName} - Free for Exness clients!`, 'success')
+  }
+
+  // Verify Exness account
+  const verifyExnessAccount = () => {
+    // This would integrate with Exness API
+    setHasExnessAccount(true)
+    addNotification('✅ Exness account verified! Free education unlocked.', 'success')
   }
 
   // Language translations
@@ -1548,6 +1555,109 @@ The sector's resilience, combined with attractive valuations and strong fundamen
               </p>
             </div>
 
+            {/* Exness Account Verification */}
+            {!hasExnessAccount && (
+              <div style={{
+                background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+                borderRadius: '20px',
+                padding: '40px',
+                marginBottom: '48px',
+                color: 'white',
+                textAlign: 'center'
+              }}>
+                <h2 style={{
+                  fontSize: '32px',
+                  fontWeight: '900',
+                  marginBottom: '16px',
+                  color: 'white'
+                }}>
+                  🔓 Unlock FREE Professional Trading Education
+                </h2>
+                <p style={{
+                  fontSize: '18px',
+                  marginBottom: '32px',
+                  opacity: 0.9,
+                  lineHeight: '1.7'
+                }}>
+                  Open an account with our trusted broker <strong>Exness</strong> and get instant access to all premium courses worth $2000+ absolutely FREE!
+                </p>
+
+                <div style={{
+                  display: 'flex',
+                  gap: '20px',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginBottom: '32px'
+                }}>
+                  <button
+                    onClick={verifyExnessAccount}
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.9)',
+                      color: '#2563eb',
+                      border: 'none',
+                      padding: '16px 32px',
+                      borderRadius: '12px',
+                      fontSize: '18px',
+                      fontWeight: '700',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'white'
+                      e.currentTarget.style.transform = 'scale(1.05)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)'
+                      e.currentTarget.style.transform = 'scale(1)'
+                    }}
+                  >
+                    🚀 Open Exness Account
+                  </button>
+
+                  <span style={{ fontSize: '16px', opacity: 0.8 }}>or</span>
+
+                  <button
+                    onClick={verifyExnessAccount}
+                    style={{
+                      background: 'transparent',
+                      color: 'white',
+                      border: '2px solid rgba(255, 255, 255, 0.7)',
+                      padding: '16px 32px',
+                      borderRadius: '12px',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'white'
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.7)'
+                      e.currentTarget.style.background = 'transparent'
+                    }}
+                  >
+                    Already have account? Verify
+                  </button>
+                </div>
+
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                  gap: '20px',
+                  fontSize: '14px'
+                }}>
+                  <div>✅ 3 Complete Professional Courses</div>
+                  <div>✅ 180+ Video Lessons</div>
+                  <div>✅ Professional Certificates</div>
+                  <div>✅ Live Trading Sessions</div>
+                  <div>✅ 24/7 Expert Support</div>
+                  <div>✅ Mobile Learning App</div>
+                </div>
+              </div>
+            )}
+
             {/* Learning Statistics */}
             <div style={{
               background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
@@ -1607,8 +1717,8 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                   instructor: 'Dr. Ahmed Hassan',
                   rating: 4.9,
                   students: 2847,
-                  price: 'PKR 12,999',
-                  originalPrice: 'PKR 19,999',
+                  price: 'FREE',
+                  originalPrice: 'For Exness Clients',
                   description: 'Master the complete foundations of trading with this comprehensive course designed for absolute beginners to intermediate traders.',
                   lessons: 45,
                   duration: '25 hours',
@@ -1712,8 +1822,8 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                   instructor: 'Sarah Khan, CMT',
                   rating: 4.8,
                   students: 1923,
-                  price: 'PKR 18,999',
-                  originalPrice: 'PKR 29,999',
+                  price: 'FREE',
+                  originalPrice: 'For Exness Clients',
                   description: 'Become a technical analysis expert with advanced chart reading, pattern recognition, and indicator mastery.',
                   lessons: 60,
                   duration: '40 hours',
@@ -1826,8 +1936,8 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                   instructor: 'Muhammad Raza, CFA',
                   rating: 4.9,
                   students: 856,
-                  price: 'PKR 24,999',
-                  originalPrice: 'PKR 39,999',
+                  price: 'FREE',
+                  originalPrice: 'For Exness Clients',
                   description: 'Master advanced options strategies, derivatives trading, and institutional-level techniques for professional traders.',
                   lessons: 75,
                   duration: '55 hours',
@@ -2073,7 +2183,7 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                         color: '#059669',
                         fontWeight: '600'
                       }}>
-                        35% OFF
+                        🎁 FREE
                       </div>
                     </div>
                   </div>
@@ -2248,11 +2358,11 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                     <button
                       onClick={(e) => {
                         e.stopPropagation()
-                        enrollInCourse(course.id, course.title)
+                        accessCourse(course.id, course.title)
                       }}
                       style={{
                         flex: 1,
-                        background: enrolledCourses.includes(course.id)
+                        background: hasExnessAccount
                           ? `linear-gradient(135deg, #059669 0%, #047857 100%)`
                           : `linear-gradient(135deg, ${course.color} 0%, ${course.color}DD 100%)`,
                         color: 'white',
@@ -2271,7 +2381,7 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                         e.currentTarget.style.transform = 'scale(1)'
                       }}
                     >
-                      {enrolledCourses.includes(course.id) ? '✓ Enrolled' : '🚀 Enroll Now'}
+                      {hasExnessAccount ? '✅ Access Course' : '🔐 Verify Exness Account'}
                     </button>
                     <button style={{
                       background: 'rgba(0, 0, 0, 0.05)',
