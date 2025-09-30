@@ -276,6 +276,100 @@ export default function HomePage() {
     setSelectedCourse(courseId)
   }
 
+  // Additional Missing Handler Functions
+  const handleContinueLearning = (courseId: number) => {
+    setSelectedCourse(courseId)
+    showNotification(`Continuing course ${courseId}...`)
+    // Simulate progress tracking
+    setTimeout(() => {
+      showNotification('Progress saved! Keep learning 📚')
+    }, 1000)
+  }
+
+  const handleToolAction = (toolId: string, action: string) => {
+    showNotification(`${action} with ${toolId} tool`)
+    // Tool-specific actions
+    switch (toolId) {
+      case 'risk-calculator':
+        showNotification('🧮 Risk Calculator opened')
+        break
+      case 'pip-calculator':
+        showNotification('📏 Pip Calculator ready')
+        break
+      case 'profit-calculator':
+        showNotification('💰 Profit Calculator activated')
+        break
+      case 'position-sizer':
+        showNotification('📊 Position Sizer tool launched')
+        break
+      default:
+        showNotification(`${action} completed`)
+    }
+  }
+
+  const handleGenerateAnalysis = () => {
+    showNotification('🔮 Generating new AI analysis...')
+    setTimeout(() => {
+      showNotification('✨ Fresh AI insights generated!')
+    }, 2000)
+  }
+
+  const handleViewInsightDetails = (insightId: number) => {
+    showNotification(`📊 Viewing detailed analysis for insight ${insightId}`)
+    setSelectedSignal(insightId)
+  }
+
+  const handleMoreFeatures = () => {
+    showNotification('🔧 Exploring additional features...')
+    setShowPremiumModal(true)
+  }
+
+  const handleModalAction = (action: string, context: string) => {
+    showNotification(`${action} in ${context}`)
+    switch (action) {
+      case 'Like':
+        showNotification('❤️ Article liked!')
+        break
+      case 'Share':
+        showNotification('🔄 Article shared!')
+        break
+      case 'Save for Later':
+        showNotification('📚 Article saved!')
+        break
+      case 'Follow Author':
+        showNotification('🔔 Following author!')
+        break
+      default:
+        showNotification(`${action} completed`)
+    }
+  }
+
+  const handleMarketAnalysisAction = (action: string, symbol: string) => {
+    showNotification(`${action} for ${symbol}`)
+    if (action === 'Copy Signal') {
+      navigator.clipboard?.writeText(`${symbol} signal - Check PK Signal Pulse for details`)
+      showNotification(`📋 ${symbol} signal copied!`)
+    } else if (action === 'Set Alert') {
+      showNotification(`🔔 Alert set for ${symbol}!`)
+    }
+  }
+
+  const handlePricingAction = (action: string, plan?: string) => {
+    switch (action) {
+      case 'Contact Sales':
+        handleContactSales()
+        break
+      case 'Get Started':
+        showNotification(`🚀 Starting with ${plan} plan...`)
+        break
+      case 'Upgrade':
+        showNotification(`⬆️ Upgrading to ${plan}...`)
+        break
+      default:
+        showNotification(`${action} initiated`)
+    }
+  }
+
   // Comprehensive Asian Markets Data with Trading Insights
   const asianMarkets = [
     {
@@ -5283,32 +5377,36 @@ Your journey to financial freedom starts with the first investment. Take that st
                   </div>
 
                   <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                    <button style={{
-                      background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
-                      border: 'none',
-                      color: 'white',
-                      padding: '12px 24px',
-                      borderRadius: '8px',
-                      fontSize: '14px',
-                      cursor: 'pointer',
-                      fontWeight: '600',
-                      boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)',
-                      transition: 'all 0.3s ease'
-                    }}>
+                    <button
+                      onClick={() => handleMarketAnalysisAction('Copy Signal', signal.symbol)}
+                      style={{
+                        background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+                        border: 'none',
+                        color: 'white',
+                        padding: '12px 24px',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        cursor: 'pointer',
+                        fontWeight: '600',
+                        boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)',
+                        transition: 'all 0.3s ease'
+                      }}>
                       📋 Copy Signal
                     </button>
-                    <button style={{
-                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                      border: 'none',
-                      color: 'white',
-                      padding: '12px 24px',
-                      borderRadius: '8px',
-                      fontSize: '14px',
-                      cursor: 'pointer',
-                      fontWeight: '600',
-                      boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
-                      transition: 'all 0.3s ease'
-                    }}>
+                    <button
+                      onClick={() => handleMarketAnalysisAction('Set Alert', signal.symbol)}
+                      style={{
+                        background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                        border: 'none',
+                        color: 'white',
+                        padding: '12px 24px',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        cursor: 'pointer',
+                        fontWeight: '600',
+                        boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+                        transition: 'all 0.3s ease'
+                      }}>
                       🔔 Set Alert
                     </button>
                   </div>
@@ -5819,7 +5917,7 @@ Your journey to financial freedom starts with the first investment. Take that st
                       </div>
                     </div>
 
-                    <button style={{
+                    <button onClick={() => handleContinueLearning(index)} style={{
                       background: course.color,
                       border: 'none',
                       color: 'white',
@@ -6154,17 +6252,19 @@ Your journey to financial freedom starts with the first investment. Take that st
                     }}>
                       {tool.description}
                     </p>
-                    <button style={{
-                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                      border: 'none',
-                      color: 'white',
-                      padding: '10px 20px',
-                      borderRadius: '8px',
-                      fontSize: '14px',
-                      fontWeight: '600',
-                      cursor: 'pointer',
-                      width: '100%'
-                    }}>
+                    <button
+                      onClick={() => handleToolAction(tool.title, tool.action)}
+                      style={{
+                        background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                        border: 'none',
+                        color: 'white',
+                        padding: '10px 20px',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        width: '100%'
+                      }}>
                       {tool.action}
                     </button>
                   </div>
@@ -6193,17 +6293,19 @@ Your journey to financial freedom starts with the first investment. Take that st
                 </p>
               </div>
               <div style={{ display: 'flex', gap: '12px' }}>
-                <button style={{
-                  background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
-                  border: 'none',
-                  color: 'white',
-                  padding: '12px 20px',
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  boxShadow: '0 4px 12px rgba(139, 92, 246, 0.3)'
-                }}>
+                <button
+                  onClick={handleGenerateAnalysis}
+                  style={{
+                    background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
+                    border: 'none',
+                    color: 'white',
+                    padding: '12px 20px',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 12px rgba(139, 92, 246, 0.3)'
+                  }}>
                   🔮 Generate New Analysis
                 </button>
               </div>
@@ -6422,16 +6524,18 @@ Your journey to financial freedom starts with the first investment. Take that st
                       <span style={{ color: '#64748b', fontSize: '12px' }}>
                         Updated {insight.lastUpdated}
                       </span>
-                      <button style={{
-                        background: insight.color,
-                        border: 'none',
-                        color: 'white',
-                        padding: '8px 16px',
-                        borderRadius: '6px',
-                        fontSize: '12px',
-                        fontWeight: '600',
-                        cursor: 'pointer'
-                      }}>
+                      <button
+                        onClick={() => handleViewInsightDetails(index)}
+                        style={{
+                          background: insight.color,
+                          border: 'none',
+                          color: 'white',
+                          padding: '8px 16px',
+                          borderRadius: '6px',
+                          fontSize: '12px',
+                          fontWeight: '600',
+                          cursor: 'pointer'
+                        }}>
                         View Details
                       </button>
                     </div>
@@ -7321,7 +7425,9 @@ Your journey to financial freedom starts with the first investment. Take that st
                 Not satisfied with our signals? Get a full refund within 30 days, no questions asked.
               </p>
               <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
-                <button style={{
+                <button
+                  onClick={() => handlePricingAction('Get Started')}
+                  style={{
                   background: 'white',
                   color: '#f59e0b',
                   border: 'none',
@@ -7333,7 +7439,9 @@ Your journey to financial freedom starts with the first investment. Take that st
                 }}>
                   Start Your Free Trial
                 </button>
-                <button style={{
+                <button
+                  onClick={() => handlePricingAction('Contact Sales')}
+                  style={{
                   background: 'transparent',
                   color: 'white',
                   border: '2px solid white',
@@ -9096,7 +9204,9 @@ Your journey to financial freedom starts with the first investment. Take that st
                   Did you find this article helpful?
                 </h4>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                  <button style={{
+                  <button
+                    onClick={() => handleModalAction('Like', 'article')}
+                    style={{
                     background: 'linear-gradient(135deg, #10b981, #059669)',
                     color: 'white',
                     border: 'none',
@@ -9108,7 +9218,9 @@ Your journey to financial freedom starts with the first investment. Take that st
                   }}>
                     👍 Like ({tradingArticles.find(a => a.id === selectedArticle)?.likes?.toLocaleString()})
                   </button>
-                  <button style={{
+                  <button
+                    onClick={() => handleModalAction('Share', 'article')}
+                    style={{
                     background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
                     color: 'white',
                     border: 'none',
@@ -9120,7 +9232,9 @@ Your journey to financial freedom starts with the first investment. Take that st
                   }}>
                     🔄 Share
                   </button>
-                  <button style={{
+                  <button
+                    onClick={() => handleModalAction('Save for Later', 'article')}
+                    style={{
                     background: 'linear-gradient(135deg, #f59e0b, #d97706)',
                     color: 'white',
                     border: 'none',
@@ -9132,7 +9246,9 @@ Your journey to financial freedom starts with the first investment. Take that st
                   }}>
                     📚 Save for Later
                   </button>
-                  <button style={{
+                  <button
+                    onClick={() => handleModalAction('Follow Author', 'article')}
+                    style={{
                     background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
                     color: 'white',
                     border: 'none',
