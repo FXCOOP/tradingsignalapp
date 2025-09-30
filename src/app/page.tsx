@@ -4900,53 +4900,6 @@ Your journey to financial freedom starts with the first investment. Take that st
           ))}
         </div>
       </div>
-                color: 'white',
-                padding: '8px 16px',
-                borderRadius: '8px',
-                fontSize: '14px',
-                fontWeight: '600'
-              }}>
-                <span>✅</span>
-                <span>Verified with {verifiedBroker}</span>
-              </div>
-            ) : (
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-                color: 'white',
-                padding: '8px 16px',
-                borderRadius: '8px',
-                fontSize: '14px',
-                fontWeight: '600',
-                cursor: 'pointer'
-              }}
-              onClick={() => setShowBrokerVerificationModal(true)}
-              >
-                <span>🔒</span>
-                <span>Signals: {signalsViewedCount}/3</span>
-              </div>
-            )}
-
-            <button
-              onClick={handleGetPremium}
-              style={{
-                background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
-                border: 'none',
-                color: 'white',
-                padding: '10px 20px',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontSize: '14px',
-                fontWeight: '600',
-                transition: 'all 0.3s ease',
-                boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
-              }}
-            >
-              Get Premium
-            </button>
-          </div>
         </div>
       </nav>
 
