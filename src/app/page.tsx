@@ -2,7 +2,10 @@
 import { useState, useEffect } from 'react'
 
 export default function HomePage() {
-  const [activeTab, setActiveTab] = useState('dashboard')
+  const [activeTab, setActiveTab] = useState('signals')
+  const [language, setLanguage] = useState('en')
+  const [dailyInsights, setDailyInsights] = useState<string>('')
+  const [isLoadingInsights, setIsLoadingInsights] = useState(false)
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [authMode, setAuthMode] = useState('login')
   const [selectedSignal, setSelectedSignal] = useState<number | null>(null)
@@ -32,6 +35,36 @@ export default function HomePage() {
   const [signalsViewedCount, setSignalsViewedCount] = useState(0)
   const [showBrokerVerificationModal, setShowBrokerVerificationModal] = useState(false)
   const [isVerifying, setIsVerifying] = useState(false)
+
+  // Language translations
+  const translations = {
+    en: {
+      title: 'PK Signal Pulse',
+      subtitle: 'Professional Trading Signals & Market Intelligence',
+      freeSignals: 'Free Signals Preview',
+      unlockMore: 'Open Broker Account for Unlimited Access',
+      fromOnly: 'From Only $10',
+      learnPractice: 'Learn, Practice, Earn & Enjoy',
+      openAccount: 'Open Account Now',
+      verifyAccount: 'Verify Your Account',
+      viewedSignals: 'signals viewed',
+      unlimited: 'Unlimited Access'
+    },
+    ur: {
+      title: 'پی کے سگنل پلس',
+      subtitle: 'پروفیشنل ٹریڈنگ سگنلز اور مارکیٹ انٹیلیجنس',
+      freeSignals: 'مفت سگنلز کا جائزہ',
+      unlockMore: 'لامحدود رسائی کے لیے بروکر اکاؤنٹ کھولیں',
+      fromOnly: 'صرف $10 سے',
+      learnPractice: 'سیکھیں، مشق کریں، کمائیں اور لطف اٹھائیں',
+      openAccount: 'اب اکاؤنٹ کھولیں',
+      verifyAccount: 'اپنا اکاؤنٹ تصدیق کریں',
+      viewedSignals: 'سگنلز دیکھے گئے',
+      unlimited: 'لامحدود رسائی'
+    }
+  }
+
+  const t = translations[language as keyof typeof translations]
 
   // Trusted brokers configuration
   const trustedBrokers = [
@@ -73,6 +106,47 @@ export default function HomePage() {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000)
     return () => clearInterval(timer)
   }, [])
+
+  // Fetch daily insights from ChatGPT API
+  useEffect(() => {
+    const fetchDailyInsights = async () => {
+      setIsLoadingInsights(true)
+      try {
+        // This would integrate with your ChatGPT API endpoint
+        const response = await fetch('/api/daily-insights', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            query: 'Provide today\'s key market insights for Pakistani and Asian markets, focusing on trading opportunities',
+            language: language
+          })
+        })
+
+        if (response.ok) {
+          const data = await response.json()
+          setDailyInsights(data.insights)
+        } else {
+          // Fallback to static insights
+          setDailyInsights(language === 'en'
+            ? 'Market analysis shows strong momentum in Asian markets with USD/PKR showing bullish patterns. Banking sector demonstrates exceptional growth potential.'
+            : 'مارکیٹ کا تجزیہ ایشیائی منڈیوں میں مضبوط رفتار ظاہر کرتا ہے، USD/PKR میں تیزی کے پیٹرن دکھائے جا رہے ہیں۔ بینکنگ سیکٹر میں غیر معمولی ترقی کی صلاحیت ہے۔'
+          )
+        }
+      } catch (error) {
+        console.error('Failed to fetch daily insights:', error)
+        setDailyInsights(language === 'en'
+          ? 'Stay tuned for fresh market insights powered by AI analysis.'
+          : 'AI تجزیہ کار کی طرف سے تازہ مارکیٹ بصیرت کے لیے منتظر رہیں۔'
+        )
+      } finally {
+        setIsLoadingInsights(false)
+      }
+    }
+
+    fetchDailyInsights()
+  }, [language])
 
   // Load broker verification status from localStorage
   useEffect(() => {
@@ -4398,134 +4472,434 @@ Your journey to financial freedom starts with the first investment. Take that st
         </div>
       </div>
 
-      {/* Premium Navigation Header */}
+      {/* Simplified Premium Navigation */}
       <nav style={{
-        background: 'rgba(255, 255, 255, 0.95)',
+        background: 'rgba(255, 255, 255, 0.98)',
         backdropFilter: 'blur(20px)',
         borderBottom: '1px solid #e2e8f0',
-        padding: '16px 0',
+        padding: '12px 0',
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
+        boxShadow: '0 2px 20px rgba(0, 0, 0, 0.05)'
       }}>
         <div style={{
-          maxWidth: '1600px',
+          maxWidth: '1400px',
           margin: '0 auto',
-          padding: '0 24px',
+          padding: '0 20px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '48px' }}>
-            <div style={{
-              fontSize: '28px',
-              fontWeight: '800',
-              background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              letterSpacing: '-0.025em'
-            }}>
-              <span style={{ fontSize: '32px' }}>📊</span>
-              PK Signal Pulse
-              <span style={{
+          {/* Logo */}
+          <div style={{
+            fontSize: '24px',
+            fontWeight: '900',
+            background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            letterSpacing: '-0.02em'
+          }}>
+            <span style={{ fontSize: '28px' }}>📊</span>
+            {t.title}
+          </div>
+
+          {/* Language Toggle & CTA */}
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+            <button
+              onClick={() => setLanguage(language === 'en' ? 'ur' : 'en')}
+              style={{
+                background: 'transparent',
+                border: '1px solid #e2e8f0',
+                padding: '6px 12px',
+                borderRadius: '6px',
+                cursor: 'pointer',
                 fontSize: '12px',
                 fontWeight: '600',
-                color: '#10b981',
-                backgroundColor: '#10b98115',
-                padding: '3px 8px',
-                borderRadius: '12px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em'
-              }}>
-                LIVE
-              </span>
-            </div>
+                color: '#64748b',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              {language === 'en' ? '🇵🇰 اردو' : '🇺🇸 EN'}
+            </button>
 
-            <div style={{ display: 'flex', gap: '32px' }}>
-              {[
-                { key: 'dashboard', label: 'Market Overview', icon: '📈' },
-                { key: 'signals', label: 'Live Signals', icon: '⚡' },
-                { key: 'markets', label: 'Asian Markets', icon: '🌏' },
-                { key: 'news', label: 'Market News', icon: '📰' },
-                { key: 'calendar', label: 'Economic Calendar', icon: '📅' },
-                { key: 'education', label: 'Education', icon: '🎓' },
-                { key: 'ai-analysis', label: 'AI Analytics', icon: '🤖' },
-                { key: 'pricing', label: 'Premium', icon: '💎' }
-              ].map(tab => (
+            {isVerifiedBrokerUser ? (
+              <div style={{
+                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                color: 'white',
+                padding: '8px 16px',
+                borderRadius: '8px',
+                fontSize: '12px',
+                fontWeight: '600',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}>
+                ✓ {t.unlimited}
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowBrokerVerificationModal(true)}
+                style={{
+                  background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontSize: '13px',
+                  fontWeight: '700',
+                  transform: 'translateY(0)',
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 4px 14px rgba(245, 158, 11, 0.4)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-1px)'
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(245, 158, 11, 0.5)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(245, 158, 11, 0.4)'
+                }}
+              >
+                🚀 {t.openAccount}
+              </button>
+            )}
+          </div>
+        </div>
+      </nav>
+
+      {/* Stunning Hero Section */}
+      <div style={{
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%)',
+        minHeight: '85vh',
+        display: 'flex',
+        alignItems: 'center',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        {/* Animated Background Elements */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%)',
+          animation: 'float 6s ease-in-out infinite'
+        }} />
+
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: '0 20px',
+          width: '100%',
+          display: 'grid',
+          gridTemplateColumns: 'minmax(300px, 1fr) minmax(300px, 400px)',
+          gap: '60px',
+          alignItems: 'center',
+          '@media (max-width: 968px)': {
+            gridTemplateColumns: '1fr',
+            gap: '40px',
+            textAlign: 'center'
+          }
+        }}>
+          {/* Left Content */}
+          <div style={{
+            color: 'white',
+            zIndex: 2
+          }}>
+            <h1 style={{
+              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+              fontWeight: '900',
+              lineHeight: '1.1',
+              margin: '0 0 20px 0',
+              textShadow: '0 2px 20px rgba(0,0,0,0.3)',
+              letterSpacing: '-0.02em'
+            }}>
+              {t.subtitle}
+            </h1>
+
+            <p style={{
+              fontSize: 'clamp(1.1rem, 2.5vw, 1.3rem)',
+              lineHeight: '1.6',
+              margin: '0 0 30px 0',
+              opacity: 0.95,
+              fontWeight: '400'
+            }}>
+              {t.learnPractice} • {isVerifiedBrokerUser ? t.unlimited : `${signalsViewedCount}/3 ${t.viewedSignals}`}
+            </p>
+
+            {/* CTA Buttons */}
+            <div style={{
+              display: 'flex',
+              gap: '16px',
+              flexWrap: 'wrap',
+              '@media (max-width: 568px)': {
+                justifyContent: 'center'
+              }
+            }}>
+              {!isVerifiedBrokerUser && (
                 <button
-                  key={tab.key}
-                  onClick={() => setActiveTab(tab.key)}
+                  onClick={() => setShowBrokerVerificationModal(true)}
                   style={{
-                    background: activeTab === tab.key
-                      ? 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)'
-                      : 'transparent',
-                    color: activeTab === tab.key ? '#ffffff' : '#64748b',
+                    background: 'rgba(255, 255, 255, 0.95)',
+                    color: '#1f2937',
                     border: 'none',
+                    padding: '16px 32px',
+                    borderRadius: '12px',
                     cursor: 'pointer',
-                    fontSize: '14px',
-                    fontWeight: activeTab === tab.key ? '600' : '500',
-                    padding: '10px 16px',
-                    borderRadius: '8px',
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    fontSize: '16px',
+                    fontWeight: '700',
+                    transform: 'translateY(0)',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 8px 25px rgba(0,0,0,0.15)',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '6px',
-                    transform: activeTab === tab.key ? 'translateY(-1px)' : 'translateY(0)',
-                    boxShadow: activeTab === tab.key ? '0 4px 12px rgba(59, 130, 246, 0.3)' : 'none'
+                    gap: '8px'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)'
+                    e.currentTarget.style.boxShadow = '0 12px 35px rgba(0,0,0,0.2)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)'
                   }}
                 >
-                  <span style={{ fontSize: '16px' }}>{tab.icon}</span>
-                  {tab.label}
+                  💎 {t.openAccount} • {t.fromOnly}
                 </button>
-              ))}
+              )}
+
+              <button
+                onClick={() => setActiveTab('signals')}
+                style={{
+                  background: 'transparent',
+                  color: 'white',
+                  border: '2px solid rgba(255,255,255,0.6)',
+                  padding: '16px 32px',
+                  borderRadius: '12px',
+                  cursor: 'pointer',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.1)'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.9)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.6)'
+                }}
+              >
+                ⚡ {t.freeSignals}
+              </button>
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              color: '#64748b',
-              fontSize: '13px',
-              fontWeight: '500'
+          {/* Right Content - Limited Signal Preview */}
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(20px)',
+            borderRadius: '20px',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            padding: '30px',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+            position: 'relative',
+            zIndex: 2
+          }} className="hero-grid">
+
+            <h3 style={{
+              color: 'white',
+              fontSize: '20px',
+              fontWeight: '700',
+              margin: '0 0 16px 0',
+              textAlign: 'center'
             }}>
-              <span style={{
-                width: '8px',
-                height: '8px',
-                backgroundColor: '#10b981',
-                borderRadius: '50%',
-                animation: 'pulse 2s infinite'
-              }} />
-              LIVE • {currentTime.toLocaleTimeString()}
-            </div>
-            <button
-              onClick={() => { setShowAuthModal(true); setAuthMode('login') }}
-              style={{
-                background: 'transparent',
-                border: '2px solid #3b82f6',
-                color: '#3b82f6',
-                padding: '8px 16px',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontSize: '14px',
-                fontWeight: '600',
-                transition: 'all 0.3s ease'
-              }}
-            >
-              Login
-            </button>
-            {/* Broker Verification Status */}
-            {isVerifiedBrokerUser ? (
+              🎯 {t.freeSignals}
+            </h3>
+
+            {/* Daily AI Insights */}
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: '12px',
+              padding: '16px',
+              marginBottom: '20px',
+              border: '1px solid rgba(255, 255, 255, 0.2)'
+            }}>
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                marginBottom: '8px'
+              }}>
+                <span style={{ fontSize: '16px' }}>🤖</span>
+                <span style={{
+                  color: 'white',
+                  fontSize: '12px',
+                  fontWeight: '600',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}>AI Daily Insight</span>
+                {isLoadingInsights && (
+                  <div style={{
+                    width: '12px',
+                    height: '12px',
+                    border: '2px solid rgba(255,255,255,0.3)',
+                    borderTop: '2px solid white',
+                    borderRadius: '50%',
+                    animation: 'spin 1s linear infinite'
+                  }} />
+                )}
+              </div>
+              <p style={{
+                color: 'rgba(255, 255, 255, 0.9)',
+                fontSize: '11px',
+                lineHeight: '1.4',
+                margin: 0,
+                fontStyle: 'italic'
+              }}>
+                {dailyInsights || (language === 'en'
+                  ? 'Loading fresh market insights...'
+                  : 'تازہ مارکیٹ بصیرت لوڈ ہو رہی ہے...'
+                )}
+              </p>
+            </div>
+
+            {/* Preview Signals */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {asianMarkets.slice(0, 3).map((signal, index) => (
+                <div
+                  key={index}
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '12px',
+                    padding: '16px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    filter: index >= 3 - signalsViewedCount && !isVerifiedBrokerUser ? 'blur(3px)' : 'none',
+                    opacity: index >= 3 - signalsViewedCount && !isVerifiedBrokerUser ? 0.7 : 1,
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  <div>
+                    <div style={{
+                      fontWeight: '700',
+                      fontSize: '14px',
+                      color: '#1f2937',
+                      marginBottom: '4px'
+                    }}>
+                      {signal.name}
+                    </div>
+                    <div style={{
+                      fontSize: '12px',
+                      color: '#64748b'
+                    }}>
+                      {signal.price}
+                    </div>
+                  </div>
+
+                  <div style={{
+                    background: signal.signal === 'BUY' || signal.signal === 'STRONG BUY'
+                      ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)'
+                      : signal.signal === 'SELL'
+                      ? 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)'
+                      : 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                    color: 'white',
+                    padding: '6px 12px',
+                    borderRadius: '6px',
+                    fontSize: '11px',
+                    fontWeight: '700'
+                  }}>
+                    {signal.signal}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {!isVerifiedBrokerUser && (
+              <div style={{
+                marginTop: '20px',
+                textAlign: 'center',
+                padding: '16px',
+                background: 'rgba(255, 255, 255, 0.1)',
+                borderRadius: '12px',
+                border: '1px dashed rgba(255, 255, 255, 0.3)'
+              }}>
+                <div style={{
+                  color: 'rgba(255, 255, 255, 0.9)',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  marginBottom: '8px'
+                }}>
+                  {t.unlockMore}
+                </div>
+                <div style={{
+                  color: 'rgba(255, 255, 255, 0.7)',
+                  fontSize: '12px'
+                }}>
+                  ✨ 100+ Daily Signals • Real-time Analysis • Expert Insights
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Simplified Tab Navigation */}
+      <div style={{
+        background: 'white',
+        borderBottom: '1px solid #e2e8f0',
+        padding: '0',
+        position: 'sticky',
+        top: '64px',
+        zIndex: 90
+      }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          display: 'flex',
+          overflowX: 'auto',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none'
+        }} className="tab-nav">
+          {[
+            { key: 'signals', label: 'Live Signals', icon: '⚡' },
+            { key: 'markets', label: 'Markets', icon: '🌏' },
+            { key: 'news', label: 'News', icon: '📰' },
+            { key: 'education', label: 'Learn', icon: '🎓' }
+          ].map(tab => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              style={{
+                background: 'transparent',
+                color: activeTab === tab.key ? '#6366f1' : '#64748b',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '14px',
+                fontWeight: activeTab === tab.key ? '700' : '500',
+                padding: '16px 24px',
+                borderBottom: activeTab === tab.key ? '3px solid #6366f1' : '3px solid transparent',
+                transition: 'all 0.3s ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                whiteSpace: 'nowrap',
+                flex: '1'
+              }}
+            >
+              <span style={{ fontSize: '16px' }}>{tab.icon}</span>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
                 color: 'white',
                 padding: '8px 16px',
                 borderRadius: '8px',
@@ -4582,87 +4956,505 @@ Your journey to financial freedom starts with the first investment. Take that st
         {/* Enhanced Dashboard */}
         {activeTab === 'dashboard' && (
           <div>
-            {/* Hero Section */}
-            <div style={{
-              background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
-              borderRadius: '20px',
-              padding: '40px',
-              marginBottom: '32px',
-              color: 'white',
+            {/* Revolutionary Hero Section */}
+            <div className="hero-section" style={{
+              background: 'linear-gradient(135deg, #0f0f23 0%, #1a0033 25%, #2d1b69 50%, #3730a3 75%, #4c1d95 100%)',
+              borderRadius: '32px',
+              padding: '0',
+              marginBottom: '40px',
               position: 'relative',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              minHeight: '60vh',
+              display: 'flex',
+              alignItems: 'center',
+              boxShadow: '0 32px 64px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05)'
             }}>
+              {/* Animated Background Elements */}
+              <div style={{
+                position: 'absolute',
+                top: '-50%',
+                left: '-50%',
+                width: '200%',
+                height: '200%',
+                background: 'radial-gradient(circle at 30% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%), radial-gradient(circle at 90% 10%, rgba(16, 185, 129, 0.1) 0%, transparent 50%)',
+                animation: 'float 20s ease-in-out infinite'
+              }} />
+
+              {/* Floating Particles */}
               <div style={{
                 position: 'absolute',
                 top: 0,
+                left: 0,
                 right: 0,
-                width: '300px',
-                height: '300px',
-                background: 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)',
-                borderRadius: '50%'
+                bottom: 0,
+                background: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'1\' fill=\'rgba(255,255,255,0.1)\'/%3E%3Ccircle cx=\'60\' cy=\'40\' r=\'1.5\' fill=\'rgba(168,85,247,0.2)\'/%3E%3Ccircle cx=\'80\' cy=\'70\' r=\'1\' fill=\'rgba(59,130,246,0.15)\'/%3E%3C/svg%3E")',
+                backgroundSize: '200px 200px',
+                animation: 'particles 30s linear infinite'
               }} />
 
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                <h1 style={{
-                  fontSize: '48px',
-                  fontWeight: '800',
-                  marginBottom: '16px',
-                  background: 'linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  letterSpacing: '-0.025em'
-                }}>
-                  Pakistan's Premier Trading Intelligence
-                </h1>
-                <p style={{
-                  fontSize: '20px',
-                  color: '#cbd5e1',
-                  marginBottom: '32px',
-                  maxWidth: '600px',
-                  lineHeight: 1.6
-                }}>
-                  AI-powered market analysis with 89.4% accuracy. Real-time signals, comprehensive research, and professional-grade tools for Pakistani traders.
-                </p>
-
-                <div style={{ display: 'flex', gap: '16px' }}>
-                  <button
-                    onClick={handleStartTrading}
-                    style={{
-                    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                    border: 'none',
-                    color: 'white',
-                    padding: '14px 28px',
-                    borderRadius: '12px',
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 8px 24px rgba(16, 185, 129, 0.3)'
-                  }}>
-                    Start Trading Now
-                  </button>
-                  <button
-                    onClick={handleViewSignals}
-                    style={{
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    border: '2px solid rgba(255, 255, 255, 0.2)',
-                    color: 'white',
-                    padding: '14px 28px',
-                    borderRadius: '12px',
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
+              <div className="hero-content" style={{
+                position: 'relative',
+                zIndex: 2,
+                width: '100%',
+                padding: '60px 40px',
+                display: 'grid',
+                gridTemplateColumns: window.innerWidth > 768 ? '1fr 1fr' : '1fr',
+                gap: '60px',
+                alignItems: 'center'
+              }}>
+                {/* Left Content */}
+                <div>
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    padding: '8px 20px',
+                    background: 'rgba(16, 185, 129, 0.15)',
+                    border: '1px solid rgba(16, 185, 129, 0.3)',
+                    borderRadius: '24px',
+                    marginBottom: '24px',
                     backdropFilter: 'blur(10px)'
                   }}>
-                    View Live Signals
-                  </button>
+                    <span style={{
+                      fontSize: '12px',
+                      color: '#10b981',
+                      fontWeight: '700',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em'
+                    }}>
+                      🚀 89.4% Accuracy Rate
+                    </span>
+                  </div>
+
+                  <h1 className="hero-title" style={{
+                    fontSize: window.innerWidth > 768 ? '56px' : '40px',
+                    fontWeight: '900',
+                    lineHeight: '1.1',
+                    marginBottom: '24px',
+                    background: 'linear-gradient(135deg, #ffffff 0%, #e2e8f0 40%, #a855f7 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    letterSpacing: '-0.02em'
+                  }}>
+                    Trade Smart,<br />
+                    <span style={{
+                      background: 'linear-gradient(135deg, #10b981 0%, #3b82f6 50%, #a855f7 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent'
+                    }}>
+                      Start from $10
+                    </span>
+                  </h1>
+
+                  <p className="hero-subtitle" style={{
+                    fontSize: '20px',
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    marginBottom: '40px',
+                    lineHeight: 1.6,
+                    maxWidth: '500px'
+                  }}>
+                    Join 12,000+ Pakistani traders. AI-powered signals, expert analysis, and professional broker partnerships. Learn → Practice → Earn.
+                  </p>
+
+                  {/* CTA Buttons */}
+                  <div className="cta-buttons" style={{
+                    display: 'flex',
+                    gap: '16px',
+                    flexDirection: window.innerWidth > 480 ? 'row' : 'column'
+                  }}>
+                    <button
+                      onClick={handleStartTrading}
+                      className="cta-button touch-target"
+                      style={{
+                        background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                        border: 'none',
+                        color: 'white',
+                        padding: '18px 36px',
+                        borderRadius: '16px',
+                        fontSize: '16px',
+                        fontWeight: '700',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                        boxShadow: '0 12px 32px rgba(16, 185, 129, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05)',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        minWidth: '180px'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.transform = 'translateY(-2px) scale(1.02)'
+                        e.target.style.boxShadow = '0 16px 40px rgba(16, 185, 129, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1)'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.transform = 'translateY(0) scale(1)'
+                        e.target.style.boxShadow = '0 12px 32px rgba(16, 185, 129, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05)'
+                      }}
+                    >
+                      🚀 Start Trading Now
+                    </button>
+
+                    <button
+                      onClick={() => setShowBrokerVerificationModal(true)}
+                      className="cta-button touch-target"
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.08)',
+                        border: '2px solid rgba(255, 255, 255, 0.2)',
+                        color: 'white',
+                        padding: '18px 36px',
+                        borderRadius: '16px',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                        backdropFilter: 'blur(10px)',
+                        minWidth: '180px'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.background = 'rgba(255, 255, 255, 0.15)'
+                        e.target.style.borderColor = 'rgba(255, 255, 255, 0.4)'
+                        e.target.style.transform = 'translateY(-2px)'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.background = 'rgba(255, 255, 255, 0.08)'
+                        e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)'
+                        e.target.style.transform = 'translateY(0)'
+                      }}
+                    >
+                      💎 Get Full Access
+                    </button>
+                  </div>
+
+                  {/* Trust Indicators */}
+                  <div className="trust-indicators" style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '24px',
+                    marginTop: '32px',
+                    flexWrap: 'wrap'
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div style={{
+                        width: '40px',
+                        height: '40px',
+                        background: 'linear-gradient(135deg, #10b981, #059669)',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '18px'
+                      }}>✓</div>
+                      <span style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '14px', fontWeight: '600' }}>
+                        12,000+ Active Traders
+                      </span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div style={{
+                        width: '40px',
+                        height: '40px',
+                        background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '18px'
+                      }}>🛡️</div>
+                      <span style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '14px', fontWeight: '600' }}>
+                        Regulated Brokers
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Content - Preview Cards */}
+                <div style={{ position: 'relative' }}>
+                  {/* Limited Preview Message */}
+                  <div style={{
+                    background: 'rgba(168, 85, 247, 0.15)',
+                    border: '1px solid rgba(168, 85, 247, 0.3)',
+                    borderRadius: '16px',
+                    padding: '20px',
+                    marginBottom: '24px',
+                    backdropFilter: 'blur(10px)',
+                    textAlign: 'center'
+                  }}>
+                    <p style={{
+                      color: '#a855f7',
+                      fontSize: '14px',
+                      fontWeight: '700',
+                      margin: 0,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em'
+                    }}>
+                      🔒 Preview Mode - 2 of 24 Signals Shown
+                    </p>
+                  </div>
+
+                  {/* Signal Preview Cards */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    {/* Signal Card 1 */}
+                    <div className="signal-preview-card interactive-card" style={{
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      backdropFilter: 'blur(20px)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      borderRadius: '20px',
+                      padding: '24px',
+                      position: 'relative',
+                      overflow: 'hidden'
+                    }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <div style={{
+                            width: '40px',
+                            height: '40px',
+                            background: 'linear-gradient(135deg, #10b981, #059669)',
+                            borderRadius: '12px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '18px'
+                          }}>🟢</div>
+                          <div>
+                            <h4 style={{ color: 'white', fontSize: '18px', fontWeight: '700', margin: 0 }}>EUR/USD</h4>
+                            <p style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '12px', margin: 0 }}>BUY Signal</p>
+                          </div>
+                        </div>
+                        <div style={{
+                          background: 'rgba(16, 185, 129, 0.2)',
+                          color: '#10b981',
+                          padding: '6px 12px',
+                          borderRadius: '8px',
+                          fontSize: '12px',
+                          fontWeight: '700'
+                        }}>
+                          +127 Pips
+                        </div>
+                      </div>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', fontSize: '14px' }}>
+                        <div>
+                          <span style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Entry: </span>
+                          <span style={{ color: 'white', fontWeight: '600' }}>1.0876</span>
+                        </div>
+                        <div>
+                          <span style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Target: </span>
+                          <span style={{ color: '#10b981', fontWeight: '600' }}>1.0903</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Signal Card 2 */}
+                    <div className="signal-preview-card interactive-card" style={{
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      backdropFilter: 'blur(20px)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      borderRadius: '20px',
+                      padding: '24px',
+                      position: 'relative',
+                      overflow: 'hidden'
+                    }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <div style={{
+                            width: '40px',
+                            height: '40px',
+                            background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+                            borderRadius: '12px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '18px'
+                          }}>🟡</div>
+                          <div>
+                            <h4 style={{ color: 'white', fontSize: '18px', fontWeight: '700', margin: 0 }}>GOLD</h4>
+                            <p style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '12px', margin: 0 }}>SELL Signal</p>
+                          </div>
+                        </div>
+                        <div style={{
+                          background: 'rgba(239, 68, 68, 0.2)',
+                          color: '#ef4444',
+                          padding: '6px 12px',
+                          borderRadius: '8px',
+                          fontSize: '12px',
+                          fontWeight: '700'
+                        }}>
+                          In Progress
+                        </div>
+                      </div>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', fontSize: '14px' }}>
+                        <div>
+                          <span style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Entry: </span>
+                          <span style={{ color: 'white', fontWeight: '600' }}>2,456.80</span>
+                        </div>
+                        <div>
+                          <span style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Target: </span>
+                          <span style={{ color: '#ef4444', fontWeight: '600' }}>2,441.20</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Blurred More Signals Indicator */}
+                    <div style={{
+                      background: 'rgba(255, 255, 255, 0.03)',
+                      backdropFilter: 'blur(20px)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      borderRadius: '20px',
+                      padding: '40px 24px',
+                      textAlign: 'center',
+                      position: 'relative',
+                      filter: 'blur(2px)',
+                      opacity: 0.6
+                    }}>
+                      <div style={{ color: 'white', fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>
+                        +22 More Signals
+                      </div>
+                      <div style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '14px' }}>
+                        BTC • GBP/USD • SILVER • TESLA • and more...
+                      </div>
+                      <div style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        background: 'rgba(168, 85, 247, 0.9)',
+                        color: 'white',
+                        padding: '8px 16px',
+                        borderRadius: '8px',
+                        fontSize: '12px',
+                        fontWeight: '700',
+                        filter: 'blur(0)'
+                      }}>
+                        🔓 UNLOCK NOW
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+
+              {/* Enhanced CSS with Mobile Optimizations */}
+              <style jsx>{`
+                @keyframes float {
+                  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+                  33% { transform: translate(10px, -10px) rotate(1deg); }
+                  66% { transform: translate(-5px, 5px) rotate(-1deg); }
+                }
+                @keyframes particles {
+                  0% { transform: translateY(0) translateX(0); }
+                  100% { transform: translateY(-100px) translateX(20px); }
+                }
+                @keyframes pulse {
+                  0%, 100% { opacity: 1; }
+                  50% { opacity: 0.8; }
+                }
+                @keyframes slideUp {
+                  from { transform: translateY(20px); opacity: 0; }
+                  to { transform: translateY(0); opacity: 1; }
+                }
+                @keyframes shimmer {
+                  0% { background-position: -200px 0; }
+                  100% { background-position: calc(200px + 100%) 0; }
+                }
+
+                /* Mobile-first responsive optimizations */
+                @media (max-width: 768px) {
+                  .hero-section {
+                    min-height: 80vh !important;
+                    padding: 40px 20px !important;
+                  }
+                  .hero-content {
+                    grid-template-columns: 1fr !important;
+                    gap: 40px !important;
+                    text-align: center !important;
+                  }
+                  .hero-title {
+                    font-size: 32px !important;
+                    line-height: 1.2 !important;
+                  }
+                  .hero-subtitle {
+                    font-size: 18px !important;
+                  }
+                  .cta-buttons {
+                    flex-direction: column !important;
+                    width: 100% !important;
+                  }
+                  .cta-button {
+                    width: 100% !important;
+                    min-height: 50px !important;
+                    font-size: 16px !important;
+                    padding: 16px 24px !important;
+                  }
+                  .trust-indicators {
+                    justify-content: center !important;
+                    text-align: center !important;
+                  }
+                  .signal-preview-card {
+                    padding: 20px !important;
+                  }
+                  .pillar-grid {
+                    grid-template-columns: 1fr !important;
+                    gap: 20px !important;
+                  }
+                  .broker-grid {
+                    grid-template-columns: 1fr !important;
+                  }
+                  .broker-cta-section {
+                    padding: 40px 20px !important;
+                  }
+                  .metrics-grid {
+                    grid-template-columns: 1fr !important;
+                    gap: 16px !important;
+                  }
+                }
+
+                @media (max-width: 480px) {
+                  .hero-section {
+                    min-height: 70vh !important;
+                    padding: 30px 16px !important;
+                    margin-bottom: 24px !important;
+                  }
+                  .hero-title {
+                    font-size: 28px !important;
+                  }
+                  .hero-subtitle {
+                    font-size: 16px !important;
+                  }
+                  .performance-metric {
+                    padding: 20px !important;
+                  }
+                  .broker-cta-section {
+                    padding: 30px 16px !important;
+                    margin-bottom: 24px !important;
+                  }
+                  .pillar-card {
+                    padding: 24px 20px !important;
+                  }
+                }
+
+                /* Touch-friendly interactions */
+                .touch-target {
+                  min-height: 44px;
+                  min-width: 44px;
+                  touch-action: manipulation;
+                }
+
+                .interactive-card:active {
+                  transform: scale(0.98) !important;
+                  transition: transform 0.1s ease !important;
+                }
+
+                /* Improved focus states for accessibility */
+                .cta-button:focus,
+                .broker-button:focus,
+                .pillar-card:focus {
+                  outline: 2px solid #10b981;
+                  outline-offset: 2px;
+                }
+
+                /* Smooth scrolling */
+                html {
+                  scroll-behavior: smooth;
+                }
+              `}</style>
             </div>
 
             {/* Enhanced Performance Metrics */}
-            <div style={{
+            <div className="metrics-grid" style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
               gap: '24px',
@@ -4674,7 +5466,7 @@ Your journey to financial freedom starts with the first investment. Take that st
                 { title: 'Total Pips', value: '2,847', change: '+124 today', icon: '📈', color: '#f59e0b', progress: 76, subtitle: 'Profit generated' },
                 { title: 'Premium Members', value: '5,240', change: '+89 today', icon: '👥', color: '#8b5cf6', progress: 92, subtitle: 'Growing community' }
               ].map((metric, index) => (
-                <div key={index} style={{
+                <div key={index} className="performance-metric interactive-card touch-target" style={{
                   background: 'rgba(255, 255, 255, 0.9)',
                   backdropFilter: 'blur(20px)',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
@@ -4725,6 +5517,345 @@ Your journey to financial freedom starts with the first investment. Take that st
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Broker Partnership CTA Section */}
+            <div className="broker-cta-section" style={{
+              background: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 25%, #3730a3 50%, #1e40af 75%, #1d4ed8 100%)',
+              borderRadius: '32px',
+              padding: '0',
+              marginBottom: '40px',
+              position: 'relative',
+              overflow: 'hidden',
+              boxShadow: '0 24px 48px rgba(29, 78, 216, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05)'
+            }}>
+              {/* Background Pattern */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Cpath d=\'M0 0h100v100H0z\' fill=\'none\'/%3E%3Cpath d=\'M20 20h60v60H20z\' fill=\'none\' stroke=\'rgba(255,255,255,0.03)\' stroke-width=\'0.5\'/%3E%3Cpath d=\'M40 40h20v20H40z\' fill=\'rgba(59,130,246,0.05)\'/%3E%3C/svg%3E")',
+                backgroundSize: '60px 60px',
+                opacity: 0.4
+              }} />
+
+              <div style={{
+                position: 'relative',
+                zIndex: 2,
+                padding: '60px 40px',
+                textAlign: 'center'
+              }}>
+                {/* Badge */}
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '12px 24px',
+                  background: 'rgba(16, 185, 129, 0.15)',
+                  border: '1px solid rgba(16, 185, 129, 0.3)',
+                  borderRadius: '24px',
+                  marginBottom: '32px',
+                  backdropFilter: 'blur(10px)'
+                }}>
+                  <span style={{
+                    fontSize: '14px',
+                    color: '#10b981',
+                    fontWeight: '700',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em'
+                  }}>
+                    💰 Exclusive Partnership
+                  </span>
+                </div>
+
+                <h2 style={{
+                  fontSize: window.innerWidth > 768 ? '48px' : '36px',
+                  fontWeight: '900',
+                  lineHeight: '1.1',
+                  marginBottom: '24px',
+                  color: 'white',
+                  letterSpacing: '-0.02em'
+                }}>
+                  Start Trading from <span style={{
+                    background: 'linear-gradient(135deg, #10b981 0%, #3b82f6 50%, #a855f7 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }}>$10</span>
+                </h2>
+
+                <p style={{
+                  fontSize: '20px',
+                  color: 'rgba(255, 255, 255, 0.8)',
+                  marginBottom: '48px',
+                  lineHeight: 1.6,
+                  maxWidth: '600px',
+                  margin: '0 auto 48px auto'
+                }}>
+                  Partner with our trusted brokers and get <strong>FREE access</strong> to all premium signals, education, and tools. No hidden fees, no commitments.
+                </p>
+
+                {/* Three Pillars */}
+                <div className="pillar-grid" style={{
+                  display: 'grid',
+                  gridTemplateColumns: window.innerWidth > 768 ? 'repeat(3, 1fr)' : '1fr',
+                  gap: '32px',
+                  marginBottom: '48px',
+                  maxWidth: '800px',
+                  margin: '0 auto 48px auto'
+                }}>
+                  {[
+                    {
+                      icon: '📚',
+                      title: 'Learn',
+                      description: 'Comprehensive trading education from basics to advanced strategies',
+                      color: '#3b82f6'
+                    },
+                    {
+                      icon: '🎯',
+                      title: 'Practice',
+                      description: 'Demo accounts with real market conditions. Risk-free learning',
+                      color: '#10b981'
+                    },
+                    {
+                      icon: '💰',
+                      title: 'Earn',
+                      description: 'Start with $10 minimum deposit. Scale with our proven signals',
+                      color: '#a855f7'
+                    }
+                  ].map((pillar, index) => (
+                    <div key={index} className="pillar-card interactive-card touch-target" style={{
+                      background: 'rgba(255, 255, 255, 0.08)',
+                      backdropFilter: 'blur(20px)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      borderRadius: '20px',
+                      padding: '32px 24px',
+                      textAlign: 'center',
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                      cursor: 'pointer'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-8px)'
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'
+                      e.currentTarget.style.borderColor = `${pillar.color}40`
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)'
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'
+                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'
+                    }}>
+                      <div style={{
+                        width: '60px',
+                        height: '60px',
+                        background: `linear-gradient(135deg, ${pillar.color}, ${pillar.color}cc)`,
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '24px',
+                        margin: '0 auto 20px auto',
+                        boxShadow: `0 8px 24px ${pillar.color}40`
+                      }}>
+                        {pillar.icon}
+                      </div>
+                      <h3 style={{
+                        fontSize: '24px',
+                        fontWeight: '700',
+                        color: 'white',
+                        marginBottom: '12px'
+                      }}>
+                        {pillar.title}
+                      </h3>
+                      <p style={{
+                        fontSize: '16px',
+                        color: 'rgba(255, 255, 255, 0.7)',
+                        lineHeight: 1.5,
+                        margin: 0
+                      }}>
+                        {pillar.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Broker Selection */}
+                <div style={{
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  borderRadius: '24px',
+                  padding: '40px',
+                  marginBottom: '40px'
+                }}>
+                  <h3 style={{
+                    fontSize: '24px',
+                    fontWeight: '700',
+                    color: 'white',
+                    marginBottom: '24px',
+                    textAlign: 'center'
+                  }}>
+                    Choose Your Trusted Broker Partner
+                  </h3>
+
+                  <div className="broker-grid" style={{
+                    display: 'grid',
+                    gridTemplateColumns: window.innerWidth > 768 ? 'repeat(2, 1fr)' : '1fr',
+                    gap: '20px'
+                  }}>
+                    {trustedBrokers.slice(0, 4).map((broker, index) => (
+                      <button
+                        key={index}
+                        className="broker-button touch-target interactive-card"
+                        onClick={() => {
+                          setSelectedBroker(broker.id)
+                          setShowBrokerVerificationModal(true)
+                        }}
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.08)',
+                          border: `2px solid ${selectedBroker === broker.id ? broker.color : 'rgba(255, 255, 255, 0.1)'}`,
+                          borderRadius: '16px',
+                          padding: '20px',
+                          cursor: 'pointer',
+                          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                          textAlign: 'left',
+                          width: '100%'
+                        }}
+                        onMouseEnter={(e) => {
+                          if (selectedBroker !== broker.id) {
+                            e.target.style.borderColor = `${broker.color}60`
+                            e.target.style.background = 'rgba(255, 255, 255, 0.12)'
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (selectedBroker !== broker.id) {
+                            e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)'
+                            e.target.style.background = 'rgba(255, 255, 255, 0.08)'
+                          }
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                          <div style={{
+                            width: '48px',
+                            height: '48px',
+                            background: `linear-gradient(135deg, ${broker.color}, ${broker.color}cc)`,
+                            borderRadius: '12px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '20px'
+                          }}>
+                            {broker.logo}
+                          </div>
+                          <div>
+                            <h4 style={{
+                              fontSize: '18px',
+                              fontWeight: '700',
+                              color: 'white',
+                              margin: 0,
+                              marginBottom: '4px'
+                            }}>
+                              {broker.name}
+                            </h4>
+                            <p style={{
+                              fontSize: '14px',
+                              color: 'rgba(255, 255, 255, 0.6)',
+                              margin: 0
+                            }}>
+                              Min. $10 • Regulated • Trusted
+                            </p>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Main CTA */}
+                <button
+                  onClick={() => setShowBrokerVerificationModal(true)}
+                  style={{
+                    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                    border: 'none',
+                    color: 'white',
+                    padding: '20px 48px',
+                    borderRadius: '16px',
+                    fontSize: '18px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    boxShadow: '0 12px 32px rgba(16, 185, 129, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05)',
+                    marginRight: '16px',
+                    marginBottom: window.innerWidth <= 480 ? '16px' : '0'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'translateY(-3px) scale(1.02)'
+                    e.target.style.boxShadow = '0 16px 40px rgba(16, 185, 129, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'translateY(0) scale(1)'
+                    e.target.style.boxShadow = '0 12px 32px rgba(16, 185, 129, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05)'
+                  }}
+                >
+                  🚀 Get Free Access Now
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('education')}
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    border: '2px solid rgba(255, 255, 255, 0.2)',
+                    color: 'white',
+                    padding: '20px 48px',
+                    borderRadius: '16px',
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    backdropFilter: 'blur(10px)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = 'rgba(255, 255, 255, 0.15)'
+                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.4)'
+                    e.target.style.transform = 'translateY(-2px)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = 'rgba(255, 255, 255, 0.08)'
+                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)'
+                    e.target.style.transform = 'translateY(0)'
+                  }}
+                >
+                  📚 Learn First
+                </button>
+
+                {/* Trust Indicators */}
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '32px',
+                  marginTop: '40px',
+                  flexWrap: 'wrap'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '20px' }}>🛡️</span>
+                    <span style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '14px', fontWeight: '600' }}>
+                      Regulated Brokers
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '20px' }}>💸</span>
+                    <span style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '14px', fontWeight: '600' }}>
+                      No Hidden Fees
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '20px' }}>⚡</span>
+                    <span style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '14px', fontWeight: '600' }}>
+                      Instant Access
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Premium Trading Signals Section */}
@@ -5413,6 +6544,296 @@ Your journey to financial freedom starts with the first investment. Take that st
                 </div>
                 )
               })}
+            </div>
+          </div>
+        )}
+
+        {/* Learn, Practice, Earn & Enjoy Section */}
+        {!isVerifiedBrokerUser && (
+          <div style={{
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            margin: '40px 0',
+            borderRadius: '20px',
+            padding: '60px 0',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'radial-gradient(circle at 30% 70%, rgba(255,255,255,0.1) 0%, transparent 50%)',
+              animation: 'float 8s ease-in-out infinite'
+            }} />
+
+            <div style={{
+              maxWidth: '1400px',
+              margin: '0 auto',
+              padding: '0 20px',
+              textAlign: 'center',
+              position: 'relative',
+              zIndex: 2
+            }}>
+              <h2 style={{
+                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+                fontWeight: '900',
+                color: 'white',
+                marginBottom: '20px',
+                textShadow: '0 2px 20px rgba(0,0,0,0.3)'
+              }}>
+                🚀 {t.learnPractice}
+              </h2>
+
+              <p style={{
+                fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)',
+                color: 'rgba(255,255,255,0.9)',
+                marginBottom: '50px',
+                lineHeight: '1.6',
+                maxWidth: '600px',
+                margin: '0 auto 50px auto'
+              }}>
+                Join thousands of successful traders. Start with just {t.fromOnly} and unlock unlimited potential.
+              </p>
+
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: '30px',
+                marginBottom: '50px'
+              }} className="learn-cards">
+                {/* Learn Card */}
+                <div style={{
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(20px)',
+                  borderRadius: '16px',
+                  padding: '30px',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-5px)'
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = 'none'
+                }}>
+                  <div style={{
+                    fontSize: '3rem',
+                    marginBottom: '16px'
+                  }}>📚</div>
+                  <h3 style={{
+                    color: 'white',
+                    fontSize: '24px',
+                    fontWeight: '700',
+                    marginBottom: '12px'
+                  }}>Learn</h3>
+                  <p style={{
+                    color: 'rgba(255,255,255,0.8)',
+                    fontSize: '14px',
+                    lineHeight: '1.5'
+                  }}>Master trading fundamentals with our comprehensive courses and expert guidance.</p>
+                </div>
+
+                {/* Practice Card */}
+                <div style={{
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(20px)',
+                  borderRadius: '16px',
+                  padding: '30px',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-5px)'
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = 'none'
+                }}>
+                  <div style={{
+                    fontSize: '3rem',
+                    marginBottom: '16px'
+                  }}>🎯</div>
+                  <h3 style={{
+                    color: 'white',
+                    fontSize: '24px',
+                    fontWeight: '700',
+                    marginBottom: '12px'
+                  }}>Practice</h3>
+                  <p style={{
+                    color: 'rgba(255,255,255,0.8)',
+                    fontSize: '14px',
+                    lineHeight: '1.5'
+                  }}>Risk-free demo trading with real market conditions and professional tools.</p>
+                </div>
+
+                {/* Earn Card */}
+                <div style={{
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(20px)',
+                  borderRadius: '16px',
+                  padding: '30px',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-5px)'
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = 'none'
+                }}>
+                  <div style={{
+                    fontSize: '3rem',
+                    marginBottom: '16px'
+                  }}>💰</div>
+                  <h3 style={{
+                    color: 'white',
+                    fontSize: '24px',
+                    fontWeight: '700',
+                    marginBottom: '12px'
+                  }}>Earn</h3>
+                  <p style={{
+                    color: 'rgba(255,255,255,0.8)',
+                    fontSize: '14px',
+                    lineHeight: '1.5'
+                  }}>Generate consistent profits with our proven signals and strategies.</p>
+                </div>
+
+                {/* Enjoy Card */}
+                <div style={{
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(20px)',
+                  borderRadius: '16px',
+                  padding: '30px',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-5px)'
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = 'none'
+                }}>
+                  <div style={{
+                    fontSize: '3rem',
+                    marginBottom: '16px'
+                  }}>🎉</div>
+                  <h3 style={{
+                    color: 'white',
+                    fontSize: '24px',
+                    fontWeight: '700',
+                    marginBottom: '12px'
+                  }}>Enjoy</h3>
+                  <p style={{
+                    color: 'rgba(255,255,255,0.8)',
+                    fontSize: '14px',
+                    lineHeight: '1.5'
+                  }}>Experience the thrill of successful trading and financial freedom.</p>
+                </div>
+              </div>
+
+              {/* Broker Selection CTA */}
+              <div style={{
+                background: 'rgba(255, 255, 255, 0.15)',
+                borderRadius: '16px',
+                padding: '40px',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                marginBottom: '30px'
+              }}>
+                <h3 style={{
+                  color: 'white',
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  marginBottom: '20px'
+                }}>💎 Choose Your Trusted Broker</h3>
+
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                  gap: '16px',
+                  marginBottom: '30px'
+                }} className="broker-cards">
+                  {trustedBrokers.map((broker) => (
+                    <button
+                      key={broker.id}
+                      onClick={() => {
+                        window.open(broker.verificationUrl, '_blank')
+                        setShowBrokerVerificationModal(true)
+                      }}
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.9)',
+                        border: 'none',
+                        borderRadius: '12px',
+                        padding: '20px',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: '8px'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.02)'
+                        e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)'
+                        e.currentTarget.style.boxShadow = 'none'
+                      }}
+                    >
+                      <span style={{ fontSize: '24px' }}>{broker.logo}</span>
+                      <span style={{
+                        fontWeight: '700',
+                        fontSize: '14px',
+                        color: '#1f2937'
+                      }}>{broker.name}</span>
+                      <span style={{
+                        fontSize: '12px',
+                        color: '#059669',
+                        fontWeight: '600'
+                      }}>From $10</span>
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => setShowBrokerVerificationModal(true)}
+                  style={{
+                    background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                    color: 'white',
+                    border: 'none',
+                    padding: '16px 40px',
+                    borderRadius: '12px',
+                    cursor: 'pointer',
+                    fontSize: '18px',
+                    fontWeight: '700',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 8px 25px rgba(245, 158, 11, 0.4)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)'
+                    e.currentTarget.style.boxShadow = '0 12px 35px rgba(245, 158, 11, 0.5)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(245, 158, 11, 0.4)'
+                  }}
+                >
+                  🚀 Start Trading Now • {t.fromOnly}
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -9549,6 +10970,46 @@ Your journey to financial freedom starts with the first investment. Take that st
 
         button:hover {
           transform: translateY(-1px);
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-10px) rotate(2deg); }
+        }
+
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+
+        @keyframes marquee {
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
+        }
+
+        @keyframes gradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 968px) {
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+            text-align: center !important;
+          }
+        }
+
+        @media (max-width: 568px) {
+          .cta-buttons {
+            justify-content: center !important;
+          }
         }
       `}</style>
     </div>
