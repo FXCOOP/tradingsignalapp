@@ -1565,6 +1565,15 @@ export default function HomePage() {
   const tradingArticles = [
     {
       id: 1,
+      title: 'Test Article',
+      excerpt: 'Test excerpt',
+      content: 'Test content'
+    }
+  ];
+
+  const tradingArticlesFull = [
+    {
+      id: 1,
       title: '5 Essential Risk Management Rules Every Pakistani Trader Must Know',
       excerpt: 'Protect your capital with these proven risk management strategies tailored for the Pakistani market conditions and regulatory environment.',
       author: 'Ahmad Shah',
@@ -4382,7 +4391,7 @@ Building your first trading portfolio is a significant step toward financial ind
 
 Your journey to financial freedom starts with the first investment. Take that step today, and your future self will thank you.`
     }
-  ]
+  ];
 
   const ProgressBar = ({ value, max = 100, color = '#3b82f6' }: { value: number; max?: number; color?: string }) => (
     <div style={{
@@ -4402,7 +4411,7 @@ Your journey to financial freedom starts with the first investment. Take that st
         }}
       />
     </div>
-  )
+  );
 
   return (
     <div style={{
@@ -4600,12 +4609,7 @@ Your journey to financial freedom starts with the first investment. Take that st
           display: 'grid',
           gridTemplateColumns: 'minmax(300px, 1fr) minmax(300px, 400px)',
           gap: '60px',
-          alignItems: 'center',
-          '@media (max-width: 968px)': {
-            gridTemplateColumns: '1fr',
-            gap: '40px',
-            textAlign: 'center'
-          }
+          alignItems: 'center'
         }}>
           {/* Left Content */}
           <div style={{
@@ -4637,11 +4641,8 @@ Your journey to financial freedom starts with the first investment. Take that st
             <div style={{
               display: 'flex',
               gap: '16px',
-              flexWrap: 'wrap',
-              '@media (max-width: 568px)': {
-                justifyContent: 'center'
-              }
-            }}>
+              flexWrap: 'wrap'
+            }} className="cta-buttons">
               {!isVerifiedBrokerUser && (
                 <button
                   onClick={() => setShowBrokerVerificationModal(true)}
