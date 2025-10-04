@@ -61,22 +61,22 @@ export default function HomePage() {
   // Language translations
   const translations = {
     en: {
-      title: 'PK Signal Pulse',
+      title: 'GCC Signal Pro',
       subtitle: 'Live Trading Signals & Market Analysis',
       liveSignals: 'Live Trading Signals',
       marketAnalysis: 'Market Analysis',
-      asianMarkets: 'Asian Markets',
+      asianMarkets: 'GCC Markets',
       news: 'Financial News',
       education: 'Trading Education'
     },
     ur: {
-      title: 'پی کے سگنل پلس',
-      subtitle: 'لائیو ٹریڈنگ سگنلز اور مارکیٹ تجزیہ',
-      liveSignals: 'لائیو ٹریڈنگ سگنلز',
-      marketAnalysis: 'مارکیٹ تجزیہ',
-      asianMarkets: 'ایشیائی مارکیٹس',
-      news: 'مالی خبریں',
-      education: 'ٹریڈنگ تعلیم'
+      title: 'دول الخليج سيجنال برو',
+      subtitle: 'إشارات التداول المباشرة وتحليل السوق',
+      liveSignals: 'إشارات التداول المباشرة',
+      marketAnalysis: 'تحليل السوق',
+      asianMarkets: 'أسواق دول الخليج',
+      news: 'الأخبار المالية',
+      education: 'تعليم التداول'
     }
   }
 
@@ -86,100 +86,100 @@ export default function HomePage() {
   const signals = [
     {
       id: 1,
-      symbol: 'USD/PKR',
+      symbol: 'ARAMCO',
       type: 'BUY',
-      entry: '278.45',
-      target: '280.50',
-      stopLoss: '277.20',
-      confidence: 85,
-      timeframe: '4H',
+      entry: '32.45 SAR',
+      target: '36.00 SAR',
+      stopLoss: '30.80 SAR',
+      confidence: 90,
+      timeframe: '1M',
       status: 'ACTIVE',
-      pnl: '+0.73%',
-      time: '09:15'
+      pnl: '+4.12%',
+      time: '10:30'
     },
     {
       id: 2,
-      symbol: 'HBL',
-      type: 'BUY',
-      entry: '285.50',
-      target: '295.00',
-      stopLoss: '280.00',
-      confidence: 90,
-      timeframe: '1D',
+      symbol: 'EMIRATES NBD',
+      type: 'STRONG BUY',
+      entry: '14.25 AED',
+      target: '16.80 AED',
+      stopLoss: '13.40 AED',
+      confidence: 92,
+      timeframe: '2W',
       status: 'ACTIVE',
-      pnl: '+2.85%',
-      time: '08:30'
+      pnl: '+5.67%',
+      time: '09:45'
     },
     {
       id: 3,
-      symbol: 'UBL',
-      type: 'STRONG BUY',
-      entry: '245.80',
-      target: '260.00',
-      stopLoss: '240.00',
-      confidence: 92,
-      timeframe: '1D',
+      symbol: 'QNB',
+      type: 'BUY',
+      entry: '18.70 QAR',
+      target: '20.50 QAR',
+      stopLoss: '17.90 QAR',
+      confidence: 85,
+      timeframe: '1W',
       status: 'PROFIT',
-      pnl: '+5.78%',
-      time: 'Yesterday'
+      pnl: '+3.21%',
+      time: '11:15'
     },
     {
       id: 4,
-      symbol: 'EUR/USD',
-      type: 'SELL',
-      entry: '1.0875',
-      target: '1.0820',
-      stopLoss: '1.0910',
-      confidence: 78,
-      timeframe: '1H',
+      symbol: 'SABIC',
+      type: 'BUY',
+      entry: '89.50 SAR',
+      target: '94.20 SAR',
+      stopLoss: '86.80 SAR',
+      confidence: 88,
+      timeframe: '1W',
       status: 'ACTIVE',
-      pnl: '-0.12%',
-      time: '10:45'
+      pnl: '+2.45%',
+      time: '08:30'
     },
     {
       id: 5,
-      symbol: 'Lucky Cement',
-      type: 'BUY',
-      entry: '1456.75',
-      target: '1520.00',
-      stopLoss: '1420.00',
-      confidence: 81,
-      timeframe: '1W',
+      symbol: 'AL RAJHI BANK',
+      type: 'HOLD',
+      entry: '89.30 SAR',
+      target: '95.00 SAR',
+      stopLoss: '85.50 SAR',
+      confidence: 89,
+      timeframe: '3W',
       status: 'ACTIVE',
-      pnl: '+1.25%',
-      time: '07:00'
+      pnl: '+3.65%',
+      time: '13:20'
     }
   ]
 
-  // Asian markets data
+  // GCC markets data
   const asianMarkets = [
     {
-      name: 'USD/PKR',
-      price: '278.45',
-      change: '+0.35',
-      changePercent: '+0.13%',
+      name: 'TASI (Tadawul)',
+      price: '11,247',
+      change: '+127',
+      changePercent: '+1.14%',
       trend: 'up'
     },
     {
-      name: 'KSE-100',
-      price: '91,247',
-      change: '+125',
-      changePercent: '+0.14%',
+      name: 'ADX General',
+      price: '9,876',
+      change: '+45',
+      changePercent: '+0.47%',
       trend: 'up'
     },
     {
-      name: 'HBL Bank',
-      price: '285.50',
-      change: '+8.75',
-      changePercent: '+3.16%',
+      name: 'QE Index',
+      price: '10,567',
+      change: '+89',
+      changePercent: '+0.86%',
       trend: 'up'
     },
     {
-      name: 'UBL Bank',
-      price: '245.80',
-      change: '+12.30',
-      changePercent: '+5.27%',
-      trend: 'up'
+      name: 'DFM General',
+      price: '4,123',
+      change: '-12',
+      changePercent: '-0.30%',
+      trend: 'down'
     }
   ]
 

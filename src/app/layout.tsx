@@ -1,28 +1,28 @@
 export const metadata = {
-  title: 'PK Signal Pulse - Pakistan Best Trading Signals | Forex Gold BTC Signals Pakistan',
-  description: 'Pakistan #1 Trading Signals Platform | Live Forex, Gold, Bitcoin & Stock signals with 87% accuracy | AI-powered analysis for Pakistani traders | Free broker partnership | پاکستان میں سب سے بہترین ٹریڈنگ سگنلز',
-  keywords: 'trading signals Pakistan, forex signals Pakistan, bitcoin signals Pakistan, gold trading Pakistan, پاکستان ٹریڈنگ, forex Pakistan, cryptocurrency Pakistan, stock market Pakistan, economic signals Pakistan, AI trading Pakistan, Pakistani rupee forex, PSX signals, Karachi stock exchange, Lahore trading, Islamabad forex, online trading Pakistan, investment Pakistan, financial signals Pakistan',
-  authors: [{ name: 'PK Signal Pulse' }],
-  creator: 'PK Signal Pulse Pakistan',
-  publisher: 'PK Signal Pulse',
+  title: 'GCC Signal Pro - Premium Gulf Trading Signals | Forex Gold BTC Signals UAE KSA Qatar',
+  description: 'GCC #1 Trading Signals Platform | Live Forex, Gold, Bitcoin & Stock signals with 87% accuracy | AI-powered analysis for Gulf traders | Islamic finance compliant | إشارات التداول الاحترافية لدول الخليج',
+  keywords: 'trading signals GCC, forex signals UAE, bitcoin signals Saudi Arabia, gold trading Qatar, إشارات التداول الخليج, forex Dubai, cryptocurrency Kuwait, Tadawul signals, economic signals Gulf, AI trading GCC, Saudi riyal forex, UAE dirham, ADX signals, Dubai trading, Abu Dhabi forex, online trading GCC, investment Gulf, halal trading signals, Islamic finance GCC, Shariah compliant trading',
+  authors: [{ name: 'GCC Signal Pro' }],
+  creator: 'GCC Signal Pro Gulf',
+  publisher: 'GCC Signal Pro',
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://pksignalpulse.com'),
+  metadataBase: new URL('https://gccsignalpro.com'),
   alternates: {
     canonical: '/',
     languages: {
       'en-US': '/en-US',
-      'ur-PK': '/ur-PK',
+      'ar-AE': '/ar-AE',
     },
   },
   openGraph: {
-    title: 'PK Signal Pulse - Pakistan Best Trading Signals Platform',
-    description: 'Join 10,000+ Pakistani traders using our AI-powered signals. 87% accuracy rate. Live Forex, Gold, Bitcoin signals. Free with partner brokers.',
-    url: 'https://pksignalpulse.com',
-    siteName: 'PK Signal Pulse',
+    title: 'GCC Signal Pro - Premium Trading Signals for Gulf Markets',
+    description: 'Join 25,000+ Gulf traders using our AI-powered signals. 87% accuracy rate. Live Forex, Gold, Bitcoin signals. Islamic finance compliant.',
+    url: 'https://gccsignalpro.com',
+    siteName: 'GCC Signal Pro',
     images: [
       {
         url: '/og-image.jpg',
