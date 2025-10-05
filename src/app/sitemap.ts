@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://pksignalpulse.com'
+  const baseUrl = 'https://gccsignalpro.com'
 
   return [
     {
@@ -66,56 +66,56 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     // Trading specific pages
     {
-      url: `${baseUrl}/forex-signals-pakistan`,
+      url: `${baseUrl}/forex-signals-gcc`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/bitcoin-signals-pakistan`,
+      url: `${baseUrl}/bitcoin-signals-uae`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/gold-signals-pakistan`,
+      url: `${baseUrl}/gold-signals-dubai`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/psx-signals`,
+      url: `${baseUrl}/tasi-signals`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/trading-education-pakistan`,
+      url: `${baseUrl}/trading-education-gcc`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/pakistani-rupee-forex`,
+      url: `${baseUrl}/aed-dirham-forex`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     // City-specific pages for local SEO
     {
-      url: `${baseUrl}/karachi-trading-signals`,
+      url: `${baseUrl}/dubai-trading-signals`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/lahore-trading-signals`,
+      url: `${baseUrl}/riyadh-trading-signals`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/islamabad-trading-signals`,
+      url: `${baseUrl}/doha-trading-signals`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.7,

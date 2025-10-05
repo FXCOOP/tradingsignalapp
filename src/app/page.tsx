@@ -69,7 +69,7 @@ export default function HomePage() {
       news: 'Financial News',
       education: 'Trading Education'
     },
-    ur: {
+    ar: {
       title: 'دول الخليج سيجنال برو',
       subtitle: 'إشارات التداول المباشرة وتحليل السوق',
       liveSignals: 'إشارات التداول المباشرة',
