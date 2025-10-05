@@ -285,7 +285,7 @@ export default function HomePage() {
             </div>
 
             <button
-              onClick={() => setLanguage(language === 'en' ? 'ur' : 'en')}
+              onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
               style={{
                 background: '#f1f5f9',
                 border: '1px solid #e2e8f0',
@@ -297,7 +297,7 @@ export default function HomePage() {
                 fontWeight: '600'
               }}
             >
-              {language === 'en' ? '🇵🇰 اردو' : '🇺🇸 EN'}
+              {language === 'en' ? '🇦🇪 العربية' : '🇺🇸 EN'}
             </button>
 
             <div style={{
