@@ -805,8 +805,8 @@ export default function HomePage() {
             }}>
               <h2 style={{ color: '#f8fafc', marginBottom: '16px' }}>Daily Market Overview</h2>
               <p style={{ color: '#94a3b8', lineHeight: '1.7', marginBottom: '24px' }}>
-                Asian markets are showing strong momentum today with Pakistani equities leading the charge.
-                USD/PKR is stabilizing around key support levels while banking sector demonstrates exceptional strength.
+                Asian markets are showing strong momentum today with GCC equities leading the charge.
+                USD/AED and USD/SAR are stabilizing around key support levels while banking sector demonstrates exceptional strength.
               </p>
 
               <div style={{
@@ -967,12 +967,12 @@ export default function HomePage() {
                 gap: '24px'
               }}>
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: '32px', fontWeight: '800', color: '#10b981', marginBottom: '8px' }}>91,247</div>
-                  <div style={{ fontSize: '14px', color: '#94a3b8' }}>KSE-100 Index</div>
+                  <div style={{ fontSize: '32px', fontWeight: '800', color: '#10b981', marginBottom: '8px' }}>12,450</div>
+                  <div style={{ fontSize: '14px', color: '#94a3b8' }}>TASI Index</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: '32px', fontWeight: '800', color: '#3b82f6', marginBottom: '8px' }}>278.45</div>
-                  <div style={{ fontSize: '14px', color: '#94a3b8' }}>USD/PKR Rate</div>
+                  <div style={{ fontSize: '32px', fontWeight: '800', color: '#3b82f6', marginBottom: '8px' }}>3.67</div>
+                  <div style={{ fontSize: '14px', color: '#94a3b8' }}>USD/AED Rate</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ fontSize: '32px', fontWeight: '800', color: '#f59e0b', marginBottom: '8px' }}>$2.8B</div>
@@ -1012,7 +1012,7 @@ export default function HomePage() {
                 lineHeight: '1.7'
               }}>
                 Stay informed with comprehensive financial news, market analysis, and expert insights
-                covering Pakistani and international markets.
+                covering GCC and international markets.
               </p>
             </div>
 
@@ -1023,337 +1023,345 @@ export default function HomePage() {
               {[
                 {
                   id: 1,
-                  title: 'Pakistani Banking Sector Posts Record Q4 Results Amid Economic Recovery',
-                  summary: 'Major Pakistani banks including HBL, UBL, and MCB report exceptional quarterly results driven by expanding loan portfolios and improved asset quality.',
-                  fullArticle: `Pakistan's banking sector has delivered its strongest quarterly performance in over five years, with major banks reporting significant profit growth and improved operational metrics. The sector's robust performance comes amid a broader economic recovery and increased business confidence.
+                  title: 'GCC Banking Sector Posts Record Q4 Results Amid Economic Expansion',
+                  summary: 'Major GCC banks including Emirates NBD, Al Rajhi Bank, and QNB report exceptional quarterly results driven by expanding loan portfolios and robust regional growth.',
+                  fullArticle: `The GCC banking sector has delivered its strongest quarterly performance in over five years, with major banks reporting significant profit growth and improved operational metrics. The sector's robust performance comes amid strong economic expansion, infrastructure investment, and increased business confidence across the Gulf region.
 
-**Habib Bank Limited (HBL)** reported a 28% year-over-year increase in net profits to PKR 41.2 billion, driven by a 15% growth in advances and a notable improvement in net interest margin to 4.8%. The bank's CEO, Muhammad Aurangzeb, attributed the strong performance to "strategic focus on digital transformation and enhanced customer service delivery."
+**Emirates NBD** reported a 28% year-over-year increase in net profits to AED 15.2 billion, driven by a 15% growth in advances and a notable improvement in net interest margin to 4.8%. The bank's CEO, Shayne Nelson, attributed the strong performance to "strategic focus on digital transformation and enhanced customer service delivery across our UAE and international operations."
 
-**United Bank Limited (UBL)** followed with equally impressive results, posting a 32% jump in net profits to PKR 38.7 billion. The bank's advances grew by 18%, while its cost-to-income ratio improved to 42.1%, reflecting enhanced operational efficiency. UBL's management highlighted significant progress in their retail banking division, with consumer loans growing by 25%.
+**Al Rajhi Bank** followed with equally impressive results, posting a 32% jump in net profits to SAR 14.5 billion. The bank's advances grew by 18%, while its cost-to-income ratio improved to 42.1%, reflecting enhanced operational efficiency. Al Rajhi's management highlighted significant progress in their Islamic retail banking division, with consumer financing growing by 25%.
 
-**MCB Bank Limited** rounded out the strong sector performance with a 22% increase in net profits to PKR 35.8 billion. The bank's deposit base expanded by 16%, while maintaining a healthy capital adequacy ratio of 18.2%, well above regulatory requirements.
+**Qatar National Bank (QNB)** rounded out the strong sector performance with a 22% increase in net profits to QAR 13.8 billion. The bank's deposit base expanded by 16%, while maintaining a healthy capital adequacy ratio of 18.2%, well above regulatory requirements.
 
 **Key Performance Drivers:**
-- Rising interest rate environment boosting net interest margins
-- Improved economic sentiment leading to increased lending demand
+- Strong economic expansion across GCC economies
+- Infrastructure investment and Vision 2030 initiatives driving lending demand
 - Enhanced digital banking adoption reducing operational costs
-- Better asset quality with non-performing loans declining sector-wide
+- Better asset quality with non-performing loans at historically low levels
 
 **Market Impact Analysis:**
-The banking sector's strong performance has provided significant support to the KSE-100 index, with banking stocks contributing approximately 340 points to the index's recent gains. Foreign institutional investors have shown renewed interest in Pakistani banking stocks, with net inflows of $45 million recorded in the banking sector during Q4.
+The banking sector's strong performance has provided significant support to GCC equity indices, with banking stocks contributing substantially to TASI, ADX, and DFM gains. Foreign institutional investors have shown renewed interest in GCC banking stocks, with net inflows of $145 million recorded in the banking sector during Q4.
 
 **Future Outlook:**
-Banking analysts remain optimistic about the sector's prospects, citing several positive factors including continued economic recovery, potential for further interest rate normalization, and ongoing digitalization efforts. However, they also note risks related to global economic uncertainties and potential policy changes.
+Banking analysts remain optimistic about the sector's prospects, citing several positive factors including continued economic expansion, major infrastructure projects, Vision 2030 implementation, and ongoing digitalization efforts. The strong fiscal positions of GCC governments provide additional support.
 
-The State Bank of Pakistan's latest Financial Stability Review indicates that the banking sector remains well-capitalized and liquid, providing a solid foundation for continued growth in 2024.`,
+The Central Bank of UAE and SAMA's latest Financial Stability Reviews indicate that the GCC banking sector remains well-capitalized, highly liquid, and positioned for continued growth in 2024.`,
                   time: '2 hours ago',
                   category: 'Banking',
                   impact: 'Positive',
-                  author: 'Fatima Sheikh',
+                  author: 'Fatima Al-Mubarak',
                   readTime: '5 min read',
-                  tags: ['HBL', 'UBL', 'MCB', 'Banking Sector', 'Q4 Results'],
-                  imageDescription: 'Pakistani bank headquarters with financial charts overlay'
+                  tags: ['Emirates NBD', 'Al Rajhi Bank', 'QNB', 'Banking Sector', 'Q4 Results'],
+                  imageDescription: 'GCC bank headquarters with financial charts overlay'
                 },
                 {
                   id: 2,
-                  title: 'USD/PKR Exchange Rate Stabilizes Following Successful IMF Program Review',
-                  summary: 'The Pakistani rupee finds stability against the US dollar after the International Monetary Fund completes its quarterly review, providing market confidence.',
-                  fullArticle: `The USD/PKR exchange rate has stabilized in the 278-280 range following the successful completion of Pakistan's IMF program review, bringing much-needed stability to the currency markets after months of volatility.
+                  title: 'USD/AED Maintains Stability as UAE Economy Demonstrates Robust Fundamentals',
+                  summary: 'The UAE dirham maintains its peg stability against the US dollar, supported by strong economic fundamentals and substantial foreign exchange reserves.',
+                  fullArticle: `The USD/AED exchange rate remains firmly anchored at its pegged rate of 3.6725, reflecting the UAE's robust economic fundamentals, substantial foreign exchange reserves, and prudent monetary policy management.
 
-**IMF Program Progress:**
-The International Monetary Fund's Executive Board completed the second quarterly review of Pakistan's $3 billion Stand-By Arrangement, approving the release of approximately $700 million. This brings total disbursements under the program to $1.9 billion, providing crucial support to Pakistan's foreign exchange reserves.
+**Economic Strength:**
+The UAE's currency peg remains one of the world's most credible, backed by exceptional economic fundamentals and strong fiscal position. The Central Bank of the UAE continues to demonstrate its commitment to maintaining the dirham's stability.
 
 **Key Economic Indicators:**
-- Foreign exchange reserves have increased to $8.2 billion, up from $4.3 billion at the program's inception
-- Current account deficit has narrowed to 0.8% of GDP, down from 4.6% in the previous year
-- Inflation has begun to moderate, falling to 24.5% in December from its peak of 38% in May
-- Tax collection has exceeded targets, with FBR revenues growing 30% year-over-year
+- Foreign exchange reserves have reached a record $173 billion, providing exceptional coverage
+- Current account surplus stands at 7.2% of GDP, reflecting strong export revenues
+- Inflation remains well-controlled at 2.1%, among the lowest in the region
+- Non-oil GDP growth accelerating at 5.8% year-over-year
 
 **Market Dynamics:**
-The currency's stabilization has been supported by several factors:
+The currency's stability is supported by several structural factors:
 
-1. **Improved Investor Confidence:** The successful IMF review has restored international investor confidence in Pakistan's economic management and reform agenda.
+1. **Strong Reserve Position:** The Central Bank of UAE maintains foreign exchange reserves exceeding 12 months of import cover, providing substantial buffer and market confidence.
 
-2. **Enhanced Reserves Position:** The central bank's foreign exchange reserves have reached their highest level in over 18 months, providing adequate import cover and market stability.
+2. **Diversified Economy:** The UAE's successful economic diversification beyond oil has created multiple revenue streams, with tourism, financial services, and technology sectors driving growth.
 
-3. **Remittance Recovery:** Overseas Pakistani remittances have shown strong recovery, reaching $2.4 billion in December, up 15% from the previous month.
+3. **Capital Inflows:** Strong foreign direct investment continues, with $23.4 billion in FDI recorded in 2023, up 15% from the previous year.
 
-4. **Export Growth:** Pakistan's exports have demonstrated resilience, with textile exports particularly strong due to improved global demand and competitive pricing.
+4. **Trade Surplus:** The UAE maintains a healthy trade surplus driven by robust oil exports, re-export trade through Dubai, and growing non-oil exports.
 
 **Central Bank Policy:**
-The State Bank of Pakistan has maintained its policy rate at 22%, citing the need to ensure inflation continues its downward trajectory. Governor Jameel Ahmad indicated that the central bank remains committed to maintaining exchange rate stability while allowing market forces to determine the rate within a managed float regime.
+The Central Bank of the UAE maintains the dirham peg at AED 3.6725 per USD, aligned with the US Federal Reserve's policy rate movements. Governor Khaled Mohamed Balama emphasized the central bank's commitment to monetary stability while supporting economic growth through targeted lending programs.
 
 **Forward-Looking Analysis:**
-Currency analysts expect the USD/PKR rate to remain relatively stable in the 275-285 range over the next quarter, supported by:
-- Continued IMF program compliance
-- Seasonal improvement in remittances and exports
-- Gradual improvement in economic fundamentals
-- Reduced political uncertainty
+Currency analysts expect the USD/AED peg to remain stable, supported by:
+- Continued strong oil revenues and fiscal surplus
+- Robust foreign exchange reserve position
+- Diversified economic base reducing oil dependency
+- Political stability and business-friendly environment
 
-**Risk Factors:**
-However, several risks could impact currency stability:
-- Global commodity price volatility
-- Changes in US Federal Reserve policy
-- Geopolitical developments affecting regional markets
-- Domestic policy implementation challenges
+**Regional Currency Dynamics:**
+The broader GCC currency landscape shows stability:
+- Saudi Riyal (SAR) maintaining its 3.75 peg to USD
+- Qatari Riyal (QAR) stable at 3.64 to USD
+- Kuwaiti Dinar (KWD) strongest in the region
+- Bahraini Dinar (BHD) maintaining its peg
+
+**Strategic Advantages:**
+The UAE's currency stability provides multiple benefits:
+- Predictability for international trade and investment
+- Lower hedging costs for businesses
+- Enhanced investor confidence
+- Competitive advantage in regional commerce
 
 **Trading Recommendations:**
-For forex traders, the current environment suggests a range-bound trading approach, with support levels at 277-278 and resistance at 282-283. Long-term outlook remains cautiously optimistic, contingent on continued reform implementation and external account improvements.`,
+For forex traders, the USD/AED peg provides stability for carry trade strategies and regional currency arbitrage opportunities. The strength of UAE fundamentals supports confidence in the peg's sustainability, making AED-denominated assets attractive for long-term investors.`,
                   time: '4 hours ago',
                   category: 'Forex',
                   impact: 'Neutral',
-                  author: 'Ahmed Malik',
+                  author: 'Ahmed Al-Rashid',
                   readTime: '6 min read',
-                  tags: ['USD/PKR', 'IMF', 'Currency', 'Exchange Rate', 'SBP'],
-                  imageDescription: 'Pakistani rupee notes with IMF logo and forex charts'
+                  tags: ['USD/AED', 'Currency Peg', 'UAE Economy', 'Exchange Rate', 'CBUAE'],
+                  imageDescription: 'UAE dirham notes with Central Bank logo and forex charts'
                 },
                 {
                   id: 3,
-                  title: 'KSE-100 Index Breaks Above 91,000 as Foreign Investors Return to Pakistani Equities',
-                  summary: 'Pakistan Stock Exchange reaches new multi-year highs driven by strong corporate earnings, foreign inflows, and improved economic outlook.',
-                  fullArticle: `The Pakistan Stock Exchange (PSX) achieved a significant milestone as the benchmark KSE-100 index crossed the 91,000 mark for the first time since early 2017, driven by a confluence of positive factors including strong corporate earnings, foreign investor return, and improved macroeconomic stability.
+                  title: 'GCC Stock Markets Rally as TASI, ADX, and DFM Reach New Heights on Strong Economic Growth',
+                  summary: 'GCC stock exchanges reach new multi-year highs driven by strong corporate earnings, substantial foreign inflows, and robust economic expansion.',
+                  fullArticle: `GCC stock markets achieved significant milestones as the Saudi TASI index crossed 12,800, Abu Dhabi's ADX reached 9,450, and Dubai's DFM topped 4,200, driven by a confluence of positive factors including exceptional corporate earnings, massive foreign investor interest, and strong regional economic expansion.
 
 **Market Performance Overview:**
-The KSE-100 index has gained over 8,500 points (+10.3%) since the beginning of 2024, making it one of the best-performing emerging market indices globally. The rally has been broad-based, with 78% of listed companies posting positive returns during this period.
+GCC equity markets have gained substantially since the beginning of 2024, with TASI up 10.3%, ADX rising 12.7%, and DFM advancing 15.4%, making them among the best-performing markets globally. The rally has been broad-based, with 82% of listed companies posting positive returns during this period.
 
 **Key Drivers of the Rally:**
 
 **1. Corporate Earnings Momentum:**
-Listed companies have reported exceptional earnings growth, with aggregate profits of KSE-100 constituents growing 35% year-over-year in Q4 2023. Key sectors driving this growth include:
+Listed companies have reported exceptional earnings growth, with aggregate profits of GCC blue-chip constituents growing 35% year-over-year in Q4 2023. Key sectors driving this growth include:
 - Banking: 28% average profit growth
-- Oil & Gas: 42% profit increase due to higher margins
-- Cement: 18% improvement on increased infrastructure spending
-- Textiles: 15% growth on export recovery
+- Energy: 42% profit increase due to strong oil prices and production
+- Real Estate: 38% improvement on Vision 2030 projects
+- Telecommunications: 22% growth on 5G expansion
 
-**2. Foreign Investment Return:**
-Foreign portfolio investment has turned positive for the first time in over two years, with net inflows of $127 million recorded in the past month. Major international institutional investors including:
-- Dubai International Capital ($45 million invested)
-- Arif Habib Investments ($32 million)
-- JS Global Capital ($28 million)
-- International Finance Corporation (IFC) increasing its exposure
+**2. Foreign Investment Surge:**
+Foreign portfolio investment has reached record levels, with net inflows of $4.2 billion recorded in the past month. Major international institutional investors including:
+- BlackRock ($850 million invested in GCC equities)
+- Vanguard ($620 million allocation)
+- Franklin Templeton ($480 million)
+- State Street Global Advisors increasing regional exposure
 
-**3. Improved Economic Fundamentals:**
-Several macroeconomic indicators have shown marked improvement:
-- Current account deficit narrowed to $0.8 billion from $3.2 billion
-- Foreign exchange reserves increased to $8.2 billion
-- Inflation trajectory showing downward trend
-- Political stability improving investor confidence
+**3. Strong Economic Fundamentals:**
+GCC macroeconomic indicators demonstrate exceptional strength:
+- Current account surpluses exceeding $180 billion across the region
+- Foreign exchange reserves at record $850 billion
+- Inflation well-controlled at 2-3% range
+- Non-oil GDP growth accelerating to 5.5%
 
 **Sectoral Analysis:**
 
-**Banking Sector (Weight: 22.1%):**
-Banking stocks have been the primary drivers of the index rally, contributing approximately 3,800 points to the overall gain. Key performers include:
-- HBL: +45% YTD performance
-- UBL: +38% YTD gain
-- MCB: +42% YTD increase
-- NBP: +35% YTD growth
+**Banking Sector (Weight: 24.3%):**
+Banking stocks have been primary drivers of the regional rally, with exceptional performance:
+- Emirates NBD: +45% YTD performance
+- Al Rajhi Bank: +42% YTD gain
+- Qatar National Bank: +38% YTD increase
+- First Abu Dhabi Bank: +40% YTD growth
 
-**Oil & Gas Sector (Weight: 18.7%):**
-Energy companies have benefited from higher crude oil prices and improved refining margins:
-- Pakistan State Oil (PSO): +52% YTD
-- Oil & Gas Development Company (OGDCL): +28% YTD
-- Pakistan Petroleum Limited (PPL): +33% YTD
+**Energy Sector (Weight: 28.5%):**
+Energy companies have benefited from strong oil prices and expanding operations:
+- Saudi Aramco: +28% YTD
+- ADNOC Distribution: +35% YTD
+- Qatar Energy affiliates: +32% YTD
 
-**Technology & Communication (Weight: 12.4%):**
-Telecom and technology stocks have gained on 5G rollout expectations and digital transformation:
-- Pakistan Telecommunication Company Limited (PTCL): +41% YTD
-- Systems Limited: +67% YTD
-- TRG Pakistan: +89% YTD
+**Technology & Communication (Weight: 11.8%):**
+Telecom and technology stocks have gained on digital transformation and smart city initiatives:
+- STC (Saudi Telecom): +41% YTD
+- Etisalat Group: +38% YTD
+- Careem (post-merger entities): +52% YTD
 
 **Market Valuation Metrics:**
-Despite the rally, the KSE-100 remains attractively valued compared to regional peers:
-- Price-to-Earnings Ratio: 6.2x (vs. regional average of 14.5x)
-- Price-to-Book Ratio: 1.1x (vs. regional average of 1.8x)
-- Dividend Yield: 7.8% (vs. regional average of 3.2%)
+GCC markets maintain attractive valuations despite the rally:
+- Price-to-Earnings Ratio: 14.2x (in line with global emerging markets)
+- Price-to-Book Ratio: 1.9x (attractive for quality of assets)
+- Dividend Yield: 4.2% (higher than most developed markets)
 
 **Technical Analysis:**
-From a technical perspective, the KSE-100 has successfully broken through multiple resistance levels:
-- Immediate resistance: 92,500
-- Next major resistance: 95,000
-- Support levels: 89,200 and 87,500
-- RSI at 68 suggests room for further upside
+From a technical perspective, GCC indices show strong momentum:
+- TASI: Immediate resistance at 13,200, support at 12,200
+- ADX: Resistance at 9,800, support at 9,000
+- DFM: Resistance at 4,500, support at 4,000
+- RSI levels at 62-68 suggest room for further upside
 
 **Future Outlook:**
-Market analysts remain optimistic about the medium-term outlook, citing several positive catalysts:
+Market analysts remain highly optimistic about the medium-term outlook, citing several positive catalysts:
 
 **Near-term Catalysts (Next 3-6 months):**
 - Continued foreign investment inflows
 - Strong Q1 2024 earnings expected
-- MSCI frontier market review (potential upgrade)
-- IMF program completion
+- MSCI emerging market weight increases
+- Vision 2030 project acceleration
 
 **Medium-term Catalysts (6-12 months):**
-- Potential sovereign rating upgrade
-- CPEC project restart
-- Privatization program implementation
-- Capital market reforms
+- Saudi Aramco secondary offerings
+- Mega infrastructure project IPOs
+- NEOM and Red Sea project milestones
+- Regional stock market integration
 
 **Risk Factors:**
 However, several risks could impact market performance:
-- Global market volatility spillover
-- Commodity price fluctuations
-- Political developments
-- Implementation of policy reforms
+- Global oil price volatility
+- Geopolitical developments
+- US Federal Reserve policy changes
+- Regional competition for capital
 
 **Investment Recommendations:**
-For investors, the current market presents opportunities across multiple sectors, with particular focus on:
-1. Banking stocks for dividend yield and earnings growth
-2. Technology companies for long-term growth potential
-3. Infrastructure and cement for economic recovery play
-4. Energy sector for commodity exposure
+For investors, GCC markets present compelling opportunities across multiple sectors:
+1. Banking stocks for dividend yield and regional expansion
+2. Energy companies for strategic exposure and income
+3. Real Estate developers for Vision 2030 growth
+4. Technology firms for digital transformation trends
 
-The market's strong fundamentals, attractive valuations, and improving economic outlook suggest the rally may have further room to run, though investors should remain mindful of potential volatility.`,
+The region's strong fundamentals, government support, massive infrastructure spending, and attractive valuations suggest the rally has substantial room to continue, supported by sovereign wealth fund participation and ongoing economic diversification.`,
                   time: '6 hours ago',
                   category: 'Stocks',
                   impact: 'Positive',
-                  author: 'Sarah Ahmad',
+                  author: 'Sarah Al-Mansouri',
                   readTime: '8 min read',
-                  tags: ['KSE-100', 'PSX', 'Foreign Investment', 'Stock Market', 'Equities'],
-                  imageDescription: 'Pakistan Stock Exchange trading floor with green charts'
+                  tags: ['TASI', 'ADX', 'DFM', 'Foreign Investment', 'GCC Markets'],
+                  imageDescription: 'GCC stock exchange trading floor with green charts'
                 },
                 {
                   id: 4,
-                  title: 'Energy Sector Resilience: Pakistani Oil & Gas Companies Navigate Global Commodity Volatility',
-                  summary: 'Pakistani energy companies demonstrate strong operational performance and strategic adaptability amid fluctuating global oil prices and geopolitical uncertainties.',
-                  fullArticle: `Pakistan's energy sector has demonstrated remarkable resilience and adaptability in the face of global commodity market volatility, with major oil and gas companies reporting strong operational performance and implementing strategic initiatives to navigate challenging market conditions.
+                  title: 'GCC Energy Sector Leadership: Aramco, ADNOC, and Qatar Energy Drive Global Market Dynamics',
+                  summary: 'GCC energy giants demonstrate exceptional operational performance and strategic leadership in global energy markets amid transformative industry changes.',
+                  fullArticle: `The GCC energy sector has demonstrated exceptional strength and global leadership, with regional giants Saudi Aramco, ADNOC, and Qatar Energy reporting outstanding operational performance while driving the global energy transition and maintaining strategic market influence.
 
 **Sector Overview:**
-The Pakistani energy sector, which includes exploration & production (E&P) companies, oil marketing companies (OMCs), and refineries, has shown robust performance despite global uncertainties. The sector represents approximately 18.7% of the KSE-100 index weight and has delivered strong returns to investors.
+The GCC energy sector, which includes integrated energy companies, exploration & production (E&P) operations, and petrochemical divisions, represents the cornerstone of regional economies and global energy security. The sector accounts for approximately 28.5% of GCC equity market capitalization and delivers substantial returns to investors.
 
 **Major Company Performance:**
 
-**Oil & Gas Development Company Limited (OGDCL):**
-Pakistan's largest E&P company reported exceptional Q4 results with:
-- Net profits up 31% to PKR 156 billion
-- Oil production increased by 8% to 38,450 barrels per day
-- Gas production grew 5% to 985 million cubic feet per day
-- New discoveries in Sindh and Balochistan provinces
-- Enhanced recovery projects yielding positive results
+**Saudi Aramco:**
+The world's most valuable energy company reported exceptional Q4 results:
+- Net profits of $161 billion annually, maintaining position as world's most profitable company
+- Oil production capacity maintained at 12 million barrels per day
+- Gas production increased 8% to 14.5 billion cubic feet per day
+- Strategic investments in downstream and chemicals exceeding $50 billion
+- Successful expansion of international partnerships and joint ventures
 
-OGDCL's management has emphasized its commitment to sustainable energy transition while maximizing value from existing assets. The company's exploration budget for 2024 has been increased by 25% to PKR 45 billion.
+Aramco's management has emphasized commitment to energy security while investing heavily in sustainability initiatives, with $10 billion allocated to low-carbon technologies.
 
-**Pakistan State Oil (PSO):**
-The country's largest oil marketing company has navigated supply chain challenges effectively:
-- Revenue growth of 22% to PKR 1.78 trillion
-- Market share expansion to 44% in petroleum products
-- Successful implementation of digital payment systems
-- Strategic partnerships with international suppliers
-- Retail network expansion with 150 new outlets planned
+**Abu Dhabi National Oil Company (ADNOC):**
+The UAE's energy champion has delivered outstanding performance:
+- Revenue growth of 22% to $82 billion
+- Expansion to 5 million barrels per day production capacity
+- Successful IPO of ADNOC Gas raising $2.5 billion
+- Strategic partnerships with international energy majors
+- Leading position in low-carbon hydrogen production
 
-**Pakistan Petroleum Limited (PPL):**
-The integrated oil and gas company has delivered consistent performance:
-- Profit after tax increased 27% to PKR 68 billion
-- Successful completion of Kandhkot gas field development
-- Joint venture agreements for enhanced oil recovery
-- Investment in renewable energy projects initiated
+**Qatar Energy:**
+The integrated energy company has shown remarkable results:
+- Profit growth of 35% driven by LNG expansion
+- World's largest LNG expansion project underway ($30 billion North Field)
+- Production capacity increasing from 77 to 126 million tons per year by 2027
+- Strategic partnerships with Shell, TotalEnergies, and ConocoPhillips
+- Leadership in clean LNG and carbon capture technology
 
-**Attock Petroleum Limited (APL):**
-The refining company has shown operational excellence:
-- Refinery utilization rate maintained at 87%
-- Product mix optimization improving margins
-- Environmental compliance upgrades completed
-- Strategic crude oil procurement reducing costs
+**ADNOC Distribution:**
+The retail fuel leader demonstrates operational excellence:
+- Network expansion to 850+ service stations across GCC
+- Digital transformation driving 45% of transactions
+- Convenience retail revenue up 38%
+- Electric vehicle charging infrastructure rollout
 
 **Global Market Context:**
-The energy sector's performance comes against a backdrop of significant global challenges:
+The GCC energy sector's performance reflects strategic positioning:
 
-**Oil Price Volatility:**
-- Brent crude prices fluctuating between $75-$95 per barrel
-- OPEC+ production decisions impacting global supply
-- Geopolitical tensions affecting market sentiment
-- US shale production growth providing price ceiling
+**Oil Price Management:**
+- Brent crude maintained in optimal $75-$95 range through OPEC+ coordination
+- Saudi Arabia and UAE leadership in market stabilization
+- Strategic production adjustments ensuring market balance
+- Strong fiscal positions at current price levels
 
-**Gas Market Dynamics:**
-- Global LNG prices experiencing high volatility
-- Winter demand patterns affecting pricing
-- Pipeline infrastructure developments
-- Energy security concerns driving policy decisions
+**Gas Market Leadership:**
+- Qatar maintaining 20% global LNG market share
+- Major expansion projects securing long-term supply
+- Premium pricing for reliable, clean LNG supply
+- Strategic long-term contracts with Asian buyers
 
 **Strategic Initiatives:**
 
-**1. Exploration & Production Enhancement:**
-Pakistani E&P companies have intensified exploration activities:
-- 47 new exploration wells planned for 2024
-- Enhanced oil recovery projects in mature fields
-- Application of advanced seismic technologies
-- Joint ventures with international partners
+**1. Production Excellence & Expansion:**
+GCC energy companies leading global capacity growth:
+- Saudi Aramco maintaining 12 million bpd capacity
+- UAE expanding to 5 million bpd by 2027
+- Qatar's massive LNG expansion (North Field)
+- Kuwait and Oman production optimization programs
 
-**2. Infrastructure Development:**
-Significant investments in infrastructure expansion:
-- North-South gas pipeline project progress
-- LNG terminal capacity expansion
-- Refinery upgrade and modernization programs
-- Renewable energy integration initiatives
+**2. Energy Transition Leadership:**
+Pioneering investments in sustainable energy:
+- $150 billion committed to renewable energy and hydrogen
+- NEOM green hydrogen project ($8.5 billion)
+- Masdar renewable energy expansion (50 GW target)
+- Carbon capture and storage facilities
 
-**3. Digital Transformation:**
-Energy companies embracing technology:
-- IoT implementation for asset monitoring
-- Predictive maintenance systems
-- Digital customer service platforms
+**3. Technology & Innovation:**
+Advanced technology deployment:
+- AI and IoT for production optimization
+- Digital twin technology for asset management
 - Blockchain for supply chain transparency
+- Advanced reservoir characterization
 
-**4. Sustainability Focus:**
-Environmental and social responsibility initiatives:
-- Carbon footprint reduction programs
-- Renewable energy project investments
-- Community development programs
-- Environmental compliance enhancements
+**4. Global Partnerships:**
+Strategic international collaborations:
+- Joint ventures with international oil companies
+- Technology partnerships with global leaders
+- Downstream integration in key markets
+- Petrochemical complex development
 
 **Market Outlook:**
 
 **Short-term Prospects (Next 6 months):**
-- Continued operational excellence expected
-- New field developments coming online
-- Refinery margin improvements anticipated
-- Dividend yields remaining attractive
+- Continued strong operational performance
+- Stable oil prices supporting profitability
+- Major project milestones achieved
+- Attractive dividend yields (4-6% range)
 
 **Medium-term Outlook (1-2 years):**
-- Significant exploration results expected
-- Infrastructure projects completion
-- Energy transition strategy implementation
-- Regional energy market integration
+- Significant capacity expansions online
+- LNG projects reaching full production
+- Downstream integration bearing fruit
+- Enhanced regional energy cooperation
 
 **Long-term Vision (3-5 years):**
-- Renewable energy portfolio expansion
-- Carbon neutral operations targets
-- Technology-driven efficiency improvements
-- Regional energy hub development
+- Low-carbon hydrogen export capability
+- Circular carbon economy implementation
+- Regional renewable energy leadership
+- Petrochemical value chain dominance
 
 **Investment Considerations:**
 
 **Strengths:**
-- Attractive dividend yields (8-12% range)
-- Strong cash flow generation
-- Strategic asset base
-- Experienced management teams
+- Lowest production costs globally ($2-10 per barrel)
+- Massive reserves (40% of global proven reserves)
+- Strong government backing and stability
+- World-class operational expertise
 
 **Opportunities:**
-- Untapped exploration potential
-- Energy transition investment
-- Regional market expansion
-- Technology adoption benefits
+- Energy transition leadership positioning
+- Downstream integration expansion
+- Petrochemical growth in Asia
+- Clean energy technology exports
 
 **Risks:**
-- Commodity price volatility
-- Regulatory changes
-- Environmental compliance costs
-- Global economic uncertainties
+- Long-term energy transition uncertainties
+- Global economic slowdown impact
+- Competition from renewable sources
+- Geopolitical developments
 
 **Analyst Recommendations:**
-Energy sector analysts maintain positive outlook with specific recommendations:
-- OGDCL: BUY rating with PKR 128 target price
-- PSO: HOLD rating with PKR 285 target price
-- PPL: BUY rating with PKR 98 target price
-- APL: HOLD rating with PKR 478 target price
+Energy sector analysts maintain highly positive outlook:
+- Saudi Aramco: BUY rating with SAR 38 target price
+- ADNOC Gas: BUY rating with AED 3.2 target price
+- ADNOC Distribution: BUY rating with AED 4.8 target price
+- Qatar Energy affiliates: Strong BUY on LNG expansion
 
-The sector's resilience, combined with attractive valuations and strong fundamentals, makes it an important component of diversified investment portfolios, particularly for income-focused investors seeking exposure to commodity markets and energy infrastructure.`,
+The GCC energy sector's combination of low-cost production, massive reserves, strategic positioning, and transition leadership makes it essential for global energy security and an attractive investment opportunity for both income and long-term growth, particularly as the region positions itself as a clean energy hub for the future.`,
                   time: '8 hours ago',
                   category: 'Energy',
                   impact: 'Positive',
-                  author: 'Dr. Hassan Ali',
+                  author: 'Dr. Khalid Al-Sayed',
                   readTime: '7 min read',
-                  tags: ['Energy Sector', 'OGDCL', 'PSO', 'Oil & Gas', 'Commodities'],
-                  imageDescription: 'Oil refinery with Pakistani flag and commodity price charts'
+                  tags: ['Energy Sector', 'Saudi Aramco', 'ADNOC', 'Qatar Energy', 'Oil & Gas'],
+                  imageDescription: 'Modern GCC oil facility with regional flags and energy charts'
                 }
               ].map((news, index) => (
                 <div key={index} style={{
@@ -1664,7 +1672,7 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                   id: 1,
                   level: 'Foundation',
                   title: 'Complete Trading Fundamentals Mastery',
-                  instructor: 'Dr. Ahmed Hassan',
+                  instructor: 'Dr. Ahmed Al-Mansouri',
                   rating: 4.9,
                   students: 2847,
                   price: 'FREE',
@@ -1682,7 +1690,7 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                         'What is Trading? Financial Markets Overview',
                         'Types of Financial Instruments (Stocks, Forex, Commodities, Bonds)',
                         'Market Participants and Their Roles',
-                        'How Stock Exchanges Work (PSX, NYSE, NASDAQ)',
+                        'How Stock Exchanges Work (TASI, ADX, DFM, NYSE, NASDAQ)',
                         'Understanding Market Hours and Sessions',
                         'Bull vs Bear Markets - Market Cycles',
                         'Economic Indicators and Market Impact',
@@ -1702,18 +1710,18 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                       ]
                     },
                     {
-                      title: 'Module 3: Pakistani Market Specialization',
+                      title: 'Module 3: GCC Market Specialization',
                       lessons: 10,
                       topics: [
-                        'Pakistan Stock Exchange (PSX) Deep Dive',
-                        'KSE-100 Index Trading Strategies',
-                        'Banking Sector Analysis (HBL, UBL, MCB)',
-                        'Textile and Energy Sector Opportunities',
-                        'USD/PKR Forex Trading Fundamentals',
-                        'Government Securities and T-Bills',
-                        'Mutual Funds and Investment Trusts',
-                        'Tax Implications for Pakistani Traders',
-                        'Regulatory Framework and SECP Guidelines',
+                        'GCC Stock Exchanges Deep Dive (TASI, ADX, DFM, QE)',
+                        'TASI & ADX General Index Trading Strategies',
+                        'Banking Sector Analysis (Emirates NBD, Al Rajhi Bank, QNB, FAB)',
+                        'Energy and Real Estate Sector Opportunities',
+                        'USD/AED, USD/SAR, USD/QAR Forex Trading Fundamentals',
+                        'Government Securities and Sukuk',
+                        'Mutual Funds and Islamic Investment Trusts',
+                        'Tax Implications for GCC Traders',
+                        'Regulatory Framework and CMA/DFSA/QFMA Guidelines',
                         'Local Broker Selection and Account Setup'
                       ]
                     },
@@ -1761,7 +1769,7 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                     'Private Discord Trading Community Access',
                     'Weekly Live Q&A Sessions with Instructor',
                     'Trading Journal Template & Calculator',
-                    'Pakistani Market Data Sources Guide',
+                    'GCC Market Data Sources Guide',
                     'Broker Comparison and Selection Guide'
                   ]
                 },
@@ -1769,7 +1777,7 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                   id: 2,
                   level: 'Advanced',
                   title: 'Technical Analysis & Chart Mastery',
-                  instructor: 'Sarah Khan, CMT',
+                  instructor: 'Sarah Al-Hashimi, CMT',
                   rating: 4.8,
                   students: 1923,
                   price: 'FREE',
@@ -1883,7 +1891,7 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                   id: 3,
                   level: 'Professional',
                   title: 'Advanced Options & Derivatives Mastery',
-                  instructor: 'Muhammad Raza, CFA',
+                  instructor: 'Mohammed Al-Rashid, CFA',
                   rating: 4.9,
                   students: 856,
                   price: 'FREE',
@@ -2312,7 +2320,7 @@ The sector's resilience, combined with attractive valuations and strong fundamen
               ))}
             </div>
 
-            {/* Pakistani Market Specialization */}
+            {/* GCC Market Specialization */}
             <div style={{
               background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
               borderRadius: '20px',
@@ -2330,7 +2338,7 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                   fontWeight: '800',
                   marginBottom: '16px'
                 }}>
-                  🇵🇰 Pakistani Market Specialization
+                  🇸🇦🇦🇪🇶🇦 GCC Market Specialization
                 </h2>
                 <p style={{
                   fontSize: '18px',
@@ -2338,7 +2346,7 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                   opacity: 0.9,
                   lineHeight: '1.7'
                 }}>
-                  Master the intricacies of Pakistani financial markets with specialized courses designed for local traders.
+                  Master the intricacies of GCC financial markets with specialized courses designed for regional traders.
                 </p>
                 <div style={{
                   display: 'grid',
@@ -2346,12 +2354,12 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                   gap: '24px'
                 }}>
                   {[
-                    'KSE-100 Index Trading',
-                    'USD/PKR Forex Analysis',
-                    'Banking Sector Insights',
+                    'TASI & ADX Index Trading',
+                    'USD/AED & USD/SAR Forex Analysis',
+                    'Banking & Finance Sector Insights',
                     'Commodity Trading (Gold, Oil)',
                     'IPO and New Listings',
-                    'Regulatory Framework'
+                    'Regulatory Framework (CMA/DFSA)'
                   ].map((topic, index) => (
                     <div key={index} style={{
                       background: 'rgba(255, 255, 255, 0.15)',
@@ -2502,25 +2510,25 @@ The sector's resilience, combined with attractive valuations and strong fundamen
               }}>
                 {[
                   {
-                    name: 'Ahmed Khan',
+                    name: 'Ahmed Al-Kuwari',
                     title: 'Senior Market Analyst',
                     experience: '15+ years',
-                    specialization: 'Pakistani Markets & Forex',
-                    achievements: 'Former KTrade Securities Head Analyst'
+                    specialization: 'GCC Markets & Forex',
+                    achievements: 'Former QNB Capital Head Analyst'
                   },
                   {
-                    name: 'Sarah Ali',
+                    name: 'Sarah Al-Zaabi',
                     title: 'Technical Analysis Expert',
                     experience: '12+ years',
                     specialization: 'Chart Patterns & Indicators',
                     achievements: 'Certified Financial Technician (CFTe)'
                   },
                   {
-                    name: 'Muhammad Raza',
+                    name: 'Mohammed Al-Suwaidi',
                     title: 'Risk Management Specialist',
                     experience: '10+ years',
                     specialization: 'Portfolio Management',
-                    achievements: 'Former Bank Al Habib Investment Manager'
+                    achievements: 'Former Emirates NBD Investment Manager'
                   }
                 ].map((instructor, index) => (
                   <div key={index} style={{
