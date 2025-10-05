@@ -1641,7 +1641,7 @@ The sector's resilience, combined with attractive valuations and strong fundamen
               </div>
             </div>
 
-            {/* Professional Courses */}
+            {/* Complete Trading Guide - Immediate Access */}
             <h2 style={{
               fontSize: '36px',
               fontWeight: '900',
@@ -1649,13 +1649,14 @@ The sector's resilience, combined with attractive valuations and strong fundamen
               color: '#1e293b',
               textAlign: 'center'
             }}>
-              📚 Complete Professional Trading Courses
+              📖 Complete Trading Education - All Content Included
             </h2>
 
+            {/* Immediate Access Trading Guide */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))',
-              gap: '40px',
+              gridTemplateColumns: '1fr',
+              gap: '32px',
               marginBottom: '60px'
             }}>
               {[
@@ -2185,56 +2186,25 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                     }}>
                       📋 Course Curriculum ({course.modules.length} Modules):
                     </h4>
-                    {selectedCourse === course.id ? (
-                      <div style={{
-                        background: '#f8fafc',
-                        border: '1px solid #e2e8f0',
-                        borderRadius: '12px',
-                        padding: '20px'
-                      }}>
-                        {course.modules.map((module, moduleIndex) => (
-                          <div key={moduleIndex} style={{
-                            marginBottom: moduleIndex < course.modules.length - 1 ? '20px' : 0,
-                            paddingBottom: moduleIndex < course.modules.length - 1 ? '20px' : 0,
-                            borderBottom: moduleIndex < course.modules.length - 1 ? '1px solid #e2e8f0' : 'none'
-                          }}>
-                            <h5 style={{
-                              fontSize: '16px',
-                              fontWeight: '700',
-                              color: course.color,
-                              marginBottom: '8px'
-                            }}>
-                              {module.title} ({module.lessons} lessons)
-                            </h5>
-                            <ul style={{
-                              margin: 0,
-                              paddingLeft: '20px',
-                              fontSize: '14px',
-                              color: '#64748b',
-                              lineHeight: '1.6'
-                            }}>
-                              {module.topics.map((topic, topicIndex) => (
-                                <li key={topicIndex} style={{ marginBottom: '4px' }}>
-                                  {topic}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-
-                        {/* Bonuses */}
-                        <div style={{
-                          marginTop: '20px',
-                          paddingTop: '20px',
-                          borderTop: '1px solid #e2e8f0'
+                    <div style={{
+                      background: '#f8fafc',
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '12px',
+                      padding: '20px'
+                    }}>
+                      {course.modules.map((module, moduleIndex) => (
+                        <div key={moduleIndex} style={{
+                          marginBottom: moduleIndex < course.modules.length - 1 ? '20px' : 0,
+                          paddingBottom: moduleIndex < course.modules.length - 1 ? '20px' : 0,
+                          borderBottom: moduleIndex < course.modules.length - 1 ? '1px solid #e2e8f0' : 'none'
                         }}>
                           <h5 style={{
                             fontSize: '16px',
                             fontWeight: '700',
-                            color: '#dc2626',
-                            marginBottom: '12px'
+                            color: course.color,
+                            marginBottom: '8px'
                           }}>
-                            🎁 Exclusive Bonuses:
+                            {module.title} ({module.lessons} lessons)
                           </h5>
                           <ul style={{
                             margin: 0,
@@ -2243,60 +2213,44 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                             color: '#64748b',
                             lineHeight: '1.6'
                           }}>
-                            {course.bonuses.map((bonus, bonusIndex) => (
-                              <li key={bonusIndex} style={{ marginBottom: '4px' }}>
-                                {bonus}
+                            {module.topics.map((topic, topicIndex) => (
+                              <li key={topicIndex} style={{ marginBottom: '4px' }}>
+                                {topic}
                               </li>
                             ))}
                           </ul>
                         </div>
-                      </div>
-                    ) : (
+                      ))}
+
+                      {/* Bonuses */}
                       <div style={{
-                        background: '#f8fafc',
-                        border: '1px solid #e2e8f0',
-                        borderRadius: '12px',
-                        padding: '20px'
+                        marginTop: '20px',
+                        paddingTop: '20px',
+                        borderTop: '1px solid #e2e8f0'
                       }}>
-                        {course.modules.slice(0, 2).map((module, moduleIndex) => (
-                          <div key={moduleIndex} style={{
-                            marginBottom: moduleIndex < 1 ? '16px' : 0
-                          }}>
-                            <h5 style={{
-                              fontSize: '14px',
-                              fontWeight: '700',
-                              color: course.color,
-                              marginBottom: '6px'
-                            }}>
-                              {module.title} ({module.lessons} lessons)
-                            </h5>
-                            <div style={{
-                              fontSize: '13px',
-                              color: '#64748b'
-                            }}>
-                              {module.topics.slice(0, 3).join(', ')}...
-                            </div>
-                          </div>
-                        ))}
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            setSelectedCourse(selectedCourse === course.id ? null : course.id)
-                          }}
-                          style={{
-                            marginTop: '12px',
-                            background: 'none',
-                            border: 'none',
-                            color: course.color,
-                            fontSize: '14px',
-                            fontWeight: '600',
-                            cursor: 'pointer'
-                          }}
-                        >
-                          View Full Curriculum →
-                        </button>
+                        <h5 style={{
+                          fontSize: '16px',
+                          fontWeight: '700',
+                          color: '#dc2626',
+                          marginBottom: '12px'
+                        }}>
+                          🎁 Exclusive Bonuses:
+                        </h5>
+                        <ul style={{
+                          margin: 0,
+                          paddingLeft: '20px',
+                          fontSize: '14px',
+                          color: '#64748b',
+                          lineHeight: '1.6'
+                        }}>
+                          {course.bonuses.map((bonus, bonusIndex) => (
+                            <li key={bonusIndex} style={{ marginBottom: '4px' }}>
+                              {bonus}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                    )}
+                    </div>
                   </div>
 
                   {/* Action Buttons */}
@@ -2330,7 +2284,7 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                         e.currentTarget.style.transform = 'scale(1)'
                       }}
                     >
-                      {hasExnessAccount ? '✅ Access Course' : '🔐 Verify Exness Account'}
+                      📖 Full Guide Available
                     </button>
                     <button style={{
                       background: 'rgba(0, 0, 0, 0.05)',
@@ -2351,7 +2305,7 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                       e.currentTarget.style.borderColor = '#e2e8f0'
                       e.currentTarget.style.color = '#64748b'
                     }}>
-                      Preview
+                      📚 Start Learning
                     </button>
                   </div>
                 </div>
