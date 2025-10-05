@@ -1541,7 +1541,7 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent'
               }}>
-                🎓 Professional Trading Academy
+                📚 Complete Trading Mastery Guide
               </h1>
               <p style={{
                 fontSize: '20px',
@@ -1550,115 +1550,55 @@ The sector's resilience, combined with attractive valuations and strong fundamen
                 margin: '0 auto',
                 lineHeight: '1.7'
               }}>
-                Transform your trading career with our comprehensive, industry-leading education platform.
-                Learn from certified professionals and master both Pakistani and international markets.
+                Master trading from absolute beginner to professional level. Comprehensive guide with terms, examples,
+                simulations and expert explanations. 100% FREE for our GCC Signal Pro clients.
               </p>
             </div>
 
-            {/* Exness Account Verification */}
-            {!hasExnessAccount && (
-              <div style={{
-                background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
-                borderRadius: '20px',
-                padding: '40px',
-                marginBottom: '48px',
-                color: 'white',
-                textAlign: 'center'
+            {/* Free Access Banner */}
+            <div style={{
+              background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+              borderRadius: '20px',
+              padding: '40px',
+              marginBottom: '48px',
+              color: 'white',
+              textAlign: 'center'
+            }}>
+              <h2 style={{
+                fontSize: '32px',
+                fontWeight: '900',
+                marginBottom: '16px',
+                color: 'white'
               }}>
-                <h2 style={{
-                  fontSize: '32px',
-                  fontWeight: '900',
-                  marginBottom: '16px',
-                  color: 'white'
-                }}>
-                  🔓 Unlock FREE Professional Trading Education
-                </h2>
-                <p style={{
-                  fontSize: '18px',
-                  marginBottom: '32px',
-                  opacity: 0.9,
-                  lineHeight: '1.7'
-                }}>
-                  Open an account with our trusted broker <strong>Exness</strong> and get instant access to all premium courses worth $2000+ absolutely FREE!
-                </p>
+                🎁 100% FREE Trading Education
+              </h2>
+              <p style={{
+                fontSize: '18px',
+                marginBottom: '32px',
+                opacity: 0.9,
+                lineHeight: '1.7'
+              }}>
+                Complete professional trading guide from beginner to expert level. No hidden costs, no subscriptions.
+                <strong> Completely FREE for all GCC Signal Pro clients!</strong>
+              </p>
 
-                <div style={{
-                  display: 'flex',
-                  gap: '20px',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginBottom: '32px'
-                }}>
-                  <button
-                    onClick={verifyExnessAccount}
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.9)',
-                      color: '#2563eb',
-                      border: 'none',
-                      padding: '16px 32px',
-                      borderRadius: '12px',
-                      fontSize: '18px',
-                      fontWeight: '700',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'white'
-                      e.currentTarget.style.transform = 'scale(1.05)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)'
-                      e.currentTarget.style.transform = 'scale(1)'
-                    }}
-                  >
-                    🚀 Open Exness Account
-                  </button>
-
-                  <span style={{ fontSize: '16px', opacity: 0.8 }}>or</span>
-
-                  <button
-                    onClick={verifyExnessAccount}
-                    style={{
-                      background: 'transparent',
-                      color: 'white',
-                      border: '2px solid rgba(255, 255, 255, 0.7)',
-                      padding: '16px 32px',
-                      borderRadius: '12px',
-                      fontSize: '16px',
-                      fontWeight: '600',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = 'white'
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.7)'
-                      e.currentTarget.style.background = 'transparent'
-                    }}
-                  >
-                    Already have account? Verify
-                  </button>
-                </div>
-
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                  gap: '20px',
-                  fontSize: '14px'
-                }}>
-                  <div>✅ 3 Complete Professional Courses</div>
-                  <div>✅ 180+ Video Lessons</div>
-                  <div>✅ Professional Certificates</div>
-                  <div>✅ Live Trading Sessions</div>
-                  <div>✅ 24/7 Expert Support</div>
-                  <div>✅ Mobile Learning App</div>
-                </div>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: '20px',
+                fontSize: '16px',
+                fontWeight: '600'
+              }}>
+                <div>✅ 500+ Trading Terms & Definitions</div>
+                <div>✅ Real Market Examples & Case Studies</div>
+                <div>✅ Interactive Trading Simulations</div>
+                <div>✅ Step-by-Step Strategy Guides</div>
+                <div>✅ GCC Markets Specialization</div>
+                <div>✅ Islamic Finance Compliance</div>
               </div>
-            )}
+            </div>
 
-            {/* Learning Statistics */}
+            {/* Learning Path Overview */}
             <div style={{
               background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
               border: '1px solid #e2e8f0',
@@ -1667,27 +1607,36 @@ The sector's resilience, combined with attractive valuations and strong fundamen
               marginBottom: '48px',
               boxShadow: '0 8px 25px rgba(0, 0, 0, 0.08)'
             }}>
+              <h2 style={{
+                fontSize: '28px',
+                fontWeight: '800',
+                marginBottom: '32px',
+                color: '#1e293b',
+                textAlign: 'center'
+              }}>
+                🎯 Your Complete Learning Path
+              </h2>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
                 gap: '32px',
                 textAlign: 'center'
               }}>
                 <div>
-                  <div style={{ fontSize: '48px', fontWeight: '900', color: '#2563eb', marginBottom: '8px' }}>150+</div>
-                  <div style={{ fontSize: '16px', color: '#64748b', fontWeight: '600' }}>Video Lessons</div>
+                  <div style={{ fontSize: '48px', fontWeight: '900', color: '#2563eb', marginBottom: '8px' }}>500+</div>
+                  <div style={{ fontSize: '16px', color: '#64748b', fontWeight: '600' }}>Trading Terms</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '48px', fontWeight: '900', color: '#059669', marginBottom: '8px' }}>25</div>
-                  <div style={{ fontSize: '16px', color: '#64748b', fontWeight: '600' }}>Complete Courses</div>
+                  <div style={{ fontSize: '48px', fontWeight: '900', color: '#059669', marginBottom: '8px' }}>12</div>
+                  <div style={{ fontSize: '16px', color: '#64748b', fontWeight: '600' }}>Complete Chapters</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '48px', fontWeight: '900', color: '#dc2626', marginBottom: '8px' }}>5,000+</div>
-                  <div style={{ fontSize: '16px', color: '#64748b', fontWeight: '600' }}>Active Students</div>
+                  <div style={{ fontSize: '48px', fontWeight: '900', color: '#dc2626', marginBottom: '8px' }}>100+</div>
+                  <div style={{ fontSize: '16px', color: '#64748b', fontWeight: '600' }}>Real Examples</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '48px', fontWeight: '900', color: '#f59e0b', marginBottom: '8px' }}>92%</div>
-                  <div style={{ fontSize: '16px', color: '#64748b', fontWeight: '600' }}>Success Rate</div>
+                  <div style={{ fontSize: '48px', fontWeight: '900', color: '#f59e0b', marginBottom: '8px' }}>FREE</div>
+                  <div style={{ fontSize: '16px', color: '#64748b', fontWeight: '600' }}>Lifetime Access</div>
                 </div>
               </div>
             </div>
