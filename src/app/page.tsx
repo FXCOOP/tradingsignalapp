@@ -17,6 +17,21 @@ export default function HomePage() {
   const [selectedArticle, setSelectedArticle] = useState<number | null>(null)
   const [dailyContent, setDailyContent] = useState<any>(null)
   const [expandedLesson, setExpandedLesson] = useState<string | null>(null)
+  const [marketSearchQuery, setMarketSearchQuery] = useState('')
+  const [selectedAssetClass, setSelectedAssetClass] = useState('all')
+  const [selectedRegion, setSelectedRegion] = useState('all')
+  const [selectedSector, setSelectedSector] = useState('all')
+  const [marketSortBy, setMarketSortBy] = useState('change')
+  const [glossarySearch, setGlossarySearch] = useState('')
+  const [expandedGlossaryCategory, setExpandedGlossaryCategory] = useState<string | null>(null)
+
+  // Market Analysis states
+  const [marketAnalysisSearch, setMarketAnalysisSearch] = useState('')
+  const [selectedMarketCategory, setSelectedMarketCategory] = useState('stocks')
+  const [selectedStockRegion, setSelectedStockRegion] = useState('all')
+  const [selectedForexType, setSelectedForexType] = useState('all')
+  const [selectedCommodityCategory, setSelectedCommodityCategory] = useState('all')
+  const [marketAnalysisSortBy, setMarketAnalysisSortBy] = useState('changePercent')
 
   // Add signal notification
   const addNotification = (message: string, type: 'success' | 'warning' | 'info' = 'info') => {
@@ -58,6 +73,1123 @@ export default function HomePage() {
     setHasExnessAccount(true)
     addNotification('✅ Exness account verified! Free education unlocked.', 'success')
   }
+
+  // Trading Glossary Data
+  const glossaryCategories = [
+    {
+      name: 'Basic Trading Terms',
+      emoji: '📚',
+      color: '#2563eb',
+      terms: [
+        {
+          name: 'Bull Market',
+          definition: 'A market condition characterized by rising prices and positive investor sentiment. Bull markets typically see sustained upward trends with higher highs and higher lows.',
+          example: 'The Saudi TASI index experienced a strong bull market in 2024, rising from 11,200 to 12,800 points over six months, driven by strong oil prices and Vision 2030 investments.'
+        },
+        {
+          name: 'Bear Market',
+          definition: 'A market condition where prices decline by 20% or more from recent highs, often accompanied by negative sentiment and economic concerns.',
+          example: 'Global markets entered a bear phase in 2022 when the S&P 500 dropped 25% from its peak, affecting GCC markets which saw 12-15% declines in major indices.'
+        },
+        {
+          name: 'Volatility',
+          definition: 'The degree of variation in trading prices over time. High volatility means large price swings, while low volatility indicates stable, gradual price movements.',
+          example: 'The UAE Dirham maintains very low volatility due to its fixed peg to the USD at 3.6725, making it ideal for stable international trade and predictable planning.'
+        },
+        {
+          name: 'Liquidity',
+          definition: 'The ease with which an asset can be bought or sold in the market without affecting its price. High liquidity means assets trade quickly with minimal price impact.',
+          example: 'Saudi Aramco stock is highly liquid on the Tadawul, with daily trading volumes exceeding 15 million shares, allowing investors to enter or exit positions easily.'
+        },
+        {
+          name: 'Bid-Ask Spread',
+          definition: 'The difference between the highest price a buyer is willing to pay (bid) and the lowest price a seller will accept (ask). Tighter spreads indicate better liquidity.',
+          example: 'For Emirates NBD stock on the DFM, the bid might be AED 14.95 and ask AED 14.97, creating a 2 fils spread that represents the transaction cost.'
+        },
+        {
+          name: 'Market Order',
+          definition: 'An order to buy or sell immediately at the best available current price. Market orders guarantee execution but not the exact price.',
+          example: 'Placing a market order to buy 100 shares of First Abu Dhabi Bank will execute instantly at the current ask price, typically within seconds during market hours.'
+        },
+        {
+          name: 'Limit Order',
+          definition: 'An order to buy or sell at a specific price or better. Limit orders control the price you pay but do not guarantee execution.',
+          example: 'Setting a limit buy order for Qatar National Bank at QAR 18.50 means you will only buy if the price drops to that level or lower.'
+        },
+        {
+          name: 'Long Position',
+          definition: 'Buying an asset with the expectation that its price will rise. Profit is made when you sell at a higher price than you bought.',
+          example: 'Taking a long position on gold at $2,000 per ounce means you profit if gold rises to $2,100, earning $100 per ounce held.'
+        },
+        {
+          name: 'Short Position',
+          definition: 'Selling an asset you do not own (borrowing it) with the expectation its price will fall. Profit comes from buying it back at a lower price.',
+          example: 'Shorting a stock at AED 20 and buying it back at AED 15 generates AED 5 profit per share (Note: shorting may not be Sharia-compliant, check with Islamic scholars).'
+        },
+        {
+          name: 'Portfolio',
+          definition: 'A collection of financial investments including stocks, bonds, commodities, cash, and other assets owned by an investor or managed together.',
+          example: 'A diversified GCC portfolio might include 40% Saudi equities, 30% UAE real estate, 20% Kuwait bonds, and 10% cash in AED for liquidity.'
+        },
+        {
+          name: 'Diversification',
+          definition: 'The practice of spreading investments across different assets, sectors, or geographic regions to reduce risk and minimize impact of any single investment.',
+          example: 'Instead of investing only in Saudi banking stocks, diversify across UAE telecoms, Qatar energy, Bahrain real estate, and Omani manufacturing.'
+        },
+        {
+          name: 'Asset Allocation',
+          definition: 'The strategic distribution of investment capital among different asset categories (stocks, bonds, real estate, commodities) based on goals and risk tolerance.',
+          example: 'A conservative GCC investor might allocate 30% to stocks, 50% to sukuk (Islamic bonds), 15% to real estate, and 5% to gold.'
+        },
+        {
+          name: 'Capital Gains',
+          definition: 'The profit realized when an investment is sold for more than the purchase price. The difference between selling price and cost basis.',
+          example: 'Buying Emaar Properties at AED 5.00 and selling at AED 6.50 generates AED 1.50 capital gain per share, subject to UAE capital gains tax rules.'
+        },
+        {
+          name: 'Dividend',
+          definition: 'A portion of a company\'s earnings distributed to shareholders, usually paid quarterly or annually. Dividends provide income in addition to potential price appreciation.',
+          example: 'Saudi Telecom Company (STC) paid a dividend of SAR 1.50 per share in 2024, providing 4.2% dividend yield to long-term shareholders.'
+        },
+        {
+          name: 'Market Capitalization',
+          definition: 'The total market value of a company\'s outstanding shares, calculated by multiplying share price by total number of shares.',
+          example: 'Saudi Aramco with 200 billion shares at SAR 32 each has a market cap of SAR 6.4 trillion, making it one of the world\'s largest companies.'
+        },
+        {
+          name: 'Trading Volume',
+          definition: 'The total number of shares or contracts traded during a specific period. High volume often indicates strong interest and better liquidity.',
+          example: 'The Dubai Financial Market (DFM) index trades 200-300 million shares daily during active periods, with spikes to 500+ million on major news.'
+        },
+        {
+          name: 'Trend',
+          definition: 'The general direction in which a market or asset price is moving. Trends can be upward (bullish), downward (bearish), or sideways (ranging).',
+          example: 'The Abu Dhabi ADX General Index showed a clear uptrend from January to June 2024, making higher highs from 8,800 to 9,450 points.'
+        },
+        {
+          name: 'Support Level',
+          definition: 'A price level where buying interest is strong enough to prevent the price from falling further. Historical point where price has bounced upward.',
+          example: 'Qatar National Bank has strong support at QAR 18.00, having bounced from that level three times in the past six months.'
+        },
+        {
+          name: 'Resistance Level',
+          definition: 'A price level where selling pressure is strong enough to prevent price from rising further. Historical point where price has reversed downward.',
+          example: 'The Saudi TASI index faced resistance at 12,800 points, failing to break above that level on four separate attempts before consolidating.'
+        },
+        {
+          name: 'Breakout',
+          definition: 'When price moves beyond a defined support or resistance level with increased volume, often signaling the start of a new trend.',
+          example: 'Emirates NBD stock broke out above AED 15.00 resistance with 2x normal volume, subsequently rallying to AED 16.50 within three weeks.'
+        },
+        {
+          name: 'Consolidation',
+          definition: 'A period where price moves sideways between support and resistance levels, often occurring after strong trends as markets digest gains.',
+          example: 'After a 20% rally, Etisalat Group consolidated between AED 28-30 for six weeks before resuming its uptrend to AED 34.'
+        },
+        {
+          name: 'Index',
+          definition: 'A statistical measure that tracks the performance of a group of assets. Indices provide benchmarks for market or sector performance.',
+          example: 'The MSCI GCC Countries Index tracks the performance of 90+ large and mid-cap stocks across all six GCC nations, weighted by market cap.'
+        },
+        {
+          name: 'Benchmark',
+          definition: 'A standard against which the performance of an investment or portfolio can be measured. Common benchmarks are major market indices.',
+          example: 'A Saudi equity fund uses the TASI All-Share Index as its benchmark, aiming to outperform the index by 2-3% annually.'
+        },
+        {
+          name: 'Blue Chip',
+          definition: 'Stock of a large, well-established, financially sound company with a history of reliable performance and often dividend payments.',
+          example: 'Al Rajhi Bank, Saudi Aramco, Emirates NBD, and Qatar National Bank are considered blue-chip stocks in the GCC region.'
+        },
+        {
+          name: 'Small Cap',
+          definition: 'Companies with relatively small market capitalization, typically between $300 million and $2 billion. Higher risk but higher growth potential.',
+          example: 'Emerging UAE technology companies listed on Abu Dhabi Growth Market (ADX GM) with market caps of AED 500 million-2 billion.'
+        },
+        {
+          name: 'Exchange',
+          definition: 'A marketplace where securities, commodities, and derivatives are traded. Exchanges provide infrastructure, regulation, and oversight.',
+          example: 'The Saudi Tadawul Exchange is the largest stock exchange in the Middle East, with over 200 listed companies and $3 trillion market cap.'
+        },
+        {
+          name: 'Ticker Symbol',
+          definition: 'A unique series of letters or numbers representing a publicly traded company or financial instrument on an exchange.',
+          example: 'Saudi Aramco trades under ticker symbol 2222 on Tadawul, while Emirates NBD uses ticker ENBD on the Dubai Financial Market.'
+        },
+        {
+          name: 'Trading Session',
+          definition: 'The period during which an exchange is open for trading. Different markets have different trading hours.',
+          example: 'The Saudi Tadawul operates Sunday-Thursday from 10:00 AM to 3:00 PM AST, with a pre-opening period starting at 9:30 AM.'
+        },
+        {
+          name: 'Market Maker',
+          definition: 'A firm or individual that provides liquidity by continuously offering to buy and sell securities at publicly quoted prices.',
+          example: 'Major banks like EFG Hermes act as market makers on the Dubai Financial Market, ensuring continuous bid-ask quotes for major stocks.'
+        },
+        {
+          name: 'Slippage',
+          definition: 'The difference between the expected price of a trade and the actual executed price, often occurring during high volatility or low liquidity.',
+          example: 'During a major announcement, your market order to buy at AED 10.00 might fill at AED 10.15 due to rapid price movement - this AED 0.15 is slippage.'
+        }
+      ]
+    },
+    {
+      name: 'Technical Analysis',
+      emoji: '📊',
+      color: '#059669',
+      terms: [
+        {
+          name: 'Moving Average (MA)',
+          definition: 'The average price of a security over a specific number of periods. Smooths price data to identify trends by filtering out short-term fluctuations.',
+          example: 'The 50-day moving average of the TASI index at 12,200 points provides a medium-term trend indicator; price above MA suggests bullish momentum.'
+        },
+        {
+          name: 'Exponential Moving Average (EMA)',
+          definition: 'A moving average that gives more weight to recent prices, making it more responsive to new information than simple moving averages.',
+          example: 'A 20-period EMA on a 4-hour chart of USD/AED helps GCC forex traders identify short-term trend changes faster than simple MAs.'
+        },
+        {
+          name: 'Relative Strength Index (RSI)',
+          definition: 'A momentum oscillator that measures the speed and magnitude of price changes on a scale of 0-100. Values above 70 indicate overbought, below 30 oversold.',
+          example: 'Emirates NBD stock showing RSI of 82 suggests overbought conditions, potentially signaling a pullback opportunity for swing traders.'
+        },
+        {
+          name: 'MACD (Moving Average Convergence Divergence)',
+          definition: 'A trend-following momentum indicator showing the relationship between two moving averages. Crossovers signal potential buy or sell opportunities.',
+          example: 'When MACD line crosses above signal line on the Saudi Aramco daily chart, technical traders interpret this as a bullish signal to enter long.'
+        },
+        {
+          name: 'Bollinger Bands',
+          definition: 'Volatility bands placed above and below a moving average. The bands widen during high volatility and contract during low volatility periods.',
+          example: 'Qatar National Bank price touching the lower Bollinger Band at QAR 17.80 with RSI at 28 provides a high-probability reversal buy signal.'
+        },
+        {
+          name: 'Fibonacci Retracement',
+          definition: 'Horizontal lines indicating potential support and resistance levels based on Fibonacci ratios (23.6%, 38.2%, 50%, 61.8%). Used to identify pullback targets.',
+          example: 'After ADX rallied from 8,800 to 9,450, the 61.8% Fibonacci retracement at 9,050 acts as key support for buying on pullbacks.'
+        },
+        {
+          name: 'Candlestick Pattern',
+          definition: 'Visual representations of price movements showing open, high, low, and close within a specific time period. Patterns help predict future price action.',
+          example: 'A bullish engulfing candle on the DFM index daily chart (green candle fully engulfing previous red) signals potential reversal from downtrend.'
+        },
+        {
+          name: 'Head and Shoulders',
+          definition: 'A chart pattern indicating a reversal from bullish to bearish trend. Features three peaks - left shoulder, higher head, right shoulder - with a neckline.',
+          example: 'A head and shoulders pattern forming on Emaar Properties with neckline at AED 5.80 suggests potential decline to AED 5.20 upon breakdown.'
+        },
+        {
+          name: 'Double Top/Bottom',
+          definition: 'Reversal patterns where price tests a level twice unsuccessfully. Double top is bearish; double bottom is bullish.',
+          example: 'The TASI index forming a double bottom at 11,800 points with increasing volume on the second bounce signals strong buying opportunity.'
+        },
+        {
+          name: 'Triangle Pattern',
+          definition: 'A continuation pattern where price converges between support and resistance. Can be ascending, descending, or symmetrical.',
+          example: 'Saudi Telecom forming an ascending triangle with resistance at SAR 122 and rising support suggests breakout target of SAR 130.'
+        },
+        {
+          name: 'Support and Resistance',
+          definition: 'Price levels where buying (support) or selling (resistance) pressure historically halts or reverses price movement.',
+          example: 'First Abu Dhabi Bank has proven support at AED 14.00 (bounced 4 times) and resistance at AED 16.00 (rejected 3 times).'
+        },
+        {
+          name: 'Trendline',
+          definition: 'A straight line connecting two or more price points, extended into the future to identify potential support or resistance levels.',
+          example: 'Drawing an upward trendline connecting the lows of the Kuwait KSE index from March through August shows support at 5,850 points.'
+        },
+        {
+          name: 'Chart Timeframe',
+          definition: 'The duration each candlestick or bar represents. Common timeframes include 1-minute, 5-minute, hourly, daily, weekly charts.',
+          example: 'Day traders watch 5-minute charts of Tadawul stocks for quick entries, while swing traders use daily charts for 3-7 day holding periods.'
+        },
+        {
+          name: 'Volume Analysis',
+          definition: 'Studying trading volume to confirm price movements. Rising prices on high volume confirm strength; on low volume suggest weakness.',
+          example: 'The DFM index breakout above 4,200 with volume 3x the 20-day average confirms genuine buying interest versus weak breakout.'
+        },
+        {
+          name: 'Divergence',
+          definition: 'When price movement and an indicator (like RSI or MACD) move in opposite directions, often signaling potential reversals.',
+          example: 'Etisalat making new highs at AED 32 while RSI makes lower highs (bearish divergence) warns of potential trend exhaustion.'
+        },
+        {
+          name: 'Momentum',
+          definition: 'The rate of acceleration of price movement. Strong momentum indicates the trend is likely to continue in the same direction.',
+          example: 'Saudi Aramco showing 5 consecutive daily gains with expanding volume demonstrates strong bullish momentum supporting continued upside.'
+        },
+        {
+          name: 'Overbought',
+          definition: 'A condition where an asset has risen too far too fast and may be due for a pullback or consolidation. Often identified by RSI above 70.',
+          example: 'With RSI at 85 and price 15% above its 50-day MA, Emirates NBD appears overbought, suggesting caution for new long entries.'
+        },
+        {
+          name: 'Oversold',
+          definition: 'A condition where an asset has fallen too far too fast and may be due for a bounce or reversal. Often identified by RSI below 30.',
+          example: 'Qatar National Bank with RSI at 22 and price at the lower Bollinger Band presents an oversold bounce trading opportunity.'
+        },
+        {
+          name: 'Golden Cross',
+          definition: 'A bullish signal when a shorter-term moving average crosses above a longer-term moving average, typically 50-day crossing 200-day MA.',
+          example: 'The TASI index 50-day MA crossing above the 200-day MA at 11,900 points signaled the start of the 2024 bull market rally.'
+        },
+        {
+          name: 'Death Cross',
+          definition: 'A bearish signal when a shorter-term moving average crosses below a longer-term moving average, suggesting potential downtrend.',
+          example: 'A death cross on the Bahrain Bourse All Share Index in October 2023 preceded a 12% decline over the following three months.'
+        },
+        {
+          name: 'Price Action',
+          definition: 'Trading methodology based solely on historical price movements without relying on technical indicators. Focuses on candlestick patterns and levels.',
+          example: 'A price action trader enters long on First Abu Dhabi Bank when price bounces from AED 14.00 support with a bullish pin bar.'
+        },
+        {
+          name: 'Pivot Points',
+          definition: 'Calculated levels used by traders to identify potential support and resistance. Based on previous period\'s high, low, and close prices.',
+          example: 'Daily pivot point for Aramco calculated at SAR 31.50 serves as intraday support/resistance for day traders on Tadawul.'
+        },
+        {
+          name: 'Stochastic Oscillator',
+          definition: 'A momentum indicator comparing closing price to price range over time. Values above 80 indicate overbought; below 20 indicate oversold.',
+          example: 'Stochastic crossing above 20 on Dubai Islamic Bank daily chart signals potential reversal from oversold conditions for swing trade entry.'
+        },
+        {
+          name: 'Average True Range (ATR)',
+          definition: 'A volatility indicator measuring the average range between high and low prices. Higher ATR indicates higher volatility.',
+          example: 'Saudi Aramco 14-day ATR of 0.85 SAR suggests typical daily range of 0.85 SAR, useful for setting stop-loss and profit targets.'
+        },
+        {
+          name: 'Ichimoku Cloud',
+          definition: 'A comprehensive indicator showing support/resistance, trend direction, and momentum using multiple components including cloud, conversion, and base lines.',
+          example: 'Price trading above the Ichimoku cloud on the ADX index with green cloud suggests strong uptrend continuation opportunity.'
+        },
+        {
+          name: 'Elliott Wave Theory',
+          definition: 'A technical analysis theory proposing that market movements follow repetitive patterns of five waves in trend direction and three corrective waves.',
+          example: 'Analysts identify the TASI rally as completing Elliott Wave 3 at 12,800, expecting Wave 4 correction to 12,200 before final Wave 5 push.'
+        },
+        {
+          name: 'Gap',
+          definition: 'A price range where no trading occurred, appearing as empty space on charts. Gaps often occur after news or over weekends.',
+          example: 'Emaar Properties gapped up from AED 5.80 to AED 6.20 on Sunday open after positive weekend news about mega project approval.'
+        },
+        {
+          name: 'Breakout Volume',
+          definition: 'The trading volume accompanying a breakout through support or resistance. High volume confirms genuine breakout; low volume suggests false break.',
+          example: 'The DFM index breakout above 4,200 resistance with 450 million shares (vs 200M average) validates the breakout strength.'
+        },
+        {
+          name: 'Price Pattern',
+          definition: 'Recognizable formations created by price movements on charts that help predict future price direction based on historical performance.',
+          example: 'A cup and handle pattern on Al Rajhi Bank weekly chart suggests continuation of uptrend with target of SAR 95 upon handle breakout.'
+        },
+        {
+          name: 'Harmonic Pattern',
+          definition: 'Advanced chart patterns based on Fibonacci ratios and geometric price movements, such as Gartley, Butterfly, and Bat patterns.',
+          example: 'A bullish Gartley pattern completing at point D (AED 14.20) on First Abu Dhabi Bank offers precise entry with tight stop-loss.'
+        }
+      ]
+    },
+    {
+      name: 'Fundamental Analysis',
+      emoji: '💼',
+      color: '#7c3aed',
+      terms: [
+        {
+          name: 'Earnings Per Share (EPS)',
+          definition: 'A company\'s profit divided by outstanding shares. Higher EPS indicates greater profitability and is used to calculate P/E ratio.',
+          example: 'Saudi Aramco reported EPS of SAR 8.50 in 2024, meaning each share represents SAR 8.50 of annual profit attributable to shareholders.'
+        },
+        {
+          name: 'Price-to-Earnings Ratio (P/E)',
+          definition: 'Share price divided by earnings per share. Indicates how much investors pay for each dollar of earnings. Lower P/E may indicate value.',
+          example: 'Qatar National Bank with P/E of 12.5x is trading at lower valuation than regional peers averaging 15x, potentially indicating undervaluation.'
+        },
+        {
+          name: 'Price-to-Book Ratio (P/B)',
+          definition: 'Market price per share divided by book value per share. Shows how much investors pay relative to company\'s net asset value.',
+          example: 'Emirates NBD trading at P/B of 1.8x means investors pay AED 1.80 for every AED 1.00 of book value (assets minus liabilities).'
+        },
+        {
+          name: 'Dividend Yield',
+          definition: 'Annual dividend per share divided by share price, expressed as percentage. Higher yield provides more income to shareholders.',
+          example: 'Saudi Telecom Company paying SAR 1.50 annual dividend with stock at SAR 120 provides 1.25% dividend yield to investors.'
+        },
+        {
+          name: 'Return on Equity (ROE)',
+          definition: 'Net income divided by shareholder equity, showing how effectively company uses equity to generate profits. Higher ROE indicates efficiency.',
+          example: 'Al Rajhi Bank achieving 22% ROE demonstrates superior ability to generate profits from shareholder investments compared to 15% industry average.'
+        },
+        {
+          name: 'Return on Assets (ROA)',
+          definition: 'Net income divided by total assets, measuring how efficiently company uses assets to generate earnings.',
+          example: 'First Abu Dhabi Bank with 2.1% ROA shows strong asset utilization, generating AED 2.10 profit for every AED 100 in assets.'
+        },
+        {
+          name: 'Debt-to-Equity Ratio',
+          definition: 'Total debt divided by total equity, indicating how much debt company uses to finance assets relative to shareholder equity.',
+          example: 'Emaar Properties with debt-to-equity of 0.45 means AED 0.45 debt for every AED 1.00 equity, indicating conservative leverage use.'
+        },
+        {
+          name: 'Free Cash Flow',
+          definition: 'Cash generated from operations minus capital expenditures. Represents cash available for distribution to shareholders or reinvestment.',
+          example: 'Saudi Aramco generated $120 billion free cash flow in 2023, enabling substantial dividend payments and strategic investments.'
+        },
+        {
+          name: 'Revenue Growth',
+          definition: 'The year-over-year or quarter-over-quarter percentage increase in company sales. Indicates business expansion and market demand.',
+          example: 'Etisalat Group reporting 12% revenue growth YoY demonstrates strong subscriber additions and successful 5G rollout in UAE and Egypt.'
+        },
+        {
+          name: 'Profit Margin',
+          definition: 'Net income divided by revenue, showing what percentage of sales becomes actual profit after all expenses.',
+          example: 'Al Rajhi Bank achieving 35% profit margin means it retains SAR 0.35 as profit for every SAR 1.00 of revenue generated.'
+        },
+        {
+          name: 'Operating Margin',
+          definition: 'Operating income divided by revenue, measuring profitability from core business operations before interest and taxes.',
+          example: 'Saudi Aramco maintaining 45% operating margin demonstrates exceptional operational efficiency in oil extraction and refining.'
+        },
+        {
+          name: 'Book Value',
+          definition: 'Total assets minus total liabilities, representing net worth of company. Book value per share divides this by outstanding shares.',
+          example: 'First Abu Dhabi Bank with book value of AED 28 billion and 3 billion shares has book value per share of AED 9.33.'
+        },
+        {
+          name: 'Market Value',
+          definition: 'The total value of a company as determined by the stock market, calculated as share price multiplied by total outstanding shares.',
+          example: 'Emirates NBD with 5.5 billion shares trading at AED 15.00 has market value of AED 82.5 billion, reflecting investor valuation.'
+        },
+        {
+          name: 'Intrinsic Value',
+          definition: 'The perceived true value of a company based on fundamental analysis, often calculated using discounted cash flow or other valuation models.',
+          example: 'Analyst calculates Qatar National Bank intrinsic value at QAR 22.00 vs current price of QAR 19.00, suggesting 15.8% upside potential.'
+        },
+        {
+          name: 'Earnings Report',
+          definition: 'Quarterly or annual financial statement released by public companies disclosing revenue, expenses, profits, and key business metrics.',
+          example: 'Saudi Aramco Q1 2024 earnings report showing $32.4 billion profit, up 12% YoY, triggered 5% stock price rally on Tadawul.'
+        },
+        {
+          name: 'Guidance',
+          definition: 'Management\'s forecast for future earnings or revenue, providing investors with expectations for upcoming quarters or fiscal year.',
+          example: 'Emaar Properties raising full-year revenue guidance to AED 35 billion (from AED 32B) signals strong sales momentum in Dubai real estate.'
+        },
+        {
+          name: 'Balance Sheet',
+          definition: 'Financial statement showing company\'s assets, liabilities, and shareholder equity at a specific point in time.',
+          example: 'First Abu Dhabi Bank balance sheet showing AED 900 billion total assets and AED 85 billion shareholder equity as of Q2 2024.'
+        },
+        {
+          name: 'Income Statement',
+          definition: 'Financial statement showing company\'s revenue, expenses, and profits over a specific period (quarter or year).',
+          example: 'Al Rajhi Bank income statement for Q4 2023 shows SAR 4.8 billion revenue, SAR 1.2 billion expenses, SAR 3.6 billion net income.'
+        },
+        {
+          name: 'Cash Flow Statement',
+          definition: 'Financial statement tracking cash moving in and out of company from operating, investing, and financing activities.',
+          example: 'Saudi Aramco cash flow statement showing $40 billion from operations, -$8 billion investing, -$28 billion financing (dividends).'
+        },
+        {
+          name: 'Sector',
+          definition: 'A distinct segment of the economy grouping companies with similar business activities, such as banking, energy, telecommunications, or real estate.',
+          example: 'The GCC banking sector includes Al Rajhi Bank, Emirates NBD, QNB, and FAB, all benefiting from rising interest rates in 2023-2024.'
+        },
+        {
+          name: 'Economic Indicator',
+          definition: 'Statistical data about economic activity, such as GDP growth, inflation, unemployment, used to assess economic health and market direction.',
+          example: 'UAE GDP growth of 3.9% in 2024, combined with 2.1% inflation, indicates healthy economic expansion supporting stock market valuations.'
+        },
+        {
+          name: 'Gross Domestic Product (GDP)',
+          definition: 'The total value of all goods and services produced in a country during a specific period, indicating economic size and growth rate.',
+          example: 'Saudi Arabia GDP reaching $1.1 trillion in 2024 with 3.5% growth rate demonstrates successful economic diversification under Vision 2030.'
+        },
+        {
+          name: 'Inflation Rate',
+          definition: 'The rate at which general price levels rise, reducing purchasing power. Central banks monitor inflation to set monetary policy.',
+          example: 'UAE inflation at 2.3% in 2024 remains within Central Bank target range, supporting stable currency peg and controlled price increases.'
+        },
+        {
+          name: 'Interest Rate',
+          definition: 'The cost of borrowing money or return on savings, set by central banks to control inflation and stimulate or cool economic growth.',
+          example: 'The Saudi Central Bank (SAMA) maintaining 5.50% repo rate affects borrowing costs for businesses and mortgage rates for consumers.'
+        },
+        {
+          name: 'Consumer Price Index (CPI)',
+          definition: 'A measure of average price changes in a basket of consumer goods and services, used to track inflation and cost of living.',
+          example: 'Qatar CPI rising 2.8% year-over-year in May 2024 indicates moderate inflation, primarily driven by housing and food costs.'
+        }
+      ]
+    },
+    {
+      name: 'Risk Management',
+      emoji: '🛡️',
+      color: '#dc2626',
+      terms: [
+        {
+          name: 'Stop Loss',
+          definition: 'An order placed to automatically sell a position when it reaches a specified price below your entry, limiting potential losses.',
+          example: 'Buying Emirates NBD at AED 15.00 with stop loss at AED 14.50 ensures maximum loss of AED 0.50 per share (3.33%) if trade moves against you.'
+        },
+        {
+          name: 'Take Profit',
+          definition: 'An order to automatically close a profitable position when it reaches a target price, locking in gains without emotional decision-making.',
+          example: 'Entering long Saudi Aramco at SAR 32.00 with take profit at SAR 34.00 automatically secures SAR 2.00 gain per share when target hits.'
+        },
+        {
+          name: 'Position Sizing',
+          definition: 'The process of determining how much capital to allocate to a specific trade based on account size and risk tolerance.',
+          example: 'With AED 100,000 account and 2% risk rule, you risk AED 2,000 per trade. With AED 0.50 stop loss, you can buy 4,000 shares.'
+        },
+        {
+          name: 'Risk-Reward Ratio',
+          definition: 'The potential profit of a trade relative to potential loss. A 3:1 ratio means you target 3 units of profit for every 1 unit of risk.',
+          example: 'Buying at AED 10.00 with stop at AED 9.50 (risk AED 0.50) and target AED 11.50 (reward AED 1.50) provides 3:1 risk-reward ratio.'
+        },
+        {
+          name: 'Maximum Drawdown',
+          definition: 'The largest peak-to-trough decline in portfolio value during a specific period. Indicates worst-case scenario risk.',
+          example: 'A trading account growing from AED 100,000 to AED 150,000, then dropping to AED 120,000 has maximum drawdown of 20% from peak.'
+        },
+        {
+          name: 'Risk per Trade',
+          definition: 'The maximum amount of capital you are willing to lose on a single trade, typically expressed as percentage of total account.',
+          example: 'Professional GCC traders typically risk 1-2% per trade. On a SAR 200,000 account, this means SAR 2,000-4,000 maximum loss per trade.'
+        },
+        {
+          name: 'Portfolio Diversification',
+          definition: 'Spreading investments across different assets, sectors, or markets to reduce overall risk and minimize correlation.',
+          example: 'A diversified GCC portfolio: 30% Saudi stocks, 25% UAE stocks, 20% Qatar bonds, 15% Kuwait real estate, 10% cash.'
+        },
+        {
+          name: 'Correlation',
+          definition: 'The degree to which two assets move in relation to each other. Positive correlation means they move together; negative means opposite.',
+          example: 'Saudi Aramco and Brent crude oil have high positive correlation (0.85), while gold and TASI index show negative correlation (-0.32).'
+        },
+        {
+          name: 'Leverage',
+          definition: 'Using borrowed capital to increase position size and potential returns. Magnifies both profits and losses proportionally.',
+          example: 'Trading with 10:1 leverage allows controlling AED 100,000 position with AED 10,000. A 5% move equals 50% gain or loss on capital.'
+        },
+        {
+          name: 'Margin',
+          definition: 'The amount of capital required to open and maintain a leveraged position. Margin call occurs when equity falls below required level.',
+          example: 'To trade AED 50,000 worth of UAE stocks with 20% margin requirement, you need AED 10,000 in your trading account.'
+        },
+        {
+          name: 'Margin Call',
+          definition: 'A broker demand for additional funds when account equity falls below minimum margin requirement, often due to leveraged losses.',
+          example: 'Trading with AED 10,000 on 5:1 leverage (AED 50,000 position) that drops 15% triggers margin call as equity falls below requirement.'
+        },
+        {
+          name: 'Hedging',
+          definition: 'Taking an offsetting position to reduce risk of adverse price movements in an existing investment.',
+          example: 'A Saudi exporter hedges SAR/USD currency risk by buying USD futures, protecting against potential dollar strength affecting revenues.'
+        },
+        {
+          name: 'Value at Risk (VaR)',
+          definition: 'Statistical measure estimating maximum potential loss over a specific time period at a given confidence level (e.g., 95%).',
+          example: 'A portfolio with daily VaR of AED 5,000 at 95% confidence means there is 5% chance of losing more than AED 5,000 in a day.'
+        },
+        {
+          name: 'Beta',
+          definition: 'A measure of a stock\'s volatility relative to the overall market. Beta >1 means more volatile; <1 means less volatile than market.',
+          example: 'Emaar Properties with beta of 1.3 tends to move 30% more than the DFM index - if index rises 10%, Emaar typically rises 13%.'
+        },
+        {
+          name: 'Trailing Stop',
+          definition: 'A dynamic stop loss that moves with favorable price movement but stays fixed when price reverses, protecting accumulated profits.',
+          example: 'Setting 5% trailing stop on Qatar National Bank at QAR 20.00 means stop moves up to QAR 21.00 when price hits QAR 22.00.'
+        },
+        {
+          name: 'Risk-Free Rate',
+          definition: 'The theoretical return on an investment with zero risk, often based on government bonds or central bank deposit rates.',
+          example: 'Saudi Arabian government 10-year sukuk yielding 4.8% serves as risk-free rate benchmark for evaluating equity investments in the region.'
+        },
+        {
+          name: 'Sharpe Ratio',
+          definition: 'Measure of risk-adjusted return, calculated as (portfolio return - risk-free rate) divided by portfolio volatility. Higher is better.',
+          example: 'A GCC equity fund with 15% return, 3% risk-free rate, and 12% volatility has Sharpe ratio of 1.0 (15-3)/12, indicating good risk-adjusted performance.'
+        },
+        {
+          name: 'Capital Preservation',
+          definition: 'Investment strategy prioritizing protection of principal capital over aggressive growth, accepting lower returns for reduced risk.',
+          example: 'Conservative UAE investors focus on capital preservation through 60% sukuk, 30% blue-chip GCC stocks, 10% cash allocation.'
+        },
+        {
+          name: 'Black Swan Event',
+          definition: 'An extremely rare and unpredictable event with severe consequences. Examples include financial crises, pandemics, or geopolitical shocks.',
+          example: 'The 2020 oil price crash to negative territory was a black swan event that temporarily disrupted GCC stock markets and currencies.'
+        },
+        {
+          name: 'Circuit Breaker',
+          definition: 'Automatic trading halt triggered when prices move beyond predetermined limits, designed to prevent panic selling and market crashes.',
+          example: 'The Saudi Tadawul has circuit breakers at ±10% for individual stocks and ±5% for the overall index to maintain orderly trading.'
+        },
+        {
+          name: 'Systematic Risk',
+          definition: 'Market-wide risk affecting all securities simultaneously, cannot be eliminated through diversification. Also called market risk.',
+          example: 'Global oil price collapse affects all GCC stock markets simultaneously as systematic risk due to regional economic oil dependence.'
+        },
+        {
+          name: 'Unsystematic Risk',
+          definition: 'Company or industry-specific risk that can be reduced through diversification. Also called specific or idiosyncratic risk.',
+          example: 'Risk of Emirates NBD-specific management issues or local regulatory changes - can be mitigated by diversifying across multiple GCC banks.'
+        },
+        {
+          name: 'Stress Testing',
+          definition: 'Analyzing how a portfolio would perform under extreme market conditions or adverse scenarios to evaluate resilience.',
+          example: 'GCC fund stress tests portfolio against scenarios: 40% oil price drop, 20% market correction, USD strength, regional geopolitical tensions.'
+        },
+        {
+          name: 'Position Limit',
+          definition: 'Maximum size of a position an investor or trader can hold, either self-imposed for risk management or regulatory requirement.',
+          example: 'Setting personal position limit of 10% per stock ensures no single position in portfolio exceeds AED 50,000 of AED 500,000 account.'
+        },
+        {
+          name: 'Recovery Factor',
+          definition: 'The ratio of net profit to maximum drawdown. Measures how efficiently a trading strategy recovers from losses.',
+          example: 'A trading strategy with SAR 100,000 profit and SAR 25,000 max drawdown has recovery factor of 4.0, indicating strong loss recovery.'
+        }
+      ]
+    },
+    {
+      name: 'Order Types',
+      emoji: '📋',
+      color: '#ea580c',
+      terms: [
+        {
+          name: 'Market Order',
+          definition: 'An order to buy or sell immediately at the best available current price. Guarantees execution but not the exact fill price.',
+          example: 'Placing market order to buy 500 shares of First Abu Dhabi Bank executes instantly at current ask price, typically AED 14.98-15.02.'
+        },
+        {
+          name: 'Limit Order',
+          definition: 'An order to buy or sell at a specific price or better. Guarantees price if executed but does not guarantee execution.',
+          example: 'Limit buy order for Saudi Aramco at SAR 31.50 only executes if price drops to SAR 31.50 or lower, protecting from overpaying.'
+        },
+        {
+          name: 'Stop-Loss Order',
+          definition: 'An order that becomes a market order once a specified trigger price is reached, used to limit losses on existing positions.',
+          example: 'Long Emaar Properties at AED 6.00 with stop-loss at AED 5.70 triggers automatic market sell if price drops to AED 5.70.'
+        },
+        {
+          name: 'Stop-Limit Order',
+          definition: 'An order that becomes a limit order (not market order) once stop price is triggered, providing price control but not guaranteed execution.',
+          example: 'Stop-limit sell at stop AED 14.50, limit AED 14.40 for Emirates NBD ensures you don\'t sell below AED 14.40 even if price crashes.'
+        },
+        {
+          name: 'Trailing Stop Order',
+          definition: 'A stop order that automatically adjusts with favorable price movement by a set percentage or amount, protecting profits.',
+          example: 'Qatar National Bank at QAR 20.00 with 5% trailing stop means stop moves to QAR 19.95 when price hits QAR 21.00, locking in gains.'
+        },
+        {
+          name: 'Good-Till-Cancelled (GTC)',
+          definition: 'An order that remains active until it is executed or manually cancelled, unlike day orders that expire at market close.',
+          example: 'A GTC limit buy order for Al Rajhi Bank at SAR 85.00 stays active for weeks until price drops to target or you cancel it.'
+        },
+        {
+          name: 'Day Order',
+          definition: 'An order that expires automatically at the end of the trading day if not executed. Most common default order duration.',
+          example: 'A day limit order to buy Etisalat at AED 29.00 placed Monday morning expires Monday 3 PM if price doesn\'t reach target.'
+        },
+        {
+          name: 'Fill or Kill (FOK)',
+          definition: 'An order that must be executed immediately in its entirety or cancelled completely. No partial fills allowed.',
+          example: 'FOK order to buy 10,000 shares of Dubai Islamic Bank must fill all 10,000 shares instantly or cancel - prevents partial execution.'
+        },
+        {
+          name: 'Immediate or Cancel (IOC)',
+          definition: 'An order to buy or sell that executes immediately for all or portion available, then cancels any unfilled part.',
+          example: 'IOC order for 5,000 shares of Saudi Telecom might fill 3,000 shares immediately and cancel remaining 2,000 if liquidity insufficient.'
+        },
+        {
+          name: 'All or None (AON)',
+          definition: 'An order that must be filled completely or not at all, but unlike FOK, does not require immediate execution.',
+          example: 'AON order to buy 8,000 shares of Kuwait Finance House waits for sufficient liquidity to fill all 8,000 shares in single transaction.'
+        },
+        {
+          name: 'Iceberg Order',
+          definition: 'A large order split into smaller visible portions to avoid revealing full order size and impacting market price.',
+          example: 'Institutional buyer wanting 100,000 shares of Emirates NBD uses iceberg showing 2,000 shares at a time to minimize market impact.'
+        },
+        {
+          name: 'Bracket Order',
+          definition: 'A three-part order combining entry with simultaneous stop-loss and take-profit orders, defining all parameters upfront.',
+          example: 'Bracket order: buy Aramco at SAR 32.00, stop-loss at SAR 31.00, take-profit at SAR 35.00 - all executed as single order package.'
+        },
+        {
+          name: 'One-Cancels-Other (OCO)',
+          definition: 'Two orders where execution of one automatically cancels the other. Used for bidirectional strategies or exits.',
+          example: 'OCO: buy First Abu Dhabi Bank at AED 14.00 OR AED 16.00 - whichever executes first automatically cancels the other.'
+        },
+        {
+          name: 'Market-on-Close (MOC)',
+          definition: 'An order executed at or near the market close price, ensuring participation in closing auction or final minutes of trading.',
+          example: 'MOC order for 1,000 shares of Qatar National Bank executes at 3:00 PM closing auction price, typically within 1-2% of last trade.'
+        },
+        {
+          name: 'Market-on-Open (MOO)',
+          definition: 'An order executed at or near the market opening price, participating in opening auction or first trade of the session.',
+          example: 'MOO order for Saudi Aramco executes during 10:00 AM Tadawul opening auction, filling at or near opening price.'
+        },
+        {
+          name: 'Conditional Order',
+          definition: 'An order that activates only when specific conditions are met, such as price levels, time, or other technical criteria.',
+          example: 'Conditional order to buy Emaar Properties only if DFM index breaks above 4,300 and volume exceeds 250 million shares.'
+        },
+        {
+          name: 'Pegged Order',
+          definition: 'An order automatically adjusted to maintain set relationship to market price, bid, ask, or other reference point.',
+          example: 'Pegged order to sell Emirates NBD at 0.5% above bid price automatically adjusts as bid changes, staying competitive for execution.'
+        },
+        {
+          name: 'Scale Order',
+          definition: 'Strategy of entering or exiting position in multiple smaller orders at different price levels rather than single large order.',
+          example: 'Buying 10,000 Al Rajhi Bank shares in 5 lots of 2,000 at SAR 87, 86.50, 86, 85.50, 85 averages down entry price.'
+        },
+        {
+          name: 'Discretionary Order',
+          definition: 'An order giving broker limited flexibility to execute at slightly different price or time for better execution quality.',
+          example: 'Discretionary order with 0.5% flexibility allows broker to buy Qatar National Bank between QAR 19.50-19.60 for optimal fill.'
+        },
+        {
+          name: 'Hidden Order',
+          definition: 'An order not displayed in the public order book, used to prevent other traders from detecting large institutional interest.',
+          example: 'Large institutional buyer uses hidden order for 50,000 shares of Saudi Aramco to avoid alerting market and pushing price higher.'
+        }
+      ]
+    },
+    {
+      name: 'Market Indicators',
+      emoji: '📈',
+      color: '#0891b2',
+      terms: [
+        {
+          name: 'Advance-Decline Line',
+          definition: 'Market breadth indicator tracking number of advancing stocks minus declining stocks. Rising line indicates broad market strength.',
+          example: 'Tadawul advance-decline line rising to new highs confirms TASI index rally supported by broad participation, not just large-cap stocks.'
+        },
+        {
+          name: 'Put-Call Ratio',
+          definition: 'Ratio of put option volume to call option volume. High ratio indicates bearish sentiment; low ratio suggests bullish sentiment.',
+          example: 'GCC derivatives markets showing put-call ratio of 0.45 suggests traders buying more calls than puts, indicating bullish outlook.'
+        },
+        {
+          name: 'VIX (Volatility Index)',
+          definition: 'Measure of market expected volatility based on options prices. Often called "fear index" - higher values indicate greater uncertainty.',
+          example: 'While GCC markets lack VIX equivalent, global VIX rising to 25 typically correlates with 10-15% decline in TASI and ADX indices.'
+        },
+        {
+          name: 'Market Breadth',
+          definition: 'Analysis of how many stocks participate in market move. Broad participation signals stronger, more sustainable trends.',
+          example: 'DFM rally with 85% of stocks advancing indicates healthy breadth versus narrow rally with only 10 large-caps driving index higher.'
+        },
+        {
+          name: 'New Highs-New Lows',
+          definition: 'Number of stocks making 52-week highs versus 52-week lows. More new highs than lows indicates bullish market conditions.',
+          example: 'ADX showing 45 stocks at new 52-week highs and only 8 at new lows confirms strong underlying market health despite index consolidation.'
+        },
+        {
+          name: 'On-Balance Volume (OBV)',
+          definition: 'Cumulative indicator adding volume on up days and subtracting on down days. Rising OBV suggests accumulation and strength.',
+          example: 'Saudi Aramco OBV rising consistently while price consolidates suggests institutional accumulation, supporting bullish continuation outlook.'
+        },
+        {
+          name: 'Accumulation/Distribution Line',
+          definition: 'Volume-based indicator measuring buying (accumulation) versus selling (distribution) pressure over time.',
+          example: 'Emirates NBD accumulation/distribution line diverging higher while price sideways indicates smart money accumulating before breakout.'
+        },
+        {
+          name: 'Money Flow Index (MFI)',
+          definition: 'Volume-weighted RSI measuring buying and selling pressure. Values above 80 overbought, below 20 oversold.',
+          example: 'Qatar National Bank MFI at 25 with price near support suggests oversold conditions and potential reversal opportunity.'
+        },
+        {
+          name: 'Arms Index (TRIN)',
+          definition: 'Ratio measuring advancing/declining stocks versus advancing/declining volume. Below 1.0 bullish; above 1.0 bearish.',
+          example: 'Tadawul TRIN at 0.75 indicates volume flowing into advancing stocks more than declining stocks, confirming bullish sentiment.'
+        },
+        {
+          name: 'Williams %R',
+          definition: 'Momentum indicator measuring overbought/oversold levels from -100 to 0. Above -20 overbought, below -80 oversold.',
+          example: 'First Abu Dhabi Bank Williams %R at -85 signals deeply oversold conditions, supporting bounce/reversal trade opportunity.'
+        },
+        {
+          name: 'Commodity Channel Index (CCI)',
+          definition: 'Oscillator identifying cyclical trends and overbought/oversold conditions. Values typically range from -100 to +100.',
+          example: 'Al Rajhi Bank CCI crossing above +100 after consolidation signals strong momentum breakout for trend-following entry.'
+        },
+        {
+          name: 'Parabolic SAR',
+          definition: 'Indicator providing potential entry and exit points through dots placed above or below price, indicating trend direction.',
+          example: 'Emaar Properties Parabolic SAR dots flipping from above to below price signals trend change from bearish to bullish.'
+        },
+        {
+          name: 'Chaikin Money Flow',
+          definition: 'Volume-weighted indicator measuring buying and selling pressure over specific period, typically 20 or 21 days.',
+          example: 'Saudi Aramco Chaikin Money Flow above +0.15 for three weeks indicates sustained institutional buying supporting uptrend continuation.'
+        },
+        {
+          name: 'Rate of Change (ROC)',
+          definition: 'Momentum oscillator measuring percentage price change between current price and price n-periods ago.',
+          example: 'Etisalat Group 20-day ROC at +8.5% shows strong recent momentum, suggesting continuation of uptrend if volume confirms.'
+        },
+        {
+          name: 'Aroon Indicator',
+          definition: 'Two lines (Aroon Up and Aroon Down) measuring time since 25-period high/low. Identifies trend strength and potential reversals.',
+          example: 'Qatar National Bank Aroon Up at 100 and Aroon Down at 10 indicates strong uptrend with recent 25-day high and no recent lows.'
+        },
+        {
+          name: 'Keltner Channels',
+          definition: 'Volatility-based envelopes set above and below EMA. Breakouts beyond channels signal potential trend continuation.',
+          example: 'Emirates NBD breaking above upper Keltner Channel with expanding volume confirms strong bullish momentum for trend trade.'
+        },
+        {
+          name: 'Donchian Channels',
+          definition: 'Upper and lower bands based on highest high and lowest low over set period. Popular for breakout and trend-following systems.',
+          example: 'Al Rajhi Bank breaking above 20-day Donchian Channel high at SAR 88.00 triggers buy signal for momentum traders.'
+        },
+        {
+          name: 'Price Volume Trend (PVT)',
+          definition: 'Cumulative volume-based indicator that adds/subtracts portion of volume based on percentage price change.',
+          example: 'First Abu Dhabi Bank PVT making higher lows while price makes lower lows signals bullish divergence and potential reversal.'
+        },
+        {
+          name: 'Detrended Price Oscillator',
+          definition: 'Indicator removing trend to highlight shorter-term cycles. Helps identify overbought/oversold conditions and cycle turning points.',
+          example: 'Saudi Aramco detrended price oscillator reaching extreme low suggests end of correction phase and potential cycle turn higher.'
+        },
+        {
+          name: 'Ultimate Oscillator',
+          definition: 'Momentum oscillator using three different time periods to avoid false signals. Ranges from 0 to 100.',
+          example: 'Emaar Properties Ultimate Oscillator above 70 with bullish divergence provides high-probability reversal signal from oversold zone.'
+        }
+      ]
+    },
+    {
+      name: 'GCC & Islamic Finance',
+      emoji: '🕌',
+      color: '#059669',
+      terms: [
+        {
+          name: 'Sukuk',
+          definition: 'Islamic bonds structured to comply with Sharia law. Instead of interest, investors receive share of asset\'s profit. Also called Islamic bonds.',
+          example: 'Saudi Arabia issued $5 billion sukuk in 2024 at 4.7% yield, backed by government infrastructure assets, providing Sharia-compliant investment.'
+        },
+        {
+          name: 'Halal Investment',
+          definition: 'Investments permissible under Islamic law, avoiding interest (riba), gambling (maysir), uncertainty (gharar), and prohibited industries.',
+          example: 'Al Rajhi Bank is halal-compliant, avoiding conventional interest-based banking, alcohol, tobacco, gambling, and weapons industries.'
+        },
+        {
+          name: 'Haram Investment',
+          definition: 'Investments forbidden under Islamic law, including businesses dealing with alcohol, pork, gambling, conventional banking interest, or weapons.',
+          example: 'Conventional bonds paying fixed interest, casino stocks, brewery companies, and interest-based loans are considered haram investments.'
+        },
+        {
+          name: 'Murabaha',
+          definition: 'Islamic financing where bank buys asset and sells it to customer at marked-up price with deferred payment. Profit known upfront.',
+          example: 'Dubai Islamic Bank purchases property for AED 1 million, sells it to customer for AED 1.2 million payable over 5 years - transparent profit.'
+        },
+        {
+          name: 'Mudarabah',
+          definition: 'Partnership where one party provides capital and other provides expertise. Profits shared per agreement; losses borne by capital provider.',
+          example: 'Investor provides SAR 500,000 capital to experienced trader; profits split 60-40 while investor bears all financial losses if occur.'
+        },
+        {
+          name: 'Musharakah',
+          definition: 'Joint venture partnership where all parties contribute capital and share profits/losses proportionally. Common in Islamic project finance.',
+          example: 'Qatar Islamic Bank and developer each contribute 50% capital for mall project, sharing profits and losses equally per Musharakah agreement.'
+        },
+        {
+          name: 'Riba',
+          definition: 'Interest or usury, strictly prohibited in Islam. Includes both excessive interest and any predetermined interest on loans.',
+          example: 'Conventional bank loans charging 8% annual interest constitute riba, which is why Islamic banks use profit-sharing alternatives.'
+        },
+        {
+          name: 'Zakat',
+          definition: 'Mandatory charitable contribution of 2.5% of wealth annually for Muslims. One of Five Pillars of Islam, purifying wealth.',
+          example: 'Muslim investor with AED 400,000 in stocks and cash must pay AED 10,000 (2.5%) annually as zakat to eligible recipients.'
+        },
+        {
+          name: 'Sharia Screening',
+          definition: 'Process of evaluating companies to determine if their business activities and financial ratios comply with Islamic principles.',
+          example: 'Emirates NBD screens out companies with >5% revenue from haram sources or debt-to-market-cap ratio exceeding 33% for Islamic funds.'
+        },
+        {
+          name: 'Vision 2030',
+          definition: 'Saudi Arabia\'s strategic framework to diversify economy away from oil dependence, announced in 2016. Drives major investments and reforms.',
+          example: 'Vision 2030 initiatives like NEOM mega-city, Red Sea tourism project, and PIF investments create opportunities for GCC equity investors.'
+        },
+        {
+          name: 'Tadawul',
+          definition: 'The Saudi Stock Exchange (Tadawul), the largest stock market in the Middle East by market capitalization, hosting 200+ listed companies.',
+          example: 'Trading Saudi Aramco, Al Rajhi Bank, STC, and SABIC requires Tadawul account, operating Sunday-Thursday 10 AM-3 PM AST.'
+        },
+        {
+          name: 'Abu Dhabi Securities Exchange (ADX)',
+          definition: 'One of two main UAE stock exchanges, featuring major companies like First Abu Dhabi Bank, ADNOC, and Etisalat Group.',
+          example: 'ADX General Index tracks 70+ companies with combined market cap exceeding AED 1 trillion, operating Sunday-Thursday 10 AM-2 PM.'
+        },
+        {
+          name: 'Dubai Financial Market (DFM)',
+          definition: 'UAE stock exchange hosting Dubai-based companies including Emaar Properties, Dubai Islamic Bank, and Emirates NBD.',
+          example: 'DFM offers trading in 65+ stocks, with Emaar Properties being most actively traded, average daily volume 50-80 million shares.'
+        },
+        {
+          name: 'Qatar Stock Exchange (QSE)',
+          definition: 'Doha-based exchange listing 50+ Qatari companies across banking, industry, insurance, and services sectors.',
+          example: 'QSE trading Qatar National Bank, Industries Qatar, and Ooredoo, operating Sunday-Thursday 9:30 AM-1:30 PM with T+2 settlement.'
+        },
+        {
+          name: 'Kuwait Boursa (KSE)',
+          definition: 'Kuwait Stock Exchange featuring three market segments: Premier, Main, and Auction. Known for high dividend yields.',
+          example: 'Kuwait Boursa Premier Market includes National Bank of Kuwait and Kuwait Finance House, popular for 4-6% dividend yields.'
+        },
+        {
+          name: 'Bahrain Bourse (BHB)',
+          definition: 'Stock exchange in Manama featuring primarily financial services companies and investment funds.',
+          example: 'Bahrain Bourse lists Ahli United Bank, National Bank of Bahrain, and various regional investment funds with Sharia-compliant options.'
+        },
+        {
+          name: 'Muscat Securities Market (MSM)',
+          definition: 'Oman\'s stock exchange in Muscat, featuring banking, industrial, and service companies with growing international investor participation.',
+          example: 'MSM offers access to Bank Muscat, Oman Telecommunications, and diversified industrial companies, trading Sunday-Thursday.'
+        },
+        {
+          name: 'GCC Common Market',
+          definition: 'Economic integration initiative allowing free movement of goods, services, and capital among GCC member states.',
+          example: 'GCC nationals can trade stocks on any GCC exchange without restrictions, opening cross-border investment opportunities across the region.'
+        },
+        {
+          name: 'Sovereign Wealth Fund',
+          definition: 'State-owned investment fund managing national reserves. GCC hosts world\'s largest SWFs like PIF, ADIA, and QIA.',
+          example: 'Saudi Public Investment Fund (PIF) with $700 billion+ assets invests in regional projects and international companies, influencing GCC markets.'
+        },
+        {
+          name: 'Islamic Finance Index',
+          definition: 'Market index tracking only Sharia-compliant companies, excluding those violating Islamic principles.',
+          example: 'S&P GCC Composite Sharia Index includes only companies passing Islamic screening criteria, providing benchmark for halal investing.'
+        }
+      ]
+    },
+    {
+      name: 'Forex Trading',
+      emoji: '💱',
+      color: '#8b5cf6',
+      terms: [
+        {
+          name: 'Currency Pair',
+          definition: 'Quotation of two currencies where one is quoted against the other. Base currency (first) vs quote currency (second).',
+          example: 'In EUR/USD = 1.0850, you pay $1.0850 USD to buy 1 EUR. In USD/AED = 3.6725, you get AED 3.6725 for 1 USD.'
+        },
+        {
+          name: 'Pip',
+          definition: 'Smallest price movement in forex, typically fourth decimal place (0.0001). For JPY pairs, second decimal (0.01).',
+          example: 'EUR/USD moving from 1.0850 to 1.0855 is a 5 pip increase. For USD/JPY, 150.25 to 150.35 is 10 pips.'
+        },
+        {
+          name: 'Spread',
+          definition: 'Difference between bid (sell) and ask (buy) price in forex. Tighter spreads indicate better liquidity and lower trading costs.',
+          example: 'EUR/USD bid 1.0850, ask 1.0852 has 2 pip spread. Trading 1 standard lot (100,000 EUR) costs $20 in spread.'
+        },
+        {
+          name: 'Lot Size',
+          definition: 'Standardized trading quantity in forex. Standard lot = 100,000 units, mini = 10,000, micro = 1,000.',
+          example: 'Trading 1 standard lot EUR/USD means controlling 100,000 EUR. Each pip movement equals $10 profit or loss.'
+        },
+        {
+          name: 'Leverage in Forex',
+          definition: 'Borrowed capital allowing control of larger positions with smaller deposits. Common forex leverage: 50:1, 100:1, even 500:1.',
+          example: 'With 100:1 leverage, $1,000 margin controls $100,000 position. A 1% move equals $1,000 profit or loss on your $1,000 capital.'
+        },
+        {
+          name: 'Margin in Forex',
+          definition: 'Amount of capital required to open and maintain a leveraged forex position, expressed as percentage of full position value.',
+          example: 'Trading 1 lot EUR/USD ($100,000) with 100:1 leverage requires $1,000 margin (1% of position size) in your trading account.'
+        },
+        {
+          name: 'Major Pairs',
+          definition: 'Most liquid and actively traded currency pairs, all involving USD: EUR/USD, GBP/USD, USD/JPY, USD/CHF, USD/CAD, AUD/USD, NZD/USD.',
+          example: 'EUR/USD accounts for 24% of global forex volume, offering tightest spreads (0.1-0.3 pips) and best trading conditions.'
+        },
+        {
+          name: 'Minor Pairs',
+          definition: 'Currency pairs excluding USD but involving major currencies: EUR/GBP, EUR/JPY, GBP/JPY. Less liquid than majors.',
+          example: 'EUR/GBP trades with 1-2 pip spreads versus 0.1-0.3 pips for EUR/USD, reflecting lower liquidity and wider spreads.'
+        },
+        {
+          name: 'Exotic Pairs',
+          definition: 'Currency pairs involving one major currency and one emerging market currency. Higher spreads and volatility.',
+          example: 'USD/TRY (Turkish Lira) or USD/ZAR (South African Rand) offer high volatility but wider spreads (10-50 pips) and overnight costs.'
+        },
+        {
+          name: 'Carry Trade',
+          definition: 'Strategy of borrowing low-interest currency to buy high-interest currency, profiting from interest rate differential.',
+          example: 'Borrowing JPY at 0.1% to buy AUD at 4.35% earns 4.25% annual interest differential, plus any favorable currency movement.'
+        },
+        {
+          name: 'Swap Rate',
+          definition: 'Interest paid or earned for holding forex position overnight. Based on interest rate differential between two currencies.',
+          example: 'Holding long AUD/JPY overnight earns positive swap (receiving higher AUD rate). Short position pays swap (paying the differential).'
+        },
+        {
+          name: 'Central Bank Policy',
+          definition: 'Monetary policy decisions by central banks affecting interest rates and money supply, major driver of currency values.',
+          example: 'US Federal Reserve raising rates from 0% to 5.5% in 2022-2023 strengthened USD by 15% against EUR and 8% against GBP.'
+        },
+        {
+          name: 'Currency Peg',
+          definition: 'Fixed exchange rate system where currency is tied to another currency or basket. Most GCC currencies are pegged to USD.',
+          example: 'UAE Dirham fixed at 3.6725 per USD since 1997, providing stability for trade but eliminating forex speculation opportunities.'
+        },
+        {
+          name: 'Floating Exchange Rate',
+          definition: 'Currency value determined by market forces of supply and demand rather than government intervention.',
+          example: 'EUR/USD freely floats based on economic data, interest rates, and market sentiment, ranging 1.05-1.12 in 2024.'
+        },
+        {
+          name: 'Intervention',
+          definition: 'Central bank buying or selling currency to influence its value, typically to prevent excessive appreciation or depreciation.',
+          example: 'Swiss National Bank intervening to weaken CHF by selling francs and buying euros when EUR/CHF threatened parity in 2022.'
+        },
+        {
+          name: 'Forex Broker',
+          definition: 'Financial institution providing platform and liquidity for retail forex trading. Can be market maker or ECN/STP broker.',
+          example: 'Popular GCC forex brokers: Exness, FBS, XM, offering competitive spreads, multiple currency pairs, and leverage options for UAE traders.'
+        },
+        {
+          name: 'ECN (Electronic Communication Network)',
+          definition: 'Trading system matching buy and sell orders directly between participants without dealer intervention. Typically tighter spreads.',
+          example: 'ECN forex accounts offer raw spreads (0.0-0.2 pips on EUR/USD) plus small commission, ideal for high-volume traders.'
+        },
+        {
+          name: 'Market Maker',
+          definition: 'Broker creating market by taking opposite side of your trades. Often offers no commission but wider spreads.',
+          example: 'Market maker broker quoting EUR/USD at 1.0850/1.0852 takes your buy order at 1.0852, potentially selling to market at 1.0851.'
+        },
+        {
+          name: 'Forex Session',
+          definition: 'Geographic trading periods: Asian (Tokyo), European (London), North American (New York). Overlap periods have highest liquidity.',
+          example: 'London-New York overlap (1 PM-5 PM GMT) sees 40% of daily forex volume, offering tightest spreads and best trading opportunities.'
+        },
+        {
+          name: 'Economic Calendar',
+          definition: 'Schedule of economic data releases and events affecting currency values: GDP, employment, inflation, central bank meetings.',
+          example: 'US Non-Farm Payrolls (first Friday monthly) typically moves EUR/USD 50-100 pips, creating trading opportunities and increased volatility.'
+        }
+      ]
+    },
+    {
+      name: 'Commodities & Crypto',
+      emoji: '⚡',
+      color: '#f59e0b',
+      terms: [
+        {
+          name: 'Brent Crude Oil',
+          definition: 'International benchmark for oil pricing, sourced from North Sea. Reference for 2/3 of global oil contracts, including GCC exports.',
+          example: 'Saudi Arabia prices Arab Light crude at premium to Brent. When Brent trades at $85/barrel, Arab Light typically sells at $86-87.'
+        },
+        {
+          name: 'WTI Crude Oil',
+          definition: 'West Texas Intermediate, US oil benchmark. Lighter and sweeter than Brent, primarily used for North American pricing.',
+          example: 'WTI typically trades $2-4 below Brent due to transportation costs. WTI $82/barrel while Brent $85/barrel is normal spread.'
+        },
+        {
+          name: 'OPEC',
+          definition: 'Organization of Petroleum Exporting Countries coordinating oil production policies among 13 member nations including Saudi Arabia, UAE, Kuwait.',
+          example: 'OPEC+ (including Russia) decision to cut production by 2 million barrels/day in 2023 drove Brent crude from $80 to $95/barrel.'
+        },
+        {
+          name: 'Gold Spot Price',
+          definition: 'Current market price for immediate delivery of gold. Quoted in USD per troy ounce (31.1 grams), major safe-haven asset.',
+          example: 'Gold rallying from $1,800 to $2,400/oz in 2024 provided 33% return for UAE investors hedging against inflation and geopolitical risk.'
+        },
+        {
+          name: 'Futures Contract',
+          definition: 'Agreement to buy or sell commodity at predetermined price on specific future date. Used for hedging and speculation.',
+          example: 'Dubai Gold & Commodities Exchange offers gold futures, allowing traders to speculate or hedge with $100 per 0.01 ounce price move.'
+        },
+        {
+          name: 'Spot Market',
+          definition: 'Market for immediate delivery and payment of commodities, as opposed to futures contracts for future delivery.',
+          example: 'Buying physical gold bars in Dubai Gold Souk at current spot price plus 2-3% premium for fabrication and dealer margin.'
+        },
+        {
+          name: 'Contango',
+          definition: 'Futures market condition where contracts for later delivery trade at higher prices than current spot price.',
+          example: 'Gold spot at $2,000/oz while 6-month futures at $2,030/oz represents contango, reflecting storage and financing costs.'
+        },
+        {
+          name: 'Backwardation',
+          definition: 'Futures market condition where contracts for later delivery trade below current spot price, often indicating supply shortage.',
+          example: 'Oil spot at $90/barrel while 3-month futures at $87/barrel signals tight supply and strong immediate demand.'
+        },
+        {
+          name: 'Silver',
+          definition: 'Precious metal with both investment and industrial uses. More volatile than gold, often correlates with gold movements.',
+          example: 'Silver rallying from $22 to $30/oz (36% gain) while gold rose 15% demonstrates silver\'s higher volatility and beta to gold.'
+        },
+        {
+          name: 'Cryptocurrency',
+          definition: 'Digital currency using cryptography for security, operating on decentralized blockchain networks. Highly volatile speculative assets.',
+          example: 'Bitcoin ranging $40,000-$70,000 in 2024 offers high-risk, high-reward opportunities for UAE traders on Binance or Kraken platforms.'
+        },
+        {
+          name: 'Bitcoin (BTC)',
+          definition: 'First and largest cryptocurrency by market cap. Digital store of value often called "digital gold." Maximum supply 21 million coins.',
+          example: 'UAE investors buying Bitcoin at $30,000 and selling at $65,000 realized 117% gain, though experiencing 30-40% drawdowns during journey.'
+        },
+        {
+          name: 'Ethereum (ETH)',
+          definition: 'Second-largest cryptocurrency, programmable blockchain enabling smart contracts and decentralized applications.',
+          example: 'Ethereum rallying from $1,600 to $4,000 in 2024 benefited GCC crypto investors, driven by institutional adoption and ETF approvals.'
+        },
+        {
+          name: 'Altcoin',
+          definition: 'Any cryptocurrency other than Bitcoin. Includes Ethereum, Ripple, Cardano, Solana, and thousands of smaller projects.',
+          example: 'Solana (SOL) surging from $20 to $180 in 2023-2024 demonstrates extreme volatility typical of altcoins versus Bitcoin\'s relative stability.'
+        },
+        {
+          name: 'Blockchain',
+          definition: 'Distributed ledger technology recording transactions across network of computers. Foundation of cryptocurrency and many fintech innovations.',
+          example: 'UAE government using blockchain for land registry, trade finance, and digital identity, supporting smart city initiatives.'
+        },
+        {
+          name: 'Crypto Exchange',
+          definition: 'Platform for buying, selling, and trading cryptocurrencies. Can be centralized (CEX) like Binance or decentralized (DEX).',
+          example: 'UAE traders use Binance, Kraken, or BitOasis for crypto trading, with Binance offering 350+ cryptocurrencies and low 0.1% fees.'
+        },
+        {
+          name: 'Stablecoin',
+          definition: 'Cryptocurrency designed to maintain stable value by pegging to fiat currency, commodity, or algorithmic mechanisms.',
+          example: 'USDT and USDC maintain $1.00 peg, allowing GCC crypto traders to park profits in stable assets without exiting to fiat currency.'
+        },
+        {
+          name: 'DeFi (Decentralized Finance)',
+          definition: 'Financial services built on blockchain without traditional intermediaries like banks. Includes lending, borrowing, trading.',
+          example: 'UAE investors earning 5-8% yields on stablecoin deposits in DeFi protocols like Aave or Compound, though with smart contract risks.'
+        },
+        {
+          name: 'NFT (Non-Fungible Token)',
+          definition: 'Unique digital asset on blockchain representing ownership of digital or physical items. Each token is distinct and not interchangeable.',
+          example: 'Dubai real estate companies using NFTs to represent fractional property ownership, allowing investors to buy portions of villas or apartments.'
+        },
+        {
+          name: 'Commodity ETF',
+          definition: 'Exchange-traded fund investing in physical commodities or commodity futures, providing easy diversification.',
+          example: 'GCC investors accessing gold exposure through SPDR Gold Shares (GLD) ETF, tracking gold price with 0.40% annual fee.'
+        },
+        {
+          name: 'Natural Gas',
+          definition: 'Fossil fuel commodity used for heating, electricity generation, and industrial processes. Highly seasonal with winter demand spikes.',
+          example: 'Qatar, world\'s largest LNG exporter, benefits when European natural gas prices spike to $40-50/MMBtu versus normal $10-15.'
+        }
+      ]
+    }
+  ]
 
   // Comprehensive Lesson Content
   const lessonContent: Record<string, {
@@ -1944,7 +3076,7 @@ Understanding these markets' specific operating procedures, listing requirements
       subtitle: 'Live Trading Signals & Market Analysis',
       liveSignals: 'Live Trading Signals',
       marketAnalysis: 'Market Analysis',
-      asianMarkets: 'GCC Markets',
+      worldwideMarkets: 'Worldwide Markets',
       news: 'Financial News',
       education: 'Trading Education'
     },
@@ -1953,7 +3085,7 @@ Understanding these markets' specific operating procedures, listing requirements
       subtitle: 'إشارات التداول المباشرة وتحليل السوق',
       liveSignals: 'إشارات التداول المباشرة',
       marketAnalysis: 'تحليل السوق',
-      asianMarkets: 'أسواق دول الخليج',
+      worldwideMarkets: 'الأسواق العالمية',
       news: 'الأخبار المالية',
       education: 'تعليم التداول'
     }
@@ -2030,36 +3162,793 @@ Understanding these markets' specific operating procedures, listing requirements
     }
   ]
 
-  // GCC markets data
-  const asianMarkets = [
+  // Worldwide markets data - comprehensive global coverage
+  const globalMarkets = [
+    // GCC Markets
     {
+      region: 'GCC',
       name: 'TASI (Tadawul)',
-      price: '11,247',
-      change: '+127',
+      country: '🇸🇦 Saudi Arabia',
+      price: '11,247.50',
+      change: '+127.30',
       changePercent: '+1.14%',
       trend: 'up'
     },
     {
+      region: 'GCC',
       name: 'ADX General',
-      price: '9,876',
-      change: '+45',
+      country: '🇦🇪 UAE',
+      price: '9,876.25',
+      change: '+45.80',
       changePercent: '+0.47%',
       trend: 'up'
     },
     {
+      region: 'GCC',
+      name: 'DFM General',
+      country: '🇦🇪 Dubai',
+      price: '4,123.60',
+      change: '-12.40',
+      changePercent: '-0.30%',
+      trend: 'down'
+    },
+    {
+      region: 'GCC',
       name: 'QE Index',
-      price: '10,567',
-      change: '+89',
+      country: '🇶🇦 Qatar',
+      price: '10,567.80',
+      change: '+89.50',
       changePercent: '+0.86%',
       trend: 'up'
     },
     {
-      name: 'DFM General',
-      price: '4,123',
-      change: '-12',
-      changePercent: '-0.30%',
+      region: 'GCC',
+      name: 'Bahrain Bourse',
+      country: '🇧🇭 Bahrain',
+      price: '1,987.40',
+      change: '+8.20',
+      changePercent: '+0.41%',
+      trend: 'up'
+    },
+    {
+      region: 'GCC',
+      name: 'MSM 30',
+      country: '🇴🇲 Oman',
+      price: '4,654.30',
+      change: '+15.70',
+      changePercent: '+0.34%',
+      trend: 'up'
+    },
+    {
+      region: 'GCC',
+      name: 'KWSE',
+      country: '🇰🇼 Kuwait',
+      price: '7,892.50',
+      change: '+23.40',
+      changePercent: '+0.30%',
+      trend: 'up'
+    },
+
+    // Middle East
+    {
+      region: 'Middle East',
+      name: 'EGX 30',
+      country: '🇪🇬 Egypt',
+      price: '27,543.20',
+      change: '+345.60',
+      changePercent: '+1.27%',
+      trend: 'up'
+    },
+    {
+      region: 'Middle East',
+      name: 'TA-35',
+      country: '🇮🇱 Israel',
+      price: '1,987.60',
+      change: '-8.40',
+      changePercent: '-0.42%',
       trend: 'down'
+    },
+
+    // Asia-Pacific
+    {
+      region: 'Asia-Pacific',
+      name: 'Nikkei 225',
+      country: '🇯🇵 Japan',
+      price: '33,456.80',
+      change: '+234.50',
+      changePercent: '+0.71%',
+      trend: 'up'
+    },
+    {
+      region: 'Asia-Pacific',
+      name: 'Hang Seng',
+      country: '🇭🇰 Hong Kong',
+      price: '17,234.60',
+      change: '-89.30',
+      changePercent: '-0.52%',
+      trend: 'down'
+    },
+    {
+      region: 'Asia-Pacific',
+      name: 'Shanghai Composite',
+      country: '🇨🇳 China',
+      price: '3,087.40',
+      change: '+12.60',
+      changePercent: '+0.41%',
+      trend: 'up'
+    },
+    {
+      region: 'Asia-Pacific',
+      name: 'CSI 300',
+      country: '🇨🇳 China',
+      price: '3,654.20',
+      change: '+18.90',
+      changePercent: '+0.52%',
+      trend: 'up'
+    },
+    {
+      region: 'Asia-Pacific',
+      name: 'KOSPI',
+      country: '🇰🇷 South Korea',
+      price: '2,567.80',
+      change: '+23.40',
+      changePercent: '+0.92%',
+      trend: 'up'
+    },
+    {
+      region: 'Asia-Pacific',
+      name: 'TSEC',
+      country: '🇹🇼 Taiwan',
+      price: '17,892.50',
+      change: '+156.30',
+      changePercent: '+0.88%',
+      trend: 'up'
+    },
+    {
+      region: 'Asia-Pacific',
+      name: 'Nifty 50',
+      country: '🇮🇳 India',
+      price: '21,234.60',
+      change: '+187.40',
+      changePercent: '+0.89%',
+      trend: 'up'
+    },
+    {
+      region: 'Asia-Pacific',
+      name: 'Sensex',
+      country: '🇮🇳 India',
+      price: '70,456.30',
+      change: '+432.80',
+      changePercent: '+0.62%',
+      trend: 'up'
+    },
+    {
+      region: 'Asia-Pacific',
+      name: 'STI',
+      country: '🇸🇬 Singapore',
+      price: '3,234.50',
+      change: '+12.30',
+      changePercent: '+0.38%',
+      trend: 'up'
+    },
+    {
+      region: 'Asia-Pacific',
+      name: 'SET',
+      country: '🇹🇭 Thailand',
+      price: '1,467.80',
+      change: '-5.60',
+      changePercent: '-0.38%',
+      trend: 'down'
+    },
+    {
+      region: 'Asia-Pacific',
+      name: 'KLCI',
+      country: '🇲🇾 Malaysia',
+      price: '1,534.20',
+      change: '+8.40',
+      changePercent: '+0.55%',
+      trend: 'up'
+    },
+    {
+      region: 'Asia-Pacific',
+      name: 'PSEi',
+      country: '🇵🇭 Philippines',
+      price: '6,456.70',
+      change: '+34.20',
+      changePercent: '+0.53%',
+      trend: 'up'
+    },
+    {
+      region: 'Asia-Pacific',
+      name: 'VN-Index',
+      country: '🇻🇳 Vietnam',
+      price: '1,187.60',
+      change: '+9.80',
+      changePercent: '+0.83%',
+      trend: 'up'
+    },
+
+    // Europe
+    {
+      region: 'Europe',
+      name: 'FTSE 100',
+      country: '🇬🇧 UK',
+      price: '7,654.30',
+      change: '+45.80',
+      changePercent: '+0.60%',
+      trend: 'up'
+    },
+    {
+      region: 'Europe',
+      name: 'DAX',
+      country: '🇩🇪 Germany',
+      price: '17,234.50',
+      change: '+123.40',
+      changePercent: '+0.72%',
+      trend: 'up'
+    },
+    {
+      region: 'Europe',
+      name: 'CAC 40',
+      country: '🇫🇷 France',
+      price: '7,456.80',
+      change: '+56.30',
+      changePercent: '+0.76%',
+      trend: 'up'
+    },
+    {
+      region: 'Europe',
+      name: 'IBEX 35',
+      country: '🇪🇸 Spain',
+      price: '10,123.40',
+      change: '+78.90',
+      changePercent: '+0.79%',
+      trend: 'up'
+    },
+    {
+      region: 'Europe',
+      name: 'FTSE MIB',
+      country: '🇮🇹 Italy',
+      price: '29,876.50',
+      change: '+234.60',
+      changePercent: '+0.79%',
+      trend: 'up'
+    },
+    {
+      region: 'Europe',
+      name: 'AEX',
+      country: '🇳🇱 Netherlands',
+      price: '789.60',
+      change: '+5.40',
+      changePercent: '+0.69%',
+      trend: 'up'
+    },
+    {
+      region: 'Europe',
+      name: 'SMI',
+      country: '🇨🇭 Switzerland',
+      price: '11,234.80',
+      change: '+67.20',
+      changePercent: '+0.60%',
+      trend: 'up'
+    },
+    {
+      region: 'Europe',
+      name: 'OMXS30',
+      country: '🇸🇪 Sweden',
+      price: '2,456.30',
+      change: '+18.70',
+      changePercent: '+0.77%',
+      trend: 'up'
+    },
+    {
+      region: 'Europe',
+      name: 'BEL 20',
+      country: '🇧🇪 Belgium',
+      price: '3,654.20',
+      change: '+23.40',
+      changePercent: '+0.64%',
+      trend: 'up'
+    },
+
+    // Americas
+    {
+      region: 'Americas',
+      name: 'S&P 500',
+      country: '🇺🇸 USA',
+      price: '5,234.68',
+      change: '+34.50',
+      changePercent: '+0.66%',
+      trend: 'up'
+    },
+    {
+      region: 'Americas',
+      name: 'Dow Jones',
+      country: '🇺🇸 USA',
+      price: '38,654.20',
+      change: '+178.40',
+      changePercent: '+0.46%',
+      trend: 'up'
+    },
+    {
+      region: 'Americas',
+      name: 'NASDAQ',
+      country: '🇺🇸 USA',
+      price: '16,345.80',
+      change: '+89.60',
+      changePercent: '+0.55%',
+      trend: 'up'
+    },
+    {
+      region: 'Americas',
+      name: 'Russell 2000',
+      country: '🇺🇸 USA',
+      price: '2,087.40',
+      change: '+12.30',
+      changePercent: '+0.59%',
+      trend: 'up'
+    },
+    {
+      region: 'Americas',
+      name: 'TSX',
+      country: '🇨🇦 Canada',
+      price: '21,876.50',
+      change: '+123.60',
+      changePercent: '+0.57%',
+      trend: 'up'
+    },
+    {
+      region: 'Americas',
+      name: 'IPC',
+      country: '🇲🇽 Mexico',
+      price: '56,234.80',
+      change: '+345.20',
+      changePercent: '+0.62%',
+      trend: 'up'
+    },
+    {
+      region: 'Americas',
+      name: 'Bovespa',
+      country: '🇧🇷 Brazil',
+      price: '127,654.30',
+      change: '+1,234.50',
+      changePercent: '+0.98%',
+      trend: 'up'
+    },
+    {
+      region: 'Americas',
+      name: 'Merval',
+      country: '🇦🇷 Argentina',
+      price: '1,234,567.80',
+      change: '-5,678.40',
+      changePercent: '-0.46%',
+      trend: 'down'
+    },
+
+    // Africa
+    {
+      region: 'Africa',
+      name: 'JSE Top 40',
+      country: '🇿🇦 South Africa',
+      price: '67,234.50',
+      change: '+456.80',
+      changePercent: '+0.68%',
+      trend: 'up'
+    },
+    {
+      region: 'Africa',
+      name: 'NSE 20',
+      country: '🇰🇪 Kenya',
+      price: '1,876.40',
+      change: '+12.30',
+      changePercent: '+0.66%',
+      trend: 'up'
+    },
+    {
+      region: 'Africa',
+      name: 'NGX ASI',
+      country: '🇳🇬 Nigeria',
+      price: '78,456.30',
+      change: '+567.20',
+      changePercent: '+0.73%',
+      trend: 'up'
+    },
+
+    // Oceania
+    {
+      region: 'Oceania',
+      name: 'ASX 200',
+      country: '🇦🇺 Australia',
+      price: '7,654.80',
+      change: '+45.60',
+      changePercent: '+0.60%',
+      trend: 'up'
+    },
+    {
+      region: 'Oceania',
+      name: 'NZX 50',
+      country: '🇳🇿 New Zealand',
+      price: '11,987.40',
+      change: '+78.30',
+      changePercent: '+0.66%',
+      trend: 'up'
     }
+  ]
+
+  // Global Stocks - Top 200 tradable instruments
+  const globalStocks = [
+    // US Mega-Caps (50)
+    { symbol: 'AAPL', name: 'Apple Inc', price: '$178.45', change: '+2.34', changePercent: '+1.33%', marketCap: '$2.8T', volume: '52.3M', sector: 'Technology', region: 'US' },
+    { symbol: 'MSFT', name: 'Microsoft Corp', price: '$378.91', change: '+4.56', changePercent: '+1.22%', marketCap: '$2.82T', volume: '28.1M', sector: 'Technology', region: 'US' },
+    { symbol: 'GOOGL', name: 'Alphabet Inc', price: '$141.23', change: '+1.87', changePercent: '+1.34%', marketCap: '$1.76T', volume: '31.2M', sector: 'Technology', region: 'US' },
+    { symbol: 'AMZN', name: 'Amazon.com Inc', price: '$156.78', change: '+2.45', changePercent: '+1.59%', marketCap: '$1.62T', volume: '47.8M', sector: 'Consumer', region: 'US' },
+    { symbol: 'NVDA', name: 'NVIDIA Corp', price: '$487.23', change: '+12.34', changePercent: '+2.60%', marketCap: '$1.21T', volume: '82.5M', sector: 'Technology', region: 'US' },
+    { symbol: 'TSLA', name: 'Tesla Inc', price: '$248.56', change: '-3.21', changePercent: '-1.27%', marketCap: '$788B', volume: '125.4M', sector: 'Automotive', region: 'US' },
+    { symbol: 'META', name: 'Meta Platforms', price: '$342.89', change: '+5.67', changePercent: '+1.68%', marketCap: '$884B', volume: '18.9M', sector: 'Technology', region: 'US' },
+    { symbol: 'BRK.B', name: 'Berkshire Hathaway', price: '$367.45', change: '+1.23', changePercent: '+0.34%', marketCap: '$815B', volume: '4.2M', sector: 'Finance', region: 'US' },
+    { symbol: 'V', name: 'Visa Inc', price: '$256.78', change: '+2.89', changePercent: '+1.14%', marketCap: '$542B', volume: '7.3M', sector: 'Finance', region: 'US' },
+    { symbol: 'JNJ', name: 'Johnson & Johnson', price: '$162.34', change: '+0.87', changePercent: '+0.54%', marketCap: '$428B', volume: '8.1M', sector: 'Healthcare', region: 'US' },
+    { symbol: 'WMT', name: 'Walmart Inc', price: '$168.92', change: '+1.45', changePercent: '+0.87%', marketCap: '$451B', volume: '9.2M', sector: 'Retail', region: 'US' },
+    { symbol: 'JPM', name: 'JPMorgan Chase', price: '$178.45', change: '+2.34', changePercent: '+1.33%', marketCap: '$518B', volume: '12.4M', sector: 'Banking', region: 'US' },
+    { symbol: 'MA', name: 'Mastercard Inc', price: '$412.67', change: '+3.56', changePercent: '+0.87%', marketCap: '$389B', volume: '3.8M', sector: 'Finance', region: 'US' },
+    { symbol: 'PG', name: 'Procter & Gamble', price: '$154.23', change: '+0.67', changePercent: '+0.44%', marketCap: '$365B', volume: '6.7M', sector: 'Consumer', region: 'US' },
+    { symbol: 'UNH', name: 'UnitedHealth Group', price: '$524.89', change: '+4.12', changePercent: '+0.79%', marketCap: '$492B', volume: '3.1M', sector: 'Healthcare', region: 'US' },
+    { symbol: 'HD', name: 'Home Depot', price: '$328.45', change: '+2.78', changePercent: '+0.85%', marketCap: '$334B', volume: '4.2M', sector: 'Retail', region: 'US' },
+    { symbol: 'DIS', name: 'Walt Disney Co', price: '$97.23', change: '+1.45', changePercent: '+1.51%', marketCap: '$178B', volume: '11.8M', sector: 'Media', region: 'US' },
+    { symbol: 'BAC', name: 'Bank of America', price: '$34.56', change: '+0.45', changePercent: '+1.32%', marketCap: '$278B', volume: '52.3M', sector: 'Banking', region: 'US' },
+    { symbol: 'NFLX', name: 'Netflix Inc', price: '$456.78', change: '+8.90', changePercent: '+1.99%', marketCap: '$198B', volume: '7.2M', sector: 'Media', region: 'US' },
+    { symbol: 'CRM', name: 'Salesforce Inc', price: '$234.56', change: '+3.21', changePercent: '+1.39%', marketCap: '$228B', volume: '6.8M', sector: 'Technology', region: 'US' },
+    { symbol: 'AMD', name: 'AMD Inc', price: '$142.34', change: '+5.67', changePercent: '+4.15%', marketCap: '$230B', volume: '78.9M', sector: 'Technology', region: 'US' },
+    { symbol: 'INTC', name: 'Intel Corp', price: '$42.78', change: '-0.89', changePercent: '-2.04%', marketCap: '$181B', volume: '45.2M', sector: 'Technology', region: 'US' },
+    { symbol: 'CSCO', name: 'Cisco Systems', price: '$52.34', change: '+0.78', changePercent: '+1.51%', marketCap: '$214B', volume: '22.1M', sector: 'Technology', region: 'US' },
+    { symbol: 'ADBE', name: 'Adobe Inc', price: '$567.89', change: '+6.45', changePercent: '+1.15%', marketCap: '$264B', volume: '3.4M', sector: 'Technology', region: 'US' },
+    { symbol: 'PEP', name: 'PepsiCo Inc', price: '$178.23', change: '+1.12', changePercent: '+0.63%', marketCap: '$245B', volume: '5.2M', sector: 'Consumer', region: 'US' },
+    { symbol: 'KO', name: 'Coca-Cola Co', price: '$61.45', change: '+0.34', changePercent: '+0.56%', marketCap: '$266B', volume: '14.3M', sector: 'Consumer', region: 'US' },
+    { symbol: 'NKE', name: 'Nike Inc', price: '$123.45', change: '+1.89', changePercent: '+1.56%', marketCap: '$194B', volume: '9.8M', sector: 'Consumer', region: 'US' },
+    { symbol: 'MRK', name: 'Merck & Co', price: '$112.34', change: '+0.98', changePercent: '+0.88%', marketCap: '$284B', volume: '8.7M', sector: 'Healthcare', region: 'US' },
+    { symbol: 'PFE', name: 'Pfizer Inc', price: '$32.67', change: '-0.45', changePercent: '-1.36%', marketCap: '$184B', volume: '32.1M', sector: 'Healthcare', region: 'US' },
+    { symbol: 'ORCL', name: 'Oracle Corp', price: '$118.90', change: '+2.34', changePercent: '+2.01%', marketCap: '$326B', volume: '9.4M', sector: 'Technology', region: 'US' },
+    { symbol: 'XOM', name: 'Exxon Mobil', price: '$112.45', change: '+1.67', changePercent: '+1.51%', marketCap: '$462B', volume: '18.3M', sector: 'Energy', region: 'US' },
+    { symbol: 'CVX', name: 'Chevron Corp', price: '$158.23', change: '+2.12', changePercent: '+1.36%', marketCap: '$298B', volume: '8.9M', sector: 'Energy', region: 'US' },
+    { symbol: 'ABBV', name: 'AbbVie Inc', price: '$168.45', change: '+1.23', changePercent: '+0.74%', marketCap: '$298B', volume: '7.1M', sector: 'Healthcare', region: 'US' },
+    { symbol: 'TMO', name: 'Thermo Fisher', price: '$534.67', change: '+4.56', changePercent: '+0.86%', marketCap: '$208B', volume: '1.8M', sector: 'Healthcare', region: 'US' },
+    { symbol: 'COST', name: 'Costco Wholesale', price: '$645.78', change: '+5.89', changePercent: '+0.92%', marketCap: '$286B', volume: '2.3M', sector: 'Retail', region: 'US' },
+    { symbol: 'AVGO', name: 'Broadcom Inc', price: '$892.34', change: '+12.45', changePercent: '+1.42%', marketCap: '$372B', volume: '2.1M', sector: 'Technology', region: 'US' },
+    { symbol: 'ACN', name: 'Accenture PLC', price: '$334.56', change: '+2.78', changePercent: '+0.84%', marketCap: '$211B', volume: '2.6M', sector: 'Technology', region: 'US' },
+    { symbol: 'TXN', name: 'Texas Instruments', price: '$178.90', change: '+1.56', changePercent: '+0.88%', marketCap: '$164B', volume: '5.4M', sector: 'Technology', region: 'US' },
+    { symbol: 'LLY', name: 'Eli Lilly', price: '$612.34', change: '+8.90', changePercent: '+1.47%', marketCap: '$582B', volume: '3.2M', sector: 'Healthcare', region: 'US' },
+    { symbol: 'NEE', name: 'NextEra Energy', price: '$78.45', change: '+0.67', changePercent: '+0.86%', marketCap: '$158B', volume: '9.1M', sector: 'Utilities', region: 'US' },
+    { symbol: 'QCOM', name: 'Qualcomm Inc', price: '$145.67', change: '+3.21', changePercent: '+2.25%', marketCap: '$163B', volume: '12.4M', sector: 'Technology', region: 'US' },
+    { symbol: 'MS', name: 'Morgan Stanley', price: '$92.34', change: '+1.12', changePercent: '+1.23%', marketCap: '$156B', volume: '8.7M', sector: 'Banking', region: 'US' },
+    { symbol: 'GS', name: 'Goldman Sachs', price: '$378.90', change: '+4.56', changePercent: '+1.22%', marketCap: '$128B', volume: '2.9M', sector: 'Banking', region: 'US' },
+    { symbol: 'CAT', name: 'Caterpillar Inc', price: '$287.45', change: '+3.12', changePercent: '+1.10%', marketCap: '$148B', volume: '4.1M', sector: 'Industrial', region: 'US' },
+    { symbol: 'BA', name: 'Boeing Co', price: '$212.34', change: '-2.45', changePercent: '-1.14%', marketCap: '$134B', volume: '8.9M', sector: 'Aerospace', region: 'US' },
+    { symbol: 'IBM', name: 'IBM Corp', price: '$168.90', change: '+1.78', changePercent: '+1.06%', marketCap: '$155B', volume: '6.2M', sector: 'Technology', region: 'US' },
+    { symbol: 'NOW', name: 'ServiceNow Inc', price: '$678.45', change: '+8.90', changePercent: '+1.33%', marketCap: '$137B', volume: '1.9M', sector: 'Technology', region: 'US' },
+    { symbol: 'ISRG', name: 'Intuitive Surgical', price: '$412.67', change: '+5.23', changePercent: '+1.28%', marketCap: '$147B', volume: '1.6M', sector: 'Healthcare', region: 'US' },
+    { symbol: 'BKNG', name: 'Booking Holdings', price: '$3234.56', change: '+45.67', changePercent: '+1.43%', marketCap: '$118B', volume: '0.4M', sector: 'Travel', region: 'US' },
+    { symbol: 'AXP', name: 'American Express', price: '$178.23', change: '+2.34', changePercent: '+1.33%', marketCap: '$132B', volume: '4.2M', sector: 'Finance', region: 'US' },
+
+    // GCC Stocks (30)
+    { symbol: '2222', name: 'Saudi Aramco', price: 'SAR 32.15', change: '+0.45', changePercent: '+1.42%', marketCap: '$2.1T', volume: '18.2M', sector: 'Energy', region: 'GCC' },
+    { symbol: '1120', name: 'Al Rajhi Bank', price: 'SAR 87.50', change: '+1.20', changePercent: '+1.39%', marketCap: '$69.3B', volume: '3.4M', sector: 'Banking', region: 'GCC' },
+    { symbol: '2010', name: 'SABIC', price: 'SAR 89.60', change: '+2.10', changePercent: '+2.40%', marketCap: '$71.7B', volume: '4.8M', sector: 'Chemicals', region: 'GCC' },
+    { symbol: '2030', name: 'Saudi Telecom', price: 'SAR 112.40', change: '+1.80', changePercent: '+1.63%', marketCap: '$56.2B', volume: '2.1M', sector: 'Telecom', region: 'GCC' },
+    { symbol: 'FAB', name: 'First Abu Dhabi Bank', price: 'AED 14.85', change: '+0.25', changePercent: '+1.71%', marketCap: '$48.3B', volume: '8.7M', sector: 'Banking', region: 'GCC' },
+    { symbol: 'ADNOC', name: 'ADNOC Distribution', price: 'AED 4.12', change: '+0.08', changePercent: '+1.98%', marketCap: '$41.2B', volume: '12.3M', sector: 'Energy', region: 'GCC' },
+    { symbol: 'EMAAR', name: 'Emaar Properties', price: 'AED 6.78', change: '+0.15', changePercent: '+2.26%', marketCap: '$27.5B', volume: '15.6M', sector: 'Real Estate', region: 'GCC' },
+    { symbol: 'ADCB', name: 'Abu Dhabi Commercial', price: 'AED 8.45', change: '+0.12', changePercent: '+1.44%', marketCap: '$23.8B', volume: '6.2M', sector: 'Banking', region: 'GCC' },
+    { symbol: 'DFM', name: 'Dubai Financial Market', price: 'AED 1.89', change: '+0.04', changePercent: '+2.16%', marketCap: '$1.5B', volume: '28.4M', sector: 'Finance', region: 'GCC' },
+    { symbol: 'ENBD', name: 'Emirates NBD', price: 'AED 15.20', change: '+0.30', changePercent: '+2.01%', marketCap: '$31.4B', volume: '4.8M', sector: 'Banking', region: 'GCC' },
+    { symbol: 'ALDAR', name: 'Aldar Properties', price: 'AED 5.34', change: '+0.11', changePercent: '+2.10%', marketCap: '$19.6B', volume: '9.3M', sector: 'Real Estate', region: 'GCC' },
+    { symbol: 'QNB', name: 'Qatar National Bank', price: 'QAR 19.45', change: '+0.25', changePercent: '+1.30%', marketCap: '$45.7B', volume: '2.1M', sector: 'Banking', region: 'GCC' },
+    { symbol: 'QIIK', name: 'Qatar International', price: 'QAR 8.90', change: '+0.15', changePercent: '+1.71%', marketCap: '$7.2B', volume: '1.8M', sector: 'Banking', region: 'GCC' },
+    { symbol: 'ERES', name: 'Ezdan Holding', price: 'QAR 1.78', change: '+0.03', changePercent: '+1.72%', marketCap: '$4.1B', volume: '12.3M', sector: 'Real Estate', region: 'GCC' },
+    { symbol: 'QEWS', name: 'Qatar Electricity', price: 'QAR 17.60', change: '+0.20', changePercent: '+1.15%', marketCap: '$8.8B', volume: '0.9M', sector: 'Utilities', region: 'GCC' },
+    { symbol: 'ORDS', name: 'Ooredoo', price: 'QAR 7.34', change: '+0.08', changePercent: '+1.10%', marketCap: '$11.7B', volume: '1.5M', sector: 'Telecom', region: 'GCC' },
+    { symbol: 'INDS', name: 'Industries Qatar', price: 'QAR 13.45', change: '+0.18', changePercent: '+1.36%', marketCap: '$12.3B', volume: '1.2M', sector: 'Industrial', region: 'GCC' },
+    { symbol: 'NBK', name: 'National Bank Kuwait', price: 'KWD 0.890', change: '+0.012', changePercent: '+1.37%', marketCap: '$9.8B', volume: '3.4M', sector: 'Banking', region: 'GCC' },
+    { symbol: 'ZAIN', name: 'Zain Kuwait', price: 'KWD 0.456', change: '+0.008', changePercent: '+1.79%', marketCap: '$2.1B', volume: '8.7M', sector: 'Telecom', region: 'GCC' },
+    { symbol: 'AGILITY', name: 'Agility Public', price: 'KWD 0.678', change: '+0.011', changePercent: '+1.65%', marketCap: '$7.5B', volume: '4.2M', sector: 'Logistics', region: 'GCC' },
+    { symbol: 'BBK', name: 'Bank of Bahrain', price: 'BHD 0.234', change: '+0.004', changePercent: '+1.74%', marketCap: '$1.2B', volume: '2.1M', sector: 'Banking', region: 'GCC' },
+    { symbol: 'BATELCO', name: 'Bahrain Telecom', price: 'BHD 0.456', change: '+0.007', changePercent: '+1.56%', marketCap: '$1.8B', volume: '1.5M', sector: 'Telecom', region: 'GCC' },
+    { symbol: 'AHC', name: 'Ahli United Bank', price: 'BHD 0.189', change: '+0.003', changePercent: '+1.61%', marketCap: '$0.9B', volume: '3.2M', sector: 'Banking', region: 'GCC' },
+    { symbol: 'OMANTEL', name: 'Oman Telecom', price: 'OMR 0.567', change: '+0.009', changePercent: '+1.61%', marketCap: '$2.3B', volume: '1.8M', sector: 'Telecom', region: 'GCC' },
+    { symbol: 'BNK', name: 'Bank Muscat', price: 'OMR 0.345', change: '+0.006', changePercent: '+1.77%', marketCap: '$1.9B', volume: '4.5M', sector: 'Banking', region: 'GCC' },
+    { symbol: 'OQ', name: 'OQ Exploration', price: 'OMR 0.234', change: '+0.004', changePercent: '+1.74%', marketCap: '$1.1B', volume: '2.7M', sector: 'Energy', region: 'GCC' },
+    { symbol: '1010', name: 'Riyad Bank', price: 'SAR 34.50', change: '+0.70', changePercent: '+2.07%', marketCap: '$18.4B', volume: '2.9M', sector: 'Banking', region: 'GCC' },
+    { symbol: '1180', name: 'SNB', price: 'SAR 56.80', change: '+0.90', changePercent: '+1.61%', marketCap: '$16.2B', volume: '1.7M', sector: 'Banking', region: 'GCC' },
+    { symbol: '4001', name: 'STC Pay', price: 'SAR 23.40', change: '+0.50', changePercent: '+2.18%', marketCap: '$6.2B', volume: '5.3M', sector: 'FinTech', region: 'GCC' },
+    { symbol: '4050', name: 'Saudi Electricity', price: 'SAR 28.90', change: '+0.40', changePercent: '+1.40%', marketCap: '$51.7B', volume: '3.1M', sector: 'Utilities', region: 'GCC' },
+
+    // European Stocks (50)
+    { symbol: 'ASML', name: 'ASML Holding', price: '€678.45', change: '+12.34', changePercent: '+1.85%', marketCap: '€278B', volume: '1.2M', sector: 'Technology', region: 'Europe' },
+    { symbol: 'NOVO', name: 'Novo Nordisk', price: 'DKK 512.30', change: '+8.90', changePercent: '+1.77%', marketCap: '$412B', volume: '2.8M', sector: 'Healthcare', region: 'Europe' },
+    { symbol: 'SAP', name: 'SAP SE', price: '€134.56', change: '+2.34', changePercent: '+1.77%', marketCap: '€161B', volume: '3.2M', sector: 'Technology', region: 'Europe' },
+    { symbol: 'LIN', name: 'Linde PLC', price: '€389.23', change: '+4.56', changePercent: '+1.19%', marketCap: '$198B', volume: '1.8M', sector: 'Chemicals', region: 'Europe' },
+    { symbol: 'MC', name: 'LVMH', price: '€734.50', change: '+9.80', changePercent: '+1.35%', marketCap: '€368B', volume: '0.6M', sector: 'Luxury', region: 'Europe' },
+    { symbol: 'OR', name: 'L\'Oreal', price: '€456.78', change: '+5.67', changePercent: '+1.26%', marketCap: '€251B', volume: '0.5M', sector: 'Consumer', region: 'Europe' },
+    { symbol: 'NVO', name: 'Novartis AG', price: 'CHF 89.45', change: '+0.98', changePercent: '+1.11%', marketCap: '$198B', volume: '2.1M', sector: 'Healthcare', region: 'Europe' },
+    { symbol: 'ROG', name: 'Roche Holding', price: 'CHF 267.80', change: '+3.20', changePercent: '+1.21%', marketCap: '$228B', volume: '1.4M', sector: 'Healthcare', region: 'Europe' },
+    { symbol: 'NESN', name: 'Nestle SA', price: 'CHF 112.30', change: '+1.45', changePercent: '+1.31%', marketCap: '$315B', volume: '3.9M', sector: 'Consumer', region: 'Europe' },
+    { symbol: 'SIE', name: 'Siemens AG', price: '€167.45', change: '+2.89', changePercent: '+1.76%', marketCap: '€134B', volume: '2.3M', sector: 'Industrial', region: 'Europe' },
+    { symbol: 'SHEL', name: 'Shell PLC', price: '£28.45', change: '+0.45', changePercent: '+1.61%', marketCap: '$218B', volume: '12.4M', sector: 'Energy', region: 'Europe' },
+    { symbol: 'BP', name: 'BP PLC', price: '£4.89', change: '+0.08', changePercent: '+1.66%', marketCap: '$98B', volume: '28.7M', sector: 'Energy', region: 'Europe' },
+    { symbol: 'HSBA', name: 'HSBC Holdings', price: '£6.78', change: '+0.11', changePercent: '+1.65%', marketCap: '$136B', volume: '34.2M', sector: 'Banking', region: 'Europe' },
+    { symbol: 'AZN', name: 'AstraZeneca', price: '£112.40', change: '+1.80', changePercent: '+1.63%', marketCap: '$174B', volume: '2.1M', sector: 'Healthcare', region: 'Europe' },
+    { symbol: 'ULVR', name: 'Unilever', price: '£44.56', change: '+0.67', changePercent: '+1.53%', marketCap: '$112B', volume: '4.8M', sector: 'Consumer', region: 'Europe' },
+    { symbol: 'DGE', name: 'Diageo', price: '£28.90', change: '+0.34', changePercent: '+1.19%', marketCap: '$64B', volume: '3.2M', sector: 'Consumer', region: 'Europe' },
+    { symbol: 'BARC', name: 'Barclays', price: '£1.89', change: '+0.03', changePercent: '+1.61%', marketCap: '$28B', volume: '52.1M', sector: 'Banking', region: 'Europe' },
+    { symbol: 'LLOY', name: 'Lloyds Banking', price: '£0.56', change: '+0.01', changePercent: '+1.82%', marketCap: '$34B', volume: '124.5M', sector: 'Banking', region: 'Europe' },
+    { symbol: 'VOD', name: 'Vodafone Group', price: '£0.78', change: '+0.01', changePercent: '+1.30%', marketCap: '$21B', volume: '78.9M', sector: 'Telecom', region: 'Europe' },
+    { symbol: 'RR', name: 'Rolls-Royce', price: '£3.45', change: '+0.08', changePercent: '+2.37%', marketCap: '$29B', volume: '28.4M', sector: 'Aerospace', region: 'Europe' },
+    { symbol: 'BNP', name: 'BNP Paribas', price: '€61.20', change: '+1.10', changePercent: '+1.83%', marketCap: '€76B', volume: '4.2M', sector: 'Banking', region: 'Europe' },
+    { symbol: 'SAN', name: 'Banco Santander', price: '€4.12', change: '+0.07', changePercent: '+1.73%', marketCap: '€67B', volume: '28.3M', sector: 'Banking', region: 'Europe' },
+    { symbol: 'TTE', name: 'TotalEnergies', price: '€62.45', change: '+1.12', changePercent: '+1.83%', marketCap: '€157B', volume: '5.8M', sector: 'Energy', region: 'Europe' },
+    { symbol: 'ALV', name: 'Allianz SE', price: '€234.50', change: '+3.40', changePercent: '+1.47%', marketCap: '€94B', volume: '1.2M', sector: 'Insurance', region: 'Europe' },
+    { symbol: 'AIR', name: 'Airbus SE', price: '€134.60', change: '+2.30', changePercent: '+1.74%', marketCap: '€105B', volume: '2.1M', sector: 'Aerospace', region: 'Europe' },
+    { symbol: 'BAYN', name: 'Bayer AG', price: '€34.20', change: '+0.56', changePercent: '+1.66%', marketCap: '€34B', volume: '4.8M', sector: 'Healthcare', region: 'Europe' },
+    { symbol: 'BMW', name: 'BMW AG', price: '€98.45', change: '+1.67', changePercent: '+1.73%', marketCap: '€59B', volume: '2.3M', sector: 'Automotive', region: 'Europe' },
+    { symbol: 'VOW', name: 'Volkswagen AG', price: '€112.30', change: '+1.90', changePercent: '+1.72%', marketCap: '€56B', volume: '1.9M', sector: 'Automotive', region: 'Europe' },
+    { symbol: 'DTE', name: 'Deutsche Telekom', price: '€22.45', change: '+0.35', changePercent: '+1.58%', marketCap: '€111B', volume: '12.4M', sector: 'Telecom', region: 'Europe' },
+    { symbol: 'ITX', name: 'Inditex', price: '€39.80', change: '+0.67', changePercent: '+1.71%', marketCap: '€124B', volume: '3.2M', sector: 'Retail', region: 'Europe' },
+    { symbol: 'SU', name: 'Schneider Electric', price: '€178.90', change: '+2.80', changePercent: '+1.59%', marketCap: '€100B', volume: '1.1M', sector: 'Industrial', region: 'Europe' },
+    { symbol: 'ABI', name: 'AB InBev', price: '€56.78', change: '+0.89', changePercent: '+1.59%', marketCap: '€112B', volume: '2.8M', sector: 'Consumer', region: 'Europe' },
+    { symbol: 'ADYEN', name: 'Adyen NV', price: '€1234.50', change: '+18.90', changePercent: '+1.55%', marketCap: '€38B', volume: '0.2M', sector: 'FinTech', region: 'Europe' },
+    { symbol: 'FP', name: 'TotalEnergies', price: '€62.34', change: '+1.01', changePercent: '+1.65%', marketCap: '€157B', volume: '5.7M', sector: 'Energy', region: 'Europe' },
+    { symbol: 'EL', name: 'EssilorLuxottica', price: '€189.40', change: '+2.70', changePercent: '+1.45%', marketCap: '€87B', volume: '0.9M', sector: 'Consumer', region: 'Europe' },
+    { symbol: 'KER', name: 'Kering SA', price: '€456.70', change: '+6.80', changePercent: '+1.51%', marketCap: '€57B', volume: '0.4M', sector: 'Luxury', region: 'Europe' },
+    { symbol: 'RMS', name: 'Hermes Intl', price: '€1890.50', change: '+28.40', changePercent: '+1.53%', marketCap: '€198B', volume: '0.1M', sector: 'Luxury', region: 'Europe' },
+    { symbol: 'ENEL', name: 'Enel SpA', price: '€6.45', change: '+0.10', changePercent: '+1.58%', marketCap: '€64B', volume: '28.4M', sector: 'Utilities', region: 'Europe' },
+    { symbol: 'UCG', name: 'UniCredit SpA', price: '€25.60', change: '+0.42', changePercent: '+1.67%', marketCap: '€52B', volume: '12.3M', sector: 'Banking', region: 'Europe' },
+    { symbol: 'ISP', name: 'Intesa Sanpaolo', price: '€2.89', change: '+0.05', changePercent: '+1.76%', marketCap: '€56B', volume: '78.2M', sector: 'Banking', region: 'Europe' },
+    { symbol: 'BBVA', name: 'BBVA', price: '€8.45', change: '+0.14', changePercent: '+1.68%', marketCap: '€56B', volume: '24.1M', sector: 'Banking', region: 'Europe' },
+    { symbol: 'TEF', name: 'Telefonica', price: '€4.12', change: '+0.07', changePercent: '+1.73%', modelCap: '€23B', volume: '18.7M', sector: 'Telecom', region: 'Europe' },
+    { symbol: 'IBE', name: 'Iberdrola', price: '€11.34', change: '+0.18', changePercent: '+1.61%', marketCap: '€72B', volume: '14.2M', sector: 'Utilities', region: 'Europe' },
+    { symbol: 'SPOT', name: 'Spotify', price: '€234.56', change: '+4.78', changePercent: '+2.08%', marketCap: '$48B', volume: '2.3M', sector: 'Media', region: 'Europe' },
+    { symbol: 'NOV', name: 'Novozymes', price: 'DKK 412.30', change: '+6.50', changePercent: '+1.60%', marketCap: '$12B', volume: '0.6M', sector: 'Chemicals', region: 'Europe' },
+    { symbol: 'DSM', name: 'DSM-Firmenich', price: '€112.40', change: '+1.70', changePercent: '+1.53%', marketCap: '€21B', volume: '0.8M', sector: 'Chemicals', region: 'Europe' },
+    { symbol: 'PRX', name: 'Prosus NV', price: '€34.50', change: '+0.58', changePercent: '+1.71%', marketCap: '€112B', volume: '4.2M', sector: 'Technology', region: 'Europe' },
+    { symbol: 'INGA', name: 'ING Group', price: '€13.45', change: '+0.22', changePercent: '+1.66%', marketCap: '€52B', volume: '18.3M', sector: 'Banking', region: 'Europe' },
+    { symbol: 'ABI', name: 'Anheuser-Busch', price: '€56.70', change: '+0.90', changePercent: '+1.61%', marketCap: '€112B', volume: '2.7M', sector: 'Consumer', region: 'Europe' },
+    { symbol: 'PHIA', name: 'Philips', price: '€23.45', change: '+0.38', changePercent: '+1.65%', marketCap: '€21B', volume: '5.4M', sector: 'Healthcare', region: 'Europe' },
+
+    // Asian Stocks (40)
+    { symbol: '7203', name: 'Toyota Motor', price: '¥2,456', change: '+45', changePercent: '+1.87%', marketCap: '$278B', volume: '8.4M', sector: 'Automotive', region: 'Asia' },
+    { symbol: '6758', name: 'Sony Group', price: '¥12,340', change: '+189', changePercent: '+1.56%', marketCap: '$112B', volume: '3.2M', sector: 'Technology', region: 'Asia' },
+    { symbol: '9984', name: 'SoftBank Group', price: '¥5,678', change: '+98', changePercent: '+1.76%', marketCap: '$89B', volume: '12.1M', sector: 'Technology', region: 'Asia' },
+    { symbol: '6861', name: 'Keyence Corp', price: '¥56,780', change: '+890', changePercent: '+1.59%', marketCap: '$134B', volume: '0.4M', sector: 'Industrial', region: 'Asia' },
+    { symbol: '8306', name: 'Mitsubishi UFJ', price: '¥1,234', change: '+21', changePercent: '+1.73%', marketCap: '$78B', volume: '28.4M', sector: 'Banking', region: 'Asia' },
+    { symbol: 'TCEHY', name: 'Tencent Holdings', price: 'HK$345.60', change: '+6.80', changePercent: '+2.01%', marketCap: '$412B', volume: '18.2M', sector: 'Technology', region: 'Asia' },
+    { symbol: '0700', name: 'Tencent', price: 'HK$345.60', change: '+6.80', changePercent: '+2.01%', marketCap: '$412B', volume: '18.2M', sector: 'Technology', region: 'Asia' },
+    { symbol: '9988', name: 'Alibaba', price: 'HK$89.50', change: '+1.80', changePercent: '+2.05%', marketCap: '$234B', volume: '42.3M', sector: 'E-commerce', region: 'Asia' },
+    { symbol: '1299', name: 'AIA Group', price: 'HK$78.45', change: '+1.35', changePercent: '+1.75%', marketCap: '$94B', volume: '12.1M', sector: 'Insurance', region: 'Asia' },
+    { symbol: '0941', name: 'China Mobile', price: 'HK$67.80', change: '+1.10', changePercent: '+1.65%', marketCap: '$139B', volume: '8.7M', sector: 'Telecom', region: 'Asia' },
+    { symbol: '005930', name: 'Samsung Electronics', price: '₩72,400', change: '+1,200', changePercent: '+1.69%', marketCap: '$412B', volume: '12.3M', sector: 'Technology', region: 'Asia' },
+    { symbol: '000660', name: 'SK Hynix', price: '₩134,500', change: '+2,800', changePercent: '+2.13%', marketCap: '$89B', volume: '4.2M', sector: 'Technology', region: 'Asia' },
+    { symbol: '035720', name: 'Kakao', price: '₩56,700', change: '+900', changePercent: '+1.61%', marketCap: '$24B', volume: '2.1M', sector: 'Technology', region: 'Asia' },
+    { symbol: '035420', name: 'NAVER', price: '₩234,500', change: '+3,800', changePercent: '+1.65%', marketCap: '$38B', volume: '1.8M', sector: 'Technology', region: 'Asia' },
+    { symbol: '2330', name: 'TSMC', price: 'NT$578', change: '+11', changePercent: '+1.94%', marketCap: '$524B', volume: '28.4M', sector: 'Technology', region: 'Asia' },
+    { symbol: '2317', name: 'Hon Hai Precision', price: 'NT$112', change: '+2', changePercent: '+1.82%', marketCap: '$46B', volume: '42.1M', sector: 'Technology', region: 'Asia' },
+    { symbol: 'RELIANCE', name: 'Reliance Industries', price: '₹2,456', change: '+42', changePercent: '+1.74%', marketCap: '$218B', volume: '8.9M', sector: 'Energy', region: 'Asia' },
+    { symbol: 'TCS', name: 'Tata Consultancy', price: '₹3,567', change: '+58', changePercent: '+1.65%', marketCap: '$134B', volume: '2.1M', sector: 'Technology', region: 'Asia' },
+    { symbol: 'INFY', name: 'Infosys', price: '₹1,456', change: '+24', changePercent: '+1.68%', marketCap: '$62B', volume: '5.4M', sector: 'Technology', region: 'Asia' },
+    { symbol: 'HDFCBANK', name: 'HDFC Bank', price: '₹1,678', change: '+28', changePercent: '+1.70%', marketCap: '$124B', volume: '12.3M', sector: 'Banking', region: 'Asia' },
+    { symbol: 'ICICIBANK', name: 'ICICI Bank', price: '₹987', change: '+16', changePercent: '+1.65%', marketCap: '$69B', volume: '18.7M', sector: 'Banking', region: 'Asia' },
+    { symbol: 'BHARTIARTL', name: 'Bharti Airtel', price: '₹896', change: '+14', changePercent: '+1.59%', marketCap: '$49B', volume: '9.8M', sector: 'Telecom', region: 'Asia' },
+    { symbol: 'ITC', name: 'ITC Limited', price: '₹456', change: '+7', changePercent: '+1.56%', marketCap: '$57B', volume: '28.4M', sector: 'Consumer', region: 'Asia' },
+    { symbol: 'SBIN', name: 'State Bank of India', price: '₹623', change: '+10', changePercent: '+1.63%', marketCap: '$56B', volume: '34.2M', sector: 'Banking', region: 'Asia' },
+    { symbol: 'BAJFINANCE', name: 'Bajaj Finance', price: '₹6,789', change: '+112', changePercent: '+1.68%', marketCap: '$41B', volume: '1.8M', sector: 'Finance', region: 'Asia' },
+    { symbol: 'ASIANPAINT', name: 'Asian Paints', price: '₹3,234', change: '+53', changePercent: '+1.67%', marketCap: '$31B', volume: '2.3M', sector: 'Consumer', region: 'Asia' },
+    { symbol: 'MARUTI', name: 'Maruti Suzuki', price: '₹12,345', change: '+198', changePercent: '+1.63%', marketCap: '$37B', volume: '0.9M', sector: 'Automotive', region: 'Asia' },
+    { symbol: 'TATAMOTORS', name: 'Tata Motors', price: '₹789', change: '+13', changePercent: '+1.68%', marketCap: '$29B', volume: '21.4M', sector: 'Automotive', region: 'Asia' },
+    { symbol: 'HCLTECH', name: 'HCL Technologies', price: '₹1,456', change: '+24', changePercent: '+1.68%', marketCap: '$39B', volume: '4.2M', sector: 'Technology', region: 'Asia' },
+    { symbol: 'WIPRO', name: 'Wipro Limited', price: '₹456', change: '+7', changePercent: '+1.56%', marketCap: '$25B', volume: '12.8M', sector: 'Technology', region: 'Asia' },
+    { symbol: 'BANKBCA', name: 'Bank Central Asia', price: 'Rp8,950', change: '+150', changePercent: '+1.71%', marketCap: '$67B', volume: '28.4M', sector: 'Banking', region: 'Asia' },
+    { symbol: 'TLKM', name: 'Telkom Indonesia', price: 'Rp3,680', change: '+60', changePercent: '+1.66%', marketCap: '$36B', volume: '52.1M', sector: 'Telecom', region: 'Asia' },
+    { symbol: 'BBRI', name: 'Bank Rakyat', price: 'Rp4,890', change: '+80', changePercent: '+1.66%', marketCap: '$61B', volume: '98.7M', sector: 'Banking', region: 'Asia' },
+    { symbol: 'GRAB', name: 'Grab Holdings', price: '$3.45', change: '+0.06', changePercent: '+1.77%', marketCap: '$13B', volume: '18.4M', sector: 'Technology', region: 'Asia' },
+    { symbol: 'SEA', name: 'Sea Limited', price: '$56.78', change: '+1.12', changePercent: '+2.01%', marketCap: '$31B', volume: '12.3M', sector: 'E-commerce', region: 'Asia' },
+    { symbol: 'BABA', name: 'Alibaba Group', price: '$89.45', change: '+1.78', changePercent: '+2.03%', marketCap: '$234B', volume: '24.8M', sector: 'E-commerce', region: 'Asia' },
+    { symbol: 'JD', name: 'JD.com', price: '$34.56', change: '+0.67', changePercent: '+1.98%', marketCap: '$52B', volume: '14.2M', sector: 'E-commerce', region: 'Asia' },
+    { symbol: 'PDD', name: 'PDD Holdings', price: '$123.45', change: '+2.45', changePercent: '+2.03%', marketCap: '$167B', volume: '8.9M', sector: 'E-commerce', region: 'Asia' },
+    { symbol: 'NIO', name: 'NIO Inc', price: '$8.90', change: '+0.18', changePercent: '+2.07%', marketCap: '$14B', volume: '52.4M', sector: 'Automotive', region: 'Asia' },
+    { symbol: 'BIDU', name: 'Baidu Inc', price: '$112.34', change: '+2.12', changePercent: '+1.92%', marketCap: '$39B', volume: '4.2M', sector: 'Technology', region: 'Asia' },
+
+    // Emerging Markets (30)
+    { symbol: 'VALE', name: 'Vale SA', price: 'R$67.80', change: '+1.20', changePercent: '+1.80%', marketCap: '$62B', volume: '28.4M', sector: 'Mining', region: 'Emerging' },
+    { symbol: 'PETR4', name: 'Petrobras', price: 'R$34.56', change: '+0.67', changePercent: '+1.98%', marketCap: '$56B', volume: '52.1M', sector: 'Energy', region: 'Emerging' },
+    { symbol: 'ITUB', name: 'Itau Unibanco', price: 'R$28.90', change: '+0.48', changePercent: '+1.69%', marketCap: '$54B', volume: '34.2M', sector: 'Banking', region: 'Emerging' },
+    { symbol: 'BBDC4', name: 'Bradesco', price: 'R$13.45', change: '+0.22', changePercent: '+1.66%', marketCap: '$28B', volume: '42.1M', sector: 'Banking', region: 'Emerging' },
+    { symbol: 'ABEV3', name: 'Ambev SA', price: 'R$12.34', change: '+0.19', changePercent: '+1.56%', marketCap: '$19B', volume: '28.7M', sector: 'Consumer', region: 'Emerging' },
+    { symbol: 'WEGE3', name: 'WEG SA', price: 'R$45.67', change: '+0.78', changePercent: '+1.74%', marketCap: '$24B', volume: '12.3M', sector: 'Industrial', region: 'Emerging' },
+    { symbol: 'GAZP', name: 'Gazprom', price: '₽178.45', change: '+3.12', changePercent: '+1.78%', marketCap: '$42B', volume: '124.5M', sector: 'Energy', region: 'Emerging' },
+    { symbol: 'SBER', name: 'Sberbank', price: '₽234.50', change: '+4.10', changePercent: '+1.78%', marketCap: '$38B', volume: '89.4M', sector: 'Banking', region: 'Emerging' },
+    { symbol: 'LKOH', name: 'Lukoil', price: '₽5,678', change: '+98', changePercent: '+1.76%', marketCap: '$46B', volume: '28.4M', sector: 'Energy', region: 'Emerging' },
+    { symbol: 'AMER', name: 'America Movil', price: 'MX$18.45', change: '+0.31', changePercent: '+1.71%', marketCap: '$48B', volume: '42.1M', sector: 'Telecom', region: 'Emerging' },
+    { symbol: 'WALMEX', name: 'Walmart de Mexico', price: 'MX$56.78', change: '+0.95', changePercent: '+1.70%', marketCap: '$39B', volume: '18.7M', sector: 'Retail', region: 'Emerging' },
+    { symbol: 'CEMEX', name: 'Cemex SAB', price: 'MX$8.90', change: '+0.15', changePercent: '+1.71%', marketCap: '$13B', volume: '52.3M', sector: 'Materials', region: 'Emerging' },
+    { symbol: 'NASPERS', name: 'Naspers', price: 'R2,456', change: '+42', changePercent: '+1.74%', marketCap: '$87B', volume: '1.2M', sector: 'Technology', region: 'Emerging' },
+    { symbol: 'MTN', name: 'MTN Group', price: 'R123.45', change: '+2.10', changePercent: '+1.73%', marketCap: '$21B', volume: '4.8M', sector: 'Telecom', region: 'Emerging' },
+    { symbol: 'SASOL', name: 'Sasol Limited', price: 'R234.50', change: '+4.10', changePercent: '+1.78%', marketCap: '$14B', volume: '3.2M', sector: 'Energy', region: 'Emerging' },
+    { symbol: 'SHOPRITE', name: 'Shoprite Holdings', price: 'R178.90', change: '+3.05', changePercent: '+1.73%', marketCap: '$19B', volume: '2.1M', sector: 'Retail', region: 'Emerging' },
+    { symbol: 'OCI', name: 'OCI NV', price: 'EGP56.78', change: '+0.98', changePercent: '+1.76%', marketCap: '$3.4B', volume: '8.9M', sector: 'Chemicals', region: 'Emerging' },
+    { symbol: 'CIB', name: 'Commercial Intl Bank', price: 'EGP67.80', change: '+1.15', changePercent: '+1.73%', marketCap: '$4.2B', volume: '2.8M', sector: 'Banking', region: 'Emerging' },
+    { symbol: 'ETEL', name: 'Etisalat Egypt', price: 'EGP23.45', change: '+0.40', changePercent: '+1.73%', marketCap: '$2.1B', volume: '12.4M', sector: 'Telecom', region: 'Emerging' },
+    { symbol: 'TURKIYE', name: 'Turkiye Bank', price: '₺45.67', change: '+0.78', changePercent: '+1.74%', marketCap: '$8.9B', volume: '24.3M', sector: 'Banking', region: 'Emerging' },
+    { symbol: 'AKBNK', name: 'Akbank', price: '₺56.78', change: '+0.97', changePercent: '+1.74%', marketCap: '$12B', volume: '42.1M', sector: 'Banking', region: 'Emerging' },
+    { symbol: 'EREGL', name: 'Eregli Demir', price: '₺34.50', change: '+0.59', changePercent: '+1.74%', marketCap: '$6.7B', volume: '18.9M', sector: 'Industrial', region: 'Emerging' },
+    { symbol: 'SAPIEM', name: 'Sabanci Holding', price: '₺78.90', change: '+1.35', changePercent: '+1.74%', marketCap: '$8.9B', volume: '12.4M', sector: 'Conglomerate', region: 'Emerging' },
+    { symbol: 'PETKIM', name: 'Petkim', price: '₺12.34', change: '+0.21', changePercent: '+1.73%', marketCap: '$2.1B', volume: '34.2M', sector: 'Chemicals', region: 'Emerging' },
+    { symbol: 'TTKOM', name: 'Turk Telekom', price: '₺23.45', change: '+0.40', changePercent: '+1.73%', marketCap: '$5.6B', volume: '28.7M', sector: 'Telecom', region: 'Emerging' },
+    { symbol: 'SAPURA', name: 'Sapura Energy', price: 'RM0.089', change: '+0.002', changePercent: '+2.30%', marketCap: '$0.4B', volume: '178.4M', sector: 'Energy', region: 'Emerging' },
+    { symbol: 'MAYBANK', name: 'Malayan Banking', price: 'RM9.12', change: '+0.15', changePercent: '+1.67%', marketCap: '$28B', volume: '24.1M', sector: 'Banking', region: 'Emerging' },
+    { symbol: 'TENAGA', name: 'Tenaga Nasional', price: 'RM12.34', change: '+0.21', changePercent: '+1.73%', marketCap: '$19B', volume: '12.8M', sector: 'Utilities', region: 'Emerging' },
+    { symbol: 'PETRONAS', name: 'Petronas Chemicals', price: 'RM7.89', change: '+0.13', changePercent: '+1.68%', marketCap: '$11B', volume: '8.9M', sector: 'Chemicals', region: 'Emerging' },
+    { symbol: 'AXIATA', name: 'Axiata Group', price: 'RM3.45', change: '+0.06', changePercent: '+1.77%', marketCap: '$8B', volume: '18.4M', sector: 'Telecom', region: 'Emerging' }
+  ]
+
+  // Forex Pairs - 50 major currency pairs
+  const forexPairs = [
+    // Majors
+    { symbol: 'EUR/USD', name: 'Euro / US Dollar', price: '1.0925', change: '+0.0018', changePercent: '+0.17%', volume: '$1.2T', type: 'Major' },
+    { symbol: 'GBP/USD', name: 'British Pound / US Dollar', price: '1.2678', change: '+0.0034', changePercent: '+0.27%', volume: '$638B', type: 'Major' },
+    { symbol: 'USD/JPY', name: 'US Dollar / Japanese Yen', price: '149.85', change: '-0.42', changePercent: '-0.28%', volume: '$901B', type: 'Major' },
+    { symbol: 'USD/CHF', name: 'US Dollar / Swiss Franc', price: '0.8756', change: '-0.0012', changePercent: '-0.14%', volume: '$298B', type: 'Major' },
+    { symbol: 'AUD/USD', name: 'Australian Dollar / US Dollar', price: '0.6534', change: '+0.0021', changePercent: '+0.32%', volume: '$342B', type: 'Major' },
+    { symbol: 'USD/CAD', name: 'US Dollar / Canadian Dollar', price: '1.3587', change: '-0.0015', changePercent: '-0.11%', volume: '$289B', type: 'Major' },
+    { symbol: 'NZD/USD', name: 'New Zealand Dollar / US Dollar', price: '0.6012', change: '+0.0018', changePercent: '+0.30%', volume: '$134B', type: 'Major' },
+
+    // GCC Pairs
+    { symbol: 'USD/AED', name: 'US Dollar / UAE Dirham', price: '3.6725', change: '+0.0000', changePercent: '+0.00%', volume: '$18B', type: 'GCC' },
+    { symbol: 'USD/SAR', name: 'US Dollar / Saudi Riyal', price: '3.7500', change: '+0.0000', changePercent: '+0.00%', volume: '$42B', type: 'GCC' },
+    { symbol: 'USD/QAR', name: 'US Dollar / Qatari Riyal', price: '3.6400', change: '+0.0000', changePercent: '+0.00%', volume: '$12B', type: 'GCC' },
+    { symbol: 'USD/KWD', name: 'US Dollar / Kuwaiti Dinar', price: '0.3075', change: '+0.0001', changePercent: '+0.03%', volume: '$8B', type: 'GCC' },
+    { symbol: 'USD/BHD', name: 'US Dollar / Bahraini Dinar', price: '0.3760', change: '+0.0000', changePercent: '+0.00%', volume: '$2B', type: 'GCC' },
+    { symbol: 'USD/OMR', name: 'US Dollar / Omani Rial', price: '0.3850', change: '+0.0000', changePercent: '+0.00%', volume: '$4B', type: 'GCC' },
+    { symbol: 'EUR/AED', name: 'Euro / UAE Dirham', price: '4.0126', change: '+0.0065', changePercent: '+0.16%', volume: '$3B', type: 'GCC' },
+    { symbol: 'EUR/SAR', name: 'Euro / Saudi Riyal', price: '4.0969', change: '+0.0068', changePercent: '+0.17%', volume: '$5B', type: 'GCC' },
+    { symbol: 'GBP/AED', name: 'British Pound / UAE Dirham', price: '4.6548', change: '+0.0125', changePercent: '+0.27%', volume: '$2B', type: 'GCC' },
+    { symbol: 'GBP/SAR', name: 'British Pound / Saudi Riyal', price: '4.7542', change: '+0.0127', changePercent: '+0.27%', volume: '$3B', type: 'GCC' },
+
+    // Major Crosses
+    { symbol: 'EUR/GBP', name: 'Euro / British Pound', price: '0.8619', change: '-0.0009', changePercent: '-0.10%', volume: '$412B', type: 'Cross' },
+    { symbol: 'EUR/JPY', name: 'Euro / Japanese Yen', price: '163.72', change: '-0.20', changePercent: '-0.12%', volume: '$234B', type: 'Cross' },
+    { symbol: 'EUR/CHF', name: 'Euro / Swiss Franc', price: '0.9567', change: '-0.0008', changePercent: '-0.08%', volume: '$156B', type: 'Cross' },
+    { symbol: 'GBP/JPY', name: 'British Pound / Japanese Yen', price: '189.96', change: '+0.12', changePercent: '+0.06%', volume: '$178B', type: 'Cross' },
+    { symbol: 'GBP/CHF', name: 'British Pound / Swiss Franc', price: '1.1102', change: '+0.0018', changePercent: '+0.16%', volume: '$89B', type: 'Cross' },
+    { symbol: 'AUD/JPY', name: 'Australian Dollar / Japanese Yen', price: '97.89', change: '+0.08', changePercent: '+0.08%', volume: '$67B', type: 'Cross' },
+    { symbol: 'NZD/JPY', name: 'New Zealand Dollar / Japanese Yen', price: '90.08', change: '+0.15', changePercent: '+0.17%', volume: '$42B', type: 'Cross' },
+    { symbol: 'EUR/AUD', name: 'Euro / Australian Dollar', price: '1.6724', change: '-0.0021', changePercent: '-0.13%', volume: '$98B', type: 'Cross' },
+    { symbol: 'EUR/CAD', name: 'Euro / Canadian Dollar', price: '1.4846', change: '+0.0012', changePercent: '+0.08%', volume: '$87B', type: 'Cross' },
+    { symbol: 'EUR/NZD', name: 'Euro / New Zealand Dollar', price: '1.8173', change: '-0.0018', changePercent: '-0.10%', volume: '$56B', type: 'Cross' },
+    { symbol: 'GBP/AUD', name: 'British Pound / Australian Dollar', price: '1.9405', change: '+0.0034', changePercent: '+0.18%', volume: '$78B', type: 'Cross' },
+    { symbol: 'GBP/CAD', name: 'British Pound / Canadian Dollar', price: '1.7224', change: '+0.0028', changePercent: '+0.16%', volume: '$67B', type: 'Cross' },
+    { symbol: 'GBP/NZD', name: 'British Pound / New Zealand Dollar', price: '2.1084', change: '+0.0041', changePercent: '+0.20%', volume: '$45B', type: 'Cross' },
+    { symbol: 'AUD/CAD', name: 'Australian Dollar / Canadian Dollar', price: '0.8878', change: '+0.0008', changePercent: '+0.09%', volume: '$34B', type: 'Cross' },
+    { symbol: 'AUD/NZD', name: 'Australian Dollar / New Zealand Dollar', price: '1.0868', change: '+0.0003', changePercent: '+0.03%', volume: '$28B', type: 'Cross' },
+    { symbol: 'CAD/JPY', name: 'Canadian Dollar / Japanese Yen', price: '110.29', change: '-0.18', changePercent: '-0.16%', volume: '$23B', type: 'Cross' },
+    { symbol: 'CHF/JPY', name: 'Swiss Franc / Japanese Yen', price: '171.14', change: '-0.28', changePercent: '-0.16%', volume: '$45B', type: 'Cross' },
+
+    // Exotic Pairs
+    { symbol: 'USD/TRY', name: 'US Dollar / Turkish Lira', price: '32.4567', change: '+0.1234', changePercent: '+0.38%', volume: '$34B', type: 'Exotic' },
+    { symbol: 'USD/ZAR', name: 'US Dollar / South African Rand', price: '18.7654', change: '+0.0789', changePercent: '+0.42%', volume: '$28B', type: 'Exotic' },
+    { symbol: 'USD/MXN', name: 'US Dollar / Mexican Peso', price: '17.2345', change: '-0.0234', changePercent: '-0.14%', volume: '$67B', type: 'Exotic' },
+    { symbol: 'USD/BRL', name: 'US Dollar / Brazilian Real', price: '4.9876', change: '+0.0123', changePercent: '+0.25%', volume: '$45B', type: 'Exotic' },
+    { symbol: 'USD/RUB', name: 'US Dollar / Russian Ruble', price: '92.3456', change: '+0.4567', changePercent: '+0.50%', volume: '$23B', type: 'Exotic' },
+    { symbol: 'USD/INR', name: 'US Dollar / Indian Rupee', price: '83.2345', change: '+0.0678', changePercent: '+0.08%', volume: '$89B', type: 'Exotic' },
+    { symbol: 'USD/CNH', name: 'US Dollar / Chinese Yuan', price: '7.2456', change: '-0.0089', changePercent: '-0.12%', volume: '$234B', type: 'Exotic' },
+    { symbol: 'USD/SGD', name: 'US Dollar / Singapore Dollar', price: '1.3456', change: '-0.0012', changePercent: '-0.09%', volume: '$56B', type: 'Exotic' },
+    { symbol: 'USD/HKD', name: 'US Dollar / Hong Kong Dollar', price: '7.8123', change: '+0.0003', changePercent: '+0.00%', volume: '$78B', type: 'Exotic' },
+    { symbol: 'USD/THB', name: 'US Dollar / Thai Baht', price: '35.6789', change: '-0.0456', changePercent: '-0.13%', volume: '$23B', type: 'Exotic' },
+    { symbol: 'USD/IDR', name: 'US Dollar / Indonesian Rupiah', price: '15678.50', change: '+12.30', changePercent: '+0.08%', volume: '$12B', type: 'Exotic' },
+    { symbol: 'USD/PHP', name: 'US Dollar / Philippine Peso', price: '56.4567', change: '+0.0789', changePercent: '+0.14%', volume: '$8B', type: 'Exotic' },
+    { symbol: 'USD/PLN', name: 'US Dollar / Polish Zloty', price: '4.0234', change: '-0.0089', changePercent: '-0.22%', volume: '$18B', type: 'Exotic' },
+    { symbol: 'USD/SEK', name: 'US Dollar / Swedish Krona', price: '10.6789', change: '-0.0123', changePercent: '-0.12%', volume: '$34B', type: 'Exotic' },
+    { symbol: 'USD/NOK', name: 'US Dollar / Norwegian Krone', price: '10.8945', change: '-0.0234', changePercent: '-0.21%', volume: '$28B', type: 'Exotic' },
+    { symbol: 'USD/DKK', name: 'US Dollar / Danish Krone', price: '6.8945', change: '-0.0089', changePercent: '-0.13%', volume: '$12B', type: 'Exotic' }
+  ]
+
+  // Commodities - 50 major commodities
+  const commodities = [
+    // Energy
+    { symbol: 'BRENT', name: 'Brent Crude Oil', price: '$87.45', change: '+1.34', changePercent: '+1.56%', unit: '/barrel', volume: '324K', category: 'Energy' },
+    { symbol: 'WTI', name: 'WTI Crude Oil', price: '$83.67', change: '+1.23', changePercent: '+1.49%', unit: '/barrel', volume: '412K', category: 'Energy' },
+    { symbol: 'NATGAS', name: 'Natural Gas', price: '$2.89', change: '+0.04', changePercent: '+1.40%', unit: '/MMBtu', volume: '289K', category: 'Energy' },
+    { symbol: 'GASOLINE', name: 'Gasoline', price: '$2.34', change: '+0.03', changePercent: '+1.30%', unit: '/gallon', volume: '156K', category: 'Energy' },
+    { symbol: 'HEATING', name: 'Heating Oil', price: '$2.67', change: '+0.04', changePercent: '+1.52%', unit: '/gallon', volume: '89K', category: 'Energy' },
+    { symbol: 'COAL', name: 'Coal', price: '$123.45', change: '+2.34', changePercent: '+1.93%', unit: '/ton', volume: '34K', category: 'Energy' },
+    { symbol: 'URANIUM', name: 'Uranium', price: '$89.50', change: '+1.20', changePercent: '+1.36%', unit: '/lb', volume: '12K', category: 'Energy' },
+
+    // Precious Metals
+    { symbol: 'GOLD', name: 'Gold', price: '$2,034.50', change: '+12.30', changePercent: '+0.61%', unit: '/oz', volume: '234K', category: 'Precious Metals' },
+    { symbol: 'SILVER', name: 'Silver', price: '$24.67', change: '+0.34', changePercent: '+1.40%', unit: '/oz', volume: '178K', category: 'Precious Metals' },
+    { symbol: 'PLATINUM', name: 'Platinum', price: '$934.50', change: '+8.90', changePercent: '+0.96%', unit: '/oz', volume: '45K', category: 'Precious Metals' },
+    { symbol: 'PALLADIUM', name: 'Palladium', price: '$1,067.80', change: '+14.50', changePercent: '+1.38%', unit: '/oz', volume: '28K', category: 'Precious Metals' },
+
+    // Base Metals
+    { symbol: 'COPPER', name: 'Copper', price: '$3.87', change: '+0.05', changePercent: '+1.31%', unit: '/lb', volume: '289K', category: 'Base Metals' },
+    { symbol: 'ALUMINUM', name: 'Aluminum', price: '$2,345.60', change: '+28.40', changePercent: '+1.23%', unit: '/ton', volume: '156K', category: 'Base Metals' },
+    { symbol: 'ZINC', name: 'Zinc', price: '$2,567.80', change: '+34.20', changePercent: '+1.35%', unit: '/ton', volume: '89K', category: 'Base Metals' },
+    { symbol: 'NICKEL', name: 'Nickel', price: '$17,234.50', change: '+189.30', changePercent: '+1.11%', unit: '/ton', volume: '67K', category: 'Base Metals' },
+    { symbol: 'LEAD', name: 'Lead', price: '$2,156.70', change: '+23.40', changePercent: '+1.10%', unit: '/ton', volume: '45K', category: 'Base Metals' },
+    { symbol: 'TIN', name: 'Tin', price: '$25,678.90', change: '+298.40', changePercent: '+1.18%', unit: '/ton', volume: '23K', category: 'Base Metals' },
+    { symbol: 'STEEL', name: 'Steel Rebar', price: '$567.80', change: '+6.70', changePercent: '+1.19%', unit: '/ton', volume: '134K', category: 'Base Metals' },
+    { symbol: 'IRON', name: 'Iron Ore', price: '$112.45', change: '+1.67', changePercent: '+1.51%', unit: '/ton', volume: '234K', category: 'Base Metals' },
+
+    // Agriculture - Grains
+    { symbol: 'WHEAT', name: 'Wheat', price: '$6.12', change: '+0.08', changePercent: '+1.33%', unit: '/bushel', volume: '89K', category: 'Agriculture' },
+    { symbol: 'CORN', name: 'Corn', price: '$4.67', change: '+0.06', changePercent: '+1.30%', unit: '/bushel', volume: '178K', category: 'Agriculture' },
+    { symbol: 'SOYBEAN', name: 'Soybeans', price: '$12.89', change: '+0.15', changePercent: '+1.18%', unit: '/bushel', volume: '134K', category: 'Agriculture' },
+    { symbol: 'RICE', name: 'Rice', price: '$16.45', change: '+0.21', changePercent: '+1.29%', unit: '/cwt', volume: '45K', category: 'Agriculture' },
+    { symbol: 'OATS', name: 'Oats', price: '$3.89', change: '+0.05', changePercent: '+1.30%', unit: '/bushel', volume: '23K', category: 'Agriculture' },
+
+    // Agriculture - Soft Commodities
+    { symbol: 'COFFEE', name: 'Coffee', price: '$1.89', change: '+0.03', changePercent: '+1.61%', unit: '/lb', volume: '67K', category: 'Agriculture' },
+    { symbol: 'SUGAR', name: 'Sugar', price: '$23.45', change: '+0.34', changePercent: '+1.47%', unit: '/lb', volume: '89K', category: 'Agriculture' },
+    { symbol: 'COCOA', name: 'Cocoa', price: '$3,567.80', change: '+45.60', changePercent: '+1.30%', unit: '/ton', volume: '34K', category: 'Agriculture' },
+    { symbol: 'COTTON', name: 'Cotton', price: '$0.89', change: '+0.01', changePercent: '+1.14%', unit: '/lb', volume: '56K', category: 'Agriculture' },
+    { symbol: 'OJ', name: 'Orange Juice', price: '$2.67', change: '+0.04', changePercent: '+1.52%', unit: '/lb', volume: '12K', category: 'Agriculture' },
+
+    // Agriculture - Livestock
+    { symbol: 'CATTLE', name: 'Live Cattle', price: '$178.45', change: '+2.34', changePercent: '+1.33%', unit: '/cwt', volume: '45K', category: 'Agriculture' },
+    { symbol: 'HOGS', name: 'Lean Hogs', price: '$78.90', change: '+1.12', changePercent: '+1.44%', unit: '/cwt', volume: '67K', category: 'Agriculture' },
+    { symbol: 'FEEDER', name: 'Feeder Cattle', price: '$234.56', change: '+3.21', changePercent: '+1.39%', unit: '/cwt', volume: '28K', category: 'Agriculture' },
+
+    // Agriculture - Specialty
+    { symbol: 'PALM', name: 'Palm Oil', price: '$956.78', change: '+12.34', changePercent: '+1.31%', unit: '/ton', volume: '89K', category: 'Agriculture' },
+    { symbol: 'RUBBER', name: 'Rubber', price: '$1.67', change: '+0.02', changePercent: '+1.21%', unit: '/kg', volume: '$34K', category: 'Agriculture' },
+    { symbol: 'LUMBER', name: 'Lumber', price: '$512.34', change: '+6.78', changePercent: '+1.34%', unit: '/1000 bd ft', volume: '23K', category: 'Agriculture' },
+    { symbol: 'WOOL', name: 'Wool', price: '$1,234.50', change: '+15.60', changePercent: '+1.28%', unit: '/ton', volume: '8K', category: 'Agriculture' },
+
+    // Other Commodities
+    { symbol: 'CARBON', name: 'Carbon Credits', price: '$78.45', change: '+1.23', changePercent: '+1.59%', unit: '/ton', volume: '45K', category: 'Environmental' },
+    { symbol: 'LITHIUM', name: 'Lithium', price: '$23,456', change: '+345', changePercent: '+1.49%', unit: '/ton', volume: '12K', category: 'Industrial' },
+    { symbol: 'COBALT', name: 'Cobalt', price: '$34,567', change: '+456', changePercent: '+1.34%', unit: '/ton', volume: '8K', category: 'Industrial' },
+    { symbol: 'RARE', name: 'Rare Earth Elements', price: '$89,234', change: '+1,234', changePercent: '+1.40%', unit: '/ton', volume: '4K', category: 'Industrial' },
+    { symbol: 'WATER', name: 'Water Futures', price: '$567.89', change: '+7.80', changePercent: '+1.39%', unit: '/acre-ft', volume: '23K', category: 'Environmental' },
+
+    // Softs & Exotics
+    { symbol: 'CANOLA', name: 'Canola', price: '$623.45', change: '+8.90', changePercent: '+1.45%', unit: '/ton', volume: '34K', category: 'Agriculture' },
+    { symbol: 'RAPESEED', name: 'Rapeseed', price: '$512.30', change: '+6.70', changePercent: '+1.32%', unit: '/ton', volume: '28K', category: 'Agriculture' },
+    { symbol: 'SOYOIL', name: 'Soybean Oil', price: '$54.67', change: '+0.78', changePercent: '+1.45%', unit: '/lb', volume: '67K', category: 'Agriculture' },
+    { symbol: 'SOYMEAL', name: 'Soybean Meal', price: '$412.34', change: '+5.60', changePercent: '+1.38%', unit: '/ton', volume: '89K', category: 'Agriculture' },
+    { symbol: 'ETHANOL', name: 'Ethanol', price: '$2.12', change: '+0.03', changePercent: '+1.44%', unit: '/gallon', volume: '56K', category: 'Energy' },
+    { symbol: 'PROPANE', name: 'Propane', price: '$1.34', change: '+0.02', changePercent: '+1.52%', unit: '/gallon', volume: '23K', category: 'Energy' }
+  ]
+
+  // Cryptocurrencies - 30 major cryptos
+  const cryptocurrencies = [
+    { symbol: 'BTC', name: 'Bitcoin', price: '$67,845.50', change: '+1,234.67', changePercent: '+1.85%', marketCap: '$1.33T', volume: '$42.3B' },
+    { symbol: 'ETH', name: 'Ethereum', price: '$3,567.80', change: '+78.90', changePercent: '+2.26%', marketCap: '$428B', volume: '$18.7B' },
+    { symbol: 'BNB', name: 'Binance Coin', price: '$456.78', change: '+12.34', changePercent: '+2.77%', marketCap: '$70B', volume: '$2.3B' },
+    { symbol: 'SOL', name: 'Solana', price: '$112.45', change: '+4.56', changePercent: '+4.22%', marketCap: '$48B', volume: '$3.8B' },
+    { symbol: 'XRP', name: 'Ripple', price: '$0.6234', change: '+0.0123', changePercent: '+2.01%', marketCap: '$34B', volume: '$1.9B' },
+    { symbol: 'ADA', name: 'Cardano', price: '$0.4567', change: '+0.0089', changePercent: '+1.99%', marketCap: '$16B', volume: '$892M' },
+    { symbol: 'AVAX', name: 'Avalanche', price: '$34.56', change: '+0.89', changePercent: '+2.64%', marketCap: '$13B', volume: '$678M' },
+    { symbol: 'DOGE', name: 'Dogecoin', price: '$0.0789', change: '+0.0015', changePercent: '+1.94%', marketCap: '$11B', volume: '$1.2B' },
+    { symbol: 'DOT', name: 'Polkadot', price: '$6.78', change: '+0.15', changePercent: '+2.26%', marketCap: '$9B', volume: '$456M' },
+    { symbol: 'MATIC', name: 'Polygon', price: '$0.8945', change: '+0.0234', changePercent: '+2.68%', marketCap: '$8B', volume: '$512M' },
+    { symbol: 'LINK', name: 'Chainlink', price: '$14.56', change: '+0.34', changePercent: '+2.39%', marketCap: '$8B', volume: '$689M' },
+    { symbol: 'UNI', name: 'Uniswap', price: '$7.89', change: '+0.18', changePercent: '+2.33%', marketCap: '$6B', volume: '$234M' },
+    { symbol: 'LTC', name: 'Litecoin', price: '$78.45', change: '+1.67', changePercent: '+2.17%', marketCap: '$6B', volume: '$567M' },
+    { symbol: 'ATOM', name: 'Cosmos', price: '$9.12', change: '+0.21', changePercent: '+2.36%', marketCap: '$4B', volume: '$312M' },
+    { symbol: 'XLM', name: 'Stellar', price: '$0.1234', change: '+0.0028', changePercent: '+2.32%', marketCap: '$4B', volume: '$289M' },
+    { symbol: 'ALGO', name: 'Algorand', price: '$0.2345', change: '+0.0056', changePercent: '+2.45%', marketCap: '$2B', volume: '$178M' },
+    { symbol: 'VET', name: 'VeChain', price: '$0.0345', change: '+0.0008', changePercent: '+2.37%', marketCap: '$3B', volume: '$145M' },
+    { symbol: 'FIL', name: 'Filecoin', price: '$5.67', change: '+0.13', changePercent: '+2.35%', marketCap: '$3B', volume: '$234M' },
+    { symbol: 'HBAR', name: 'Hedera', price: '$0.0678', change: '+0.0015', changePercent: '+2.26%', marketCap: '$2B', volume: '$89M' },
+    { symbol: 'APT', name: 'Aptos', price: '$8.90', change: '+0.21', changePercent: '+2.42%', marketCap: '$4B', volume: '$456M' },
+    { symbol: 'ARB', name: 'Arbitrum', price: '$1.23', change: '+0.03', changePercent: '+2.50%', marketCap: '$2B', volume: '$312M' },
+    { symbol: 'OP', name: 'Optimism', price: '$2.34', change: '+0.06', changePercent: '+2.63%', marketCap: '$3B', volume: '$267M' },
+    { symbol: 'INJ', name: 'Injective', price: '$23.45', change: '+0.67', changePercent: '+2.94%', marketCap: '$2B', volume: '$189M' },
+    { symbol: 'SUI', name: 'Sui', price: '$1.45', change: '+0.04', changePercent: '+2.84%', marketCap: '$4B', volume: '$534M' },
+    { symbol: 'TIA', name: 'Celestia', price: '$12.34', change: '+0.34', changePercent: '+2.83%', marketCap: '$2B', volume: '$298M' },
+    { symbol: 'SEI', name: 'Sei', price: '$0.5678', change: '+0.0145', changePercent: '+2.62%', marketCap: '$2B', volume: '$412M' },
+    { symbol: 'NEAR', name: 'Near Protocol', price: '$3.45', change: '+0.09', changePercent: '+2.68%', marketCap: '$4B', volume: '$345M' },
+    { symbol: 'STX', name: 'Stacks', price: '$1.89', change: '+0.05', changePercent: '+2.72%', marketCap: '$3B', volume: '$234M' },
+    { symbol: 'AAVE', name: 'Aave', price: '$89.50', change: '+2.34', changePercent: '+2.68%', marketCap: '$1B', volume: '$178M' },
+    { symbol: 'SNX', name: 'Synthetix', price: '$3.12', change: '+0.08', changePercent: '+2.63%', marketCap: '$1B', volume: '$123M' }
   ]
 
   useEffect(() => {
@@ -2215,7 +4104,7 @@ Understanding these markets' specific operating procedures, listing requirements
           {[
             { key: 'signals', label: t.liveSignals, icon: '⚡' },
             { key: 'analysis', label: t.marketAnalysis, icon: '📈' },
-            { key: 'markets', label: t.asianMarkets, icon: '🌏' },
+            { key: 'markets', label: t.worldwideMarkets, icon: '🌍' },
             { key: 'news', label: t.news, icon: '📰' },
             { key: 'education', label: t.education, icon: '🎓' }
           ].map(tab => (
@@ -2676,15 +4565,17 @@ Understanding these markets' specific operating procedures, listing requirements
               📈 Market Analysis
             </h1>
 
+            {/* Daily Market Overview - Keep as-is */}
             <div style={{
               background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
               border: '1px solid #475569',
               borderRadius: '16px',
-              padding: '32px'
+              padding: '32px',
+              marginBottom: '24px'
             }}>
               <h2 style={{ color: '#f8fafc', marginBottom: '16px' }}>Daily Market Overview</h2>
               <p style={{ color: '#94a3b8', lineHeight: '1.7', marginBottom: '24px' }}>
-                Asian markets are showing strong momentum today with GCC equities leading the charge.
+                Global markets are showing mixed performance today with GCC equities leading the charge in the Middle East.
                 USD/AED and USD/SAR are stabilizing around key support levels while banking sector demonstrates exceptional strength.
               </p>
 
@@ -2693,7 +4584,7 @@ Understanding these markets' specific operating procedures, listing requirements
                 gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
                 gap: '20px'
               }}>
-                {asianMarkets.map((market, index) => (
+                {globalMarkets.filter(m => m.region === 'GCC').slice(0, 4).map((market, index) => (
                   <div key={index} style={{
                     background: '#1e293b',
                     padding: '20px',
@@ -2727,31 +4618,450 @@ Understanding these markets' specific operating procedures, listing requirements
                 ))}
               </div>
             </div>
+
+            {/* Comprehensive Market Data Section */}
+            <div style={{
+              background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+              border: '1px solid #475569',
+              borderRadius: '16px',
+              padding: '32px'
+            }}>
+              <div style={{ marginBottom: '24px' }}>
+                <h2 style={{ color: '#f8fafc', marginBottom: '16px', fontSize: '24px', fontWeight: '700' }}>
+                  Global Market Explorer
+                </h2>
+                <p style={{ color: '#94a3b8', lineHeight: '1.7', marginBottom: '20px' }}>
+                  Track 360+ instruments across stocks, forex, commodities, and cryptocurrencies with real-time data and comprehensive analytics.
+                </p>
+
+                {/* Search and Category Tabs */}
+                <div style={{ marginBottom: '24px' }}>
+                  <input
+                    type="text"
+                    placeholder="Search instruments by name or symbol..."
+                    value={marketAnalysisSearch}
+                    onChange={(e) => setMarketAnalysisSearch(e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '16px',
+                      background: '#1e293b',
+                      border: '1px solid #475569',
+                      borderRadius: '12px',
+                      color: '#f8fafc',
+                      fontSize: '16px',
+                      marginBottom: '16px'
+                    }}
+                  />
+
+                  {/* Category Tabs */}
+                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                    {['stocks', 'forex', 'commodities', 'crypto'].map((category) => (
+                      <button
+                        key={category}
+                        onClick={() => setSelectedMarketCategory(category)}
+                        style={{
+                          padding: '12px 24px',
+                          background: selectedMarketCategory === category
+                            ? 'linear-gradient(135deg, #3b82f6 0%, #10b981 100%)'
+                            : '#1e293b',
+                          border: '1px solid #475569',
+                          borderRadius: '8px',
+                          color: '#f8fafc',
+                          fontSize: '16px',
+                          fontWeight: '600',
+                          cursor: 'pointer',
+                          transition: 'all 0.3s ease'
+                        }}
+                      >
+                        {category === 'stocks' && '📊 Stocks'}
+                        {category === 'forex' && '💱 Forex'}
+                        {category === 'commodities' && '🛢️ Commodities'}
+                        {category === 'crypto' && '₿ Crypto'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Stocks Section */}
+                {selectedMarketCategory === 'stocks' && (
+                  <div>
+                    {/* Region Filter */}
+                    <div style={{ marginBottom: '20px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                      {['all', 'US', 'GCC', 'Europe', 'Asia', 'Emerging'].map((region) => (
+                        <button
+                          key={region}
+                          onClick={() => setSelectedStockRegion(region)}
+                          style={{
+                            padding: '8px 16px',
+                            background: selectedStockRegion === region ? '#3b82f6' : '#1e293b',
+                            border: '1px solid #475569',
+                            borderRadius: '6px',
+                            color: '#f8fafc',
+                            fontSize: '14px',
+                            fontWeight: '500',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {region === 'all' ? 'All Regions' : region}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Stock Grid */}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                      gap: '16px'
+                    }}>
+                      {globalStocks
+                        .filter(stock =>
+                          (selectedStockRegion === 'all' || stock.region === selectedStockRegion) &&
+                          (marketAnalysisSearch === '' ||
+                            stock.name.toLowerCase().includes(marketAnalysisSearch.toLowerCase()) ||
+                            stock.symbol.toLowerCase().includes(marketAnalysisSearch.toLowerCase()))
+                        )
+                        .slice(0, 24)
+                        .map((stock, index) => (
+                          <div key={index} style={{
+                            background: '#1e293b',
+                            padding: '16px',
+                            borderRadius: '12px',
+                            border: '1px solid #475569',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease'
+                          }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                              <div>
+                                <div style={{ color: '#f8fafc', fontWeight: '700', fontSize: '16px' }}>{stock.symbol}</div>
+                                <div style={{ color: '#94a3b8', fontSize: '12px' }}>{stock.name}</div>
+                              </div>
+                              <div style={{
+                                padding: '4px 8px',
+                                background: stock.changePercent.startsWith('+') ? '#10b98120' : '#ef444420',
+                                color: stock.changePercent.startsWith('+') ? '#10b981' : '#ef4444',
+                                borderRadius: '4px',
+                                fontSize: '12px',
+                                fontWeight: '600',
+                                height: 'fit-content'
+                              }}>
+                                {stock.changePercent}
+                              </div>
+                            </div>
+                            <div style={{ color: '#f8fafc', fontSize: '20px', fontWeight: '700', marginBottom: '4px' }}>
+                              {stock.price}
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#94a3b8' }}>
+                              <span>Vol: {stock.volume}</span>
+                              <span>{stock.sector}</span>
+                            </div>
+                            {stock.marketCap && (
+                              <div style={{ fontSize: '11px', color: '#64748b', marginTop: '4px' }}>
+                                MCap: {stock.marketCap}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Forex Section */}
+                {selectedMarketCategory === 'forex' && (
+                  <div>
+                    {/* Forex Type Filter */}
+                    <div style={{ marginBottom: '20px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                      {['all', 'Major', 'GCC', 'Cross', 'Exotic'].map((type) => (
+                        <button
+                          key={type}
+                          onClick={() => setSelectedForexType(type)}
+                          style={{
+                            padding: '8px 16px',
+                            background: selectedForexType === type ? '#3b82f6' : '#1e293b',
+                            border: '1px solid #475569',
+                            borderRadius: '6px',
+                            color: '#f8fafc',
+                            fontSize: '14px',
+                            fontWeight: '500',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {type === 'all' ? 'All Pairs' : type}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Forex Grid */}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                      gap: '16px'
+                    }}>
+                      {forexPairs
+                        .filter(pair =>
+                          (selectedForexType === 'all' || pair.type === selectedForexType) &&
+                          (marketAnalysisSearch === '' ||
+                            pair.name.toLowerCase().includes(marketAnalysisSearch.toLowerCase()) ||
+                            pair.symbol.toLowerCase().includes(marketAnalysisSearch.toLowerCase()))
+                        )
+                        .map((pair, index) => (
+                          <div key={index} style={{
+                            background: '#1e293b',
+                            padding: '16px',
+                            borderRadius: '12px',
+                            border: '1px solid #475569'
+                          }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                              <div>
+                                <div style={{ color: '#f8fafc', fontWeight: '700', fontSize: '16px' }}>{pair.symbol}</div>
+                                <div style={{ color: '#94a3b8', fontSize: '11px' }}>{pair.name}</div>
+                              </div>
+                              <div style={{
+                                padding: '4px 8px',
+                                background: pair.changePercent.startsWith('+') ? '#10b98120' : '#ef444420',
+                                color: pair.changePercent.startsWith('+') ? '#10b981' : '#ef4444',
+                                borderRadius: '4px',
+                                fontSize: '12px',
+                                fontWeight: '600',
+                                height: 'fit-content'
+                              }}>
+                                {pair.changePercent}
+                              </div>
+                            </div>
+                            <div style={{ color: '#f8fafc', fontSize: '20px', fontWeight: '700', marginBottom: '4px' }}>
+                              {pair.price}
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#94a3b8' }}>
+                              <span>Vol: {pair.volume}</span>
+                              <span style={{
+                                padding: '2px 6px',
+                                background: '#3b82f620',
+                                color: '#3b82f6',
+                                borderRadius: '3px',
+                                fontSize: '10px'
+                              }}>
+                                {pair.type}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Commodities Section */}
+                {selectedMarketCategory === 'commodities' && (
+                  <div>
+                    {/* Commodity Category Filter */}
+                    <div style={{ marginBottom: '20px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                      {['all', 'Energy', 'Precious Metals', 'Base Metals', 'Agriculture', 'Environmental', 'Industrial'].map((cat) => (
+                        <button
+                          key={cat}
+                          onClick={() => setSelectedCommodityCategory(cat)}
+                          style={{
+                            padding: '8px 16px',
+                            background: selectedCommodityCategory === cat ? '#3b82f6' : '#1e293b',
+                            border: '1px solid #475569',
+                            borderRadius: '6px',
+                            color: '#f8fafc',
+                            fontSize: '14px',
+                            fontWeight: '500',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {cat === 'all' ? 'All Commodities' : cat}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Commodities Grid */}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                      gap: '16px'
+                    }}>
+                      {commodities
+                        .filter(commodity =>
+                          (selectedCommodityCategory === 'all' || commodity.category === selectedCommodityCategory) &&
+                          (marketAnalysisSearch === '' ||
+                            commodity.name.toLowerCase().includes(marketAnalysisSearch.toLowerCase()) ||
+                            commodity.symbol.toLowerCase().includes(marketAnalysisSearch.toLowerCase()))
+                        )
+                        .map((commodity, index) => (
+                          <div key={index} style={{
+                            background: '#1e293b',
+                            padding: '16px',
+                            borderRadius: '12px',
+                            border: '1px solid #475569'
+                          }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                              <div>
+                                <div style={{ color: '#f8fafc', fontWeight: '700', fontSize: '16px' }}>{commodity.name}</div>
+                                <div style={{ color: '#94a3b8', fontSize: '11px' }}>{commodity.symbol}</div>
+                              </div>
+                              <div style={{
+                                padding: '4px 8px',
+                                background: commodity.changePercent.startsWith('+') ? '#10b98120' : '#ef444420',
+                                color: commodity.changePercent.startsWith('+') ? '#10b981' : '#ef4444',
+                                borderRadius: '4px',
+                                fontSize: '12px',
+                                fontWeight: '600',
+                                height: 'fit-content'
+                              }}>
+                                {commodity.changePercent}
+                              </div>
+                            </div>
+                            <div style={{ color: '#f8fafc', fontSize: '20px', fontWeight: '700', marginBottom: '4px' }}>
+                              {commodity.price}
+                              <span style={{ fontSize: '12px', color: '#94a3b8', fontWeight: '400' }}> {commodity.unit}</span>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#94a3b8' }}>
+                              <span>Vol: {commodity.volume}</span>
+                              <span style={{
+                                padding: '2px 6px',
+                                background: '#10b98120',
+                                color: '#10b981',
+                                borderRadius: '3px',
+                                fontSize: '10px'
+                              }}>
+                                {commodity.category}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Crypto Section */}
+                {selectedMarketCategory === 'crypto' && (
+                  <div>
+                    {/* Crypto Grid */}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                      gap: '16px'
+                    }}>
+                      {cryptocurrencies
+                        .filter(crypto =>
+                          marketAnalysisSearch === '' ||
+                          crypto.name.toLowerCase().includes(marketAnalysisSearch.toLowerCase()) ||
+                          crypto.symbol.toLowerCase().includes(marketAnalysisSearch.toLowerCase())
+                        )
+                        .map((crypto, index) => (
+                          <div key={index} style={{
+                            background: '#1e293b',
+                            padding: '16px',
+                            borderRadius: '12px',
+                            border: '1px solid #475569'
+                          }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                              <div>
+                                <div style={{ color: '#f8fafc', fontWeight: '700', fontSize: '16px' }}>{crypto.symbol}</div>
+                                <div style={{ color: '#94a3b8', fontSize: '12px' }}>{crypto.name}</div>
+                              </div>
+                              <div style={{
+                                padding: '4px 8px',
+                                background: crypto.changePercent.startsWith('+') ? '#10b98120' : '#ef444420',
+                                color: crypto.changePercent.startsWith('+') ? '#10b981' : '#ef4444',
+                                borderRadius: '4px',
+                                fontSize: '12px',
+                                fontWeight: '600',
+                                height: 'fit-content'
+                              }}>
+                                {crypto.changePercent}
+                              </div>
+                            </div>
+                            <div style={{ color: '#f8fafc', fontSize: '20px', fontWeight: '700', marginBottom: '8px' }}>
+                              {crypto.price}
+                            </div>
+                            <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>
+                              MCap: {crypto.marketCap}
+                            </div>
+                            <div style={{ fontSize: '12px', color: '#64748b' }}>
+                              Volume: {crypto.volume}
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Summary Stats */}
+                <div style={{
+                  marginTop: '32px',
+                  padding: '20px',
+                  background: '#1e293b',
+                  borderRadius: '12px',
+                  border: '1px solid #475569'
+                }}>
+                  <div style={{ color: '#94a3b8', fontSize: '14px', textAlign: 'center' }}>
+                    Showing {
+                      selectedMarketCategory === 'stocks' ? globalStocks.filter(s => selectedStockRegion === 'all' || s.region === selectedStockRegion).length :
+                      selectedMarketCategory === 'forex' ? forexPairs.filter(p => selectedForexType === 'all' || p.type === selectedForexType).length :
+                      selectedMarketCategory === 'commodities' ? commodities.filter(c => selectedCommodityCategory === 'all' || c.category === selectedCommodityCategory).length :
+                      cryptocurrencies.length
+                    } instruments
+                    {marketAnalysisSearch && ` matching "${marketAnalysisSearch}"`}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
-        {/* Asian Markets Tab */}
+        {/* Worldwide Markets Tab */}
         {activeTab === 'markets' && (
           <div>
             <h1 style={{
               fontSize: '32px',
               fontWeight: '800',
-              marginBottom: '24px',
+              marginBottom: '8px',
               background: 'linear-gradient(135deg, #3b82f6 0%, #10b981 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }}>
-              🌏 Asian Markets
+              🌍 Worldwide Markets
             </h1>
-
-            {/* Live Market Data */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '24px',
+            <p style={{
+              fontSize: '16px',
+              color: '#64748b',
               marginBottom: '32px'
             }}>
-              {asianMarkets.map((market, index) => (
+              Real-time coverage of major indices across GCC, Middle East, Asia-Pacific, Europe, Americas, Africa, and Oceania
+            </p>
+
+            {/* Markets by Region */}
+            {['GCC', 'Middle East', 'Asia-Pacific', 'Europe', 'Americas', 'Africa', 'Oceania'].map(region => (
+              <div key={region} style={{ marginBottom: '48px' }}>
+                <h2 style={{
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  color: '#1e293b',
+                  marginBottom: '20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px'
+                }}>
+                  <span style={{
+                    background: 'linear-gradient(135deg, #3b82f6 0%, #10b981 100%)',
+                    padding: '8px 16px',
+                    borderRadius: '8px',
+                    color: 'white',
+                    fontSize: '18px'
+                  }}>
+                    {region}
+                  </span>
+                  <span style={{ fontSize: '14px', color: '#64748b', fontWeight: '500' }}>
+                    {globalMarkets.filter(m => m.region === region).length} indices
+                  </span>
+                </h2>
+
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                  gap: '24px'
+                }}>
+                  {globalMarkets.filter(m => m.region === region).map((market, index) => (
                 <div key={index} style={{
                   background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
                   border: '1px solid #475569',
@@ -2770,6 +5080,15 @@ Understanding these markets' specific operating procedures, listing requirements
                     borderRadius: '50%',
                     animation: 'pulse 2s infinite'
                   }} />
+
+                  <div style={{
+                    fontSize: '14px',
+                    color: '#94a3b8',
+                    marginBottom: '8px',
+                    fontWeight: '500'
+                  }}>
+                    {market.country}
+                  </div>
 
                   <h3 style={{
                     fontSize: '20px',
@@ -2830,36 +5149,41 @@ Understanding these markets' specific operating procedures, listing requirements
                   </div>
                 </div>
               ))}
-            </div>
+                </div>
+              </div>
+            ))}
 
-            {/* Market Summary */}
+            {/* Global Market Summary */}
             <div style={{
               background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
               border: '1px solid #475569',
               borderRadius: '16px',
-              padding: '32px'
+              padding: '32px',
+              marginTop: '32px'
             }}>
-              <h2 style={{ color: '#f8fafc', marginBottom: '16px', fontSize: '24px', fontWeight: '700' }}>Market Summary</h2>
+              <h2 style={{ color: '#f8fafc', marginBottom: '24px', fontSize: '24px', fontWeight: '700' }}>Global Market Overview</h2>
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
                 gap: '24px'
               }}>
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: '32px', fontWeight: '800', color: '#10b981', marginBottom: '8px' }}>12,450</div>
-                  <div style={{ fontSize: '14px', color: '#94a3b8' }}>TASI Index</div>
+                  <div style={{ fontSize: '32px', fontWeight: '800', color: '#10b981', marginBottom: '8px' }}>{globalMarkets.length}</div>
+                  <div style={{ fontSize: '14px', color: '#94a3b8' }}>Global Indices</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: '32px', fontWeight: '800', color: '#3b82f6', marginBottom: '8px' }}>3.67</div>
-                  <div style={{ fontSize: '14px', color: '#94a3b8' }}>USD/AED Rate</div>
+                  <div style={{ fontSize: '32px', fontWeight: '800', color: '#3b82f6', marginBottom: '8px' }}>7</div>
+                  <div style={{ fontSize: '14px', color: '#94a3b8' }}>Regions Covered</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: '32px', fontWeight: '800', color: '#f59e0b', marginBottom: '8px' }}>$2.8B</div>
+                  <div style={{ fontSize: '32px', fontWeight: '800', color: '#f59e0b', marginBottom: '8px' }}>$2.8T</div>
                   <div style={{ fontSize: '14px', color: '#94a3b8' }}>Daily Volume</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: '32px', fontWeight: '800', color: '#10b981', marginBottom: '8px' }}>+2.1%</div>
-                  <div style={{ fontSize: '14px', color: '#94a3b8' }}>Market Change</div>
+                  <div style={{ fontSize: '32px', fontWeight: '800', color: '#10b981', marginBottom: '8px' }}>
+                    {globalMarkets.filter(m => m.trend === 'up').length}↗ / {globalMarkets.filter(m => m.trend === 'down').length}↘
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#94a3b8' }}>Market Sentiment</div>
                 </div>
               </div>
             </div>
@@ -3241,6 +5565,1714 @@ The GCC energy sector's combination of low-cost production, massive reserves, st
                   readTime: '7 min read',
                   tags: ['Energy Sector', 'Saudi Aramco', 'ADNOC', 'Qatar Energy', 'Oil & Gas'],
                   imageDescription: 'Modern GCC oil facility with regional flags and energy charts'
+                },
+                {
+                  id: 5,
+                  title: 'Saudi Vision 2030 Accelerates: NEOM, Red Sea Project, and Qiddiya Drive Economic Transformation',
+                  summary: 'Saudi Arabia\'s Vision 2030 mega-projects reach critical milestones with NEOM Phase 1 completion, Red Sea Project opening, and Qiddiya Entertainment City advancing rapidly.',
+                  fullArticle: `Saudi Arabia's ambitious Vision 2030 economic diversification program has achieved remarkable momentum, with major giga-projects delivering transformative results that are reshaping the Kingdom's economy and creating unprecedented investment opportunities across multiple sectors.
+
+**Vision 2030 Progress Overview:**
+The Kingdom's comprehensive transformation initiative has demonstrated exceptional progress, with total investments exceeding SAR 3.2 trillion ($850 billion) committed across infrastructure, entertainment, tourism, technology, and renewable energy sectors. The program aims to reduce oil dependency, diversify revenue sources, and position Saudi Arabia as a global investment powerhouse.
+
+**NEOM - The Future City:**
+NEOM, the $500 billion flagship mega-project, has reached critical development milestones:
+
+**The Line:**
+- 26.5km of foundation work completed for the first phase
+- Revolutionary zero-gravity urbanism design with 170km planned length
+- Accommodation for 9 million residents in 34 square kilometers
+- 100% renewable energy powered, carbon-neutral operations
+- First residential units targeted for 2026 completion
+- Advanced construction technologies including 3D printing and modular design
+
+**Oxagon:**
+- World's largest floating industrial complex taking shape
+- $5 billion in manufacturing investments committed
+- Focus on sustainable industries, clean energy, and advanced manufacturing
+- Strategic port facilities for global trade connectivity
+- Target of 70,000 new jobs by 2030
+
+**Trojena:**
+- Mountain resort destination with year-round skiing
+- 2029 Asian Winter Games hosting confirmed
+- Unique architectural design integrating with natural landscape
+- Investment in sustainable tourism and winter sports infrastructure
+
+**Red Sea Project - Luxury Tourism Transformation:**
+The Red Sea Project has achieved remarkable progress:
+
+**Phase 1 Completion:**
+- 16 luxury hotels now operational across pristine islands
+- International airport handling 1 million passengers annually
+- Renewable energy providing 100% of power requirements
+- World-leading coral reef regeneration program (40% increase in coral coverage)
+- Strict environmental protections preserving 75% of islands as nature reserves
+
+**Economic Impact:**
+- $5.8 billion in tourism revenue projected for 2024
+- 35,000 permanent jobs created
+- Attracting ultra-high-net-worth individuals and luxury travelers
+- Positioned as Middle East's premier sustainable luxury destination
+
+**Qiddiya Entertainment City:**
+The Kingdom's entertainment capital is rapidly materializing:
+
+**Key Developments:**
+- Six Flags Qiddiya construction 65% complete
+- 300+ entertainment attractions planned
+- Hosting 17 million visitors annually by 2030
+- Formula 1 circuit and motorsport complex advancing
+- Integration of esports, theme parks, and cultural venues
+- $8 billion investment from PIF and international partners
+
+**Infrastructure Revolution:**
+- 28,000-capacity arena for concerts and sports
+- Water park featuring world's tallest water coaster
+- Cliff-top development with breathtaking desert views
+- Advanced transportation including aerial gondolas
+
+**Broader Vision 2030 Achievements:**
+
+**Economic Diversification:**
+- Non-oil GDP contribution increased to 52% (from 40% in 2016)
+- Private sector participation reaching 65% of GDP
+- Tourism contributing 10% to GDP (target: 12% by 2030)
+- Manufacturing sector expansion of 35%
+
+**Infrastructure Development:**
+- $200 billion invested in transportation infrastructure
+- Riyadh Metro system nearing completion (176km, 85 stations)
+- King Salman International Airport expansion ($35 billion)
+- High-speed rail network connecting major cities
+
+**Social Transformation:**
+- Women's workforce participation increased to 36% (target: 40% by 2030)
+- Entertainment sector creating 225,000 new jobs
+- Cultural venues and museums opening across the Kingdom
+- Quality of life improvements in major cities
+
+**Technology & Innovation:**
+- $20 billion committed to AI and technology development
+- Smart city initiatives in Riyadh and Jeddah
+- 5G coverage reaching 95% of urban areas
+- Technology sector growing 45% annually
+
+**Renewable Energy Leadership:**
+- 58.7 GW of renewable energy capacity under development
+- Largest green hydrogen project globally (NEOM)
+- Solar and wind energy projects attracting $150 billion investment
+- Target of 50% renewable energy by 2030
+
+**Investment Opportunities:**
+
+**Real Estate & Construction:**
+- Massive demand for residential and commercial development
+- Infrastructure construction boom creating supply chain opportunities
+- Property prices in key areas appreciating 25-40% annually
+- International developers partnering with local firms
+
+**Tourism & Hospitality:**
+- Hotel development pipeline exceeding 100,000 rooms
+- Luxury resort operators entering market
+- Cultural tourism and pilgrimage sector expansion
+- Aviation and travel services growth
+
+**Technology & Digital Services:**
+- Smart city solutions and IoT implementation
+- Fintech sector expansion with regulatory support
+- E-commerce and digital payments growth
+- Entertainment technology and content creation
+
+**Financial Services:**
+- Banking sector financing mega-projects
+- Insurance market expansion
+- Capital markets development
+- Asset management opportunities
+
+**Market Impact Analysis:**
+Vision 2030 projects are driving substantial economic activity:
+- Construction sector growing at 12% annually
+- Real estate values increasing in project proximity zones
+- Banking sector lending portfolios expanding
+- Stock market valuations reflecting project progress
+
+**Investment Recommendations:**
+
+**Direct Beneficiaries:**
+- Construction and materials companies: Saudi Aramco Services, ACWA Power
+- Real estate developers: Emaar, Dar Al Arkan, Jabal Omar
+- Banking sector: Al Rajhi Bank, Saudi National Bank
+- Hospitality: Rotana Hotels, Shaza Hotels
+
+**Indirect Beneficiaries:**
+- Telecommunications: STC, Zain, Mobily
+- Technology: Saudi Telecom Digital, SITE
+- Retail and consumer services
+- Transportation and logistics companies
+
+**International Participation:**
+- Global construction firms with Saudi joint ventures
+- International hotel groups and operators
+- Technology providers and consultants
+- Financial institutions supporting mega-projects
+
+**Risk Considerations:**
+While Vision 2030 presents exceptional opportunities, investors should consider:
+- Execution risks on complex mega-projects
+- Oil price volatility affecting government spending
+- Regional geopolitical developments
+- Competition for international investment capital
+
+**Future Outlook:**
+Vision 2030 momentum is expected to accelerate through 2024-2025:
+- Major project milestones approaching
+- Increased private sector participation
+- Growing international investment confidence
+- Economic diversification showing tangible results
+
+**Conclusion:**
+Saudi Arabia's Vision 2030 represents one of the most ambitious economic transformation programs globally. The combination of massive investment, strategic planning, government commitment, and international partnerships positions the Kingdom for sustained economic growth and diversification. For investors, these mega-projects offer compelling opportunities across multiple sectors with long-term growth potential supported by substantial capital deployment and strategic national priorities.
+
+The program's progress demonstrates Saudi Arabia's commitment to economic transformation, creating a new investment paradigm in the Middle East and establishing the Kingdom as a global destination for tourism, technology, and innovation.`,
+                  time: '10 hours ago',
+                  category: 'Economic Policy',
+                  impact: 'Positive',
+                  author: 'Mohammed Al-Qahtani',
+                  readTime: '9 min read',
+                  tags: ['Vision 2030', 'NEOM', 'Red Sea Project', 'Qiddiya', 'Saudi Economy', 'Infrastructure'],
+                  imageDescription: 'NEOM futuristic cityscape with construction progress and Saudi flag'
+                },
+                {
+                  id: 6,
+                  title: 'UAE Real Estate Boom: Dubai and Abu Dhabi Property Markets Surge on Foreign Investment Wave',
+                  summary: 'UAE property markets experience unprecedented growth with Dubai recording AED 520 billion in transactions and Abu Dhabi attracting record international buyers.',
+                  fullArticle: `The UAE real estate sector has delivered exceptional performance, with Dubai and Abu Dhabi property markets experiencing historic growth driven by massive foreign investment, economic expansion, visa reforms, and strategic government initiatives that have positioned the Emirates as a premier global real estate destination.
+
+**Market Performance Overview:**
+The UAE property sector has demonstrated remarkable strength across all segments:
+
+**Dubai Real Estate Market:**
+- Total transaction value: AED 520 billion ($142 billion) in 2023, up 52% year-over-year
+- Transaction volume: 175,000+ deals completed, highest on record
+- Average price appreciation: 28% across prime locations
+- Foreign buyer participation: 72% of all transactions
+- Rental yields: 6-9% in prime areas, among highest globally
+
+**Abu Dhabi Real Estate Market:**
+- Transaction value growth: 38% to AED 95 billion ($26 billion)
+- Capital appreciation: 22% in prime residential areas
+- Foreign investment surge: 145% increase in international buyers
+- Rental market tightening with 95%+ occupancy rates
+- Major waterfront developments driving premium segment
+
+**Key Market Drivers:**
+
+**1. Foreign Investment Surge:**
+International buyers driving unprecedented demand:
+
+**Source Markets:**
+- India: 28% of foreign buyers, led by high-net-worth individuals and business owners
+- United Kingdom: 15%, attracted by tax efficiency and lifestyle
+- Russia & CIS: 12%, seeking safe-haven properties
+- China: 8%, focusing on premium developments
+- Saudi Arabia & GCC: 18%, regional investment diversification
+
+**Investment Motivations:**
+- Stable currency pegged to US dollar
+- Zero property tax and capital gains tax
+- Strong rental yields compared to global cities
+- Residency visa opportunities
+- Political and economic stability
+- World-class infrastructure and amenities
+
+**2. Visa and Residency Reforms:**
+UAE's progressive visa policies boosting demand:
+
+**Golden Visa Program:**
+- 10-year residency for property investors (minimum AED 2 million investment)
+- 75,000+ golden visas issued to property investors
+- Family sponsorship benefits
+- Multiple property ownership allowed
+- Attracting ultra-high-net-worth individuals
+
+**Virtual Working Visas:**
+- Remote work visas enabling digital nomads
+- 12-month residency with property rental
+- Attracting young professionals and entrepreneurs
+- Supporting secondary property rental market
+
+**3. Economic Expansion & Business Growth:**
+Strong economy driving residential and commercial demand:
+- Non-oil GDP growth: 5.8% annually
+- Business license applications: +45% year-over-year
+- New company formations: 65,000+ in 2023
+- Expansion of free zones and business hubs
+- Growing expatriate population
+
+**4. Major Development Projects:**
+Landmark projects reshaping supply dynamics:
+
+**Dubai:**
+- Dubai Creek Harbour: 6 square kilometers, 40,000 residences
+- Mohammed Bin Rashid City: Massive mixed-use development
+- Bluewaters Island: Premium coastal living
+- Dubai South: Aviation district residential community
+- Dubai Hills Estate: Premium family-oriented community
+
+**Abu Dhabi:**
+- Yas Island expansion: Integrated entertainment and residential
+- Saadiyat Island Cultural District: Luxury waterfront living
+- Al Reem Island: Financial district residential towers
+- Reem Mall vicinity: Mixed-use developments
+- Jubail Island: Eco-conscious coastal community
+
+**Sector Analysis by Property Type:**
+
+**Luxury Residential (AED 10M+):**
+- Demand exceeding supply by 35%
+- Record prices: AED 12,000+ per square foot in Palm Jumeirah
+- Ultra-luxury villas selling in days
+- Penthouses commanding premium pricing
+- International luxury brands entering market (Bulgari, Armani, Versace)
+
+**Mid-Market Residential (AED 2-10M):**
+- Highest transaction volume segment
+- Strong appreciation in established communities
+- First-time buyers driving demand
+- Mortgage availability supporting purchases
+- Family-oriented communities in high demand
+
+**Off-Plan Properties:**
+- Developer sales: AED 180 billion, up 65%
+- Payment plans attracting investors
+- Pre-handover flipping activity
+- New project launches selling out rapidly
+- International developers entering market
+
+**Commercial Real Estate:**
+- Office occupancy rates: 88% in prime locations
+- Rental rates increasing 15% annually
+- Co-working spaces expanding rapidly
+- Retail properties recovering post-pandemic
+- Industrial and logistics warehouses in high demand
+
+**Rental Market Dynamics:**
+- Residential rental rates up 25-35% in prime areas
+- Severe shortage driving tenant competition
+- Landlords implementing annual increases
+- Corporate relocations supporting luxury rental segment
+- Student accommodation sector emerging
+
+**Investment Hotspots:**
+
+**Dubai:**
+1. **Dubai Marina:** Established community with strong rental demand
+   - Average price: AED 1,800-2,200 per sq ft
+   - Rental yield: 7-8%
+   - High liquidity and international appeal
+
+2. **Palm Jumeirah:** Ultra-luxury market leader
+   - Average price: AED 3,500-12,000 per sq ft
+   - Exclusive villas and penthouses
+   - Limited supply driving appreciation
+
+3. **Downtown Dubai:** Prime location with Burj Khalifa
+   - Average price: AED 2,200-3,500 per sq ft
+   - Tourism and short-term rental potential
+   - Iconic address attracting investors
+
+4. **Dubai Hills Estate:** Family-friendly master community
+   - Average price: AED 1,400-1,900 per sq ft
+   - Golf course and parks
+   - Strong villa market
+
+5. **Business Bay:** Growing business and residential hub
+   - Average price: AED 1,500-2,000 per sq ft
+   - New developments and infrastructure
+   - Excellent connectivity
+
+**Abu Dhabi:**
+1. **Saadiyat Island:** Cultural district premium market
+   - Average price: AED 2,200-3,800 per sq ft
+   - Louvre and cultural attractions
+   - Beachfront luxury
+
+2. **Al Reem Island:** Financial district living
+   - Average price: AED 1,300-1,800 per sq ft
+   - High-rise apartments
+   - Close to business centers
+
+3. **Yas Island:** Entertainment and leisure destination
+   - Average price: AED 1,500-2,500 per sq ft
+   - Theme parks and attractions
+   - Growing residential community
+
+**Market Outlook:**
+
+**Short-term (2024):**
+- Continued price appreciation: 12-18% expected
+- Supply constraints maintaining upward pressure
+- Foreign investment remaining strong
+- New project launches increasing supply gradually
+- Rental market remaining tight
+
+**Medium-term (2025-2026):**
+- Market stabilization as new supply comes online
+- Continued international buyer interest
+- Expo 2020 long-term benefits materializing
+- Infrastructure improvements enhancing connectivity
+- Sustainable growth trajectory
+
+**Long-term (2027+):**
+- UAE positioning as global real estate investment hub
+- Economic diversification supporting demand
+- Population growth driving structural demand
+- Smart city initiatives enhancing property values
+- Regional leadership in proptech and innovation
+
+**Investment Strategies:**
+
+**Capital Appreciation Focus:**
+- Prime waterfront developments
+- New master-planned communities
+- Luxury segment with supply constraints
+- Off-plan purchases in established developer projects
+
+**Rental Yield Focus:**
+- Mid-market apartments in high-demand areas
+- Commercial properties in business districts
+- Student accommodation near universities
+- Furnished apartments for corporate rentals
+
+**Diversified Portfolio:**
+- Mix of residential and commercial
+- Geographic diversification across Dubai and Abu Dhabi
+- Combination of ready and off-plan properties
+- Balance of capital growth and income generation
+
+**Risk Considerations:**
+- Supply pipeline could pressure prices if demand softens
+- Regional geopolitical developments
+- Global economic conditions affecting investor sentiment
+- Regulatory changes impacting foreign ownership
+- Currency fluctuations for international investors
+
+**Financing Landscape:**
+- Mortgage rates: 4.5-6.5% for qualified buyers
+- Loan-to-value ratios: 75-80% for UAE nationals, 60-75% for expatriates
+- Competitive lending environment
+- Islamic finance options widely available
+- International banks active in UAE mortgage market
+
+**Conclusion:**
+The UAE real estate sector presents compelling opportunities for both capital appreciation and rental income. The combination of strong economic fundamentals, progressive visa policies, zero taxation, and strategic location positions Dubai and Abu Dhabi as premier global real estate investment destinations. While prices have appreciated significantly, structural demand drivers suggest continued growth potential, particularly in premium segments and new master-planned communities.
+
+For investors, the UAE property market offers a unique combination of attractive yields, capital appreciation potential, residency benefits, and lifestyle advantages that few global markets can match. The key to success lies in careful market research, strategic location selection, and understanding the distinct dynamics of different property segments and communities.`,
+                  time: '12 hours ago',
+                  category: 'Real Estate',
+                  impact: 'Positive',
+                  author: 'Laila Al-Hashimi',
+                  readTime: '10 min read',
+                  tags: ['Dubai Real Estate', 'Abu Dhabi Property', 'Foreign Investment', 'Golden Visa', 'UAE Economy'],
+                  imageDescription: 'Dubai Marina skyline with luxury properties and waterfront developments'
+                },
+                {
+                  id: 7,
+                  title: 'GCC Fintech Revolution: Digital Banking, Blockchain, and Payment Innovation Transform Financial Services',
+                  summary: 'GCC fintech sector experiences explosive growth with digital banking adoption reaching 78%, blockchain implementations, and CBDC pilots advancing regional financial innovation.',
+                  fullArticle: `The GCC fintech sector has emerged as a global innovation leader, with digital transformation revolutionizing financial services across the region. Record investment, regulatory support, and rapidly evolving consumer behaviors are driving unprecedented innovation in banking, payments, blockchain, and financial technology.
+
+**Fintech Sector Overview:**
+The GCC fintech ecosystem has achieved remarkable growth:
+- Total fintech investment: $2.8 billion in 2023, up 145% year-over-year
+- Active fintech companies: 850+ startups and scale-ups across the region
+- Digital banking adoption: 78% of banking customers using digital channels
+- Mobile payments growth: 340% increase in transaction volumes
+- Blockchain implementations: 120+ projects across government and private sector
+
+**Digital Banking Transformation:**
+
+**UAE Digital Banking Leadership:**
+The UAE has positioned itself as the Middle East's digital banking hub:
+
+**Emirates NBD Digital Initiatives:**
+- E20 digital bank serving 2.5 million customers
+- 95% of transactions now completed digitally
+- AI-powered chatbot handling 3.5 million inquiries monthly
+- Blockchain-based trade finance platform processing $3 billion
+- Open banking APIs enabling third-party integrations
+
+**Mashreq Neo - Next-Gen Digital Bank:**
+- Fully digital banking experience with 10-minute account opening
+- AI-driven personal finance management
+- Zero fees on most transactions
+- Integration with fintech ecosystem
+- 450,000 active users within 18 months of launch
+
+**Zand Bank - UAE's First Digital Bank:**
+- Received full banking license in 2022
+- Corporate and retail banking services fully digital
+- Real-time onboarding and instant credit decisions
+- Sustainable banking focus with green finance options
+- Partnership with Microsoft for cloud infrastructure
+
+**Saudi Arabia's Digital Banking Evolution:**
+
+**Saudi Digital Bank (SDB):**
+- Kingdom's first fully digital bank with $1.5 billion capitalization
+- PIF backing providing strategic support
+- Mobile-first approach targeting young demographics
+- Advanced credit scoring using alternative data
+- Target of 5 million customers by 2026
+
+**Traditional Banks Digital Transformation:**
+- Al Rajhi Bank's digital channels handling 92% of transactions
+- Saudi National Bank's mobile app with 6 million active users
+- Riyad Bank's digital wallet and payment solutions
+- SAMBA's integration with government digital services
+
+**Payment Innovation Revolution:**
+
+**Digital Payment Adoption:**
+The GCC is experiencing explosive growth in digital payments:
+
+**Saudi Arabia:**
+- **mada** payment network: 8 billion transactions annually (up 58%)
+- Digital wallet adoption: 65% of population using at least one wallet
+- **STC Pay** users: 15 million active accounts
+- **Tamara** (Buy Now Pay Later): 4 million users
+- QR code payments becoming ubiquitous
+
+**UAE:**
+- Cashless transaction value: AED 1.2 trillion annually
+- **Apple Pay** and **Samsung Pay** adoption: 45% of smartphone users
+- **Beam Wallet** and local solutions gaining traction
+- Government services integration with digital payments
+- Retail establishments: 95% accepting contactless payments
+
+**Qatar:**
+- **Noorpay** digital wallet launched by QCB
+- Integration with FIFA World Cup 2022 infrastructure
+- Mobile payment adoption accelerating
+- Cross-border payment facilitation with GCC neighbors
+
+**Blockchain and Distributed Ledger Technology:**
+
+**Government Blockchain Initiatives:**
+
+**UAE Blockchain Strategy:**
+- Dubai Blockchain Strategy targeting 50% government transactions
+- **Emirates Blockchain Strategy 2021** implementation ongoing
+- Land registry, healthcare records, and education certificates on blockchain
+- Trade finance and supply chain transparency applications
+- Estimated savings of $3 billion annually from blockchain adoption
+
+**Saudi Blockchain Vision:**
+- Integration with Vision 2030 digital transformation goals
+- Customs and trade facilitation on blockchain
+- Hajj and Umrah services blockchain integration
+- Digital identity and KYC sharing platforms
+- Partnership with IBM and other technology leaders
+
+**Private Sector Blockchain Applications:**
+
+**Banking and Finance:**
+- **Emirates NBD** and **HSBC** blockchain trade finance platform
+- Cross-border remittances with real-time settlement
+- KYC sharing consortium reducing duplication
+- Smart contracts for trade finance and guarantees
+- Securities settlement and clearing optimization
+
+**Supply Chain and Logistics:**
+- **DP World** blockchain-enabled cargo tracking
+- **Aramco** supply chain transparency initiatives
+- Food traceability from farm to consumer
+- Pharmaceutical supply chain authentication
+- Customs clearance automation
+
+**Central Bank Digital Currencies (CBDCs):**
+
+**Project Aber - Saudi Arabia & UAE CBDC:**
+- Joint initiative exploring cross-border CBDC settlement
+- Successful pilot completed with promising results
+- Potential for regional payment infrastructure transformation
+- Reduced settlement times and costs
+- Enhanced monetary policy transmission
+
+**Regional CBDC Development:**
+- Qatar Central Bank exploring digital riyal
+- Kuwait examining CBDC implementation
+- Bahrain participating in regional initiatives
+- Coordination through GCC Central Banks Committee
+
+**Buy Now Pay Later (BNPL) Explosion:**
+
+**Leading BNPL Platforms:**
+
+**Tabby (UAE-based unicorn):**
+- Valuation: $1.5 billion following Series D funding
+- Available at 15,000+ retail locations
+- 4 million active users across GCC
+- Average transaction value: AED 600
+- Partnership with major e-commerce platforms
+
+**Tamara (Saudi Arabia):**
+- $440 million raised in Series B funding
+- Integration with 30,000+ merchants
+- Focus on Shariah-compliant payment solutions
+- Rapid expansion across GCC markets
+- Strategic partnerships with fashion and lifestyle brands
+
+**Postpay:**
+- Strong UAE market presence
+- Focus on lifestyle and fashion segment
+- Integration with major retailers
+- Millennial and Gen-Z customer base
+- Subscription and installment options
+
+**Impact on Consumer Behavior:**
+- Increased purchasing power and affordability
+- Higher average transaction values (35% increase)
+- Younger demographics embracing BNPL
+- E-commerce growth acceleration
+- Some concerns about over-leveraging
+
+**Remittance and Cross-Border Payments:**
+
+**Digital Remittance Solutions:**
+The GCC's large expatriate population drives innovation:
+
+**Beam Wallet (UAE):**
+- Instant international transfers to 30+ countries
+- Competitive exchange rates and low fees
+- Integration with local and international payment networks
+- Money transfer licenses across GCC
+
+**NOW Money:**
+- Banking services for underserved expatriate workers
+- Remittance solutions with transparent pricing
+- Financial inclusion focus
+- Partnership with employers for payroll integration
+
+**Traditional Players' Digital Evolution:**
+- Western Union and MoneyGram digital transformation
+- Bank-based international transfer optimization
+- Competition driving down costs and improving speed
+
+**Cryptocurrency and Digital Assets:**
+
+**Regulatory Framework Development:**
+
+**UAE Crypto Leadership:**
+- **Dubai Virtual Asset Regulatory Authority (VARA)** established
+- Comprehensive licensing framework for crypto businesses
+- Major exchanges receiving licenses (Binance, Crypto.com, OKX)
+- Abu Dhabi Global Market crypto regulations
+- Institutional crypto adoption growing
+
+**Regional Developments:**
+- Saudi Arabia exploring regulatory frameworks
+- Bahrain licensing crypto asset platforms
+- Regional coordination on crypto regulation
+- Focus on consumer protection and AML compliance
+
+**Institutional Adoption:**
+- Family offices allocating to crypto assets
+- Banks exploring custody solutions
+- Sovereign wealth funds examining blockchain investments
+- Growing professional investor interest
+
+**Wealth Management and Robo-Advisory:**
+
+**Digital Wealth Platforms:**
+
+**Sarwa (UAE):**
+- Robo-advisory platform with $200 million AUM
+- Low-cost diversified portfolio management
+- Goal-based investing approach
+- Mobile-first user experience
+- Shariah-compliant investment options
+
+**Wahed (Global with GCC focus):**
+- Islamic robo-advisory platform
+- Halal investment portfolios
+- Technology-driven asset allocation
+- Growing regional user base
+
+**RegTech and Compliance Innovation:**
+
+**AML and KYC Solutions:**
+- AI-powered transaction monitoring systems
+- Biometric identification platforms
+- Digital identity verification
+- Real-time sanctions screening
+- Cross-border KYC sharing initiatives
+
+**Regulatory Technology Adoption:**
+- Financial institutions investing heavily in RegTech
+- Compliance cost reduction through automation
+- Enhanced risk management capabilities
+- Regulatory reporting automation
+
+**Insurtech Development:**
+
+**Digital Insurance Platforms:**
+- **Beema** (Qatar): Digital insurance marketplace
+- **Aman** (Saudi Arabia): On-demand insurance solutions
+- **Hakbah** (UAE): AI-driven insurance platform
+- Usage-based insurance gaining traction
+- Instant policy issuance and claims processing
+
+**Embedded Finance:**
+
+**E-commerce Integration:**
+- Financial services integrated into non-financial platforms
+- **Noon** payments and financial services
+- **Careem** super app with payments and financial products
+- Ride-hailing apps offering insurance and credit
+
+**Investment and Funding Landscape:**
+
+**Venture Capital Activity:**
+- $2.8 billion invested in GCC fintech in 2023
+- Major rounds: Tabby ($200M), Tamara ($110M), Lean Technologies ($33M)
+- Government-backed funds actively investing
+- International VCs entering GCC market
+- Corporate venture capital participation
+
+**Government Support:**
+- Fintech-friendly regulatory sandboxes
+- Fast-track licensing processes
+- Innovation labs and accelerators
+- Public-private partnerships
+- Infrastructure investments
+
+**Future Outlook:**
+
+**Short-term Trends (2024):**
+- Continued BNPL growth and market maturation
+- CBDC pilot expansions
+- Open banking framework implementations
+- AI integration in financial services
+- Digital identity standardization
+
+**Medium-term Evolution (2025-2027):**
+- Full CBDC deployment potential
+- Blockchain becoming mainstream in finance
+- Crypto asset framework maturation
+- Embedded finance ubiquity
+- Regional fintech consolidation
+
+**Long-term Vision (2028+):**
+- GCC as global fintech innovation hub
+- Seamless cross-border financial services
+- AI-driven personalized finance
+- Quantum-safe blockchain implementations
+- Financial inclusion achievement
+
+**Investment Opportunities:**
+
+**Direct Fintech Investments:**
+- Late-stage fintech startups with proven models
+- Payment processing companies
+- Blockchain technology providers
+- RegTech and compliance solutions
+
+**Indirect Beneficiaries:**
+- Banks embracing digital transformation
+- Technology service providers
+- Cloud infrastructure companies
+- Cybersecurity firms
+
+**Challenges and Risks:**
+- Regulatory uncertainty in emerging areas
+- Cybersecurity and data privacy concerns
+- Competition from global technology giants
+- Talent shortage in specialized areas
+- Legacy system integration complexities
+
+**Conclusion:**
+The GCC fintech revolution represents a fundamental transformation of the region's financial services landscape. The combination of forward-thinking regulation, significant investment, strong consumer adoption, and government support positions the GCC as a global fintech innovation leader. For investors, entrepreneurs, and financial institutions, the fintech sector offers exceptional growth opportunities across payments, banking, blockchain, and emerging technologies. The region's rapid digital transformation, young tech-savvy population, and strategic vision ensure that fintech will continue to reshape how financial services are delivered and consumed throughout the GCC.`,
+                  time: '1 day ago',
+                  category: 'Technology',
+                  impact: 'Positive',
+                  author: 'Dr. Nasser Al-Kuwari',
+                  readTime: '11 min read',
+                  tags: ['Fintech', 'Digital Banking', 'Blockchain', 'CBDC', 'Cryptocurrency', 'Payment Innovation'],
+                  imageDescription: 'Modern fintech interface with blockchain networks and digital payment systems'
+                },
+                {
+                  id: 8,
+                  title: 'Qatar Exchange (QE) Surges to Record Highs: Banking and Energy Stocks Lead Market Rally',
+                  summary: 'Qatar Exchange reaches all-time high of 10,850 points driven by exceptional banking sector performance, strong LNG exports, and increasing foreign institutional participation.',
+                  fullArticle: `The Qatar Exchange (QE) has achieved historic milestones, with the QE Index surging to record levels of 10,850 points, representing a remarkable 18.5% year-to-date gain. The rally has been broad-based, driven by exceptional banking sector earnings, robust energy sector performance, and substantial foreign institutional investment flows.
+
+**Market Performance Analysis:**
+
+**QE Index Performance:**
+- Current level: 10,850 points (all-time high)
+- YTD performance: +18.5%
+- Market capitalization: QAR 687 billion ($189 billion)
+- Daily trading value average: QAR 420 million (up 65% YoY)
+- Foreign institutional ownership: 42% of free float
+- P/E ratio: 13.8x (attractive compared to regional peers)
+
+**Market Breadth:**
+The rally has demonstrated strong breadth with broad participation:
+- Advancing stocks: 78% of listed companies showing positive returns
+- New 52-week highs: 42 stocks reaching annual peaks
+- Sector performance: All major sectors in positive territory
+- Small/mid-cap outperformance: 22% average gain
+
+**Banking Sector Dominance:**
+
+The Qatari banking sector has emerged as the primary driver of market performance, with exceptional financial results and robust growth fundamentals.
+
+**Qatar National Bank (QNB):**
+The region's largest lender continues to demonstrate leadership:
+- Market cap: QAR 145 billion ($40 billion)
+- Q4 net profit: QAR 13.8 billion, up 22% YoY
+- Total assets: QAR 1.2 trillion
+- International presence: 31 countries across 3 continents
+- ROE: 16.2%, best-in-class profitability
+- Net interest margin: 3.2%, improving quarterly
+- NPL ratio: 1.8%, excellent asset quality
+- Capital adequacy: 18.4%, well-capitalized
+- Digital banking users: 3.2 million active customers
+
+**Stock Performance:**
+- Current price: QAR 18.50 (up 38% YTD)
+- Target price: QAR 21.00 (analyst consensus)
+- Dividend yield: 4.8%
+- Foreign ownership: 49% (maximum allowed)
+
+**Masraf Al Rayan:**
+Qatar's largest Islamic bank showing strong momentum:
+- Q4 net profit: QAR 2.4 billion, up 28% YoY
+- Financing portfolio growth: 15% annually
+- Cost-to-income ratio: 31.5%, improved efficiency
+- Strong corporate banking franchise
+- Digital Islamic banking innovation leader
+- Stock performance: +42% YTD
+
+**Commercial Bank of Qatar:**
+Solid performance across all business lines:
+- Net profit growth: 25% YoY
+- Retail banking expansion driving growth
+- Regional network strengthening
+- Treasury operations contributing significantly
+- Stock performance: +35% YTD
+
+**Qatar Islamic Bank (QIB):**
+- Record quarterly profits
+- Market share gains in retail Islamic banking
+- Real estate financing portfolio expanding
+- Technology investments paying dividends
+- Stock performance: +31% YTD
+
+**Doha Bank:**
+Turnaround story gaining momentum:
+- Asset quality improvement
+- Cost optimization initiatives bearing fruit
+- International operations contributing positively
+- Stock performance: +44% YTD (highest in sector)
+
+**Banking Sector Outlook:**
+Analysts remain highly bullish on Qatari banks, citing:
+- Strong loan growth driven by infrastructure projects
+- Improving net interest margins as rates stabilize
+- Excellent asset quality with minimal credit concerns
+- Capital buffers supporting dividend growth
+- Digital transformation driving efficiency
+- Regional expansion opportunities
+- FIFA World Cup 2022 infrastructure financing benefits
+
+**Energy Sector Excellence:**
+
+**Qatar Energy Sector:**
+Qatar's energy dominance continues driving market confidence:
+
+**LNG Market Leadership:**
+- Qatar maintaining 20% global LNG market share
+- North Field expansion proceeding on schedule
+- Production capacity increasing from 77 to 126 million tons per year
+- Long-term supply contracts secured at attractive prices
+- Premium pricing for reliable, clean LNG supply
+
+**Listed Energy Companies:**
+
+**Industries Qatar (IQ):**
+Qatar's largest industrial conglomerate:
+- Market cap: QAR 38 billion
+- Diversified operations: petrochemicals, fertilizers, steel
+- Q4 net profit: QAR 2.8 billion, up 35% YoY
+- Strong fertilizer demand and pricing
+- Steel segment recovering with infrastructure boom
+- Dividend yield: 6.2%, attractive for income investors
+- Stock performance: +28% YTD
+
+**Qatar Fuel (WOQOD):**
+National fuel distribution champion:
+- Monopoly position in fuel retail and distribution
+- Network expansion across Qatar
+- Diversification into aviation fuel, marine, and LPG
+- Strong pricing power and margins
+- Real estate portfolio providing additional income
+- Stock performance: +25% YTD
+
+**Nakilat (Qatar Gas Transport):**
+World's largest LNG shipping company:
+- Fleet of 74 LNG vessels (largest globally)
+- Long-term charter contracts providing stable cash flows
+- Expansion into LNG shipping management services
+- Benefiting from global LNG trade growth
+- Attractive dividend yield: 5.8%
+- Stock performance: +22% YTD
+
+**Real Estate and Construction Sector:**
+
+**Post-World Cup Momentum:**
+Qatar's real estate market maintaining strength post-FIFA World Cup:
+
+**Barwa Real Estate:**
+Qatar's leading real estate developer:
+- Diversified portfolio: residential, commercial, retail
+- Strong rental income stream
+- Development pipeline supporting growth
+- Hotel operations benefiting from tourism
+- Stock performance: +32% YTD
+
+**Ezdan Holding:**
+- Large residential property portfolio
+- Occupancy rates improving
+- Rental rate growth accelerating
+- Development projects advancing
+- Stock performance: +29% YTD
+
+**Telecommunications Sector:**
+
+**Ooredoo:**
+Regional telecommunications leader:
+- Operations in 10 countries across MENA and Asia
+- 5G network deployment completed in Qatar
+- Strong data revenue growth
+- International operations contributing 65% of revenue
+- Dividend yield: 5.5%
+- Stock performance: +18% YTD
+
+**Consumer and Retail Sector:**
+
+**Qatar's retail sector benefiting from economic expansion:**
+
+**Salam International:**
+Diversified conglomerate with retail focus:
+- Fast-food franchises (KFC, Pizza Hut)
+- Fashion retail operations
+- Healthcare and education divisions
+- E-commerce expansion
+- Stock performance: +26% YTD
+
+**Foreign Investment Dynamics:**
+
+**Institutional Participation:**
+The Qatar Exchange has witnessed substantial foreign institutional interest:
+
+**Foreign Ownership Levels:**
+- Current foreign ownership: 42% of free float
+- Increase of 8 percentage points in 2023
+- Major international institutions increasing allocations
+- MSCI Emerging Market inclusion supporting flows
+
+**Key International Investors:**
+- BlackRock: Significant positions in QNB, Industries Qatar
+- Franklin Templeton: Overweight Qatari banks
+- HSBC Asset Management: Constructive on Qatar exposure
+- Fidelity International: Building Qatar equity positions
+
+**Drivers of Foreign Interest:**
+- Attractive valuations compared to global emerging markets
+- High dividend yields (market average 4.5%)
+- Strong economic fundamentals and fiscal surplus
+- Political stability and business-friendly environment
+- Currency peg providing stability (QAR pegged at 3.64 to USD)
+- LNG wealth providing long-term economic security
+
+**Market Technical Analysis:**
+
+**QE Index Technical Picture:**
+- Strong uptrend with higher highs and higher lows
+- Above all major moving averages (50, 100, 200-day)
+- RSI at 64, indicating strong momentum with room for further gains
+- Volume patterns confirming strength
+- Immediate resistance: 11,200
+- Key support: 10,400
+
+**Economic Fundamentals Supporting Market:**
+
+**Qatar's Macroeconomic Strength:**
+- GDP growth: 4.8% projected for 2024
+- Current account surplus: 18.2% of GDP
+- Government budget surplus: 7.5% of GDP
+- Foreign reserves: $85 billion
+- Inflation well-controlled at 2.4%
+- Sovereign wealth fund (QIA): $475 billion in assets
+
+**Strategic Advantages:**
+- Abundant LNG reserves ensuring decades of revenue
+- Low production costs providing competitive advantage
+- Strategic geographic location
+- Modern infrastructure from World Cup investments
+- Business-friendly regulatory environment
+- Zero income tax for individuals
+
+**FIFA World Cup 2022 Legacy:**
+The tournament has provided lasting benefits:
+- World-class infrastructure now supporting business and tourism
+- Enhanced global visibility and brand recognition
+- Airport capacity expansion supporting connectivity
+- Hotel and hospitality infrastructure benefiting tourism
+- Sports and entertainment venues driving visitation
+
+**Investment Recommendations:**
+
+**Top Picks for Qatar Equity Exposure:**
+
+**Defensive Quality:**
+1. **Qatar National Bank (QNB):** Regional banking leader, 4.8% dividend yield
+2. **Industries Qatar (IQ):** Diversified industrial play, 6.2% yield
+3. **Ooredoo:** Telecom leader with regional presence, 5.5% yield
+
+**Growth Opportunities:**
+1. **Masraf Al Rayan:** Islamic banking growth story
+2. **Doha Bank:** Turnaround potential with strong momentum
+3. **Barwa Real Estate:** Real estate development upside
+
+**Income Focus:**
+1. **Qatar Fuel (WOQOD):** Stable monopoly, strong cash flow
+2. **Nakilat:** LNG shipping with long-term contracts
+3. **Commercial Bank of Qatar:** Growing dividends
+
+**Sector Allocation Recommendation:**
+- Banking: 40% (core holding, strong fundamentals)
+- Energy/Industrials: 25% (LNG exposure, income)
+- Real Estate: 15% (development upside)
+- Telecommunications: 10% (regional diversification)
+- Consumer/Retail: 10% (domestic growth)
+
+**Risk Considerations:**
+
+**Market Risks:**
+- LNG price volatility affecting sentiment
+- Regional geopolitical developments
+- Foreign ownership limits constraining institutional demand
+- Market liquidity in smaller stocks
+- Concentrated market structure
+
+**Economic Risks:**
+- Global energy transition long-term impact
+- Competition from other LNG exporters
+- Economic dependence on hydrocarbon revenues
+- Currency risk for international investors (though peg is credible)
+
+**Valuation Analysis:**
+
+**Relative Value:**
+Qatar Exchange offers attractive valuation versus peers:
+- P/E ratio: 13.8x vs. MSCI EM at 14.5x
+- P/B ratio: 1.7x vs. regional average of 1.9x
+- Dividend yield: 4.5% vs. MSCI EM at 3.2%
+- ROE: 15.2% vs. EM average of 13.8%
+
+**Outlook and Catalysts:**
+
+**Near-term Catalysts (Next 3-6 months):**
+- Q1 2024 earnings expected to remain strong
+- Continued foreign institutional flows
+- North Field LNG project milestones
+- Potential index weight increases
+- Government infrastructure project announcements
+
+**Medium-term Catalysts (6-12 months):**
+- Banking sector dividend increases
+- Energy sector expansion projects advancing
+- Real estate market continued strength
+- Tourism sector growth post-World Cup
+- Regional economic integration benefits
+
+**Conclusion:**
+The Qatar Exchange represents a compelling investment opportunity, combining attractive valuations, high dividend yields, strong economic fundamentals, and exposure to global LNG markets. The banking sector's exceptional performance, energy sector dominance, and increasing foreign institutional participation provide multiple tailwinds for continued market appreciation.
+
+For investors seeking emerging market exposure with strong fundamentals, political stability, and attractive income, the Qatar Exchange offers a differentiated opportunity. While risks exist, including energy price volatility and market concentration, the long-term outlook remains highly positive, supported by abundant LNG wealth, fiscal strength, and strategic development initiatives.
+
+The market's technical strength, improving liquidity, and favorable valuations suggest the rally has room to continue, particularly as foreign investors increasingly recognize Qatar's investment merits. With a disciplined approach focusing on quality banking, energy, and real estate names, investors can build portfolios positioned to benefit from Qatar's continued economic expansion and market development.`,
+                  time: '1 day ago',
+                  category: 'Stocks',
+                  impact: 'Positive',
+                  author: 'Mariam Al-Thani',
+                  readTime: '12 min read',
+                  tags: ['Qatar Exchange', 'QE Index', 'QNB', 'Banking Sector', 'LNG', 'Foreign Investment'],
+                  imageDescription: 'Qatar Exchange trading floor with QE index chart showing upward trend'
+                },
+                {
+                  id: 9,
+                  title: 'GCC Foreign Investment Surge: Sovereign Wealth Funds and FDI Reach Record $285 Billion',
+                  summary: 'GCC economies attract unprecedented foreign direct investment with UAE leading at $23.4 billion, while regional sovereign wealth funds deploy capital globally reaching $3.8 trillion in assets.',
+                  fullArticle: `The Gulf Cooperation Council (GCC) region has emerged as a global investment powerhouse, experiencing a dramatic surge in both inbound foreign direct investment (FDI) and outbound capital deployment through sovereign wealth funds (SWFs). The region's $285 billion in combined investment flows reflects its strategic importance in global capital markets and economic transformation initiatives.
+
+**Foreign Direct Investment Landscape:**
+
+**Regional FDI Overview:**
+The GCC has achieved record foreign investment inflows:
+- Total FDI inflows (2023): $85 billion, up 48% year-over-year
+- UAE leading with $23.4 billion (28% of regional total)
+- Saudi Arabia: $19.2 billion (23% of total)
+- Qatar: $14.5 billion (17% of total)
+- Kuwait: $12.8 billion (15% of total)
+- Oman: $8.4 billion (10% of total)
+- Bahrain: $6.7 billion (7% of total)
+
+**UAE FDI Leadership:**
+
+**Driving Factors:**
+The UAE's exceptional FDI performance stems from multiple competitive advantages:
+
+**1. Business Environment Excellence:**
+- Ranked 16th globally in World Bank's Ease of Doing Business
+- 100% foreign ownership allowed in most sectors
+- Zero corporate tax for most businesses (9% minimum tax for large companies)
+- No personal income tax
+- Free zones offering complete foreign ownership and profit repatriation
+- Streamlined business setup processes (online registration in 48 hours)
+
+**2. Strategic Infrastructure:**
+- World-class logistics and transportation networks
+- Dubai International Airport: World's busiest for international passengers
+- Jebel Ali Port: Largest container port in Middle East
+- Advanced telecommunications and digital infrastructure
+- Free trade agreements with 50+ countries
+
+**3. Sectoral FDI Distribution:**
+- Technology and innovation: 28% ($6.5 billion)
+- Real estate and construction: 22% ($5.1 billion)
+- Financial services: 18% ($4.2 billion)
+- Renewable energy: 12% ($2.8 billion)
+- Healthcare and life sciences: 10% ($2.3 billion)
+- Manufacturing: 10% ($2.5 billion)
+
+**4. Major International Investments:**
+Recent significant FDI projects in UAE include:
+- Microsoft: $1.5 billion AI and cloud infrastructure data center
+- Amazon Web Services: $5 billion data center expansion
+- Pfizer: $500 million regional manufacturing hub
+- Uber: Strategic investment in Careem expansion
+- Tesla: Showroom and service center network
+- Multiple VC firms establishing Middle East headquarters
+
+**Saudi Arabia FDI Transformation:**
+
+**Vision 2030 Investment Attraction:**
+Saudi Arabia has dramatically improved its FDI attractiveness:
+
+**Structural Reforms:**
+- Foreign investment law liberalization
+- Reduction of negative list restricting foreign investment
+- 100% foreign ownership in most sectors
+- New investment incentives and guarantees
+- Improved regulatory transparency
+- World-class free zones (KAEC, SPARK, etc.)
+
+**Major FDI Projects:**
+- Lucid Motors: $3.4 billion EV manufacturing facility
+- Hyundai Motor: $1.8 billion manufacturing plant
+- Total Energies: $15 billion petrochemical complex joint venture
+- Thyssenkrupp: Green hydrogen production facility
+- PepsiCo: Expanded regional food manufacturing
+- Siemens: Smart infrastructure and digitalization projects
+
+**Sectoral Investment Focus:**
+- Manufacturing and industrials: 32% ($6.1 billion)
+- Technology and telecommunications: 24% ($4.6 billion)
+- Renewable energy: 18% ($3.5 billion)
+- Tourism and entertainment: 15% ($2.9 billion)
+- Mining and minerals: 11% ($2.1 billion)
+
+**Qatar's Strategic FDI Growth:**
+
+**World Cup Legacy:**
+Post-FIFA World Cup 2022, Qatar continues attracting substantial FDI:
+
+**Investment Drivers:**
+- LNG wealth providing economic stability
+- Significant infrastructure from World Cup
+- Strategic location between East and West
+- Political stability and pro-business environment
+- Qatar Financial Centre (QFC) attracting financial services
+
+**Key Investment Sectors:**
+- Energy and petrochemicals: 35% ($5.1 billion)
+- Financial services: 22% ($3.2 billion)
+- Technology: 18% ($2.6 billion)
+- Healthcare: 15% ($2.2 billion)
+- Hospitality and tourism: 10% ($1.4 billion)
+
+**Major International Investors:**
+- Shell: LNG project partnership expansion
+- TotalEnergies: North Field development
+- ExxonMobil: LNG partnership
+- Goldman Sachs: Regional expansion
+- McKinsey & Company: Middle East headquarters
+
+**Sovereign Wealth Funds - Outbound Investment:**
+
+**GCC SWF Assets:**
+The region's sovereign wealth funds collectively manage $3.8 trillion:
+
+**1. Abu Dhabi Investment Authority (ADIA):**
+- Assets under management: $850 billion (estimated)
+- Global diversification across 70+ countries
+- Focus on long-term value creation
+- Asset classes: equities (40%), fixed income (25%), real estate (10%), private equity (15%), infrastructure (10%)
+
+**2. Saudi Public Investment Fund (PIF):**
+- Assets under management: $700 billion
+- Rapid growth from $150 billion in 2015
+- Domestic and international investment mandate
+- Target: $2 trillion AUM by 2030
+- Major investments: Uber, SoftBank Vision Fund, NEOM
+
+**3. Kuwait Investment Authority (KIA):**
+- Assets under management: $750 billion
+- World's oldest sovereign wealth fund (established 1953)
+- Future Generations Fund ensuring intergenerational wealth
+- Global diversification strategy
+
+**4. Qatar Investment Authority (QIA):**
+- Assets under management: $475 billion
+- Strategic global investments
+- Portfolio: Volkswagen, Barclays, Glencore, Canary Wharf
+- Sports investments (Paris Saint-Germain FC)
+
+**5. Mubadala Investment Company (UAE):**
+- Assets under management: $280 billion
+- Strategic investment focus
+- Technology leadership: GlobalFoundries, Silver Lake partnerships
+- Energy transition investments
+
+**6. Investment Corporation of Dubai (ICD):**
+- Assets under management: $300 billion
+- Dubai government's principal investment arm
+- Emirates airline, Emirates NBD
+- Real estate and hospitality portfolio
+
+**Strategic Investment Themes:**
+
+**1. Technology and Innovation:**
+GCC SWFs aggressively deploying capital in technology:
+- Artificial Intelligence and machine learning
+- Cloud computing and data centers
+- Cybersecurity solutions
+- Fintech and digital payments
+- E-commerce platforms
+
+**2. Sustainable and Renewable Energy:**
+Major focus on energy transition investments:
+- Solar and wind energy projects
+- Green hydrogen production
+- Battery technology and energy storage
+- Electric vehicle ecosystems
+- Carbon capture technology
+
+**3. Healthcare and Life Sciences:**
+Pandemic accelerating healthcare investment:
+- Biotechnology and pharmaceuticals
+- Medical technology and devices
+- Healthcare real estate and facilities
+- Telemedicine platforms
+
+**4. Real Estate and Infrastructure:**
+Continued focus on income-generating assets:
+- Prime office buildings in global cities
+- Logistics and industrial properties
+- Infrastructure (airports, ports, toll roads)
+- Hospitality and hotels
+
+**Investment Outlook:**
+
+**Short-term (2024):**
+- Continued strong FDI inflows to GCC
+- Technology sector investment focus
+- Energy transition capital deployment
+- Real estate and infrastructure investments
+
+**Medium-term (2025-2027):**
+- SWF asset growth to $4.5+ trillion
+- Increased direct investments and control stakes
+- Domestic giga-project financing
+- Enhanced ESG integration
+
+**Long-term (2028+):**
+- GCC SWFs among world's largest investors
+- Regional economic transformation bearing fruit
+- FDI positioning GCC as global business hub
+- Continued diversification from oil revenues
+
+**Conclusion:**
+The GCC's $285 billion in combined investment flows represents a structural shift in global capital markets. The region's dual role as both capital recipient (FDI) and capital deployer (SWFs) creates unique dynamics driving economic transformation, technological advancement, and global integration. For international businesses and investors, understanding and accessing these capital flows presents exceptional opportunities for growth, partnerships, and long-term value creation.
+
+The combination of ambitious national development programs, substantial sovereign wealth, strategic geographic positioning, and progressive economic policies ensures the GCC will continue playing an increasingly influential role in global investment and capital markets.`,
+                  time: '2 days ago',
+                  category: 'Investment',
+                  impact: 'Positive',
+                  author: 'Abdullah Al-Nasser',
+                  readTime: '13 min read',
+                  tags: ['Foreign Investment', 'FDI', 'Sovereign Wealth Funds', 'PIF', 'ADIA', 'QIA', 'Capital Flows'],
+                  imageDescription: 'Global investment map showing GCC capital flows and FDI movements'
+                },
+                {
+                  id: 10,
+                  title: 'Saudi Riyal Stability Reinforced: SAMA Maintains Currency Peg Amid Strong Economic Fundamentals',
+                  summary: 'Saudi Arabian Monetary Authority reaffirms commitment to USD/SAR peg at 3.75 as Kingdom demonstrates exceptional fiscal strength and economic diversification progress.',
+                  fullArticle: `The Saudi Arabian Monetary Authority (SAMA) continues to demonstrate unwavering commitment to the Saudi Riyal's peg against the US Dollar at SAR 3.75, supported by the Kingdom's exceptional economic fundamentals, massive foreign exchange reserves, and successful economic diversification efforts under Vision 2030.
+
+**Currency Peg Framework:**
+
+**Historical Context:**
+The Saudi Riyal has maintained its peg to the US Dollar since 1986, establishing one of the world's most credible currency pegs. This stability has provided a foundation for economic planning, international trade, and foreign investment confidence throughout the Kingdom's transformation.
+
+**Current Peg Mechanism:**
+- Exchange rate: SAR 3.7504 to USD (official rate)
+- SAMA maintains ±1% trading band (rarely breached)
+- Foreign exchange reserves backing the peg
+- Interest rate policy aligned with US Federal Reserve
+- Active management through foreign exchange operations
+
+**Economic Fundamentals Supporting the Peg:**
+
+**1. Foreign Exchange Reserves:**
+SAMA's foreign exchange reserves provide exceptional backing:
+
+**Reserve Position:**
+- Total foreign reserves: $445 billion (February 2024)
+- Import cover: 29 months (far exceeding adequacy norms)
+- Reserve composition: USD-denominated assets (65%), Gold (5%), Other currencies (30%)
+- Reserve management: Conservative approach prioritizing liquidity and safety
+- Government deposits: Additional $180 billion at SAMA
+
+**Reserve Adequacy Metrics:**
+- IMF adequacy benchmark: 200%+ (100% considered adequate)
+- External debt coverage: 14x annual external debt service
+- M2 money supply coverage: 58% (considered very strong)
+- Import coverage: 2.4 years of goods and services imports
+
+**2. Fiscal Strength:**
+Saudi Arabia's government finances provide strong support:
+
+**Budget Performance:**
+- 2023 budget balance: SAR 45 billion surplus ($12 billion)
+- Non-oil revenue growth: 42% since 2016
+- Government debt: 23% of GDP (very low by global standards)
+- Debt servicing costs: Less than 3% of government revenue
+- Fiscal breakeven oil price: $78 per barrel (down from $95 in 2015)
+
+**Revenue Diversification:**
+- Oil revenue: 62% of total (down from 85% in 2015)
+- Non-oil revenue: 38% (growing rapidly)
+- Tax revenue: VAT, income tax on foreign entities
+- Investment income: From PIF and SAMA investments
+
+**3. Current Account Surplus:**
+Strong external position supporting currency:
+
+**Balance of Payments:**
+- Current account surplus: $48 billion (2023), 5.8% of GDP
+- Trade balance: $142 billion surplus
+- Oil exports: $280 billion annually
+- Non-oil exports: Growing to $95 billion
+- Services account: Improving with tourism growth
+
+**4. Oil Market Position:**
+Saudi Arabia's oil leadership supports economic stability:
+
+**Production Capacity:**
+- Maximum production capacity: 12 million barrels per day
+- Current production: ~9-10 million bpd (OPEC+ quotas)
+- Spare capacity: 2-3 million bpd (largest globally)
+- Production costs: $2-10 per barrel (world's lowest)
+- Reserves: 268 billion barrels (2nd largest proven reserves)
+
+**Vision 2030 - Economic Diversification:**
+
+**Non-Oil Sector Growth:**
+Vision 2030 initiatives reducing oil dependency:
+
+**Non-Oil GDP Performance:**
+- Non-oil GDP growth: 5.5% annually (2020-2024)
+- Non-oil sector contribution: 52% of GDP (target: 65% by 2030)
+- Private sector participation: 48% of GDP (target: 65% by 2030)
+- Job creation: 85% of new jobs in non-oil sectors
+
+**Key Growth Sectors:**
+
+**Tourism:**
+- International visitors: 105 million (2023), target 150 million (2030)
+- Tourism GDP contribution: 10% (target: 12% by 2030)
+- Religious tourism (Hajj/Umrah): 15 million pilgrims annually
+- Leisure tourism: Red Sea Project, Qiddiya, NEOM
+
+**Manufacturing:**
+- Industrial sector growth: 8% annually
+- Focus on petrochemicals, metals, automotive, pharmaceuticals
+- Localization initiatives driving domestic production
+
+**Financial Services:**
+- Riyadh Financial District development
+- Fintech sector growth (850+ fintech companies)
+- Capital markets deepening
+
+**Technology:**
+- National strategy for AI, cloud computing, cybersecurity
+- Tech sector growing 45% annually
+- International technology companies establishing regional HQs
+
+**Monetary Policy Framework:**
+
+**SAMA's Policy Approach:**
+SAMA's monetary policy closely aligned with US Federal Reserve:
+
+**Interest Rate Policy:**
+- Repo rate: 5.50% (tracking Fed Funds rate)
+- Reverse repo rate: 5.00%
+- Historical correlation: 100% alignment with Fed policy
+- Rationale: Maintaining peg requires interest rate parity
+
+**Banking System Strength:**
+Saudi banking sector supports currency stability:
+
+**Banking Sector Metrics:**
+- Total assets: SAR 3.8 trillion ($1.01 trillion)
+- Capital adequacy: 20.5% (well above Basel III requirements)
+- NPL ratio: 1.4% (historically low)
+- Profitability: ROE 15.2% (strong performance)
+- Loan growth: 14% annually
+
+**Currency Stability Assessment:**
+
+**Speculative Pressures:**
+The SAR experiences minimal speculative pressure:
+
+**Forward Market Indicators:**
+- 12-month SAR forward premium/discount: Minimal (±0.5%)
+- Options market implied volatility: Very low
+- No significant hedging activity against depreciation
+- Market confidence in peg sustainability
+
+**Historical Peg Performance:**
+- Zero devaluation episodes since 1986
+- Withstood 2015-2016 oil price collapse
+- Navigated 2020 pandemic and oil price crash
+- Maintained stability during regional uncertainties
+
+**Future Outlook:**
+
+**Short-term (2024):**
+- Peg continuation with full SAMA support
+- Gradual Fed rate cuts likely matched by SAMA
+- Fiscal surplus maintaining reserve buffers
+- Continued economic diversification
+
+**Medium-term (2025-2027):**
+- Vision 2030 milestones strengthening fundamentals
+- Non-oil revenue growth supporting fiscal position
+- Potential for reduced oil dependency
+- Increased economic resilience to shocks
+
+**Long-term (2028+):**
+- Successful economic transformation
+- Reduced vulnerability to oil prices
+- Potential for GCC monetary union discussions
+- Continued USD peg as strategic anchor
+
+**Investment Implications:**
+
+**For Currency Traders:**
+- SAR peg extremely stable with minimal trading opportunities
+- Carry trade limited by low interest differential
+- Forward contracts for hedging, not speculation
+
+**For International Businesses:**
+- Currency stability facilitating long-term planning
+- No hedging required for SAR exposures
+- Predictable cash flows for Saudi operations
+
+**For Portfolio Investors:**
+- Saudi equity investments without currency risk
+- Sukuk and bond investments in USD-equivalent returns
+- No devaluation risk for foreign investors
+
+**Conclusion:**
+The Saudi Riyal's peg to the US Dollar remains among the world's most credible and sustainable currency arrangements. SAMA's management, supported by massive foreign exchange reserves, strong fiscal position, current account surplus, and successful economic diversification, ensures the peg's stability for the foreseeable future.
+
+While challenges exist, including imported inflation and limited monetary policy independence, Saudi Arabia's fundamental economic strength, strategic oil position, and Vision 2030 transformation initiatives far outweigh these concerns. The Kingdom's economic resilience has been tested through multiple oil price crashes and regional uncertainties, emerging each time with the peg intact and market confidence reinforced.
+
+For investors and businesses, the SAR peg provides a foundation of stability facilitating long-term planning, investment, and economic engagement with Saudi Arabia. As the Kingdom continues its transformation under Vision 2030, the currency peg will remain a strategic anchor providing stability amid ambitious economic reforms and diversification efforts.`,
+                  time: '2 days ago',
+                  category: 'Forex',
+                  impact: 'Neutral',
+                  author: 'Faisal Al-Dosari',
+                  readTime: '11 min read',
+                  tags: ['Saudi Riyal', 'USD/SAR', 'Currency Peg', 'SAMA', 'Monetary Policy', 'Foreign Reserves'],
+                  imageDescription: 'Saudi Riyal currency with SAMA headquarters and forex stability charts'
+                },
+                {
+                  id: 11,
+                  title: 'GCC Technology Sector Boom: Smart Cities, AI, and Digital Transformation Drive $45 Billion Investment Wave',
+                  summary: 'GCC technology sector experiences explosive growth with government initiatives, venture capital funding, and international tech giants establishing regional headquarters driving innovation ecosystem.',
+                  fullArticle: `The GCC technology sector has emerged as a global innovation hub, experiencing unprecedented growth driven by ambitious smart city initiatives, artificial intelligence deployment, digital transformation mandates, and massive venture capital investment. The region's $45 billion technology investment wave is reshaping economies and creating exceptional opportunities for startups, established companies, and investors.
+
+**Technology Sector Overview:**
+
+**Market Size and Growth:**
+The GCC technology sector demonstrates remarkable expansion:
+- Technology market value: $185 billion (2023)
+- Annual growth rate: 12.5% (2020-2024)
+- IT spending: $52 billion annually
+- Software market: $18 billion (growing 15% annually)
+- Cloud computing: $8.5 billion (growing 25% annually)
+- Cybersecurity: $4.2 billion (growing 18% annually)
+
+**Investment Landscape:**
+- Venture capital investment: $2.8 billion (2023)
+- Government technology spending: $28 billion
+- Private sector IT investment: $14.2 billion
+- Foreign direct investment in tech: $6.5 billion
+
+**Smart City Initiatives:**
+
+**1. NEOM - Saudi Arabia:**
+The world's most ambitious smart city project:
+
+**Project Scope:**
+- Total investment: $500 billion
+- Area: 26,500 square kilometers
+- Target population: 9 million residents
+- Timeline: Phases through 2030
+
+**Technology Integration:**
+- 100% renewable energy powered
+- AI-driven city management and services
+- Advanced mobility including flying taxis
+- Integrated IoT infrastructure
+- Digital twin technology for urban planning
+- Automated waste management and recycling
+- Smart healthcare systems with AI diagnostics
+- Blockchain-based government services
+
+**2. Dubai Smart City:**
+Dubai's comprehensive smart transformation:
+
+**Smart Dubai 2021 Strategy:**
+- 1,000+ smart services launched
+- 100% paperless government
+- Blockchain-based document verification
+- AI-powered traffic management
+- Smart grid electricity distribution
+
+**Key Initiatives:**
+- Dubai Data Law: Framework for data sharing
+- Dubai Blockchain Strategy: 50% government transactions on blockchain
+- AI Strategy: AI integration across government operations
+- Smart Police Stations: 27 unmanned smart stations operational
+
+**3. Saudi Vision 2030 Smart Cities:**
+Multiple smart city projects across the Kingdom:
+
+**Riyadh Smart City:**
+- Capital city digital transformation
+- Riyadh Metro with smart transportation systems
+- King Salman Park with IoT integration
+- Smart street lighting (300,000+ LED lights)
+
+**Qiddiya Smart Entertainment City:**
+- Entertainment capital with integrated technology
+- Visitor experience personalization through AI
+- Smart crowd management
+- Virtual and augmented reality attractions
+
+**Artificial Intelligence Leadership:**
+
+**National AI Strategies:**
+
+**UAE National AI Strategy 2031:**
+- AI contribution to UAE economy: 14% of GDP by 2031 ($96 billion)
+- Position UAE among global AI leaders
+- Develop skilled AI workforce
+- Create ethical AI framework
+
+**Applications:**
+- Government services: 100+ AI-powered services
+- Healthcare: AI diagnosis and treatment planning
+- Transportation: Autonomous vehicle deployment
+- Education: Personalized learning with AI
+- Security: AI-enhanced surveillance
+
+**Saudi Data and AI Authority (SDAIA):**
+Driving Saudi AI transformation:
+
+**Major Projects:**
+- National Data Management Office
+- National Center for AI
+- AI Innovation Centers
+- AI Regulatory Framework
+
+**AI Applications in Saudi Arabia:**
+- Vision 2030 projects: AI integration throughout
+- Oil & gas: Predictive maintenance (Aramco)
+- Healthcare: AI-powered diagnostics
+- Education: Adaptive learning platforms
+
+**Cloud Computing Expansion:**
+
+**Regional Cloud Infrastructure:**
+
+**Hyperscale Data Centers:**
+Major cloud providers establishing GCC presence:
+
+**AWS Middle East:**
+- AWS Region in Bahrain (operational)
+- Second AWS Region in UAE (launched 2022)
+- Saudi Arabia AWS Region announced ($5 billion)
+
+**Microsoft Azure:**
+- Azure regions in UAE (Dubai, Abu Dhabi)
+- Saudi Arabia regions announced ($2.1 billion)
+- Government cloud solutions
+
+**Google Cloud:**
+- GCC regional presence expanding
+- Partnership with STCTV for Saudi cloud
+- Enterprise and startup programs
+
+**Cybersecurity Market:**
+
+**Growing Threat Landscape:**
+GCC countries experiencing increasing cyber threats:
+- 45% increase in cyberattacks (2023)
+- Financial services primary target
+- Ransomware attacks on enterprises
+
+**Cybersecurity Investment:**
+Regional cybersecurity market growing rapidly:
+- Market size: $4.2 billion (2023)
+- Growth rate: 18% annually
+- Government spending: $2.1 billion
+- Private sector: $2.1 billion
+
+**National Cybersecurity Strategies:**
+
+**UAE Cybersecurity Strategy:**
+- National cybersecurity framework
+- CERT-UAE coordinating incident response
+- Mandatory security standards for critical infrastructure
+
+**Saudi National Cybersecurity Authority (NCA):**
+- Essential Cybersecurity Controls (ECC) framework
+- Critical infrastructure protection
+- Security operation centers (SOCs)
+
+**Telecommunications and 5G:**
+
+**5G Network Deployment:**
+GCC leading global 5G adoption:
+
+**5G Rollout Status:**
+- UAE: 90%+ population coverage
+- Saudi Arabia: 70+ cities covered
+- Qatar: Complete coverage in urban areas
+- Kuwait: Major cities covered
+- Bahrain: Comprehensive urban coverage
+
+**5G Use Cases:**
+- Enhanced mobile broadband
+- Smart city infrastructure connectivity
+- Industrial IoT and Industry 4.0
+- Autonomous vehicles communication
+- AR/VR applications
+
+**E-Commerce and Digital Economy:**
+
+**E-Commerce Market:**
+GCC e-commerce experiencing explosive growth:
+- Market size: $38 billion (2023)
+- Growth rate: 28% annually
+- Online penetration: 12% of retail (growing)
+- Mobile commerce: 75% of online transactions
+
+**Major Platforms:**
+- Noon (UAE): Leading regional platform
+- Amazon.ae / Amazon.sa: Regional presence
+- Careem: Super app strategy
+- Talabat: Food delivery leader
+
+**Startup Ecosystem and Venture Capital:**
+
+**GCC Startup Funding:**
+Record venture capital activity:
+- Total funding: $2.8 billion (2023), up 145% YoY
+- Number of deals: 380+ transactions
+- Mega deals (>$100M): 8 rounds
+- Average deal size: $7.4 million
+
+**Top Funded Startups:**
+- Kitopi (UAE): $415 million raised
+- Tabby (UAE): $750 million, unicorn status
+- Swvl: $582 million, NASDAQ-listed
+- Pure Harvest Smart Farms: $280 million
+
+**Venture Capital Firms:**
+- Mubadala Capital: $17 billion AUM
+- STV (Saudi Technology Ventures): $500 million fund
+- BECO Capital (UAE): Early-stage focus
+- Middle East Venture Partners (MEVP)
+
+**Government-Backed Funds:**
+- Saudi Venture Capital Company (SVC)
+- Dubai Future District Fund
+- Qatar Science & Technology Park Ventures
+- Oman Technology Fund
+
+**Accelerators and Incubators:**
+- Hub71 (Abu Dhabi): $535 million ecosystem fund
+- Dubai Future Accelerators
+- BADIR (Saudi Arabia): Technology incubator network
+- Flat6Labs: Pan-regional accelerator
+
+**Conclusion and Investment Outlook:**
+
+The GCC technology sector represents a transformational opportunity driven by ambitious government initiatives, substantial investment, and rapidly evolving digital adoption. The convergence of smart city development, AI deployment, cloud infrastructure expansion, and thriving startup ecosystems positions the region as a global technology hub.
+
+**Investment Opportunities:**
+- Direct investments in late-stage technology startups
+- Venture capital funds for diversified exposure
+- Public technology companies (telecom operators)
+- Real estate (data centers, technology parks)
+- Enabling services (cybersecurity, cloud)
+
+**Key Success Factors:**
+- Understanding regulatory environments
+- Local partnerships and market knowledge
+- Government relationship navigation
+- Cultural and language considerations
+- Talent acquisition strategies
+
+The GCC's $45 billion technology investment wave is just the beginning, with structural drivers ensuring continued growth, innovation, and opportunity creation for decades to come. As the region transforms from resource-based economies to knowledge-driven innovation hubs, technology will remain the primary catalyst for economic diversification, job creation, and long-term prosperity.`,
+                  time: '3 days ago',
+                  category: 'Technology',
+                  impact: 'Positive',
+                  author: 'Yousef Al-Mahmoud',
+                  readTime: '14 min read',
+                  tags: ['Technology Sector', 'Smart Cities', 'Artificial Intelligence', 'Cloud Computing', 'Startups', 'Venture Capital', 'Digital Transformation'],
+                  imageDescription: 'Futuristic smart city with AI networks, cloud infrastructure, and digital innovation hubs'
                 }
               ].map((news, index) => (
                 <div key={index} style={{
@@ -4721,6 +8753,237 @@ The GCC energy sector's combination of low-cost production, massive reserves, st
                   </div>
                 ))}
               </div>
+            </div>
+
+            {/* Trading Glossary Section */}
+            <div style={{
+              background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+              border: '1px solid #e2e8f0',
+              borderRadius: '20px',
+              padding: '40px',
+              marginTop: '48px',
+              boxShadow: '0 8px 25px rgba(0, 0, 0, 0.08)'
+            }}>
+              <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+                <h2 style={{
+                  fontSize: '36px',
+                  fontWeight: '900',
+                  marginBottom: '16px',
+                  background: 'linear-gradient(135deg, #2563eb 0%, #059669 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }}>
+                  📖 Complete Trading Glossary
+                </h2>
+                <p style={{
+                  fontSize: '18px',
+                  color: '#64748b',
+                  maxWidth: '800px',
+                  margin: '0 auto 24px',
+                  lineHeight: '1.7'
+                }}>
+                  Master 200+ essential trading terms organized by category. Each term includes clear definitions,
+                  practical examples, and GCC market context.
+                </p>
+
+                {/* Search Box */}
+                <div style={{
+                  maxWidth: '600px',
+                  margin: '0 auto',
+                  position: 'relative'
+                }}>
+                  <input
+                    type="text"
+                    placeholder="🔍 Search trading terms... (e.g., 'support', 'forex', 'halal')"
+                    value={glossarySearch}
+                    onChange={(e) => setGlossarySearch(e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '16px 20px',
+                      fontSize: '16px',
+                      border: '2px solid #e2e8f0',
+                      borderRadius: '12px',
+                      outline: 'none',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#2563eb'
+                      e.target.style.boxShadow = '0 0 0 3px rgba(37, 99, 235, 0.1)'
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = '#e2e8f0'
+                      e.target.style.boxShadow = 'none'
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Glossary Categories */}
+              {glossaryCategories.map((category, categoryIndex) => {
+                const filteredTerms = category.terms.filter(term =>
+                  glossarySearch === '' ||
+                  term.name.toLowerCase().includes(glossarySearch.toLowerCase()) ||
+                  term.definition.toLowerCase().includes(glossarySearch.toLowerCase()) ||
+                  term.example.toLowerCase().includes(glossarySearch.toLowerCase())
+                )
+
+                if (filteredTerms.length === 0) return null
+
+                return (
+                  <div key={categoryIndex} style={{
+                    marginBottom: '32px',
+                    background: 'white',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '16px',
+                    overflow: 'hidden'
+                  }}>
+                    {/* Category Header */}
+                    <div
+                      onClick={() => setExpandedGlossaryCategory(
+                        expandedGlossaryCategory === category.name ? null : category.name
+                      )}
+                      style={{
+                        padding: '24px',
+                        cursor: 'pointer',
+                        background: expandedGlossaryCategory === category.name
+                          ? 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'
+                          : 'white',
+                        borderBottom: expandedGlossaryCategory === category.name ? '1px solid #e2e8f0' : 'none',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (expandedGlossaryCategory !== category.name) {
+                          e.currentTarget.style.background = 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (expandedGlossaryCategory !== category.name) {
+                          e.currentTarget.style.background = 'white'
+                        }
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                          <h3 style={{
+                            fontSize: '24px',
+                            fontWeight: '800',
+                            color: '#1e293b',
+                            marginBottom: '8px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px'
+                          }}>
+                            <span>{category.emoji}</span>
+                            <span>{category.name}</span>
+                          </h3>
+                          <p style={{
+                            fontSize: '14px',
+                            color: '#64748b',
+                            margin: 0
+                          }}>
+                            {filteredTerms.length} {filteredTerms.length === 1 ? 'term' : 'terms'}
+                          </p>
+                        </div>
+                        <div style={{
+                          fontSize: '24px',
+                          color: category.color,
+                          fontWeight: '700'
+                        }}>
+                          {expandedGlossaryCategory === category.name ? '▲' : '▼'}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Category Terms */}
+                    {expandedGlossaryCategory === category.name && (
+                      <div style={{ padding: '24px' }}>
+                        <div style={{
+                          display: 'grid',
+                          gap: '16px'
+                        }}>
+                          {filteredTerms.map((term, termIndex) => (
+                            <div key={termIndex} style={{
+                              padding: '20px',
+                              background: '#f8fafc',
+                              borderRadius: '12px',
+                              border: '1px solid #e2e8f0',
+                              transition: 'all 0.2s ease'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform = 'translateY(-2px)'
+                              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)'
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = 'translateY(0)'
+                              e.currentTarget.style.boxShadow = 'none'
+                            }}>
+                              <h4 style={{
+                                fontSize: '18px',
+                                fontWeight: '700',
+                                color: category.color,
+                                marginBottom: '12px'
+                              }}>
+                                {term.name}
+                              </h4>
+                              <p style={{
+                                fontSize: '15px',
+                                color: '#475569',
+                                lineHeight: '1.7',
+                                marginBottom: '12px'
+                              }}>
+                                {term.definition}
+                              </p>
+                              <div style={{
+                                padding: '12px 16px',
+                                background: 'white',
+                                borderRadius: '8px',
+                                borderLeft: `4px solid ${category.color}`
+                              }}>
+                                <p style={{
+                                  fontSize: '14px',
+                                  color: '#64748b',
+                                  margin: 0,
+                                  lineHeight: '1.6'
+                                }}>
+                                  <strong style={{ color: '#1e293b' }}>Example:</strong> {term.example}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+
+              {/* No Results Message */}
+              {glossarySearch !== '' && glossaryCategories.every(cat =>
+                cat.terms.filter(term =>
+                  term.name.toLowerCase().includes(glossarySearch.toLowerCase()) ||
+                  term.definition.toLowerCase().includes(glossarySearch.toLowerCase()) ||
+                  term.example.toLowerCase().includes(glossarySearch.toLowerCase())
+                ).length === 0
+              ) && (
+                <div style={{
+                  textAlign: 'center',
+                  padding: '60px 20px',
+                  color: '#64748b'
+                }}>
+                  <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
+                  <h3 style={{
+                    fontSize: '24px',
+                    fontWeight: '700',
+                    color: '#1e293b',
+                    marginBottom: '8px'
+                  }}>
+                    No terms found
+                  </h3>
+                  <p style={{ fontSize: '16px' }}>
+                    Try searching for different keywords or browse all categories
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         )}
