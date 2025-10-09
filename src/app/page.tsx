@@ -33,6 +33,15 @@ export default function HomePage() {
   const [selectedCommodityCategory, setSelectedCommodityCategory] = useState('all')
   const [marketAnalysisSortBy, setMarketAnalysisSortBy] = useState('changePercent')
 
+  // NEW: Popup System States
+  const [activePopup, setActivePopup] = useState<string | null>(null)
+  const [popupDismissed, setPopupDismissed] = useState<{[key: string]: boolean}>({})
+  const [scrollProgress, setScrollProgress] = useState(0)
+  const [timeOnSite, setTimeOnSite] = useState(0)
+  const [showFloatingButton, setShowFloatingButton] = useState(false)
+  const [liveActivityIndex, setLiveActivityIndex] = useState(0)
+  const [traderCount, setTraderCount] = useState(10247)
+
   // Add signal notification
   const addNotification = (message: string, type: 'success' | 'warning' | 'info' = 'info') => {
     const newNotification = {
@@ -73,6 +82,162 @@ export default function HomePage() {
     setHasExnessAccount(true)
     addNotification('✅ Exness account verified! Free education unlocked.', 'success')
   }
+
+  // NEW: Broker Partners Data
+  const brokerPartners = [
+    {
+      id: 1,
+      name: 'Exness',
+      logo: '💎',
+      rating: 4.9,
+      reviews: 15420,
+      features: ['0.0 Pips Spreads', 'Instant Execution', 'CySEC Regulated'],
+      bonus: '$50 Welcome Bonus',
+      popular: true,
+      commission: 'Zero',
+      platform: 'MT4/MT5',
+      minDeposit: '$10',
+      color: '#FFD700'
+    },
+    {
+      id: 2,
+      name: 'XM Global',
+      logo: '🌟',
+      rating: 4.8,
+      reviews: 12840,
+      features: ['Tight Spreads', 'Fast Execution', 'FCA Licensed'],
+      bonus: '$30 No Deposit Bonus',
+      popular: true,
+      commission: 'Low',
+      platform: 'MT4/MT5',
+      minDeposit: '$5',
+      color: '#00D084'
+    },
+    {
+      id: 3,
+      name: 'IC Markets',
+      logo: '⚡',
+      rating: 4.7,
+      reviews: 9230,
+      features: ['Raw Spreads', 'True ECN', 'ASIC Regulated'],
+      bonus: 'Cashback Program',
+      popular: false,
+      commission: 'From $3',
+      platform: 'MT4/MT5/cTrader',
+      minDeposit: '$200',
+      color: '#FF6B00'
+    },
+    {
+      id: 4,
+      name: 'FP Markets',
+      logo: '🔥',
+      rating: 4.8,
+      reviews: 8120,
+      features: ['Low Spreads', 'Fast Orders', 'Multi-Regulated'],
+      bonus: '100% Deposit Bonus',
+      popular: true,
+      commission: 'Competitive',
+      platform: 'MT4/MT5/IRESS',
+      minDeposit: '$100',
+      color: '#2563EB'
+    }
+  ]
+
+  // NEW: Live Activity Feed Data
+  const liveActivities = [
+    { name: 'Mohammed', location: 'Dubai', profit: '+$450', emoji: '🇦🇪' },
+    { name: 'Ahmed', location: 'Riyadh', profit: '+$780', emoji: '🇸🇦' },
+    { name: 'Fatima', location: 'Doha', profit: '+$320', emoji: '🇶🇦' },
+    { name: 'Hassan', location: 'Kuwait', profit: '+$590', emoji: '🇰🇼' },
+    { name: 'Sara', location: 'Abu Dhabi', profit: '+$410', emoji: '🇦🇪' },
+    { name: 'Khalid', location: 'Jeddah', profit: '+$650', emoji: '🇸🇦' },
+    { name: 'Noura', location: 'Manama', profit: '+$280', emoji: '🇧🇭' },
+    { name: 'Omar', location: 'Dubai', profit: '+$890', emoji: '🇦🇪' }
+  ]
+
+  // NEW: Popup Management Functions
+  const showPopup = (type: string) => {
+    const dismissed = localStorage.getItem(`popup_dismissed_${type}_${new Date().toDateString()}`)
+    if (!dismissed && !popupDismissed[type]) {
+      setActivePopup(type)
+    }
+  }
+
+  const closePopup = (dontShowAgain: boolean = false) => {
+    if (dontShowAgain && activePopup) {
+      localStorage.setItem(`popup_dismissed_${activePopup}_${new Date().toDateString()}`, 'true')
+      setPopupDismissed(prev => ({ ...prev, [activePopup]: true }))
+    }
+    setActivePopup(null)
+  }
+
+  // NEW: useEffect for Popup Triggers
+  useEffect(() => {
+    // Welcome popup after 3 seconds
+    const welcomeTimer = setTimeout(() => showPopup('welcome'), 3000)
+
+    // Time-based popup after 2 minutes
+    const timeBasedTimer = setTimeout(() => showPopup('timeBased'), 120000)
+
+    // Trader count animation
+    const counterInterval = setInterval(() => {
+      setTraderCount(prev => prev + Math.floor(Math.random() * 3))
+    }, 5000)
+
+    // Live activity rotation
+    const activityInterval = setInterval(() => {
+      setLiveActivityIndex(prev => (prev + 1) % liveActivities.length)
+    }, 4000)
+
+    // Time on site tracker
+    const siteTimer = setInterval(() => {
+      setTimeOnSite(prev => prev + 1)
+    }, 1000)
+
+    // Floating button visibility
+    setTimeout(() => setShowFloatingButton(true), 2000)
+
+    return () => {
+      clearTimeout(welcomeTimer)
+      clearTimeout(timeBasedTimer)
+      clearInterval(counterInterval)
+      clearInterval(activityInterval)
+      clearInterval(siteTimer)
+    }
+  }, [])
+
+  // NEW: Scroll Progress Tracker
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight
+      const progress = (window.scrollY / totalHeight) * 100
+      setScrollProgress(progress)
+
+      // Trigger scroll-based popups
+      if (progress >= 30 && progress < 35 && !popupDismissed['scroll30']) {
+        showPopup('scroll30')
+      } else if (progress >= 60 && progress < 65 && !popupDismissed['scroll60']) {
+        showPopup('scroll60')
+      } else if (progress >= 90 && !popupDismissed['scroll90']) {
+        showPopup('scroll90')
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [popupDismissed])
+
+  // NEW: Exit Intent Detection
+  useEffect(() => {
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0 && !popupDismissed['exitIntent']) {
+        showPopup('exitIntent')
+      }
+    }
+
+    document.addEventListener('mouseleave', handleMouseLeave)
+    return () => document.removeEventListener('mouseleave', handleMouseLeave)
+  }, [popupDismissed])
 
   // Trading Glossary Data
   const glossaryCategories = [
@@ -4693,16 +4858,18 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
       fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
       lineHeight: '1.6'
     }}>
-      {/* Header */}
+      {/* Enhanced Header with Glassmorphism */}
       <header style={{
-        background: 'rgba(255, 255, 255, 0.95)',
-        backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid #e2e8f0',
+        background: 'rgba(255, 255, 255, 0.75)',
+        backdropFilter: 'blur(20px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+        borderBottom: '1px solid rgba(226, 232, 240, 0.8)',
         padding: '20px 0',
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
+        transition: 'all 0.3s ease'
       }}>
         <div style={{
           maxWidth: '1400px',
@@ -4713,37 +4880,53 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
           alignItems: 'center'
         }}>
           <div style={{
-            fontSize: '28px',
+            fontSize: '32px',
             fontWeight: '900',
-            background: 'linear-gradient(135deg, #2563eb 0%, #059669 100%)',
+            background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #059669 100%)',
+            backgroundSize: '200% 200%',
+            animation: 'gradientShift 3s ease infinite',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             display: 'flex',
             alignItems: 'center',
-            gap: '12px'
+            gap: '12px',
+            letterSpacing: '-0.5px'
           }}>
             📊 {t.title}
             <span style={{
               fontSize: '12px',
-              background: '#059669',
+              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
               color: 'white',
-              padding: '4px 8px',
-              borderRadius: '12px',
-              fontWeight: '600'
+              padding: '6px 12px',
+              borderRadius: '20px',
+              fontWeight: '700',
+              boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+              animation: 'pulse 2s ease-in-out infinite'
             }}>LIVE</span>
           </div>
 
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-            {/* Notification Bell */}
+            {/* Enhanced Notification Bell */}
             <div style={{ position: 'relative' }}>
               <button style={{
-                background: '#334155',
+                background: 'linear-gradient(135deg, #334155 0%, #1e293b 100%)',
                 border: 'none',
                 color: '#f8fafc',
-                padding: '8px 12px',
-                borderRadius: '6px',
+                padding: '10px 14px',
+                borderRadius: '12px',
                 cursor: 'pointer',
-                fontSize: '16px'
+                fontSize: '18px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                transition: 'all 0.3s ease',
+                transform: 'scale(1)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.1) translateY(-2px)'
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.2)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)'
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)'
               }}>
                 🔔
               </button>
@@ -4752,53 +4935,80 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                   position: 'absolute',
                   top: '-4px',
                   right: '-4px',
-                  background: '#ef4444',
+                  background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
                   color: 'white',
                   borderRadius: '50%',
-                  width: '16px',
-                  height: '16px',
-                  fontSize: '10px',
+                  width: '20px',
+                  height: '20px',
+                  fontSize: '11px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontWeight: '600'
+                  fontWeight: '700',
+                  boxShadow: '0 2px 8px rgba(239, 68, 68, 0.4)',
+                  animation: 'bounce 1s ease infinite'
                 }}>
                   {notifications.length}
                 </div>
               )}
             </div>
 
+            {/* Enhanced Language Selector */}
             <button
               onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
               style={{
-                background: '#f1f5f9',
-                border: '1px solid #e2e8f0',
+                background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
+                border: '2px solid #e2e8f0',
                 color: '#475569',
-                padding: '8px 12px',
-                borderRadius: '6px',
+                padding: '10px 18px',
+                borderRadius: '12px',
                 cursor: 'pointer',
-                fontSize: '12px',
-                fontWeight: '600'
+                fontSize: '13px',
+                fontWeight: '700',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+                transition: 'all 0.3s ease',
+                transform: 'scale(1)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)'
+                e.currentTarget.style.borderColor = '#2563eb'
+                e.currentTarget.style.color = '#2563eb'
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(37, 99, 235, 0.2)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)'
+                e.currentTarget.style.borderColor = '#e2e8f0'
+                e.currentTarget.style.color = '#475569'
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)'
               }}
             >
-              {language === 'en' ? '🇦🇪 العربية' : '🇺🇸 EN'}
+              {language === 'en' ? '🇦🇪 العربية' : '🇺🇸 English'}
             </button>
 
+            {/* Enhanced Live Indicator */}
             <div style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '8px',
-              color: '#94a3b8',
-              fontSize: '13px'
+              gap: '10px',
+              color: '#64748b',
+              fontSize: '14px',
+              fontWeight: '600',
+              padding: '8px 16px',
+              background: 'rgba(248, 250, 252, 0.8)',
+              borderRadius: '12px',
+              border: '1px solid #e2e8f0'
             }}>
               <div style={{
-                width: '8px',
-                height: '8px',
-                backgroundColor: '#10b981',
+                width: '10px',
+                height: '10px',
+                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                 borderRadius: '50%',
-                animation: 'pulse 2s infinite'
+                boxShadow: '0 0 12px rgba(16, 185, 129, 0.6)',
+                animation: 'pulse 2s ease-in-out infinite'
               }} />
-              LIVE • {currentTime.toLocaleTimeString()}
+              <span style={{ color: '#10b981', fontWeight: '700' }}>LIVE</span>
+              <span style={{ color: '#94a3b8' }}>•</span>
+              <span>{currentTime.toLocaleTimeString()}</span>
             </div>
           </div>
         </div>
@@ -4861,16 +5071,18 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
         }}>
           {notifications.map(notification => (
             <div key={notification.id} style={{
-              background: notification.type === 'success' ? '#10b981' :
-                         notification.type === 'warning' ? '#f59e0b' : '#3b82f6',
+              background: notification.type === 'success' ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)' :
+                         notification.type === 'warning' ? 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)' :
+                         'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
               color: 'white',
-              padding: '12px 16px',
-              borderRadius: '8px',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-              maxWidth: '300px',
+              padding: '16px 20px',
+              borderRadius: '12px',
+              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
+              maxWidth: '320px',
               fontSize: '14px',
-              fontWeight: '500',
-              animation: 'slideInRight 0.3s ease'
+              fontWeight: '600',
+              animation: 'slideInRight 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+              backdropFilter: 'blur(10px)'
             }}>
               {notification.message}
             </div>
@@ -4878,12 +5090,760 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
         </div>
       )}
 
+      {/* NEW: Smart Popup System */}
+      {activePopup && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.6)',
+            backdropFilter: 'blur(8px)',
+            zIndex: 10000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+            animation: 'fadeIn 0.3s ease'
+          }}
+          onClick={() => closePopup(false)}
+        >
+          <div
+            style={{
+              background: 'white',
+              borderRadius: '24px',
+              maxWidth: '560px',
+              width: '100%',
+              boxShadow: '0 24px 48px rgba(0, 0, 0, 0.25)',
+              animation: 'scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+              overflow: 'hidden'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Popup Content Based on Type */}
+            {activePopup === 'welcome' && (
+              <div>
+                <div style={{
+                  background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)',
+                  padding: '32px',
+                  textAlign: 'center',
+                  color: 'white'
+                }}>
+                  <div style={{ fontSize: '64px', marginBottom: '16px' }}>🎁</div>
+                  <h2 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '12px' }}>
+                    Get FREE Trading Signals!
+                  </h2>
+                  <p style={{ fontSize: '16px', opacity: 0.95 }}>
+                    Join 10,000+ GCC Traders Making Profits Daily
+                  </p>
+                </div>
+                <div style={{ padding: '32px' }}>
+                  <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    style={{
+                      width: '100%',
+                      padding: '16px',
+                      fontSize: '16px',
+                      border: '2px solid #e2e8f0',
+                      borderRadius: '12px',
+                      marginBottom: '16px',
+                      outline: 'none'
+                    }}
+                  />
+                  <button style={{
+                    width: '100%',
+                    padding: '16px',
+                    background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '12px',
+                    fontSize: '16px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    marginBottom: '16px'
+                  }}>
+                    Get Free Signals Now
+                  </button>
+                  <p style={{ textAlign: 'center', fontSize: '13px', color: '#64748b' }}>
+                    ✓ No credit card required  |  ✓ Instant access
+                  </p>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '16px', cursor: 'pointer' }}>
+                    <input type="checkbox" onChange={(e) => e.target.checked && closePopup(true)} />
+                    <span style={{ fontSize: '13px', color: '#64748b' }}>Don't show again today</span>
+                  </label>
+                </div>
+              </div>
+            )}
+
+            {activePopup === 'scroll30' && (
+              <div>
+                <div style={{
+                  background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
+                  padding: '32px',
+                  textAlign: 'center',
+                  color: 'white'
+                }}>
+                  <div style={{ fontSize: '64px', marginBottom: '16px' }}>📚</div>
+                  <h2 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '12px' }}>
+                    Download FREE Trading Guide
+                  </h2>
+                  <p style={{ fontSize: '16px', opacity: 0.95 }}>
+                    Master GCC Markets with Our Comprehensive Guide
+                  </p>
+                </div>
+                <div style={{ padding: '32px' }}>
+                  <ul style={{ marginBottom: '24px', color: '#475569', lineHeight: '2' }}>
+                    <li>✓ Technical Analysis Strategies</li>
+                    <li>✓ Risk Management Techniques</li>
+                    <li>✓ GCC Market Insights</li>
+                    <li>✓ Real Trading Examples</li>
+                  </ul>
+                  <button style={{
+                    width: '100%',
+                    padding: '16px',
+                    background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '12px',
+                    fontSize: '16px',
+                    fontWeight: '700',
+                    cursor: 'pointer'
+                  }}>
+                    Download Free Guide (PDF)
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {activePopup === 'scroll60' && (
+              <div>
+                <div style={{
+                  background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                  padding: '32px',
+                  textAlign: 'center',
+                  color: 'white'
+                }}>
+                  <div style={{ fontSize: '64px', marginBottom: '16px' }}>⚡</div>
+                  <h2 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '12px' }}>
+                    Open Live Trading Account
+                  </h2>
+                  <p style={{ fontSize: '16px', opacity: 0.95 }}>
+                    Get $50 Welcome Bonus + Zero Commission
+                  </p>
+                </div>
+                <div style={{ padding: '32px' }}>
+                  {brokerPartners.slice(0, 2).map(broker => (
+                    <div key={broker.id} style={{
+                      padding: '16px',
+                      background: '#f8fafc',
+                      borderRadius: '12px',
+                      marginBottom: '12px',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}>
+                      <div>
+                        <div style={{ fontSize: '20px', fontWeight: '700', marginBottom: '4px' }}>
+                          {broker.logo} {broker.name}
+                        </div>
+                        <div style={{ fontSize: '13px', color: '#64748b' }}>
+                          ⭐ {broker.rating} | {broker.bonus}
+                        </div>
+                      </div>
+                      <button style={{
+                        padding: '10px 20px',
+                        background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        fontWeight: '700',
+                        cursor: 'pointer'
+                      }}>
+                        Open Account
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activePopup === 'scroll90' && (
+              <div>
+                <div style={{
+                  background: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
+                  padding: '32px',
+                  textAlign: 'center',
+                  color: 'white'
+                }}>
+                  <div style={{ fontSize: '64px', marginBottom: '16px' }}>🎯</div>
+                  <h2 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '12px' }}>
+                    Schedule FREE Strategy Session
+                  </h2>
+                  <p style={{ fontSize: '16px', opacity: 0.95 }}>
+                    1-on-1 Consultation with Professional Trader
+                  </p>
+                </div>
+                <div style={{ padding: '32px', textAlign: 'center' }}>
+                  <div style={{ fontSize: '48px', fontWeight: '800', color: '#2563eb', marginBottom: '16px' }}>
+                    30 Minutes
+                  </div>
+                  <p style={{ marginBottom: '24px', color: '#64748b' }}>
+                    Personalized trading strategy for GCC markets
+                  </p>
+                  <button style={{
+                    width: '100%',
+                    padding: '16px',
+                    background: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '12px',
+                    fontSize: '16px',
+                    fontWeight: '700',
+                    cursor: 'pointer'
+                  }}>
+                    Book My Free Session
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {activePopup === 'exitIntent' && (
+              <div>
+                <div style={{
+                  background: 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)',
+                  padding: '32px',
+                  textAlign: 'center',
+                  color: 'white'
+                }}>
+                  <div style={{ fontSize: '64px', marginBottom: '16px' }}>⚠️</div>
+                  <h2 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '12px' }}>
+                    Wait! Don't Miss Out
+                  </h2>
+                  <p style={{ fontSize: '16px', opacity: 0.95 }}>
+                    Exclusive Offer Expires in 5 Minutes
+                  </p>
+                </div>
+                <div style={{ padding: '32px', textAlign: 'center' }}>
+                  <div style={{
+                    fontSize: '56px',
+                    fontWeight: '800',
+                    background: 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    marginBottom: '16px'
+                  }}>
+                    05:00
+                  </div>
+                  <p style={{ marginBottom: '24px', fontSize: '18px', fontWeight: '600', color: '#1e293b' }}>
+                    Get 3 Months FREE Premium Signals
+                  </p>
+                  <button style={{
+                    width: '100%',
+                    padding: '16px',
+                    background: 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '12px',
+                    fontSize: '16px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    marginBottom: '12px'
+                  }}>
+                    Claim Exclusive Offer Now
+                  </button>
+                  <p style={{ fontSize: '13px', color: '#64748b' }}>
+                    Limited to first 50 traders only
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {activePopup === 'timeBased' && (
+              <div>
+                <div style={{
+                  background: 'linear-gradient(135deg, #0891b2 0%, #06b6d4 100%)',
+                  padding: '32px',
+                  textAlign: 'center',
+                  color: 'white'
+                }}>
+                  <div style={{ fontSize: '64px', marginBottom: '16px' }}>💎</div>
+                  <h2 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '12px' }}>
+                    VIP Trading Room Access
+                  </h2>
+                  <p style={{ fontSize: '16px', opacity: 0.95 }}>
+                    Join Elite Traders Making 100+ Pips Daily
+                  </p>
+                </div>
+                <div style={{ padding: '32px' }}>
+                  <ul style={{ marginBottom: '24px', color: '#475569', lineHeight: '2' }}>
+                    <li>✓ Real-time signal alerts</li>
+                    <li>✓ Private Telegram group</li>
+                    <li>✓ Daily market analysis</li>
+                    <li>✓ Personal trading coach</li>
+                  </ul>
+                  <div style={{ textAlign: 'center', marginBottom: '16px' }}>
+                    <span style={{ fontSize: '20px', color: '#64748b', textDecoration: 'line-through' }}>$299/month</span>
+                    <span style={{ fontSize: '36px', fontWeight: '800', color: '#0891b2', marginLeft: '12px' }}>$99/month</span>
+                  </div>
+                  <button style={{
+                    width: '100%',
+                    padding: '16px',
+                    background: 'linear-gradient(135deg, #0891b2 0%, #06b6d4 100%)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '12px',
+                    fontSize: '16px',
+                    fontWeight: '700',
+                    cursor: 'pointer'
+                  }}>
+                    Join VIP Room Now
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Close Button */}
+            <button
+              onClick={() => closePopup(false)}
+              style={{
+                position: 'absolute',
+                top: '16px',
+                right: '16px',
+                background: 'rgba(0, 0, 0, 0.5)',
+                border: 'none',
+                color: 'white',
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                fontSize: '18px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* NEW: Floating Action Button */}
+      {showFloatingButton && (
+        <button
+          onClick={() => showPopup('welcome')}
+          style={{
+            position: 'fixed',
+            bottom: '32px',
+            right: '32px',
+            width: '64px',
+            height: '64px',
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)',
+            border: 'none',
+            color: 'white',
+            fontSize: '28px',
+            cursor: 'pointer',
+            boxShadow: '0 8px 24px rgba(37, 99, 235, 0.4)',
+            zIndex: 999,
+            transition: 'all 0.3s ease',
+            animation: 'float 3s ease-in-out infinite'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.1)'
+            e.currentTarget.style.boxShadow = '0 12px 32px rgba(37, 99, 235, 0.5)'
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)'
+            e.currentTarget.style.boxShadow = '0 8px 24px rgba(37, 99, 235, 0.4)'
+          }}
+        >
+          💬
+        </button>
+      )}
+
+      {/* NEW: Live Activity Ticker */}
+      <div style={{
+        background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 100%)',
+        borderBottom: '1px solid #e2e8f0',
+        padding: '12px 0',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: '0 20px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '24px'
+        }}>
+          <div style={{
+            fontSize: '14px',
+            fontWeight: '700',
+            color: '#2563eb',
+            whiteSpace: 'nowrap'
+          }}>
+            🔴 LIVE ACTIVITY:
+          </div>
+          <div style={{
+            flex: 1,
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              fontSize: '14px',
+              color: '#475569',
+              fontWeight: '600',
+              animation: 'slideInRight 0.5s ease'
+            }}>
+              <span>{liveActivities[liveActivityIndex].emoji}</span>
+              <span style={{ fontWeight: '700', color: '#1e293b' }}>
+                {liveActivities[liveActivityIndex].name}
+              </span>
+              <span>from {liveActivities[liveActivityIndex].location} just made</span>
+              <span style={{
+                color: '#10b981',
+                fontWeight: '800',
+                fontSize: '16px'
+              }}>
+                {liveActivities[liveActivityIndex].profit}
+              </span>
+              <span>on our signals!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Main Content */}
       <main style={{
         maxWidth: '1400px',
         margin: '0 auto',
         padding: '24px 20px'
       }}>
+        {/* NEW: Social Proof Section - Shown on all tabs */}
+        <div style={{
+          background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 100%)',
+          border: '1px solid #e2e8f0',
+          borderRadius: '20px',
+          padding: '32px',
+          marginBottom: '32px',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)'
+        }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '32px',
+            textAlign: 'center'
+          }}>
+            <div style={{ animation: 'fadeIn 0.6s ease' }}>
+              <div style={{
+                fontSize: '48px',
+                fontWeight: '900',
+                background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                marginBottom: '8px',
+                animation: 'countUp 2s ease'
+              }}>
+                {traderCount.toLocaleString()}+
+              </div>
+              <div style={{ fontSize: '14px', color: '#64748b', fontWeight: '600' }}>
+                Active Traders
+              </div>
+            </div>
+            <div style={{ animation: 'fadeIn 0.6s ease 0.1s', animationFillMode: 'backwards' }}>
+              <div style={{
+                fontSize: '48px',
+                fontWeight: '900',
+                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                marginBottom: '8px'
+              }}>
+                $2.4M+
+              </div>
+              <div style={{ fontSize: '14px', color: '#64748b', fontWeight: '600' }}>
+                Total Profits Made
+              </div>
+            </div>
+            <div style={{ animation: 'fadeIn 0.6s ease 0.2s', animationFillMode: 'backwards' }}>
+              <div style={{
+                fontSize: '48px',
+                fontWeight: '900',
+                background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                marginBottom: '8px'
+              }}>
+                78%
+              </div>
+              <div style={{ fontSize: '14px', color: '#64748b', fontWeight: '600' }}>
+                Average Win Rate
+              </div>
+            </div>
+            <div style={{ animation: 'fadeIn 0.6s ease 0.3s', animationFillMode: 'backwards' }}>
+              <div style={{
+                fontSize: '48px',
+                fontWeight: '900',
+                background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                marginBottom: '8px'
+              }}>
+                4.8★
+              </div>
+              <div style={{ fontSize: '14px', color: '#64748b', fontWeight: '600' }}>
+                Average Rating
+              </div>
+            </div>
+          </div>
+
+          {/* Trust Badges */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '24px',
+            marginTop: '32px',
+            paddingTop: '32px',
+            borderTop: '1px solid #e2e8f0',
+            flexWrap: 'wrap'
+          }}>
+            {['🛡️ Regulated', '🔒 Secure', '🏆 Award Winning', '⚡ Fast Execution'].map((badge, i) => (
+              <div key={i} style={{
+                padding: '12px 20px',
+                background: 'white',
+                borderRadius: '12px',
+                border: '2px solid #e2e8f0',
+                fontSize: '14px',
+                fontWeight: '700',
+                color: '#475569',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                animation: `fadeIn 0.6s ease ${0.4 + i * 0.1}s backwards`
+              }}>
+                {badge}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* NEW: Broker Partners Section - Shown on all tabs */}
+        <div style={{
+          background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+          border: '1px solid #e2e8f0',
+          borderRadius: '20px',
+          padding: '40px',
+          marginBottom: '32px',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)'
+        }}>
+          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+            <h2 style={{
+              fontSize: '32px',
+              fontWeight: '900',
+              background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              marginBottom: '12px'
+            }}>
+              🤝 Our Trusted Broker Partners
+            </h2>
+            <p style={{ fontSize: '16px', color: '#64748b', maxWidth: '600px', margin: '0 auto' }}>
+              Trade with confidence using our verified, regulated brokers offering the best conditions for GCC traders
+            </p>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '24px'
+          }}>
+            {brokerPartners.map((broker, index) => (
+              <div
+                key={broker.id}
+                style={{
+                  background: 'white',
+                  border: `2px solid ${broker.popular ? broker.color : '#e2e8f0'}`,
+                  borderRadius: '16px',
+                  padding: '24px',
+                  position: 'relative',
+                  boxShadow: broker.popular ? `0 8px 24px ${broker.color}20` : '0 2px 8px rgba(0, 0, 0, 0.04)',
+                  transition: 'all 0.3s ease',
+                  animation: `fadeIn 0.6s ease ${index * 0.1}s backwards`,
+                  transform: 'scale(1)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)'
+                  e.currentTarget.style.boxShadow = `0 16px 48px ${broker.color}30`
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)'
+                  e.currentTarget.style.boxShadow = broker.popular ? `0 8px 24px ${broker.color}20` : '0 2px 8px rgba(0, 0, 0, 0.04)'
+                }}
+              >
+                {broker.popular && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '-12px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
+                    color: 'white',
+                    padding: '6px 16px',
+                    borderRadius: '20px',
+                    fontSize: '12px',
+                    fontWeight: '800',
+                    boxShadow: `0 4px 12px ${broker.color}40`
+                  }}>
+                    ⭐ MOST POPULAR
+                  </div>
+                )}
+
+                <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                  <div style={{
+                    fontSize: '56px',
+                    marginBottom: '12px',
+                    animation: 'bounce 2s ease infinite'
+                  }}>
+                    {broker.logo}
+                  </div>
+                  <h3 style={{
+                    fontSize: '24px',
+                    fontWeight: '800',
+                    color: '#1e293b',
+                    marginBottom: '8px'
+                  }}>
+                    {broker.name}
+                  </h3>
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '8px',
+                    fontSize: '14px',
+                    color: '#64748b'
+                  }}>
+                    <span style={{ color: '#fbbf24', fontSize: '16px' }}>★★★★★</span>
+                    <span style={{ fontWeight: '700', color: '#1e293b' }}>{broker.rating}</span>
+                    <span>({broker.reviews.toLocaleString()} reviews)</span>
+                  </div>
+                </div>
+
+                <div style={{
+                  background: '#f8fafc',
+                  borderRadius: '12px',
+                  padding: '16px',
+                  marginBottom: '16px'
+                }}>
+                  {broker.features.map((feature, i) => (
+                    <div key={i} style={{
+                      fontSize: '13px',
+                      color: '#475569',
+                      marginBottom: i < broker.features.length - 1 ? '8px' : 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px'
+                    }}>
+                      <span style={{ color: '#10b981' }}>✓</span>
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                  marginBottom: '16px',
+                  fontSize: '13px'
+                }}>
+                  <div>
+                    <div style={{ color: '#64748b', marginBottom: '4px' }}>Commission:</div>
+                    <div style={{ fontWeight: '700', color: '#1e293b' }}>{broker.commission}</div>
+                  </div>
+                  <div>
+                    <div style={{ color: '#64748b', marginBottom: '4px' }}>Min Deposit:</div>
+                    <div style={{ fontWeight: '700', color: '#1e293b' }}>{broker.minDeposit}</div>
+                  </div>
+                  <div>
+                    <div style={{ color: '#64748b', marginBottom: '4px' }}>Platform:</div>
+                    <div style={{ fontWeight: '700', color: '#1e293b' }}>{broker.platform}</div>
+                  </div>
+                  <div>
+                    <div style={{ color: '#64748b', marginBottom: '4px' }}>Bonus:</div>
+                    <div style={{ fontWeight: '700', color: '#10b981', fontSize: '12px' }}>
+                      {broker.bonus}
+                    </div>
+                  </div>
+                </div>
+
+                <button style={{
+                  width: '100%',
+                  padding: '14px',
+                  background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '12px',
+                  fontSize: '15px',
+                  fontWeight: '800',
+                  cursor: 'pointer',
+                  boxShadow: `0 4px 16px ${broker.color}30`,
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.05)'
+                  e.currentTarget.style.boxShadow = `0 8px 24px ${broker.color}50`
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)'
+                  e.currentTarget.style.boxShadow = `0 4px 16px ${broker.color}30`
+                }}>
+                  Open Account Now →
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {/* Broker Stats */}
+          <div style={{
+            marginTop: '40px',
+            padding: '24px',
+            background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 100%)',
+            borderRadius: '16px',
+            border: '1px solid #e2e8f0'
+          }}>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+              gap: '24px',
+              textAlign: 'center'
+            }}>
+              <div>
+                <div style={{ fontSize: '28px', fontWeight: '800', color: '#2563eb', marginBottom: '4px' }}>
+                  15,420
+                </div>
+                <div style={{ fontSize: '13px', color: '#64748b' }}>Active Traders</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '28px', fontWeight: '800', color: '#10b981', marginBottom: '4px' }}>
+                  0.42ms
+                </div>
+                <div style={{ fontSize: '13px', color: '#64748b' }}>Avg Execution</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '28px', fontWeight: '800', color: '#f59e0b', marginBottom: '4px' }}>
+                  98.7%
+                </div>
+                <div style={{ fontSize: '13px', color: '#64748b' }}>Satisfaction Rate</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Live Signals Tab */}
         {activeTab === 'signals' && (
           <div>
@@ -9706,9 +10666,34 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
       </main>
 
       <style jsx global>{`
+        /* Enhanced Animations */
         @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
+          0%, 100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.7;
+            transform: scale(1.05);
+          }
+        }
+
+        @keyframes bounce {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-15px);
+          }
         }
 
         @keyframes slideInRight {
@@ -9722,11 +10707,127 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
           }
         }
 
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
+        @keyframes slideInLeft {
+          from {
+            transform: translateX(-100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
         }
 
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes gradientShift {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+
+        @keyframes shimmer {
+          0% {
+            background-position: -1000px 0;
+          }
+          100% {
+            background-position: 1000px 0;
+          }
+        }
+
+        @keyframes countUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px) scale(0.5);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        @keyframes rotate {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes slideUp {
+          from {
+            transform: translateY(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        @keyframes heartbeat {
+          0%, 100% {
+            transform: scale(1);
+          }
+          10%, 30% {
+            transform: scale(1.1);
+          }
+          20%, 40% {
+            transform: scale(1);
+          }
+        }
+
+        /* Smooth Scroll */
+        html {
+          scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+          width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+          border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(135deg, #1e40af 0%, #6d28d9 100%);
+        }
+
+        /* Responsive Media Queries */
         @media (max-width: 768px) {
           .signal-grid {
             grid-template-columns: 1fr !important;
@@ -9741,12 +10842,84 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
           }
         }
 
+        /* Utility Classes */
         .notification-enter {
-          animation: slideInRight 0.3s ease;
+          animation: slideInRight 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
         .signal-card {
-          animation: fadeIn 0.5s ease;
+          animation: fadeIn 0.6s ease;
+        }
+
+        /* Glass Morphism Effect */
+        .glass {
+          background: rgba(255, 255, 255, 0.7);
+          backdrop-filter: blur(10px) saturate(180%);
+          -webkit-backdrop-filter: blur(10px) saturate(180%);
+        }
+
+        /* Card Hover Effects */
+        .card-hover {
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Button Ripple Effect */
+        .button-ripple {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .button-ripple::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.5);
+          transform: translate(-50%, -50%);
+          transition: width 0.6s, height 0.6s;
+        }
+
+        .button-ripple:active::after {
+          width: 300px;
+          height: 300px;
+        }
+
+        /* Loading Skeleton */
+        .skeleton {
+          background: linear-gradient(
+            90deg,
+            #f0f0f0 25%,
+            #e0e0e0 50%,
+            #f0f0f0 75%
+          );
+          background-size: 200% 100%;
+          animation: shimmer 1.5s infinite;
+        }
+
+        /* Selection Color */
+        ::selection {
+          background: rgba(37, 99, 235, 0.3);
+          color: #1e293b;
+        }
+
+        /* Focus Visible for Accessibility */
+        *:focus-visible {
+          outline: 3px solid rgba(37, 99, 235, 0.5);
+          outline-offset: 2px;
+        }
+
+        /* Performance Optimization */
+        * {
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
       `}</style>
     </div>

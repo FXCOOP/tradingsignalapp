@@ -22,15 +22,15 @@ APP_BASE_URL=https://tradingsignalapp.onrender.com
 
 # PK Signal Pulse - Professional Trading Signals Platform
 
-A bilingual (English/Urdu) trading signals platform built with Next.js 14, featuring daily signal generation, market analysis, and Exness affiliate integration.
+A bilingual (English/Arabic) trading signals platform built with Next.js 14, featuring daily signal generation, market analysis, smart popup system, and broker partner integration with world-class UI/UX design.
 
 ## 🎯 Project Overview
 
-FinSignals is a comprehensive trading signals platform designed for the Pakistani market, offering:
+GCC Signal Pro is a comprehensive trading signals platform designed for the GCC region, offering:
 
-- **Daily Trading Signals**: 3-4 professional signals per day with Entry/SL/TP levels
-- **Bilingual Support**: Full English and Urdu (RTL) support
-- **SEO Optimized**: Pakistan-first SEO strategy with hreflang, News Sitemaps
+- **Daily Trading Signals**: Professional signals with Entry/SL/TP levels
+- **Bilingual Support**: Full English and Arabic (RTL) support
+- **Smart Popup System**: Intelligent behavior-based popups (welcome, scroll, exit intent, time-based)
 - **Affiliate Integration**: Exness affiliate program with commission tracking
 - **Content Management**: HTML articles with archive functionality
 - **Modern Stack**: Next.js 14, TypeScript, Tailwind CSS, Prisma, PostgreSQL
@@ -38,13 +38,15 @@ FinSignals is a comprehensive trading signals platform designed for the Pakistan
 ## 🚀 Features
 
 ### Core Features
-- ✅ Bilingual content (EN/UR) with RTL support
+- ✅ Bilingual content (EN/AR) with RTL support
 - ✅ Daily signal generation using OpenAI GPT-4
 - ✅ Professional signal cards with technical analysis
-- ✅ HTML article system with rich content
-- ✅ Archive with filtering and search
-- ✅ Exness affiliate integration
-- ✅ SEO optimization for Pakistan market
+- ✅ Smart popup system (welcome, scroll, exit intent, time-based)
+- ✅ Broker partner integration with ratings and bonuses
+- ✅ Live activity feed showing real-time profitable trades
+- ✅ Social proof with animated counters (10,000+ traders, $2.4M+ profits)
+- ✅ Enhanced UI/UX with glassmorphism and smooth animations
+- ✅ SEO optimization for GCC market
 
 ### Technical Features
 - ✅ Next.js 14 with App Router
