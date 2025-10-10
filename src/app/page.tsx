@@ -4014,22 +4014,6 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
 
   const t = translations[language as keyof typeof translations]
 
-  // 🤖 USE AI SIGNALS if available, otherwise use fallback mock data
-  const displaySignals = aiSignals.length > 0 ? aiSignals.map((s, idx) => ({
-    id: idx + 1,
-    symbol: s.name || s.symbol,
-    type: s.type,
-    entry: `${s.entryPrice} ${s.symbol.includes(':') ? s.symbol.split(':')[0] : ''}`,
-    target: `${s.targetPrice}`,
-    stop: `${s.stopLoss}`,
-    timeframe: s.timeframe,
-    time: new Date(s.generatedAt).toLocaleTimeString(),
-    status: s.status,
-    confidence: `${s.confidence}%`,
-    reasoning: s.reasoning,
-    riskReward: s.riskReward
-  })) : mockSignals
-
   // Fallback mock data (only used if AI signals haven't loaded yet)
   const mockSignals = [
     {
@@ -4098,6 +4082,23 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
       time: '13:20'
     }
   ]
+
+  // 🤖 USE AI SIGNALS if available, otherwise use fallback mock data
+  const displaySignals = aiSignals.length > 0 ? aiSignals.map((s, idx) => ({
+    id: idx + 1,
+    symbol: s.name || s.symbol,
+    type: s.type,
+    entry: `${s.entryPrice} ${s.symbol.includes(':') ? s.symbol.split(':')[0] : ''}`,
+    target: `${s.targetPrice}`,
+    stopLoss: `${s.stopLoss}`,
+    timeframe: s.timeframe,
+    time: new Date(s.generatedAt).toLocaleTimeString(),
+    status: s.status,
+    confidence: `${s.confidence}%`,
+    reasoning: s.reasoning,
+    riskReward: s.riskReward,
+    pnl: '+0.00%'
+  })) : mockSignals
 
   // Worldwide markets data - comprehensive global coverage
   const globalMarkets = [
@@ -6199,7 +6200,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                       <div style={{
                         width: `${signal.confidence}%`,
                         height: '100%',
-                        background: signal.confidence >= 80 ? '#10b981' : signal.confidence >= 60 ? '#f59e0b' : '#ef4444',
+                        background: Number(signal.confidence) >= 80 ? '#10b981' : Number(signal.confidence) >= 60 ? '#f59e0b' : '#ef4444',
                         borderRadius: '3px',
                         transition: 'width 0.8s ease'
                       }} />
