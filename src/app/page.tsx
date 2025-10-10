@@ -90,7 +90,7 @@ export default function HomePage() {
     addNotification('✅ Exness account verified! Free education unlocked.', 'success')
   }
 
-  // NEW: Broker Partners Data
+  // TRUSTED BROKER: Only Exness (user requested)
   const brokerPartners = [
     {
       id: 1,
@@ -105,48 +105,6 @@ export default function HomePage() {
       platform: 'MT4/MT5',
       minDeposit: '$10',
       color: '#FFD700'
-    },
-    {
-      id: 2,
-      name: 'XM Global',
-      logo: '🌟',
-      rating: 4.8,
-      reviews: 12840,
-      features: ['Tight Spreads', 'Fast Execution', 'FCA Licensed'],
-      bonus: '$30 No Deposit Bonus',
-      popular: true,
-      commission: 'Low',
-      platform: 'MT4/MT5',
-      minDeposit: '$5',
-      color: '#00D084'
-    },
-    {
-      id: 3,
-      name: 'IC Markets',
-      logo: '⚡',
-      rating: 4.7,
-      reviews: 9230,
-      features: ['Raw Spreads', 'True ECN', 'ASIC Regulated'],
-      bonus: 'Cashback Program',
-      popular: false,
-      commission: 'From $3',
-      platform: 'MT4/MT5/cTrader',
-      minDeposit: '$200',
-      color: '#FF6B00'
-    },
-    {
-      id: 4,
-      name: 'FP Markets',
-      logo: '🔥',
-      rating: 4.8,
-      reviews: 8120,
-      features: ['Low Spreads', 'Fast Orders', 'Multi-Regulated'],
-      bonus: '100% Deposit Bonus',
-      popular: true,
-      commission: 'Competitive',
-      platform: 'MT4/MT5/IRESS',
-      minDeposit: '$100',
-      color: '#2563EB'
     }
   ]
 
@@ -178,14 +136,48 @@ export default function HomePage() {
     setActivePopup(null)
   }
 
-  // NEW: useEffect for Popup Triggers
+  // DISABLED: Popup Triggers (user requested to remove popups)
+  // useEffect(() => {
+  //   // Welcome popup after 3 seconds
+  //   const welcomeTimer = setTimeout(() => showPopup('welcome'), 3000)
+  //   // Time-based popup after 2 minutes
+  //   const timeBasedTimer = setTimeout(() => showPopup('timeBased'), 120000)
+  //   return () => {
+  //     clearTimeout(welcomeTimer)
+  //     clearTimeout(timeBasedTimer)
+  //   }
+  // }, [])
+
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const totalHeight = document.documentElement.scrollHeight - window.innerHeight
+  //     const progress = (window.scrollY / totalHeight) * 100
+  //     setScrollProgress(progress)
+  //     // Trigger scroll-based popups
+  //     if (progress >= 30 && progress < 35 && !popupDismissed['scroll30']) {
+  //       showPopup('scroll30')
+  //     } else if (progress >= 60 && progress < 65 && !popupDismissed['scroll60']) {
+  //       showPopup('scroll60')
+  //     } else if (progress >= 90 && !popupDismissed['scroll90']) {
+  //       showPopup('scroll90')
+  //     }
+  //   }
+  //   window.addEventListener('scroll', handleScroll)
+  //   return () => window.removeEventListener('scroll', handleScroll)
+  // }, [popupDismissed])
+
+  // useEffect(() => {
+  //   const handleMouseLeave = (e: MouseEvent) => {
+  //     if (e.clientY <= 0 && !popupDismissed['exitIntent']) {
+  //       showPopup('exitIntent')
+  //     }
+  //   }
+  //   document.addEventListener('mouseleave', handleMouseLeave)
+  //   return () => document.removeEventListener('mouseleave', handleMouseLeave)
+  // }, [popupDismissed])
+
+  // Keep only animations (no popups)
   useEffect(() => {
-    // Welcome popup after 3 seconds
-    const welcomeTimer = setTimeout(() => showPopup('welcome'), 3000)
-
-    // Time-based popup after 2 minutes
-    const timeBasedTimer = setTimeout(() => showPopup('timeBased'), 120000)
-
     // Trader count animation
     const counterInterval = setInterval(() => {
       setTraderCount(prev => prev + Math.floor(Math.random() * 3))
@@ -201,50 +193,12 @@ export default function HomePage() {
       setTimeOnSite(prev => prev + 1)
     }, 1000)
 
-    // Floating button visibility
-    setTimeout(() => setShowFloatingButton(true), 2000)
-
     return () => {
-      clearTimeout(welcomeTimer)
-      clearTimeout(timeBasedTimer)
       clearInterval(counterInterval)
       clearInterval(activityInterval)
       clearInterval(siteTimer)
     }
   }, [])
-
-  // NEW: Scroll Progress Tracker
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight
-      const progress = (window.scrollY / totalHeight) * 100
-      setScrollProgress(progress)
-
-      // Trigger scroll-based popups
-      if (progress >= 30 && progress < 35 && !popupDismissed['scroll30']) {
-        showPopup('scroll30')
-      } else if (progress >= 60 && progress < 65 && !popupDismissed['scroll60']) {
-        showPopup('scroll60')
-      } else if (progress >= 90 && !popupDismissed['scroll90']) {
-        showPopup('scroll90')
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [popupDismissed])
-
-  // NEW: Exit Intent Detection
-  useEffect(() => {
-    const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 0 && !popupDismissed['exitIntent']) {
-        showPopup('exitIntent')
-      }
-    }
-
-    document.addEventListener('mouseleave', handleMouseLeave)
-    return () => document.removeEventListener('mouseleave', handleMouseLeave)
-  }, [popupDismissed])
 
   // 🤖 FETCH AI-GENERATED SIGNALS FROM OPENAI
   const fetchAISignals = async () => {
