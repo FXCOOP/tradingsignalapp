@@ -17,6 +17,13 @@ export default function HomePage() {
   const [selectedArticle, setSelectedArticle] = useState<number | null>(null)
   const [dailyContent, setDailyContent] = useState<any>(null)
   const [expandedLesson, setExpandedLesson] = useState<string | null>(null)
+
+  // 🤖 NEW: AI-generated content states
+  const [aiSignals, setAiSignals] = useState<any[]>([])
+  const [aiNews, setAiNews] = useState<any[]>([])
+  const [aiAnalysis, setAiAnalysis] = useState<any>(null)
+  const [isLoadingSignals, setIsLoadingSignals] = useState(false)
+  const [signalsError, setSignalsError] = useState<string | null>(null)
   const [marketSearchQuery, setMarketSearchQuery] = useState('')
   const [selectedAssetClass, setSelectedAssetClass] = useState('all')
   const [selectedRegion, setSelectedRegion] = useState('all')
@@ -238,6 +245,39 @@ export default function HomePage() {
     document.addEventListener('mouseleave', handleMouseLeave)
     return () => document.removeEventListener('mouseleave', handleMouseLeave)
   }, [popupDismissed])
+
+  // 🤖 FETCH AI-GENERATED SIGNALS FROM OPENAI
+  const fetchAISignals = async () => {
+    setIsLoadingSignals(true)
+    setSignalsError(null)
+
+    try {
+      const response = await fetch('/api/generate-signals', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      })
+
+      const data = await response.json()
+
+      if (data.success && data.signals) {
+        setAiSignals(data.signals)
+        addNotification(`🤖 Generated ${data.signals.length} AI signals!`, 'success')
+      } else {
+        throw new Error(data.error || 'Failed to generate signals')
+      }
+    } catch (error: any) {
+      console.error('Error fetching AI signals:', error)
+      setSignalsError(error.message)
+      addNotification('⚠️ Failed to load AI signals', 'warning')
+    } finally {
+      setIsLoadingSignals(false)
+    }
+  }
+
+  // Auto-fetch AI signals on page load
+  useEffect(() => {
+    fetchAISignals()
+  }, [])
 
   // Trading Glossary Data
   const glossaryCategories = [
@@ -3974,8 +4014,24 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
 
   const t = translations[language as keyof typeof translations]
 
-  // Live trading signals with real data
-  const signals = [
+  // 🤖 USE AI SIGNALS if available, otherwise use fallback mock data
+  const displaySignals = aiSignals.length > 0 ? aiSignals.map((s, idx) => ({
+    id: idx + 1,
+    symbol: s.name || s.symbol,
+    type: s.type,
+    entry: `${s.entryPrice} ${s.symbol.includes(':') ? s.symbol.split(':')[0] : ''}`,
+    target: `${s.targetPrice}`,
+    stop: `${s.stopLoss}`,
+    timeframe: s.timeframe,
+    time: new Date(s.generatedAt).toLocaleTimeString(),
+    status: s.status,
+    confidence: `${s.confidence}%`,
+    reasoning: s.reasoning,
+    riskReward: s.riskReward
+  })) : mockSignals
+
+  // Fallback mock data (only used if AI signals haven't loaded yet)
+  const mockSignals = [
     {
       id: 1,
       symbol: 'ARAMCO',
@@ -5942,9 +5998,66 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 fontSize: '14px',
                 fontWeight: '600'
               }}>
-                {signals.filter(s => s.status === 'ACTIVE').length} Active Signals
+                {displaySignals.filter(s => s.status === 'ACTIVE').length} Active Signals
               </div>
+
+              {/* 🤖 AI Signal Generation Button */}
+              <button
+                onClick={fetchAISignals}
+                disabled={isLoadingSignals}
+                style={{
+                  background: isLoadingSignals
+                    ? '#94a3b8'
+                    : 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+                  color: 'white',
+                  padding: '12px 24px',
+                  borderRadius: '12px',
+                  border: 'none',
+                  fontSize: '14px',
+                  fontWeight: '700',
+                  cursor: isLoadingSignals ? 'not-allowed' : 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  transition: 'all 0.3s ease',
+                  boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isLoadingSignals) {
+                    e.currentTarget.style.transform = 'translateY(-2px)'
+                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 99, 235, 0.4)'
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.3)'
+                }}
+              >
+                <span style={{ fontSize: '18px' }}>
+                  {isLoadingSignals ? '⏳' : '🤖'}
+                </span>
+                {isLoadingSignals ? 'Generating AI Signals...' : 'Generate New AI Signals'}
+              </button>
             </div>
+
+            {/* Loading State */}
+            {isLoadingSignals && (
+              <div style={{
+                textAlign: 'center',
+                padding: '40px',
+                background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
+                borderRadius: '16px',
+                margin: '20px 0'
+              }}>
+                <div style={{ fontSize: '48px', marginBottom: '16px' }}>🤖</div>
+                <div style={{ fontSize: '18px', fontWeight: '600', color: '#1e40af', marginBottom: '8px' }}>
+                  AI is generating signals...
+                </div>
+                <div style={{ fontSize: '14px', color: '#3b82f6' }}>
+                  Using OpenAI GPT-5 Nano to analyze GCC markets
+                </div>
+              </div>
+            )}
 
             {/* Signal Cards */}
             <div style={{
@@ -5952,7 +6065,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
               gap: '24px'
             }}>
-              {signals.map(signal => (
+              {displaySignals.map(signal => (
                 <div
                   key={signal.id}
                   onClick={() => setSelectedSignal(selectedSignal === signal.id ? null : signal.id)}
