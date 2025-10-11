@@ -1,0 +1,183 @@
+
+> pk-signal-pulse@1.0.0 dev
+> next dev
+
+  ▲ Next.js 14.2.33
+  - Local:        http://localhost:3000
+  - Environments: .env.local, .env
+
+ ✓ Starting...
+<w> [webpack.cache.PackFileCacheStrategy] Restoring pack from C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\cache\webpack\client-development.pack.gz failed: TypeError: Cannot read properties of undefined (reading 'hasStartTime')
+ ✓ Ready in 2.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 2.3s (452 modules)
+ GET / 200 in 2533ms
+ ✓ Compiled in 312ms (227 modules)
+ ✓ Compiled in 541ms (227 modules)
+ ✓ Compiled in 269ms (227 modules)
+ ✓ Compiled in 353ms (227 modules)
+ ✓ Compiled in 300ms (227 modules)
+ ✓ Compiled in 346ms (227 modules)
+ ✓ Compiled in 365ms (227 modules)
+ ✓ Compiled in 684ms (227 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\server\app\page.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/page' in C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\server\app\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/page' in 'C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/page (expected C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\server\app\page.js)
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+ ✓ Compiled in 389ms (227 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\server\app\page.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/page' in C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\server\app\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/page' in 'C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/page (expected C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\server\app\page.js)
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-app-loader.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-app-loader.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\swc\index.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\swc\index.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+ ✓ Compiled in 927ms (227 modules)
+ ✓ Compiled in 725ms (227 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\server\app\page.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/page' in C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\server\app\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/page' in 'C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/page (expected C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\server\app\page.js)
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+ ✓ Compiled in 824ms (227 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\server\app\page.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/page' in C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\server\app\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/page' in 'C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/page (expected C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\server\app\page.js)
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+ ⨯ ./src/app/page.tsx
+Error: 
+  [31mx[0m Unexpected token `div`. Expected jsx identifier
+      ,-[[36;1;4mC:\Users\User\OneDrive\Desktop\tradesignalapp\src\app\page.tsx[0m:4851:1]
+ [2m4851[0m |   }
+ [2m4852[0m | 
+ [2m4853[0m |   return (
+ [2m4854[0m |     <div style={{
+      : [31;1m     ^^^[0m
+ [2m4855[0m |       minHeight: '100vh',
+ [2m4856[0m |       background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+ [2m4856[0m |       color: '#1e293b',
+      `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/page.tsx
+ ⨯ ./src/app/page.tsx
+Error: 
+  [31mx[0m Unexpected token `div`. Expected jsx identifier
+      ,-[[36;1;4mC:\Users\User\OneDrive\Desktop\tradesignalapp\src\app\page.tsx[0m:4851:1]
+ [2m4851[0m |   }
+ [2m4852[0m | 
+ [2m4853[0m |   return (
+ [2m4854[0m |     <div style={{
+      : [31;1m     ^^^[0m
+ [2m4855[0m |       minHeight: '100vh',
+ [2m4856[0m |       background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+ [2m4856[0m |       color: '#1e293b',
+      `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/page.tsx
+ ⨯ ./src/app/page.tsx
+Error: 
+  [31mx[0m Unexpected token `div`. Expected jsx identifier
+      ,-[[36;1;4mC:\Users\User\OneDrive\Desktop\tradesignalapp\src\app\page.tsx[0m:4851:1]
+ [2m4851[0m |   }
+ [2m4852[0m | 
+ [2m4853[0m |   return (
+ [2m4854[0m |     <div style={{
+      : [31;1m     ^^^[0m
+ [2m4855[0m |       minHeight: '100vh',
+ [2m4856[0m |       background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+ [2m4856[0m |       color: '#1e293b',
+      `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/page.tsx
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\server\app\page.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/page' in C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\server\app\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/page' in 'C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/page (expected C:\Users\User\OneDrive\Desktop\tradesignalapp\.next\server\app\page.js)
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\User\OneDrive\Desktop\tradesignalapp\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+ ⨯ ./src/app/page.tsx
+Error: 
+  [31mx[0m Unexpected token `div`. Expected jsx identifier
+      ,-[[36;1;4mC:\Users\User\OneDrive\Desktop\tradesignalapp\src\app\page.tsx[0m:4851:1]
+ [2m4851[0m |   }
+ [2m4852[0m | 
+ [2m4853[0m |   return (
+ [2m4854[0m |     <div style={{
+      : [31;1m     ^^^[0m
+ [2m4855[0m |       minHeight: '100vh',
+ [2m4856[0m |       background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+ [2m4856[0m |       color: '#1e293b',
+      `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/page.tsx
+ ✓ Compiled in 1718ms (227 modules)

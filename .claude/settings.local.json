@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\n🏛️ Complete transformation to GCC Signal Pro\n\n- Updated all branding from PK Signal Pulse to GCC Signal Pro\n- Changed geographic focus from Pakistan to GCC (UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman)\n- Updated language support from Urdu to Arabic\n- Transformed market data: KSE-100 → TASI, PKR → AED, PSX → ADX/DFM\n- Updated sitemap URLs for GCC cities (Dubai, Riyadh, Doha)\n- Modified all meta tags, SEO content, and schema.org data for GCC targeting\n- Updated economic keywords and local SEO for Gulf markets\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(dir:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
