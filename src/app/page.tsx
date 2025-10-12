@@ -5693,213 +5693,364 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
 
         {/* NEW: Broker Partners Section - Shown on all tabs */}
         <div style={{
-          background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
-          border: '1px solid #e2e8f0',
-          borderRadius: '20px',
-          padding: '40px',
-          marginBottom: '32px',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)'
+          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+          borderRadius: '32px',
+          padding: isMobile ? '40px 20px' : '64px 48px',
+          marginBottom: '48px',
+          boxShadow: '0 24px 64px rgba(0, 0, 0, 0.15)',
+          position: 'relative',
+          overflow: 'hidden'
         }}>
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <h2 style={{
-              fontSize: '32px',
-              fontWeight: '900',
-              background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              marginBottom: '12px'
-            }}>
-              🤝 Our Trusted Broker Partners
-            </h2>
-            <p style={{ fontSize: '16px', color: '#64748b', maxWidth: '600px', margin: '0 auto' }}>
-              Trade with confidence using our verified, regulated brokers offering the best conditions for GCC traders
-            </p>
-          </div>
+          {/* Background Pattern */}
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 50%)',
+            pointerEvents: 'none'
+          }} />
+
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            {/* Header */}
+            <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+              <div style={{
+                display: 'inline-block',
+                background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.15) 100%)',
+                border: '1px solid rgba(255, 215, 0, 0.3)',
+                padding: '8px 20px',
+                borderRadius: '24px',
+                marginBottom: '20px'
+              }}>
+                <span style={{ fontSize: '14px', fontWeight: '700', color: '#FFD700' }}>
+                  🤝 VERIFIED PARTNERS
+                </span>
+              </div>
+
+              <h2 style={{
+                fontSize: isMobile ? '32px' : '48px',
+                fontWeight: '900',
+                background: 'linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                marginBottom: '16px',
+                letterSpacing: '-1px'
+              }}>
+                Our Trusted Broker Partners
+              </h2>
+
+              <p style={{
+                fontSize: isMobile ? '16px' : '18px',
+                color: '#94a3b8',
+                maxWidth: '680px',
+                margin: '0 auto',
+                lineHeight: '1.7'
+              }}>
+                Trade with confidence using our verified, regulated brokers offering the best conditions for GCC traders
+              </p>
+            </div>
 
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '24px'
+            maxWidth: '1000px',
+            margin: '0 auto'
           }}>
             {brokerPartners.map((broker, index) => (
               <div
                 key={broker.id}
                 style={{
-                  background: 'white',
-                  border: `2px solid ${broker.popular ? broker.color : '#e2e8f0'}`,
-                  borderRadius: '16px',
-                  padding: '24px',
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 215, 0, 0.2)',
+                  borderRadius: '24px',
+                  padding: isMobile ? '32px 20px' : '40px 48px',
                   position: 'relative',
-                  boxShadow: broker.popular ? `0 8px 24px ${broker.color}20` : '0 2px 8px rgba(0, 0, 0, 0.04)',
-                  transition: 'all 0.3s ease',
+                  boxShadow: '0 20px 60px rgba(0, 0, 0, 0.2)',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                   animation: `fadeIn 0.6s ease ${index * 0.1}s backwards`,
-                  transform: 'scale(1)'
+                  transform: 'scale(1)',
+                  overflow: 'hidden'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)'
-                  e.currentTarget.style.boxShadow = `0 16px 48px ${broker.color}30`
+                  e.currentTarget.style.transform = 'translateY(-8px) scale(1.01)'
+                  e.currentTarget.style.boxShadow = '0 32px 80px rgba(255, 215, 0, 0.3)'
+                  e.currentTarget.style.borderColor = 'rgba(255, 215, 0, 0.5)'
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'scale(1)'
-                  e.currentTarget.style.boxShadow = broker.popular ? `0 8px 24px ${broker.color}20` : '0 2px 8px rgba(0, 0, 0, 0.04)'
+                  e.currentTarget.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.2)'
+                  e.currentTarget.style.borderColor = 'rgba(255, 215, 0, 0.2)'
                 }}
               >
+                {/* Shine Effect */}
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: '-100%',
+                  width: '100%',
+                  height: '100%',
+                  background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
+                  animation: 'shine 3s infinite',
+                  pointerEvents: 'none'
+                }} />
+
                 {broker.popular && (
                   <div style={{
                     position: 'absolute',
-                    top: '-12px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
-                    color: 'white',
-                    padding: '6px 16px',
-                    borderRadius: '20px',
-                    fontSize: '12px',
-                    fontWeight: '800',
-                    boxShadow: `0 4px 12px ${broker.color}40`
+                    top: '20px',
+                    right: '20px',
+                    background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
+                    color: '#1e293b',
+                    padding: '8px 16px',
+                    borderRadius: '24px',
+                    fontSize: '11px',
+                    fontWeight: '900',
+                    boxShadow: '0 4px 12px rgba(255, 215, 0, 0.4)',
+                    letterSpacing: '0.5px'
                   }}>
                     ⭐ MOST POPULAR
                   </div>
                 )}
 
-                <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                  <div style={{
-                    fontSize: '56px',
-                    marginBottom: '12px',
-                    animation: 'bounce 2s ease infinite'
-                  }}>
-                    {broker.logo}
-                  </div>
-                  <h3 style={{
-                    fontSize: '24px',
-                    fontWeight: '800',
-                    color: '#1e293b',
-                    marginBottom: '8px'
-                  }}>
-                    {broker.name}
-                  </h3>
-                  <div style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: '8px',
-                    fontSize: '14px',
-                    color: '#64748b'
-                  }}>
-                    <span style={{ color: '#fbbf24', fontSize: '16px' }}>★★★★★</span>
-                    <span style={{ fontWeight: '700', color: '#1e293b' }}>{broker.rating}</span>
-                    <span>({broker.reviews.toLocaleString()} reviews)</span>
-                  </div>
-                </div>
-
+                {/* Two Column Layout */}
                 <div style={{
-                  background: '#f8fafc',
-                  borderRadius: '12px',
-                  padding: '16px',
-                  marginBottom: '16px'
+                  display: isMobile ? 'block' : 'grid',
+                  gridTemplateColumns: isMobile ? '1fr' : '200px 1fr',
+                  gap: isMobile ? '24px' : '48px',
+                  alignItems: 'center'
                 }}>
-                  {broker.features.map((feature, i) => (
-                    <div key={i} style={{
-                      fontSize: '13px',
-                      color: '#475569',
-                      marginBottom: i < broker.features.length - 1 ? '8px' : 0,
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px'
+                  {/* Left: Logo & Rating */}
+                  <div style={{ textAlign: isMobile ? 'center' : 'left' }}>
+                    <div style={{
+                      fontSize: '80px',
+                      marginBottom: '16px',
+                      animation: 'float 3s ease-in-out infinite'
                     }}>
-                      <span style={{ color: '#10b981' }}>✓</span>
-                      <span>{feature}</span>
+                      {broker.logo}
                     </div>
-                  ))}
-                </div>
-
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '12px',
-                  marginBottom: '16px',
-                  fontSize: '13px'
-                }}>
-                  <div>
-                    <div style={{ color: '#64748b', marginBottom: '4px' }}>Commission:</div>
-                    <div style={{ fontWeight: '700', color: '#1e293b' }}>{broker.commission}</div>
-                  </div>
-                  <div>
-                    <div style={{ color: '#64748b', marginBottom: '4px' }}>Min Deposit:</div>
-                    <div style={{ fontWeight: '700', color: '#1e293b' }}>{broker.minDeposit}</div>
-                  </div>
-                  <div>
-                    <div style={{ color: '#64748b', marginBottom: '4px' }}>Platform:</div>
-                    <div style={{ fontWeight: '700', color: '#1e293b' }}>{broker.platform}</div>
-                  </div>
-                  <div>
-                    <div style={{ color: '#64748b', marginBottom: '4px' }}>Bonus:</div>
-                    <div style={{ fontWeight: '700', color: '#10b981', fontSize: '12px' }}>
-                      {broker.bonus}
+                    <h3 style={{
+                      fontSize: '28px',
+                      fontWeight: '900',
+                      color: '#1e293b',
+                      marginBottom: '12px',
+                      letterSpacing: '-0.5px'
+                    }}>
+                      {broker.name}
+                    </h3>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: isMobile ? 'center' : 'flex-start',
+                      alignItems: 'center',
+                      gap: '8px',
+                      marginBottom: '8px'
+                    }}>
+                      <span style={{ color: '#FFD700', fontSize: '18px' }}>★★★★★</span>
+                      <span style={{ fontWeight: '800', color: '#1e293b', fontSize: '18px' }}>{broker.rating}</span>
+                    </div>
+                    <div style={{ fontSize: '13px', color: '#64748b' }}>
+                      ({broker.reviews.toLocaleString()} reviews)
                     </div>
                   </div>
-                </div>
 
-                <button style={{
-                  width: '100%',
-                  padding: '14px',
-                  background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '12px',
-                  fontSize: '15px',
-                  fontWeight: '800',
-                  cursor: 'pointer',
-                  boxShadow: `0 4px 16px ${broker.color}30`,
-                  transition: 'all 0.3s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.05)'
-                  e.currentTarget.style.boxShadow = `0 8px 24px ${broker.color}50`
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'scale(1)'
-                  e.currentTarget.style.boxShadow = `0 4px 16px ${broker.color}30`
-                }}>
-                  Open Account Now →
-                </button>
+                  {/* Right: Features & CTA */}
+                  <div>
+                    {/* Features Grid */}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                      gap: '16px',
+                      marginBottom: '24px'
+                    }}>
+                      {broker.features.map((feature, i) => (
+                        <div key={i} style={{
+                          background: 'rgba(16, 185, 129, 0.05)',
+                          border: '1px solid rgba(16, 185, 129, 0.2)',
+                          borderRadius: '12px',
+                          padding: '12px 16px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '10px'
+                        }}>
+                          <span style={{
+                            fontSize: '18px',
+                            color: '#10b981',
+                            fontWeight: '900'
+                          }}>✓</span>
+                          <span style={{
+                            fontSize: '13px',
+                            fontWeight: '600',
+                            color: '#1e293b'
+                          }}>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Info Grid */}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(4, 1fr)',
+                      gap: '16px',
+                      marginBottom: '24px',
+                      padding: '20px',
+                      background: 'rgba(248, 250, 252, 0.6)',
+                      borderRadius: '16px'
+                    }}>
+                      <div style={{ textAlign: 'center' }}>
+                        <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Commission</div>
+                        <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.commission}</div>
+                      </div>
+                      <div style={{ textAlign: 'center' }}>
+                        <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Min Deposit</div>
+                        <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.minDeposit}</div>
+                      </div>
+                      <div style={{ textAlign: 'center' }}>
+                        <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Platform</div>
+                        <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.platform}</div>
+                      </div>
+                      <div style={{ textAlign: 'center' }}>
+                        <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Bonus</div>
+                        <div style={{ fontSize: '13px', fontWeight: '800', color: '#10b981' }}>{broker.bonus}</div>
+                      </div>
+                    </div>
+
+                    {/* CTA Button */}
+                    <a
+                      href={isMobile
+                        ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
+                        : "https://one.exnessonelink.com/a/c_8f0nxidtbt"
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer sponsored"
+                      style={{
+                        display: 'block',
+                        width: '100%',
+                        padding: '18px',
+                        background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
+                        color: '#1e293b',
+                        border: 'none',
+                        borderRadius: '16px',
+                        fontSize: '16px',
+                        fontWeight: '900',
+                        cursor: 'pointer',
+                        boxShadow: `0 8px 24px ${broker.color}40`,
+                        transition: 'all 0.3s ease',
+                        textAlign: 'center',
+                        textDecoration: 'none',
+                        letterSpacing: '0.5px'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-2px)'
+                        e.currentTarget.style.boxShadow = `0 12px 32px ${broker.color}60`
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(0)'
+                        e.currentTarget.style.boxShadow = `0 8px 24px ${broker.color}40`
+                      }}
+                    >
+                      🚀 Open Account Now →
+                    </a>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
 
-          {/* Broker Stats */}
+          {/* Broker Stats - Premium Design */}
           <div style={{
-            marginTop: '40px',
-            padding: '24px',
-            background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 100%)',
-            borderRadius: '16px',
-            border: '1px solid #e2e8f0'
+            marginTop: '56px',
+            padding: isMobile ? '32px 20px' : '40px 48px',
+            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: '24px',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            maxWidth: '1000px',
+            margin: '56px auto 0'
           }}>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-              gap: '24px',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+              gap: '32px',
               textAlign: 'center'
             }}>
-              <div>
-                <div style={{ fontSize: '28px', fontWeight: '800', color: '#2563eb', marginBottom: '4px' }}>
+              <div style={{
+                padding: '24px',
+                background: 'rgba(37, 99, 235, 0.1)',
+                borderRadius: '16px',
+                border: '1px solid rgba(37, 99, 235, 0.2)'
+              }}>
+                <div style={{
+                  fontSize: isMobile ? '36px' : '42px',
+                  fontWeight: '900',
+                  background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  marginBottom: '8px',
+                  letterSpacing: '-1px'
+                }}>
                   15,420
                 </div>
-                <div style={{ fontSize: '13px', color: '#64748b' }}>Active Traders</div>
+                <div style={{
+                  fontSize: '14px',
+                  color: '#cbd5e1',
+                  fontWeight: '600',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
+                }}>Active Traders</div>
               </div>
-              <div>
-                <div style={{ fontSize: '28px', fontWeight: '800', color: '#10b981', marginBottom: '4px' }}>
+
+              <div style={{
+                padding: '24px',
+                background: 'rgba(16, 185, 129, 0.1)',
+                borderRadius: '16px',
+                border: '1px solid rgba(16, 185, 129, 0.2)'
+              }}>
+                <div style={{
+                  fontSize: isMobile ? '36px' : '42px',
+                  fontWeight: '900',
+                  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  marginBottom: '8px',
+                  letterSpacing: '-1px'
+                }}>
                   0.42ms
                 </div>
-                <div style={{ fontSize: '13px', color: '#64748b' }}>Avg Execution</div>
+                <div style={{
+                  fontSize: '14px',
+                  color: '#cbd5e1',
+                  fontWeight: '600',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
+                }}>Avg Execution</div>
               </div>
-              <div>
-                <div style={{ fontSize: '28px', fontWeight: '800', color: '#f59e0b', marginBottom: '4px' }}>
+
+              <div style={{
+                padding: '24px',
+                background: 'rgba(245, 158, 11, 0.1)',
+                borderRadius: '16px',
+                border: '1px solid rgba(245, 158, 11, 0.2)'
+              }}>
+                <div style={{
+                  fontSize: isMobile ? '36px' : '42px',
+                  fontWeight: '900',
+                  background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  marginBottom: '8px',
+                  letterSpacing: '-1px'
+                }}>
                   98.7%
                 </div>
-                <div style={{ fontSize: '13px', color: '#64748b' }}>Satisfaction Rate</div>
+                <div style={{
+                  fontSize: '14px',
+                  color: '#cbd5e1',
+                  fontWeight: '600',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
+                }}>Satisfaction Rate</div>
               </div>
             </div>
+          </div>
           </div>
         </div>
 
@@ -11197,6 +11348,15 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
           }
           50% {
             transform: translateY(-15px);
+          }
+        }
+
+        @keyframes shine {
+          0% {
+            left: '-100%';
+          }
+          100% {
+            left: '200%';
           }
         }
 
