@@ -12603,9 +12603,9 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
             backdropFilter: 'blur(8px)',
             zIndex: 10000,
             display: 'flex',
-            alignItems: 'center',
+            alignItems: isMobile ? 'flex-end' : 'center',
             justifyContent: 'center',
-            padding: '20px',
+            padding: isMobile ? '0' : '20px',
             animation: 'fadeIn 0.3s ease'
           }}
           onClick={() => {
@@ -12616,12 +12616,13 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
           <div
             style={{
               background: 'white',
-              borderRadius: '24px',
-              maxWidth: '520px',
+              borderRadius: isMobile ? '24px 24px 0 0' : '24px',
+              maxWidth: isMobile ? '100%' : '520px',
               width: '100%',
+              maxHeight: isMobile ? '85vh' : 'auto',
+              overflowY: isMobile ? 'auto' : 'visible',
               boxShadow: '0 24px 48px rgba(0, 0, 0, 0.3)',
-              animation: 'scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-              overflow: 'hidden',
+              animation: isMobile ? 'slideUp 0.4s ease' : 'scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
               position: 'relative'
             }}
             onClick={(e) => e.stopPropagation()}
@@ -12634,14 +12635,14 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
               }}
               style={{
                 position: 'absolute',
-                top: '16px',
-                right: '16px',
+                top: isMobile ? '12px' : '16px',
+                right: isMobile ? '12px' : '16px',
                 background: 'rgba(255, 255, 255, 0.9)',
                 border: 'none',
                 borderRadius: '50%',
-                width: '32px',
-                height: '32px',
-                fontSize: '20px',
+                width: isMobile ? '28px' : '32px',
+                height: isMobile ? '28px' : '32px',
+                fontSize: isMobile ? '18px' : '20px',
                 cursor: 'pointer',
                 zIndex: 1,
                 display: 'flex',
@@ -12665,13 +12666,13 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
             {/* Popup Header */}
             <div style={{
               background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
-              padding: '32px 24px',
+              padding: isMobile ? '24px 20px' : '32px 24px',
               textAlign: 'center',
               color: '#1e293b'
             }}>
-              <div style={{ fontSize: '48px', marginBottom: '12px' }}>💎</div>
+              <div style={{ fontSize: isMobile ? '36px' : '48px', marginBottom: isMobile ? '8px' : '12px' }}>💎</div>
               <h2 style={{
-                fontSize: '24px',
+                fontSize: isMobile ? '20px' : '24px',
                 fontWeight: '800',
                 marginBottom: '8px',
                 color: '#1e293b'
@@ -12679,7 +12680,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                 Trade with Our Trusted Broker
               </h2>
               <p style={{
-                fontSize: '14px',
+                fontSize: isMobile ? '13px' : '14px',
                 opacity: 0.9,
                 color: '#1e293b'
               }}>
@@ -12688,26 +12689,26 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
             </div>
 
             {/* Popup Content */}
-            <div style={{ padding: '32px 24px' }}>
+            <div style={{ padding: isMobile ? '24px 20px' : '32px 24px' }}>
               <div style={{
                 display: 'grid',
-                gap: '16px',
-                marginBottom: '24px'
+                gap: isMobile ? '12px' : '16px',
+                marginBottom: isMobile ? '20px' : '24px'
               }}>
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '12px',
-                  padding: '12px',
+                  gap: isMobile ? '10px' : '12px',
+                  padding: isMobile ? '10px' : '12px',
                   background: '#f8fafc',
                   borderRadius: '12px'
                 }}>
-                  <span style={{ fontSize: '24px' }}>⚡</span>
+                  <span style={{ fontSize: isMobile ? '20px' : '24px', flexShrink: 0 }}>⚡</span>
                   <div>
-                    <div style={{ fontWeight: '600', fontSize: '14px', color: '#1e293b' }}>
+                    <div style={{ fontWeight: '600', fontSize: isMobile ? '13px' : '14px', color: '#1e293b' }}>
                       0.0 Pips Spreads
                     </div>
-                    <div style={{ fontSize: '12px', color: '#64748b' }}>
+                    <div style={{ fontSize: isMobile ? '11px' : '12px', color: '#64748b' }}>
                       Ultra-low trading costs
                     </div>
                   </div>
@@ -12716,17 +12717,17 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '12px',
-                  padding: '12px',
+                  gap: isMobile ? '10px' : '12px',
+                  padding: isMobile ? '10px' : '12px',
                   background: '#f8fafc',
                   borderRadius: '12px'
                 }}>
-                  <span style={{ fontSize: '24px' }}>🛡️</span>
+                  <span style={{ fontSize: isMobile ? '20px' : '24px', flexShrink: 0 }}>🛡️</span>
                   <div>
-                    <div style={{ fontWeight: '600', fontSize: '14px', color: '#1e293b' }}>
+                    <div style={{ fontWeight: '600', fontSize: isMobile ? '13px' : '14px', color: '#1e293b' }}>
                       CySEC Regulated
                     </div>
-                    <div style={{ fontSize: '12px', color: '#64748b' }}>
+                    <div style={{ fontSize: isMobile ? '11px' : '12px', color: '#64748b' }}>
                       Your funds are safe
                     </div>
                   </div>
@@ -12735,17 +12736,17 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '12px',
-                  padding: '12px',
+                  gap: isMobile ? '10px' : '12px',
+                  padding: isMobile ? '10px' : '12px',
                   background: '#f8fafc',
                   borderRadius: '12px'
                 }}>
-                  <span style={{ fontSize: '24px' }}>🎁</span>
+                  <span style={{ fontSize: isMobile ? '20px' : '24px', flexShrink: 0 }}>🎁</span>
                   <div>
-                    <div style={{ fontWeight: '600', fontSize: '14px', color: '#1e293b' }}>
+                    <div style={{ fontWeight: '600', fontSize: isMobile ? '13px' : '14px', color: '#1e293b' }}>
                       $50 Welcome Bonus
                     </div>
-                    <div style={{ fontSize: '12px', color: '#64748b' }}>
+                    <div style={{ fontSize: isMobile ? '11px' : '12px', color: '#64748b' }}>
                       Get started with extra capital
                     </div>
                   </div>
@@ -12763,13 +12764,13 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                 style={{
                   display: 'block',
                   width: '100%',
-                  padding: '16px',
+                  padding: isMobile ? '14px' : '16px',
                   background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
                   color: '#1e293b',
                   textAlign: 'center',
                   borderRadius: '12px',
                   fontWeight: '700',
-                  fontSize: '16px',
+                  fontSize: isMobile ? '14px' : '16px',
                   textDecoration: 'none',
                   boxShadow: '0 4px 12px rgba(255, 215, 0, 0.4)',
                   transition: 'all 0.3s ease',
@@ -12785,14 +12786,15 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                   e.currentTarget.style.boxShadow = '0 4px 12px rgba(255, 215, 0, 0.4)'
                 }}
               >
-                🚀 Open Free Account Now
+                🚀 {isMobile ? 'Open Free Account' : 'Open Free Account Now'}
               </a>
 
               <p style={{
-                fontSize: '11px',
+                fontSize: isMobile ? '10px' : '11px',
                 color: '#94a3b8',
                 textAlign: 'center',
-                marginTop: '16px'
+                marginTop: isMobile ? '12px' : '16px',
+                lineHeight: '1.4'
               }}>
                 CFDs are complex instruments. 51% of retail accounts lose money.
               </p>
