@@ -6212,7 +6212,9 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               <div style={{
                 marginTop: isMobile ? '16px' : '24px',
                 textAlign: 'center',
-                padding: isMobile ? '0 12px' : '0'
+                padding: isMobile ? '0 20px' : '0',
+                display: 'flex',
+                justifyContent: 'center'
               }}>
                 <a
                   href={isMobile
@@ -6222,9 +6224,10 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                   target="_blank"
                   rel="noopener noreferrer sponsored"
                   style={{
-                    display: isMobile ? 'block' : 'inline-block',
-                    width: isMobile ? '100%' : 'auto',
-                    padding: isMobile ? '14px 20px' : '16px 32px',
+                    display: 'inline-block',
+                    width: isMobile ? 'auto' : 'auto',
+                    maxWidth: isMobile ? '100%' : 'auto',
+                    padding: isMobile ? '14px 32px' : '16px 32px',
                     background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
                     color: '#1e293b',
                     textDecoration: 'none',
