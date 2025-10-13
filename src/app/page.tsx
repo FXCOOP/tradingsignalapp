@@ -6443,28 +6443,28 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         {/* Info Grid */}
                         <div style={{
                           display: 'grid',
-                          gridTemplateColumns: 'repeat(4, 1fr)',
-                          gap: '16px',
-                          marginBottom: '24px',
-                          padding: '20px',
+                          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+                          gap: isMobile ? '12px' : '16px',
+                          marginBottom: isMobile ? '20px' : '24px',
+                          padding: isMobile ? '16px' : '20px',
                           background: 'rgba(248, 250, 252, 0.6)',
                           borderRadius: '16px'
                         }}>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Commission</div>
-                            <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.commission}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Commission</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '14px', fontWeight: '800', color: '#1e293b' }}>{broker.commission}</div>
                           </div>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Min Deposit</div>
-                            <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.minDeposit}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Min Deposit</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '14px', fontWeight: '800', color: '#1e293b' }}>{broker.minDeposit}</div>
                           </div>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Platform</div>
-                            <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.platform}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Platform</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '14px', fontWeight: '800', color: '#1e293b' }}>{broker.platform}</div>
                           </div>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Bonus</div>
-                            <div style={{ fontSize: '13px', fontWeight: '800', color: '#10b981' }}>{broker.bonus}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Bonus</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '13px', fontWeight: '800', color: '#10b981' }}>{broker.bonus}</div>
                           </div>
                         </div>
 
@@ -7265,28 +7265,28 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         {/* Info Grid */}
                         <div style={{
                           display: 'grid',
-                          gridTemplateColumns: 'repeat(4, 1fr)',
-                          gap: '16px',
-                          marginBottom: '24px',
-                          padding: '20px',
+                          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+                          gap: isMobile ? '12px' : '16px',
+                          marginBottom: isMobile ? '20px' : '24px',
+                          padding: isMobile ? '16px' : '20px',
                           background: 'rgba(248, 250, 252, 0.6)',
                           borderRadius: '16px'
                         }}>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Commission</div>
-                            <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.commission}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Commission</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '14px', fontWeight: '800', color: '#1e293b' }}>{broker.commission}</div>
                           </div>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Min Deposit</div>
-                            <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.minDeposit}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Min Deposit</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '14px', fontWeight: '800', color: '#1e293b' }}>{broker.minDeposit}</div>
                           </div>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Platform</div>
-                            <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.platform}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Platform</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '14px', fontWeight: '800', color: '#1e293b' }}>{broker.platform}</div>
                           </div>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Bonus</div>
-                            <div style={{ fontSize: '13px', fontWeight: '800', color: '#10b981' }}>{broker.bonus}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Bonus</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '13px', fontWeight: '800', color: '#10b981' }}>{broker.bonus}</div>
                           </div>
                         </div>
 
@@ -7810,28 +7810,28 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         {/* Info Grid */}
                         <div style={{
                           display: 'grid',
-                          gridTemplateColumns: 'repeat(4, 1fr)',
-                          gap: '16px',
-                          marginBottom: '24px',
-                          padding: '20px',
+                          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+                          gap: isMobile ? '12px' : '16px',
+                          marginBottom: isMobile ? '20px' : '24px',
+                          padding: isMobile ? '16px' : '20px',
                           background: 'rgba(248, 250, 252, 0.6)',
                           borderRadius: '16px'
                         }}>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Commission</div>
-                            <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.commission}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Commission</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '14px', fontWeight: '800', color: '#1e293b' }}>{broker.commission}</div>
                           </div>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Min Deposit</div>
-                            <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.minDeposit}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Min Deposit</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '14px', fontWeight: '800', color: '#1e293b' }}>{broker.minDeposit}</div>
                           </div>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Platform</div>
-                            <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.platform}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Platform</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '14px', fontWeight: '800', color: '#1e293b' }}>{broker.platform}</div>
                           </div>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Bonus</div>
-                            <div style={{ fontSize: '13px', fontWeight: '800', color: '#10b981' }}>{broker.bonus}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Bonus</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '13px', fontWeight: '800', color: '#10b981' }}>{broker.bonus}</div>
                           </div>
                         </div>
 
@@ -10429,28 +10429,28 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                         {/* Info Grid */}
                         <div style={{
                           display: 'grid',
-                          gridTemplateColumns: 'repeat(4, 1fr)',
-                          gap: '16px',
-                          marginBottom: '24px',
-                          padding: '20px',
+                          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+                          gap: isMobile ? '12px' : '16px',
+                          marginBottom: isMobile ? '20px' : '24px',
+                          padding: isMobile ? '16px' : '20px',
                           background: 'rgba(248, 250, 252, 0.6)',
                           borderRadius: '16px'
                         }}>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Commission</div>
-                            <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.commission}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Commission</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '14px', fontWeight: '800', color: '#1e293b' }}>{broker.commission}</div>
                           </div>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Min Deposit</div>
-                            <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.minDeposit}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Min Deposit</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '14px', fontWeight: '800', color: '#1e293b' }}>{broker.minDeposit}</div>
                           </div>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Platform</div>
-                            <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.platform}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Platform</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '14px', fontWeight: '800', color: '#1e293b' }}>{broker.platform}</div>
                           </div>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Bonus</div>
-                            <div style={{ fontSize: '13px', fontWeight: '800', color: '#10b981' }}>{broker.bonus}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Bonus</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '13px', fontWeight: '800', color: '#10b981' }}>{broker.bonus}</div>
                           </div>
                         </div>
 
@@ -12336,28 +12336,28 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                         {/* Info Grid */}
                         <div style={{
                           display: 'grid',
-                          gridTemplateColumns: 'repeat(4, 1fr)',
-                          gap: '16px',
-                          marginBottom: '24px',
-                          padding: '20px',
+                          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+                          gap: isMobile ? '12px' : '16px',
+                          marginBottom: isMobile ? '20px' : '24px',
+                          padding: isMobile ? '16px' : '20px',
                           background: 'rgba(248, 250, 252, 0.6)',
                           borderRadius: '16px'
                         }}>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Commission</div>
-                            <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.commission}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Commission</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '14px', fontWeight: '800', color: '#1e293b' }}>{broker.commission}</div>
                           </div>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Min Deposit</div>
-                            <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.minDeposit}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Min Deposit</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '14px', fontWeight: '800', color: '#1e293b' }}>{broker.minDeposit}</div>
                           </div>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Platform</div>
-                            <div style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b' }}>{broker.platform}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Platform</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '14px', fontWeight: '800', color: '#1e293b' }}>{broker.platform}</div>
                           </div>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Bonus</div>
-                            <div style={{ fontSize: '13px', fontWeight: '800', color: '#10b981' }}>{broker.bonus}</div>
+                            <div style={{ fontSize: isMobile ? '10px' : '11px', color: '#64748b', marginBottom: '4px', fontWeight: '600' }}>Bonus</div>
+                            <div style={{ fontSize: isMobile ? '12px' : '13px', fontWeight: '800', color: '#10b981' }}>{broker.bonus}</div>
                           </div>
                         </div>
 
