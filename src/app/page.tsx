@@ -4912,7 +4912,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
         backdropFilter: 'blur(20px) saturate(180%)',
         WebkitBackdropFilter: 'blur(20px) saturate(180%)',
         borderBottom: '1px solid rgba(226, 232, 240, 0.8)',
-        padding: '20px 0',
+        padding: isMobile ? '15px 0' : '20px 0',
         position: 'sticky',
         top: 0,
         zIndex: 100,
@@ -4922,13 +4922,13 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
         <div style={{
           maxWidth: '1400px',
           margin: '0 auto',
-          padding: '0 20px',
+          padding: isMobile ? '0 12px' : '0 20px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
           <div style={{
-            fontSize: '32px',
+            fontSize: isMobile ? '20px' : '32px',
             fontWeight: '900',
             background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #059669 100%)',
             backgroundSize: '200% 200%',
@@ -4937,15 +4937,15 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
             WebkitTextFillColor: 'transparent',
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
+            gap: isMobile ? '6px' : '12px',
             letterSpacing: '-0.5px'
           }}>
-            📊 {t.title}
+            📊 {isMobile ? 'GCC Signal' : t.title}
             <span style={{
-              fontSize: '12px',
+              fontSize: isMobile ? '10px' : '12px',
               background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
               color: 'white',
-              padding: '6px 12px',
+              padding: isMobile ? '4px 8px' : '6px 12px',
               borderRadius: '20px',
               fontWeight: '700',
               boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
@@ -4953,7 +4953,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
             }}>LIVE</span>
           </div>
 
-          <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: isMobile ? '8px' : '16px', alignItems: 'center' }}>
             {/* Enhanced Notification Bell */}
             <div style={{ position: 'relative' }}>
               <button style={{
@@ -5033,31 +5033,33 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               {language === 'en' ? '🇦🇪 العربية' : '🇺🇸 English'}
             </button>
 
-            {/* Enhanced Live Indicator */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              color: '#64748b',
-              fontSize: '14px',
-              fontWeight: '600',
-              padding: '8px 16px',
-              background: 'rgba(248, 250, 252, 0.8)',
-              borderRadius: '12px',
-              border: '1px solid #e2e8f0'
-            }}>
+            {/* Enhanced Live Indicator - Hide on mobile */}
+            {!isMobile && (
               <div style={{
-                width: '10px',
-                height: '10px',
-                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                borderRadius: '50%',
-                boxShadow: '0 0 12px rgba(16, 185, 129, 0.6)',
-                animation: 'pulse 2s ease-in-out infinite'
-              }} />
-              <span style={{ color: '#10b981', fontWeight: '700' }}>LIVE</span>
-              <span style={{ color: '#94a3b8' }}>•</span>
-              <span>{currentTime.toLocaleTimeString()}</span>
-            </div>
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                color: '#64748b',
+                fontSize: '14px',
+                fontWeight: '600',
+                padding: '8px 16px',
+                background: 'rgba(248, 250, 252, 0.8)',
+                borderRadius: '12px',
+                border: '1px solid #e2e8f0'
+              }}>
+                <div style={{
+                  width: '10px',
+                  height: '10px',
+                  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                  borderRadius: '50%',
+                  boxShadow: '0 0 12px rgba(16, 185, 129, 0.6)',
+                  animation: 'pulse 2s ease-in-out infinite'
+                }} />
+                <span style={{ color: '#10b981', fontWeight: '700' }}>LIVE</span>
+                <span style={{ color: '#94a3b8' }}>•</span>
+                <span>{currentTime.toLocaleTimeString()}</span>
+              </div>
+            )}
           </div>
         </div>
       </header>
@@ -5073,8 +5075,11 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
           maxWidth: '1400px',
           margin: '0 auto',
           display: 'flex',
-          overflowX: 'auto'
-        }}>
+          overflowX: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none'
+        } as any}>
           {[
             { key: 'signals', label: t.liveSignals, icon: '⚡' },
             { key: 'analysis', label: t.marketAnalysis, icon: '📈' },
@@ -5089,18 +5094,20 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 background: activeTab === tab.key ? '#2563eb' : 'transparent',
                 color: activeTab === tab.key ? 'white' : '#64748b',
                 border: 'none',
-                padding: '16px 24px',
+                padding: isMobile ? '12px 16px' : '16px 24px',
                 cursor: 'pointer',
-                fontSize: '14px',
+                fontSize: isMobile ? '13px' : '14px',
                 fontWeight: '600',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px',
-                borderBottom: activeTab === tab.key ? '3px solid #2563eb' : '3px solid transparent'
+                gap: isMobile ? '6px' : '8px',
+                borderBottom: activeTab === tab.key ? '3px solid #2563eb' : '3px solid transparent',
+                whiteSpace: 'nowrap',
+                transition: 'all 0.3s ease'
               }}
             >
               <span>{tab.icon}</span>
-              {tab.label}
+              {!isMobile && tab.label}
             </button>
           ))}
         </div>
@@ -5572,7 +5579,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
       <main style={{
         maxWidth: '1400px',
         margin: '0 auto',
-        padding: '24px 20px'
+        padding: isMobile ? '16px 12px' : '24px 20px'
       }}>
         {/* Layout: Content + Sidebar */}
         <div style={{
@@ -5705,8 +5712,8 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
             }}>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '24px'
+                gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: isMobile ? '12px' : '24px'
               }}>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
@@ -5853,8 +5860,8 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
             {/* Signal Cards */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-              gap: '24px'
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(350px, 1fr))',
+              gap: isMobile ? '16px' : '24px'
             }}>
               {displaySignals.map(signal => (
                 <div
@@ -7564,8 +7571,8 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               <h2 style={{ color: '#f8fafc', marginBottom: '24px', fontSize: '24px', fontWeight: '700' }}>Global Market Overview</h2>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '24px'
+                gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: isMobile ? '12px' : '24px'
               }}>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ fontSize: '32px', fontWeight: '800', color: '#10b981', marginBottom: '8px' }}>{globalMarkets.length}</div>

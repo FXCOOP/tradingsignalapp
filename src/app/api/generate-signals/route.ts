@@ -42,7 +42,7 @@ IMPORTANT:
 - Return ONLY a valid JSON array with 6 signals, no markdown formatting`
 
     const completion = await openai.chat.completions.create({
-      model: process.env.OPENAI_MODEL || 'gpt-5-nano',
+      model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
@@ -54,7 +54,7 @@ IMPORTANT:
         }
       ],
       temperature: parseFloat(process.env.OPENAI_TEMPERATURE || '0.7'),
-      max_tokens: parseInt(process.env.OPENAI_MAX_TOKENS || '3000'),
+      max_completion_tokens: parseInt(process.env.OPENAI_MAX_TOKENS || '3000'),
     })
 
     const content = completion.choices[0].message.content || '[]'
@@ -92,7 +92,7 @@ IMPORTANT:
       count: enrichedSignals.length,
       signals: enrichedSignals,
       generated: new Date().toISOString(),
-      model: process.env.OPENAI_MODEL || 'gpt-5-nano',
+      model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
       tokensUsed: completion.usage?.total_tokens || 0
     })
 
@@ -120,7 +120,7 @@ export async function GET(request: NextRequest) {
     status: 'ready',
     openaiConfigured: hasApiKey,
     apiKeyPreview,
-    model: process.env.OPENAI_MODEL || 'gpt-5-nano',
+    model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
     maxTokens: process.env.OPENAI_MAX_TOKENS || '3000',
     temperature: process.env.OPENAI_TEMPERATURE || '0.7',
     timestamp: new Date().toISOString()
