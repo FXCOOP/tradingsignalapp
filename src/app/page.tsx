@@ -54,9 +54,8 @@ export default function HomePage() {
   const [showExnessPopup, setShowExnessPopup] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
 
-  // Cookie Consent & Disclaimers
+  // Cookie Consent
   const [showCookieConsent, setShowCookieConsent] = useState(true)
-  const [showTradingDisclaimer, setShowTradingDisclaimer] = useState(true)
 
   // Add signal notification
   const addNotification = (message: string, type: 'success' | 'warning' | 'info' = 'info') => {
@@ -12896,54 +12895,26 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         </div>
       )}
 
-      {/* Trading Risk Disclaimer */}
-      {showTradingDisclaimer && (
+      {/* Footer with Trading Risk Disclaimer */}
+      <footer style={{
+        background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
+        borderTop: '1px solid #334155',
+        marginTop: '60px'
+      }}>
+        {/* Trading Risk Disclaimer Section */}
         <div style={{
-          position: 'fixed',
-          top: isMobile ? '60px' : '80px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          maxWidth: isMobile ? '95%' : '800px',
-          width: '100%',
           background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
-          border: '2px solid #f59e0b',
-          borderRadius: '12px',
-          padding: isMobile ? '16px' : '20px',
-          boxShadow: '0 8px 24px rgba(245, 158, 11, 0.3)',
-          zIndex: 9998,
-          animation: 'slideDown 0.4s ease'
+          borderBottom: '2px solid #f59e0b',
+          padding: isMobile ? '20px 16px' : '24px 20px'
         }}>
-          <button
-            onClick={() => setShowTradingDisclaimer(false)}
-            style={{
-              position: 'absolute',
-              top: '12px',
-              right: '12px',
-              background: 'rgba(0, 0, 0, 0.1)',
-              border: 'none',
-              borderRadius: '50%',
-              width: '28px',
-              height: '28px',
-              fontSize: '16px',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.2s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(0, 0, 0, 0.2)'
-              e.currentTarget.style.transform = 'scale(1.1)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(0, 0, 0, 0.1)'
-              e.currentTarget.style.transform = 'scale(1)'
-            }}
-          >
-            ×
-          </button>
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-            <div style={{ fontSize: '24px', flexShrink: 0 }}>⚠️</div>
+          <div style={{
+            maxWidth: '1400px',
+            margin: '0 auto',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: isMobile ? '12px' : '16px'
+          }}>
+            <div style={{ fontSize: isMobile ? '20px' : '24px', flexShrink: 0 }}>⚠️</div>
             <div>
               <h4 style={{
                 fontSize: isMobile ? '14px' : '16px',
@@ -12965,7 +12936,147 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
             </div>
           </div>
         </div>
-      )}
+
+        {/* Footer Content */}
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: isMobile ? '40px 20px' : '60px 20px',
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
+          gap: isMobile ? '32px' : '48px'
+        }}>
+          {/* Company Info */}
+          <div>
+            <h3 style={{
+              fontSize: isMobile ? '20px' : '24px',
+              fontWeight: '900',
+              background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              marginBottom: '16px'
+            }}>
+              GCC Signal Pro
+            </h3>
+            <p style={{
+              fontSize: isMobile ? '13px' : '14px',
+              color: '#94a3b8',
+              lineHeight: '1.6',
+              marginBottom: '20px'
+            }}>
+              Professional trading signals and market analysis for GCC traders. Real-time insights powered by AI and expert analysis.
+            </p>
+            <div style={{
+              display: 'flex',
+              gap: '12px'
+            }}>
+              {['📧', '🐦', '📱', '💼'].map((icon, i) => (
+                <div key={i} style={{
+                  width: '40px',
+                  height: '40px',
+                  background: 'rgba(59, 130, 246, 0.1)',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '18px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.2)'
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)'
+                  e.currentTarget.style.transform = 'translateY(0)'
+                }}>
+                  {icon}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 style={{
+              fontSize: isMobile ? '16px' : '18px',
+              fontWeight: '700',
+              color: '#f8fafc',
+              marginBottom: '16px'
+            }}>
+              Quick Links
+            </h4>
+            <ul style={{
+              listStyle: 'none',
+              padding: 0,
+              margin: 0
+            }}>
+              {['About Us', 'Trading Signals', 'Market Analysis', 'Education', 'Contact'].map((link, i) => (
+                <li key={i} style={{ marginBottom: '12px' }}>
+                  <a href="#" style={{
+                    fontSize: isMobile ? '13px' : '14px',
+                    color: '#94a3b8',
+                    textDecoration: 'none',
+                    transition: 'color 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#2563eb'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#94a3b8'}>
+                    {link}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h4 style={{
+              fontSize: isMobile ? '16px' : '18px',
+              fontWeight: '700',
+              color: '#f8fafc',
+              marginBottom: '16px'
+            }}>
+              Legal
+            </h4>
+            <ul style={{
+              listStyle: 'none',
+              padding: 0,
+              margin: 0
+            }}>
+              {['Privacy Policy', 'Terms of Service', 'Cookie Policy', 'Risk Disclosure', 'Compliance'].map((link, i) => (
+                <li key={i} style={{ marginBottom: '12px' }}>
+                  <a href="#" style={{
+                    fontSize: isMobile ? '13px' : '14px',
+                    color: '#94a3b8',
+                    textDecoration: 'none',
+                    transition: 'color 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#2563eb'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#94a3b8'}>
+                    {link}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Copyright */}
+        <div style={{
+          borderTop: '1px solid #334155',
+          padding: isMobile ? '20px' : '24px 20px',
+          textAlign: 'center'
+        }}>
+          <p style={{
+            fontSize: isMobile ? '12px' : '13px',
+            color: '#64748b',
+            margin: 0
+          }}>
+            © {new Date().getFullYear()} GCC Signal Pro. All rights reserved. | Not financial advice - For educational purposes only.
+          </p>
+        </div>
+      </footer>
 
       <style jsx global>{`
         /* Enhanced Animations */
