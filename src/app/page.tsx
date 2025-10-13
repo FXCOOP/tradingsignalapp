@@ -13000,10 +13000,14 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
               gap: '12px',
               marginBottom: '24px'
             }}>
-              {['📧', '🐦', '📱', '💼'].map((icon, i) => (
-                <div key={i} style={{
-                  width: '40px',
-                  height: '40px',
+              {/* Email Contact */}
+              <a
+                href="mailto:support@gccsignalpro.com"
+                title="Email Us"
+                aria-label="Email support@gccsignalpro.com"
+                style={{
+                  width: '44px',
+                  height: '44px',
                   background: 'rgba(59, 130, 246, 0.1)',
                   borderRadius: '8px',
                   display: 'flex',
@@ -13011,7 +13015,8 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                   justifyContent: 'center',
                   fontSize: '18px',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  textDecoration: 'none'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = 'rgba(59, 130, 246, 0.2)'
@@ -13021,9 +13026,101 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                   e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)'
                   e.currentTarget.style.transform = 'translateY(0)'
                 }}>
-                  {icon}
-                </div>
-              ))}
+                📧
+              </a>
+
+              {/* Twitter/X */}
+              <a
+                href="https://twitter.com/gccsignalpro"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Follow us on X (Twitter)"
+                aria-label="Follow us on X (Twitter)"
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  background: 'rgba(59, 130, 246, 0.1)',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '18px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  textDecoration: 'none'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.2)'
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)'
+                  e.currentTarget.style.transform = 'translateY(0)'
+                }}>
+                🐦
+              </a>
+
+              {/* Telegram */}
+              <a
+                href="https://t.me/gccsignalpro"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Join our Telegram channel"
+                aria-label="Join our Telegram channel"
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  background: 'rgba(59, 130, 246, 0.1)',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '18px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  textDecoration: 'none'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.2)'
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)'
+                  e.currentTarget.style.transform = 'translateY(0)'
+                }}>
+                📱
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="https://www.linkedin.com/company/gcc-signal-pro"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Connect on LinkedIn"
+                aria-label="Connect with us on LinkedIn"
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  background: 'rgba(59, 130, 246, 0.1)',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '18px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  textDecoration: 'none'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.2)'
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)'
+                  e.currentTarget.style.transform = 'translateY(0)'
+                }}>
+                💼
+              </a>
             </div>
 
             {/* Trading Risk Disclaimer - Under Company Info */}
