@@ -54,6 +54,10 @@ export default function HomePage() {
   const [showExnessPopup, setShowExnessPopup] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
 
+  // Cookie Consent & Disclaimers
+  const [showCookieConsent, setShowCookieConsent] = useState(true)
+  const [showTradingDisclaimer, setShowTradingDisclaimer] = useState(true)
+
   // Add signal notification
   const addNotification = (message: string, type: 'success' | 'warning' | 'info' = 'info') => {
     const newNotification = {
@@ -11120,23 +11124,26 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                   {/* Course Header */}
                   <div style={{
                     display: 'flex',
+                    flexDirection: isMobile ? 'column' : 'row',
                     justifyContent: 'space-between',
-                    alignItems: 'flex-start',
-                    marginBottom: '24px'
+                    alignItems: isMobile ? 'flex-start' : 'flex-start',
+                    marginBottom: isMobile ? '16px' : '24px',
+                    gap: isMobile ? '16px' : '0'
                   }}>
-                    <div>
+                    <div style={{ flex: isMobile ? '1' : 'initial' }}>
                       <div style={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '12px',
-                        marginBottom: '12px'
+                        flexWrap: 'wrap',
+                        gap: isMobile ? '8px' : '12px',
+                        marginBottom: isMobile ? '8px' : '12px'
                       }}>
                         <span style={{
                           background: course.color + '15',
                           color: course.color,
-                          padding: '8px 16px',
+                          padding: isMobile ? '6px 12px' : '8px 16px',
                           borderRadius: '12px',
-                          fontSize: '14px',
+                          fontSize: isMobile ? '12px' : '14px',
                           fontWeight: '700'
                         }}>
                           {course.level}
@@ -11149,30 +11156,30 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                           {[...Array(5)].map((_, i) => (
                             <span key={i} style={{
                               color: i < Math.floor(course.rating) ? '#f59e0b' : '#e5e7eb',
-                              fontSize: '14px'
+                              fontSize: isMobile ? '12px' : '14px'
                             }}>★</span>
                           ))}
                           <span style={{
-                            fontSize: '14px',
+                            fontSize: isMobile ? '12px' : '14px',
                             color: '#64748b',
                             fontWeight: '600',
                             marginLeft: '4px'
                           }}>
-                            {course.rating} ({course.students.toLocaleString()} students)
+                            {course.rating} ({course.students.toLocaleString()}{!isMobile && ' students'})
                           </span>
                         </div>
                       </div>
                       <h3 style={{
-                        fontSize: '26px',
+                        fontSize: isMobile ? '18px' : '26px',
                         fontWeight: '900',
                         color: '#1e293b',
-                        marginBottom: '8px',
+                        marginBottom: isMobile ? '6px' : '8px',
                         lineHeight: '1.3'
                       }}>
                         {course.title}
                       </h3>
                       <p style={{
-                        fontSize: '14px',
+                        fontSize: isMobile ? '12px' : '14px',
                         color: '#64748b',
                         fontWeight: '600',
                         margin: 0
@@ -11181,10 +11188,11 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                       </p>
                     </div>
                     <div style={{
-                      textAlign: 'right'
+                      textAlign: isMobile ? 'left' : 'right',
+                      minWidth: isMobile ? 'auto' : '120px'
                     }}>
                       <div style={{
-                        fontSize: '28px',
+                        fontSize: isMobile ? '22px' : '28px',
                         fontWeight: '900',
                         color: course.color,
                         lineHeight: '1'
@@ -11192,7 +11200,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                         {course.price}
                       </div>
                       <div style={{
-                        fontSize: '16px',
+                        fontSize: isMobile ? '13px' : '16px',
                         color: '#64748b',
                         textDecoration: 'line-through',
                         marginBottom: '4px'
@@ -11200,7 +11208,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                         {course.originalPrice}
                       </div>
                       <div style={{
-                        fontSize: '12px',
+                        fontSize: isMobile ? '11px' : '12px',
                         color: '#059669',
                         fontWeight: '600'
                       }}>
@@ -11210,10 +11218,10 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                   </div>
 
                   <p style={{
-                    fontSize: '16px',
+                    fontSize: isMobile ? '14px' : '16px',
                     color: '#64748b',
                     lineHeight: '1.7',
-                    marginBottom: '24px'
+                    marginBottom: isMobile ? '16px' : '24px'
                   }}>
                     {course.description}
                   </p>
@@ -12803,6 +12811,162 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         </div>
       )}
 
+      {/* Cookie Consent Banner */}
+      {showCookieConsent && (
+        <div style={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+          padding: isMobile ? '16px' : '20px',
+          boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.2)',
+          zIndex: 9999,
+          animation: 'slideUp 0.4s ease'
+        }}>
+          <div style={{
+            maxWidth: '1400px',
+            margin: '0 auto',
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            alignItems: isMobile ? 'flex-start' : 'center',
+            justifyContent: 'space-between',
+            gap: isMobile ? '12px' : '20px'
+          }}>
+            <div style={{ flex: 1 }}>
+              <p style={{
+                color: 'white',
+                fontSize: isMobile ? '13px' : '14px',
+                margin: 0,
+                lineHeight: '1.6'
+              }}>
+                🍪 <strong>Cookie Policy:</strong> We use cookies to enhance your experience, analyze site traffic, and personalize content. By continuing to use this site, you consent to our use of cookies in accordance with our Privacy Policy and GDPR regulations.
+              </p>
+            </div>
+            <div style={{
+              display: 'flex',
+              gap: '12px',
+              flexShrink: 0,
+              width: isMobile ? '100%' : 'auto'
+            }}>
+              <button
+                onClick={() => setShowCookieConsent(false)}
+                style={{
+                  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                  color: 'white',
+                  border: 'none',
+                  padding: isMobile ? '10px 20px' : '12px 24px',
+                  borderRadius: '8px',
+                  fontSize: isMobile ? '13px' : '14px',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  flex: isMobile ? '1' : 'initial'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              >
+                Accept All
+              </button>
+              <button
+                onClick={() => setShowCookieConsent(false)}
+                style={{
+                  background: 'transparent',
+                  color: 'white',
+                  border: '2px solid white',
+                  padding: isMobile ? '10px 20px' : '12px 24px',
+                  borderRadius: '8px',
+                  fontSize: isMobile ? '13px' : '14px',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  flex: isMobile ? '1' : 'initial'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent'
+                }}
+              >
+                Decline
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Trading Risk Disclaimer */}
+      {showTradingDisclaimer && (
+        <div style={{
+          position: 'fixed',
+          top: isMobile ? '60px' : '80px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          maxWidth: isMobile ? '95%' : '800px',
+          width: '100%',
+          background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
+          border: '2px solid #f59e0b',
+          borderRadius: '12px',
+          padding: isMobile ? '16px' : '20px',
+          boxShadow: '0 8px 24px rgba(245, 158, 11, 0.3)',
+          zIndex: 9998,
+          animation: 'slideDown 0.4s ease'
+        }}>
+          <button
+            onClick={() => setShowTradingDisclaimer(false)}
+            style={{
+              position: 'absolute',
+              top: '12px',
+              right: '12px',
+              background: 'rgba(0, 0, 0, 0.1)',
+              border: 'none',
+              borderRadius: '50%',
+              width: '28px',
+              height: '28px',
+              fontSize: '16px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(0, 0, 0, 0.2)'
+              e.currentTarget.style.transform = 'scale(1.1)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(0, 0, 0, 0.1)'
+              e.currentTarget.style.transform = 'scale(1)'
+            }}
+          >
+            ×
+          </button>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+            <div style={{ fontSize: '24px', flexShrink: 0 }}>⚠️</div>
+            <div>
+              <h4 style={{
+                fontSize: isMobile ? '14px' : '16px',
+                fontWeight: '800',
+                color: '#92400e',
+                marginBottom: '8px',
+                marginTop: 0
+              }}>
+                Trading Risk Disclaimer
+              </h4>
+              <p style={{
+                fontSize: isMobile ? '12px' : '13px',
+                color: '#78350f',
+                lineHeight: '1.6',
+                margin: 0
+              }}>
+                <strong>High Risk Warning:</strong> Trading forex, CFDs, cryptocurrencies, and derivatives carries a high level of risk and may not be suitable for all investors. You may lose more than your initial investment. Leverage can work against you. Past performance is not indicative of future results. Only trade with money you can afford to lose. Ensure you fully understand the risks involved and seek independent financial advice if necessary. This website is for educational and informational purposes only.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <style jsx global>{`
         /* Enhanced Animations */
         @keyframes pulse {
@@ -12931,6 +13095,17 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         @keyframes slideUp {
           from {
             transform: translateY(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        @keyframes slideDown {
+          from {
+            transform: translateY(-100%);
             opacity: 0;
           }
           to {
