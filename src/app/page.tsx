@@ -5597,75 +5597,75 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
         <div style={{
           background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 100%)',
           border: '1px solid #e2e8f0',
-          borderRadius: '20px',
-          padding: '32px',
-          marginBottom: '32px',
+          borderRadius: isMobile ? '16px' : '20px',
+          padding: isMobile ? '20px 16px' : '32px',
+          marginBottom: isMobile ? '20px' : '32px',
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)'
         }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '32px',
+            gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: isMobile ? '20px' : '32px',
             textAlign: 'center'
           }}>
             <div style={{ animation: 'fadeIn 0.6s ease' }}>
               <div style={{
-                fontSize: '48px',
+                fontSize: isMobile ? '32px' : '48px',
                 fontWeight: '900',
                 background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                marginBottom: '8px',
+                marginBottom: isMobile ? '4px' : '8px',
                 animation: 'countUp 2s ease'
               }}>
                 {traderCount.toLocaleString()}+
               </div>
-              <div style={{ fontSize: '14px', color: '#64748b', fontWeight: '600' }}>
+              <div style={{ fontSize: isMobile ? '11px' : '14px', color: '#64748b', fontWeight: '600' }}>
                 Active Traders
               </div>
             </div>
             <div style={{ animation: 'fadeIn 0.6s ease 0.1s', animationFillMode: 'backwards' }}>
               <div style={{
-                fontSize: '48px',
+                fontSize: isMobile ? '32px' : '48px',
                 fontWeight: '900',
                 background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                marginBottom: '8px'
+                marginBottom: isMobile ? '4px' : '8px'
               }}>
                 $2.4M+
               </div>
-              <div style={{ fontSize: '14px', color: '#64748b', fontWeight: '600' }}>
+              <div style={{ fontSize: isMobile ? '11px' : '14px', color: '#64748b', fontWeight: '600' }}>
                 Total Profits Made
               </div>
             </div>
             <div style={{ animation: 'fadeIn 0.6s ease 0.2s', animationFillMode: 'backwards' }}>
               <div style={{
-                fontSize: '48px',
+                fontSize: isMobile ? '32px' : '48px',
                 fontWeight: '900',
                 background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                marginBottom: '8px'
+                marginBottom: isMobile ? '4px' : '8px'
               }}>
                 78%
               </div>
-              <div style={{ fontSize: '14px', color: '#64748b', fontWeight: '600' }}>
+              <div style={{ fontSize: isMobile ? '11px' : '14px', color: '#64748b', fontWeight: '600' }}>
                 Average Win Rate
               </div>
             </div>
             <div style={{ animation: 'fadeIn 0.6s ease 0.3s', animationFillMode: 'backwards' }}>
               <div style={{
-                fontSize: '48px',
+                fontSize: isMobile ? '32px' : '48px',
                 fontWeight: '900',
                 background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                marginBottom: '8px'
+                marginBottom: isMobile ? '4px' : '8px'
               }}>
                 4.8★
               </div>
-              <div style={{ fontSize: '14px', color: '#64748b', fontWeight: '600' }}>
+              <div style={{ fontSize: isMobile ? '11px' : '14px', color: '#64748b', fontWeight: '600' }}>
                 Average Rating
               </div>
             </div>
@@ -5675,19 +5675,19 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
           <div style={{
             display: 'flex',
             justifyContent: 'center',
-            gap: '24px',
-            marginTop: '32px',
-            paddingTop: '32px',
+            gap: isMobile ? '8px' : '24px',
+            marginTop: isMobile ? '20px' : '32px',
+            paddingTop: isMobile ? '20px' : '32px',
             borderTop: '1px solid #e2e8f0',
             flexWrap: 'wrap'
           }}>
             {['🛡️ Regulated', '🔒 Secure', '🏆 Award Winning', '⚡ Fast Execution'].map((badge, i) => (
               <div key={i} style={{
-                padding: '12px 20px',
+                padding: isMobile ? '8px 12px' : '12px 20px',
                 background: 'white',
-                borderRadius: '12px',
+                borderRadius: isMobile ? '8px' : '12px',
                 border: '2px solid #e2e8f0',
-                fontSize: '14px',
+                fontSize: isMobile ? '11px' : '14px',
                 fontWeight: '700',
                 color: '#475569',
                 boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
@@ -5707,8 +5707,8 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
               border: '1px solid #e2e8f0',
               borderRadius: '16px',
-              padding: '32px',
-              marginBottom: '32px',
+              padding: isMobile ? '20px 16px' : '32px',
+              marginBottom: isMobile ? '20px' : '32px',
               boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
             }}>
               <div style={{
@@ -5718,47 +5718,47 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               }}>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
-                    fontSize: '32px',
+                    fontSize: isMobile ? '24px' : '32px',
                     fontWeight: '800',
                     color: '#059669',
-                    marginBottom: '8px'
+                    marginBottom: isMobile ? '4px' : '8px'
                   }}>
                     {totalProfit}
                   </div>
-                  <div style={{ fontSize: '14px', color: '#64748b' }}>Total Profit</div>
+                  <div style={{ fontSize: isMobile ? '11px' : '14px', color: '#64748b' }}>Total Profit</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
-                    fontSize: '32px',
+                    fontSize: isMobile ? '24px' : '32px',
                     fontWeight: '800',
                     color: '#2563eb',
-                    marginBottom: '8px'
+                    marginBottom: isMobile ? '4px' : '8px'
                   }}>
                     {winRate}%
                   </div>
-                  <div style={{ fontSize: '14px', color: '#64748b' }}>Win Rate</div>
+                  <div style={{ fontSize: isMobile ? '11px' : '14px', color: '#64748b' }}>Win Rate</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
-                    fontSize: '32px',
+                    fontSize: isMobile ? '24px' : '32px',
                     fontWeight: '800',
                     color: '#f59e0b',
-                    marginBottom: '8px'
+                    marginBottom: isMobile ? '4px' : '8px'
                   }}>
                     {activeSignals}
                   </div>
-                  <div style={{ fontSize: '14px', color: '#94a3b8' }}>Active Signals</div>
+                  <div style={{ fontSize: isMobile ? '11px' : '14px', color: '#94a3b8' }}>Active Signals</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
-                    fontSize: '32px',
+                    fontSize: isMobile ? '24px' : '32px',
                     fontWeight: '800',
                     color: '#8b5cf6',
-                    marginBottom: '8px'
+                    marginBottom: isMobile ? '4px' : '8px'
                   }}>
                     247
                   </div>
-                  <div style={{ fontSize: '14px', color: '#94a3b8' }}>Total Signals</div>
+                  <div style={{ fontSize: isMobile ? '11px' : '14px', color: '#94a3b8' }}>Total Signals</div>
                 </div>
               </div>
             </div>
