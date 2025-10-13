@@ -12895,48 +12895,12 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         </div>
       )}
 
-      {/* Footer with Trading Risk Disclaimer */}
+      {/* Footer */}
       <footer style={{
         background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
         borderTop: '1px solid #334155',
         marginTop: '60px'
       }}>
-        {/* Trading Risk Disclaimer Section */}
-        <div style={{
-          background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
-          borderBottom: '2px solid #f59e0b',
-          padding: isMobile ? '20px 16px' : '24px 20px'
-        }}>
-          <div style={{
-            maxWidth: '1400px',
-            margin: '0 auto',
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: isMobile ? '12px' : '16px'
-          }}>
-            <div style={{ fontSize: isMobile ? '20px' : '24px', flexShrink: 0 }}>⚠️</div>
-            <div>
-              <h4 style={{
-                fontSize: isMobile ? '14px' : '16px',
-                fontWeight: '800',
-                color: '#92400e',
-                marginBottom: '8px',
-                marginTop: 0
-              }}>
-                Trading Risk Disclaimer
-              </h4>
-              <p style={{
-                fontSize: isMobile ? '12px' : '13px',
-                color: '#78350f',
-                lineHeight: '1.6',
-                margin: 0
-              }}>
-                <strong>High Risk Warning:</strong> Trading forex, CFDs, cryptocurrencies, and derivatives carries a high level of risk and may not be suitable for all investors. You may lose more than your initial investment. Leverage can work against you. Past performance is not indicative of future results. Only trade with money you can afford to lose. Ensure you fully understand the risks involved and seek independent financial advice if necessary. This website is for educational and informational purposes only.
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* Footer Content */}
         <div style={{
           maxWidth: '1400px',
@@ -12968,7 +12932,8 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
             </p>
             <div style={{
               display: 'flex',
-              gap: '12px'
+              gap: '12px',
+              marginBottom: '24px'
             }}>
               {['📧', '🐦', '📱', '💼'].map((icon, i) => (
                 <div key={i} style={{
@@ -12994,6 +12959,42 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                   {icon}
                 </div>
               ))}
+            </div>
+
+            {/* Trading Risk Disclaimer - Under Company Info */}
+            <div style={{
+              background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
+              border: '2px solid #f59e0b',
+              borderRadius: '12px',
+              padding: isMobile ? '16px' : '20px',
+              marginTop: '20px'
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: isMobile ? '10px' : '12px'
+              }}>
+                <div style={{ fontSize: isMobile ? '18px' : '20px', flexShrink: 0 }}>⚠️</div>
+                <div>
+                  <h4 style={{
+                    fontSize: isMobile ? '13px' : '14px',
+                    fontWeight: '800',
+                    color: '#92400e',
+                    marginBottom: '6px',
+                    marginTop: 0
+                  }}>
+                    Trading Risk Disclaimer
+                  </h4>
+                  <p style={{
+                    fontSize: isMobile ? '11px' : '12px',
+                    color: '#78350f',
+                    lineHeight: '1.5',
+                    margin: 0
+                  }}>
+                    <strong>High Risk Warning:</strong> Trading forex, CFDs, cryptocurrencies, and derivatives carries a high level of risk and may not be suitable for all investors. You may lose more than your initial investment. Leverage can work against you. Past performance is not indicative of future results. Only trade with money you can afford to lose. Ensure you fully understand the risks involved and seek independent financial advice if necessary. This website is for educational and informational purposes only.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
