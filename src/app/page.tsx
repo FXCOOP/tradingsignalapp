@@ -6207,8 +6207,9 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               </div>
 
               <div style={{
-                marginTop: '24px',
-                textAlign: 'center'
+                marginTop: isMobile ? '16px' : '24px',
+                textAlign: 'center',
+                padding: isMobile ? '0 12px' : '0'
               }}>
                 <a
                   href={isMobile
@@ -6218,13 +6219,14 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                   target="_blank"
                   rel="noopener noreferrer sponsored"
                   style={{
-                    display: 'inline-block',
-                    padding: '16px 32px',
+                    display: isMobile ? 'block' : 'inline-block',
+                    width: isMobile ? '100%' : 'auto',
+                    padding: isMobile ? '14px 20px' : '16px 32px',
                     background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
                     color: '#1e293b',
                     textDecoration: 'none',
                     fontWeight: '700',
-                    fontSize: '16px',
+                    fontSize: isMobile ? '14px' : '16px',
                     borderRadius: '12px',
                     boxShadow: '0 4px 12px rgba(255, 215, 0, 0.4)',
                     transition: 'all 0.3s ease'
@@ -6238,7 +6240,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                     e.currentTarget.style.boxShadow = '0 4px 12px rgba(255, 215, 0, 0.4)'
                   }}
                 >
-                  🚀 Start Trading with Exness
+                  🚀 {isMobile ? 'Start Trading' : 'Start Trading with Exness'}
                 </a>
               </div>
             </div>
