@@ -5525,24 +5525,24 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
       <div style={{
         background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 100%)',
         borderBottom: '1px solid #e2e8f0',
-        padding: '12px 0',
+        padding: isMobile ? '8px 0' : '12px 0',
         overflow: 'hidden'
       }}>
         <div style={{
           maxWidth: '1400px',
           margin: '0 auto',
-          padding: '0 20px',
+          padding: isMobile ? '0 12px' : '0 20px',
           display: 'flex',
           alignItems: 'center',
-          gap: '24px'
+          gap: isMobile ? '8px' : '24px'
         }}>
           <div style={{
-            fontSize: '14px',
+            fontSize: isMobile ? '11px' : '14px',
             fontWeight: '700',
             color: '#2563eb',
             whiteSpace: 'nowrap'
           }}>
-            🔴 LIVE ACTIVITY:
+            {isMobile ? '🔴 LIVE:' : '🔴 LIVE ACTIVITY:'}
           </div>
           <div style={{
             flex: 1,
@@ -5551,25 +5551,26 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
             <div style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '8px',
-              fontSize: '14px',
+              gap: isMobile ? '4px' : '8px',
+              fontSize: isMobile ? '11px' : '14px',
               color: '#475569',
               fontWeight: '600',
-              animation: 'slideInRight 0.5s ease'
+              animation: 'slideInRight 0.5s ease',
+              whiteSpace: isMobile ? 'nowrap' : 'normal'
             }}>
               <span>{liveActivities[liveActivityIndex].emoji}</span>
               <span style={{ fontWeight: '700', color: '#1e293b' }}>
                 {liveActivities[liveActivityIndex].name}
               </span>
-              <span>from {liveActivities[liveActivityIndex].location} just made</span>
+              <span>{isMobile ? 'from' : 'from'} {liveActivities[liveActivityIndex].location}</span>
               <span style={{
                 color: '#10b981',
                 fontWeight: '800',
-                fontSize: '16px'
+                fontSize: isMobile ? '13px' : '16px'
               }}>
                 {liveActivities[liveActivityIndex].profit}
               </span>
-              <span>on our signals!</span>
+              {!isMobile && <span>on our signals!</span>}
             </div>
           </div>
         </div>
@@ -5764,78 +5765,92 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
 
             <div style={{
               display: 'flex',
+              flexDirection: isMobile ? 'column' : 'row',
               justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: '24px'
+              alignItems: isMobile ? 'flex-start' : 'center',
+              marginBottom: isMobile ? '16px' : '24px',
+              gap: isMobile ? '12px' : '0'
             }}>
-              <div>
+              <div style={{ flex: isMobile ? '1' : 'initial', width: isMobile ? '100%' : 'auto' }}>
                 <h1 style={{
-                  fontSize: '36px',
+                  fontSize: isMobile ? '24px' : '36px',
                   fontWeight: '900',
                   margin: '0 0 8px 0',
                   background: 'linear-gradient(135deg, #2563eb 0%, #059669 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent'
                 }}>
-                  ⚡ Live Trading Signals
+                  ⚡ {isMobile ? 'Live Signals' : 'Live Trading Signals'}
                 </h1>
-                <p style={{
-                  fontSize: '16px',
-                  color: '#64748b',
-                  margin: 0,
-                  fontWeight: '500'
-                }}>
-                  Real-time market analysis and high-probability trading opportunities
-                </p>
+                {!isMobile && (
+                  <p style={{
+                    fontSize: '16px',
+                    color: '#64748b',
+                    margin: 0,
+                    fontWeight: '500'
+                  }}>
+                    Real-time market analysis and high-probability trading opportunities
+                  </p>
+                )}
               </div>
               <div style={{
-                background: '#059669',
-                color: 'white',
-                padding: '8px 16px',
-                borderRadius: '8px',
-                fontSize: '14px',
-                fontWeight: '600'
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                flexWrap: isMobile ? 'wrap' : 'nowrap',
+                width: isMobile ? '100%' : 'auto'
               }}>
-                {displaySignals.filter(s => s.status === 'ACTIVE').length} Active Signals
-              </div>
-
-              {/* 🤖 AI Signal Generation Button */}
-              <button
-                onClick={fetchAISignals}
-                disabled={isLoadingSignals}
-                style={{
-                  background: isLoadingSignals
-                    ? '#94a3b8'
-                    : 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+                <div style={{
+                  background: '#059669',
                   color: 'white',
-                  padding: '12px 24px',
-                  borderRadius: '12px',
-                  border: 'none',
-                  fontSize: '14px',
-                  fontWeight: '700',
-                  cursor: isLoadingSignals ? 'not-allowed' : 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)'
-                }}
-                onMouseEnter={(e) => {
-                  if (!isLoadingSignals) {
-                    e.currentTarget.style.transform = 'translateY(-2px)'
-                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 99, 235, 0.4)'
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)'
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.3)'
-                }}
-              >
-                <span style={{ fontSize: '18px' }}>
-                  {isLoadingSignals ? '⏳' : '🤖'}
-                </span>
-                {isLoadingSignals ? 'Generating AI Signals...' : 'Generate New AI Signals'}
-              </button>
+                  padding: isMobile ? '6px 12px' : '8px 16px',
+                  borderRadius: '8px',
+                  fontSize: isMobile ? '12px' : '14px',
+                  fontWeight: '600'
+                }}>
+                  {displaySignals.filter(s => s.status === 'ACTIVE').length} Active
+                </div>
+
+                {/* 🤖 AI Signal Generation Button */}
+                <button
+                  onClick={fetchAISignals}
+                  disabled={isLoadingSignals}
+                  style={{
+                    background: isLoadingSignals
+                      ? '#94a3b8'
+                      : 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+                    color: 'white',
+                    padding: isMobile ? '10px 16px' : '12px 24px',
+                    borderRadius: '12px',
+                    border: 'none',
+                    fontSize: isMobile ? '12px' : '14px',
+                    fontWeight: '700',
+                    cursor: isLoadingSignals ? 'not-allowed' : 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: isMobile ? '6px' : '8px',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)',
+                    flex: isMobile ? '1' : 'initial',
+                    justifyContent: 'center'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isLoadingSignals) {
+                      e.currentTarget.style.transform = 'translateY(-2px)'
+                      e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 99, 235, 0.4)'
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.3)'
+                  }}
+                >
+                  <span style={{ fontSize: isMobile ? '16px' : '18px' }}>
+                    {isLoadingSignals ? '⏳' : '🤖'}
+                  </span>
+                  {isLoadingSignals ? (isMobile ? 'Generating...' : 'Generating AI Signals...') : (isMobile ? 'Generate AI Signals' : 'Generate New AI Signals')}
+                </button>
+              </div>
             </div>
 
             {/* Loading State */}
