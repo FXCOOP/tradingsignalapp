@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { designSystem } from './design-system'
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState('signals')
@@ -4914,70 +4915,75 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
         background: 'rgba(255, 255, 255, 0.75)',
         backdropFilter: 'blur(20px) saturate(180%)',
         WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-        borderBottom: '1px solid rgba(226, 232, 240, 0.8)',
-        padding: isMobile ? '15px 0' : '20px 0',
+        borderBottom: `1px solid ${designSystem.colors.neutral[200]}`,
+        padding: isMobile ? designSystem.spacing[4] + ' 0' : designSystem.spacing[5] + ' 0',
         position: 'sticky',
         top: 0,
-        zIndex: 100,
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
-        transition: 'all 0.3s ease'
+        zIndex: designSystem.zIndex.sticky,
+        boxShadow: designSystem.shadows.sm,
+        transition: designSystem.transitions.normal
       }}>
         <div style={{
           maxWidth: '1400px',
           margin: '0 auto',
-          padding: isMobile ? '0 12px' : '0 20px',
+          padding: isMobile ? `0 ${designSystem.spacing.container.mobile}` : `0 ${designSystem.spacing.container.desktop}`,
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
           <div style={{
-            fontSize: isMobile ? '20px' : '32px',
-            fontWeight: '900',
-            background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #059669 100%)',
+            fontSize: isMobile ? designSystem.typography.sizes.h3.mobile : designSystem.typography.sizes.h1.desktop,
+            fontWeight: designSystem.typography.weights.black,
+            background: `linear-gradient(135deg, ${designSystem.colors.primary.main} 0%, ${designSystem.colors.info.main} 50%, ${designSystem.colors.success.main} 100%)`,
             backgroundSize: '200% 200%',
             animation: 'gradientShift 3s ease infinite',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             display: 'flex',
             alignItems: 'center',
-            gap: isMobile ? '6px' : '12px',
-            letterSpacing: '-0.5px'
+            gap: isMobile ? designSystem.spacing[2] : designSystem.spacing[3],
+            letterSpacing: designSystem.typography.letterSpacing.tight
           }}>
             📊 {isMobile ? 'GCC Signal' : t.title}
             <span style={{
-              fontSize: isMobile ? '10px' : '12px',
-              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+              fontSize: designSystem.typography.sizes.tiny.mobile,
+              background: `linear-gradient(135deg, ${designSystem.colors.success.main} 0%, ${designSystem.colors.success.dark} 100%)`,
               color: 'white',
-              padding: isMobile ? '4px 8px' : '6px 12px',
-              borderRadius: '20px',
-              fontWeight: '700',
-              boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+              padding: isMobile ? `${designSystem.spacing[1]} ${designSystem.spacing[2]}` : `${designSystem.spacing[2]} ${designSystem.spacing[3]}`,
+              borderRadius: designSystem.borderRadius.full,
+              fontWeight: designSystem.typography.weights.bold,
+              boxShadow: designSystem.shadows.success,
               animation: 'pulse 2s ease-in-out infinite'
             }}>LIVE</span>
           </div>
 
-          <div style={{ display: 'flex', gap: isMobile ? '8px' : '16px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: isMobile ? designSystem.spacing[2] : designSystem.spacing[4], alignItems: 'center' }}>
             {/* Enhanced Notification Bell */}
             <div style={{ position: 'relative' }}>
               <button style={{
-                background: 'linear-gradient(135deg, #334155 0%, #1e293b 100%)',
+                background: `linear-gradient(135deg, ${designSystem.colors.neutral[700]} 0%, ${designSystem.colors.neutral[800]} 100%)`,
                 border: 'none',
-                color: '#f8fafc',
-                padding: '10px 14px',
-                borderRadius: '12px',
+                color: designSystem.colors.neutral[50],
+                padding: designSystem.spacing[3],
+                borderRadius: designSystem.borderRadius.md,
                 cursor: 'pointer',
-                fontSize: '18px',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                transition: 'all 0.3s ease',
-                transform: 'scale(1)'
+                fontSize: designSystem.typography.sizes.h4.mobile,
+                boxShadow: designSystem.shadows.md,
+                transition: designSystem.transitions.normal,
+                transform: 'scale(1)',
+                minWidth: '44px',
+                minHeight: '44px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'scale(1.1) translateY(-2px)'
-                e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.2)'
+                e.currentTarget.style.boxShadow = designSystem.shadows.lg
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'scale(1)'
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)'
+                e.currentTarget.style.boxShadow = designSystem.shadows.md
               }}>
                 🔔
               </button>
@@ -4986,17 +4992,17 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                   position: 'absolute',
                   top: '-4px',
                   right: '-4px',
-                  background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+                  background: `linear-gradient(135deg, ${designSystem.colors.danger.main} 0%, ${designSystem.colors.danger.dark} 100%)`,
                   color: 'white',
-                  borderRadius: '50%',
+                  borderRadius: designSystem.borderRadius.full,
                   width: '20px',
                   height: '20px',
-                  fontSize: '11px',
+                  fontSize: designSystem.typography.sizes.caption.mobile,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontWeight: '700',
-                  boxShadow: '0 2px 8px rgba(239, 68, 68, 0.4)',
+                  fontWeight: designSystem.typography.weights.bold,
+                  boxShadow: `0 2px 8px ${designSystem.colors.danger.bg}`,
                   animation: 'bounce 1s ease infinite'
                 }}>
                   {notifications.length}
@@ -5008,29 +5014,30 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
             <button
               onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
               style={{
-                background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
-                border: '2px solid #e2e8f0',
-                color: '#475569',
-                padding: '10px 18px',
-                borderRadius: '12px',
+                background: `linear-gradient(135deg, ${designSystem.colors.neutral[50]} 0%, ${designSystem.colors.neutral[100]} 100%)`,
+                border: `2px solid ${designSystem.colors.neutral[200]}`,
+                color: designSystem.colors.neutral[600],
+                padding: `${designSystem.spacing[3]} ${designSystem.spacing[4]}`,
+                borderRadius: designSystem.borderRadius.md,
                 cursor: 'pointer',
-                fontSize: '13px',
-                fontWeight: '700',
-                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
-                transition: 'all 0.3s ease',
-                transform: 'scale(1)'
+                fontSize: designSystem.typography.sizes.bodySmall.mobile,
+                fontWeight: designSystem.typography.weights.bold,
+                boxShadow: designSystem.shadows.sm,
+                transition: designSystem.transitions.normal,
+                transform: 'scale(1)',
+                minHeight: '44px'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'scale(1.05)'
-                e.currentTarget.style.borderColor = '#2563eb'
-                e.currentTarget.style.color = '#2563eb'
-                e.currentTarget.style.boxShadow = '0 4px 16px rgba(37, 99, 235, 0.2)'
+                e.currentTarget.style.borderColor = designSystem.colors.primary.main
+                e.currentTarget.style.color = designSystem.colors.primary.main
+                e.currentTarget.style.boxShadow = designSystem.shadows.primary
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'scale(1)'
-                e.currentTarget.style.borderColor = '#e2e8f0'
-                e.currentTarget.style.color = '#475569'
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)'
+                e.currentTarget.style.borderColor = designSystem.colors.neutral[200]
+                e.currentTarget.style.color = designSystem.colors.neutral[600]
+                e.currentTarget.style.boxShadow = designSystem.shadows.sm
               }}
             >
               {language === 'en' ? '🇦🇪 العربية' : '🇺🇸 English'}
@@ -5041,25 +5048,25 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '10px',
-                color: '#64748b',
-                fontSize: '14px',
-                fontWeight: '600',
-                padding: '8px 16px',
-                background: 'rgba(248, 250, 252, 0.8)',
-                borderRadius: '12px',
-                border: '1px solid #e2e8f0'
+                gap: designSystem.spacing[3],
+                color: designSystem.colors.neutral[500],
+                fontSize: designSystem.typography.sizes.bodySmall.desktop,
+                fontWeight: designSystem.typography.weights.semibold,
+                padding: `${designSystem.spacing[2]} ${designSystem.spacing[4]}`,
+                background: `${designSystem.colors.neutral[50]}cc`,
+                borderRadius: designSystem.borderRadius.md,
+                border: `1px solid ${designSystem.colors.neutral[200]}`
               }}>
                 <div style={{
                   width: '10px',
                   height: '10px',
-                  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                  borderRadius: '50%',
-                  boxShadow: '0 0 12px rgba(16, 185, 129, 0.6)',
+                  background: `linear-gradient(135deg, ${designSystem.colors.success.main} 0%, ${designSystem.colors.success.dark} 100%)`,
+                  borderRadius: designSystem.borderRadius.full,
+                  boxShadow: designSystem.shadows.success,
                   animation: 'pulse 2s ease-in-out infinite'
                 }} />
-                <span style={{ color: '#10b981', fontWeight: '700' }}>LIVE</span>
-                <span style={{ color: '#94a3b8' }}>•</span>
+                <span style={{ color: designSystem.colors.success.main, fontWeight: designSystem.typography.weights.bold }}>LIVE</span>
+                <span style={{ color: designSystem.colors.neutral[400] }}>•</span>
                 <span>{currentTime.toLocaleTimeString()}</span>
               </div>
             )}
@@ -5069,10 +5076,10 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
 
       {/* Navigation */}
       <nav style={{
-        background: '#ffffff',
-        borderBottom: '1px solid #e2e8f0',
+        background: designSystem.colors.neutral[50],
+        borderBottom: `1px solid ${designSystem.colors.neutral[200]}`,
         padding: '0',
-        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+        boxShadow: designSystem.shadows.sm
       }}>
         <div style={{
           maxWidth: '1400px',
@@ -5094,17 +5101,17 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
               style={{
-                background: activeTab === tab.key ? '#2563eb' : 'transparent',
-                color: activeTab === tab.key ? 'white' : '#64748b',
+                background: activeTab === tab.key ? designSystem.colors.primary.main : 'transparent',
+                color: activeTab === tab.key ? 'white' : designSystem.colors.neutral[500],
                 border: 'none',
-                padding: isMobile ? '12px 16px' : '16px 24px',
+                padding: isMobile ? `${designSystem.spacing[3]} ${designSystem.spacing[4]}` : `${designSystem.spacing[4]} ${designSystem.spacing[6]}`,
                 cursor: 'pointer',
-                fontSize: isMobile ? '13px' : '14px',
-                fontWeight: '600',
+                fontSize: isMobile ? designSystem.typography.sizes.bodySmall.mobile : designSystem.typography.sizes.bodySmall.desktop,
+                fontWeight: designSystem.typography.weights.semibold,
                 display: 'flex',
                 alignItems: 'center',
-                gap: isMobile ? '6px' : '8px',
-                borderBottom: activeTab === tab.key ? '3px solid #2563eb' : '3px solid transparent',
+                gap: isMobile ? designSystem.spacing[2] : designSystem.spacing[2],
+                borderBottom: activeTab === tab.key ? `3px solid ${designSystem.colors.primary.main}` : '3px solid transparent',
                 whiteSpace: 'nowrap',
                 transition: 'all 0.3s ease'
               }}
@@ -5707,61 +5714,77 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
           <div>
             {/* Performance Dashboard */}
             <div style={{
-              background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
-              border: '1px solid #e2e8f0',
-              borderRadius: '16px',
-              padding: isMobile ? '20px 16px' : '32px',
-              marginBottom: isMobile ? '20px' : '32px',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
+              background: `linear-gradient(135deg, ${designSystem.colors.neutral[50]} 0%, ${designSystem.colors.neutral[100]} 100%)`,
+              border: `1px solid ${designSystem.colors.neutral[200]}`,
+              borderRadius: designSystem.borderRadius.lg,
+              padding: isMobile ? `${designSystem.spacing[5]} ${designSystem.spacing[4]}` : designSystem.spacing[8],
+              marginBottom: isMobile ? designSystem.spacing[5] : designSystem.spacing[8],
+              boxShadow: designSystem.shadows.sm
             }}>
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: isMobile ? '12px' : '24px'
+                gap: isMobile ? designSystem.spacing[3] : designSystem.spacing[6]
               }}>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
-                    fontSize: isMobile ? '24px' : '32px',
-                    fontWeight: '800',
-                    color: '#059669',
-                    marginBottom: isMobile ? '4px' : '8px'
+                    fontSize: isMobile ? designSystem.typography.sizes.h2.mobile : designSystem.typography.sizes.h1.desktop,
+                    fontWeight: designSystem.typography.weights.extrabold,
+                    color: designSystem.colors.success.dark,
+                    marginBottom: isMobile ? designSystem.spacing[1] : designSystem.spacing[2]
                   }}>
                     {totalProfit}
                   </div>
-                  <div style={{ fontSize: isMobile ? '11px' : '14px', color: '#64748b' }}>Total Profit</div>
+                  <div style={{
+                    fontSize: isMobile ? designSystem.typography.sizes.caption.mobile : designSystem.typography.sizes.bodySmall.desktop,
+                    color: designSystem.colors.neutral[500],
+                    fontWeight: designSystem.typography.weights.medium
+                  }}>Total Profit</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
-                    fontSize: isMobile ? '24px' : '32px',
-                    fontWeight: '800',
-                    color: '#2563eb',
-                    marginBottom: isMobile ? '4px' : '8px'
+                    fontSize: isMobile ? designSystem.typography.sizes.h2.mobile : designSystem.typography.sizes.h1.desktop,
+                    fontWeight: designSystem.typography.weights.extrabold,
+                    color: designSystem.colors.primary.main,
+                    marginBottom: isMobile ? designSystem.spacing[1] : designSystem.spacing[2]
                   }}>
                     {winRate}%
                   </div>
-                  <div style={{ fontSize: isMobile ? '11px' : '14px', color: '#64748b' }}>Win Rate</div>
+                  <div style={{
+                    fontSize: isMobile ? designSystem.typography.sizes.caption.mobile : designSystem.typography.sizes.bodySmall.desktop,
+                    color: designSystem.colors.neutral[500],
+                    fontWeight: designSystem.typography.weights.medium
+                  }}>Win Rate</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
-                    fontSize: isMobile ? '24px' : '32px',
-                    fontWeight: '800',
-                    color: '#f59e0b',
-                    marginBottom: isMobile ? '4px' : '8px'
+                    fontSize: isMobile ? designSystem.typography.sizes.h2.mobile : designSystem.typography.sizes.h1.desktop,
+                    fontWeight: designSystem.typography.weights.extrabold,
+                    color: designSystem.colors.warning.main,
+                    marginBottom: isMobile ? designSystem.spacing[1] : designSystem.spacing[2]
                   }}>
                     {activeSignals}
                   </div>
-                  <div style={{ fontSize: isMobile ? '11px' : '14px', color: '#94a3b8' }}>Active Signals</div>
+                  <div style={{
+                    fontSize: isMobile ? designSystem.typography.sizes.caption.mobile : designSystem.typography.sizes.bodySmall.desktop,
+                    color: designSystem.colors.neutral[500],
+                    fontWeight: designSystem.typography.weights.medium
+                  }}>Active Signals</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
-                    fontSize: isMobile ? '24px' : '32px',
-                    fontWeight: '800',
-                    color: '#8b5cf6',
-                    marginBottom: isMobile ? '4px' : '8px'
+                    fontSize: isMobile ? designSystem.typography.sizes.h2.mobile : designSystem.typography.sizes.h1.desktop,
+                    fontWeight: designSystem.typography.weights.extrabold,
+                    color: designSystem.colors.info.main,
+                    marginBottom: isMobile ? designSystem.spacing[1] : designSystem.spacing[2]
                   }}>
                     247
                   </div>
-                  <div style={{ fontSize: isMobile ? '11px' : '14px', color: '#94a3b8' }}>Total Signals</div>
+                  <div style={{
+                    fontSize: isMobile ? designSystem.typography.sizes.caption.mobile : designSystem.typography.sizes.bodySmall.desktop,
+                    color: designSystem.colors.neutral[500],
+                    fontWeight: designSystem.typography.weights.medium
+                  }}>Total Signals</div>
                 </div>
               </div>
             </div>
@@ -5771,15 +5794,15 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               flexDirection: isMobile ? 'column' : 'row',
               justifyContent: 'space-between',
               alignItems: isMobile ? 'flex-start' : 'center',
-              marginBottom: isMobile ? '16px' : '24px',
-              gap: isMobile ? '12px' : '0'
+              marginBottom: isMobile ? designSystem.spacing[4] : designSystem.spacing[6],
+              gap: isMobile ? designSystem.spacing[3] : '0'
             }}>
               <div style={{ flex: isMobile ? '1' : 'initial', width: isMobile ? '100%' : 'auto' }}>
                 <h1 style={{
-                  fontSize: isMobile ? '24px' : '36px',
-                  fontWeight: '900',
-                  margin: '0 0 8px 0',
-                  background: 'linear-gradient(135deg, #2563eb 0%, #059669 100%)',
+                  fontSize: isMobile ? designSystem.typography.sizes.h2.mobile : designSystem.typography.sizes.h1.desktop,
+                  fontWeight: designSystem.typography.weights.black,
+                  margin: `0 0 ${designSystem.spacing[2]} 0`,
+                  background: `linear-gradient(135deg, ${designSystem.colors.primary.main} 0%, ${designSystem.colors.success.main} 100%)`,
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent'
                 }}>
@@ -5787,10 +5810,10 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 </h1>
                 {!isMobile && (
                   <p style={{
-                    fontSize: '16px',
-                    color: '#64748b',
+                    fontSize: designSystem.typography.sizes.body.desktop,
+                    color: designSystem.colors.neutral[500],
                     margin: 0,
-                    fontWeight: '500'
+                    fontWeight: designSystem.typography.weights.medium
                   }}>
                     Real-time market analysis and high-probability trading opportunities
                   </p>
@@ -5799,17 +5822,20 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px',
+                gap: designSystem.spacing[3],
                 flexWrap: isMobile ? 'wrap' : 'nowrap',
                 width: isMobile ? '100%' : 'auto'
               }}>
                 <div style={{
-                  background: '#059669',
+                  background: designSystem.colors.success.main,
                   color: 'white',
-                  padding: isMobile ? '6px 12px' : '8px 16px',
-                  borderRadius: '8px',
-                  fontSize: isMobile ? '12px' : '14px',
-                  fontWeight: '600'
+                  padding: isMobile ? `${designSystem.spacing[2]} ${designSystem.spacing[3]}` : `${designSystem.spacing[2]} ${designSystem.spacing[4]}`,
+                  borderRadius: designSystem.borderRadius.sm,
+                  fontSize: isMobile ? designSystem.typography.sizes.bodySmall.mobile : designSystem.typography.sizes.bodySmall.desktop,
+                  fontWeight: designSystem.typography.weights.semibold,
+                  minHeight: '44px',
+                  display: 'flex',
+                  alignItems: 'center'
                 }}>
                   {displaySignals.filter(s => s.status === 'ACTIVE').length} Active
                 </div>
@@ -5820,35 +5846,36 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                   disabled={isLoadingSignals}
                   style={{
                     background: isLoadingSignals
-                      ? '#94a3b8'
-                      : 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+                      ? designSystem.colors.neutral[400]
+                      : `linear-gradient(135deg, ${designSystem.colors.primary.main} 0%, ${designSystem.colors.primary.dark} 100%)`,
                     color: 'white',
-                    padding: isMobile ? '10px 16px' : '12px 24px',
-                    borderRadius: '12px',
+                    padding: isMobile ? `${designSystem.spacing[3]} ${designSystem.spacing[4]}` : `${designSystem.spacing[3]} ${designSystem.spacing[6]}`,
+                    borderRadius: designSystem.borderRadius.md,
                     border: 'none',
-                    fontSize: isMobile ? '12px' : '14px',
-                    fontWeight: '700',
+                    fontSize: isMobile ? designSystem.typography.sizes.bodySmall.mobile : designSystem.typography.sizes.bodySmall.desktop,
+                    fontWeight: designSystem.typography.weights.bold,
                     cursor: isLoadingSignals ? 'not-allowed' : 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: isMobile ? '6px' : '8px',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)',
+                    gap: isMobile ? designSystem.spacing[2] : designSystem.spacing[2],
+                    transition: designSystem.transitions.normal,
+                    boxShadow: designSystem.shadows.primary,
                     flex: isMobile ? '1' : 'initial',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    minHeight: '44px'
                   }}
                   onMouseEnter={(e) => {
                     if (!isLoadingSignals) {
                       e.currentTarget.style.transform = 'translateY(-2px)'
-                      e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 99, 235, 0.4)'
+                      e.currentTarget.style.boxShadow = designSystem.shadows.xl
                     }
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.3)'
+                    e.currentTarget.style.boxShadow = designSystem.shadows.primary
                   }}
                 >
-                  <span style={{ fontSize: isMobile ? '16px' : '18px' }}>
+                  <span style={{ fontSize: designSystem.typography.sizes.h4.mobile }}>
                     {isLoadingSignals ? '⏳' : '🤖'}
                   </span>
                   {isLoadingSignals ? (isMobile ? 'Generating...' : 'Generating AI Signals...') : (isMobile ? 'Generate AI Signals' : 'Generate New AI Signals')}
@@ -5886,25 +5913,25 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                   key={signal.id}
                   onClick={() => setSelectedSignal(selectedSignal === signal.id ? null : signal.id)}
                   style={{
-                    background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
-                    border: '2px solid #e2e8f0',
-                    borderRadius: '20px',
-                    padding: '28px',
+                    background: `linear-gradient(135deg, ${designSystem.colors.neutral[50]} 0%, ${designSystem.colors.neutral[100]} 100%)`,
+                    border: `2px solid ${designSystem.colors.neutral[200]}`,
+                    borderRadius: designSystem.borderRadius.xl,
+                    padding: isMobile ? designSystem.spacing[6] : designSystem.spacing[8],
                     cursor: 'pointer',
-                    transition: 'all 0.3s ease',
+                    transition: designSystem.transitions.normal,
                     position: 'relative',
                     overflow: 'hidden',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
+                    boxShadow: designSystem.shadows.sm
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = '#2563eb'
+                    e.currentTarget.style.borderColor = designSystem.colors.primary.main
                     e.currentTarget.style.transform = 'translateY(-4px)'
-                    e.currentTarget.style.boxShadow = '0 12px 40px rgba(37, 99, 235, 0.15)'
+                    e.currentTarget.style.boxShadow = designSystem.shadows.xl
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = '#e2e8f0'
+                    e.currentTarget.style.borderColor = designSystem.colors.neutral[200]
                     e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.05)'
+                    e.currentTarget.style.boxShadow = designSystem.shadows.sm
                   }}
                 >
                   {/* Signal Header */}
@@ -5912,21 +5939,21 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    marginBottom: '16px'
+                    marginBottom: designSystem.spacing[4]
                   }}>
                     <div>
                       <h3 style={{
-                        fontSize: '22px',
-                        fontWeight: '800',
-                        margin: '0 0 4px 0',
-                        color: '#1e293b'
+                        fontSize: designSystem.typography.sizes.h3.mobile,
+                        fontWeight: designSystem.typography.weights.extrabold,
+                        margin: `0 0 ${designSystem.spacing[1]} 0`,
+                        color: designSystem.colors.neutral[900]
                       }}>
                         {signal.symbol}
                       </h3>
                       <div style={{
-                        fontSize: '12px',
-                        color: '#64748b',
-                        fontWeight: '500'
+                        fontSize: designSystem.typography.sizes.bodySmall.mobile,
+                        color: designSystem.colors.neutral[500],
+                        fontWeight: designSystem.typography.weights.medium
                       }}>
                         {signal.timeframe} • {signal.time}
                       </div>
@@ -5936,27 +5963,27 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'flex-end',
-                      gap: '8px'
+                      gap: designSystem.spacing[2]
                     }}>
                       <div style={{
                         background: signal.type === 'BUY' || signal.type === 'STRONG BUY'
-                          ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)'
-                          : 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+                          ? `linear-gradient(135deg, ${designSystem.colors.success.main} 0%, ${designSystem.colors.success.dark} 100%)`
+                          : `linear-gradient(135deg, ${designSystem.colors.danger.main} 0%, ${designSystem.colors.danger.dark} 100%)`,
                         color: 'white',
-                        padding: '6px 12px',
-                        borderRadius: '6px',
-                        fontSize: '12px',
-                        fontWeight: '700'
+                        padding: `${designSystem.spacing[2]} ${designSystem.spacing[3]}`,
+                        borderRadius: designSystem.borderRadius.sm,
+                        fontSize: designSystem.typography.sizes.bodySmall.mobile,
+                        fontWeight: designSystem.typography.weights.bold
                       }}>
                         {signal.type}
                       </div>
                       <div style={{
                         background: getStatusColor(signal.status) + '20',
                         color: getStatusColor(signal.status),
-                        padding: '4px 8px',
-                        borderRadius: '4px',
-                        fontSize: '10px',
-                        fontWeight: '600'
+                        padding: `${designSystem.spacing[1]} ${designSystem.spacing[2]}`,
+                        borderRadius: designSystem.borderRadius.sm,
+                        fontSize: designSystem.typography.sizes.tiny.mobile,
+                        fontWeight: designSystem.typography.weights.semibold
                       }}>
                         {signal.status}
                       </div>
@@ -5967,25 +5994,57 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                   <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(2, 1fr)',
-                    gap: '16px',
-                    marginBottom: '16px'
+                    gap: designSystem.spacing[4],
+                    marginBottom: designSystem.spacing[4]
                   }}>
                     <div>
-                      <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px', fontWeight: '500' }}>Entry</div>
-                      <div style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b' }}>{signal.entry}</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px', fontWeight: '500' }}>Target</div>
-                      <div style={{ fontSize: '18px', fontWeight: '700', color: '#059669' }}>{signal.target}</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px', fontWeight: '500' }}>Stop Loss</div>
-                      <div style={{ fontSize: '18px', fontWeight: '700', color: '#dc2626' }}>{signal.stopLoss}</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px', fontWeight: '500' }}>P&L</div>
                       <div style={{
-                        fontSize: '18px',
+                        fontSize: designSystem.typography.sizes.bodySmall.mobile,
+                        color: designSystem.colors.neutral[500],
+                        marginBottom: designSystem.spacing[1],
+                        fontWeight: designSystem.typography.weights.medium
+                      }}>Entry</div>
+                      <div style={{
+                        fontSize: designSystem.typography.sizes.h4.mobile,
+                        fontWeight: designSystem.typography.weights.bold,
+                        color: designSystem.colors.neutral[900]
+                      }}>{signal.entry}</div>
+                    </div>
+                    <div>
+                      <div style={{
+                        fontSize: designSystem.typography.sizes.bodySmall.mobile,
+                        color: designSystem.colors.neutral[500],
+                        marginBottom: designSystem.spacing[1],
+                        fontWeight: designSystem.typography.weights.medium
+                      }}>Target</div>
+                      <div style={{
+                        fontSize: designSystem.typography.sizes.h4.mobile,
+                        fontWeight: designSystem.typography.weights.bold,
+                        color: designSystem.colors.success.dark
+                      }}>{signal.target}</div>
+                    </div>
+                    <div>
+                      <div style={{
+                        fontSize: designSystem.typography.sizes.bodySmall.mobile,
+                        color: designSystem.colors.neutral[500],
+                        marginBottom: designSystem.spacing[1],
+                        fontWeight: designSystem.typography.weights.medium
+                      }}>Stop Loss</div>
+                      <div style={{
+                        fontSize: designSystem.typography.sizes.h4.mobile,
+                        fontWeight: designSystem.typography.weights.bold,
+                        color: designSystem.colors.danger.dark
+                      }}>{signal.stopLoss}</div>
+                    </div>
+                    <div>
+                      <div style={{
+                        fontSize: designSystem.typography.sizes.bodySmall.mobile,
+                        color: designSystem.colors.neutral[500],
+                        marginBottom: designSystem.spacing[1],
+                        fontWeight: designSystem.typography.weights.medium
+                      }}>P&L</div>
+                      <div style={{
+                        fontSize: designSystem.typography.sizes.h4.mobile,
                         fontWeight: '800',
                         color: getPnLColor(signal.pnl)
                       }}>
@@ -6224,26 +6283,29 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                   target="_blank"
                   rel="noopener noreferrer sponsored"
                   style={{
-                    display: 'inline-block',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     width: isMobile ? 'auto' : 'auto',
                     maxWidth: isMobile ? '100%' : 'auto',
-                    padding: isMobile ? '14px 32px' : '16px 32px',
-                    background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
-                    color: '#1e293b',
+                    padding: isMobile ? `${designSystem.spacing[4]} ${designSystem.spacing[8]}` : `${designSystem.spacing[4]} ${designSystem.spacing[8]}`,
+                    background: `linear-gradient(135deg, ${designSystem.colors.accent.gold} 0%, ${designSystem.colors.accent.goldLight} 100%)`,
+                    color: designSystem.colors.neutral[900],
                     textDecoration: 'none',
-                    fontWeight: '700',
-                    fontSize: isMobile ? '14px' : '16px',
-                    borderRadius: '12px',
-                    boxShadow: '0 4px 12px rgba(255, 215, 0, 0.4)',
-                    transition: 'all 0.3s ease'
+                    fontWeight: designSystem.typography.weights.bold,
+                    fontSize: isMobile ? designSystem.typography.sizes.bodySmall.mobile : designSystem.typography.sizes.body.desktop,
+                    borderRadius: designSystem.borderRadius.md,
+                    boxShadow: designSystem.shadows.gold,
+                    transition: designSystem.transitions.normal,
+                    minHeight: '44px'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-2px)'
-                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(255, 215, 0, 0.6)'
+                    e.currentTarget.style.boxShadow = designSystem.shadows['2xl']
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(255, 215, 0, 0.4)'
+                    e.currentTarget.style.boxShadow = designSystem.shadows.gold
                   }}
                 >
                   🚀 {isMobile ? 'Start Trading' : 'Start Trading with Exness'}
