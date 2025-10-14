@@ -12755,23 +12755,24 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
               ×
             </button>
 
-            {/* Hero Section with Glassmorphism */}
+            {/* Hero Section with Real Trading Image */}
             <div style={{
-              background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%)',
+              background: `linear-gradient(135deg, rgba(255, 215, 0, 0.95) 0%, rgba(255, 165, 0, 0.95) 50%, rgba(255, 140, 0, 0.95) 100%),
+                url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80') center/cover`,
               padding: isMobile ? '32px 24px 24px' : '40px 32px 32px',
               borderRadius: isMobile ? '28px 28px 0 0' : '28px 28px 0 0',
               position: 'relative',
               overflow: 'hidden'
             }}>
-              {/* Animated Background Pattern */}
+              {/* Overlay for better text readability */}
               <div style={{
                 position: 'absolute',
                 top: 0,
                 left: 0,
                 right: 0,
                 bottom: 0,
-                opacity: 0.1,
-                background: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 20px)'
+                background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.7) 0%, rgba(255, 165, 0, 0.7) 50%, rgba(255, 140, 0, 0.7) 100%)',
+                backdropFilter: 'blur(2px)'
               }} />
 
               {/* Trust Badge */}
