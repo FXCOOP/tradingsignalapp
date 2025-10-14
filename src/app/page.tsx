@@ -5547,12 +5547,17 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
         </button>
       )}
 
-      {/* NEW: Live Activity Ticker */}
+      {/* NEW: Live Activity Ticker - STICKY */}
       <div style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 999,
         background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 100%)',
         borderBottom: '1px solid #e2e8f0',
         padding: isMobile ? '8px 0' : '12px 0',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
+        backdropFilter: 'blur(8px)'
       }}>
         <div style={{
           maxWidth: '1400px',
