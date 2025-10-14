@@ -6334,14 +6334,16 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               </div>
             </div>
 
-            {/* Broker Partners Section */}
+            {/* Broker Partners Section - STICKY */}
             <div style={{
               background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
               borderRadius: '32px',
               padding: isMobile ? '40px 20px' : '64px 48px',
               marginTop: '48px',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-              position: 'relative',
+              position: isMobile ? 'sticky' : 'relative',
+              top: isMobile ? '60px' : 'auto',
+              zIndex: isMobile ? 998 : 1,
               overflow: 'hidden',
               border: '1px solid #e2e8f0'
             }}>
@@ -7156,14 +7158,16 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               </div>
             </div>
 
-            {/* Broker Partners Section */}
+            {/* Broker Partners Section - STICKY */}
             <div style={{
               background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
               borderRadius: '32px',
               padding: isMobile ? '40px 20px' : '64px 48px',
               marginTop: '48px',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-              position: 'relative',
+              position: isMobile ? 'sticky' : 'relative',
+              top: isMobile ? '60px' : 'auto',
+              zIndex: isMobile ? 998 : 1,
               overflow: 'hidden',
               border: '1px solid #e2e8f0'
             }}>
@@ -7701,14 +7705,16 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               </div>
             </div>
 
-            {/* Broker Partners Section */}
+            {/* Broker Partners Section - STICKY */}
             <div style={{
               background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
               borderRadius: '32px',
               padding: isMobile ? '40px 20px' : '64px 48px',
               marginTop: '48px',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-              position: 'relative',
+              position: isMobile ? 'sticky' : 'relative',
+              top: isMobile ? '60px' : 'auto',
+              zIndex: isMobile ? 998 : 1,
               overflow: 'hidden',
               border: '1px solid #e2e8f0'
             }}>
@@ -10320,14 +10326,16 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
               ))}
             </div>
 
-            {/* Broker Partners Section */}
+            {/* Broker Partners Section - STICKY */}
             <div style={{
               background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
               borderRadius: '32px',
               padding: isMobile ? '40px 20px' : '64px 48px',
               marginTop: '48px',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-              position: 'relative',
+              position: isMobile ? 'sticky' : 'relative',
+              top: isMobile ? '60px' : 'auto',
+              zIndex: isMobile ? 998 : 1,
               overflow: 'hidden',
               border: '1px solid #e2e8f0'
             }}>
@@ -12231,14 +12239,16 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
               )}
             </div>
 
-            {/* Broker Partners Section */}
+            {/* Broker Partners Section - STICKY */}
             <div style={{
               background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
               borderRadius: '32px',
               padding: isMobile ? '40px 20px' : '64px 48px',
               marginTop: '48px',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-              position: 'relative',
+              position: isMobile ? 'sticky' : 'relative',
+              top: isMobile ? '60px' : 'auto',
+              zIndex: isMobile ? 998 : 1,
               overflow: 'hidden',
               border: '1px solid #e2e8f0'
             }}>
