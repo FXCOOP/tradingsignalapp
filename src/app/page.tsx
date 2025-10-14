@@ -5090,12 +5090,16 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
         </div>
       </header>
 
-      {/* Navigation */}
+      {/* Navigation - STICKY */}
       <nav style={{
+        position: 'sticky',
+        top: isMobile ? '44px' : '0',
+        zIndex: 998,
         background: designSystem.colors.neutral[50],
         borderBottom: `1px solid ${designSystem.colors.neutral[200]}`,
         padding: '0',
-        boxShadow: designSystem.shadows.sm
+        boxShadow: designSystem.shadows.sm,
+        backdropFilter: 'blur(8px)'
       }}>
         <div style={{
           maxWidth: '1400px',
