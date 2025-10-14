@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
+import { getDailyContent } from '@/lib/cache'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -10,6 +11,23 @@ export const maxDuration = 60
 
 export async function POST(request: NextRequest) {
   try {
+    // 🚀 Check cache first - return cached signals if available
+    const cachedContent = await getDailyContent()
+    if (cachedContent && cachedContent.signals && cachedContent.signals.length > 0) {
+      console.log('✅ Returning cached signals')
+      return NextResponse.json({
+        success: true,
+        count: cachedContent.signals.length,
+        signals: cachedContent.signals,
+        generated: cachedContent.generatedAt,
+        expiresAt: cachedContent.expiresAt,
+        model: 'cached',
+        tokensUsed: 0,
+        cached: true
+      })
+    }
+
+    console.log('🔄 No cache found, generating fresh signals...')
     // Rate limiting check
     const rateLimitKey = request.headers.get('x-forwarded-for') || 'local'
 

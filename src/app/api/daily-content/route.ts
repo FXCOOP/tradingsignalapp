@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { saveDailyContent, getDailyContent } from '@/lib/cache'
 
 /**
  * MASTER DAILY CONTENT GENERATOR
@@ -8,6 +9,7 @@ import { NextRequest, NextResponse } from 'next/server'
  * - 1 Market Analysis
  *
  * This can be called manually or by a cron job
+ * Content is cached for 24 hours until next 8AM generation
  */
 export async function POST(request: NextRequest) {
   try {
@@ -60,6 +62,14 @@ export async function POST(request: NextRequest) {
     console.log(`📊 Tokens used: ${totalTokens}`)
     console.log(`💰 Estimated cost: $${estimatedCost.toFixed(4)}`)
 
+    // 💾 Save to cache for 24 hours
+    await saveDailyContent({
+      signals: signalsData.signals,
+      news: newsData.articles || [],
+      analysis: analysisData.analysis || null,
+      generatedAt: new Date().toISOString()
+    })
+
     return NextResponse.json({
       success: true,
       generated: new Date().toISOString(),
@@ -98,21 +108,53 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// GET endpoint to check last generation status
+// GET endpoint to retrieve cached daily content
 export async function GET(request: NextRequest) {
-  return NextResponse.json({
-    status: 'ready',
-    message: 'Send POST request to generate daily content',
-    endpoints: {
-      signals: '/api/generate-signals',
-      news: '/api/generate-news',
-      analysis: '/api/generate-analysis',
-      all: '/api/daily-content (this endpoint)'
-    },
-    configuration: {
-      model: process.env.OPENAI_MODEL || 'gpt-5-nano',
-      apiConfigured: !!process.env.OPENAI_API_KEY
-    },
-    timestamp: new Date().toISOString()
-  })
+  try {
+    const cachedContent = await getDailyContent()
+
+    if (cachedContent) {
+      return NextResponse.json({
+        success: true,
+        cached: true,
+        content: {
+          signals: {
+            count: cachedContent.signals.length,
+            data: cachedContent.signals
+          },
+          news: {
+            count: cachedContent.news?.length || 0,
+            data: cachedContent.news || []
+          },
+          analysis: cachedContent.analysis
+        },
+        generatedAt: cachedContent.generatedAt,
+        expiresAt: cachedContent.expiresAt,
+        freshness: `Generated at ${new Date(cachedContent.generatedAt).toLocaleString('en-AE', { timeZone: 'Asia/Dubai' })}`
+      })
+    }
+
+    // No cache available
+    return NextResponse.json({
+      success: false,
+      cached: false,
+      message: 'No cached content available. Generate new content by calling POST',
+      endpoints: {
+        generate: '/api/daily-content (POST)',
+        signals: '/api/generate-signals',
+        news: '/api/generate-news',
+        analysis: '/api/generate-analysis'
+      },
+      configuration: {
+        model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
+        apiConfigured: !!process.env.OPENAI_API_KEY
+      },
+      timestamp: new Date().toISOString()
+    }, { status: 404 })
+  } catch (error: any) {
+    return NextResponse.json({
+      success: false,
+      error: error.message
+    }, { status: 500 })
+  }
 }
