@@ -6574,19 +6574,24 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                           style={{
                             display: 'block',
                             width: '100%',
-                            padding: '18px',
+                            maxWidth: '100%',
+                            padding: isMobile ? '14px 16px' : '18px',
                             background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
                             color: '#1e293b',
                             border: 'none',
-                            borderRadius: '16px',
-                            fontSize: '16px',
+                            borderRadius: isMobile ? '12px' : '16px',
+                            fontSize: isMobile ? '14px' : '16px',
                             fontWeight: '900',
                             cursor: 'pointer',
                             boxShadow: `0 8px 24px ${broker.color}40`,
                             transition: 'all 0.3s ease',
                             textAlign: 'center',
                             textDecoration: 'none',
-                            letterSpacing: '0.5px'
+                            letterSpacing: '0.5px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            boxSizing: 'border-box'
                           }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.transform = 'translateY(-2px)'
@@ -6597,7 +6602,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                             e.currentTarget.style.boxShadow = `0 8px 24px ${broker.color}40`
                           }}
                         >
-                          🚀 Open Account Now →
+                          {isMobile ? '🚀 Open Account Now' : '🚀 Open Account Now →'}
                         </a>
                       </div>
                     </div>
@@ -7398,19 +7403,24 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                           style={{
                             display: 'block',
                             width: '100%',
-                            padding: '18px',
+                            maxWidth: '100%',
+                            padding: isMobile ? '14px 16px' : '18px',
                             background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
                             color: '#1e293b',
                             border: 'none',
-                            borderRadius: '16px',
-                            fontSize: '16px',
+                            borderRadius: isMobile ? '12px' : '16px',
+                            fontSize: isMobile ? '14px' : '16px',
                             fontWeight: '900',
                             cursor: 'pointer',
                             boxShadow: `0 8px 24px ${broker.color}40`,
                             transition: 'all 0.3s ease',
                             textAlign: 'center',
                             textDecoration: 'none',
-                            letterSpacing: '0.5px'
+                            letterSpacing: '0.5px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            boxSizing: 'border-box'
                           }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.transform = 'translateY(-2px)'
@@ -7421,7 +7431,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                             e.currentTarget.style.boxShadow = `0 8px 24px ${broker.color}40`
                           }}
                         >
-                          🚀 Open Account Now →
+                          {isMobile ? '🚀 Open Account Now' : '🚀 Open Account Now →'}
                         </a>
                       </div>
                     </div>
@@ -7945,19 +7955,24 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                           style={{
                             display: 'block',
                             width: '100%',
-                            padding: '18px',
+                            maxWidth: '100%',
+                            padding: isMobile ? '14px 16px' : '18px',
                             background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
                             color: '#1e293b',
                             border: 'none',
-                            borderRadius: '16px',
-                            fontSize: '16px',
+                            borderRadius: isMobile ? '12px' : '16px',
+                            fontSize: isMobile ? '14px' : '16px',
                             fontWeight: '900',
                             cursor: 'pointer',
                             boxShadow: `0 8px 24px ${broker.color}40`,
                             transition: 'all 0.3s ease',
                             textAlign: 'center',
                             textDecoration: 'none',
-                            letterSpacing: '0.5px'
+                            letterSpacing: '0.5px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            boxSizing: 'border-box'
                           }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.transform = 'translateY(-2px)'
@@ -7968,7 +7983,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                             e.currentTarget.style.boxShadow = `0 8px 24px ${broker.color}40`
                           }}
                         >
-                          🚀 Open Account Now →
+                          {isMobile ? '🚀 Open Account Now' : '🚀 Open Account Now →'}
                         </a>
                       </div>
                     </div>
@@ -10566,19 +10581,24 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                           style={{
                             display: 'block',
                             width: '100%',
-                            padding: '18px',
+                            maxWidth: '100%',
+                            padding: isMobile ? '14px 16px' : '18px',
                             background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
                             color: '#1e293b',
                             border: 'none',
-                            borderRadius: '16px',
-                            fontSize: '16px',
+                            borderRadius: isMobile ? '12px' : '16px',
+                            fontSize: isMobile ? '14px' : '16px',
                             fontWeight: '900',
                             cursor: 'pointer',
                             boxShadow: `0 8px 24px ${broker.color}40`,
                             transition: 'all 0.3s ease',
                             textAlign: 'center',
                             textDecoration: 'none',
-                            letterSpacing: '0.5px'
+                            letterSpacing: '0.5px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            boxSizing: 'border-box'
                           }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.transform = 'translateY(-2px)'
@@ -10589,7 +10609,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                             e.currentTarget.style.boxShadow = `0 8px 24px ${broker.color}40`
                           }}
                         >
-                          🚀 Open Account Now →
+                          {isMobile ? '🚀 Open Account Now' : '🚀 Open Account Now →'}
                         </a>
                       </div>
                     </div>
@@ -12479,19 +12499,24 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                           style={{
                             display: 'block',
                             width: '100%',
-                            padding: '18px',
+                            maxWidth: '100%',
+                            padding: isMobile ? '14px 16px' : '18px',
                             background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
                             color: '#1e293b',
                             border: 'none',
-                            borderRadius: '16px',
-                            fontSize: '16px',
+                            borderRadius: isMobile ? '12px' : '16px',
+                            fontSize: isMobile ? '14px' : '16px',
                             fontWeight: '900',
                             cursor: 'pointer',
                             boxShadow: `0 8px 24px ${broker.color}40`,
                             transition: 'all 0.3s ease',
                             textAlign: 'center',
                             textDecoration: 'none',
-                            letterSpacing: '0.5px'
+                            letterSpacing: '0.5px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            boxSizing: 'border-box'
                           }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.transform = 'translateY(-2px)'
@@ -12502,7 +12527,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                             e.currentTarget.style.boxShadow = `0 8px 24px ${broker.color}40`
                           }}
                         >
-                          🚀 Open Account Now →
+                          {isMobile ? '🚀 Open Account Now' : '🚀 Open Account Now →'}
                         </a>
                       </div>
                     </div>
