@@ -5,6 +5,9 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
+// Increase timeout for API route (60 seconds)
+export const maxDuration = 60
+
 export async function POST(request: NextRequest) {
   try {
     // Rate limiting check
@@ -54,7 +57,9 @@ IMPORTANT:
         }
       ],
       temperature: parseFloat(process.env.OPENAI_TEMPERATURE || '0.7'),
-      max_completion_tokens: parseInt(process.env.OPENAI_MAX_TOKENS || '3000'),
+      max_completion_tokens: parseInt(process.env.OPENAI_MAX_TOKENS || '2000')
+    }, {
+      timeout: 45000 // 45 second timeout for OpenAI
     })
 
     const content = completion.choices[0].message.content || '[]'
