@@ -13932,6 +13932,25 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
           -moz-osx-font-smoothing: grayscale;
         }
       `}</style>
+
+      {/* SEO Backlinks Component - Hidden from users, visible to search engines */}
+      <div style={{
+        position: 'absolute',
+        left: '-9999px',
+        width: '1px',
+        height: '1px',
+        overflow: 'hidden',
+        opacity: 0,
+        pointerEvents: 'none'
+      }}>
+        <a href="/copy-trading">Auto Copy Trading GCC</a>
+        <a href="https://one.exnessonelink.com/a/c_8f0nxidtbt" rel="sponsored">Exness broker</a>
+        <a href="https://www.tradingview.com" rel="nofollow">TradingView charts</a>
+        <a href="https://www.tadawul.com.sa" rel="nofollow">TASI Saudi Stock Exchange</a>
+        <a href="https://www.dfm.ae" rel="nofollow">Dubai Financial Market</a>
+        <a href="https://www.adx.ae" rel="nofollow">Abu Dhabi Securities Exchange</a>
+        <p style={{ fontSize: '1px' }}>trading signals dubai abu dhabi gcc forex signals uae saudi arabia ksa qatar kuwait bahrain oman trading signals riyadh jeddah doha manama muscat kuwait city sharjah gold signals bitcoin crypto signals tasi dfm adx trading arabic signals halal trading islamic finance</p>
+      </div>
     </div>
   )
 }
