@@ -13811,6 +13811,17 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
           background: linear-gradient(135deg, #1e40af 0%, #6d28d9 100%);
         }
 
+        /* STICKY POSITIONING - CRITICAL FOR MOBILE UX */
+        header {
+          position: -webkit-sticky !important;
+          position: sticky !important;
+        }
+
+        nav {
+          position: -webkit-sticky !important;
+          position: sticky !important;
+        }
+
         /* Responsive Media Queries */
         @media (max-width: 768px) {
           .signal-grid {
@@ -13823,6 +13834,21 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
 
           .market-grid {
             grid-template-columns: 1fr !important;
+          }
+
+          /* Ensure sticky works on mobile */
+          header {
+            position: -webkit-sticky !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1020 !important;
+          }
+
+          nav {
+            position: -webkit-sticky !important;
+            position: sticky !important;
+            top: 44px !important;
+            z-index: 998 !important;
           }
         }
 
