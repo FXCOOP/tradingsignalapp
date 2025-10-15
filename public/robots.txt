@@ -1,29 +1,62 @@
+# GCC Signal Pro - Robots.txt
+# Welcome search engines! We want maximum visibility.
+
 User-agent: *
 Allow: /
+Allow: /signals
+Allow: /copy-trading
+Allow: /markets/*
+Allow: /education/*
+Allow: /news/*
+Allow: /brokers/*
+Allow: /api/generate-signals
+Allow: /api/generate-news
+
+Disallow: /api/admin/*
+Disallow: /admin/*
+Disallow: /_next/static/
+Disallow: /private/*
 
 # Sitemap
-Sitemap: https://pksignalpulse.com/sitemap.xml
-Sitemap: https://pksignalpulse.com/sitemap-0.xml
+Sitemap: https://gccsignalpro.com/sitemap.xml
+Sitemap: https://gccsignalpro.com/sitemap-news.xml
 
-# Allow all major search engines
+# Crawl-delay for major search engines (0 = no delay, crawl as fast as you want)
+Crawl-delay: 0
+
+# Google-specific
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 0
 
-User-agent: Bingbot
+User-agent: Googlebot-Image
 Allow: /
 
+User-agent: Googlebot-Mobile
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+# Yahoo
 User-agent: Slurp
 Allow: /
 
-User-agent: DuckDuckBot
+# Yandex
+User-agent: Yandex
 Allow: /
 
+# Baidu (Chinese search engine)
 User-agent: Baiduspider
 Allow: /
 
-User-agent: YandexBot
+# DuckDuckGo
+User-agent: DuckDuckBot
 Allow: /
 
+# Allow social media crawlers for rich previews
 User-agent: facebookexternalhit
 Allow: /
 
@@ -33,24 +66,21 @@ Allow: /
 User-agent: LinkedInBot
 Allow: /
 
-# Crawl delay for respectful crawling
-Crawl-delay: 1
+User-agent: WhatsApp
+Allow: /
 
-# Disallow admin and private areas
-Disallow: /admin/
-Disallow: /api/
-Disallow: /private/
-Disallow: /_next/
-Disallow: /node_modules/
+User-agent: TelegramBot
+Allow: /
 
-# Allow important pages
-Allow: /signals
-Allow: /education
-Allow: /pricing
-Allow: /brokers
-Allow: /ai-analysis
-Allow: /about
-Allow: /contact
-Allow: /terms
-Allow: /privacy
-Allow: /sitemap
+# SEO Tools
+User-agent: AhrefsBot
+Allow: /
+
+User-agent: SemrushBot
+Allow: /
+
+User-agent: MJ12bot
+Allow: /
+
+User-agent: DotBot
+Allow: /

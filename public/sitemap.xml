@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://gccsignalpro.com/</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gccsignalpro.com/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://gccsignalpro.com/ar" />
+  </url>
+
+  <!-- Copy Trading Page -->
+  <url>
+    <loc>https://gccsignalpro.com/copy-trading</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gccsignalpro.com/copy-trading" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://gccsignalpro.com/ar/copy-trading" />
+  </url>
+
+  <!-- Signals Page -->
+  <url>
+    <loc>https://gccsignalpro.com/signals</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Markets Pages -->
+  <url>
+    <loc>https://gccsignalpro.com/markets/uae</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/markets/saudi-arabia</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/markets/qatar</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/markets/kuwait</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/markets/bahrain</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/markets/oman</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Trading Instruments -->
+  <url>
+    <loc>https://gccsignalpro.com/signals/forex</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/signals/gold</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/signals/bitcoin</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/signals/stocks</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Education Pages -->
+  <url>
+    <loc>https://gccsignalpro.com/education</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/education/beginners</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/education/advanced</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Blog/News Pages -->
+  <url>
+    <loc>https://gccsignalpro.com/news</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Static Pages -->
+  <url>
+    <loc>https://gccsignalpro.com/about</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/pricing</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/contact</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Broker Pages (SEO-optimized landing pages) -->
+  <url>
+    <loc>https://gccsignalpro.com/brokers/exness</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/brokers/icmarkets</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/brokers/xm</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- City-Specific Pages for Local SEO -->
+  <url>
+    <loc>https://gccsignalpro.com/dubai</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/abu-dhabi</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/riyadh</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/jeddah</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/doha</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://gccsignalpro.com/kuwait-city</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+</urlset>
