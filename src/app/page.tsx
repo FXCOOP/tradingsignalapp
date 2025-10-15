@@ -4948,19 +4948,33 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
           alignItems: 'center'
         }}>
           <div style={{
-            fontSize: isMobile ? designSystem.typography.sizes.h3.mobile : designSystem.typography.sizes.h1.desktop,
-            fontWeight: designSystem.typography.weights.black,
-            background: `linear-gradient(135deg, ${designSystem.colors.primary.main} 0%, ${designSystem.colors.info.main} 50%, ${designSystem.colors.success.main} 100%)`,
-            backgroundSize: '200% 200%',
-            animation: 'gradientShift 3s ease infinite',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
             display: 'flex',
             alignItems: 'center',
-            gap: isMobile ? designSystem.spacing[2] : designSystem.spacing[3],
-            letterSpacing: designSystem.typography.letterSpacing.tight
+            gap: isMobile ? designSystem.spacing[2] : designSystem.spacing[3]
           }}>
-            📊 {isMobile ? 'GCC Signal' : t.title}
+            {/* Professional Logo */}
+            {isMobile ? (
+              <img
+                src="/logo-icon.svg"
+                alt="GCC Signal Pro"
+                style={{
+                  height: '32px',
+                  width: '32px',
+                  filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))'
+                }}
+              />
+            ) : (
+              <img
+                src="/logo.svg"
+                alt="GCC Signal Pro"
+                style={{
+                  height: '40px',
+                  width: 'auto',
+                  filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))'
+                }}
+              />
+            )}
+
             <span style={{
               fontSize: designSystem.typography.sizes.tiny.mobile,
               background: `linear-gradient(135deg, ${designSystem.colors.success.main} 0%, ${designSystem.colors.success.dark} 100%)`,
