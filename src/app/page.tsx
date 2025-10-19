@@ -79,8 +79,17 @@ export default function HomePage() {
     }, 5000)
   }
 
-  // Follow signal function
+  // Follow signal function - REQUIRES AUTHENTICATION
   const followSignal = (signalId: number) => {
+    // 🔐 Check if user is logged in
+    if (!user) {
+      setAuthMode('signup')
+      setShowAuthModal(true)
+      addNotification('🔐 Please sign up to follow signals (it\'s FREE!)', 'warning')
+      return
+    }
+
+    // User is logged in - proceed with follow/unfollow
     if (followedSignals.includes(signalId)) {
       setFollowedSignals(prev => prev.filter(id => id !== signalId))
       addNotification('Signal unfollowed', 'info')
