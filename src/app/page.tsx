@@ -1,8 +1,15 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { designSystem } from './design-system'
+import { useUser } from '@/contexts/UserContext'
+import { AuthModal } from '@/components/AuthModal'
 
 export default function HomePage() {
+  // 🔐 Authentication
+  const { user, loading: authLoading, logout, isPremium, getRemainingFree } = useUser()
+  const [showAuthModal, setShowAuthModal] = useState(false)
+  const [authMode, setAuthMode] = useState<'signup' | 'login'>('signup')
+
   const [activeTab, setActiveTab] = useState('signals')
   const [language, setLanguage] = useState('en')
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -5039,6 +5046,131 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 </div>
               )}
             </div>
+
+            {/* 🔐 Authentication Buttons */}
+            {!authLoading && (
+              <>
+                {user ? (
+                  // User Menu (logged in)
+                  <div style={{ position: 'relative', display: 'flex', gap: designSystem.spacing[2], alignItems: 'center' }}>
+                    {/* User Info */}
+                    <div style={{
+                      display: isMobile ? 'none' : 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'flex-end',
+                      marginRight: designSystem.spacing[2]
+                    }}>
+                      <span style={{
+                        fontSize: designSystem.typography.sizes.bodySmall.desktop,
+                        fontWeight: designSystem.typography.weights.semibold,
+                        color: designSystem.colors.neutral[700]
+                      }}>
+                        {user.email.split('@')[0]}
+                      </span>
+                      <span style={{
+                        fontSize: designSystem.typography.sizes.caption.desktop,
+                        color: isPremium() ? designSystem.colors.success.main : designSystem.colors.warning.main,
+                        fontWeight: designSystem.typography.weights.bold
+                      }}>
+                        {isPremium() ? '✨ Premium' : `📊 Free (${getRemainingFree('signals')}/3 signals)`}
+                      </span>
+                    </div>
+
+                    {/* Logout Button */}
+                    <button
+                      onClick={logout}
+                      style={{
+                        background: `linear-gradient(135deg, ${designSystem.colors.neutral[600]} 0%, ${designSystem.colors.neutral[700]} 100%)`,
+                        border: 'none',
+                        color: 'white',
+                        padding: `${designSystem.spacing[3]} ${designSystem.spacing[4]}`,
+                        borderRadius: designSystem.borderRadius.md,
+                        cursor: 'pointer',
+                        fontSize: designSystem.typography.sizes.bodySmall.mobile,
+                        fontWeight: designSystem.typography.weights.bold,
+                        boxShadow: designSystem.shadows.md,
+                        transition: designSystem.transitions.normal,
+                        minHeight: '44px'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.05)'
+                        e.currentTarget.style.boxShadow = designSystem.shadows.lg
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)'
+                        e.currentTarget.style.boxShadow = designSystem.shadows.md
+                      }}
+                    >
+                      {isMobile ? '🚪' : '🚪 Logout'}
+                    </button>
+                  </div>
+                ) : (
+                  // Login/Signup Buttons (not logged in)
+                  <div style={{ display: 'flex', gap: designSystem.spacing[2], alignItems: 'center' }}>
+                    <button
+                      onClick={() => {
+                        setAuthMode('login')
+                        setShowAuthModal(true)
+                      }}
+                      style={{
+                        background: 'transparent',
+                        border: `2px solid ${designSystem.colors.primary.main}`,
+                        color: designSystem.colors.primary.main,
+                        padding: `${designSystem.spacing[3]} ${designSystem.spacing[4]}`,
+                        borderRadius: designSystem.borderRadius.md,
+                        cursor: 'pointer',
+                        fontSize: designSystem.typography.sizes.bodySmall.mobile,
+                        fontWeight: designSystem.typography.weights.bold,
+                        transition: designSystem.transitions.normal,
+                        minHeight: '44px'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = designSystem.colors.primary.main
+                        e.currentTarget.style.color = 'white'
+                        e.currentTarget.style.transform = 'scale(1.05)'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'transparent'
+                        e.currentTarget.style.color = designSystem.colors.primary.main
+                        e.currentTarget.style.transform = 'scale(1)'
+                      }}
+                    >
+                      {isMobile ? '🔑' : '🔑 Login'}
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setAuthMode('signup')
+                        setShowAuthModal(true)
+                      }}
+                      style={{
+                        background: `linear-gradient(135deg, ${designSystem.colors.primary.main} 0%, ${designSystem.colors.primary.dark} 100%)`,
+                        border: 'none',
+                        color: 'white',
+                        padding: `${designSystem.spacing[3]} ${designSystem.spacing[4]}`,
+                        borderRadius: designSystem.borderRadius.md,
+                        cursor: 'pointer',
+                        fontSize: designSystem.typography.sizes.bodySmall.mobile,
+                        fontWeight: designSystem.typography.weights.bold,
+                        boxShadow: designSystem.shadows.primary,
+                        transition: designSystem.transitions.normal,
+                        minHeight: '44px'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.05)'
+                        e.currentTarget.style.boxShadow = designSystem.shadows.lg
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)'
+                        e.currentTarget.style.boxShadow = designSystem.shadows.primary
+                      }}
+                    >
+                      {isMobile ? '✨' : '✨ Sign Up Free'}
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
 
             {/* Enhanced Language Selector */}
             <button
@@ -13951,6 +14083,13 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         <a href="https://www.adx.ae" rel="nofollow">Abu Dhabi Securities Exchange</a>
         <p style={{ fontSize: '1px' }}>trading signals dubai abu dhabi gcc forex signals uae saudi arabia ksa qatar kuwait bahrain oman trading signals riyadh jeddah doha manama muscat kuwait city sharjah gold signals bitcoin crypto signals tasi dfm adx trading arabic signals halal trading islamic finance</p>
       </div>
+
+      {/* 🔐 Authentication Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        defaultMode={authMode}
+      />
     </div>
   )
 }
