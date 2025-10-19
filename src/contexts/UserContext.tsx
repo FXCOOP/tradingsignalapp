@@ -35,6 +35,12 @@ export function UserProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const loadUser = async () => {
+    // Check if we're in the browser (not SSR)
+    if (typeof window === 'undefined') {
+      setLoading(false)
+      return
+    }
+
     const token = localStorage.getItem('auth_token')
     if (!token) {
       setLoading(false)
@@ -74,7 +80,9 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
 
     // Save token
-    localStorage.setItem('auth_token', data.token)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('auth_token', data.token)
+    }
     setUser(data.user)
   }
 
@@ -92,12 +100,16 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
 
     // Save token
-    localStorage.setItem('auth_token', data.token)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('auth_token', data.token)
+    }
     setUser(data.user)
   }
 
   const logout = () => {
-    localStorage.removeItem('auth_token')
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('auth_token')
+    }
     setUser(null)
   }
 
