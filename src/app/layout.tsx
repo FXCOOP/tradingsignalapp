@@ -59,6 +59,8 @@ export const metadata = {
   },
 }
 
+import { UserProvider } from '@/contexts/UserContext'
+
 export default function RootLayout({
   children,
 }: {
@@ -242,7 +244,9 @@ export default function RootLayout({
           />
         )}
 
-        {children}
+        <UserProvider>
+          {children}
+        </UserProvider>
       </body>
     </html>
   )

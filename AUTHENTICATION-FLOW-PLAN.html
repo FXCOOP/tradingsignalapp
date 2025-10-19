@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCC Signal Pro - Complete Authentication & Access Control Plan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .section {
+            padding: 40px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #1e3c72;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .flow-step:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .flow-step::before {
+            content: '→';
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .flow-step:first-child::before {
+            content: '▼';
+        }
+
+        .step-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+
+        .step-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .step-details {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .step-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .step-details li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .step-details li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .decision-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #f59e0b;
+            margin: 20px 0;
+        }
+
+        .decision-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #92400e;
+            margin-bottom: 10px;
+        }
+
+        .branches {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .branch {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #f59e0b;
+        }
+
+        .branch-title {
+            font-weight: bold;
+            color: #92400e;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .implementation-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #93c5fd 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .code-example {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .code-comment {
+            color: #94a3b8;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fecaca 0%, #ef4444 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #d1fae5 0%, #10b981 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .tag-free {
+            background: #10b981;
+            color: white;
+        }
+
+        .tag-limited {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .tag-paid {
+            background: #ef4444;
+            color: white;
+        }
+
+        .tag-broker {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        .postback-example {
+            background: #f0fdf4;
+            border: 2px solid #10b981;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .postback-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #065f46;
+            margin-bottom: 15px;
+        }
+
+        .api-endpoint {
+            background: #1e293b;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid #e5e7eb;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 25px;
+            width: 16px;
+            height: 16px;
+            background: #667eea;
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px #667eea;
+        }
+
+        .timeline-title {
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .warning-title {
+            font-weight: bold;
+            color: #92400e;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 768px) {
+            .branches {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 GCC Signal Pro - Authentication & Access Control System</h1>
+            <p>Complete Implementation Plan - Step by Step Guide</p>
+            <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">⚠️ NO CODE CHANGES UNTIL APPROVAL</p>
+        </div>
+
+        <!-- SECTION 1: CURRENT SITUATION -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">1</div>
+                <span>Current Situation Analysis</span>
+            </div>
+
+            <div class="highlight-box">
+                ⚠️ PROBLEMS IDENTIFIED:
+                <ul style="margin-top: 10px; list-style: none;">
+                    <li>✗ API not generating content / not calling properly</li>
+                    <li>✗ No user signup/authentication flow</li>
+                    <li>✗ No access control system</li>
+                    <li>✗ No broker integration (Exness postback)</li>
+                    <li>✗ No paywall for premium content</li>
+                </ul>
+            </div>
+
+            <div class="implementation-box">
+                <h3>What You Have Now:</h3>
+                <ul style="list-style: none; padding-left: 0; margin-top: 15px;">
+                    <li>✓ Basic auth system ([auth.ts](src/lib/auth.ts)) with JWT</li>
+                    <li>✓ Supabase database connection</li>
+                    <li>✓ Frontend UI (Next.js/React)</li>
+                    <li>✓ Exness account verification flag (hasExnessAccount)</li>
+                    <li>✗ No signup API endpoint</li>
+                    <li>✗ No login API endpoint</li>
+                    <li>✗ No broker postback handler</li>
+                    <li>✗ No content access restrictions</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 2: USER JOURNEY FLOWCHART -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">2</div>
+                <span>Complete User Journey - Visual Flowchart</span>
+            </div>
+
+            <div class="flowchart">
+                <div class="flow-step">
+                    <div class="step-title">STEP 1: User Arrives on Website</div>
+                    <div class="step-description">
+                        New visitor lands on your trading signals platform
+                    </div>
+                    <div class="step-details">
+                        <strong>What user sees:</strong>
+                        <ul>
+                            <li>Homepage with signals preview (blurred or limited)</li>
+                            <li>Articles headlines (locked)</li>
+                            <li>Education content teasers (locked)</li>
+                            <li>Prominent "Sign Up" and "Login" buttons</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-title">STEP 2: User Clicks Any Locked Feature</div>
+                    <div class="step-description">
+                        User tries to access: signals details, articles, education, tips
+                    </div>
+                    <div class="step-details">
+                        <strong>System response:</strong>
+                        <ul>
+                            <li>Show signup/login modal popup</li>
+                            <li>Message: "Create free account to get 3 free signals"</li>
+                            <li>Remember what they tried to access (deep linking)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-title">STEP 3: User Creates Account (Email Signup)</div>
+                    <div class="step-description">
+                        User registers with email and password
+                    </div>
+                    <div class="step-details">
+                        <strong>Required fields:</strong>
+                        <ul>
+                            <li>Email address (validated)</li>
+                            <li>Password (min 8 chars, hashed with bcrypt)</li>
+                            <li>Optional: Full name, phone number</li>
+                        </ul>
+                        <strong>What happens:</strong>
+                        <ul>
+                            <li>Create user in database (users table)</li>
+                            <li>Set access_level = "free" (default)</li>
+                            <li>Set free_signals_count = 0</li>
+                            <li>Set has_broker_account = false</li>
+                            <li>Generate JWT token</li>
+                            <li>Send welcome email (optional)</li>
+                            <li>Redirect to what they tried to access</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="decision-box">
+                <div class="decision-title">🔀 DECISION POINT: What Access Level Does User Get?</div>
+
+                <div class="branches">
+                    <div class="branch">
+                        <div class="branch-title">🆓 FREE USER (Just Signed Up)</div>
+                        <ul style="margin-top: 10px; list-style: none; padding-left: 0;">
+                            <li>✓ 3 free signals (view details)</li>
+                            <li>✓ Read 3 articles</li>
+                            <li>✓ Browse education titles</li>
+                            <li>✗ No full access to education</li>
+                            <li>✗ No unlimited signals</li>
+                            <li>✗ No premium tips</li>
+                        </ul>
+                        <div style="margin-top: 15px; padding: 10px; background: #fef3c7; border-radius: 5px;">
+                            <strong>Counter:</strong> free_signals_count increments each time they view a signal
+                        </div>
+                    </div>
+
+                    <div class="branch">
+                        <div class="branch-title">🌟 PREMIUM USER (Has Broker Account)</div>
+                        <ul style="margin-top: 10px; list-style: none; padding-left: 0;">
+                            <li>✓ UNLIMITED signals access</li>
+                            <li>✓ UNLIMITED articles</li>
+                            <li>✓ FULL education platform</li>
+                            <li>✓ Premium tips & analysis</li>
+                            <li>✓ Copy trading features</li>
+                            <li>✓ Priority support</li>
+                        </ul>
+                        <div style="margin-top: 15px; padding: 10px; background: #d1fae5; border-radius: 5px;">
+                            <strong>Trigger:</strong> Verified broker account via postback
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flowchart">
+                <div class="flow-step">
+                    <div class="step-title">STEP 4: Free User Exceeds Limit</div>
+                    <div class="step-description">
+                        User has viewed 3 signals and tries to view more
+                    </div>
+                    <div class="step-details">
+                        <strong>System shows upgrade modal:</strong>
+                        <ul>
+                            <li>Message: "You've used your 3 free signals"</li>
+                            <li>Call to action: "Get UNLIMITED access"</li>
+                            <li>Requirement: Open broker account with minimum $10</li>
+                            <li>Benefits list: Show what they unlock</li>
+                            <li>Big button: "Open Exness Account (Verified Broker)"</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-title">STEP 5: User Clicks "Open Broker Account"</div>
+                    <div class="step-description">
+                        User is redirected to broker (Exness) signup page
+                    </div>
+                    <div class="step-details">
+                        <strong>Important tracking parameters:</strong>
+                        <ul>
+                            <li>partner_id: YOUR_EXNESS_PARTNER_ID</li>
+                            <li>c_8f0nxidtbt: User's unique ID from your database</li>
+                            <li>This allows broker to notify you when user completes signup</li>
+                        </ul>
+                        <div class="code-example">
+<span class="code-comment">// Example redirect URL</span>
+https://www.exnesspro.com/en/efficient-way-to-trade-stocks?partner_id=c_8f0nxidtbt
+
+<span class="code-comment">// With user tracking</span>
+https://www.exnesspro.com/en/efficient-way-to-trade-stocks?partner_id=c_8f0nxidtbt&client_id=USER_DATABASE_ID_12345
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-title">STEP 6: User Opens Broker Account & Deposits $10+</div>
+                    <div class="step-description">
+                        User completes registration on Exness and makes minimum deposit
+                    </div>
+                    <div class="step-details">
+                        <strong>What user does on Exness:</strong>
+                        <ul>
+                            <li>Creates trading account</li>
+                            <li>Completes verification (KYC)</li>
+                            <li>Makes first deposit (minimum $10)</li>
+                        </ul>
+                        <strong>What broker does:</strong>
+                        <ul>
+                            <li>Processes user's deposit</li>
+                            <li>Triggers postback to YOUR server</li>
+                            <li>Sends user data + event notification</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flow-step" style="border-left-color: #10b981; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);">
+                    <div class="step-title">STEP 7: BROKER POSTBACK (Automatic Verification) ⭐</div>
+                    <div class="step-description">
+                        Exness automatically sends notification to your server
+                    </div>
+                    <div class="postback-example">
+                        <div class="postback-title">📡 Postback Configuration:</div>
+
+                        <strong>Event type:</strong> User Registration or First Deposit<br><br>
+
+                        <strong>Your postback URL (what you give to Exness):</strong>
+                        <div class="api-endpoint">
+                            https://yourdomain.com/api/broker/postback
+                        </div>
+
+                        <strong style="display: block; margin-top: 15px;">Parameters Exness sends:</strong>
+                        <div class="code-example">
+{
+  "event": "registration" or "deposit",
+  "partner_id": "c_8f0nxidtbt",
+  "client_id": "USER_DATABASE_ID_12345", <span class="code-comment">// Your user ID</span>
+  "trader_id": "exness_trader_123456",
+  "deposit_amount": 100,
+  "currency": "USD",
+  "timestamp": "2025-01-19T12:00:00Z"
+}
+                        </div>
+
+                        <strong style="display: block; margin-top: 15px;">What YOUR server does:</strong>
+                        <ul style="margin-top: 10px; list-style: none; padding-left: 0;">
+                            <li>✓ Receive postback data</li>
+                            <li>✓ Verify it's from Exness (security check)</li>
+                            <li>✓ Find user in database by client_id</li>
+                            <li>✓ Update user record:
+                                <div class="code-example" style="margin-top: 10px;">
+UPDATE users
+SET
+  has_broker_account = true,
+  broker_verified_at = NOW(),
+  broker_trader_id = 'exness_trader_123456',
+  access_level = 'premium'
+WHERE id = 'USER_DATABASE_ID_12345'
+                                </div>
+                            </li>
+                            <li>✓ Send confirmation email to user</li>
+                            <li>✓ Return HTTP 200 OK to Exness</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flow-step" style="border-left-color: #10b981;">
+                    <div class="step-title">STEP 8: User Gets UNLIMITED Access 🎉</div>
+                    <div class="step-description">
+                        User is now verified and has premium access
+                    </div>
+                    <div class="step-details">
+                        <strong>What happens automatically:</strong>
+                        <ul>
+                            <li>Next time user visits website → JWT token refresh</li>
+                            <li>System checks: has_broker_account = true</li>
+                            <li>All content unlocks automatically</li>
+                            <li>No more limits on signals, articles, education</li>
+                            <li>Badge shows: "✓ Verified Trader"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: ACCESS CONTROL TABLE -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">3</div>
+                <span>Access Control Matrix</span>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature / Content</th>
+                            <th>Anonymous Visitor</th>
+                            <th>Free User (Signed Up)</th>
+                            <th>Premium User (Broker Account)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Trading Signals</strong></td>
+                            <td><span class="tag tag-limited">Preview Only</span></td>
+                            <td><span class="tag tag-limited">3 Signals</span></td>
+                            <td><span class="tag tag-broker">Unlimited</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Market Analysis</strong></td>
+                            <td><span class="tag tag-limited">Headlines Only</span></td>
+                            <td><span class="tag tag-limited">3 Articles</span></td>
+                            <td><span class="tag tag-broker">Unlimited</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Education Platform</strong></td>
+                            <td><span class="tag tag-paid">Locked</span></td>
+                            <td><span class="tag tag-limited">Browse Titles</span></td>
+                            <td><span class="tag tag-broker">Full Access</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Trading Tips</strong></td>
+                            <td><span class="tag tag-free">Basic Tips</span></td>
+                            <td><span class="tag tag-free">Basic Tips</span></td>
+                            <td><span class="tag tag-broker">Premium Tips</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Copy Trading</strong></td>
+                            <td><span class="tag tag-paid">Locked</span></td>
+                            <td><span class="tag tag-paid">Locked</span></td>
+                            <td><span class="tag tag-broker">Full Access</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>PDF Reports</strong></td>
+                            <td><span class="tag tag-paid">Locked</span></td>
+                            <td><span class="tag tag-paid">Locked</span></td>
+                            <td><span class="tag tag-broker">Download</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email Alerts</strong></td>
+                            <td><span class="tag tag-paid">No</span></td>
+                            <td><span class="tag tag-limited">3 per week</span></td>
+                            <td><span class="tag tag-broker">Unlimited</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 4: DATABASE SCHEMA -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">4</div>
+                <span>Database Schema Changes Needed</span>
+            </div>
+
+            <div class="implementation-box">
+                <h3>Users Table Structure:</h3>
+                <div class="code-example">
+CREATE TABLE users (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  full_name VARCHAR(255),
+  phone VARCHAR(50),
+
+  <span class="code-comment">-- Access Control Fields</span>
+  access_level VARCHAR(20) DEFAULT 'free', <span class="code-comment">-- 'anonymous', 'free', 'premium'</span>
+  free_signals_count INT DEFAULT 0, <span class="code-comment">-- How many free signals they've viewed</span>
+  free_articles_count INT DEFAULT 0, <span class="code-comment">-- How many free articles they've read</span>
+
+  <span class="code-comment">-- Broker Integration Fields</span>
+  has_broker_account BOOLEAN DEFAULT false,
+  broker_verified_at TIMESTAMP,
+  broker_trader_id VARCHAR(255), <span class="code-comment">-- Exness trader ID</span>
+  broker_name VARCHAR(100) DEFAULT 'exness',
+
+  <span class="code-comment">-- Tracking</span>
+  created_at TIMESTAMP DEFAULT NOW(),
+  last_login_at TIMESTAMP,
+  email_verified BOOLEAN DEFAULT false,
+
+  <span class="code-comment">-- Indexes for fast queries</span>
+  INDEX idx_email (email),
+  INDEX idx_broker_trader_id (broker_trader_id)
+);
+                </div>
+            </div>
+
+            <div class="implementation-box" style="margin-top: 20px;">
+                <h3>Activity Log Table (Optional but Recommended):</h3>
+                <div class="code-example">
+CREATE TABLE user_activity (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id),
+  action_type VARCHAR(50), <span class="code-comment">-- 'view_signal', 'read_article', 'access_course'</span>
+  resource_type VARCHAR(50), <span class="code-comment">-- 'signal', 'article', 'course'</span>
+  resource_id VARCHAR(255),
+  created_at TIMESTAMP DEFAULT NOW(),
+
+  INDEX idx_user_id (user_id),
+  INDEX idx_created_at (created_at)
+);
+                </div>
+                <p style="margin-top: 15px; color: #555;">
+                    <strong>Why this table?</strong> Track exactly what users view so you can enforce limits accurately
+                    and provide analytics.
+                </p>
+            </div>
+
+            <div class="implementation-box" style="margin-top: 20px;">
+                <h3>Broker Postbacks Log Table (Security & Debugging):</h3>
+                <div class="code-example">
+CREATE TABLE broker_postbacks (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id),
+  broker_name VARCHAR(100),
+  event_type VARCHAR(50), <span class="code-comment">-- 'registration', 'deposit', 'trade'</span>
+  raw_data JSONB, <span class="code-comment">-- Store complete postback payload</span>
+  processed BOOLEAN DEFAULT false,
+  created_at TIMESTAMP DEFAULT NOW(),
+
+  INDEX idx_user_id (user_id),
+  INDEX idx_processed (processed)
+);
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: API ENDPOINTS -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">5</div>
+                <span>Required API Endpoints</span>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-title">POST /api/auth/signup</div>
+                    <div class="code-example">
+<span class="code-comment">// Request Body</span>
+{
+  "email": "user@example.com",
+  "password": "securepassword123",
+  "full_name": "Ahmed Al-Mansoori" <span class="code-comment">// optional</span>
+}
+
+<span class="code-comment">// Response</span>
+{
+  "success": true,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "uuid-here",
+    "email": "user@example.com",
+    "access_level": "free",
+    "has_broker_account": false
+  }
+}
+                    </div>
+                    <strong>What it does:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>Validate email format</li>
+                        <li>Check if email already exists</li>
+                        <li>Hash password with bcrypt</li>
+                        <li>Create user in database</li>
+                        <li>Generate JWT token</li>
+                        <li>Return token + user data</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">POST /api/auth/login</div>
+                    <div class="code-example">
+<span class="code-comment">// Request Body</span>
+{
+  "email": "user@example.com",
+  "password": "securepassword123"
+}
+
+<span class="code-comment">// Response</span>
+{
+  "success": true,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "uuid-here",
+    "email": "user@example.com",
+    "access_level": "premium",
+    "has_broker_account": true,
+    "free_signals_count": 0
+  }
+}
+                    </div>
+                    <strong>What it does:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>Find user by email</li>
+                        <li>Verify password with bcrypt</li>
+                        <li>Generate new JWT token</li>
+                        <li>Update last_login_at</li>
+                        <li>Return token + user data</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">GET /api/auth/me</div>
+                    <div class="code-example">
+<span class="code-comment">// Request Headers</span>
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+<span class="code-comment">// Response</span>
+{
+  "success": true,
+  "user": {
+    "id": "uuid-here",
+    "email": "user@example.com",
+    "full_name": "Ahmed Al-Mansoori",
+    "access_level": "premium",
+    "has_broker_account": true,
+    "free_signals_count": 0,
+    "free_articles_count": 0
+  }
+}
+                    </div>
+                    <strong>What it does:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>Verify JWT token</li>
+                        <li>Fetch current user data</li>
+                        <li>Return user profile</li>
+                        <li>Used on every page load to check auth status</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item" style="border-color: #10b981; background: #f0fdf4;">
+                    <div class="timeline-title">POST /api/broker/postback ⭐ CRITICAL</div>
+                    <div class="code-example">
+<span class="code-comment">// Request Body (from Exness)</span>
+{
+  "event": "deposit",
+  "partner_id": "c_8f0nxidtbt",
+  "client_id": "user-database-id-12345",
+  "trader_id": "exness_trader_123456",
+  "deposit_amount": 100,
+  "currency": "USD",
+  "timestamp": "2025-01-19T12:00:00Z",
+  "signature": "security_hash_here" <span class="code-comment">// For verification</span>
+}
+
+<span class="code-comment">// Response to Exness</span>
+{
+  "success": true,
+  "message": "Postback processed successfully"
+}
+                    </div>
+                    <strong>What it does:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>✓ Receive postback from Exness</li>
+                        <li>✓ Verify signature/security token</li>
+                        <li>✓ Log postback in broker_postbacks table</li>
+                        <li>✓ Find user by client_id</li>
+                        <li>✓ Update user: has_broker_account = true, access_level = 'premium'</li>
+                        <li>✓ Send congratulations email to user</li>
+                        <li>✓ Return HTTP 200 to Exness</li>
+                    </ul>
+
+                    <div class="warning-box" style="margin-top: 15px;">
+                        <div class="warning-title">🔒 Security Important:</div>
+                        <ul style="margin-top: 10px;">
+                            <li>Verify postback is from real Exness server (IP whitelist or signature)</li>
+                            <li>Don't trust client_id blindly - validate it exists in your DB</li>
+                            <li>Log everything for debugging</li>
+                            <li>Use HTTPS only</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">GET /api/check-access/:resourceType/:resourceId</div>
+                    <div class="code-example">
+<span class="code-comment">// Example: Check if user can view signal #123</span>
+GET /api/check-access/signal/123
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+<span class="code-comment">// Response (has access)</span>
+{
+  "success": true,
+  "has_access": true,
+  "access_level": "premium",
+  "message": "Access granted"
+}
+
+<span class="code-comment">// Response (no access - limit reached)</span>
+{
+  "success": false,
+  "has_access": false,
+  "access_level": "free",
+  "remaining": 0,
+  "limit": 3,
+  "message": "Free signal limit reached. Upgrade to premium.",
+  "upgrade_url": "/broker-signup"
+}
+                    </div>
+                    <strong>What it does:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>Check user's access level</li>
+                        <li>If free user: check if they've exceeded limits</li>
+                        <li>If premium user: always grant access</li>
+                        <li>Log access attempt</li>
+                        <li>Return permission result</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">POST /api/track-activity</div>
+                    <div class="code-example">
+<span class="code-comment">// Request Body</span>
+{
+  "action_type": "view_signal",
+  "resource_type": "signal",
+  "resource_id": "123"
+}
+
+<span class="code-comment">// Response</span>
+{
+  "success": true,
+  "free_signals_count": 2,
+  "remaining_free": 1
+}
+                    </div>
+                    <strong>What it does:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>Log user activity</li>
+                        <li>Increment counters (free_signals_count)</li>
+                        <li>Return updated counts</li>
+                        <li>Frontend uses this to show "2/3 free signals used"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 6: FRONTEND CHANGES -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">6</div>
+                <span>Frontend Implementation</span>
+            </div>
+
+            <div class="implementation-box">
+                <h3>1. Signup/Login Modal Component</h3>
+                <p style="margin: 10px 0; color: #555;">Create modal that appears when user clicks locked content</p>
+                <div class="code-example">
+<span class="code-comment">// Example: AuthModal.tsx</span>
+const AuthModal = ({ isOpen, onClose, redirectAfterLogin }) => {
+  const [mode, setMode] = useState('signup') <span class="code-comment">// 'signup' or 'login'</span>
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleSignup = async () => {
+    const response = await fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    })
+    const data = await response.json()
+
+    if (data.success) {
+      <span class="code-comment">// Save token to localStorage</span>
+      localStorage.setItem('auth_token', data.token)
+
+      <span class="code-comment">// Save user data</span>
+      localStorage.setItem('user', JSON.stringify(data.user))
+
+      <span class="code-comment">// Redirect to what they tried to access</span>
+      window.location.href = redirectAfterLogin
+    }
+  }
+
+  return (
+    &lt;div className="modal"&gt;
+      {mode === 'signup' ? (
+        &lt;SignupForm onSubmit={handleSignup} /&gt;
+      ) : (
+        &lt;LoginForm onSubmit={handleLogin} /&gt;
+      )}
+    &lt;/div&gt;
+  )
+}
+                </div>
+            </div>
+
+            <div class="implementation-box" style="margin-top: 20px;">
+                <h3>2. Access Control Wrapper Component</h3>
+                <div class="code-example">
+<span class="code-comment">// Wrap any protected content with this</span>
+const ProtectedContent = ({
+  children,
+  resourceType,
+  resourceId,
+  fallback
+}) => {
+  const [hasAccess, setHasAccess] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    checkAccess()
+  }, [])
+
+  const checkAccess = async () => {
+    const token = localStorage.getItem('auth_token')
+
+    if (!token) {
+      setHasAccess(false)
+      setLoading(false)
+      return
+    }
+
+    const response = await fetch(
+      `/api/check-access/${resourceType}/${resourceId}`,
+      {
+        headers: { 'Authorization': `Bearer ${token}` }
+      }
+    )
+    const data = await response.json()
+
+    setHasAccess(data.has_access)
+    setLoading(false)
+
+    <span class="code-comment">// Track activity if has access</span>
+    if (data.has_access) {
+      trackActivity(resourceType, resourceId)
+    }
+  }
+
+  if (loading) return &lt;LoadingSpinner /&gt;
+
+  if (!hasAccess) {
+    return fallback || &lt;UpgradePrompt /&gt;
+  }
+
+  return children
+}
+
+<span class="code-comment">// Usage example</span>
+&lt;ProtectedContent
+  resourceType="signal"
+  resourceId="123"
+  fallback={&lt;SignalPreview /&gt;}
+&gt;
+  &lt;FullSignalDetails /&gt;
+&lt;/ProtectedContent&gt;
+                </div>
+            </div>
+
+            <div class="implementation-box" style="margin-top: 20px;">
+                <h3>3. User Context / State Management</h3>
+                <div class="code-example">
+<span class="code-comment">// UserContext.tsx - Global user state</span>
+const UserContext = createContext()
+
+export const UserProvider = ({ children }) => {
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    loadUser()
+  }, [])
+
+  const loadUser = async () => {
+    const token = localStorage.getItem('auth_token')
+    if (!token) {
+      setLoading(false)
+      return
+    }
+
+    const response = await fetch('/api/auth/me', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    })
+    const data = await response.json()
+
+    if (data.success) {
+      setUser(data.user)
+    } else {
+      localStorage.removeItem('auth_token')
+    }
+    setLoading(false)
+  }
+
+  const isPremium = () => {
+    return user?.has_broker_account === true
+  }
+
+  const getRemainingFree = (type) => {
+    if (isPremium()) return Infinity
+
+    if (type === 'signals') {
+      return Math.max(0, 3 - (user?.free_signals_count || 0))
+    }
+    if (type === 'articles') {
+      return Math.max(0, 3 - (user?.free_articles_count || 0))
+    }
+    return 0
+  }
+
+  return (
+    &lt;UserContext.Provider value={{
+      user,
+      loading,
+      isPremium,
+      getRemainingFree,
+      refreshUser: loadUser
+    }}&gt;
+      {children}
+    &lt;/UserContext.Provider&gt;
+  )
+}
+                </div>
+            </div>
+
+            <div class="implementation-box" style="margin-top: 20px;">
+                <h3>4. Upgrade Prompt / Broker Signup Button</h3>
+                <div class="code-example">
+const UpgradePrompt = ({ message, type }) => {
+  const { user, getRemainingFree } = useUser()
+  const remaining = getRemainingFree(type)
+
+  const handleBrokerSignup = () => {
+    <span class="code-comment">// Construct Exness URL with user tracking</span>
+    const exnessUrl =
+      `https://www.exnesspro.com/en/efficient-way-to-trade-stocks?` +
+      `partner_id=c_8f0nxidtbt&` +
+      `client_id=${user.id}`
+
+    <span class="code-comment">// Open in new tab</span>
+    window.open(exnessUrl, '_blank')
+
+    <span class="code-comment">// Show waiting message</span>
+    showNotification('Complete your Exness signup to unlock access!')
+  }
+
+  return (
+    &lt;div className="upgrade-prompt"&gt;
+      &lt;h3&gt;🔒 {message || 'Premium Content'}&lt;/h3&gt;
+
+      {user ? (
+        &lt;&gt;
+          &lt;p&gt;You've used {3 - remaining} of 3 free {type}&lt;/p&gt;
+          &lt;p&gt;Get UNLIMITED access by opening a broker account&lt;/p&gt;
+
+          &lt;div className="benefits"&gt;
+            &lt;h4&gt;Unlock with just $10 deposit:&lt;/h4&gt;
+            &lt;ul&gt;
+              &lt;li&gt;✓ Unlimited trading signals&lt;/li&gt;
+              &lt;li&gt;✓ Full market analysis&lt;/li&gt;
+              &lt;li&gt;✓ Complete education platform&lt;/li&gt;
+              &lt;li&gt;✓ Copy trading features&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+
+          &lt;button onClick={handleBrokerSignup} className="cta-button"&gt;
+            Open Exness Account (Verified Broker)
+          &lt;/button&gt;
+
+          &lt;p className="small"&gt;
+            Regulated broker | Minimum $10 deposit | Instant verification
+          &lt;/p&gt;
+        &lt;/&gt;
+      ) : (
+        &lt;&gt;
+          &lt;p&gt;Sign up for FREE to get 3 free {type}&lt;/p&gt;
+          &lt;button onClick={openSignupModal}&gt;Create Free Account&lt;/button&gt;
+        &lt;/&gt;
+      )}
+    &lt;/div&gt;
+  )
+}
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 7: IMPLEMENTATION CHECKLIST -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">7</div>
+                <span>Step-by-Step Implementation Checklist</span>
+            </div>
+
+            <div class="success-box">
+                📋 COMPLETE IMPLEMENTATION PLAN - Follow this exact order:
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-title">PHASE 1: Database Setup</div>
+                    <ul>
+                        <li>☐ Create/update users table with new fields</li>
+                        <li>☐ Create user_activity table</li>
+                        <li>☐ Create broker_postbacks table</li>
+                        <li>☐ Test database connection</li>
+                        <li>☐ Create sample users for testing</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">PHASE 2: Backend API Endpoints</div>
+                    <ul>
+                        <li>☐ Create POST /api/auth/signup endpoint</li>
+                        <li>☐ Create POST /api/auth/login endpoint</li>
+                        <li>☐ Create GET /api/auth/me endpoint</li>
+                        <li>☐ Create POST /api/broker/postback endpoint</li>
+                        <li>☐ Create GET /api/check-access/:type/:id endpoint</li>
+                        <li>☐ Create POST /api/track-activity endpoint</li>
+                        <li>☐ Test all endpoints with Postman/Insomnia</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">PHASE 3: Frontend Authentication</div>
+                    <ul>
+                        <li>☐ Create signup/login modal component</li>
+                        <li>☐ Create UserContext for global state</li>
+                        <li>☐ Add auth token storage (localStorage)</li>
+                        <li>☐ Add user session management</li>
+                        <li>☐ Test signup flow</li>
+                        <li>☐ Test login flow</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">PHASE 4: Access Control Implementation</div>
+                    <ul>
+                        <li>☐ Create ProtectedContent wrapper component</li>
+                        <li>☐ Wrap signals with access control</li>
+                        <li>☐ Wrap articles with access control</li>
+                        <li>☐ Wrap education content with access control</li>
+                        <li>☐ Add upgrade prompts</li>
+                        <li>☐ Test free user limits (3 signals, 3 articles)</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">PHASE 5: Broker Integration</div>
+                    <ul>
+                        <li>☐ Get your Exness partner ID</li>
+                        <li>☐ Configure postback URL with Exness</li>
+                        <li>☐ Add broker signup button/link</li>
+                        <li>☐ Test postback endpoint (simulate broker notification)</li>
+                        <li>☐ Verify user upgrade flow works</li>
+                        <li>☐ Test with real Exness account (optional at first)</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">PHASE 6: Testing & Polish</div>
+                    <ul>
+                        <li>☐ Test complete user journey (anonymous → signup → limit → broker → premium)</li>
+                        <li>☐ Test error handling (wrong password, duplicate email, etc.)</li>
+                        <li>☐ Add loading states</li>
+                        <li>☐ Add error messages</li>
+                        <li>☐ Add success notifications</li>
+                        <li>☐ Test on mobile devices</li>
+                        <li>☐ Security audit (SQL injection, XSS, etc.)</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">PHASE 7: Launch & Monitor</div>
+                    <ul>
+                        <li>☐ Deploy to production</li>
+                        <li>☐ Monitor postback logs</li>
+                        <li>☐ Monitor user signups</li>
+                        <li>☐ Monitor broker account verifications</li>
+                        <li>☐ Set up alerts for errors</li>
+                        <li>☐ Collect user feedback</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 8: EXNESS INTEGRATION DETAILS -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">8</div>
+                <span>Exness Partner Integration Setup</span>
+            </div>
+
+            <div class="warning-box">
+                <div class="warning-title">⚠️ BEFORE YOU CODE - GET THESE FROM EXNESS:</div>
+                <ul style="margin-top: 10px;">
+                    <li>1. Partner ID (you already have: c_8f0nxidtbt)</li>
+                    <li>2. Postback URL configuration in partner dashboard</li>
+                    <li>3. Security signature/token for verifying postbacks</li>
+                    <li>4. Event types available (registration, deposit, trade, etc.)</li>
+                    <li>5. Postback data format documentation</li>
+                </ul>
+            </div>
+
+            <div class="implementation-box" style="margin-top: 20px;">
+                <h3>How to Configure Postback in Exness Partner Dashboard:</h3>
+                <ol style="margin-top: 15px; line-height: 2;">
+                    <li>Login to Exness Partner Portal</li>
+                    <li>Go to Settings → Postback/Webhooks</li>
+                    <li>Add new postback configuration</li>
+                    <li>Enter your URL: <code style="background: #f3f4f6; padding: 2px 8px; border-radius: 3px;">https://yourdomain.com/api/broker/postback</code></li>
+                    <li>Select events: "Registration" and "First Deposit"</li>
+                    <li>Enable security signature</li>
+                    <li>Save and test</li>
+                </ol>
+            </div>
+
+            <div class="postback-example">
+                <div class="postback-title">Sample Postback Test:</div>
+                <p>Use this to test your endpoint BEFORE real integration:</p>
+                <div class="code-example">
+curl -X POST https://yourdomain.com/api/broker/postback \
+  -H "Content-Type: application/json" \
+  -d '{
+    "event": "deposit",
+    "partner_id": "c_8f0nxidtbt",
+    "client_id": "test-user-123",
+    "trader_id": "exness_test_trader",
+    "deposit_amount": 10,
+    "currency": "USD",
+    "timestamp": "2025-01-19T12:00:00Z"
+  }'
+                </div>
+                <p style="margin-top: 15px;"><strong>Expected response:</strong> HTTP 200 with <code>{"success": true}</code></p>
+            </div>
+        </div>
+
+        <!-- SECTION 9: SECURITY CONSIDERATIONS -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">9</div>
+                <span>Security Best Practices</span>
+            </div>
+
+            <div class="highlight-box">
+                🔒 CRITICAL SECURITY MEASURES:
+            </div>
+
+            <div class="table-wrapper" style="margin-top: 20px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Security Risk</th>
+                            <th>Protection Method</th>
+                            <th>Implementation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fake postbacks</td>
+                            <td>Verify signature</td>
+                            <td>Check Exness signature header, validate IP whitelist</td>
+                        </tr>
+                        <tr>
+                            <td>SQL injection</td>
+                            <td>Parameterized queries</td>
+                            <td>Use Supabase client (automatic protection)</td>
+                        </tr>
+                        <tr>
+                            <td>Password leaks</td>
+                            <td>Bcrypt hashing</td>
+                            <td>Already using bcrypt with salt rounds = 12 ✓</td>
+                        </tr>
+                        <tr>
+                            <td>Token theft</td>
+                            <td>HTTPS only, short expiry</td>
+                            <td>Set JWT expiry to 7 days, refresh on activity</td>
+                        </tr>
+                        <tr>
+                            <td>Brute force login</td>
+                            <td>Rate limiting</td>
+                            <td>Add rate limit: 5 failed attempts → 15 min lockout</td>
+                        </tr>
+                        <tr>
+                            <td>User enumeration</td>
+                            <td>Generic error messages</td>
+                            <td>Don't say "email not found", say "invalid credentials"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="code-example" style="margin-top: 20px;">
+<span class="code-comment">// Example: Verify Exness postback signature</span>
+const verifyExnessSignature = (payload, signature) => {
+  const secret = process.env.EXNESS_WEBHOOK_SECRET
+  const calculatedSignature = crypto
+    .createHmac('sha256', secret)
+    .update(JSON.stringify(payload))
+    .digest('hex')
+
+  return calculatedSignature === signature
+}
+
+<span class="code-comment">// In your postback endpoint</span>
+if (!verifyExnessSignature(req.body, req.headers['x-exness-signature'])) {
+  return res.status(403).json({ error: 'Invalid signature' })
+}
+            </div>
+        </div>
+
+        <!-- SECTION 10: FINAL APPROVAL -->
+        <div class="section" style="background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);">
+            <div class="section-title" style="border-bottom-color: #f59e0b;">
+                <div class="section-number" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">10</div>
+                <span>Ready to Implement? Your Approval Needed!</span>
+            </div>
+
+            <div style="background: white; padding: 30px; border-radius: 15px; margin-top: 20px;">
+                <h2 style="color: #92400e; margin-bottom: 20px;">🎯 Summary - What We Will Build:</h2>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <div style="background: #f0fdf4; padding: 20px; border-radius: 10px; border-left: 4px solid #10b981;">
+                        <h3 style="color: #065f46; margin-bottom: 10px;">✅ Phase 1: Auth System</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li>✓ Signup/Login API</li>
+                            <li>✓ JWT authentication</li>
+                            <li>✓ User database</li>
+                            <li>✓ Session management</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #eff6ff; padding: 20px; border-radius: 10px; border-left: 4px solid #3b82f6;">
+                        <h3 style="color: #1e40af; margin-bottom: 10px;">✅ Phase 2: Access Control</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li>✓ 3 free signals limit</li>
+                            <li>✓ 3 free articles limit</li>
+                            <li>✓ Upgrade prompts</li>
+                            <li>✓ Activity tracking</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #f5f3ff; padding: 20px; border-radius: 10px; border-left: 4px solid #8b5cf6;">
+                        <h3 style="color: #6d28d9; margin-bottom: 10px;">✅ Phase 3: Broker Integration</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li>✓ Exness signup links</li>
+                            <li>✓ Postback webhook</li>
+                            <li>✓ Auto verification</li>
+                            <li>✓ Premium unlock</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; padding: 25px; background: #fef3c7; border-radius: 10px; border: 3px solid #f59e0b;">
+                    <h3 style="color: #92400e; margin-bottom: 15px; font-size: 1.5em;">📋 Questions to Answer Before We Start:</h3>
+
+                    <ol style="line-height: 2.5; color: #92400e; font-weight: 500;">
+                        <li>Do you approve this complete plan? Any changes needed?</li>
+                        <li>Do you have your Exness partner credentials ready?</li>
+                        <li>Should we start with Phase 1 (Database + Auth API)?</li>
+                        <li>Any specific features you want added/removed?</li>
+                        <li>What should the free user limits be? (currently: 3 signals, 3 articles)</li>
+                    </ol>
+                </div>
+
+                <div style="margin-top: 30px; text-align: center; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; color: white;">
+                    <h2 style="font-size: 2em; margin-bottom: 15px;">🚀 Ready When You Are!</h2>
+                    <p style="font-size: 1.2em; opacity: 0.95;">
+                        Once you approve, we'll implement this step-by-step.<br>
+                        Each phase will be tested before moving to the next.<br><br>
+                        <strong>Estimated total implementation time: 2-3 hours</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div style="background: #1e3c72; color: white; padding: 30px; text-align: center;">
+            <p style="font-size: 1.2em; margin-bottom: 10px;">📄 Authentication & Access Control Plan</p>
+            <p style="opacity: 0.8;">Created: January 19, 2025 | GCC Signal Pro</p>
+            <p style="opacity: 0.6; margin-top: 15px; font-size: 0.9em;">
+                This document is your complete blueprint. Review carefully and approve before implementation.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
