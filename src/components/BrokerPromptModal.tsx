@@ -247,10 +247,29 @@ export function BrokerPromptModal({
 
           {/* CTA Button */}
           <button
-            onClick={() => {
+            onClick={async () => {
               if (selectedBroker) {
                 const broker = brokers.find(b => b.name === selectedBroker)
                 if (broker) {
+                  // Track click
+                  try {
+                    const token = localStorage.getItem('auth_token')
+                    await fetch('/api/track/exness-click', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                      },
+                      body: JSON.stringify({
+                        partner_id: 'c_8f0nxidtbt',
+                        click_url: broker.link
+                      })
+                    })
+                  } catch (error) {
+                    console.error('Failed to track click:', error)
+                  }
+
+                  // Open Exness
                   window.open(broker.link, '_blank')
                 }
               }
