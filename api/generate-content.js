@@ -58,13 +58,13 @@ export default async function handler(req, res) {
 // Generate trading signals
 async function generateTradingSignals() {
   const prompt = `
-  Generate 6-8 high-quality trading signals for Pakistani and international markets today.
+  Generate 6-8 high-quality trading signals for GCC (Gulf Cooperation Council) and international markets today.
 
   Include:
-  - Pakistani stocks (HBL, UBL, MCB, OGDCL, PSO, Lucky Cement, Textile companies)
-  - Forex pairs (USD/PKR, EUR/USD, GBP/USD, AUD/USD)
+  - GCC stocks (Saudi SABIC, Al Rajhi Bank, Emirates NBD, QNB, Emaar Properties)
+  - Forex pairs (AED/USD, SAR/USD, EUR/USD, GBP/USD)
   - Commodities (Gold, Silver, Crude Oil)
-  - International indices impact on KSE-100
+  - International indices impact on TASI (Saudi), ADX, DFM (Dubai)
 
   For each signal provide:
   - Symbol name
@@ -81,7 +81,7 @@ async function generateTradingSignals() {
   `;
 
   const response = await openai.chat.completions.create({
-    model: "gpt-4",
+    model: "gpt-4o-mini", // Cost-effective: $0.150 per 1M input tokens vs $30 for GPT-4
     messages: [{ role: "user", content: prompt }],
     temperature: 0.7,
     max_tokens: 2500,
@@ -93,14 +93,14 @@ async function generateTradingSignals() {
 // Generate financial news
 async function generateFinancialNews() {
   const prompt = `
-  Create 4-5 comprehensive financial news articles for Pakistani markets:
+  Create 4-5 comprehensive financial news articles for GCC markets:
 
   Topics to cover:
-  1. Banking sector update (HBL, UBL, MCB quarterly results or sector news)
-  2. Currency market (USD/PKR, IMF program, foreign reserves)
-  3. Stock market movements (KSE-100, foreign investment, market outlook)
-  4. Energy sector (OGDCL, PSO, oil prices impact)
-  5. Economic policy or international trade impact
+  1. Banking sector update (Emirates NBD, Al Rajhi, QNB quarterly results or sector news)
+  2. Currency market (AED/USD, SAR/USD, oil prices, foreign reserves)
+  3. Stock market movements (TASI, ADX, DFM, foreign investment, market outlook)
+  4. Energy sector (Saudi Aramco, ADNOC, oil prices impact)
+  5. Economic policy or Vision 2030/UAE Economic Agenda impact
 
   Each article should include:
   - Compelling, professional headline
@@ -119,7 +119,7 @@ async function generateFinancialNews() {
   `;
 
   const response = await openai.chat.completions.create({
-    model: "gpt-4",
+    model: "gpt-4o-mini", // Cost-effective: $0.150 per 1M input tokens vs $30 for GPT-4
     messages: [{ role: "user", content: prompt }],
     temperature: 0.8,
     max_tokens: 4000,
@@ -131,13 +131,13 @@ async function generateFinancialNews() {
 // Generate market analysis
 async function generateMarketAnalysis() {
   const prompt = `
-  Create comprehensive daily market analysis for Pakistani markets:
+  Create comprehensive daily market analysis for GCC markets:
 
   Sections to include:
-  1. Market Overview (KSE-100 performance, key movers)
-  2. Sectoral Analysis (Banking, Energy, Textiles, Cement)
-  3. Currency Analysis (USD/PKR trends, factors affecting exchange rate)
-  4. Global Market Impact (international factors affecting Pakistani markets)
+  1. Market Overview (TASI, ADX, DFM performance, key movers)
+  2. Sectoral Analysis (Banking, Energy, Real Estate, Technology)
+  3. Currency Analysis (AED/USD, SAR/USD trends, oil prices impact)
+  4. Global Market Impact (international factors affecting GCC markets)
   5. Technical Analysis (key support/resistance levels, chart patterns)
   6. Economic Indicators (inflation, interest rates, foreign reserves)
   7. Tomorrow's Key Events (earnings, economic data, policy announcements)
@@ -155,7 +155,7 @@ async function generateMarketAnalysis() {
   `;
 
   const response = await openai.chat.completions.create({
-    model: "gpt-4",
+    model: "gpt-4o-mini", // Cost-effective: $0.150 per 1M input tokens vs $30 for GPT-4
     messages: [{ role: "user", content: prompt }],
     temperature: 0.6,
     max_tokens: 2000,
@@ -173,7 +173,7 @@ async function generateEducationalContent() {
   1. Daily Trading Tip (practical, actionable advice)
   2. Technical Analysis Lesson (chart patterns, indicators)
   3. Risk Management Insight (capital preservation strategies)
-  4. Pakistani Market Education (local market specifics)
+  4. GCC Market Education (regional market specifics, Islamic finance)
   5. Trading Psychology Tip (emotional control, discipline)
 
   Each piece should be:
@@ -192,7 +192,7 @@ async function generateEducationalContent() {
   `;
 
   const response = await openai.chat.completions.create({
-    model: "gpt-4",
+    model: "gpt-4o-mini", // Cost-effective: $0.150 per 1M input tokens vs $30 for GPT-4
     messages: [{ role: "user", content: prompt }],
     temperature: 0.7,
     max_tokens: 2500,
@@ -216,7 +216,7 @@ async function generateDailyContent() {
     analysis,
     education,
     generatedAt: new Date().toISOString(),
-    market: 'Pakistani',
+    market: 'GCC',
     version: '1.0'
   };
 }

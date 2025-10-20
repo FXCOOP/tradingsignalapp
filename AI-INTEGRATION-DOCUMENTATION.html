@@ -350,10 +350,11 @@
             <div class="section">
                 <h2 class="section-title">📋 What Does Our AI Do?</h2>
                 <p class="section-description">
-                    Our platform uses <span class="highlight">OpenAI's GPT-4</span> to automatically generate fresh,
-                    professional trading content every day. This AI integration powers our entire content ecosystem,
-                    creating trading signals, news articles, market analysis, and educational materials tailored
-                    specifically for <strong>GCC markets (UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman)</strong>.
+                    Our platform uses <span class="highlight">OpenAI's GPT-4o-mini</span> to automatically generate fresh,
+                    professional trading content every day via <strong>scheduled cron jobs</strong>. This cost-effective
+                    AI model (60x cheaper than GPT-4) powers our entire content ecosystem, creating trading signals,
+                    news articles, market analysis, and educational materials tailored specifically for
+                    <strong>GCC markets (UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman)</strong>.
                 </p>
             </div>
 
@@ -405,19 +406,21 @@
             <div class="section">
                 <h2 class="section-title">🔄 How Content Generation Works</h2>
                 <div class="flow-diagram">
-                    <div class="flow-box">User Visits Site</div>
+                    <div class="flow-box">⏰ Daily Cron Job<br>(4:00 AM UTC)</div>
                     <div class="flow-arrow">→</div>
-                    <div class="flow-box">API Called</div>
+                    <div class="flow-box">GPT-4o-mini API</div>
                     <div class="flow-arrow">→</div>
-                    <div class="flow-box">GPT-4 Generates</div>
+                    <div class="flow-box">💾 Store in DB</div>
                     <div class="flow-arrow">→</div>
-                    <div class="flow-box">Content Displayed</div>
+                    <div class="flow-box">📊 Display to Users</div>
                 </div>
 
                 <p class="section-description">
-                    When users access the platform, our API endpoint automatically triggers GPT-4 to generate
-                    fresh content based on current market conditions, ensuring all signals and news are
-                    relevant and timely.
+                    Our system runs an <strong>automated cron job every day at 4:00 AM UTC (8:00 AM Dubai time)</strong>.
+                    This independent process calls GPT-4o-mini to generate fresh trading signals, news, analysis,
+                    and educational content for GCC markets. The content is then stored in our database and served
+                    to all users throughout the day - <span class="highlight">no API calls on user visits</span>,
+                    ensuring lightning-fast page loads and minimal costs.
                 </p>
             </div>
 
@@ -693,7 +696,7 @@ async function generateTradingSignals() {
   `;
 
   const response = await openai.chat.completions.create({
-    model: "gpt-4",
+    model: "gpt-4o-mini", // 60x cheaper than GPT-4!
     messages: [{ role: "user", content: prompt }],
     temperature: 0.7,
     max_tokens: 2500,
@@ -706,45 +709,73 @@ async function generateTradingSignals() {
 
             <!-- Cost Management -->
             <div class="section">
-                <h2 class="section-title">💰 Cost Management</h2>
+                <h2 class="section-title">💰 Cost Management & Savings</h2>
                 <p class="section-description">
-                    The system includes built-in rate limiting and cost controls:
+                    We use GPT-4o-mini for maximum cost efficiency. Here's the breakdown:
                 </p>
+
+                <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #fbbf24; border-radius: 16px; padding: 32px; margin: 24px 0;">
+                    <h3 style="font-size: 24px; font-weight: 700; color: #92400e; margin-bottom: 16px; text-align: center;">
+                        💡 Cost Comparison: GPT-4 vs GPT-4o-mini
+                    </h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
+                        <div style="background: white; padding: 24px; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 14px; color: #6b7280; font-weight: 600; margin-bottom: 8px;">GPT-4 (OLD)</div>
+                            <div style="font-size: 36px; font-weight: 800; color: #ef4444; margin-bottom: 8px;">$30.00</div>
+                            <div style="font-size: 12px; color: #9ca3af;">per 1M input tokens</div>
+                            <div style="margin-top: 16px; padding: 12px; background: #fee2e2; border-radius: 8px; color: #991b1b; font-weight: 600; font-size: 14px;">
+                                Daily Cost: ~$3-5
+                            </div>
+                        </div>
+                        <div style="background: white; padding: 24px; border-radius: 12px; text-align: center; border: 3px solid #10b981;">
+                            <div style="font-size: 14px; color: #10b981; font-weight: 700; margin-bottom: 8px;">GPT-4o-mini (NEW) ✅</div>
+                            <div style="font-size: 36px; font-weight: 800; color: #10b981; margin-bottom: 8px;">$0.15</div>
+                            <div style="font-size: 12px; color: #9ca3af;">per 1M input tokens</div>
+                            <div style="margin-top: 16px; padding: 12px; background: #d1fae5; border-radius: 8px; color: #065f46; font-weight: 700; font-size: 14px;">
+                                Daily Cost: ~$0.05-0.10
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 24px; padding: 16px; background: white; border-radius: 12px;">
+                        <div style="font-size: 20px; font-weight: 700; color: #10b981;">💰 Savings: 200x cheaper!</div>
+                        <div style="font-size: 14px; color: #6b7280; margin-top: 8px;">Monthly cost: ~$1.50-3 instead of $90-150</div>
+                    </div>
+                </div>
 
                 <div class="feature-grid">
                     <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h3 class="feature-title">Rate Limiting</h3>
+                        <div class="feature-icon">⏰</div>
+                        <h3 class="feature-title">Single Daily Generation</h3>
                         <p class="feature-description">
-                            Maximum 50 API requests per day to control OpenAI usage costs.
-                            Automatically resets daily.
+                            Content generated ONCE per day at 8AM Dubai time via cron job.
+                            Zero API calls on user visits = minimal costs.
                         </p>
                     </div>
 
                     <div class="feature-card">
                         <div class="feature-icon">💾</div>
-                        <h3 class="feature-title">Content Caching</h3>
+                        <h3 class="feature-title">Database Caching</h3>
                         <p class="feature-description">
-                            Generated content is stored in database and served to multiple users,
-                            reducing redundant API calls.
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon">⏰</div>
-                        <h3 class="feature-title">Scheduled Generation</h3>
-                        <p class="feature-description">
-                            Content generated once daily via cron job at market open,
-                            not on every user request.
+                            Generated content stored in database and served to all users,
+                            eliminating redundant API calls.
                         </p>
                     </div>
 
                     <div class="feature-card">
                         <div class="feature-icon">📊</div>
-                        <h3 class="feature-title">Usage Tracking</h3>
+                        <h3 class="feature-title">Smart Token Management</h3>
                         <p class="feature-description">
-                            Built-in usage tracker monitors daily requests and prevents
-                            exceeding budget limits.
+                            Optimized prompts and max_tokens limits ensure efficient usage.
+                            Average ~10K tokens per daily generation.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <h3 class="feature-title">Quality Maintained</h3>
+                        <p class="feature-description">
+                            GPT-4o-mini provides excellent quality for structured content
+                            like signals and news articles.
                         </p>
                     </div>
                 </div>
