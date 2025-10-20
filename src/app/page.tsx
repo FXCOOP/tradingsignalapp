@@ -5403,8 +5403,8 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 transition: 'all 0.3s ease'
               }}
             >
-              <span>{tab.icon}</span>
-              {!isMobile && tab.label}
+              <span>{isMobile ? '' : tab.icon}</span>
+              {tab.label}
             </button>
           ))}
         </div>
