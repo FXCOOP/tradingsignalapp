@@ -6558,7 +6558,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 background: '#000'
               }}>
                 <iframe
-                  src="https://brandfolder.com/brandfolder/attachments/embed/46s8kg2p4qx4sz96k5pjs?loop=true&muted=false&autoplay=true"
+                  src="https://brandfolder.com/brandfolder/attachments/embed/46s8kg2p4qx4sz96k5pjs?loop=true&muted=true&autoplay=true"
                   style={{
                     position: 'absolute',
                     top: 0,
