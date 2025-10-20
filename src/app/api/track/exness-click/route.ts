@@ -16,9 +16,9 @@ export async function POST(request: NextRequest) {
     }
 
     const token = authHeader.replace('Bearer ', '')
-    const { user } = await verifyToken(token)
+    const decoded = verifyToken(token)
 
-    if (!user) {
+    if (!decoded) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
     }
 
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     const { data, error } = await supabaseAdmin
       .from('exness_clicks')
       .insert({
-        user_id: user.id,
+        user_id: decoded.userId,
         click_url,
         partner_id,
         ip_address,
