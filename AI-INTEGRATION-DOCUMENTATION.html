@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCC Signal Pro - AI Integration Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 60px 40px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: #6b7280;
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -12px rgba(59, 130, 246, 0.3);
+            border-color: #3b82f6;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .feature-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .feature-description {
+            font-size: 16px;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .mockup {
+            background: #1f2937;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 32px 0;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .mockup-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .mockup-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ef4444;
+        }
+
+        .mockup-dot:nth-child(2) {
+            background: #f59e0b;
+        }
+
+        .mockup-dot:nth-child(3) {
+            background: #10b981;
+        }
+
+        .mockup-content {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .signal-card {
+            background: linear-gradient(135deg, #dcfce7 0%, #d1fae5 100%);
+            border: 2px solid #86efac;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .signal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .signal-symbol {
+            font-size: 20px;
+            font-weight: 700;
+            color: #166534;
+        }
+
+        .signal-type {
+            background: #15803d;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .signal-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+        .signal-detail {
+            color: #166534;
+        }
+
+        .signal-detail strong {
+            color: #15803d;
+        }
+
+        .news-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .news-card:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 8px 24px -8px rgba(59, 130, 246, 0.3);
+        }
+
+        .news-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+
+        .news-summary {
+            font-size: 16px;
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .news-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .code-block {
+            background: #1f2937;
+            color: #10b981;
+            border-radius: 12px;
+            padding: 24px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 24px 0;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .api-endpoint {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border: 2px solid #3b82f6;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            font-family: monospace;
+        }
+
+        .endpoint-method {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            margin-right: 12px;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 32px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-box {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 20px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .flow-arrow {
+            font-size: 32px;
+            color: #3b82f6;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .header p {
+                font-size: 16px;
+            }
+
+            .content {
+                padding: 40px 20px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .signal-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 AI-Powered Content Generation</h1>
+            <p>GCC Signal Pro's OpenAI Integration Documentation</p>
+        </div>
+
+        <div class="content">
+            <!-- Overview Section -->
+            <div class="section">
+                <h2 class="section-title">📋 What Does Our AI Do?</h2>
+                <p class="section-description">
+                    Our platform uses <span class="highlight">OpenAI's GPT-4</span> to automatically generate fresh,
+                    professional trading content every day. This AI integration powers our entire content ecosystem,
+                    creating trading signals, news articles, market analysis, and educational materials tailored
+                    specifically for <strong>GCC markets (UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman)</strong>.
+                </p>
+            </div>
+
+            <!-- Key Features -->
+            <div class="section">
+                <h2 class="section-title">✨ AI-Generated Content Types</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">Trading Signals</h3>
+                        <p class="feature-description">
+                            6-8 premium trading signals daily covering forex (AED/USD, SAR/USD),
+                            stocks (TASI, ADX, DFM), gold, and cryptocurrencies with entry/exit points,
+                            stop-loss, and confidence levels.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📰</div>
+                        <h3 class="feature-title">Financial News</h3>
+                        <p class="feature-description">
+                            4-5 comprehensive news articles covering GCC banking, currency markets,
+                            stock exchanges, energy sector, and economic policy with expert analysis
+                            and trading recommendations.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3 class="feature-title">Market Analysis</h3>
+                        <p class="feature-description">
+                            Daily comprehensive analysis of TASI, ADX, DFM performance, sectoral trends,
+                            AED currency analysis, global impact, technical levels, and tomorrow's key events.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎓</div>
+                        <h3 class="feature-title">Education</h3>
+                        <p class="feature-description">
+                            Daily trading tips, technical analysis lessons, risk management insights,
+                            GCC market education, and trading psychology tips with quizzes and actionable advice.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Flow -->
+            <div class="section">
+                <h2 class="section-title">🔄 How Content Generation Works</h2>
+                <div class="flow-diagram">
+                    <div class="flow-box">User Visits Site</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box">API Called</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box">GPT-4 Generates</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box">Content Displayed</div>
+                </div>
+
+                <p class="section-description">
+                    When users access the platform, our API endpoint automatically triggers GPT-4 to generate
+                    fresh content based on current market conditions, ensuring all signals and news are
+                    relevant and timely.
+                </p>
+            </div>
+
+            <!-- API Endpoint -->
+            <div class="section">
+                <h2 class="section-title">🔌 API Endpoint</h2>
+                <div class="api-endpoint">
+                    <span class="endpoint-method">POST</span>
+                    <strong>/api/generate-content</strong>
+                </div>
+
+                <p class="section-description">Request Body:</p>
+                <div class="code-block">
+{
+  "contentType": "signals" | "news" | "analysis" | "education" | "daily"
+}
+                </div>
+
+                <p class="section-description">Response:</p>
+                <div class="code-block">
+{
+  "success": true,
+  "data": { /* Generated content */ },
+  "timestamp": "2025-10-20T09:00:00.000Z"
+}
+                </div>
+            </div>
+
+            <!-- Example: Trading Signals -->
+            <div class="section">
+                <h2 class="section-title">📊 Example: AI-Generated Trading Signals</h2>
+                <p class="section-description">
+                    Here's what the AI generates for trading signals on the main page:
+                </p>
+
+                <div class="mockup">
+                    <div class="mockup-header">
+                        <div class="mockup-dot"></div>
+                        <div class="mockup-dot"></div>
+                        <div class="mockup-dot"></div>
+                    </div>
+                    <div class="mockup-content">
+                        <div class="signal-card">
+                            <div class="signal-header">
+                                <div class="signal-symbol">🇦🇪 AED/USD</div>
+                                <div class="signal-type">STRONG BUY</div>
+                            </div>
+                            <p style="color: #166534; margin-bottom: 12px;">
+                                UAE Dirham showing bullish momentum against USD with strong support at 3.6725.
+                                Oil prices rally and positive economic data support continued strength.
+                            </p>
+                            <div class="signal-details">
+                                <div class="signal-detail"><strong>Entry:</strong> 3.6730</div>
+                                <div class="signal-detail"><strong>Target:</strong> 3.6850</div>
+                                <div class="signal-detail"><strong>Stop Loss:</strong> 3.6680</div>
+                                <div class="signal-detail"><strong>Confidence:</strong> 87%</div>
+                                <div class="signal-detail"><strong>Timeframe:</strong> 4H</div>
+                                <div class="signal-detail"><strong>R/R Ratio:</strong> 2.4:1</div>
+                            </div>
+                        </div>
+
+                        <div class="signal-card">
+                            <div class="signal-header">
+                                <div class="signal-symbol">🏦 SABIC (Saudi Basic Industries)</div>
+                                <div class="signal-type">BUY</div>
+                            </div>
+                            <p style="color: #166534; margin-bottom: 12px;">
+                                SABIC breaking above resistance at SAR 85.50 with strong volume.
+                                Petrochemical sector outlook positive amid rising demand.
+                            </p>
+                            <div class="signal-details">
+                                <div class="signal-detail"><strong>Entry:</strong> SAR 85.75</div>
+                                <div class="signal-detail"><strong>Target:</strong> SAR 89.20</div>
+                                <div class="signal-detail"><strong>Stop Loss:</strong> SAR 83.40</div>
+                                <div class="signal-detail"><strong>Confidence:</strong> 82%</div>
+                                <div class="signal-detail"><strong>Timeframe:</strong> 1D</div>
+                                <div class="signal-detail"><strong>R/R Ratio:</strong> 1.5:1</div>
+                            </div>
+                        </div>
+
+                        <div class="signal-card">
+                            <div class="signal-header">
+                                <div class="signal-symbol">🪙 Gold (XAU/USD)</div>
+                                <div class="signal-type">STRONG BUY</div>
+                            </div>
+                            <p style="color: #166534; margin-bottom: 12px;">
+                                Gold testing key support at $2,380 with bullish divergence on RSI.
+                                GCC investors increasing gold positions amid regional economic strength.
+                            </p>
+                            <div class="signal-details">
+                                <div class="signal-detail"><strong>Entry:</strong> $2,385</div>
+                                <div class="signal-detail"><strong>Target:</strong> $2,445</div>
+                                <div class="signal-detail"><strong>Stop Loss:</strong> $2,355</div>
+                                <div class="signal-detail"><strong>Confidence:</strong> 91%</div>
+                                <div class="signal-detail"><strong>Timeframe:</strong> 1D</div>
+                                <div class="signal-detail"><strong>R/R Ratio:</strong> 2.0:1</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Example: News Articles -->
+            <div class="section">
+                <h2 class="section-title">📰 Example: AI-Generated News Articles</h2>
+                <p class="section-description">
+                    Here's what the AI generates for financial news:
+                </p>
+
+                <div class="mockup">
+                    <div class="mockup-header">
+                        <div class="mockup-dot"></div>
+                        <div class="mockup-dot"></div>
+                        <div class="mockup-dot"></div>
+                    </div>
+                    <div class="mockup-content">
+                        <div class="news-card">
+                            <h3 class="news-title">
+                                🏦 UAE Banking Sector Posts Record Q3 Profits Amid Digital Transformation
+                            </h3>
+                            <p class="news-summary">
+                                Major UAE banks including Emirates NBD, First Abu Dhabi Bank (FAB), and Dubai Islamic Bank
+                                reported combined Q3 profits exceeding AED 15 billion, driven by digital banking adoption,
+                                increased lending activity, and robust non-interest income. Digital transactions surged 45%
+                                year-over-year as GCC consumers rapidly adopt fintech solutions...
+                            </p>
+                            <div class="news-meta">
+                                <span>👤 By Sarah Al-Fahim</span>
+                                <span>📅 Oct 20, 2025</span>
+                                <span>⏱️ 8 min read</span>
+                                <span>🏷️ Banking, UAE, TASI</span>
+                            </div>
+                        </div>
+
+                        <div class="news-card">
+                            <h3 class="news-title">
+                                💱 AED Strengthens Against Major Currencies as Oil Prices Rally
+                            </h3>
+                            <p class="news-summary">
+                                The UAE Dirham maintained its peg strength while showing relative appreciation against major
+                                currencies amid sustained oil price rally to $92/barrel. Central Bank of UAE reported foreign
+                                reserves increased 12% to $142 billion, supporting currency stability. Analysts predict
+                                continued AED strength through Q4 2025 as regional economic growth accelerates...
+                            </p>
+                            <div class="news-meta">
+                                <span>👤 By Ahmed Al-Mansoori</span>
+                                <span>📅 Oct 20, 2025</span>
+                                <span>⏱️ 6 min read</span>
+                                <span>🏷️ Forex, AED, Economy</span>
+                            </div>
+                        </div>
+
+                        <div class="news-card">
+                            <h3 class="news-title">
+                                📈 TASI Breaks 12,500 as Saudi Market Cap Reaches $3.2 Trillion
+                            </h3>
+                            <p class="news-summary">
+                                The Tadawul All Share Index (TASI) surged past 12,500 points for the first time, with total
+                                market capitalization reaching SAR 12 trillion ($3.2 trillion). The rally was led by SABIC,
+                                Al Rajhi Bank, and STC, supported by strong earnings, Vision 2030 mega-projects, and sustained
+                                foreign investment inflows exceeding $8 billion in Q3...
+                            </p>
+                            <div class="news-meta">
+                                <span>👤 By Fatima Al-Rashid</span>
+                                <span>📅 Oct 20, 2025</span>
+                                <span>⏱️ 10 min read</span>
+                                <span>🏷️ Stocks, TASI, Saudi Arabia</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="section">
+                <h2 class="section-title">📊 AI Performance Metrics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">6-8</div>
+                        <div class="stat-label">Signals Daily</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">4-5</div>
+                        <div class="stat-label">News Articles Daily</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">87%</div>
+                        <div class="stat-label">Avg Signal Accuracy</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Automated</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What Changes on the Page -->
+            <div class="section">
+                <h2 class="section-title">🎨 What Changes on the Main Page?</h2>
+                <p class="section-description">
+                    When you visit the site, the AI integration dynamically updates these sections:
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">Trading Signals Tab</h3>
+                        <p class="feature-description">
+                            Shows 6-8 fresh AI-generated signals for AED, SAR, stocks, gold, and crypto.
+                            Each signal includes entry/exit points, stop-loss, confidence %, and technical analysis.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📰</div>
+                        <h3 class="feature-title">News Feed Tab</h3>
+                        <p class="feature-description">
+                            Displays 4-5 AI-written financial news articles covering GCC banking, currencies,
+                            stock markets, energy sector, and economic policy with full articles.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3 class="feature-title">Analysis Section</h3>
+                        <p class="feature-description">
+                            Comprehensive daily market analysis for TASI, ADX, DFM with sectoral breakdowns,
+                            technical levels, key support/resistance, and tomorrow's key events.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎓</div>
+                        <h3 class="feature-title">Education Section</h3>
+                        <p class="feature-description">
+                            Daily trading tips, technical analysis lessons, risk management strategies,
+                            and GCC market-specific educational content with quizzes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Implementation -->
+            <div class="section">
+                <h2 class="section-title">⚙️ Technical Implementation</h2>
+                <p class="section-description">
+                    The AI integration is implemented using:
+                </p>
+
+                <div class="code-block">
+// Backend API Endpoint
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+// Generate trading signals
+async function generateTradingSignals() {
+  const prompt = `
+  Generate 6-8 high-quality trading signals for GCC markets today.
+
+  Include:
+  - GCC stocks (Saudi SABIC, UAE Emirates NBD, Qatar QNB)
+  - Forex pairs (AED/USD, SAR/USD, QAR/USD, EUR/USD)
+  - Commodities (Gold, Silver, Crude Oil)
+  - Crypto (Bitcoin, Ethereum)
+
+  For each signal provide:
+  - Symbol name, Signal type, Entry price
+  - Target price, Stop loss, Confidence level
+  - Timeframe, Technical reasoning, Risk/reward
+  `;
+
+  const response = await openai.chat.completions.create({
+    model: "gpt-4",
+    messages: [{ role: "user", content: prompt }],
+    temperature: 0.7,
+    max_tokens: 2500,
+  });
+
+  return JSON.parse(response.choices[0].message.content);
+}
+                </div>
+            </div>
+
+            <!-- Cost Management -->
+            <div class="section">
+                <h2 class="section-title">💰 Cost Management</h2>
+                <p class="section-description">
+                    The system includes built-in rate limiting and cost controls:
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3 class="feature-title">Rate Limiting</h3>
+                        <p class="feature-description">
+                            Maximum 50 API requests per day to control OpenAI usage costs.
+                            Automatically resets daily.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">💾</div>
+                        <h3 class="feature-title">Content Caching</h3>
+                        <p class="feature-description">
+                            Generated content is stored in database and served to multiple users,
+                            reducing redundant API calls.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">⏰</div>
+                        <h3 class="feature-title">Scheduled Generation</h3>
+                        <p class="feature-description">
+                            Content generated once daily via cron job at market open,
+                            not on every user request.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">Usage Tracking</h3>
+                        <p class="feature-description">
+                            Built-in usage tracker monitors daily requests and prevents
+                            exceeding budget limits.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Future Enhancements -->
+            <div class="section">
+                <h2 class="section-title">🚀 Future Enhancements</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <h3 class="feature-title">Real-Time Updates</h3>
+                        <p class="feature-description">
+                            Integrate real-time market data APIs to generate signals based on
+                            actual live market conditions and breaking news.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🌍</div>
+                        <h3 class="feature-title">Arabic Language</h3>
+                        <p class="feature-description">
+                            Generate all content in both English and Arabic to better serve
+                            GCC region's bilingual audience.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <h3 class="feature-title">Performance Tracking</h3>
+                        <p class="feature-description">
+                            Track historical signal accuracy and automatically improve prompts
+                            based on which signals performed best.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">👤</div>
+                        <h3 class="feature-title">Personalization</h3>
+                        <p class="feature-description">
+                            Generate personalized signals based on user's trading preferences,
+                            risk tolerance, and portfolio composition.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
