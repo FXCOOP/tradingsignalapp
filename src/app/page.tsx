@@ -5378,11 +5378,11 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
           msOverflowStyle: 'none'
         } as any}>
           {[
-            { key: 'signals', label: t.liveSignals, icon: '⚡' },
-            { key: 'analysis', label: t.marketAnalysis, icon: '📈' },
-            { key: 'markets', label: t.worldwideMarkets, icon: '🌍' },
-            { key: 'news', label: t.news, icon: '📰' },
-            { key: 'education', label: t.education, icon: '🎓' }
+            { key: 'signals', label: t.liveSignals, mobileLabel: 'Signals', icon: '⚡' },
+            { key: 'analysis', label: t.marketAnalysis, mobileLabel: 'Analysis', icon: '📈' },
+            { key: 'markets', label: t.worldwideMarkets, mobileLabel: 'Markets', icon: '🌍' },
+            { key: 'news', label: t.news, mobileLabel: 'News', icon: '📰' },
+            { key: 'education', label: t.education, mobileLabel: 'Learn', icon: '🎓' }
           ].map(tab => (
             <button
               key={tab.key}
@@ -5391,20 +5391,21 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 background: activeTab === tab.key ? designSystem.colors.primary.main : 'transparent',
                 color: activeTab === tab.key ? 'white' : designSystem.colors.neutral[500],
                 border: 'none',
-                padding: isMobile ? `${designSystem.spacing[3]} ${designSystem.spacing[4]}` : `${designSystem.spacing[4]} ${designSystem.spacing[6]}`,
+                padding: isMobile ? `${designSystem.spacing[2]} ${designSystem.spacing[3]}` : `${designSystem.spacing[4]} ${designSystem.spacing[6]}`,
                 cursor: 'pointer',
-                fontSize: isMobile ? designSystem.typography.sizes.bodySmall.mobile : designSystem.typography.sizes.bodySmall.desktop,
-                fontWeight: designSystem.typography.weights.semibold,
+                fontSize: isMobile ? '11px' : designSystem.typography.sizes.bodySmall.desktop,
+                fontWeight: designSystem.typography.weights.bold,
                 display: 'flex',
                 alignItems: 'center',
-                gap: isMobile ? designSystem.spacing[2] : designSystem.spacing[2],
+                gap: isMobile ? designSystem.spacing[1] : designSystem.spacing[2],
                 borderBottom: activeTab === tab.key ? `3px solid ${designSystem.colors.primary.main}` : '3px solid transparent',
                 whiteSpace: 'nowrap',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
+                borderRadius: isMobile ? '8px 8px 0 0' : '0'
               }}
             >
-              <span>{isMobile ? '' : tab.icon}</span>
-              {tab.label}
+              <span style={{ fontSize: isMobile ? '14px' : '16px' }}>{tab.icon}</span>
+              {isMobile ? tab.mobileLabel : tab.label}
             </button>
           ))}
         </div>
