@@ -3,12 +3,18 @@ import { useState, useEffect } from 'react'
 import { designSystem } from './design-system'
 import { useUser } from '@/contexts/UserContext'
 import { AuthModal } from '@/components/AuthModal'
+import { BrokerPromptModal } from '@/components/BrokerPromptModal'
 
 export default function HomePage() {
   // 🔐 Authentication
   const { user, loading: authLoading, logout, isPremium, getRemainingFree } = useUser()
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [authMode, setAuthMode] = useState<'signup' | 'login'>('signup')
+
+  // 🏦 Broker prompt tracking
+  const [showBrokerPrompt, setShowBrokerPrompt] = useState(false)
+  const [brokerPromptType, setBrokerPromptType] = useState<'signals' | 'articles'>('signals')
+  const [remainingFree, setRemainingFree] = useState<number>(3)
 
   const [activeTab, setActiveTab] = useState('signals')
   const [language, setLanguage] = useState('en')
@@ -96,6 +102,112 @@ export default function HomePage() {
     } else {
       setFollowedSignals(prev => [...prev, signalId])
       addNotification('Signal followed! You\'ll get updates.', 'success')
+    }
+  }
+
+  // 🎯 Track signal view (free tier limits)
+  const trackSignalView = async (signalId: number) => {
+    if (!user) {
+      setAuthMode('signup')
+      setShowAuthModal(true)
+      addNotification('🔐 Please sign up to view signals (it\'s FREE!)', 'warning')
+      return false
+    }
+
+    // Check if user is premium (has broker account)
+    if (user.has_broker_account) {
+      return true // Premium users can view unlimited
+    }
+
+    try {
+      const token = localStorage.getItem('auth_token')
+      const response = await fetch('/api/track/signal', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ signal_id: signalId })
+      })
+
+      const data = await response.json()
+
+      if (!data.can_view) {
+        // Free limit reached - show broker prompt
+        setBrokerPromptType('signals')
+        setRemainingFree(data.remaining)
+        setShowBrokerPrompt(true)
+        addNotification('🔒 Free signal limit reached! Open broker account for unlimited access.', 'warning')
+        return false
+      }
+
+      // Update remaining count
+      setRemainingFree(data.remaining)
+
+      // Show warning if only 1 left
+      if (data.remaining === 1) {
+        addNotification(`⚠️ Only ${data.remaining} free signal remaining!`, 'warning')
+      } else if (data.remaining === 0) {
+        addNotification(`⚠️ This is your last free signal!`, 'warning')
+      }
+
+      return true
+    } catch (error) {
+      console.error('Error tracking signal:', error)
+      return true // Allow view on error
+    }
+  }
+
+  // 🎯 Track article view (free tier limits)
+  const trackArticleView = async (articleId: number) => {
+    if (!user) {
+      setAuthMode('signup')
+      setShowAuthModal(true)
+      addNotification('🔐 Please sign up to read articles (it\'s FREE!)', 'warning')
+      return false
+    }
+
+    // Check if user is premium (has broker account)
+    if (user.has_broker_account) {
+      return true // Premium users can view unlimited
+    }
+
+    try {
+      const token = localStorage.getItem('auth_token')
+      const response = await fetch('/api/track/article', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ article_id: articleId })
+      })
+
+      const data = await response.json()
+
+      if (!data.can_view) {
+        // Free limit reached - show broker prompt
+        setBrokerPromptType('articles')
+        setRemainingFree(data.remaining)
+        setShowBrokerPrompt(true)
+        addNotification('🔒 Free article limit reached! Open broker account for unlimited access.', 'warning')
+        return false
+      }
+
+      // Update remaining count
+      setRemainingFree(data.remaining)
+
+      // Show warning if only 1 left
+      if (data.remaining === 1) {
+        addNotification(`⚠️ Only ${data.remaining} free article remaining!`, 'warning')
+      } else if (data.remaining === 0) {
+        addNotification(`⚠️ This is your last free article!`, 'warning')
+      }
+
+      return true
+    } catch (error) {
+      console.error('Error tracking article:', error)
+      return true // Allow view on error
     }
   }
 
@@ -6091,7 +6203,18 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               {displaySignals.map(signal => (
                 <div
                   key={signal.id}
-                  onClick={() => setSelectedSignal(selectedSignal === signal.id ? null : signal.id)}
+                  onClick={async () => {
+                    if (selectedSignal !== signal.id) {
+                      // Expanding signal - check if allowed
+                      const canView = await trackSignalView(signal.id)
+                      if (canView) {
+                        setSelectedSignal(signal.id)
+                      }
+                    } else {
+                      // Collapsing signal
+                      setSelectedSignal(null)
+                    }
+                  }}
                   style={{
                     background: `linear-gradient(135deg, ${designSystem.colors.neutral[50]} 0%, ${designSystem.colors.neutral[100]} 100%)`,
                     border: `2px solid ${designSystem.colors.neutral[200]}`,
@@ -10341,7 +10464,18 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                   transition: 'all 0.4s ease',
                   boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)'
                 }}
-                onClick={() => setSelectedArticle(selectedArticle === news.id ? null : news.id)}
+                onClick={async () => {
+                  if (selectedArticle !== news.id) {
+                    // Opening article - check if allowed
+                    const canView = await trackArticleView(news.id)
+                    if (canView) {
+                      setSelectedArticle(news.id)
+                    }
+                  } else {
+                    // Closing article
+                    setSelectedArticle(null)
+                  }
+                }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = '#2563eb'
                   e.currentTarget.style.transform = 'translateY(-4px)'
@@ -14098,6 +14232,14 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         defaultMode={authMode}
+      />
+
+      {/* 🏦 Broker Prompt Modal */}
+      <BrokerPromptModal
+        isOpen={showBrokerPrompt}
+        onClose={() => setShowBrokerPrompt(false)}
+        contentType={brokerPromptType}
+        remaining={remainingFree}
       />
     </div>
   )
