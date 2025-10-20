@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Exness Setup - Step by Step</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            color: white;
+            padding: 48px 40px;
+            text-align: center;
+        }
+        header h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; }
+        header p { font-size: 18px; opacity: 0.95; }
+        .content { padding: 48px 40px; }
+        .step {
+            background: #f9fafb;
+            border-left: 6px solid #3b82f6;
+            border-radius: 12px;
+            padding: 32px;
+            margin: 32px 0;
+        }
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .step-number {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .step-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+        .step-desc {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: #e0e7ff;
+            border-radius: 8px;
+        }
+        .code-box {
+            background: #1f2937;
+            color: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .code-box.small { font-size: 12px; padding: 12px; }
+        .action-item {
+            background: white;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+        .action-item::before {
+            content: "✓ ";
+            color: #3b82f6;
+            font-weight: 800;
+            font-size: 20px;
+            margin-right: 8px;
+        }
+        .warning {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+        .warning::before {
+            content: "⚠️ ";
+            font-size: 20px;
+            margin-right: 8px;
+        }
+        .success {
+            background: #dcfce7;
+            border-left: 4px solid #22c55e;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+        .success::before {
+            content: "✅ ";
+            font-size: 20px;
+            margin-right: 8px;
+        }
+        .info {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+        .info::before {
+            content: "💡 ";
+            font-size: 20px;
+            margin-right: 8px;
+        }
+        strong { color: #1f2937; font-weight: 700; }
+        .filename {
+            background: #fbbf24;
+            color: #78350f;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        ul { margin: 12px 0; padding-left: 24px; }
+        li { margin: 8px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Simple Exness Setup</h1>
+            <p>Beginner-Friendly Guide - Just Follow These Steps!</p>
+        </header>
+
+        <div class="content">
+            <div class="info">
+                <strong>What You'll Build:</strong> When users view 3 free signals, they'll see a popup asking them to create an Exness account. When they deposit $10, they automatically get unlimited access!
+            </div>
+
+            <!-- STEP 1: DATABASE -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Setup Database</div>
+                </div>
+                <div class="step-desc">Add tables to track clicks and conversions from Exness</div>
+
+                <div class="action-item">Go to <strong>Supabase Dashboard</strong> → Click <strong>"SQL Editor"</strong> in left sidebar</div>
+                <div class="action-item">Click <strong>"New Query"</strong> button</div>
+                <div class="action-item">Copy this SQL code and paste it:</div>
+
+                <div class="code-box">-- Add broker fields to users table
+ALTER TABLE users
+  ADD COLUMN IF NOT EXISTS broker_name TEXT,
+  ADD COLUMN IF NOT EXISTS broker_verified_at TIMESTAMPTZ;
+
+-- Track when users click Exness button
+CREATE TABLE IF NOT EXISTS exness_clicks (
+  id BIGSERIAL PRIMARY KEY,
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  click_url TEXT NOT NULL,
+  partner_id TEXT NOT NULL,
+  ip_address TEXT,
+  user_agent TEXT,
+  clicked_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Track when Exness notifies us of deposits
+CREATE TABLE IF NOT EXISTS exness_conversions (
+  id BIGSERIAL PRIMARY KEY,
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  partner_id TEXT NOT NULL,
+  event_type TEXT NOT NULL,
+  ftd_amount DECIMAL(10,2),
+  exness_user_id TEXT,
+  raw_postback_data JSONB,
+  processed BOOLEAN DEFAULT FALSE,
+  processed_at TIMESTAMPTZ,
+  received_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Create indexes
+CREATE INDEX IF NOT EXISTS idx_exness_clicks_user_id ON exness_clicks(user_id);
+CREATE INDEX IF NOT EXISTS idx_exness_clicks_partner_id ON exness_clicks(partner_id);
+CREATE INDEX IF NOT EXISTS idx_exness_conversions_user_id ON exness_conversions(user_id);
+CREATE INDEX IF NOT EXISTS idx_exness_conversions_partner_id ON exness_conversions(partner_id);
+
+-- Enable security
+ALTER TABLE exness_clicks ENABLE ROW LEVEL SECURITY;
+ALTER TABLE exness_conversions ENABLE ROW LEVEL SECURITY;
+
+-- Allow users to see own data
+DROP POLICY IF EXISTS "Users can view own clicks" ON exness_clicks;
+DROP POLICY IF EXISTS "Users can view own conversions" ON exness_conversions;
+
+CREATE POLICY "Users can view own clicks"
+  ON exness_clicks FOR SELECT
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can view own conversions"
+  ON exness_conversions FOR SELECT
+  USING (auth.uid() = user_id);</div>
+
+                <div class="action-item">Click <strong>"Run"</strong> button (bottom right)</div>
+
+                <div class="success">
+                    <strong>Success!</strong> You should see "Success. No rows returned". This means tables were created.
+                </div>
+            </div>
+
+            <!-- STEP 2: TRACK CLICKS API -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Create Click Tracking API</div>
+                </div>
+                <div class="step-desc">When user clicks "Open Exness Account", save it to database</div>
+
+                <div class="action-item">Create new file: <span class="filename">src/app/api/track/exness-click/route.ts</span></div>
+
+                <div class="warning">
+                    <strong>How to create this file:</strong><br>
+                    1. Right-click on <code>src/app/api/track</code> folder<br>
+                    2. Click "New Folder" → name it "exness-click"<br>
+                    3. Right-click on "exness-click" → "New File" → name it "route.ts"
+                </div>
+
+                <div class="action-item">Copy this code into the file:</div>
+
+                <div class="code-box">import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@supabase/supabase-js'
+import { verifyToken } from '@/lib/auth'
+
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
+
+export async function POST(request: NextRequest) {
+  try {
+    const authHeader = request.headers.get('authorization')
+    if (!authHeader) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const token = authHeader.replace('Bearer ', '')
+    const { user } = await verifyToken(token)
+
+    if (!user) {
+      return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
+    }
+
+    const { partner_id, click_url } = await request.json()
+
+    const ip_address = request.headers.get('x-forwarded-for') ||
+                       request.headers.get('x-real-ip') ||
+                       'unknown'
+    const user_agent = request.headers.get('user-agent') || 'unknown'
+
+    const { data, error } = await supabaseAdmin
+      .from('exness_clicks')
+      .insert({
+        user_id: user.id,
+        click_url,
+        partner_id,
+        ip_address,
+        user_agent
+      })
+      .select()
+      .single()
+
+    if (error) {
+      console.error('Error recording click:', error)
+      return NextResponse.json({ error: 'Failed to record click' }, { status: 500 })
+    }
+
+    return NextResponse.json({
+      success: true,
+      click_id: data.id
+    })
+
+  } catch (error) {
+    console.error('Track click error:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}</div>
+
+                <div class="action-item">Save the file (Ctrl+S or Cmd+S)</div>
+            </div>
+
+            <!-- STEP 3: POSTBACK API -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Create Postback API</div>
+                </div>
+                <div class="step-desc">When user deposits money, Exness calls this API to notify us</div>
+
+                <div class="action-item">Create new file: <span class="filename">src/app/api/postback/exness/route.ts</span></div>
+
+                <div class="warning">
+                    <strong>How to create this file:</strong><br>
+                    1. Right-click on <code>src/app/api</code> folder<br>
+                    2. Click "New Folder" → name it "postback"<br>
+                    3. Right-click on "postback" → "New Folder" → name it "exness"<br>
+                    4. Right-click on "exness" → "New File" → name it "route.ts"
+                </div>
+
+                <div class="action-item">Copy this code into the file:</div>
+
+                <div class="code-box">import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
+
+export async function POST(request: NextRequest) {
+  try {
+    const postbackData = await request.json()
+
+    console.log('📡 Received Exness Postback:', postbackData)
+
+    const {
+      partner_id,
+      event_type,
+      ftd_amount,
+      user_id: exness_user_id,
+      ...otherData
+    } = postbackData
+
+    // Find user who clicked this partner_id
+    const { data: clickData, error: clickError } = await supabaseAdmin
+      .from('exness_clicks')
+      .select('user_id')
+      .eq('partner_id', partner_id)
+      .order('clicked_at', { ascending: false })
+      .limit(1)
+      .single()
+
+    if (clickError || !clickData) {
+      console.error('❌ No user found for partner_id:', partner_id)
+
+      await supabaseAdmin.from('exness_conversions').insert({
+        partner_id,
+        event_type,
+        ftd_amount,
+        exness_user_id,
+        raw_postback_data: postbackData,
+        processed: false
+      })
+
+      return NextResponse.json({
+        success: false,
+        message: 'No user found for this partner_id'
+      })
+    }
+
+    const userId = clickData.user_id
+
+    // Record conversion
+    const { data: conversion, error: conversionError } = await supabaseAdmin
+      .from('exness_conversions')
+      .insert({
+        user_id: userId,
+        partner_id,
+        event_type,
+        ftd_amount,
+        exness_user_id,
+        raw_postback_data: postbackData,
+        processed: false
+      })
+      .select()
+      .single()
+
+    if (conversionError) {
+      console.error('❌ Error recording conversion:', conversionError)
+      return NextResponse.json({ error: 'Failed to record conversion' }, { status: 500 })
+    }
+
+    // AUTO-UPGRADE USER TO PREMIUM
+    const { error: upgradeError } = await supabaseAdmin
+      .from('users')
+      .update({
+        has_broker_account: true,
+        broker_name: 'Exness',
+        broker_verified_at: new Date().toISOString()
+      })
+      .eq('id', userId)
+
+    if (upgradeError) {
+      console.error('❌ Error upgrading user:', upgradeError)
+      return NextResponse.json({ error: 'Failed to upgrade user' }, { status: 500 })
+    }
+
+    // Mark as processed
+    await supabaseAdmin
+      .from('exness_conversions')
+      .update({
+        processed: true,
+        processed_at: new Date().toISOString()
+      })
+      .eq('id', conversion.id)
+
+    console.log('✅ User upgraded successfully:', userId)
+
+    return NextResponse.json({
+      success: true,
+      message: 'User upgraded to premium',
+      user_id: userId,
+      conversion_id: conversion.id
+    })
+
+  } catch (error) {
+    console.error('❌ Postback processing error:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}
+
+// Test endpoint
+export async function GET() {
+  return NextResponse.json({
+    message: 'Exness Postback Endpoint is running',
+    timestamp: new Date().toISOString()
+  })
+}</div>
+
+                <div class="action-item">Save the file (Ctrl+S or Cmd+S)</div>
+            </div>
+
+            <!-- STEP 4: UPDATE MODAL -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Update Exness Button</div>
+                </div>
+                <div class="step-desc">Make the button call our tracking API before opening Exness</div>
+
+                <div class="action-item">Open file: <span class="filename">src/components/BrokerPromptModal.tsx</span></div>
+                <div class="action-item">Find line 259 (the button onClick handler)</div>
+                <div class="action-item">Replace this code:</div>
+
+                <div class="code-box small">onClick={() => {
+  if (selectedBroker) {
+    const broker = brokers.find(b => b.name === selectedBroker)
+    if (broker) {
+      window.open(broker.link, '_blank')
+    }
+  }
+}}</div>
+
+                <div class="action-item">With this code:</div>
+
+                <div class="code-box small">onClick={async () => {
+  if (selectedBroker) {
+    const broker = brokers.find(b => b.name === selectedBroker)
+    if (broker) {
+      // Track click
+      try {
+        const token = localStorage.getItem('auth_token')
+        await fetch('/api/track/exness-click', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            partner_id: 'c_8f0nxidtbt',
+            click_url: broker.link
+          })
+        })
+      } catch (error) {
+        console.error('Failed to track click:', error)
+      }
+
+      // Open Exness
+      window.open(broker.link, '_blank')
+    }
+  }
+}}</div>
+
+                <div class="action-item">Save the file (Ctrl+S or Cmd+S)</div>
+            </div>
+
+            <!-- STEP 5: TEST LOCALLY -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Test Everything Works</div>
+                </div>
+                <div class="step-desc">Make sure your code works before deploying</div>
+
+                <div class="action-item">In terminal, run: <strong>npm run dev</strong></div>
+                <div class="action-item">Open browser: <strong>http://localhost:3000</strong></div>
+                <div class="action-item">Create a new test account (or use demo mode)</div>
+                <div class="action-item">View 3 signals → should see Exness popup</div>
+                <div class="action-item">Click "Open Exness Account" button</div>
+
+                <div class="action-item">Check Supabase dashboard:</div>
+                <ul style="margin-left: 40px;">
+                    <li>Go to <strong>Table Editor</strong></li>
+                    <li>Click <strong>"exness_clicks"</strong> table</li>
+                    <li>You should see 1 new row with your user_id</li>
+                </ul>
+
+                <div class="success">
+                    <strong>If you see the row,</strong> click tracking is working! ✓
+                </div>
+
+                <div class="action-item">Test postback API with curl:</div>
+
+                <div class="code-box small">curl -X POST http://localhost:3000/api/postback/exness \
+  -H "Content-Type: application/json" \
+  -d '{"partner_id":"c_8f0nxidtbt","event_type":"FTD","ftd_amount":"50"}'</div>
+
+                <div class="action-item">Check Supabase again:</div>
+                <ul style="margin-left: 40px;">
+                    <li>Check <strong>"exness_conversions"</strong> table → should see new row</li>
+                    <li>Check <strong>"users"</strong> table → your user's <code>has_broker_account</code> should be TRUE</li>
+                </ul>
+
+                <div class="success">
+                    <strong>If user was upgraded,</strong> postback API is working! ✓
+                </div>
+            </div>
+
+            <!-- STEP 6: DEPLOY -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">Deploy to Production</div>
+                </div>
+                <div class="step-desc">Push your code to GitHub, Vercel will auto-deploy</div>
+
+                <div class="action-item">In terminal, run these commands:</div>
+
+                <div class="code-box small">git add -A
+git commit -m "Add Exness postback tracking"
+git push</div>
+
+                <div class="action-item">Wait 2-3 minutes for Vercel to deploy</div>
+                <div class="action-item">Check Vercel dashboard: should show "Deployed"</div>
+
+                <div class="success">
+                    <strong>Your app is now live!</strong> The tracking system is running.
+                </div>
+            </div>
+
+            <!-- STEP 7: EXNESS SETUP -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">7</div>
+                    <div class="step-title">Configure Exness Partners</div>
+                </div>
+                <div class="step-desc">Tell Exness to send postbacks to your website</div>
+
+                <div class="action-item">Go to: <strong>https://www.exnesstrack.net/</strong></div>
+                <div class="action-item">Click <strong>"Sign Up"</strong> or <strong>"Become a Partner"</strong></div>
+                <div class="action-item">Fill in your details:</div>
+                <ul style="margin-left: 40px;">
+                    <li><strong>Email:</strong> Your real email</li>
+                    <li><strong>Country:</strong> UAE (or your country)</li>
+                    <li><strong>Website:</strong> Your domain (e.g., gccsignalpro.com)</li>
+                </ul>
+
+                <div class="action-item">Verify your email (check inbox)</div>
+                <div class="action-item">Login to Exness Partners dashboard</div>
+
+                <div class="action-item">In dashboard, click: <strong>Settings → Integrations → Postbacks</strong></div>
+                <div class="action-item">Click <strong>"Create postbacks"</strong> button</div>
+                <div class="action-item">Select <strong>"Manual setup"</strong> tab</div>
+
+                <div class="action-item">Fill in the form:</div>
+
+                <div class="code-box small">Click URL:
+https://yourdomain.com/en/efficient-way-to-trade-stocks?partner_id=c_8f0nxidtbt
+
+Parameters values:
+partner_id = c_8f0nxidtbt
+
+Event type:
+☑ FTD (First Time Deposit)
+
+Postback URL:
+https://yourdomain.com/api/postback/exness</div>
+
+                <div class="warning">
+                    <strong>Replace "yourdomain.com"</strong> with your actual domain!<br>
+                    Example: https://gccsignalpro.com/api/postback/exness
+                </div>
+
+                <div class="action-item">Click <strong>"Save"</strong></div>
+
+                <div class="success">
+                    <strong>Done!</strong> Exness will now send postbacks when users deposit money.
+                </div>
+            </div>
+
+            <!-- STEP 8: LIVE TEST -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">8</div>
+                    <div class="step-title">Test With Real Money (Optional)</div>
+                </div>
+                <div class="step-desc">Verify the full flow works end-to-end</div>
+
+                <div class="warning">
+                    <strong>This requires depositing $10 to Exness.</strong> Only do this if you want to fully test the system. You can skip this and wait for real users.
+                </div>
+
+                <div class="action-item">Create a new account on YOUR website</div>
+                <div class="action-item">View 3 signals → see Exness popup</div>
+                <div class="action-item">Click "Open Exness Account"</div>
+                <div class="action-item">Complete Exness registration</div>
+                <div class="action-item">Deposit $10 to your Exness trading account</div>
+                <div class="action-item">Wait 1-5 minutes</div>
+
+                <div class="action-item">Check your Supabase:</div>
+                <ul style="margin-left: 40px;">
+                    <li>Check <strong>"exness_conversions"</strong> table → should see new row</li>
+                    <li>Check <strong>"users"</strong> table → <code>has_broker_account</code> should be TRUE</li>
+                </ul>
+
+                <div class="action-item">Refresh YOUR website</div>
+                <div class="action-item">Try viewing signals → should have unlimited access!</div>
+
+                <div class="success">
+                    <strong>Congratulations!</strong> Your monetization system is working perfectly! 🎉
+                </div>
+            </div>
+
+            <!-- TROUBLESHOOTING -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">❓</div>
+                    <div class="step-title">Problems? Quick Fixes</div>
+                </div>
+
+                <div class="warning">
+                    <strong>Problem: Postback never arrives</strong><br>
+                    • Check Exness Partners → Integrations → Postbacks is configured<br>
+                    • Verify URL is correct (use your actual domain)<br>
+                    • Check your deployment logs in Vercel<br>
+                    • Test endpoint: https://yourdomain.com/api/postback/exness (should show JSON)
+                </div>
+
+                <div class="warning">
+                    <strong>Problem: User not upgraded after deposit</strong><br>
+                    • Check Supabase "exness_conversions" table for postback data<br>
+                    • Look at "processed" column - should be TRUE<br>
+                    • Manually fix: Run SQL: <code>UPDATE users SET has_broker_account = true WHERE id = 'user-id'</code>
+                </div>
+
+                <div class="warning">
+                    <strong>Problem: Click tracking not saving</strong><br>
+                    • Check browser console for errors (F12)<br>
+                    • Verify user is logged in (has token)<br>
+                    • Test API: Open Network tab, click button, see if API call succeeds
+                </div>
+            </div>
+
+            <!-- DONE -->
+            <div class="success" style="margin-top: 48px; padding: 32px; font-size: 18px;">
+                <strong>🎉 You're All Set!</strong><br><br>
+                Your Exness monetization system is ready. When users hit their free limits, they'll see the Exness popup. After they deposit $10, they automatically get unlimited access - and you earn commission!<br><br>
+                <strong>Track Your Earnings:</strong> Login to Exness Partners dashboard to see conversions and commissions.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
