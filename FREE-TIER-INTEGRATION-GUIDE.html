@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Tier Integration Guide - GCC Signal Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .header p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 60px 40px;
+        }
+
+        .alert {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #fbbf24;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+
+        .alert h2 {
+            color: #92400e;
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .alert p {
+            color: #78350f;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .diagram {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 32px;
+            margin: 32px 0;
+        }
+
+        .flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 24px 0;
+        }
+
+        .flow-box {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 20px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .flow-arrow {
+            font-size: 32px;
+            color: #3b82f6;
+        }
+
+        .step {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-left: 4px solid #3b82f6;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            font-size: 20px;
+            margin-right: 16px;
+        }
+
+        .step-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 12px;
+        }
+
+        .step-content {
+            color: #1e3a8a;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .code-block {
+            background: #1f2937;
+            color: #10b981;
+            border-radius: 12px;
+            padding: 24px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 16px 0;
+            position: relative;
+        }
+
+        .code-label {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: #3b82f6;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .screenshot {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 24px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .screenshot-title {
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .screenshot-image {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            background: #f9fafb;
+            text-align: center;
+            font-size: 14px;
+            color: #6b7280;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .comparison-box {
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .comparison-box.before {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border: 2px solid #f87171;
+        }
+
+        .comparison-box.after {
+            background: linear-gradient(135deg, #dcfce7 0%, #d1fae5 100%);
+            border: 2px solid #86efac;
+        }
+
+        .comparison-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .comparison-box.before .comparison-title {
+            color: #991b1b;
+        }
+
+        .comparison-box.after .comparison-title {
+            color: #15803d;
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border: 2px solid #f87171;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            color: #991b1b;
+        }
+
+        .warning strong {
+            font-size: 18px;
+        }
+
+        .success {
+            background: linear-gradient(135deg, #dcfce7 0%, #d1fae5 100%);
+            border: 2px solid #86efac;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            color: #15803d;
+        }
+
+        .checklist {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .checklist-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            border-left: 4px solid #9ca3af;
+            padding-left: 16px;
+        }
+
+        .checklist-item.done {
+            border-left-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            .flow {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Free Tier Integration Guide</h1>
+            <p>Step-by-Step Implementation with Visual Diagrams</p>
+        </div>
+
+        <div class="content">
+            <!-- Current Problem -->
+            <div class="alert">
+                <h2>⚠️ Current Problem</h2>
+                <p><strong>Issue:</strong> Users can view UNLIMITED signals and articles without opening a broker account.<br>
+                <strong>Impact:</strong> No monetization, no broker conversions, no premium upgrades.<br>
+                <strong>Solution:</strong> Implement 3-signal and 3-article free tier limits with broker prompt.</p>
+            </div>
+
+            <!-- Before/After Comparison -->
+            <div class="section">
+                <h2 class="section-title">📊 Before vs After</h2>
+                <div class="comparison">
+                    <div class="comparison-box before">
+                        <div style="font-size: 48px; margin-bottom: 16px;">❌</div>
+                        <div class="comparison-title">BEFORE (Current)</div>
+                        <ul style="text-align: left; padding-left: 24px; line-height: 2;">
+                            <li>User signs up</li>
+                            <li>Views 100+ signals</li>
+                            <li>Reads 50+ articles</li>
+                            <li>Never opens broker account</li>
+                            <li>Zero revenue generated</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-box after">
+                        <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
+                        <div class="comparison-title">AFTER (Fixed)</div>
+                        <ul style="text-align: left; padding-left: 24px; line-height: 2;">
+                            <li>User signs up</li>
+                            <li>Views 3 signals ✓</li>
+                            <li>Reads 3 articles ✓</li>
+                            <li>Sees broker prompt 🏦</li>
+                            <li>Opens $10 account → Revenue!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How It Works Diagram -->
+            <div class="section">
+                <h2 class="section-title">🔄 How The System Works</h2>
+
+                <div class="diagram">
+                    <h3 style="text-align: center; margin-bottom: 24px; color: #1f2937;">User Journey Flow</h3>
+
+                    <div class="flow">
+                        <div class="flow-box">User Signs Up</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">Clicks Signal #1</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">✅ Opens<br>(2 left)</div>
+                    </div>
+
+                    <div class="flow">
+                        <div class="flow-box">Clicks Signal #2</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">✅ Opens<br>(1 left)</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">⚠️ Warning</div>
+                    </div>
+
+                    <div class="flow">
+                        <div class="flow-box">Clicks Signal #3</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">✅ Opens<br>(0 left)</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">⚠️ Last One!</div>
+                    </div>
+
+                    <div class="flow">
+                        <div class="flow-box">Clicks Signal #4</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">🔒 BLOCKED</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">🏦 Broker Modal</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Flow -->
+            <div class="section">
+                <h2 class="section-title">⚙️ Technical Flow</h2>
+
+                <div class="diagram">
+                    <h3 style="text-align: center; margin-bottom: 24px; color: #1f2937;">What Happens When User Clicks Signal</h3>
+
+                    <div style="background: white; padding: 24px; border-radius: 12px; margin: 16px 0;">
+                        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                            <div style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600;">1. User Clicks</div>
+                            <div>→</div>
+                            <div style="flex: 1; color: #6b7280;">User clicks on a signal card to expand and view details</div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                            <div style="background: #8b5cf6; color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600;">2. Call API</div>
+                            <div>→</div>
+                            <div style="flex: 1; color: #6b7280;">Frontend calls /api/track/signal with user token + signal ID</div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                            <div style="background: #ec4899; color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600;">3. Check DB</div>
+                            <div>→</div>
+                            <div style="flex: 1; color: #6b7280;">API checks free_signals_count in database (0, 1, 2, or 3+)</div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                            <div style="background: #10b981; color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600;">4. Response</div>
+                            <div>→</div>
+                            <div style="flex: 1; color: #6b7280;">Returns: can_view (true/false) + remaining (3, 2, 1, 0)</div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="background: #f59e0b; color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600;">5. Show UI</div>
+                            <div>→</div>
+                            <div style="flex: 1; color: #6b7280;">If can_view=true: Show signal. If false: Show broker modal</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What Was Already Done -->
+            <div class="section">
+                <h2 class="section-title">✅ What I Already Created</h2>
+
+                <div class="checklist">
+                    <div class="checklist-item done">
+                        <strong>✅ Database Tables</strong><br>
+                        Created: users, trading_signals, user_signal_views, user_article_views
+                    </div>
+                    <div class="checklist-item done">
+                        <strong>✅ API Endpoint: /api/track/signal</strong><br>
+                        Tracks signal views, enforces 3-signal limit
+                    </div>
+                    <div class="checklist-item done">
+                        <strong>✅ API Endpoint: /api/track/article</strong><br>
+                        Tracks article views, enforces 3-article limit
+                    </div>
+                    <div class="checklist-item done">
+                        <strong>✅ Broker Prompt Modal Component</strong><br>
+                        Beautiful modal with broker options when limit reached
+                    </div>
+                    <div class="checklist-item done">
+                        <strong>✅ Database Setup SQL</strong><br>
+                        File: SUPABASE-COMPLETE-DATABASE-SETUP.sql
+                    </div>
+                </div>
+            </div>
+
+            <!-- What YOU Need To Do -->
+            <div class="section">
+                <h2 class="section-title">🛠️ What YOU Need To Do</h2>
+
+                <div class="warning">
+                    <strong>⚠️ IMPORTANT:</strong> The system is 90% done. You only need to do 2 things:<br>
+                    1. Run the database SQL in Supabase (1 minute)<br>
+                    2. Tell me to integrate the tracking into your page.tsx (I'll do it automatically)
+                </div>
+
+                <!-- Step 1 -->
+                <div class="step">
+                    <div style="display: flex; align-items: center; margin-bottom: 16px;">
+                        <span class="step-number">1</span>
+                        <h3 class="step-title">Run Database Setup in Supabase</h3>
+                    </div>
+                    <div class="step-content">
+                        <strong>What to do:</strong>
+                        <ol style="margin: 16px 0; padding-left: 24px; line-height: 2;">
+                            <li>Open your Supabase Dashboard: <code>https://supabase.com/dashboard</code></li>
+                            <li>Click <strong>"SQL Editor"</strong> in the left sidebar</li>
+                            <li>Open the file: <code>SUPABASE-COMPLETE-DATABASE-SETUP.sql</code> from your project</li>
+                            <li>Copy the entire file contents (Ctrl+A, Ctrl+C)</li>
+                            <li>Paste into Supabase SQL Editor</li>
+                            <li>Click the <strong>"Run"</strong> button (green play icon)</li>
+                            <li>Wait for "Success" message</li>
+                            <li>Verify: Run <code>SELECT * FROM users LIMIT 1;</code> - should show your table</li>
+                        </ol>
+
+                        <div class="screenshot">
+                            <div class="screenshot-title">📸 What It Looks Like:</div>
+                            <div class="screenshot-image">
+                                [Supabase SQL Editor Screenshot]<br><br>
+                                Left Sidebar: SQL Editor (highlighted)<br>
+                                Main Area: Large text box with SQL code<br>
+                                Top Right: Green "Run" button<br>
+                                Bottom: Results showing "Success! 9 tables created"
+                            </div>
+                        </div>
+
+                        <div class="success">
+                            <strong>✅ Done?</strong> You should see 9 tables in your Supabase dashboard:<br>
+                            users, trading_signals, news_articles, market_analysis, educational_content,<br>
+                            user_signal_views, user_article_views, followed_signals, broker_accounts
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step">
+                    <div style="display: flex; align-items: center; margin-bottom: 16px;">
+                        <span class="step-number">2</span>
+                        <h3 class="step-title">Tell Me to Integrate (I'll Do It Automatically)</h3>
+                    </div>
+                    <div class="step-content">
+                        <strong>What to do:</strong>
+                        <ol style="margin: 16px 0; padding-left: 24px; line-height: 2;">
+                            <li>After Step 1 is done, just say: <strong>"Integrate the tracking now"</strong></li>
+                            <li>I will automatically:
+                                <ul style="margin-top: 8px; padding-left: 24px;">
+                                    <li>Add the BrokerPromptModal import</li>
+                                    <li>Add state variables for tracking</li>
+                                    <li>Create the tracking functions</li>
+                                    <li>Update signal click handlers</li>
+                                    <li>Update article click handlers</li>
+                                    <li>Add the modal to your render</li>
+                                    <li>Commit and deploy everything</li>
+                                </ul>
+                            </li>
+                            <li>You don't need to edit any code manually!</li>
+                        </ol>
+
+                        <div class="success">
+                            <strong>✅ That's it!</strong> After I integrate, your free tier limits will work automatically.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testing Guide -->
+            <div class="section">
+                <h2 class="section-title">🧪 How To Test After Integration</h2>
+
+                <div class="step">
+                    <h3 style="color: #3b82f6; margin-bottom: 16px;">Test Scenario 1: Free User (3 Signals Limit)</h3>
+                    <ol style="padding-left: 24px; line-height: 2;">
+                        <li><strong>Sign up</strong> with new test email (test@test.com)</li>
+                        <li><strong>Click signal #1</strong> → Should open ✅ (Shows: "2 free signals remaining")</li>
+                        <li><strong>Click signal #2</strong> → Should open ✅ (Shows: "1 free signal remaining")</li>
+                        <li><strong>Click signal #3</strong> → Should open ✅ (Shows: "0 free signals remaining")</li>
+                        <li><strong>Click signal #4</strong> → Should NOT open 🔒 (Broker modal appears!)</li>
+                    </ol>
+                </div>
+
+                <div class="step">
+                    <h3 style="color: #8b5cf6; margin-bottom: 16px;">Test Scenario 2: Premium User (Unlimited)</h3>
+                    <ol style="padding-left: 24px; line-height: 2;">
+                        <li>Go to Supabase → users table</li>
+                        <li>Find your test user</li>
+                        <li>Set <code>has_broker_account = true</code></li>
+                        <li>Refresh your site</li>
+                        <li>Click 50 signals → All should open ✅ (No limits!)</li>
+                    </ol>
+                </div>
+
+                <div class="step">
+                    <h3 style="color: #ec4899; margin-bottom: 16px;">Test Scenario 3: Separate Limits for Articles</h3>
+                    <ol style="padding-left: 24px; line-height: 2;">
+                        <li>After using 3 signals (limit reached)</li>
+                        <li>Switch to "News" tab</li>
+                        <li>Click article #1-3 → Should all open ✅</li>
+                        <li>Click article #4 → Broker modal appears 🔒</li>
+                        <li>Note: Signals and articles have SEPARATE 3-count limits</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Customization -->
+            <div class="section">
+                <h2 class="section-title">⚙️ Optional Customization</h2>
+
+                <div class="step">
+                    <h3 style="color: #1f2937; margin-bottom: 16px;">Change Broker Affiliate Links</h3>
+                    <p style="margin-bottom: 12px;">Open: <code>src/components/BrokerPromptModal.tsx</code></p>
+                    <p style="margin-bottom: 12px;">Find the <code>brokers</code> array and update:</p>
+                    <div class="code-block">
+                        <div class="code-label">TypeScript</div>
+const brokers = [
+  {
+    name: 'Exness',
+    link: 'https://one.exnesstrack.net/a/YOUR-AFFILIATE-ID' // ← Change this
+  },
+  {
+    name: 'IC Markets',
+    link: 'https://www.icmarkets.com/?camp=YOUR-ID' // ← Change this
+  }
+]
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 style="color: #1f2937; margin-bottom: 16px;">Change Free Limits (From 3 to 5, etc.)</h3>
+                    <p style="margin-bottom: 12px;">Open: <code>src/app/api/track/signal/route.ts</code></p>
+                    <p style="margin-bottom: 12px;">Change line 42:</p>
+                    <div class="code-block">
+                        <div class="code-label">TypeScript</div>
+// Change this line:
+if (user.free_signals_count >= 3) {  // ← Change 3 to 5 (or any number)
+
+// Do the same in src/app/api/track/article/route.ts
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section">
+                <h2 class="section-title">📝 Quick Summary</h2>
+
+                <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #3b82f6; border-radius: 16px; padding: 32px;">
+                    <h3 style="color: #1e40af; font-size: 24px; margin-bottom: 16px;">🎯 Your Action Items:</h3>
+                    <ol style="font-size: 18px; line-height: 2; color: #1e3a8a; padding-left: 24px;">
+                        <li><strong>Step 1:</strong> Run <code>SUPABASE-COMPLETE-DATABASE-SETUP.sql</code> in Supabase (5 minutes)</li>
+                        <li><strong>Step 2:</strong> Say "Integrate the tracking now" (I'll do it automatically)</li>
+                        <li><strong>Step 3:</strong> Test with new user account (2 minutes)</li>
+                        <li><strong>Step 4:</strong> Update broker affiliate links (optional, 1 minute)</li>
+                        <li><strong>Step 5:</strong> Deploy to production 🚀</li>
+                    </ol>
+
+                    <div style="margin-top: 24px; padding: 20px; background: white; border-radius: 12px; border-left: 4px solid #10b981;">
+                        <strong style="color: #15803d; font-size: 20px;">✅ Expected Result:</strong><br>
+                        <span style="color: #166534; font-size: 16px;">
+                            Free users get 3 signals + 3 articles, then see beautiful broker prompt.<br>
+                            Premium users (has_broker_account=true) get unlimited everything.<br>
+                            You start earning broker commissions! 💰
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Note -->
+            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #fbbf24; border-radius: 16px; padding: 32px; text-align: center;">
+                <h2 style="color: #92400e; font-size: 28px; margin-bottom: 16px;">🚀 Ready to Start?</h2>
+                <p style="color: #78350f; font-size: 18px; margin-bottom: 24px;">
+                    Follow Step 1 above to run the database setup.<br>
+                    Then just tell me: <strong>"Integrate the tracking now"</strong><br>
+                    I'll handle everything else automatically!
+                </p>
+                <div style="font-size: 48px;">💪</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
