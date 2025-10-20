@@ -5256,7 +5256,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         e.currentTarget.style.transform = 'scale(1)'
                       }}
                     >
-                      {isMobile ? '🔑' : '🔑 Login'}
+                      {isMobile ? 'Sign In' : '🔑 Sign In'}
                     </button>
 
                     <button
@@ -5286,7 +5286,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         e.currentTarget.style.boxShadow = designSystem.shadows.primary
                       }}
                     >
-                      {isMobile ? '✨' : '✨ Sign Up Free'}
+                      {isMobile ? 'Sign Up' : '✨ Sign Up'}
                     </button>
                   </div>
                 )}
