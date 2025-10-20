@@ -24,23 +24,14 @@ export function BrokerPromptModal({
       logo: '🏦',
       minDeposit: '$10',
       benefits: 'Instant verification, Low spreads, Fast withdrawals',
-      link: 'https://one.exnesstrack.net/a/your-affiliate-id'
-    },
-    {
-      name: 'IC Markets',
-      logo: '💼',
-      minDeposit: '$200',
-      benefits: 'Tight spreads, ECN accounts, MetaTrader 4/5',
-      link: 'https://www.icmarkets.com/?camp=your-id'
-    },
-    {
-      name: 'Pepperstone',
-      logo: '🌶️',
-      minDeposit: '$200',
-      benefits: 'Award-winning platform, 24/7 support',
-      link: 'https://pepperstone.com/?a_aid=your-id'
+      link: 'https://one.exnesstrack.net/a/c_8f0nxidtbt'
     }
   ]
+
+  // Auto-select Exness (only option)
+  if (!selectedBroker) {
+    setSelectedBroker('Exness')
+  }
 
   return (
     <>
