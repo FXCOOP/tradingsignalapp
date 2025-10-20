@@ -69,7 +69,7 @@ export function AuthModal({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          animation: 'fadeIn 0.3s ease-in-out',
+          animation: 'authModalFadeIn 0.3s ease-in-out',
           padding: '20px'
         }}
       >
@@ -84,7 +84,7 @@ export function AuthModal({
             width: '100%',
             position: 'relative',
             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-            animation: 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+            animation: 'authModalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
             maxHeight: '90vh',
             overflowY: 'auto'
           }}
@@ -132,7 +132,7 @@ export function AuthModal({
             <div style={{
               fontSize: '48px',
               marginBottom: '16px',
-              animation: 'bounce 1s ease-in-out'
+              animation: 'authModalBounce 1s ease-in-out'
             }}>
               {mode === 'signup' ? '🚀' : '👋'}
             </div>
@@ -206,7 +206,7 @@ export function AuthModal({
               display: 'flex',
               alignItems: 'center',
               gap: '10px',
-              animation: 'shake 0.5s ease-in-out'
+              animation: 'authModalShake 0.5s ease-in-out'
             }}>
               ⚠️ {error}
             </div>
@@ -384,7 +384,7 @@ export function AuthModal({
                     border: '3px solid rgba(255,255,255,0.3)',
                     borderTopColor: 'white',
                     borderRadius: '50%',
-                    animation: 'spin 0.8s linear infinite'
+                    animation: 'authModalSpin 0.8s linear infinite'
                   }} />
                   Please wait...
                 </span>
@@ -477,35 +477,37 @@ export function AuthModal({
       </div>
 
       {/* Animations */}
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(40px) scale(0.95);
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @keyframes authModalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
           }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
+          @keyframes authModalSlideUp {
+            from {
+              opacity: 0;
+              transform: translateY(40px) scale(0.95);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0) scale(1);
+            }
           }
-        }
-        @keyframes bounce {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
-        }
-        @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          25% { transform: translateX(-10px); }
-          75% { transform: translateX(10px); }
-        }
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
+          @keyframes authModalBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+          }
+          @keyframes authModalShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+          }
+          @keyframes authModalSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+        `
+      }} />
     </>
   )
 }
