@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
+import { verifyToken } from '@/lib/auth'
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,11 +14,20 @@ export async function POST(request: NextRequest) {
 
     const token = authHeader.substring(7)
 
-    // Verify token and get user
+    // Verify JWT token
+    const decoded = verifyToken(token)
+    if (!decoded) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid token' },
+        { status: 401 }
+      )
+    }
+
+    // Get user from database
     const { data: user, error: userError } = await supabaseAdmin
       .from('users')
       .select('id, free_articles_count, has_broker_account')
-      .eq('id', token) // In production, decode JWT to get user ID
+      .eq('id', decoded.userId)
       .single()
 
     if (userError || !user) {
