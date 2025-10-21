@@ -16,8 +16,12 @@ export default function AdminDashboard() {
   const [activityLog, setActivityLog] = useState<any[]>([])
   const [users, setUsers] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'overview' | 'conversions' | 'activity' | 'users'>('overview')
+  const [activeTab, setActiveTab] = useState<'overview' | 'conversions' | 'activity' | 'users' | 'emails'>('overview')
   const [timeRange, setTimeRange] = useState<'today' | 'week' | 'month' | 'all'>('week')
+  const [showReportIssue, setShowReportIssue] = useState(false)
+  const [issueDescription, setIssueDescription] = useState('')
+  const [issueSubmitting, setIssueSubmitting] = useState(false)
+  const [issueSubmitted, setIssueSubmitted] = useState(false)
 
   // Authentication check
   useEffect(() => {
@@ -130,6 +134,41 @@ export default function AdminDashboard() {
     }
   }
 
+  const handleReportIssue = async () => {
+    if (!issueDescription.trim()) {
+      alert('Please describe the issue')
+      return
+    }
+
+    setIssueSubmitting(true)
+
+    try {
+      // Save issue to activity log
+      await supabase.from('activity_log').insert({
+        user_id: 'admin',
+        action: 'ADMIN_ISSUE_REPORTED',
+        details: {
+          description: issueDescription,
+          timestamp: new Date().toISOString(),
+          user_agent: navigator.userAgent
+        }
+      })
+
+      setIssueSubmitted(true)
+      setIssueDescription('')
+
+      setTimeout(() => {
+        setShowReportIssue(false)
+        setIssueSubmitted(false)
+      }, 2000)
+    } catch (error) {
+      console.error('Error reporting issue:', error)
+      alert('Failed to submit issue. Please try again.')
+    } finally {
+      setIssueSubmitting(false)
+    }
+  }
+
   if (loading && !stats) {
     return (
       <div style={{
@@ -169,6 +208,29 @@ export default function AdminDashboard() {
           </div>
 
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
+            <button
+              onClick={() => setShowReportIssue(true)}
+              style={{
+                padding: '10px 20px',
+                borderRadius: '8px',
+                border: '2px solid #f59e0b',
+                background: 'white',
+                color: '#f59e0b',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#f59e0b'
+                e.currentTarget.style.color = 'white'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'white'
+                e.currentTarget.style.color = '#f59e0b'
+              }}
+            >
+              Report Issue
+            </button>
             <button
               onClick={() => {
                 sessionStorage.removeItem('admin_authenticated')
@@ -290,7 +352,7 @@ export default function AdminDashboard() {
         boxShadow: '0 10px 40px rgba(0,0,0,0.1)'
       }}>
         <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #f1f5f9' }}>
-          {(['overview', 'conversions', 'activity', 'users'] as const).map((tab) => (
+          {(['overview', 'conversions', 'activity', 'users', 'emails'] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -324,7 +386,101 @@ export default function AdminDashboard() {
         {activeTab === 'conversions' && <ConversionsTab conversions={conversions} />}
         {activeTab === 'activity' && <ActivityTab activityLog={activityLog} />}
         {activeTab === 'users' && <UsersTab users={users} />}
+        {activeTab === 'emails' && <EmailSignupsTab users={users} />}
       </div>
+
+      {/* Report Issue Modal */}
+      {showReportIssue && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0,0,0,0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999
+        }}>
+          <div style={{
+            background: 'white',
+            borderRadius: '24px',
+            padding: '32px',
+            maxWidth: '500px',
+            width: '90%',
+            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)'
+          }}>
+            <h2 style={{ marginTop: 0, color: '#1e293b' }}>Report an Issue</h2>
+
+            {issueSubmitted ? (
+              <div style={{ textAlign: 'center', padding: '20px' }}>
+                <div style={{ fontSize: '48px', marginBottom: '16px' }}>✅</div>
+                <p style={{ color: '#10b981', fontWeight: '600', fontSize: '18px' }}>
+                  Issue reported successfully!
+                </p>
+              </div>
+            ) : (
+              <>
+                <textarea
+                  value={issueDescription}
+                  onChange={(e) => setIssueDescription(e.target.value)}
+                  placeholder="Describe the issue you're experiencing..."
+                  rows={6}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    borderRadius: '12px',
+                    border: '2px solid #e2e8f0',
+                    fontSize: '14px',
+                    fontFamily: 'inherit',
+                    resize: 'vertical',
+                    marginBottom: '16px',
+                    boxSizing: 'border-box'
+                  }}
+                />
+
+                <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+                  <button
+                    onClick={() => {
+                      setShowReportIssue(false)
+                      setIssueDescription('')
+                    }}
+                    disabled={issueSubmitting}
+                    style={{
+                      padding: '12px 24px',
+                      borderRadius: '12px',
+                      border: '2px solid #e2e8f0',
+                      background: 'white',
+                      color: '#64748b',
+                      fontWeight: '600',
+                      cursor: issueSubmitting ? 'not-allowed' : 'pointer',
+                      opacity: issueSubmitting ? 0.5 : 1
+                    }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleReportIssue}
+                    disabled={issueSubmitting}
+                    style={{
+                      padding: '12px 24px',
+                      borderRadius: '12px',
+                      border: 'none',
+                      background: issueSubmitting ? '#94a3b8' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      color: 'white',
+                      fontWeight: '600',
+                      cursor: issueSubmitting ? 'not-allowed' : 'pointer'
+                    }}
+                  >
+                    {issueSubmitting ? 'Submitting...' : 'Submit'}
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -571,6 +727,98 @@ function UsersTab({ users }: any) {
                   <td style={{ padding: '12px' }}>{user.broker_name || '-'}</td>
                   <td style={{ padding: '12px', color: '#64748b', fontSize: '12px' }}>
                     {new Date(user.created_at).toLocaleDateString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function EmailSignupsTab({ users }: any) {
+  // Sort by most recent first
+  const sortedUsers = [...users].sort((a, b) =>
+    new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  )
+
+  return (
+    <div>
+      <h2 style={{ marginTop: 0 }}>Email Signups ({users.length})</h2>
+
+      <div style={{ marginBottom: '20px', padding: '16px', background: '#f8fafc', borderRadius: '12px' }}>
+        <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+          <div>
+            <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '4px' }}>Total Signups</div>
+            <div style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b' }}>{users.length}</div>
+          </div>
+          <div>
+            <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '4px' }}>Premium Conversions</div>
+            <div style={{ fontSize: '24px', fontWeight: '700', color: '#10b981' }}>
+              {users.filter((u: any) => u.has_broker_account).length}
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '4px' }}>Conversion Rate</div>
+            <div style={{ fontSize: '24px', fontWeight: '700', color: '#667eea' }}>
+              {users.length > 0
+                ? ((users.filter((u: any) => u.has_broker_account).length / users.length) * 100).toFixed(1)
+                : '0'
+              }%
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {users.length === 0 ? (
+        <p style={{ color: '#64748b', textAlign: 'center', padding: '40px' }}>No email signups yet</p>
+      ) : (
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ borderBottom: '2px solid #f1f5f9' }}>
+                <th style={{ padding: '12px', textAlign: 'left', color: '#64748b', fontWeight: '600' }}>Email</th>
+                <th style={{ padding: '12px', textAlign: 'left', color: '#64748b', fontWeight: '600' }}>Name</th>
+                <th style={{ padding: '12px', textAlign: 'left', color: '#64748b', fontWeight: '600' }}>Status</th>
+                <th style={{ padding: '12px', textAlign: 'left', color: '#64748b', fontWeight: '600' }}>Broker</th>
+                <th style={{ padding: '12px', textAlign: 'left', color: '#64748b', fontWeight: '600' }}>Signup Date</th>
+                <th style={{ padding: '12px', textAlign: 'left', color: '#64748b', fontWeight: '600' }}>Upgrade Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedUsers.map((user: any) => (
+                <tr key={user.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                  <td style={{ padding: '12px', fontWeight: '500' }}>{user.email}</td>
+                  <td style={{ padding: '12px' }}>{user.full_name || '-'}</td>
+                  <td style={{ padding: '12px' }}>
+                    <span style={{
+                      padding: '4px 12px',
+                      borderRadius: '12px',
+                      background: user.has_broker_account ? '#10b981' : '#64748b',
+                      color: 'white',
+                      fontSize: '12px',
+                      fontWeight: '600'
+                    }}>
+                      {user.has_broker_account ? '✅ Premium' : '🆓 Free'}
+                    </span>
+                  </td>
+                  <td style={{ padding: '12px' }}>
+                    {user.broker_name ? (
+                      <span style={{ padding: '4px 8px', background: '#dbeafe', color: '#1e40af', borderRadius: '6px', fontSize: '12px', fontWeight: '600' }}>
+                        {user.broker_name}
+                      </span>
+                    ) : '-'}
+                  </td>
+                  <td style={{ padding: '12px', color: '#64748b', fontSize: '12px' }}>
+                    {new Date(user.created_at).toLocaleString()}
+                  </td>
+                  <td style={{ padding: '12px', color: '#64748b', fontSize: '12px' }}>
+                    {user.broker_verified_at
+                      ? new Date(user.broker_verified_at).toLocaleString()
+                      : '-'
+                    }
                   </td>
                 </tr>
               ))}
