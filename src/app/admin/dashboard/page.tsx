@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
 
 const supabase = createClient(
@@ -9,6 +10,7 @@ const supabase = createClient(
 )
 
 export default function AdminDashboard() {
+  const router = useRouter()
   const [stats, setStats] = useState<any>(null)
   const [conversions, setConversions] = useState<any[]>([])
   const [activityLog, setActivityLog] = useState<any[]>([])
@@ -16,6 +18,31 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<'overview' | 'conversions' | 'activity' | 'users'>('overview')
   const [timeRange, setTimeRange] = useState<'today' | 'week' | 'month' | 'all'>('week')
+
+  // Authentication check
+  useEffect(() => {
+    const isAuthenticated = sessionStorage.getItem('admin_authenticated')
+    const loginTime = sessionStorage.getItem('admin_login_time')
+
+    if (!isAuthenticated) {
+      router.push('/admin')
+      return
+    }
+
+    // Check if session is older than 24 hours
+    if (loginTime) {
+      const loginDate = new Date(loginTime)
+      const now = new Date()
+      const hoursSinceLogin = (now.getTime() - loginDate.getTime()) / (1000 * 60 * 60)
+
+      if (hoursSinceLogin > 24) {
+        sessionStorage.removeItem('admin_authenticated')
+        sessionStorage.removeItem('admin_login_time')
+        router.push('/admin')
+        return
+      }
+    }
+  }, [router])
 
   useEffect(() => {
     loadDashboardData()
@@ -141,7 +168,38 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
+            <button
+              onClick={() => {
+                sessionStorage.removeItem('admin_authenticated')
+                sessionStorage.removeItem('admin_login_time')
+                router.push('/admin')
+              }}
+              style={{
+                padding: '10px 20px',
+                borderRadius: '8px',
+                border: '2px solid #dc2626',
+                background: 'white',
+                color: '#dc2626',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#dc2626'
+                e.currentTarget.style.color = 'white'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'white'
+                e.currentTarget.style.color = '#dc2626'
+              }}
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '20px' }}>
             {(['today', 'week', 'month', 'all'] as const).map((range) => (
               <button
                 key={range}
