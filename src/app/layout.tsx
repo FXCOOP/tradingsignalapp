@@ -69,6 +69,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-M28C4GZ5WF"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-M28C4GZ5WF');
+            `,
+          }}
+        />
+
         {/* Additional SEO Meta Tags */}
         <meta name="DC.title" content="TradeFlow - Global Trading Education Platform" />
         <meta name="rating" content="general" />
