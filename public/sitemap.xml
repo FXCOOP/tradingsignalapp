@@ -6,198 +6,198 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://gccsignalpro.com/</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gccsignalpro.com/" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://gccsignalpro.com/ar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tradeflow.cloud/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tradeflow.cloud/ar" />
   </url>
 
   <!-- Copy Trading Page -->
   <url>
-    <loc>https://gccsignalpro.com/copy-trading</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/copy-trading</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gccsignalpro.com/copy-trading" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://gccsignalpro.com/ar/copy-trading" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tradeflow.cloud/copy-trading" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://tradeflow.cloud/ar/copy-trading" />
   </url>
 
   <!-- Signals Page -->
   <url>
-    <loc>https://gccsignalpro.com/signals</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/signals</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
 
   <!-- Markets Pages -->
   <url>
-    <loc>https://gccsignalpro.com/markets/uae</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/markets/uae</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/markets/saudi-arabia</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/markets/saudi-arabia</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/markets/qatar</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/markets/qatar</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/markets/kuwait</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/markets/kuwait</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/markets/bahrain</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/markets/bahrain</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/markets/oman</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/markets/oman</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Trading Instruments -->
   <url>
-    <loc>https://gccsignalpro.com/signals/forex</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/signals/forex</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/signals/gold</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/signals/gold</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/signals/bitcoin</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/signals/bitcoin</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/signals/stocks</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/signals/stocks</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
 
   <!-- Education Pages -->
   <url>
-    <loc>https://gccsignalpro.com/education</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/education</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/education/beginners</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/education/beginners</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/education/advanced</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/education/advanced</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Blog/News Pages -->
   <url>
-    <loc>https://gccsignalpro.com/news</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/news</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Static Pages -->
   <url>
-    <loc>https://gccsignalpro.com/about</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/about</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/pricing</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/pricing</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/contact</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/contact</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <!-- Broker Pages (SEO-optimized landing pages) -->
   <url>
-    <loc>https://gccsignalpro.com/brokers/exness</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/brokers/exness</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/brokers/icmarkets</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/brokers/icmarkets</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/brokers/xm</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/brokers/xm</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- City-Specific Pages for Local SEO -->
   <url>
-    <loc>https://gccsignalpro.com/dubai</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/dubai</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/abu-dhabi</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/abu-dhabi</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/riyadh</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/riyadh</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/jeddah</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/jeddah</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/doha</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/doha</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://gccsignalpro.com/kuwait-city</loc>
-    <lastmod>2025-10-15</lastmod>
+    <loc>https://tradeflow.cloud/kuwait-city</loc>
+    <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>

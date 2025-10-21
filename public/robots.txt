@@ -1,4 +1,4 @@
-# GCC Signal Pro - Robots.txt
+# TradeFlow - Robots.txt
 # Welcome search engines! We want maximum visibility.
 
 User-agent: *
@@ -18,8 +18,8 @@ Disallow: /_next/static/
 Disallow: /private/*
 
 # Sitemap
-Sitemap: https://gccsignalpro.com/sitemap.xml
-Sitemap: https://gccsignalpro.com/sitemap-news.xml
+Sitemap: https://tradeflow.cloud/sitemap.xml
+Sitemap: https://tradeflow.cloud/sitemap-news.xml
 
 # Crawl-delay for major search engines (0 = no delay, crawl as fast as you want)
 Crawl-delay: 0

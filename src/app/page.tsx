@@ -4127,8 +4127,8 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
   // Language translations
   const translations = {
     en: {
-      title: 'GCC Signal Pro',
-      subtitle: 'Live Trading Signals & Market Analysis',
+      title: 'TradeFlow',
+      subtitle: 'Cloud Trading Education & Real-Time Market Insights',
       liveSignals: 'Live Trading Signals',
       marketAnalysis: 'Market Analysis',
       worldwideMarkets: 'Worldwide Markets',
@@ -5079,7 +5079,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
             {isMobile ? (
               <img
                 src="/logo-icon.svg"
-                alt="GCC Signal Pro"
+                alt="TradeFlow"
                 style={{
                   height: '32px',
                   width: '32px',
@@ -5089,7 +5089,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
             ) : (
               <img
                 src="/logo.svg"
-                alt="GCC Signal Pro"
+                alt="TradeFlow"
                 style={{
                   height: '40px',
                   width: 'auto',
@@ -5351,38 +5351,6 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
           </div>
         </div>
       </header>
-
-      {/* RISK DISCLAIMER BANNER - Google Ads Compliance */}
-      <div style={{
-        background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
-        borderBottom: '2px solid #f59e0b',
-        padding: isMobile ? '12px 16px' : '16px 24px',
-        position: 'sticky',
-        top: isMobile ? '44px' : '0',
-        zIndex: 999,
-        boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-      }}>
-        <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px'
-        }}>
-          <span style={{ fontSize: '20px' }}>⚠️</span>
-          <p style={{
-            margin: 0,
-            fontSize: isMobile ? '11px' : '13px',
-            color: '#78350f',
-            lineHeight: '1.5',
-            fontWeight: 500
-          }}>
-            <strong>Risk Warning:</strong> Trading involves substantial risk of loss and is not suitable for all investors.
-            Content provided is for <strong>educational purposes only</strong> and should not be considered financial advice.
-            Past performance is not indicative of future results. {!isMobile && 'Consult a licensed financial advisor before making investment decisions.'}
-          </p>
-        </div>
-      </div>
 
       {/* Navigation - STICKY */}
       <nav style={{
@@ -11060,7 +11028,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                 lineHeight: '1.7'
               }}>
                 Master trading from absolute beginner to professional level. Comprehensive guide with terms, examples,
-                simulations and expert explanations. 100% FREE for our GCC Signal Pro clients.
+                simulations and expert explanations. 100% FREE for our TradeFlow clients.
               </p>
             </div>
 
@@ -11088,7 +11056,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                 lineHeight: '1.7'
               }}>
                 Complete professional trading guide from beginner to expert level. No hidden costs, no subscriptions.
-                <strong> Completely FREE for all GCC Signal Pro clients!</strong>
+                <strong> Completely FREE for all TradeFlow clients!</strong>
               </p>
 
               <div style={{
@@ -13656,7 +13624,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
               WebkitTextFillColor: 'transparent',
               marginBottom: '16px'
             }}>
-              GCC Signal Pro
+              TradeFlow
             </h3>
             <p style={{
               fontSize: isMobile ? '13px' : '14px',
@@ -13664,7 +13632,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
               lineHeight: '1.6',
               marginBottom: '20px'
             }}>
-              Professional trading signals and market analysis for GCC traders. Real-time insights powered by AI and expert analysis.
+              Cloud-based trading education platform providing real-time market insights and analysis for learning purposes. AI-powered educational content for global traders.
             </p>
             <div style={{
               display: 'flex',
@@ -13673,9 +13641,9 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
             }}>
               {/* Email Contact */}
               <a
-                href="mailto:support@gccsignalpro.com"
+                href="mailto:support@tradeflow.cloud"
                 title="Email Us"
-                aria-label="Email support@gccsignalpro.com"
+                aria-label="Email support@tradeflow.cloud"
                 style={{
                   width: '44px',
                   height: '44px',
@@ -13702,7 +13670,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
 
               {/* Twitter/X */}
               <a
-                href="https://twitter.com/gccsignalpro"
+                href="https://twitter.com/tradeflow"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Follow us on X (Twitter)"
@@ -13896,18 +13864,93 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
           </div>
         </div>
 
-        {/* Copyright */}
+        {/* Risk Disclaimer - Google Ads Compliance */}
+        <div style={{
+          background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
+          border: '2px solid #f59e0b',
+          borderRadius: '12px',
+          padding: isMobile ? '20px' : '24px',
+          margin: '0 20px 40px 20px',
+          maxWidth: '1360px',
+          marginLeft: 'auto',
+          marginRight: 'auto'
+        }}>
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+            <span style={{ fontSize: '24px', flexShrink: 0 }}>⚠️</span>
+            <div>
+              <h4 style={{
+                fontSize: isMobile ? '14px' : '16px',
+                fontWeight: '700',
+                color: '#92400e',
+                marginBottom: '8px'
+              }}>
+                Risk Warning
+              </h4>
+              <p style={{
+                fontSize: isMobile ? '12px' : '13px',
+                color: '#78350f',
+                lineHeight: '1.6',
+                margin: 0
+              }}>
+                <strong>Trading involves substantial risk of loss and is not suitable for all investors.</strong> Content provided is for <strong>educational purposes only</strong> and should not be considered financial advice. Past performance is not indicative of future results. You should carefully consider your investment objectives, level of experience, and risk appetite before making any investment decisions. Consult a licensed financial advisor before trading.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Legal Links & Copyright */}
         <div style={{
           borderTop: '1px solid #334155',
           padding: isMobile ? '20px' : '24px 20px',
           textAlign: 'center'
         }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: isMobile ? '12px' : '20px',
+            flexWrap: 'wrap',
+            marginBottom: '16px'
+          }}>
+            <a href="/privacy-policy.html" style={{
+              fontSize: isMobile ? '12px' : '13px',
+              color: '#93c5fd',
+              textDecoration: 'none',
+              transition: 'color 0.3s ease'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#60a5fa'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#93c5fd'}>
+              Privacy Policy
+            </a>
+            <span style={{ color: '#64748b' }}>•</span>
+            <a href="/terms-of-service.html" style={{
+              fontSize: isMobile ? '12px' : '13px',
+              color: '#93c5fd',
+              textDecoration: 'none',
+              transition: 'color 0.3s ease'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#60a5fa'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#93c5fd'}>
+              Terms of Service
+            </a>
+            <span style={{ color: '#64748b' }}>•</span>
+            <a href="mailto:support@tradeflow.cloud" style={{
+              fontSize: isMobile ? '12px' : '13px',
+              color: '#93c5fd',
+              textDecoration: 'none',
+              transition: 'color 0.3s ease'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#60a5fa'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#93c5fd'}>
+              Contact Us
+            </a>
+          </div>
           <p style={{
             fontSize: isMobile ? '12px' : '13px',
             color: '#64748b',
             margin: 0
           }}>
-            © {new Date().getFullYear()} GCC Signal Pro. All rights reserved. | Not financial advice - For educational purposes only.
+            © {new Date().getFullYear()} TradeFlow. All rights reserved. | Educational purposes only - Not financial advice.
           </p>
         </div>
       </footer>

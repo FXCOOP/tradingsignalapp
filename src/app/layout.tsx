@@ -1,16 +1,16 @@
 export const metadata = {
-  title: 'GCC Signal Pro - Trading Education Platform | Forex Gold BTC Learning UAE KSA Qatar',
-  description: 'Leading GCC trading education platform | Learn Forex, Gold, Bitcoin & Stock trading strategies | AI-powered market insights for Gulf traders | Islamic finance compliant | Educational purposes only | إشارات التداول التعليمية لدول الخليج',
-  keywords: 'trading education GCC, forex learning UAE, trading platform Dubai, market insights Gulf, trading strategies Saudi, cryptocurrency education, halal trading GCC, Islamic finance, trading courses Qatar, market analysis Kuwait',
-  authors: [{ name: 'GCC Signal Pro' }],
-  creator: 'GCC Signal Pro Gulf',
-  publisher: 'GCC Signal Pro',
+  title: 'TradeFlow - Cloud Trading Education Platform | Forex Gold BTC Signals | Real-Time Market Insights',
+  description: 'TradeFlow: Cloud-based trading education platform | Learn Forex, Gold, Bitcoin & Stock strategies | AI-powered real-time market insights | Live signals & analysis | Educational purposes only | Global trading education',
+  keywords: 'TradeFlow, cloud trading, trading education, forex signals, market insights, trading platform, cryptocurrency learning, real-time analysis, trading signals, market education',
+  authors: [{ name: 'TradeFlow' }],
+  creator: 'TradeFlow',
+  publisher: 'TradeFlow',
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://gccsignalpro.com'),
+  metadataBase: new URL('https://tradeflow.cloud'),
   alternates: {
     canonical: '/',
     languages: {
@@ -19,16 +19,16 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: 'GCC Signal Pro - Trading Education Platform for Gulf Markets',
-    description: 'Join thousands of Gulf traders learning with our AI-powered market insights. Live Forex, Gold, Bitcoin education. Islamic finance compliant. For educational purposes only.',
-    url: 'https://gccsignalpro.com',
-    siteName: 'GCC Signal Pro',
+    title: 'TradeFlow - Cloud Trading Education Platform',
+    description: 'Join thousands of traders learning with our AI-powered market insights. Live Forex, Gold, Bitcoin education. Real-time cloud-based signals. For educational purposes only.',
+    url: 'https://tradeflow.cloud',
+    siteName: 'TradeFlow',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'GCC Signal Pro - Trading Signals GCC',
+        alt: 'TradeFlow - Cloud Trading Education Platform',
       },
     ],
     locale: 'en_US',
@@ -36,10 +36,10 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'GCC Signal Pro - Gulf Trading Education',
-    description: 'AI-powered trading education for GCC traders. Learn Forex, Gold, Bitcoin strategies. For educational purposes only.',
+    title: 'TradeFlow - Cloud Trading Education',
+    description: 'AI-powered cloud-based trading education. Learn Forex, Gold, Bitcoin strategies. Real-time market insights. For educational purposes only.',
     images: ['/twitter-image.jpg'],
-    creator: '@gccsignalpro',
+    creator: '@tradeflow',
   },
   robots: {
     index: true,
@@ -112,14 +112,13 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "EducationalOrganization",
-              "name": "GCC Signal Pro",
-              "description": "GCC premier trading education platform offering AI-powered market insights for forex, gold, and cryptocurrency learning. For educational purposes only.",
+              "name": "TradeFlow",
+              "description": "TradeFlow: Cloud-based trading education platform offering AI-powered real-time market insights for forex, gold, cryptocurrency, and stock learning. For educational purposes only.",
               "disclaimer": "Trading involves substantial risk of loss. Content provided is for educational purposes only and should not be considered financial advice. Past performance is not indicative of future results.",
-              "url": "https://gccsignalpro.com",
-              "logo": "https://gccsignalpro.com/logo.png",
-              "image": "https://gccsignalpro.com/og-image.jpg",
-              "telephone": "+971-4-0000000",
-              "email": "support@gccsignalpro.com",
+              "url": "https://tradeflow.cloud",
+              "logo": "https://tradeflow.cloud/logo.png",
+              "image": "https://tradeflow.cloud/og-image.jpg",
+              "email": "support@tradeflow.cloud",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Dubai International Financial Centre",
@@ -134,14 +133,14 @@ export default function RootLayout({
                 "longitude": "55.2708"
               },
               "areaServed": {
-                "@type": "Country",
-                "name": "GCC Countries"
+                "@type": "Place",
+                "name": "Worldwide"
               },
-              "serviceType": "Trading Education",
+              "serviceType": "Cloud-Based Trading Education",
               "provider": {
                 "@type": "Organization",
-                "name": "GCC Signal Pro",
-                "url": "https://gccsignalpro.com"
+                "name": "TradeFlow",
+                "url": "https://tradeflow.cloud"
               },
               "offers": [
                 {
@@ -165,7 +164,7 @@ export default function RootLayout({
                   "@type": "Person",
                   "name": "Ahmed Khan"
                 },
-                "reviewBody": "Great trading education platform in the GCC region. Very helpful for learning market strategies. Results may vary."
+                "reviewBody": "Excellent cloud-based trading education platform. Very helpful for learning market strategies and real-time signals. Results may vary."
               },
               "aggregateRating": {
                 "@type": "AggregateRating",
@@ -174,12 +173,12 @@ export default function RootLayout({
                 "bestRating": "5"
               },
               "sameAs": [
-                "https://www.facebook.com/gccsignalpro",
-                "https://www.twitter.com/gccsignalpro",
-                "https://www.instagram.com/gccsignalpro",
-                "https://www.youtube.com/gccsignalpro",
-                "https://www.linkedin.com/company/gccsignalpro",
-                "https://t.me/gccsignalpro"
+                "https://www.facebook.com/tradeflow",
+                "https://www.twitter.com/tradeflow",
+                "https://www.instagram.com/tradeflow",
+                "https://www.youtube.com/tradeflow",
+                "https://www.linkedin.com/company/tradeflow",
+                "https://t.me/tradeflow"
               ]
             })
           }}
