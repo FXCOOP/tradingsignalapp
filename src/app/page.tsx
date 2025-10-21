@@ -353,49 +353,10 @@ export default function HomePage() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Scroll-triggered Exness popup (ONLY after significant engagement)
-  useEffect(() => {
-    let timeSpent = 0
-    let hasInteracted = false
-
-    // Track time on site
-    const timeInterval = setInterval(() => {
-      timeSpent += 1
-    }, 1000)
-
-    // Track user interaction
-    const trackInteraction = () => {
-      hasInteracted = true
-    }
-
-    document.addEventListener('click', trackInteraction)
-    document.addEventListener('scroll', trackInteraction)
-
-    const handleScroll = () => {
-      const scrolled = window.scrollY
-      const windowHeight = window.innerHeight
-
-      // Show popup ONLY after: 5 viewports scroll + 30 seconds + user interaction
-      if (
-        scrolled > windowHeight * 5 &&
-        timeSpent > 30 &&
-        hasInteracted &&
-        !showExnessPopup &&
-        !popupDismissed['exness']
-      ) {
-        setShowExnessPopup(true)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-      document.removeEventListener('click', trackInteraction)
-      document.removeEventListener('scroll', trackInteraction)
-      clearInterval(timeInterval)
-    }
-  }, [showExnessPopup, popupDismissed])
+  // DISABLED: Exness popup completely removed per user request
+  // useEffect(() => {
+  //   // Popup functionality disabled
+  // }, [])
 
   // 🤖 FETCH AI-GENERATED SIGNALS FROM OPENAI
   const fetchAISignals = async () => {
