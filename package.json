@@ -18,6 +18,7 @@
     "@types/react": "19.1.14",
     "bcryptjs": "^3.0.2",
     "date-fns": "^4.1.0",
+    "googleapis": "^164.1.0",
     "jsonwebtoken": "^9.0.2",
     "next": "14.2.33",
     "openai": "^6.2.0",

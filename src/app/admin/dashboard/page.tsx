@@ -16,12 +16,14 @@ export default function AdminDashboard() {
   const [activityLog, setActivityLog] = useState<any[]>([])
   const [users, setUsers] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'overview' | 'conversions' | 'activity' | 'users' | 'emails'>('overview')
+  const [activeTab, setActiveTab] = useState<'overview' | 'conversions' | 'activity' | 'users' | 'emails' | 'analytics'>('overview')
   const [timeRange, setTimeRange] = useState<'today' | 'week' | 'month' | 'all'>('week')
   const [showReportIssue, setShowReportIssue] = useState(false)
   const [issueDescription, setIssueDescription] = useState('')
   const [issueSubmitting, setIssueSubmitting] = useState(false)
   const [issueSubmitted, setIssueSubmitted] = useState(false)
+  const [analyticsData, setAnalyticsData] = useState<any>(null)
+  const [analyticsLoading, setAnalyticsLoading] = useState(false)
 
   // Authentication check
   useEffect(() => {
@@ -133,6 +135,33 @@ export default function AdminDashboard() {
       setLoading(false)
     }
   }
+
+  const loadAnalyticsData = async () => {
+    setAnalyticsLoading(true)
+    try {
+      const response = await fetch('/api/analytics/google')
+      const result = await response.json()
+
+      if (result.success) {
+        setAnalyticsData(result.data)
+      } else {
+        console.error('Analytics error:', result.error)
+        setAnalyticsData({ error: result.message || 'Failed to load analytics' })
+      }
+    } catch (error) {
+      console.error('Failed to load analytics:', error)
+      setAnalyticsData({ error: 'Failed to connect to Analytics API' })
+    } finally {
+      setAnalyticsLoading(false)
+    }
+  }
+
+  // Load analytics when tab is switched to analytics
+  useEffect(() => {
+    if (activeTab === 'analytics' && !analyticsData) {
+      loadAnalyticsData()
+    }
+  }, [activeTab])
 
   const handleReportIssue = async () => {
     if (!issueDescription.trim()) {
@@ -352,7 +381,7 @@ export default function AdminDashboard() {
         boxShadow: '0 10px 40px rgba(0,0,0,0.1)'
       }}>
         <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #f1f5f9' }}>
-          {(['overview', 'conversions', 'activity', 'users', 'emails'] as const).map((tab) => (
+          {(['overview', 'conversions', 'activity', 'users', 'emails', 'analytics'] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -387,6 +416,7 @@ export default function AdminDashboard() {
         {activeTab === 'activity' && <ActivityTab activityLog={activityLog} />}
         {activeTab === 'users' && <UsersTab users={users} />}
         {activeTab === 'emails' && <EmailSignupsTab users={users} />}
+        {activeTab === 'analytics' && <AnalyticsTab data={analyticsData} loading={analyticsLoading} onRefresh={() => loadAnalyticsData()} />}
       </div>
 
       {/* Report Issue Modal */}
@@ -826,6 +856,163 @@ function EmailSignupsTab({ users }: any) {
           </table>
         </div>
       )}
+    </div>
+  )
+}
+
+function AnalyticsTab({ data, loading, onRefresh }: any) {
+  if (loading && !data) {
+    return (
+      <div style={{ textAlign: 'center', padding: '60px 20px' }}>
+        <div style={{ fontSize: '48px', marginBottom: '16px' }}>📊</div>
+        <div style={{ fontSize: '18px', color: '#64748b' }}>Loading Google Analytics data...</div>
+      </div>
+    )
+  }
+
+  if (data?.error) {
+    return (
+      <div style={{ textAlign: 'center', padding: '60px 20px' }}>
+        <div style={{ fontSize: '48px', marginBottom: '16px' }}>⚠️</div>
+        <h2 style={{ color: '#dc2626', marginBottom: '12px' }}>Google Analytics Not Configured</h2>
+        <p style={{ color: '#64748b', marginBottom: '20px', maxWidth: '600px', margin: '0 auto' }}>
+          {data.error}
+        </p>
+        <p style={{ color: '#64748b', fontSize: '14px', marginTop: '20px' }}>
+          See <strong>GOOGLE_ANALYTICS_SETUP.md</strong> for setup instructions
+        </p>
+      </div>
+    )
+  }
+
+  if (!data) {
+    return (
+      <div style={{ textAlign: 'center', padding: '60px 20px', color: '#64748b' }}>
+        Click refresh to load analytics data
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+        <h2 style={{ margin: 0 }}>Google Analytics</h2>
+        <button
+          onClick={onRefresh}
+          style={{
+            padding: '10px 20px',
+            borderRadius: '8px',
+            border: 'none',
+            background: '#10b981',
+            color: 'white',
+            fontWeight: '600',
+            cursor: 'pointer'
+          }}
+        >
+          🔄 Refresh
+        </button>
+      </div>
+
+      {/* Real-time Stats */}
+      <div style={{ marginBottom: '24px', padding: '20px', background: '#f0fdf4', borderRadius: '12px', border: '2px solid #10b981' }}>
+        <div style={{ fontSize: '14px', color: '#064e3b', fontWeight: '600', marginBottom: '8px' }}>REAL-TIME</div>
+        <div style={{ fontSize: '32px', fontWeight: '800', color: '#10b981' }}>
+          {data.realtime?.activeUsers || 0} active users
+        </div>
+        <div style={{ fontSize: '12px', color: '#064e3b', marginTop: '4px' }}>Users currently on your site</div>
+      </div>
+
+      {/* Key Metrics Grid */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
+        <div style={{ padding: '20px', background: 'white', borderRadius: '12px', border: '2px solid #e2e8f0' }}>
+          <div style={{ fontSize: '12px', color: '#64748b', fontWeight: '600', marginBottom: '8px' }}>USERS (7 DAYS)</div>
+          <div style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b' }}>{data.last7Days?.users?.toLocaleString() || 0}</div>
+        </div>
+        <div style={{ padding: '20px', background: 'white', borderRadius: '12px', border: '2px solid #e2e8f0' }}>
+          <div style={{ fontSize: '12px', color: '#64748b', fontWeight: '600', marginBottom: '8px' }}>PAGE VIEWS (7 DAYS)</div>
+          <div style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b' }}>{data.last7Days?.pageViews?.toLocaleString() || 0}</div>
+        </div>
+        <div style={{ padding: '20px', background: 'white', borderRadius: '12px', border: '2px solid #e2e8f0' }}>
+          <div style={{ fontSize: '12px', color: '#64748b', fontWeight: '600', marginBottom: '8px' }}>SESSIONS (7 DAYS)</div>
+          <div style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b' }}>{data.last7Days?.sessions?.toLocaleString() || 0}</div>
+        </div>
+        <div style={{ padding: '20px', background: 'white', borderRadius: '12px', border: '2px solid #e2e8f0' }}>
+          <div style={{ fontSize: '12px', color: '#64748b', fontWeight: '600', marginBottom: '8px' }}>BOUNCE RATE</div>
+          <div style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b' }}>{((data.last7Days?.bounceRate || 0) * 100).toFixed(1)}%</div>
+        </div>
+      </div>
+
+      {/* Top Pages */}
+      <div style={{ marginBottom: '24px' }}>
+        <h3 style={{ marginTop: 0, marginBottom: '16px' }}>Top Pages (Last 7 Days)</h3>
+        <div style={{ background: 'white', borderRadius: '12px', border: '2px solid #e2e8f0', overflow: 'hidden' }}>
+          {data.topPages && data.topPages.length > 0 ? (
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr style={{ background: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
+                  <th style={{ padding: '12px', textAlign: 'left', color: '#64748b', fontWeight: '600' }}>Page Title</th>
+                  <th style={{ padding: '12px', textAlign: 'left', color: '#64748b', fontWeight: '600' }}>Path</th>
+                  <th style={{ padding: '12px', textAlign: 'right', color: '#64748b', fontWeight: '600' }}>Views</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.topPages.map((page: any, idx: number) => (
+                  <tr key={idx} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                    <td style={{ padding: '12px', fontWeight: '500' }}>{page.title}</td>
+                    <td style={{ padding: '12px', color: '#64748b', fontSize: '14px', fontFamily: 'monospace' }}>{page.path}</td>
+                    <td style={{ padding: '12px', textAlign: 'right', fontWeight: '700' }}>{page.views.toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div style={{ padding: '40px', textAlign: 'center', color: '#64748b' }}>No page data available</div>
+          )}
+        </div>
+      </div>
+
+      {/* Traffic Sources & Devices */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+        {/* Traffic Sources */}
+        <div>
+          <h3 style={{ marginTop: 0, marginBottom: '16px' }}>Traffic Sources</h3>
+          <div style={{ background: 'white', borderRadius: '12px', border: '2px solid #e2e8f0', padding: '16px' }}>
+            {data.trafficSources && data.trafficSources.length > 0 ? (
+              data.trafficSources.map((source: any, idx: number) => (
+                <div key={idx} style={{ padding: '12px 0', borderBottom: idx < data.trafficSources.length - 1 ? '1px solid #f1f5f9' : 'none' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontWeight: '600', color: '#1e293b' }}>{source.source}</span>
+                    <span style={{ fontWeight: '700', color: '#667eea' }}>{source.sessions.toLocaleString()}</span>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div style={{ padding: '20px', textAlign: 'center', color: '#64748b' }}>No source data</div>
+            )}
+          </div>
+        </div>
+
+        {/* Devices */}
+        <div>
+          <h3 style={{ marginTop: 0, marginBottom: '16px' }}>Device Breakdown</h3>
+          <div style={{ background: 'white', borderRadius: '12px', border: '2px solid #e2e8f0', padding: '16px' }}>
+            {data.devices && data.devices.length > 0 ? (
+              data.devices.map((device: any, idx: number) => (
+                <div key={idx} style={{ padding: '12px 0', borderBottom: idx < data.devices.length - 1 ? '1px solid #f1f5f9' : 'none' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontWeight: '600', color: '#1e293b' }}>
+                      {device.device === 'desktop' ? '💻 Desktop' : device.device === 'mobile' ? '📱 Mobile' : '📟 Tablet'}
+                    </span>
+                    <span style={{ fontWeight: '700', color: '#764ba2' }}>{device.users.toLocaleString()}</span>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div style={{ padding: '20px', textAlign: 'center', color: '#64748b' }}>No device data</div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
