@@ -89,20 +89,28 @@ export async function POST(request: NextRequest) {
     }
 
     // Record postback event
+    const insertData: any = {
+      user_id: userId,
+      partner_id: EXNESS_PARTNER_ID,
+      event_type: event_type || 'UNKNOWN',
+      ftd_amount: parseFloat(ftd_amount || deposit_amount || '0'),
+      reward_amount: parseFloat(reward_amount || '0'),
+      exness_user_id: exness_user_id || null,
+      raw_postback_data: postbackData,
+      processed: false
+    }
+
+    // Only add optional fields if they have values
+    if (kyc_status) {
+      insertData.kyc_status = kyc_status
+    }
+    if (qualification_status) {
+      insertData.qualification_status = qualification_status
+    }
+
     const { data: conversion, error: conversionError } = await supabaseAdmin
       .from('exness_conversions')
-      .insert({
-        user_id: userId,
-        partner_id: EXNESS_PARTNER_ID,
-        event_type: event_type || 'UNKNOWN',
-        ftd_amount: parseFloat(ftd_amount || deposit_amount || '0'),
-        reward_amount: parseFloat(reward_amount || '0'),
-        exness_user_id: exness_user_id || null,
-        raw_postback_data: postbackData,
-        processed: false,
-        kyc_status: kyc_status || null,
-        qualification_status: qualification_status || null
-      })
+      .insert(insertData)
       .select()
       .maybeSingle()
 
