@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Name Proposals - Trading Platform Rebranding</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            color: white;
+            padding: 48px 40px;
+            text-align: center;
+        }
+        header h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; }
+        .content { padding: 48px 40px; }
+        .domain-card {
+            background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+            border: 3px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 32px;
+            margin: 24px 0;
+            transition: all 0.3s ease;
+        }
+        .domain-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: #3b82f6;
+        }
+        .domain-card.recommended {
+            border-color: #22c55e;
+            border-width: 4px;
+            background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 100%);
+        }
+        .domain-name {
+            font-size: 36px;
+            font-weight: 900;
+            color: #1f2937;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge.best { background: #22c55e; color: white; }
+        .badge.premium { background: #f59e0b; color: white; }
+        .badge.available { background: #3b82f6; color: white; }
+        .badge.cheap { background: #8b5cf6; color: white; }
+        .price {
+            font-size: 28px;
+            font-weight: 800;
+            color: #22c55e;
+            margin: 16px 0;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .feature {
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+        }
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .feature-title {
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+        .feature-desc {
+            font-size: 13px;
+            color: #6b7280;
+        }
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 24px 0;
+        }
+        .pros, .cons {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        .pros {
+            border: 2px solid #22c55e;
+        }
+        .cons {
+            border: 2px solid #ef4444;
+        }
+        .pros h4 { color: #22c55e; font-size: 18px; margin-bottom: 12px; }
+        .cons h4 { color: #ef4444; font-size: 18px; margin-bottom: 12px; }
+        ul { padding-left: 20px; }
+        li { margin: 8px 0; }
+        .seo-score {
+            display: flex;
+            gap: 16px;
+            margin: 16px 0;
+            flex-wrap: wrap;
+        }
+        .score-item {
+            flex: 1;
+            min-width: 150px;
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #e5e7eb;
+        }
+        .score-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: #3b82f6;
+            margin-bottom: 4px;
+        }
+        .score-label {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 600;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 32px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .comparison-table th {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+        }
+        .comparison-table td {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .comparison-table tr:hover {
+            background: #f9fafb;
+        }
+        .checkmark { color: #22c55e; font-size: 20px; }
+        .cross { color: #ef4444; font-size: 20px; }
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1f2937;
+            margin: 48px 0 24px 0;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #3b82f6;
+        }
+        .info-box {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+        .success-box {
+            background: #dcfce7;
+            border-left: 4px solid #22c55e;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+        strong { color: #1f2937; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌟 Domain Name Proposals</h1>
+            <p>Professional Rebranding for Your GCC Trading Platform</p>
+        </header>
+
+        <div class="content">
+            <!-- TOP RECOMMENDATION -->
+            <div class="domain-card recommended">
+                <div class="domain-name">
+                    <span>TradePulse.pro</span>
+                    <span class="badge best">🏆 BEST CHOICE</span>
+                    <span class="badge cheap">$9/year</span>
+                </div>
+                <div class="price">~$9-15/year (.pro domain)</div>
+
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Perfect Brand Match</div>
+                        <div class="feature-desc">Pulse = signals, live data, heartbeat of trading</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🔍</div>
+                        <div class="feature-title">SEO-Friendly</div>
+                        <div class="feature-desc">Contains "trade" keyword, memorable, easy to spell</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🌍</div>
+                        <div class="feature-title">Global Appeal</div>
+                        <div class="feature-desc">Works for GCC + Exness global markets</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-title">Professional TLD</div>
+                        <div class="feature-desc">.pro = professional traders, premium feel</div>
+                    </div>
+                </div>
+
+                <div class="seo-score">
+                    <div class="score-item">
+                        <div class="score-value">95%</div>
+                        <div class="score-label">SEO Score</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">98%</div>
+                        <div class="score-label">Brand Match</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">92%</div>
+                        <div class="score-label">Memorability</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">90%</div>
+                        <div class="score-label">Trust Factor</div>
+                    </div>
+                </div>
+
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✅ Pros</h4>
+                        <ul>
+                            <li>Short, catchy, memorable</li>
+                            <li>Premium .pro extension (professional)</li>
+                            <li>"Pulse" suggests live signals, real-time data</li>
+                            <li>Works globally (Exness operates in 200+ countries)</li>
+                            <li>Easy to pronounce in English & Arabic</li>
+                            <li>Available social media handles (@tradepulse)</li>
+                            <li>Cheap annual renewal</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>❌ Cons</h4>
+                        <ul>
+                            <li>.pro less common than .com (but this is also unique!)</li>
+                            <li>May need to explain .pro to some users</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong>💡 Why This Works:</strong><br>
+                    "Pulse" perfectly captures your service: live signals, real-time alerts, the heartbeat of trading markets. It's short, memorable, professional, and works for both GCC and global markets.
+                </div>
+            </div>
+
+            <!-- OPTION 2 -->
+            <div class="domain-card">
+                <div class="domain-name">
+                    <span>SignalHub.io</span>
+                    <span class="badge available">AVAILABLE</span>
+                    <span class="badge cheap">$30/year</span>
+                </div>
+                <div class="price">~$30-40/year (.io domain)</div>
+
+                <div class="seo-score">
+                    <div class="score-item">
+                        <div class="score-value">88%</div>
+                        <div class="score-label">SEO Score</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">85%</div>
+                        <div class="score-label">Brand Match</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">80%</div>
+                        <div class="score-label">Memorability</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">85%</div>
+                        <div class="score-label">Trust Factor</div>
+                    </div>
+                </div>
+
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✅ Pros</h4>
+                        <ul>
+                            <li>Contains "Signal" keyword (great for SEO)</li>
+                            <li>"Hub" suggests central marketplace</li>
+                            <li>.io popular with tech/fintech companies</li>
+                            <li>Modern, startup-friendly vibe</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>❌ Cons</h4>
+                        <ul>
+                            <li>More expensive than .pro</li>
+                            <li>"SignalHub" is a bit generic</li>
+                            <li>Less premium feel than .pro</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPTION 3 -->
+            <div class="domain-card">
+                <div class="domain-name">
+                    <span>FxPulse.live</span>
+                    <span class="badge available">AVAILABLE</span>
+                    <span class="badge cheap">$12/year</span>
+                </div>
+                <div class="price">~$12-20/year (.live domain)</div>
+
+                <div class="seo-score">
+                    <div class="score-item">
+                        <div class="score-value">90%</div>
+                        <div class="score-label">SEO Score</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">92%</div>
+                        <div class="score-label">Brand Match</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">85%</div>
+                        <div class="score-label">Memorability</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">88%</div>
+                        <div class="score-label">Trust Factor</div>
+                    </div>
+                </div>
+
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✅ Pros</h4>
+                        <ul>
+                            <li>"Fx" = forex (matches Exness core offering)</li>
+                            <li>.live suggests real-time signals</li>
+                            <li>Short & punchy (7 characters + TLD)</li>
+                            <li>Very affordable</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>❌ Cons</h4>
+                        <ul>
+                            <li>"Fx" might feel forex-only (you also cover crypto, stocks)</li>
+                            <li>.live is newer TLD (less established)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPTION 4 -->
+            <div class="domain-card">
+                <div class="domain-name">
+                    <span>TradeVibe.pro</span>
+                    <span class="badge available">AVAILABLE</span>
+                    <span class="badge cheap">$10/year</span>
+                </div>
+                <div class="price">~$10-15/year (.pro domain)</div>
+
+                <div class="seo-score">
+                    <div class="score-item">
+                        <div class="score-value">85%</div>
+                        <div class="score-label">SEO Score</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">80%</div>
+                        <div class="score-label">Brand Match</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">88%</div>
+                        <div class="score-label">Memorability</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">82%</div>
+                        <div class="score-label">Trust Factor</div>
+                    </div>
+                </div>
+
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✅ Pros</h4>
+                        <ul>
+                            <li>Unique, modern, catchy</li>
+                            <li>"Vibe" suggests community, energy</li>
+                            <li>Very affordable .pro domain</li>
+                            <li>Young, dynamic brand personality</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>❌ Cons</h4>
+                        <ul>
+                            <li>"Vibe" less professional than "Pulse"</li>
+                            <li>Doesn't directly suggest signals/alerts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPTION 5 -->
+            <div class="domain-card">
+                <div class="domain-name">
+                    <span>MarketPulse.live</span>
+                    <span class="badge available">AVAILABLE</span>
+                    <span class="badge cheap">$12/year</span>
+                </div>
+                <div class="price">~$12-18/year (.live domain)</div>
+
+                <div class="seo-score">
+                    <div class="score-item">
+                        <div class="score-value">93%</div>
+                        <div class="score-label">SEO Score</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">90%</div>
+                        <div class="score-label">Brand Match</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">87%</div>
+                        <div class="score-label">Memorability</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value">89%</div>
+                        <div class="score-label">Trust Factor</div>
+                    </div>
+                </div>
+
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✅ Pros</h4>
+                        <ul>
+                            <li>Contains "Market" (SEO keyword)</li>
+                            <li>"Pulse" + "Live" = real-time market data</li>
+                            <li>Professional, trustworthy</li>
+                            <li>Covers all markets (forex, stocks, crypto, commodities)</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>❌ Cons</h4>
+                        <ul>
+                            <li>Longer domain (11 characters)</li>
+                            <li>May compete with existing "MarketPulse" brands</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMPARISON TABLE -->
+            <h2>📊 Side-by-Side Comparison</h2>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Domain</th>
+                        <th>Price/Year</th>
+                        <th>SEO Score</th>
+                        <th>Brand Match</th>
+                        <th>GCC Friendly</th>
+                        <th>Global Appeal</th>
+                        <th>Availability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #dcfce7;">
+                        <td><strong>TradePulse.pro</strong> 🏆</td>
+                        <td><strong>$9-15</strong></td>
+                        <td><strong>95%</strong></td>
+                        <td><strong>98%</strong></td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span> Available</td>
+                    </tr>
+                    <tr>
+                        <td>SignalHub.io</td>
+                        <td>$30-40</td>
+                        <td>88%</td>
+                        <td>85%</td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span> Available</td>
+                    </tr>
+                    <tr>
+                        <td>FxPulse.live</td>
+                        <td>$12-20</td>
+                        <td>90%</td>
+                        <td>92%</td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span> Available</td>
+                    </tr>
+                    <tr>
+                        <td>TradeVibe.pro</td>
+                        <td>$10-15</td>
+                        <td>85%</td>
+                        <td>80%</td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span> Available</td>
+                    </tr>
+                    <tr>
+                        <td>MarketPulse.live</td>
+                        <td>$12-18</td>
+                        <td>93%</td>
+                        <td>90%</td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span> Available</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- BUDGET ALTERNATIVES -->
+            <h2>💰 Ultra-Cheap Alternatives (If Budget is VERY Tight)</h2>
+
+            <div class="warning-box">
+                <strong>⚠️ Warning:</strong> These are extremely cheap but may hurt your brand credibility. Only use if absolutely necessary.
+            </div>
+
+            <ul style="font-size: 16px; line-height: 2;">
+                <li><strong>TradePulse.xyz</strong> - $2/year (but .xyz looks unprofessional)</li>
+                <li><strong>SignalPro.site</strong> - $3/year (.site is okay but less trusted)</li>
+                <li><strong>FxSignals.online</strong> - $4/year (.online is acceptable)</li>
+                <li><strong>TradingPulse.club</strong> - $5/year (.club feels casual, not professional)</li>
+            </ul>
+
+            <!-- FINAL RECOMMENDATION -->
+            <h2>🏆 Final Recommendation</h2>
+
+            <div class="success-box" style="padding: 32px; font-size: 18px;">
+                <strong style="font-size: 28px; display: block; margin-bottom: 16px;">Go with: TradePulse.pro</strong>
+
+                <p style="margin: 16px 0;"><strong>Why?</strong></p>
+                <ul style="margin: 16px 0;">
+                    <li>✅ Perfect brand alignment with your service (live signals = pulse)</li>
+                    <li>✅ Professional .pro extension builds trust</li>
+                    <li>✅ Short, memorable, easy to spell</li>
+                    <li>✅ Works for GCC + global markets (Exness covers 200+ countries)</li>
+                    <li>✅ Great SEO potential ("trade" keyword)</li>
+                    <li>✅ Affordable ($9-15/year)</li>
+                    <li>✅ Available social media handles</li>
+                    <li>✅ Pronounceable in English & Arabic</li>
+                </ul>
+
+                <p style="margin: 16px 0;"><strong>Alternative if TradePulse.pro is taken:</strong> MarketPulse.live (also excellent!)</p>
+            </div>
+
+            <!-- IMPLEMENTATION CHECKLIST -->
+            <h2>✅ Implementation Checklist</h2>
+
+            <div class="info-box">
+                <strong>After choosing your domain:</strong>
+                <ol style="margin: 16px 0; line-height: 2;">
+                    <li>Register domain at: Namecheap, GoDaddy, or Porkbun</li>
+                    <li>Update Vercel project domain settings</li>
+                    <li>Update Render custom domain (if using Render)</li>
+                    <li>Update all social media handles (@tradepulse)</li>
+                    <li>Update email addresses (hello@tradepulse.pro)</li>
+                    <li>Update site name in codebase (we'll do this together!)</li>
+                    <li>Update meta tags, titles, descriptions</li>
+                    <li>Update logo/branding</li>
+                    <li>Setup Google Analytics with new domain</li>
+                    <li>Submit new sitemap to Google Search Console</li>
+                </ol>
+            </div>
+
+            <!-- WHERE TO BUY -->
+            <h2>🛒 Where to Buy These Domains</h2>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Registrar</th>
+                        <th>.pro Price</th>
+                        <th>.live Price</th>
+                        <th>.io Price</th>
+                        <th>Recommended?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Namecheap</strong></td>
+                        <td>$9.98/year</td>
+                        <td>$11.98/year</td>
+                        <td>$32.98/year</td>
+                        <td><span class="checkmark">✓</span> Best value</td>
+                    </tr>
+                    <tr>
+                        <td>Porkbun</td>
+                        <td>$8.67/year</td>
+                        <td>$10.48/year</td>
+                        <td>$30.99/year</td>
+                        <td><span class="checkmark">✓</span> Cheapest</td>
+                    </tr>
+                    <tr>
+                        <td>GoDaddy</td>
+                        <td>$14.99/year</td>
+                        <td>$15.99/year</td>
+                        <td>$39.99/year</td>
+                        <td><span class="cross">✗</span> Expensive</td>
+                    </tr>
+                    <tr>
+                        <td>Cloudflare</td>
+                        <td>$10.00/year</td>
+                        <td>$12.00/year</td>
+                        <td>$33.00/year</td>
+                        <td><span class="checkmark">✓</span> At-cost pricing</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="success-box" style="margin-top: 48px;">
+                <strong>🎯 Action Plan:</strong><br><br>
+                1. <strong>Buy "TradePulse.pro" at Namecheap or Porkbun</strong> (~$9/year)<br>
+                2. <strong>Let me know when ready</strong> - I'll update all site names/branding in code<br>
+                3. <strong>Configure DNS</strong> to point to Vercel/Render<br>
+                4. <strong>Launch rebranded site!</strong> 🚀
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -5352,6 +5352,38 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
         </div>
       </header>
 
+      {/* RISK DISCLAIMER BANNER - Google Ads Compliance */}
+      <div style={{
+        background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
+        borderBottom: '2px solid #f59e0b',
+        padding: isMobile ? '12px 16px' : '16px 24px',
+        position: 'sticky',
+        top: isMobile ? '44px' : '0',
+        zIndex: 999,
+        boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px'
+        }}>
+          <span style={{ fontSize: '20px' }}>⚠️</span>
+          <p style={{
+            margin: 0,
+            fontSize: isMobile ? '11px' : '13px',
+            color: '#78350f',
+            lineHeight: '1.5',
+            fontWeight: 500
+          }}>
+            <strong>Risk Warning:</strong> Trading involves substantial risk of loss and is not suitable for all investors.
+            Content provided is for <strong>educational purposes only</strong> and should not be considered financial advice.
+            Past performance is not indicative of future results. {!isMobile && 'Consult a licensed financial advisor before making investment decisions.'}
+          </p>
+        </div>
+      </div>
+
       {/* Navigation - STICKY */}
       <nav style={{
         position: 'sticky',

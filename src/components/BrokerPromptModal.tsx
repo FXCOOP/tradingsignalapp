@@ -159,11 +159,11 @@ export function BrokerPromptModal({
               margin: 0,
               paddingLeft: '20px'
             }}>
-              <li style={{ marginBottom: '8px' }}><strong>🚀 Unlimited Premium Trading Signals</strong></li>
-              <li style={{ marginBottom: '8px' }}><strong>📊 Full Market Analysis & Reports</strong></li>
-              <li style={{ marginBottom: '8px' }}><strong>📰 Unlimited Financial News Articles</strong></li>
+              <li style={{ marginBottom: '8px' }}><strong>🚀 Unlimited Market Insights & Analysis</strong></li>
+              <li style={{ marginBottom: '8px' }}><strong>📊 Full Market Reports & Educational Content</strong></li>
+              <li style={{ marginBottom: '8px' }}><strong>📰 Unlimited Financial News & Learning Articles</strong></li>
               <li style={{ marginBottom: '8px' }}><strong>🎓 Complete Trading Education Platform</strong></li>
-              <li><strong>💼 Copy Trading Features & Signal Alerts</strong></li>
+              <li><strong>💼 Advanced Learning Tools & Alerts</strong></li>
             </ul>
           </div>
 
@@ -243,6 +243,25 @@ export function BrokerPromptModal({
                 )}
               </div>
             ))}
+          </div>
+
+          {/* Affiliate Disclosure - Google Ads Compliance */}
+          <div style={{
+            background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
+            border: '1px solid #bae6fd',
+            borderRadius: '8px',
+            padding: '12px 16px',
+            marginBottom: '20px'
+          }}>
+            <p style={{
+              fontSize: '12px',
+              color: '#0369a1',
+              margin: 0,
+              lineHeight: '1.5'
+            }}>
+              <strong>📢 Affiliate Disclosure:</strong> We may earn a commission when you open an account with our partner brokers.
+              This does not affect your trading costs. We only recommend trusted brokers that meet our quality standards.
+            </p>
           </div>
 
           {/* CTA Button */}

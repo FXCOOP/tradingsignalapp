@@ -1,7 +1,7 @@
 export const metadata = {
-  title: 'GCC Signal Pro - Premium Gulf Trading Signals | Forex Gold BTC Signals UAE KSA Qatar',
-  description: 'GCC #1 Trading Signals Platform | Live Forex, Gold, Bitcoin & Stock signals with 87% accuracy | AI-powered analysis for Gulf traders | Islamic finance compliant | إشارات التداول الاحترافية لدول الخليج',
-  keywords: 'trading signals GCC, forex signals UAE, bitcoin signals Saudi Arabia, gold trading Qatar, إشارات التداول الخليج, forex Dubai, cryptocurrency Kuwait, Tadawul signals, economic signals Gulf, AI trading GCC, Saudi riyal forex, UAE dirham, ADX signals, Dubai trading, Abu Dhabi forex, online trading GCC, investment Gulf, halal trading signals, Islamic finance GCC, Shariah compliant trading',
+  title: 'GCC Signal Pro - Trading Education Platform | Forex Gold BTC Learning UAE KSA Qatar',
+  description: 'Leading GCC trading education platform | Learn Forex, Gold, Bitcoin & Stock trading strategies | AI-powered market insights for Gulf traders | Islamic finance compliant | Educational purposes only | إشارات التداول التعليمية لدول الخليج',
+  keywords: 'trading education GCC, forex learning UAE, trading platform Dubai, market insights Gulf, trading strategies Saudi, cryptocurrency education, halal trading GCC, Islamic finance, trading courses Qatar, market analysis Kuwait',
   authors: [{ name: 'GCC Signal Pro' }],
   creator: 'GCC Signal Pro Gulf',
   publisher: 'GCC Signal Pro',
@@ -19,8 +19,8 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: 'GCC Signal Pro - Premium Trading Signals for Gulf Markets',
-    description: 'Join 25,000+ Gulf traders using our AI-powered signals. 87% accuracy rate. Live Forex, Gold, Bitcoin signals. Islamic finance compliant.',
+    title: 'GCC Signal Pro - Trading Education Platform for Gulf Markets',
+    description: 'Join thousands of Gulf traders learning with our AI-powered market insights. Live Forex, Gold, Bitcoin education. Islamic finance compliant. For educational purposes only.',
     url: 'https://gccsignalpro.com',
     siteName: 'GCC Signal Pro',
     images: [
@@ -36,8 +36,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'GCC Signal Pro - Gulf Trading Signals',
-    description: 'AI-powered trading signals for GCC traders. Forex, Gold, Bitcoin signals with 87% accuracy.',
+    title: 'GCC Signal Pro - Gulf Trading Education',
+    description: 'AI-powered trading education for GCC traders. Learn Forex, Gold, Bitcoin strategies. For educational purposes only.',
     images: ['/twitter-image.jpg'],
     creator: '@gccsignalpro',
   },
@@ -83,9 +83,9 @@ export default function RootLayout({
         <meta name="audience" content="GCC traders, forex traders, cryptocurrency investors" />
         <meta name="subject" content="Trading Signals, Financial Markets, Investment" />
         <meta name="copyright" content="GCC Signal Pro 2025" />
-        <meta name="abstract" content="GCC premier trading signals platform offering AI-powered forex, gold, and cryptocurrency signals" />
-        <meta name="topic" content="Trading Signals GCC" />
-        <meta name="summary" content="Professional trading signals platform for GCC traders with 87% accuracy rate" />
+        <meta name="abstract" content="GCC premier trading education platform offering AI-powered forex, gold, and cryptocurrency market insights for learning purposes" />
+        <meta name="topic" content="Trading Education GCC" />
+        <meta name="summary" content="Professional trading education platform for GCC traders to learn market strategies" />
         <meta name="Classification" content="Finance, Trading, Investment" />
         <meta name="designer" content="GCC Signal Pro" />
         <meta name="reply-to" content="support@gccsignalpro.com" />
@@ -96,25 +96,13 @@ export default function RootLayout({
         <meta name="coverage" content="GCC Countries, Global" />
 
         {/* Arabic Meta Tags */}
-        <meta name="description-ar" content="أفضل منصة إشارات التداول في دول الخليج | إشارات تداول فورية ودقيقة بالذكاء الاصطناعي | دقة 87% للفوركس والذهب والبيتكوين" />
-        <meta name="keywords-ar" content="إشارات التداول الخليج، فوركس الإمارات، بيتكوين السعودية، تداول الذهب قطر، تداول اون لاين الخليج، استثمار الخليج" />
-
-        {/* Economic Keywords for GCC */}
-        <meta name="economic-keywords" content="AED USD, UAE dirham forex, Central Bank UAE rates, ADX DFM TASI, GCC economic indicators, inflation GCC, interest rates UAE Saudi, GDP GCC, GCC forex reserves, oil trading GCC, US GCC trade, China GCC trade, Europe GCC trade, GCC export import, oil exports GCC, petrochemical GCC economy, GCC stock markets, GCC bonds, GCC commodities, Dubai gold, GCC energy prices, GCC gas exports, GCC electricity, GCC taxation, GCC budgets, GCC economic growth, GCC inflation rate, GCC employment, GCC remittances, GCC exports, GCC imports, GCC trade surplus, GCC current account, GCC fiscal balance, GCC sovereign wealth" />
+        <meta name="description-ar" content="منصة تعليمية لتداول في دول الخليج | تعلم استراتيجيات الفوركس والذهب والبيتكوين بالذكاء الاصطناعي | لأغراض تعليمية فقط" />
+        <meta name="keywords-ar" content="تعليم التداول الخليج، تعلم فوركس الإمارات، دورات التداول، استراتيجيات السوق قطر، تداول إسلامي الخليج" />
 
         {/* Local SEO */}
         <meta name="geo.position" content="24.4539;54.3773" />
         <meta name="NUTS" content="AE" />
         <meta name="location" content="GCC Region" />
-
-        {/* Financial Industry Keywords */}
-        <meta name="industry-keywords" content="financial services GCC, investment advisory UAE, wealth management Dubai, portfolio management Qatar, asset management Kuwait, mutual funds GCC, pension funds GCC, insurance GCC, banking GCC, Islamic banking GCC, takaful GCC, sukuk GCC, GCC capital markets, GCC derivatives, GCC commodities exchange, GCC stock exchanges, GCC forex market, GCC money market, GCC bond market, halal trading GCC, sharia compliant trading, Islamic finance GCC" />
-
-        {/* Trading Related Keywords */}
-        <meta name="trading-keywords" content="day trading GCC, swing trading UAE, scalping Dubai, position trading Qatar, technical analysis GCC, fundamental analysis GCC, chart patterns GCC, candlestick patterns GCC, support resistance GCC, moving averages GCC, RSI GCC, MACD GCC, Bollinger bands GCC, Fibonacci GCC, Elliott wave GCC, trading strategies GCC, risk management GCC, money management GCC, trading psychology GCC, trading education GCC, trading course GCC, trading mentor GCC, trading signals telegram GCC, trading signals whatsapp GCC" />
-
-        {/* Competitor Keywords */}
-        <meta name="competitor-keywords" content="best trading signals GCC, top forex signals UAE, accurate trading signals Dubai, profitable signals Qatar, free trading signals GCC, premium trading signals GCC, VIP trading signals GCC, professional trading signals GCC, expert trading signals GCC, reliable trading signals GCC, trusted trading signals GCC, verified trading signals GCC, live trading signals GCC, real time signals GCC, instant trading signals GCC, automated trading signals GCC, copy trading GCC, social trading GCC, mirror trading GCC, signal providers GCC, trading mentors GCC, trading gurus GCC, trading experts GCC, market analysts GCC" />
       </head>
       <body style={{ margin: 0, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
         {/* Schema.org JSON-LD */}
@@ -123,9 +111,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "FinancialService",
+              "@type": "EducationalOrganization",
               "name": "GCC Signal Pro",
-              "description": "GCC premier trading signals platform offering AI-powered forex, gold, and cryptocurrency signals with 87% accuracy rate",
+              "description": "GCC premier trading education platform offering AI-powered market insights for forex, gold, and cryptocurrency learning. For educational purposes only.",
+              "disclaimer": "Trading involves substantial risk of loss. Content provided is for educational purposes only and should not be considered financial advice. Past performance is not indicative of future results.",
               "url": "https://gccsignalpro.com",
               "logo": "https://gccsignalpro.com/logo.png",
               "image": "https://gccsignalpro.com/og-image.jpg",
@@ -148,7 +137,7 @@ export default function RootLayout({
                 "@type": "Country",
                 "name": "GCC Countries"
               },
-              "serviceType": "Trading Signals",
+              "serviceType": "Trading Education",
               "provider": {
                 "@type": "Organization",
                 "name": "GCC Signal Pro",
@@ -157,24 +146,9 @@ export default function RootLayout({
               "offers": [
                 {
                   "@type": "Offer",
-                  "name": "Basic Trading Signals",
-                  "price": "49",
-                  "priceCurrency": "USD",
-                  "priceValidUntil": "2025-12-31",
-                  "availability": "https://schema.org/InStock"
-                },
-                {
-                  "@type": "Offer",
-                  "name": "Professional Trading Signals",
-                  "price": "99",
-                  "priceCurrency": "USD",
-                  "priceValidUntil": "2025-12-31",
-                  "availability": "https://schema.org/InStock"
-                },
-                {
-                  "@type": "Offer",
-                  "name": "Elite Trading Signals",
-                  "price": "199",
+                  "name": "Trading Education - Basic",
+                  "description": "Educational market insights for learning purposes",
+                  "price": "0",
                   "priceCurrency": "USD",
                   "priceValidUntil": "2025-12-31",
                   "availability": "https://schema.org/InStock"
@@ -191,7 +165,7 @@ export default function RootLayout({
                   "@type": "Person",
                   "name": "Ahmed Khan"
                 },
-                "reviewBody": "Best trading signals platform in the GCC region. Very accurate and profitable signals."
+                "reviewBody": "Great trading education platform in the GCC region. Very helpful for learning market strategies. Results may vary."
               },
               "aggregateRating": {
                 "@type": "AggregateRating",
