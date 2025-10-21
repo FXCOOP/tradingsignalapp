@@ -22,7 +22,23 @@ const EXNESS_PARTNER_ID = 'c_8f0nxidtbt'
 export async function POST(request: NextRequest) {
   try {
     // Parse postback data from Exness
-    const postbackData = await request.json()
+    let postbackData
+    try {
+      postbackData = await request.json()
+    } catch (parseError) {
+      console.error('❌ Failed to parse JSON:', parseError)
+      return NextResponse.json({
+        success: false,
+        error: 'Invalid JSON payload'
+      }, {
+        status: 400,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type'
+        }
+      })
+    }
 
     console.log('📡 Received Exness Postback:', {
       timestamp: new Date().toISOString(),
@@ -202,7 +218,7 @@ export async function POST(request: NextRequest) {
         .eq('id', conversion.id)
     }
 
-    // Return success response
+    // Return success response with CORS headers
     return NextResponse.json({
       success: true,
       message: 'Postback processed successfully',
@@ -210,6 +226,13 @@ export async function POST(request: NextRequest) {
       user_id: userId,
       upgrade_applied: upgradeApplied,
       timestamp: new Date().toISOString()
+    }, {
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      }
     })
 
   } catch (error: any) {
@@ -219,8 +242,28 @@ export async function POST(request: NextRequest) {
       success: false,
       error: 'Internal server error',
       message: error.message
-    }, { status: 500 })
+    }, {
+      status: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      }
+    })
   }
+}
+
+// OPTIONS handler for CORS preflight
+export async function OPTIONS(request: NextRequest) {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Max-Age': '86400'
+    }
+  })
 }
 
 // GET endpoint to check postback configuration
@@ -248,6 +291,13 @@ export async function GET(request: NextRequest) {
       event_type: "REWARD_PROCESSING",
       user_id: "exness_user_123",
       reward_amount: 50.00
+    }
+  }, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type'
     }
   })
 }

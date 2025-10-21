@@ -234,7 +234,6 @@ export default function AdminDashboard() {
               🔄 Refresh
             </button>
           </div>
-        </div>
       </div>
 
       {/* Stats Cards */}
