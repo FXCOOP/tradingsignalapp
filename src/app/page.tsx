@@ -353,10 +353,16 @@ export default function HomePage() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // DISABLED: Exness popup completely removed per user request
-  // useEffect(() => {
-  //   // Popup functionality disabled
-  // }, [])
+  // Beautiful popup after 10 minutes of genuine engagement
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!popupDismissed['exness']) {
+        setShowExnessPopup(true)
+      }
+    }, 600000) // 10 minutes = 600,000 milliseconds
+
+    return () => clearTimeout(timer)
+  }, [popupDismissed])
 
   // 🤖 FETCH AI-GENERATED SIGNALS FROM OPENAI
   const fetchAISignals = async () => {
