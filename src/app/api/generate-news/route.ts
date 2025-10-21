@@ -29,21 +29,21 @@ export async function POST(request: NextRequest) {
 
     console.log('🔄 No cache found, generating fresh news articles...')
 
-    const newsPrompt = `You are a financial journalist covering GCC markets. Create 3 comprehensive news articles for today.
+    const newsPrompt = `You are a financial journalist covering global financial markets. Create 3 comprehensive news articles for today.
 
 Topics to cover (choose 3):
-1. TASI/Saudi market movements and key stocks (Saudi Aramco, Al Rajhi Bank, STC)
-2. UAE market updates (ADX/DFM, real estate, banking sector)
-3. GCC currency markets (AED/USD peg, Saudi Riyal, Qatari Riyal)
-4. Oil market impact on GCC economies (OPEC decisions, Brent crude prices)
-5. Economic reforms and Vision 2030 developments
-6. Foreign investment in GCC markets
-7. Banking sector performance and interest rates
+1. US stock market movements and key stocks (Apple, Microsoft, Tesla, NVIDIA)
+2. Global market updates (S&P 500, NASDAQ, European indices, Asian markets)
+3. Currency markets (EUR/USD, GBP/USD, USD/JPY, major forex trends)
+4. Oil and energy markets (WTI crude, natural gas, renewable energy developments)
+5. Technology sector and AI developments (FAANG stocks, semiconductor industry)
+6. Federal Reserve and central bank policy decisions
+7. Banking sector performance and interest rate impacts
 
 For each article provide:
 {
   "title": "string (compelling, SEO-friendly headline)",
-  "titleAr": "string (Arabic translation of title)",
+  "titleAr": "string (optional - can be empty string)",
   "slug": "string (URL-friendly slug)",
   "excerpt": "string (2-3 sentence summary)",
   "category": "stocks" | "forex" | "commodities" | "economy" | "banking",
@@ -51,7 +51,7 @@ For each article provide:
   "keyPoints": ["string array of 4-5 bullet points"],
   "marketImpact": "string (2-3 sentences on market implications)",
   "tags": ["string array of 5-7 relevant tags"],
-  "authorName": "string (realistic GCC financial journalist name)",
+  "authorName": "string (realistic financial journalist name)",
   "readTime": number (estimated minutes to read),
   "publishDate": "string (today's date in ISO format)"
 }
@@ -59,9 +59,9 @@ For each article provide:
 Requirements:
 - Make content informative, professional, and data-driven
 - Include realistic market data and statistics
-- Reference current GCC economic conditions
+- Reference current global economic conditions
 - Write in journalistic style suitable for financial professionals
-- Ensure content is relevant to GCC traders and investors
+- Ensure content is relevant to traders and investors worldwide
 
 Return ONLY a valid JSON array with 3 articles, no markdown formatting`
 
@@ -70,7 +70,7 @@ Return ONLY a valid JSON array with 3 articles, no markdown formatting`
       messages: [
         {
           role: 'system',
-          content: 'You are a professional financial journalist specializing in GCC markets. Write comprehensive, accurate news articles in JSON format only.'
+          content: 'You are a professional financial journalist specializing in global financial markets. Write comprehensive, accurate news articles in JSON format only.'
         },
         {
           role: 'user',

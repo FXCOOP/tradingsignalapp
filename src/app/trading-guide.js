@@ -362,53 +362,53 @@ const tradingGuideContent = `
                 {
                   id: 8,
                   level: 'ADVANCED',
-                  title: 'Chapter 8: GCC Markets Specialization',
-                  description: 'Master the unique aspects of Gulf Cooperation Council markets',
+                  title: 'Chapter 8: Global Markets & Asset Classes',
+                  description: 'Master trading across global markets and diverse asset classes',
                   color: '#059669',
                   sections: [
                     {
-                      title: '8.1 Saudi Market (Tadawul)',
+                      title: '8.1 US Stock Market',
                       content: [
-                        'TASI Index: Main benchmark index',
-                        'Trading Hours: 10:00-15:00 AST',
-                        'Key Sectors: Energy (ARAMCO), Banking (Al Rajhi), Petrochemicals (SABIC)',
-                        'Circuit Breakers: 10% up/down limits',
+                        'S&P 500: Benchmark index of 500 largest US companies',
+                        'Trading Hours: 9:30-16:00 EST (pre/post-market available)',
+                        'Key Sectors: Technology (AAPL, MSFT), Finance (JPM, BAC), Healthcare (JNJ, UNH)',
+                        'Circuit Breakers: 7%, 13%, 20% thresholds',
                         'Settlement: T+2 (trade date plus 2 days)'
                       ],
                       examples: [
-                        'ARAMCO: Largest stock by market cap (35% of TASI)',
-                        'Al Rajhi Bank: Largest Islamic bank globally',
-                        'SABIC: Major petrochemical producer'
+                        'Apple (AAPL): Largest company by market cap ($3T+)',
+                        'Microsoft (MSFT): Cloud computing and software leader',
+                        'Tesla (TSLA): Electric vehicle and energy company'
                       ]
                     },
                     {
-                      title: '8.2 UAE Markets (ADX & DFM)',
+                      title: '8.2 European Markets',
                       content: [
-                        'Abu Dhabi Exchange (ADX): Larger, more liquid',
-                        'Dubai Financial Market (DFM): Smaller, more volatile',
-                        'Key Stocks: Emirates NBD, ADNOC, Emaar',
-                        'Trading Hours: 10:00-14:00 GST',
-                        'Foreign Ownership: Up to 100% in most stocks'
+                        'FTSE 100 (UK): Blue-chip companies, London Stock Exchange',
+                        'DAX (Germany): 40 major German companies, Frankfurt exchange',
+                        'Key Stocks: HSBC, BP, Volkswagen, Siemens, LVMH',
+                        'Trading Hours: 8:00-16:30 CET (varies by exchange)',
+                        'Currency Exposure: GBP, EUR considerations'
                       ],
                       examples: [
-                        'Emirates NBD: Largest bank in UAE',
-                        'ADNOC Distribution: Oil & gas retail',
-                        'Emaar Properties: Real estate developer (Burj Khalifa)'
+                        'HSBC: Major international banking group',
+                        'LVMH: Luxury goods conglomerate (Louis Vuitton, Dior)',
+                        'Volkswagen: Automotive manufacturing giant'
                       ]
                     },
                     {
-                      title: '8.3 Qatar Exchange (QE)',
+                      title: '8.3 Asian Markets & Cryptocurrencies',
                       content: [
-                        'QE All Share Index: Main benchmark',
-                        'Trading Hours: 9:30-13:30 AST',
-                        'Key Stocks: QNB, Ooredoo, Industries Qatar',
-                        'MSCI Emerging Market inclusion',
-                        'Strong banking and telecom sectors'
+                        'Nikkei 225 (Japan): Major Japanese stock index',
+                        'Hong Kong (HSI): International financial hub',
+                        'Bitcoin/Ethereum: Digital asset trading 24/7',
+                        'Timing Advantages: Follow the sun trading strategy',
+                        'Diversification: Geographic and asset class spread'
                       ],
                       examples: [
-                        'QNB: Largest bank in Middle East by assets',
-                        'Ooredoo: Major telecommunications provider',
-                        'Industries Qatar: Petrochemicals and fertilizers'
+                        'Toyota: Largest automotive manufacturer by volume',
+                        'Bitcoin (BTC): Leading cryptocurrency by market cap',
+                        'Ethereum (ETH): Smart contract blockchain platform'
                       ]
                     }
                   ]
@@ -429,9 +429,9 @@ const tradingGuideContent = `
                         'Set stops below/above the breakout level'
                       ],
                       examples: [
-                        'ARAMCO breakout above 33.00 SAR resistance',
+                        'Tesla (TSLA) breakout above $250 resistance',
                         'Volume surge confirms genuine breakout',
-                        'Enter on pullback to 33.20 SAR'
+                        'Enter on pullback to $252 support'
                       ]
                     },
                     {
@@ -443,8 +443,8 @@ const tradingGuideContent = `
                         'Trail stops to protect profits'
                       ],
                       examples: [
-                        'QNB uptrend: Buy dips to 20-day MA',
-                        'TASI uptrend: Stay long above 200-day MA'
+                        'NVIDIA uptrend: Buy dips to 20-day MA',
+                        'S&P 500 uptrend: Stay long above 200-day MA'
                       ]
                     },
                     {
@@ -456,8 +456,8 @@ const tradingGuideContent = `
                         'Quick profits, tight stops required'
                       ],
                       examples: [
-                        'Emirates NBD oversold bounce from 13.50 AED',
-                        'ADX overbought reversal from 10,200 level'
+                        'Apple (AAPL) oversold bounce from $170 support',
+                        'Bitcoin oversold at $40K, bounce to $45K'
                       ]
                     }
                   ]
@@ -478,8 +478,8 @@ const tradingGuideContent = `
                         'Focus on real economic activity'
                       ],
                       examples: [
-                        'Halal: ARAMCO (energy), SABIC (manufacturing)',
-                        'Questionable: Conventional banks like Emirates NBD',
+                        'Halal: Tesla (clean energy), Microsoft (tech services)',
+                        'Questionable: Conventional banks like JPMorgan',
                         'Check Shariah compliance ratings before trading'
                       ]
                     },
@@ -492,7 +492,7 @@ const tradingGuideContent = `
                         'Day Trading: Acceptable if not excessive gambling'
                       ],
                       examples: [
-                        'Acceptable: Buying ARAMCO for dividend income',
+                        'Acceptable: Buying Apple for dividend income',
                         'Prohibited: Short selling without owning shares',
                         'Gray Area: High-frequency day trading'
                       ]

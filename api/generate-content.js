@@ -58,13 +58,14 @@ export default async function handler(req, res) {
 // Generate trading signals
 async function generateTradingSignals() {
   const prompt = `
-  Generate 6-8 high-quality trading signals for GCC (Gulf Cooperation Council) and international markets today.
+  Generate 6-8 high-quality trading signals for global financial markets today.
 
   Include:
-  - GCC stocks (Saudi SABIC, Al Rajhi Bank, Emirates NBD, QNB, Emaar Properties)
-  - Forex pairs (AED/USD, SAR/USD, EUR/USD, GBP/USD)
-  - Commodities (Gold, Silver, Crude Oil)
-  - International indices impact on TASI (Saudi), ADX, DFM (Dubai)
+  - Major stocks (Apple, Microsoft, Tesla, Amazon, Google, NVIDIA, JPMorgan, Visa)
+  - Forex pairs (EUR/USD, GBP/USD, USD/JPY, AUD/USD, USD/CAD)
+  - Commodities (Gold, Silver, Crude Oil, Natural Gas, Copper)
+  - Global indices (S&P 500, NASDAQ, FTSE 100, DAX, Nikkei 225)
+  - Cryptocurrencies (Bitcoin, Ethereum)
 
   For each signal provide:
   - Symbol name
@@ -93,14 +94,14 @@ async function generateTradingSignals() {
 // Generate financial news
 async function generateFinancialNews() {
   const prompt = `
-  Create 4-5 comprehensive financial news articles for GCC markets:
+  Create 4-5 comprehensive financial news articles for global markets:
 
   Topics to cover:
-  1. Banking sector update (Emirates NBD, Al Rajhi, QNB quarterly results or sector news)
-  2. Currency market (AED/USD, SAR/USD, oil prices, foreign reserves)
-  3. Stock market movements (TASI, ADX, DFM, foreign investment, market outlook)
-  4. Energy sector (Saudi Aramco, ADNOC, oil prices impact)
-  5. Economic policy or Vision 2030/UAE Economic Agenda impact
+  1. Banking sector update (JPMorgan, Goldman Sachs, Bank of America earnings or sector trends)
+  2. Currency market (EUR/USD, GBP/USD trends, Federal Reserve policy, global forex movements)
+  3. Stock market movements (S&P 500, NASDAQ, global indices, institutional flows, market outlook)
+  4. Technology sector (FAANG stocks, AI developments, semiconductor industry updates)
+  5. Economic policy or central bank decisions (Fed, ECB, BoE monetary policy impact)
 
   Each article should include:
   - Compelling, professional headline
@@ -108,9 +109,9 @@ async function generateFinancialNews() {
   - 800-1200 word detailed article
   - Market impact analysis
   - Key statistics and data points
-  - Expert quotes (realistic Pakistani financial experts)
+  - Expert quotes (realistic financial analysts)
   - Trading recommendations
-  - Author name (realistic Pakistani financial journalist)
+  - Author name (realistic financial journalist)
   - Read time estimate
   - Relevant tags
 
@@ -131,17 +132,17 @@ async function generateFinancialNews() {
 // Generate market analysis
 async function generateMarketAnalysis() {
   const prompt = `
-  Create comprehensive daily market analysis for GCC markets:
+  Create comprehensive daily market analysis for global financial markets:
 
   Sections to include:
-  1. Market Overview (TASI, ADX, DFM performance, key movers)
-  2. Sectoral Analysis (Banking, Energy, Real Estate, Technology)
-  3. Currency Analysis (AED/USD, SAR/USD trends, oil prices impact)
-  4. Global Market Impact (international factors affecting GCC markets)
-  5. Technical Analysis (key support/resistance levels, chart patterns)
-  6. Economic Indicators (inflation, interest rates, foreign reserves)
-  7. Tomorrow's Key Events (earnings, economic data, policy announcements)
-  8. Trading Strategy (recommended sectors, risk management)
+  1. Market Overview (S&P 500, NASDAQ, Dow Jones, global indices performance, key movers)
+  2. Sectoral Analysis (Technology, Financials, Healthcare, Energy, Consumer sectors)
+  3. Currency Analysis (EUR/USD, GBP/USD, USD/JPY trends, Fed policy impact)
+  4. Global Market Impact (international events, geopolitical factors, economic trends)
+  5. Technical Analysis (key support/resistance levels, chart patterns, momentum indicators)
+  6. Economic Indicators (inflation, interest rates, employment data, GDP)
+  7. Tomorrow's Key Events (earnings releases, economic data, central bank announcements)
+  8. Trading Strategy (recommended assets, risk management, diversification)
 
   Provide:
   - Executive summary (3-4 sentences)
@@ -170,16 +171,16 @@ async function generateEducationalContent() {
   Create daily educational content for trading education:
 
   Generate 5 educational pieces:
-  1. Daily Trading Tip (practical, actionable advice)
-  2. Technical Analysis Lesson (chart patterns, indicators)
-  3. Risk Management Insight (capital preservation strategies)
-  4. GCC Market Education (regional market specifics, Islamic finance)
-  5. Trading Psychology Tip (emotional control, discipline)
+  1. Daily Trading Tip (practical, actionable advice for all markets)
+  2. Technical Analysis Lesson (chart patterns, indicators, candlestick formations)
+  3. Risk Management Insight (capital preservation, position sizing, diversification)
+  4. Market Fundamentals (economic indicators, earnings analysis, sector rotation)
+  5. Trading Psychology Tip (emotional control, discipline, cognitive biases)
 
   Each piece should be:
   - Beginner to intermediate level
   - 200-300 words
-  - Include practical examples
+  - Include practical examples from global markets
   - Reference current market conditions when relevant
   - Actionable and educational
 
@@ -216,7 +217,7 @@ async function generateDailyContent() {
     analysis,
     education,
     generatedAt: new Date().toISOString(),
-    market: 'GCC',
+    market: 'Global',
     version: '1.0'
   };
 }

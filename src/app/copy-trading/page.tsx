@@ -119,7 +119,7 @@ export default function CopyTradingPage() {
           color: '#64748b',
           marginBottom: '24px'
         }}>
-          Automatically execute GCC Signal Pro signals in your broker account with advanced risk management
+          Automatically execute TradeFlow signals in your broker account with advanced risk management
         </p>
 
         {/* Tab Navigation */}

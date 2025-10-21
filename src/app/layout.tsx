@@ -70,39 +70,26 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Additional SEO Meta Tags */}
-        <meta name="geo.region" content="AE" />
-        <meta name="geo.country" content="United Arab Emirates" />
-        <meta name="geo.placename" content="GCC Region" />
-        <meta name="ICBM" content="24.4539, 54.3773" />
-        <meta name="DC.title" content="GCC Signal Pro - Gulf Trading Signals" />
+        <meta name="DC.title" content="TradeFlow - Global Trading Education Platform" />
         <meta name="rating" content="general" />
         <meta name="distribution" content="global" />
         <meta name="revisit-after" content="1 day" />
-        <meta name="language" content="English, Arabic" />
-        <meta name="target" content="GCC Countries, Middle East, Gulf Region" />
-        <meta name="audience" content="GCC traders, forex traders, cryptocurrency investors" />
-        <meta name="subject" content="Trading Signals, Financial Markets, Investment" />
-        <meta name="copyright" content="GCC Signal Pro 2025" />
-        <meta name="abstract" content="GCC premier trading education platform offering AI-powered forex, gold, and cryptocurrency market insights for learning purposes" />
-        <meta name="topic" content="Trading Education GCC" />
-        <meta name="summary" content="Professional trading education platform for GCC traders to learn market strategies" />
+        <meta name="language" content="English" />
+        <meta name="target" content="Global Markets, International Traders" />
+        <meta name="audience" content="traders worldwide, forex traders, cryptocurrency investors, stock traders" />
+        <meta name="subject" content="Trading Signals, Financial Markets, Investment Education" />
+        <meta name="copyright" content="TradeFlow 2025" />
+        <meta name="abstract" content="Global trading education platform offering AI-powered forex, stocks, gold, and cryptocurrency market insights for learning purposes" />
+        <meta name="topic" content="Trading Education Global" />
+        <meta name="summary" content="Professional trading education platform for traders worldwide to learn market strategies" />
         <meta name="Classification" content="Finance, Trading, Investment" />
-        <meta name="designer" content="GCC Signal Pro" />
-        <meta name="reply-to" content="support@gccsignalpro.com" />
-        <meta name="owner" content="GCC Signal Pro" />
-        <meta name="url" content="https://gccsignalpro.com" />
-        <meta name="identifier-URL" content="https://gccsignalpro.com" />
-        <meta name="category" content="Finance, Trading, Forex, Cryptocurrency" />
-        <meta name="coverage" content="GCC Countries, Global" />
-
-        {/* Arabic Meta Tags */}
-        <meta name="description-ar" content="منصة تعليمية لتداول في دول الخليج | تعلم استراتيجيات الفوركس والذهب والبيتكوين بالذكاء الاصطناعي | لأغراض تعليمية فقط" />
-        <meta name="keywords-ar" content="تعليم التداول الخليج، تعلم فوركس الإمارات، دورات التداول، استراتيجيات السوق قطر، تداول إسلامي الخليج" />
-
-        {/* Local SEO */}
-        <meta name="geo.position" content="24.4539;54.3773" />
-        <meta name="NUTS" content="AE" />
-        <meta name="location" content="GCC Region" />
+        <meta name="designer" content="TradeFlow" />
+        <meta name="reply-to" content="support@tradeflow.cloud" />
+        <meta name="owner" content="TradeFlow" />
+        <meta name="url" content="https://tradeflow.cloud" />
+        <meta name="identifier-URL" content="https://tradeflow.cloud" />
+        <meta name="category" content="Finance, Trading, Forex, Cryptocurrency, Stocks" />
+        <meta name="coverage" content="Worldwide, Global Markets" />
       </head>
       <body style={{ margin: 0, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
         {/* Schema.org JSON-LD */}

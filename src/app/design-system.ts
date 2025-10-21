@@ -1,4 +1,4 @@
-// GCC Signal Pro Design System
+// TradeFlow Design System
 // Unified design tokens for consistent UX across the application
 
 export const designSystem = {
