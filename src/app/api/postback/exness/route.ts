@@ -6,115 +6,248 @@ const supabaseAdmin = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
+// Exness Partner ID
+const EXNESS_PARTNER_ID = 'c_8f0nxidtbt'
+
+/**
+ * Exness Postback Handler
+ *
+ * Handles all Exness affiliate events:
+ * - REGISTRATION: User registered with Exness
+ * - QUALIFICATION: User completed qualification steps
+ * - AGGREGATED_DEPOSIT: User made a deposit
+ * - REWARD_PROCESSING: Commission/reward is being processed (AUTO-APPROVE USER HERE!)
+ * - IS_KYC_PASSED: User completed KYC verification
+ */
 export async function POST(request: NextRequest) {
   try {
     // Parse postback data from Exness
     const postbackData = await request.json()
 
-    console.log('📡 Received Exness Postback:', postbackData)
+    console.log('📡 Received Exness Postback:', {
+      timestamp: new Date().toISOString(),
+      event: postbackData.event_type || postbackData.eventType,
+      data: postbackData
+    })
 
+    // Extract data (Exness may send different field names)
     const {
-      partner_id,      // c_8f0nxidtbt
-      event_type,      // 'FTD', 'Deposit', etc.
-      ftd_amount,      // Deposit amount
-      user_id: exness_user_id,
+      partner_id = postbackData.partnerId,
+      event_type = postbackData.eventType,
+      user_id: exness_user_id = postbackData.userId,
+      ftd_amount = postbackData.ftdAmount || postbackData.amount,
+      deposit_amount = postbackData.depositAmount,
+      reward_amount = postbackData.rewardAmount,
+      kyc_status = postbackData.kycStatus,
+      qualification_status = postbackData.qualificationStatus,
       ...otherData
     } = postbackData
 
-    // Find which user clicked this partner_id
-    const { data: clickData, error: clickError } = await supabaseAdmin
-      .from('exness_clicks')
-      .select('user_id')
-      .eq('partner_id', partner_id)
-      .order('clicked_at', { ascending: false })
-      .limit(1)
-      .single()
-
-    if (clickError || !clickData) {
-      console.error('❌ No user found for partner_id:', partner_id)
-
-      // Still record the postback for debugging
-      await supabaseAdmin.from('exness_conversions').insert({
-        partner_id,
-        event_type,
-        ftd_amount,
-        exness_user_id,
-        raw_postback_data: postbackData,
-        processed: false
-      })
-
-      return NextResponse.json({
-        success: false,
-        message: 'No user found for this partner_id'
-      })
+    // Verify partner ID matches
+    if (partner_id && partner_id !== EXNESS_PARTNER_ID) {
+      console.warn('⚠️ Partner ID mismatch:', partner_id, 'Expected:', EXNESS_PARTNER_ID)
     }
 
-    const userId = clickData.user_id
+    // Find which user clicked this link (by partner_id or session tracking)
+    const { data: clickData, error: clickError } = await supabaseAdmin
+      .from('exness_clicks')
+      .select('user_id, clicked_at')
+      .eq('partner_id', EXNESS_PARTNER_ID)
+      .order('clicked_at', { ascending: false })
+      .limit(1)
+      .maybeSingle()
 
-    // Record conversion
+    let userId: string | null = clickData?.user_id || null
+
+    // If no click found, try to find user by Exness user ID (if we've seen them before)
+    if (!userId && exness_user_id) {
+      const { data: existingConversion } = await supabaseAdmin
+        .from('exness_conversions')
+        .select('user_id')
+        .eq('exness_user_id', exness_user_id)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+
+      userId = existingConversion?.user_id || null
+    }
+
+    // Record postback event
     const { data: conversion, error: conversionError } = await supabaseAdmin
       .from('exness_conversions')
       .insert({
         user_id: userId,
-        partner_id,
-        event_type,
-        ftd_amount,
-        exness_user_id,
+        partner_id: EXNESS_PARTNER_ID,
+        event_type: event_type || 'UNKNOWN',
+        ftd_amount: parseFloat(ftd_amount || deposit_amount || '0'),
+        reward_amount: parseFloat(reward_amount || '0'),
+        exness_user_id: exness_user_id || null,
         raw_postback_data: postbackData,
-        processed: false
+        processed: false,
+        kyc_status: kyc_status || null,
+        qualification_status: qualification_status || null
       })
       .select()
-      .single()
+      .maybeSingle()
 
     if (conversionError) {
       console.error('❌ Error recording conversion:', conversionError)
-      return NextResponse.json({ error: 'Failed to record conversion' }, { status: 500 })
+      return NextResponse.json({
+        success: false,
+        error: 'Failed to record conversion',
+        details: conversionError.message
+      }, { status: 500 })
     }
 
-    // AUTO-UPGRADE: Set has_broker_account = true
-    const { error: upgradeError } = await supabaseAdmin
-      .from('users')
-      .update({
-        has_broker_account: true,
-        broker_name: 'Exness',
-        broker_verified_at: new Date().toISOString()
-      })
-      .eq('id', userId)
+    // Handle different event types
+    let upgradeApplied = false
 
-    if (upgradeError) {
-      console.error('❌ Error upgrading user:', upgradeError)
-      return NextResponse.json({ error: 'Failed to upgrade user' }, { status: 500 })
+    if (userId) {
+      switch (event_type) {
+        case 'REGISTRATION':
+          console.log('📝 User registered with Exness:', userId)
+          await supabaseAdmin
+            .from('users')
+            .update({
+              exness_registered: true,
+              exness_user_id: exness_user_id
+            })
+            .eq('id', userId)
+          break
+
+        case 'QUALIFICATION':
+          console.log('✅ User qualified with Exness:', userId)
+          await supabaseAdmin
+            .from('users')
+            .update({
+              exness_qualified: true,
+              broker_name: 'Exness'
+            })
+            .eq('id', userId)
+          break
+
+        case 'AGGREGATED_DEPOSIT':
+          console.log('💰 User made deposit:', userId, deposit_amount || ftd_amount)
+          await supabaseAdmin
+            .from('users')
+            .update({
+              exness_deposited: true,
+              exness_deposit_amount: parseFloat(deposit_amount || ftd_amount || '0')
+            })
+            .eq('id', userId)
+          break
+
+        case 'REWARD_PROCESSING':
+          // 🎉 AUTO-APPROVE USER HERE!
+          console.log('🎉 REWARD PROCESSING - AUTO-APPROVING USER:', userId)
+
+          const { error: approvalError } = await supabaseAdmin
+            .from('users')
+            .update({
+              has_broker_account: true,  // ✅ UNLOCK PREMIUM ACCESS
+              broker_name: 'Exness',
+              broker_verified_at: new Date().toISOString(),
+              exness_reward_processed: true,
+              exness_reward_amount: parseFloat(reward_amount || '0'),
+              approved_at: new Date().toISOString()
+            })
+            .eq('id', userId)
+
+          if (!approvalError) {
+            upgradeApplied = true
+            console.log('✅ User auto-approved and upgraded to PREMIUM:', userId)
+
+            // Track in activity log
+            await supabaseAdmin.from('activity_log').insert({
+              user_id: userId,
+              action: 'EXNESS_REWARD_APPROVED',
+              details: {
+                event_type,
+                reward_amount,
+                exness_user_id
+              }
+            })
+          } else {
+            console.error('❌ Failed to approve user:', approvalError)
+          }
+          break
+
+        case 'IS_KYC_PASSED':
+          console.log('🆔 User passed KYC:', userId)
+          await supabaseAdmin
+            .from('users')
+            .update({
+              exness_kyc_passed: true,
+              kyc_verified_at: new Date().toISOString()
+            })
+            .eq('id', userId)
+          break
+
+        default:
+          console.log('ℹ️ Unknown event type:', event_type)
+      }
+    } else {
+      console.warn('⚠️ No user ID found for postback')
     }
 
     // Mark conversion as processed
-    await supabaseAdmin
-      .from('exness_conversions')
-      .update({
-        processed: true,
-        processed_at: new Date().toISOString()
-      })
-      .eq('id', conversion.id)
+    if (conversion) {
+      await supabaseAdmin
+        .from('exness_conversions')
+        .update({
+          processed: true,
+          processed_at: new Date().toISOString(),
+          user_approved: upgradeApplied
+        })
+        .eq('id', conversion.id)
+    }
 
-    console.log('✅ User upgraded successfully:', userId)
-
+    // Return success response
     return NextResponse.json({
       success: true,
-      message: 'User upgraded to premium',
+      message: 'Postback processed successfully',
+      event_type,
       user_id: userId,
-      conversion_id: conversion.id
+      upgrade_applied: upgradeApplied,
+      timestamp: new Date().toISOString()
     })
 
-  } catch (error) {
-    console.error('❌ Postback processing error:', error)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  } catch (error: any) {
+    console.error('❌ Exness Postback Error:', error)
+
+    return NextResponse.json({
+      success: false,
+      error: 'Internal server error',
+      message: error.message
+    }, { status: 500 })
   }
 }
 
-// Also support GET for testing
+// GET endpoint to check postback configuration
 export async function GET(request: NextRequest) {
   return NextResponse.json({
-    message: 'Exness Postback Endpoint',
-    status: 'operational',
-    timestamp: new Date().toISOString()
+    status: 'ready',
+    partner_id: EXNESS_PARTNER_ID,
+    supported_events: [
+      'REGISTRATION',
+      'QUALIFICATION',
+      'AGGREGATED_DEPOSIT',
+      'REWARD_PROCESSING',
+      'IS_KYC_PASSED'
+    ],
+    postback_url: `${process.env.NEXT_PUBLIC_APP_URL}/api/postback/exness`,
+    instructions: {
+      registration: `${process.env.NEXT_PUBLIC_APP_URL}/api/postback/exness?event=registration`,
+      qualification: `${process.env.NEXT_PUBLIC_APP_URL}/api/postback/exness?event=qualification`,
+      deposit: `${process.env.NEXT_PUBLIC_APP_URL}/api/postback/exness?event=deposit`,
+      reward: `${process.env.NEXT_PUBLIC_APP_URL}/api/postback/exness?event=reward`,
+      kyc: `${process.env.NEXT_PUBLIC_APP_URL}/api/postback/exness?event=kyc`
+    },
+    example_postback: {
+      partner_id: EXNESS_PARTNER_ID,
+      event_type: "REWARD_PROCESSING",
+      user_id: "exness_user_123",
+      reward_amount: 50.00
+    }
   })
 }
