@@ -146,7 +146,7 @@ export function AuthModal({
               marginBottom: '8px',
               lineHeight: '1.2'
             }}>
-              {mode === 'signup' ? 'Join GCC Signal Pro' : 'Welcome Back!'}
+              {mode === 'signup' ? 'Join TradeFlow' : 'Welcome Back!'}
             </h2>
             <p style={{
               color: '#6b7280',

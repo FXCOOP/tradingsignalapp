@@ -8391,7 +8391,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 lineHeight: '1.7'
               }}>
                 Stay informed with comprehensive financial news, market analysis, and expert insights
-                covering GCC and international markets.
+                covering global financial markets worldwide.
               </p>
             </div>
 
@@ -8402,101 +8402,96 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               {[
                 {
                   id: 1,
-                  title: 'GCC Banking Sector Posts Record Q4 Results Amid Economic Expansion',
-                  summary: 'Major GCC banks including Emirates NBD, Al Rajhi Bank, and QNB report exceptional quarterly results driven by expanding loan portfolios and robust regional growth.',
-                  fullArticle: `The GCC banking sector has delivered its strongest quarterly performance in over five years, with major banks reporting significant profit growth and improved operational metrics. The sector's robust performance comes amid strong economic expansion, infrastructure investment, and increased business confidence across the Gulf region.
+                  title: 'S&P 500 Reaches New All-Time High as Tech Megacaps Lead Market Rally',
+                  summary: 'Major US indices surge to record levels with Apple, Microsoft, and NVIDIA driving gains as strong corporate earnings and optimistic economic outlook fuel investor confidence.',
+                  fullArticle: `The S&P 500 has reached a historic milestone, surging to an all-time high of 5,850 points as technology megacaps continue their dominant performance. The broad market rally reflects exceptional corporate earnings, resilient economic growth, and renewed investor optimism about the Federal Reserve's monetary policy trajectory.
 
-**Emirates NBD** reported a 28% year-over-year increase in net profits to AED 15.2 billion, driven by a 15% growth in advances and a notable improvement in net interest margin to 4.8%. The bank's CEO, Shayne Nelson, attributed the strong performance to "strategic focus on digital transformation and enhanced customer service delivery across our UAE and international operations."
+**Apple Inc.** delivered blockbuster quarterly results with revenue reaching $119.6 billion, up 8% year-over-year, driven by strong iPhone 15 sales and robust growth in its services segment. CEO Tim Cook highlighted the company's continued innovation in AI integration, stating "We're entering a new era of intelligent computing that will transform how our customers interact with their devices."
 
-**Al Rajhi Bank** followed with equally impressive results, posting a 32% jump in net profits to SAR 14.5 billion. The bank's advances grew by 18%, while its cost-to-income ratio improved to 42.1%, reflecting enhanced operational efficiency. Al Rajhi's management highlighted significant progress in their Islamic retail banking division, with consumer financing growing by 25%.
+**Microsoft** posted exceptional earnings with $62.3 billion in revenue, representing a 17% increase, powered by Azure cloud services growth of 28% and accelerating adoption of AI-powered Copilot features across its product suite. The company's market capitalization now exceeds $3.1 trillion, cementing its position as a technology leader.
 
-**Qatar National Bank (QNB)** rounded out the strong sector performance with a 22% increase in net profits to QAR 13.8 billion. The bank's deposit base expanded by 16%, while maintaining a healthy capital adequacy ratio of 18.2%, well above regulatory requirements.
+**NVIDIA** continued its remarkable run with revenue surging 265% to $22.1 billion, driven by insatiable demand for AI chips from data centers, cloud providers, and enterprise customers. The company's dominance in AI accelerator hardware has made it indispensable to the global AI revolution.
 
 **Key Performance Drivers:**
-- Strong economic expansion across GCC economies
-- Infrastructure investment and Vision 2030 initiatives driving lending demand
-- Enhanced digital banking adoption reducing operational costs
-- Better asset quality with non-performing loans at historically low levels
+- Strong corporate earnings beating analyst expectations across sectors
+- Resilient US economic growth with GDP expanding at 3.2% annually
+- Federal Reserve signaling potential interest rate cuts in coming months
+- Artificial intelligence investment boom driving technology sector gains
 
 **Market Impact Analysis:**
-The banking sector's strong performance has provided significant support to GCC equity indices, with banking stocks contributing substantially to TASI, ADX, and DFM gains. Foreign institutional investors have shown renewed interest in GCC banking stocks, with net inflows of $145 million recorded in the banking sector during Q4.
+The technology sector's exceptional performance has lifted major indices to record highs, with the NASDAQ Composite gaining 15.2% year-to-date. The broader market rally has been supported by strong participation across sectors including healthcare, financials, and consumer discretionary. Foreign institutional investors have increased US equity allocations, viewing American markets as offering superior growth prospects.
 
 **Future Outlook:**
-Banking analysts remain optimistic about the sector's prospects, citing several positive factors including continued economic expansion, major infrastructure projects, Vision 2030 implementation, and ongoing digitalization efforts. The strong fiscal positions of GCC governments provide additional support.
+Wall Street analysts maintain bullish outlooks for US equities, citing several positive catalysts including continued AI-driven productivity gains, potential Federal Reserve rate cuts, strong consumer spending, and robust corporate profit margins. The S&P 500 consensus target has been raised to 6,200 for year-end.
 
-The Central Bank of UAE and SAMA's latest Financial Stability Reviews indicate that the GCC banking sector remains well-capitalized, highly liquid, and positioned for continued growth in 2024.`,
+Market strategists note that while valuations are elevated in certain sectors, the combination of earnings growth, technological innovation, and supportive monetary policy provides a foundation for continued market appreciation throughout 2024 and beyond.`,
                   time: '2 hours ago',
-                  category: 'Banking',
+                  category: 'Stocks',
                   impact: 'Positive',
-                  author: 'Fatima Al-Mubarak',
+                  author: 'Sarah Mitchell',
                   readTime: '5 min read',
-                  tags: ['Emirates NBD', 'Al Rajhi Bank', 'QNB', 'Banking Sector', 'Q4 Results'],
-                  imageDescription: 'GCC bank headquarters with financial charts overlay'
+                  tags: ['S&P 500', 'NASDAQ', 'Apple', 'Microsoft', 'NVIDIA', 'Tech Stocks'],
+                  imageDescription: 'Wall Street trading floor with rising stock market charts'
                 },
                 {
                   id: 2,
-                  title: 'USD/AED Maintains Stability as UAE Economy Demonstrates Robust Fundamentals',
-                  summary: 'The UAE dirham maintains its peg stability against the US dollar, supported by strong economic fundamentals and substantial foreign exchange reserves.',
-                  fullArticle: `The USD/AED exchange rate remains firmly anchored at its pegged rate of 3.6725, reflecting the UAE's robust economic fundamentals, substantial foreign exchange reserves, and prudent monetary policy management.
+                  title: 'EUR/USD Surges to 1.12 as Dollar Weakens on Federal Reserve Dovish Signals',
+                  summary: 'The euro strengthens significantly against the US dollar reaching 1.12 level as Federal Reserve hints at potential rate cuts while European Central Bank maintains hawkish stance on inflation.',
+                  fullArticle: `The EUR/USD currency pair has surged to a fresh 8-month high of 1.1200, marking a significant shift in forex market dynamics as the US Dollar Index weakens amid growing expectations for Federal Reserve rate cuts and relatively stronger economic data from the Eurozone.
 
-**Economic Strength:**
-The UAE's currency peg remains one of the world's most credible, backed by exceptional economic fundamentals and strong fiscal position. The Central Bank of the UAE continues to demonstrate its commitment to maintaining the dirham's stability.
+**Federal Reserve Policy Shift:**
+The US Federal Reserve's recent communications have markedly shifted toward a more dovish stance, with Chairman Jerome Powell acknowledging substantial progress on inflation and hinting that rate cuts may be appropriate if current trends continue. This policy pivot has significantly weakened the US Dollar Index, which has fallen 4.2% from its recent peak.
 
-**Key Economic Indicators:**
-- Foreign exchange reserves have reached a record $173 billion, providing exceptional coverage
-- Current account surplus stands at 7.2% of GDP, reflecting strong export revenues
-- Inflation remains well-controlled at 2.1%, among the lowest in the region
-- Non-oil GDP growth accelerating at 5.8% year-over-year
+**Key Forex Market Drivers:**
+- Federal Reserve signaling potential 50-75 basis points of rate cuts in 2024
+- European Central Bank maintaining restrictive policy with rates at 4.5%
+- US inflation cooling to 2.9%, approaching Fed's 2% target
+- Eurozone economic resilience with GDP growth of 1.2% year-over-year
 
 **Market Dynamics:**
-The currency's stability is supported by several structural factors:
+The EUR/USD rally reflects several fundamental shifts in currency market dynamics:
 
-1. **Strong Reserve Position:** The Central Bank of UAE maintains foreign exchange reserves exceeding 12 months of import cover, providing substantial buffer and market confidence.
+1. **Interest Rate Differential:** The narrowing interest rate gap between the Fed Funds rate and ECB deposit rate has reduced the dollar's yield advantage, prompting capital reallocation toward euro-denominated assets.
 
-2. **Diversified Economy:** The UAE's successful economic diversification beyond oil has created multiple revenue streams, with tourism, financial services, and technology sectors driving growth.
+2. **Economic Data Divergence:** While the US economy shows signs of gradual cooling, Eurozone data has surprised to the upside, with manufacturing PMI stabilizing and services sector demonstrating resilience.
 
-3. **Capital Inflows:** Strong foreign direct investment continues, with $23.4 billion in FDI recorded in 2023, up 15% from the previous year.
+3. **Technical Momentum:** EUR/USD breaking above 1.10 resistance triggered stop-loss orders and momentum-based buying, creating a self-reinforcing rally that pushed the pair to 1.1200.
 
-4. **Trade Surplus:** The UAE maintains a healthy trade surplus driven by robust oil exports, re-export trade through Dubai, and growing non-oil exports.
+4. **Safe-Haven Flows:** Reduced global geopolitical tensions have diminished safe-haven demand for the US dollar, benefiting the euro and other risk currencies.
 
-**Central Bank Policy:**
-The Central Bank of the UAE maintains the dirham peg at AED 3.6725 per USD, aligned with the US Federal Reserve's policy rate movements. Governor Khaled Mohamed Balama emphasized the central bank's commitment to monetary stability while supporting economic growth through targeted lending programs.
+**Central Bank Policy Outlook:**
+Federal Reserve officials have increasingly acknowledged that restrictive monetary policy is no longer necessary given inflation's sustained decline. Markets are pricing in three 25 basis point rate cuts by year-end, with the first cut potentially coming as soon as the next FOMC meeting. Meanwhile, the ECB maintains that inflation risks persist, particularly in services, keeping European rates higher for longer.
 
-**Forward-Looking Analysis:**
-Currency analysts expect the USD/AED peg to remain stable, supported by:
-- Continued strong oil revenues and fiscal surplus
-- Robust foreign exchange reserve position
-- Diversified economic base reducing oil dependency
-- Political stability and business-friendly environment
+**Technical Analysis:**
+From a technical perspective, EUR/USD has broken out of a multi-month consolidation range:
+- Immediate resistance at 1.1350 (2023 high)
+- Strong support established at 1.1000 psychological level
+- RSI at 68 indicating strong momentum without being overbought
+- Moving average convergence supporting bullish trend continuation
 
-**Regional Currency Dynamics:**
-The broader GCC currency landscape shows stability:
-- Saudi Riyal (SAR) maintaining its 3.75 peg to USD
-- Qatari Riyal (QAR) stable at 3.64 to USD
-- Kuwaiti Dinar (KWD) strongest in the region
-- Bahraini Dinar (BHD) maintaining its peg
+**Trading Implications:**
+Currency strategists at major investment banks have raised their EUR/USD forecasts:
+- Goldman Sachs: 1.15 target for year-end 2024
+- JPMorgan: 1.14 medium-term projection
+- Citigroup: 1.13-1.16 trading range expected
 
-**Strategic Advantages:**
-The UAE's currency stability provides multiple benefits:
-- Predictability for international trade and investment
-- Lower hedging costs for businesses
-- Enhanced investor confidence
-- Competitive advantage in regional commerce
+**Market Positioning:**
+CFTC data shows net long euro positions have increased substantially, with hedge funds and asset managers building bullish EUR/USD exposure. However, positioning is not yet at extreme levels, suggesting room for further appreciation if fundamental trends persist.
 
-**Trading Recommendations:**
-For forex traders, the USD/AED peg provides stability for carry trade strategies and regional currency arbitrage opportunities. The strength of UAE fundamentals supports confidence in the peg's sustainability, making AED-denominated assets attractive for long-term investors.`,
+**Global Impact:**
+The weaker dollar has broad implications for global markets, benefiting emerging market currencies, commodity prices, and international trade. US exporters gain competitiveness while multinational corporations with significant overseas revenue see translation benefits.`,
                   time: '4 hours ago',
                   category: 'Forex',
-                  impact: 'Neutral',
-                  author: 'Ahmed Al-Rashid',
+                  impact: 'Positive',
+                  author: 'Michael Thompson',
                   readTime: '6 min read',
-                  tags: ['USD/AED', 'Currency Peg', 'UAE Economy', 'Exchange Rate', 'CBUAE'],
-                  imageDescription: 'UAE dirham notes with Central Bank logo and forex charts'
+                  tags: ['EUR/USD', 'Federal Reserve', 'ECB', 'Forex Trading', 'Currency Markets'],
+                  imageDescription: 'Euro and US Dollar currency notes with forex trading charts'
                 },
                 {
                   id: 3,
-                  title: 'GCC Stock Markets Rally as TASI, ADX, and DFM Reach New Heights on Strong Economic Growth',
-                  summary: 'GCC stock exchanges reach new multi-year highs driven by strong corporate earnings, substantial foreign inflows, and robust economic expansion.',
+                  title: 'FTSE 100 and DAX Hit Record Highs as European Banking Sector Rallies on Strong Earnings',
+                  summary: 'European stock markets surge to new records with London and Frankfurt leading gains as major banks including HSBC, Deutsche Bank, and BNP Paribas report exceptional quarterly results.',
                   fullArticle: `GCC stock markets achieved significant milestones as the Saudi TASI index crossed 12,800, Abu Dhabi's ADX reached 9,450, and Dubai's DFM topped 4,200, driven by a confluence of positive factors including exceptional corporate earnings, massive foreign investor interest, and strong regional economic expansion.
 
 **Market Performance Overview:**

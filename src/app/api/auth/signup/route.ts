@@ -88,9 +88,9 @@ export async function POST(request: NextRequest) {
       await resend.emails.send({
         from: process.env.RESEND_FROM_EMAIL || 'noreply@yourdomain.com',
         to: email,
-        subject: 'Welcome to GCC Signal Pro! 🎉',
+        subject: 'Welcome to TradeFlow! 🎉',
         html: `
-          <h1>Welcome to GCC Signal Pro!</h1>
+          <h1>Welcome to TradeFlow!</h1>
           <p>Hi ${full_name || 'Trader'},</p>
           <p>Your account has been created successfully.</p>
 
@@ -118,7 +118,7 @@ export async function POST(request: NextRequest) {
             </a>
           </p>
 
-          <p>Happy Trading!<br>GCC Signal Pro Team</p>
+          <p>Happy Trading!<br>TradeFlow Team</p>
         `
       })
     } catch (emailError) {
