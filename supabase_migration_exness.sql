@@ -64,18 +64,24 @@ CREATE INDEX IF NOT EXISTS idx_exness_clicks_clicked_at ON public.exness_clicks(
 ALTER TABLE public.exness_conversions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.exness_clicks ENABLE ROW LEVEL SECURITY;
 
+-- Drop existing policies if they exist (to make this idempotent)
+DROP POLICY IF EXISTS "Service role can manage exness_conversions" ON public.exness_conversions;
+DROP POLICY IF EXISTS "Service role can manage exness_clicks" ON public.exness_clicks;
+DROP POLICY IF EXISTS "Users can view their own conversions" ON public.exness_conversions;
+DROP POLICY IF EXISTS "Users can view their own clicks" ON public.exness_clicks;
+
 -- Create policies to allow service role full access
-CREATE POLICY IF NOT EXISTS "Service role can manage exness_conversions" ON public.exness_conversions
+CREATE POLICY "Service role can manage exness_conversions" ON public.exness_conversions
   FOR ALL USING (true) WITH CHECK (true);
 
-CREATE POLICY IF NOT EXISTS "Service role can manage exness_clicks" ON public.exness_clicks
+CREATE POLICY "Service role can manage exness_clicks" ON public.exness_clicks
   FOR ALL USING (true) WITH CHECK (true);
 
 -- Grant permissions to authenticated users (read-only for their own data)
-CREATE POLICY IF NOT EXISTS "Users can view their own conversions" ON public.exness_conversions
+CREATE POLICY "Users can view their own conversions" ON public.exness_conversions
   FOR SELECT USING (auth.uid() = user_id);
 
-CREATE POLICY IF NOT EXISTS "Users can view their own clicks" ON public.exness_clicks
+CREATE POLICY "Users can view their own clicks" ON public.exness_clicks
   FOR SELECT USING (auth.uid() = user_id);
 
 COMMENT ON TABLE public.exness_conversions IS 'Tracks Exness affiliate conversion events';
