@@ -353,20 +353,48 @@ export default function HomePage() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Scroll-triggered Exness popup (after reasonable scrolling)
+  // Scroll-triggered Exness popup (ONLY after significant engagement)
   useEffect(() => {
+    let timeSpent = 0
+    let hasInteracted = false
+
+    // Track time on site
+    const timeInterval = setInterval(() => {
+      timeSpent += 1
+    }, 1000)
+
+    // Track user interaction
+    const trackInteraction = () => {
+      hasInteracted = true
+    }
+
+    document.addEventListener('click', trackInteraction)
+    document.addEventListener('scroll', trackInteraction)
+
     const handleScroll = () => {
       const scrolled = window.scrollY
       const windowHeight = window.innerHeight
 
-      // Show popup after scrolling 1.5 viewports
-      if (scrolled > windowHeight * 1.5 && !showExnessPopup && !popupDismissed['exness']) {
+      // Show popup ONLY after: 5 viewports scroll + 30 seconds + user interaction
+      if (
+        scrolled > windowHeight * 5 &&
+        timeSpent > 30 &&
+        hasInteracted &&
+        !showExnessPopup &&
+        !popupDismissed['exness']
+      ) {
         setShowExnessPopup(true)
       }
     }
 
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      document.removeEventListener('click', trackInteraction)
+      document.removeEventListener('scroll', trackInteraction)
+      clearInterval(timeInterval)
+    }
   }, [showExnessPopup, popupDismissed])
 
   // 🤖 FETCH AI-GENERATED SIGNALS FROM OPENAI
@@ -13012,7 +13040,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         </div>
       </main>
 
-      {/* Exness Scroll Popup - Redesigned */}
+      {/* Exness Scroll Popup - Small & Beautiful */}
       {showExnessPopup && (
         <div
           style={{
@@ -13021,8 +13049,8 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
             left: 0,
             right: 0,
             bottom: 0,
-            background: 'rgba(0, 0, 0, 0.75)',
-            backdropFilter: 'blur(12px)',
+            background: 'rgba(0, 0, 0, 0.5)',
+            backdropFilter: 'blur(8px)',
             zIndex: 10000,
             display: 'flex',
             alignItems: isMobile ? 'flex-end' : 'center',
@@ -13037,15 +13065,16 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         >
           <div
             style={{
-              background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-              borderRadius: isMobile ? '28px 28px 0 0' : '28px',
-              maxWidth: isMobile ? '100%' : '540px',
+              background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+              borderRadius: isMobile ? '24px 24px 0 0' : '20px',
+              maxWidth: isMobile ? '100%' : '420px',
               width: '100%',
-              maxHeight: isMobile ? '90vh' : 'auto',
+              maxHeight: isMobile ? '70vh' : 'auto',
               overflowY: isMobile ? 'auto' : 'visible',
-              boxShadow: '0 32px 64px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 215, 0, 0.1)',
-              animation: isMobile ? 'slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
-              position: 'relative'
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+              animation: isMobile ? 'slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+              position: 'relative',
+              border: '2px solid rgba(59, 130, 246, 0.2)'
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -13057,36 +13086,38 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
               }}
               style={{
                 position: 'absolute',
-                top: isMobile ? '16px' : '20px',
-                right: isMobile ? '16px' : '20px',
-                background: 'rgba(15, 23, 42, 0.8)',
-                backdropFilter: 'blur(8px)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                top: '12px',
+                right: '12px',
+                background: '#f1f5f9',
+                border: '1px solid #e2e8f0',
                 borderRadius: '50%',
-                width: isMobile ? '36px' : '40px',
-                height: isMobile ? '36px' : '40px',
-                fontSize: isMobile ? '20px' : '24px',
-                color: 'white',
+                width: '32px',
+                height: '32px',
+                fontSize: '20px',
+                color: '#64748b',
                 cursor: 'pointer',
                 zIndex: 10,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
-                transition: 'all 0.3s ease'
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                transition: 'all 0.2s ease',
+                fontWeight: '700'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.1) rotate(90deg)'
-                e.currentTarget.style.background = 'rgba(239, 68, 68, 0.9)'
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)'
+                e.currentTarget.style.transform = 'scale(1.1)'
+                e.currentTarget.style.background = '#ef4444'
+                e.currentTarget.style.color = 'white'
+                e.currentTarget.style.borderColor = '#dc2626'
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1) rotate(0deg)'
-                e.currentTarget.style.background = 'rgba(15, 23, 42, 0.8)'
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'
+                e.currentTarget.style.transform = 'scale(1)'
+                e.currentTarget.style.background = '#f1f5f9'
+                e.currentTarget.style.color = '#64748b'
+                e.currentTarget.style.borderColor = '#e2e8f0'
               }}
             >
-              ×
+              ✕
             </button>
 
             {/* Hero Section with Real Trading Image */}
