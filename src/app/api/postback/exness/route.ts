@@ -21,24 +21,53 @@ const EXNESS_PARTNER_ID = 'c_8f0nxidtbt'
  */
 export async function POST(request: NextRequest) {
   try {
-    // Parse postback data from Exness
-    let postbackData
+    // Parse postback data from Exness (supports both JSON body and URL parameters)
+    let postbackData: any = {}
+
+    // Try to parse JSON body first
     try {
-      postbackData = await request.json()
+      const body = await request.json()
+      postbackData = body
     } catch (parseError) {
-      console.error('❌ Failed to parse JSON:', parseError)
-      return NextResponse.json({
-        success: false,
-        error: 'Invalid JSON payload'
-      }, {
-        status: 400,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type'
+      // If JSON parsing fails, try URL parameters (Exness Token/Parameter format)
+      const url = new URL(request.url)
+      const params = url.searchParams
+
+      // Convert URL parameters to object
+      postbackData = {
+        partner_id: params.get('partner_id'),
+        event_type: params.get('event_type'),
+        user_id: params.get('user_id'),
+        deposit_amount: params.get('deposit_amount'),
+        ftd_amount: params.get('ftd_amount'),
+        reward_amount: params.get('reward_amount'),
+        kyc_status: params.get('kyc_status'),
+        qualification_status: params.get('qualification_status')
+      }
+
+      // Remove null values
+      postbackData = Object.fromEntries(
+        Object.entries(postbackData).filter(([_, v]) => v != null)
+      )
+
+      // If still no data, try reading form data
+      if (Object.keys(postbackData).length === 0) {
+        try {
+          const formData = await request.formData()
+          formData.forEach((value, key) => {
+            postbackData[key] = value
+          })
+        } catch (formError) {
+          console.error('❌ Failed to parse any data format:', parseError)
         }
-      })
+      }
     }
+
+    console.log('📡 Received Exness Postback (multiple format support):', {
+      timestamp: new Date().toISOString(),
+      data: postbackData,
+      url: request.url
+    })
 
     console.log('📡 Received Exness Postback:', {
       timestamp: new Date().toISOString(),
