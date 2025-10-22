@@ -1,0 +1,2404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete TradeFlow Launch Guide - Step by Step</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.3);
+            z-index: 10000;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+            transition: width 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+            border-radius: 20px;
+            margin: 20px 0 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            color: #1e293b;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 4px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step {
+            background: #f8fafc;
+            border-left: 5px solid #3b82f6;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .step h3 {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .step-icon {
+            font-size: 2rem;
+        }
+
+        .step-content {
+            color: #475569;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .step-content ol, .step-content ul {
+            margin: 20px 0 20px 30px;
+        }
+
+        .step-content li {
+            margin: 12px 0;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #10b981;
+            padding: 25px;
+            border-radius: 12px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 20px 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-comment {
+            color: #94a3b8;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-left: 5px solid #3b82f6;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        .info-box h4 {
+            color: #1e40af;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-left: 5px solid #10b981;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        .success-box h4 {
+            color: #065f46;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 5px solid #f59e0b;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        .warning-box h4 {
+            color: #92400e;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .danger-box {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-left: 5px solid #ef4444;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        .danger-box h4 {
+            color: #991b1b;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .table th {
+            padding: 18px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .table td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .checklist {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .checklist li {
+            padding: 15px;
+            margin: 10px 0;
+            background: #f8fafc;
+            border-left: 4px solid #cbd5e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .checklist li:hover {
+            background: #e0e7ff;
+            border-left-color: #667eea;
+        }
+
+        .checklist li.completed {
+            background: #d1fae5;
+            border-left-color: #10b981;
+        }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #cbd5e0;
+            border-radius: 6px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .checklist li.completed .checkbox {
+            background: #10b981;
+            border-color: #10b981;
+        }
+
+        .checklist li.completed .checkbox::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+        }
+
+        .secondary-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .secondary-button:hover {
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .screenshot {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin: 25px 0;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 2px dotted #667eea;
+            cursor: help;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 30px 20px;
+            }
+
+            .section h2 {
+                font-size: 1.8rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+
+        .sticky-nav {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 250px;
+            z-index: 1000;
+        }
+
+        .sticky-nav h4 {
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        .sticky-nav a {
+            display: block;
+            padding: 8px 12px;
+            color: #64748b;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .sticky-nav a:hover {
+            background: #f1f5f9;
+            color: #667eea;
+        }
+
+        .sticky-nav a.active {
+            background: #667eea;
+            color: white;
+        }
+
+        @media (max-width: 1400px) {
+            .sticky-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Sticky Navigation -->
+    <div class="sticky-nav" id="stickyNav">
+        <h4>📋 Quick Jump</h4>
+        <a href="#section1">1. Overview</a>
+        <a href="#section2">2. Render Upgrade</a>
+        <a href="#section3">3. Install Popup</a>
+        <a href="#section4">4. Google Ads Setup</a>
+        <a href="#section5">5. Exness Postback Debug</a>
+        <a href="#section6">6. Monitoring</a>
+        <a href="#section7">7. Expected Results</a>
+    </div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>🚀 Complete TradeFlow Launch Guide</h1>
+            <p>Step-by-step guide to launch and profit in 2-4 hours</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value">7</span>
+                    <span class="stat-label">Major Steps</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">$50</span>
+                    <span class="stat-label">Min. Ad Budget</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">2-4h</span>
+                    <span class="stat-label">Setup Time</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">54-285%</span>
+                    <span class="stat-label">Expected ROI</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Overview & Prerequisites -->
+        <div class="section" id="section1">
+            <h2>
+                <span class="section-number">1</span>
+                Overview & Prerequisites
+            </h2>
+
+            <div class="info-box">
+                <h4>📌 What You'll Accomplish Today:</h4>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>✅ Upgrade your site to always-on hosting ($7/month)</li>
+                    <li>✅ Install conversion-optimized popup (30-min trigger)</li>
+                    <li>✅ Launch 4 Google Ads campaigns targeting high-CPA countries</li>
+                    <li>✅ Debug and verify Exness postback tracking</li>
+                    <li>✅ Set up daily monitoring dashboards</li>
+                    <li>✅ Start earning $10-80 per Exness conversion</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">✅</span> Prerequisites Checklist</h3>
+                <div class="step-content">
+                    <ul class="checklist" id="prerequisites">
+                        <li data-task="prereq1">
+                            <div class="checkbox"></div>
+                            <div>You have a Render account (where TradeFlow is deployed)</div>
+                        </li>
+                        <li data-task="prereq2">
+                            <div class="checkbox"></div>
+                            <div>You have an Exness Partners account (approved as Digital Affiliate)</div>
+                        </li>
+                        <li data-task="prereq3">
+                            <div class="checkbox"></div>
+                            <div>Your site is live at https://tradeflow.blog</div>
+                        </li>
+                        <li data-task="prereq4">
+                            <div class="checkbox"></div>
+                            <div>You have a credit/debit card for Render ($7/mo) and Google Ads ($50-100)</div>
+                        </li>
+                        <li data-task="prereq5">
+                            <div class="checkbox"></div>
+                            <div>You have 2-4 hours available today</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>💰 What You'll Earn:</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Timeframe</th>
+                            <th>Ad Spend</th>
+                            <th>Conversions</th>
+                            <th>Revenue</th>
+                            <th>Net Profit</th>
+                            <th>ROI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Week 1</strong></td>
+                            <td>$20-30</td>
+                            <td>1-3</td>
+                            <td>$30-150</td>
+                            <td>$0-120</td>
+                            <td>0-200%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Month 1</strong></td>
+                            <td>$100-130</td>
+                            <td>6-10</td>
+                            <td>$200-500</td>
+                            <td>$70-370</td>
+                            <td>54-285%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Month 2+</strong></td>
+                            <td>$150-200</td>
+                            <td>10-15</td>
+                            <td>$400-800</td>
+                            <td>$200-500</td>
+                            <td>100-250%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 2: Render Starter Upgrade -->
+        <div class="section" id="section2">
+            <h2>
+                <span class="section-number">2</span>
+                Upgrade Render to Starter Plan ($7/month)
+            </h2>
+
+            <div class="danger-box">
+                <h4>🔴 CRITICAL: Why This is Mandatory</h4>
+                <p><strong>Current Problem (Free Plan):</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+                    <li>❌ Site sleeps after 15 minutes of inactivity</li>
+                    <li>❌ First visitor waits 10-30 seconds for cold start</li>
+                    <li>❌ Terrible user experience = lost conversions</li>
+                    <li>❌ Google will penalize your site for slow speed</li>
+                    <li>❌ You lose money every time someone bounces</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Solution (Starter Plan $7/mo):</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+                    <li>✅ Always-on service (never sleeps)</li>
+                    <li>✅ Instant loading (under 2 seconds)</li>
+                    <li>✅ Better Google rankings</li>
+                    <li>✅ More conversions</li>
+                    <li>✅ Just 1 UAE conversion ($80) covers 10+ months!</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">1️⃣</span> Step 1: Log into Render</h3>
+                <div class="step-content">
+                    <ol>
+                        <li>Go to: <a href="https://dashboard.render.com" target="_blank" style="color: #667eea; font-weight: bold;">https://dashboard.render.com</a></li>
+                        <li>Sign in with your GitHub account</li>
+                        <li>You should see your <strong>tradesignalapp</strong> web service listed</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">2️⃣</span> Step 2: Navigate to Settings</h3>
+                <div class="step-content">
+                    <ol>
+                        <li>Click on your <strong>tradesignalapp</strong> service</li>
+                        <li>Click the <strong>"Settings"</strong> tab in the top navigation</li>
+                        <li>Scroll down to the <strong>"Instance"</strong> section</li>
+                        <li>Find the <strong>"Plan"</strong> option (currently shows "Free")</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">3️⃣</span> Step 3: Change Plan to Starter</h3>
+                <div class="step-content">
+                    <ol>
+                        <li>Click <strong>"Change Plan"</strong> button</li>
+                        <li>Select <strong>"Starter - $7/month"</strong></li>
+                        <li>Review the plan details:
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li>✅ 1 GB RAM (2x more than Free)</li>
+                                <li>✅ Always-on (no sleep mode)</li>
+                                <li>✅ 500 build minutes/month</li>
+                                <li>✅ $7/month (billed monthly)</li>
+                            </ul>
+                        </li>
+                        <li>Click <strong>"Confirm"</strong></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">4️⃣</span> Step 4: Add Payment Method</h3>
+                <div class="step-content">
+                    <ol>
+                        <li>Render will prompt you to add a payment method</li>
+                        <li>Enter your credit/debit card details</li>
+                        <li>Billing address</li>
+                        <li>Click <strong>"Save"</strong></li>
+                        <li><strong>Note:</strong> You'll be charged $7 today, then on the same day each month</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">5️⃣</span> Step 5: Wait for Deployment</h3>
+                <div class="step-content">
+                    <ol>
+                        <li>Render will automatically redeploy your service</li>
+                        <li>This takes <strong>2-3 minutes</strong></li>
+                        <li>You'll see "Deploy in progress..." message</li>
+                        <li>Wait for <strong>"Deploy succeeded"</strong> message</li>
+                    </ol>
+
+                    <div class="info-box" style="margin-top: 20px;">
+                        <h4>⏱️ What Happens During Deployment:</h4>
+                        <ul style="margin-left: 20px;">
+                            <li>Render provisions a new always-on instance</li>
+                            <li>Your site is migrated with zero downtime</li>
+                            <li>Old free instance is decommissioned</li>
+                            <li>New instance starts serving traffic immediately</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">6️⃣</span> Step 6: Test Your Site Speed</h3>
+                <div class="step-content">
+                    <ol>
+                        <li>Open a new incognito/private browser window</li>
+                        <li>Go to: <a href="https://tradeflow.blog" target="_blank" style="color: #667eea; font-weight: bold;">https://tradeflow.blog</a></li>
+                        <li>The page should load in <strong>under 2 seconds</strong> ⚡</li>
+                        <li>Wait 30 minutes and test again - still fast! ✅</li>
+                    </ol>
+
+                    <div class="success-box" style="margin-top: 20px;">
+                        <h4>✅ Success Criteria:</h4>
+                        <ul style="margin-left: 20px;">
+                            <li>Page loads in under 2 seconds (use browser DevTools Network tab)</li>
+                            <li>No spinning loader or delay</li>
+                            <li>Site remains fast even after hours of inactivity</li>
+                        </ul>
+                    </div>
+
+                    <div class="button-group" style="margin-top: 20px;">
+                        <a href="https://pagespeed.web.dev/" target="_blank" class="cta-button secondary-button">
+                            🔍 Test with PageSpeed Insights
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>🎉 Congratulations! Render Upgrade Complete</h4>
+                <p><strong>What you just achieved:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>✅ Your site is now always-on 24/7</li>
+                    <li>✅ Instant loading for all visitors</li>
+                    <li>✅ Better Google rankings</li>
+                    <li>✅ Higher conversion rates</li>
+                    <li>✅ Professional user experience</li>
+                </ul>
+                <p style="margin-top: 15px; font-weight: bold; color: #065f46;">
+                    💰 ROI: Just 1 UAE conversion ($80) pays for 10+ months of Render Starter!
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 3: Install 30-Minute Popup -->
+        <div class="section" id="section3">
+            <h2>
+                <span class="section-number">3</span>
+                Install 30-Minute Engagement Popup
+            </h2>
+
+            <div class="info-box">
+                <h4>💎 What This Popup Does:</h4>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>✅ Appears after visitor spends 30 minutes on your site</li>
+                    <li>✅ Promotes Exness CPA offer with country-specific bonuses</li>
+                    <li>✅ Beautiful gradient design with animations</li>
+                    <li>✅ Mobile-responsive</li>
+                    <li>✅ Only shows once per visitor (localStorage)</li>
+                    <li>✅ Drives Exness conversions ($10-80 per user)</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">1️⃣</span> Step 1: Add State Variables</h3>
+                <div class="step-content">
+                    <p>Open your <code>src/app/page.tsx</code> file and add this state after line 70:</p>
+
+                    <div class="code-block">
+<span class="code-comment">// 30-minute popup state (add after existing useState declarations)</span>
+const [show30MinPopup, setShow30MinPopup] = useState(false)
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">2️⃣</span> Step 2: Add Timer Effect</h3>
+                <div class="step-content">
+                    <p>Add this useEffect hook after your other useEffect declarations:</p>
+
+                    <div class="code-block">
+<span class="code-comment">// Trigger popup after 30 minutes</span>
+useEffect(() => {
+  const popupTimer = setTimeout(() => {
+    const hasSeenPopup = localStorage.getItem('seen30MinPopup')
+    if (!hasSeenPopup) {
+      setShow30MinPopup(true)
+      localStorage.setItem('seen30MinPopup', 'true')
+    }
+  }, 1800000) <span class="code-comment">// 30 minutes = 1800000ms</span>
+
+  return () => clearTimeout(popupTimer)
+}, [])
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 20px;">
+                        <h4>⚠️ For Testing: Change Timing to 1 Minute</h4>
+                        <p>While testing, use <code>60000</code> instead of <code>1800000</code></p>
+                        <div class="code-block">
+}, 60000) <span class="code-comment">// 1 minute for testing</span>
+                        </div>
+                        <p style="margin-top: 10px;"><strong>Remember to change back to 1800000 before deploying!</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">3️⃣</span> Step 3: Add Popup Component</h3>
+                <div class="step-content">
+                    <p>Add this popup component before your closing main div (around line 3000+):</p>
+
+                    <div class="code-block">
+{show30MinPopup && (
+  &lt;div style={{
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: 'rgba(0,0,0,0.7)',
+    backdropFilter: 'blur(5px)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 10000,
+    animation: 'fadeIn 0.3s ease'
+  }} onClick={(e) => {
+    if (e.target === e.currentTarget) setShow30MinPopup(false)
+  }}&gt;
+    &lt;div style={{
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      borderRadius: '24px',
+      maxWidth: '600px',
+      width: '90%',
+      padding: '60px 40px 40px',
+      position: 'relative',
+      textAlign: 'center',
+      color: 'white',
+      boxShadow: '0 25px 80px rgba(0,0,0,0.4)',
+      animation: 'slideUp 0.3s ease'
+    }}&gt;
+      <span class="code-comment">{/* Close Button */}</span>
+      &lt;button
+        onClick={() => setShow30MinPopup(false)}
+        style={{
+          position: 'absolute',
+          top: '20px',
+          right: '20px',
+          background: 'rgba(255,255,255,0.2)',
+          border: 'none',
+          borderRadius: '50%',
+          width: '40px',
+          height: '40px',
+          color: 'white',
+          fontSize: '24px',
+          cursor: 'pointer',
+          transition: 'all 0.3s ease'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = 'rgba(255,255,255,0.3)'
+          e.currentTarget.style.transform = 'rotate(90deg)'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'rgba(255,255,255,0.2)'
+          e.currentTarget.style.transform = 'rotate(0deg)'
+        }}
+      &gt;×&lt;/button&gt;
+
+      <span class="code-comment">{/* Icon */}</span>
+      &lt;div style={{ fontSize: '50px', marginBottom: '20px', animation: 'pulse 2s infinite' }}&gt;🚀&lt;/div&gt;
+
+      <span class="code-comment">{/* Urgency Badge */}</span>
+      &lt;div style={{
+        display: 'inline-block',
+        background: '#ff4757',
+        padding: '8px 20px',
+        borderRadius: '20px',
+        fontSize: '0.9rem',
+        fontWeight: 'bold',
+        marginBottom: '20px',
+        animation: 'shake 3s infinite'
+      }}&gt;
+        ⚡ Limited Time Offer
+      &lt;/div&gt;
+
+      <span class="code-comment">{/* Title */}</span>
+      &lt;h2 style={{ fontSize: '2rem', marginBottom: '15px' }}&gt;
+        Ready to Start Trading?
+      &lt;/h2&gt;
+      &lt;p style={{ fontSize: '1.2rem', marginBottom: '30px' }}&gt;
+        Get up to $80 bonus when you join Exness today!
+      &lt;/p&gt;
+
+      <span class="code-comment">{/* Benefits */}</span>
+      &lt;div style={{
+        background: 'rgba(255,255,255,0.15)',
+        borderRadius: '16px',
+        padding: '25px',
+        marginBottom: '30px',
+        textAlign: 'left'
+      }}&gt;
+        {[
+          { icon: '✅', text: 'Instant account opening' },
+          { icon: '💰', text: 'Up to $80 bonus deposit' },
+          { icon: '📱', text: 'Trade on mobile & desktop' },
+          { icon: '⚡', text: 'Ultra-fast execution' }
+        ].map((benefit, i) => (
+          &lt;div key={i} style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: i < 3 ? '15px' : '0'
+          }}&gt;
+            &lt;div style={{
+              width: '30px',
+              height: '30px',
+              background: 'rgba(255,255,255,0.3)',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginRight: '15px',
+              fontSize: '18px'
+            }}&gt;{benefit.icon}&lt;/div&gt;
+            &lt;div&gt;{benefit.text}&lt;/div&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+
+      <span class="code-comment">{/* CTA Button */}</span>
+      &lt;a
+        href="https://one.exnesstrack.org/a/ckdhtel03"
+        target="_blank"
+        style={{
+          display: 'inline-block',
+          background: 'white',
+          color: '#667eea',
+          padding: '18px 50px',
+          borderRadius: '50px',
+          fontSize: '1.2rem',
+          fontWeight: 'bold',
+          textDecoration: 'none',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+          transition: 'all 0.3s ease'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'translateY(-3px)'
+          e.currentTarget.style.boxShadow = '0 15px 40px rgba(0,0,0,0.3)'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'translateY(0)'
+          e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)'
+        }}
+        onClick={() => {
+          <span class="code-comment">// Track conversion</span>
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'exness_click', {
+              event_category: '30min_popup',
+              event_label: 'cpa_offer'
+            })
+          }
+        }}
+      &gt;
+        🎁 Claim Your Bonus Now
+      &lt;/a&gt;
+
+      <span class="code-comment">{/* Stats */}</span>
+      &lt;div style={{
+        display: 'flex',
+        justifyContent: 'space-around',
+        marginTop: '25px',
+        paddingTop: '25px',
+        borderTop: '1px solid rgba(255,255,255,0.3)'
+      }}&gt;
+        {[
+          { value: '10,247', label: 'Active Traders' },
+          { value: '4.8★', label: 'Trust Rating' },
+          { value: '24/7', label: 'Support' }
+        ].map((stat, i) => (
+          &lt;div key={i} style={{ textAlign: 'center' }}&gt;
+            &lt;span style={{ fontSize: '1.8rem', fontWeight: 'bold', display: 'block', marginBottom: '5px' }}&gt;
+              {stat.value}
+            &lt;/span&gt;
+            &lt;span style={{ fontSize: '0.9rem', opacity: 0.9 }}&gt;{stat.label}&lt;/span&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+
+      <span class="code-comment">{/* Disclaimer */}</span>
+      &lt;p style={{ fontSize: '0.85rem', opacity: 0.8, marginTop: '20px' }}&gt;
+        Risk warning: Trading involves risk. Only trade with money you can afford to lose.
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+)}
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">4️⃣</span> Step 4: Add CSS Animations</h3>
+                <div class="step-content">
+                    <p>Add these animations to your global CSS or in a style tag:</p>
+
+                    <div class="code-block">
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">5️⃣</span> Step 5: Deploy to Render</h3>
+                <div class="step-content">
+                    <ol>
+                        <li>Save all your changes</li>
+                        <li>Commit to Git:
+                            <div class="code-block" style="margin-top: 10px;">
+git add .
+git commit -m "Add 30-minute engagement popup"
+git push
+                                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                            </div>
+                        </li>
+                        <li>Render will auto-deploy (2-3 minutes)</li>
+                        <li>Wait for "Deploy succeeded" message</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">6️⃣</span> Step 6: Test the Popup</h3>
+                <div class="step-content">
+                    <ol>
+                        <li>Open incognito/private browser</li>
+                        <li>Go to: <a href="https://tradeflow.blog" target="_blank">https://tradeflow.blog</a></li>
+                        <li>Wait 1 minute (if you set testing timing) or 30 minutes (production)</li>
+                        <li>Popup should appear with beautiful animation ✨</li>
+                        <li>Test:
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li>✅ Click "X" button - popup closes</li>
+                                <li>✅ Click outside popup - popup closes</li>
+                                <li>✅ Click "Claim Bonus" - redirects to Exness</li>
+                                <li>✅ Refresh page - popup doesn't show again (localStorage)</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="warning-box" style="margin-top: 20px;">
+                        <h4>⚠️ To Test Again:</h4>
+                        <p>Clear localStorage in browser DevTools:</p>
+                        <div class="code-block">
+localStorage.removeItem('seen30MinPopup')
+                        </div>
+                        <p>Then refresh the page and wait for the timer again.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>🎉 Popup Installation Complete!</h4>
+                <p><strong>What you just achieved:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>✅ Conversion-optimized popup installed</li>
+                    <li>✅ Triggers after 30 minutes (engaged visitors)</li>
+                    <li>✅ Beautiful design with animations</li>
+                    <li>✅ Mobile-responsive</li>
+                    <li>✅ Tracks conversions with Google Analytics</li>
+                    <li>✅ Ready to drive Exness conversions</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 4: Google Ads Setup -->
+        <div class="section" id="section4">
+            <h2>
+                <span class="section-number">4</span>
+                Launch Google Ads Campaigns
+            </h2>
+
+            <div class="info-box">
+                <h4>🎯 Campaign Strategy Overview:</h4>
+                <p><strong>Budget:</strong> $50-130/month ($2-4/day) across 4 campaigns</p>
+                <p><strong>Target:</strong> High-CPA countries with cheap keywords</p>
+                <p><strong>Expected:</strong> 6-10 conversions = $200-500 revenue in Month 1</p>
+                <table class="table" style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th>Campaign</th>
+                            <th>Budget/Day</th>
+                            <th>Target</th>
+                            <th>Language</th>
+                            <th>Avg CPC</th>
+                            <th>CPA Bonus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>UAE</strong></td>
+                            <td>$1.67</td>
+                            <td>UAE only</td>
+                            <td>English</td>
+                            <td>$0.40-1.20</td>
+                            <td>$80</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Egypt</strong></td>
+                            <td>$1.00</td>
+                            <td>Egypt only</td>
+                            <td>Arabic</td>
+                            <td>$0.15-0.80</td>
+                            <td>$60</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Latin America</strong></td>
+                            <td>$1.00</td>
+                            <td>MX, AR, PE</td>
+                            <td>Spanish</td>
+                            <td>$0.12-0.60</td>
+                            <td>$30</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Africa</strong></td>
+                            <td>$0.67</td>
+                            <td>ZA, KE</td>
+                            <td>English</td>
+                            <td>$0.15-0.50</td>
+                            <td>$10-20</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">1️⃣</span> Step 1: Create Google Ads Account</h3>
+                <div class="step-content">
+                    <ol>
+                        <li>Go to: <a href="https://ads.google.com" target="_blank" style="color: #667eea; font-weight: bold;">https://ads.google.com</a></li>
+                        <li>Click <strong>"Start Now"</strong></li>
+                        <li>Sign in with your Google account</li>
+                        <li>Skip the "Smart campaign" wizard if prompted</li>
+                        <li>Switch to <strong>"Expert Mode"</strong></li>
+                        <li>Add your billing information:
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li>Credit/debit card</li>
+                                <li>Billing address</li>
+                                <li>Tax information (if applicable)</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="button-group" style="margin-top: 20px;">
+                        <a href="https://ads.google.com" target="_blank" class="cta-button">
+                            🚀 Create Google Ads Account
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">2️⃣</span> Step 2: Campaign 1 - UAE ($50/month)</h3>
+                <div class="step-content">
+                    <p><strong>Click "+ New Campaign"</strong></p>
+
+                    <div class="info-box">
+                        <h4>📋 Campaign Settings:</h4>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li><strong>Goal:</strong> Website traffic</li>
+                            <li><strong>Campaign type:</strong> Search</li>
+                            <li><strong>Campaign name:</strong> UAE - Trading Signals</li>
+                            <li><strong>Networks:</strong> Google Search only (uncheck Search partners)</li>
+                            <li><strong>Locations:</strong> United Arab Emirates (only)</li>
+                            <li><strong>Language:</strong> English</li>
+                            <li><strong>Budget:</strong> $1.67/day ($50/month)</li>
+                            <li><strong>Bidding:</strong> Maximize clicks</li>
+                        </ul>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>Keywords (Phrase Match):</strong></p>
+                    <div class="code-block">
+"how to trade forex in UAE"
+"forex signals dubai free"
+"best forex broker uae"
+"learn forex trading dubai"
+"gold trading signals uae"
+"free trading education dubai"
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>Negative Keywords:</strong></p>
+                    <div class="code-block">
+-jobs
+-course
+-free course
+-pdf
+-download
+-scam
+-fake
+-review
+-app
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>Ad Copy:</strong></p>
+                    <div class="code-block">
+<span class="code-comment">Headline 1:</span> Free Forex Signals Dubai
+<span class="code-comment">Headline 2:</span> Get $80 Bonus with Exness
+<span class="code-comment">Headline 3:</span> AI-Powered Trading Insights 24/7
+
+<span class="code-comment">Description 1:</span> Learn forex, gold, crypto trading with real-time signals. Join 10,000+ UAE traders. Start with $10 deposit.
+
+<span class="code-comment">Description 2:</span> Get instant access to AI-powered market analysis. Trading signals updated daily. For educational purposes only.
+
+<span class="code-comment">Final URL:</span> https://tradeflow.blog
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">3️⃣</span> Step 3: Campaign 2 - Egypt ($30/month)</h3>
+                <div class="step-content">
+                    <div class="info-box">
+                        <h4>📋 Campaign Settings:</h4>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li><strong>Goal:</strong> Website traffic</li>
+                            <li><strong>Campaign type:</strong> Search</li>
+                            <li><strong>Campaign name:</strong> Egypt - Trading Signals (Arabic)</li>
+                            <li><strong>Networks:</strong> Google Search only</li>
+                            <li><strong>Locations:</strong> Egypt (only)</li>
+                            <li><strong>Language:</strong> Arabic</li>
+                            <li><strong>Budget:</strong> $1/day ($30/month)</li>
+                            <li><strong>Bidding:</strong> Maximize clicks</li>
+                        </ul>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>Keywords (Arabic - Phrase Match):</strong></p>
+                    <div class="code-block">
+"تعلم تداول الفوركس"
+"اشارات فوركس مجانية"
+"افضل بروكر فوركس"
+"تداول الذهب مصر"
+"كيف تربح من التداول"
+"دروس تداول مجانية"
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>Ad Copy (Arabic):</strong></p>
+                    <div class="code-block">
+<span class="code-comment">Headline 1:</span> اشارات فوركس مجانية
+<span class="code-comment">Headline 2:</span> احصل على مكافأة $60 مع Exness
+<span class="code-comment">Headline 3:</span> تحليلات السوق بالذكاء الاصطناعي
+
+<span class="code-comment">Description 1:</span> تعلم تداول الفوركس والذهب والعملات الرقمية مع إشارات حية. انضم إلى 10,000+ متداول. ابدأ بإيداع $10 فقط.
+
+<span class="code-comment">Description 2:</span> احصل على وصول فوري لتحليلات السوق بالذكاء الاصطناعي. إشارات تداول محدثة يومياً. لأغراض تعليمية فقط.
+
+<span class="code-comment">Final URL:</span> https://tradeflow.blog
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4>⚠️ Important for Arabic Campaigns:</h4>
+                        <ul style="margin-left: 20px;">
+                            <li>Use <strong>right-to-left (RTL)</strong> text direction</li>
+                            <li>Google Ads supports Arabic automatically</li>
+                            <li>Test ads preview before launching</li>
+                            <li>Arabic keywords are 50-70% cheaper than English!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">4️⃣</span> Step 4: Campaign 3 - Latin America ($30/month)</h3>
+                <div class="step-content">
+                    <div class="info-box">
+                        <h4>📋 Campaign Settings:</h4>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li><strong>Goal:</strong> Website traffic</li>
+                            <li><strong>Campaign type:</strong> Search</li>
+                            <li><strong>Campaign name:</strong> Latin America - Trading Signals (Spanish)</li>
+                            <li><strong>Networks:</strong> Google Search only</li>
+                            <li><strong>Locations:</strong> Mexico, Argentina, Peru</li>
+                            <li><strong>Language:</strong> Spanish</li>
+                            <li><strong>Budget:</strong> $1/day ($30/month)</li>
+                            <li><strong>Bidding:</strong> Maximize clicks</li>
+                        </ul>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>Keywords (Spanish - Phrase Match):</strong></p>
+                    <div class="code-block">
+"aprender trading forex"
+"señales forex gratis"
+"mejor broker forex mexico"
+"como ganar dinero trading"
+"trading oro señales"
+"cursos trading gratis"
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>Ad Copy (Spanish):</strong></p>
+                    <div class="code-block">
+<span class="code-comment">Headline 1:</span> Señales Forex Gratis
+<span class="code-comment">Headline 2:</span> Obtén Bono de $30 con Exness
+<span class="code-comment">Headline 3:</span> Análisis con IA las 24/7
+
+<span class="code-comment">Description 1:</span> Aprende trading de forex, oro, cripto con señales en tiempo real. Únete a 10,000+ traders. Comienza con depósito de $10.
+
+<span class="code-comment">Description 2:</span> Acceso instantáneo a análisis de mercado con IA. Señales actualizadas diariamente. Solo para fines educativos.
+
+<span class="code-comment">Final URL:</span> https://tradeflow.blog
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">5️⃣</span> Step 5: Campaign 4 - Africa ($20/month)</h3>
+                <div class="step-content">
+                    <div class="info-box">
+                        <h4>📋 Campaign Settings:</h4>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li><strong>Goal:</strong> Website traffic</li>
+                            <li><strong>Campaign type:</strong> Search</li>
+                            <li><strong>Campaign name:</strong> Africa - Trading Signals</li>
+                            <li><strong>Networks:</strong> Google Search only</li>
+                            <li><strong>Locations:</strong> South Africa, Kenya</li>
+                            <li><strong>Language:</strong> English</li>
+                            <li><strong>Budget:</strong> $0.67/day ($20/month)</li>
+                            <li><strong>Bidding:</strong> Maximize clicks</li>
+                        </ul>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>Keywords (Phrase Match):</strong></p>
+                    <div class="code-block">
+"forex trading south africa"
+"free forex signals kenya"
+"best trading platform south africa"
+"learn to trade forex kenya"
+"gold trading signals africa"
+"free trading lessons"
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>Ad Copy:</strong></p>
+                    <div class="code-block">
+<span class="code-comment">Headline 1:</span> Free Forex Signals Africa
+<span class="code-comment">Headline 2:</span> Get $10-20 Bonus with Exness
+<span class="comment">Headline 3:</span> AI Trading Analysis 24/7
+
+<span class="code-comment">Description 1:</span> Learn forex, gold, crypto trading with real-time signals. Join 10,000+ African traders. Start with $10 deposit.
+
+<span class="code-comment">Description 2:</span> Instant access to AI-powered market insights. Trading signals updated daily. For educational purposes only.
+
+<span class="code-comment">Final URL:</span> https://tradeflow.blog
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">6️⃣</span> Step 6: Set Up Conversion Tracking</h3>
+                <div class="step-content">
+                    <ol>
+                        <li>In Google Ads, go to <strong>Tools → Conversions</strong></li>
+                        <li>Click <strong>"+ New Conversion Action"</strong></li>
+                        <li>Select <strong>"Website"</strong></li>
+                        <li>Choose <strong>"Click"</strong> as conversion type</li>
+                        <li>Name: <strong>"Exness Click"</strong></li>
+                        <li>Value: Use different values per country:
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li>UAE: $80</li>
+                                <li>Egypt: $60</li>
+                                <li>Latin America: $30</li>
+                                <li>Africa: $15</li>
+                            </ul>
+                        </li>
+                        <li>Click <strong>"Create and Continue"</strong></li>
+                        <li>Install the tracking code on your site (or use Google Tag Manager)</li>
+                    </ol>
+
+                    <div class="info-box" style="margin-top: 20px;">
+                        <h4>💡 Alternative: Track with Google Analytics</h4>
+                        <p>Your popup already includes GA tracking:</p>
+                        <div class="code-block">
+gtag('event', 'exness_click', {
+  event_category: '30min_popup',
+  event_label: 'cpa_offer'
+})
+                        </div>
+                        <p style="margin-top: 10px;">Import this event into Google Ads as a conversion.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">7️⃣</span> Step 7: Review and Launch All Campaigns</h3>
+                <div class="step-content">
+                    <ol>
+                        <li>Review all 4 campaigns:
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li>✅ UAE: $1.67/day</li>
+                                <li>✅ Egypt: $1/day (Arabic)</li>
+                                <li>✅ Latin America: $1/day (Spanish)</li>
+                                <li>✅ Africa: $0.67/day</li>
+                            </ul>
+                        </li>
+                        <li>Total daily budget: <strong>$4.34/day = $130/month</strong></li>
+                        <li>Check all negative keywords are added</li>
+                        <li>Verify ad copy is correct and compelling</li>
+                        <li>Make sure final URL is <strong>https://tradeflow.blog</strong></li>
+                        <li>Click <strong>"Publish"</strong> on each campaign</li>
+                    </ol>
+
+                    <div class="success-box" style="margin-top: 20px;">
+                        <h4>✅ Campaigns Are Now Live!</h4>
+                        <p><strong>What happens next:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>✅ Ads go through Google review (1-2 hours)</li>
+                            <li>✅ Once approved, ads start showing immediately</li>
+                            <li>✅ You'll see impressions and clicks within hours</li>
+                            <li>✅ First conversions expected within 3-7 days</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>🎉 Google Ads Setup Complete!</h4>
+                <p><strong>What you just achieved:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>✅ 4 targeted campaigns launched</li>
+                    <li>✅ Covering 60+ high-CPA countries</li>
+                    <li>✅ Using cheapest long-tail keywords</li>
+                    <li>✅ Native languages (Arabic, Spanish)</li>
+                    <li>✅ Conversion tracking enabled</li>
+                    <li>✅ Budget: $130/month = $4.34/day</li>
+                </ul>
+                <p style="margin-top: 15px; font-weight: bold; color: #065f46;">
+                    💰 Expected: 6-10 conversions = $200-500 revenue in Month 1!
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 5: Exness Postback Debugging -->
+        <div class="section" id="section5">
+            <h2>
+                <span class="section-number">5</span>
+                Debug Exness Postback (Why It's Not Firing)
+            </h2>
+
+            <div class="danger-box">
+                <h4>🔴 Your Issue: "Postback configured but not firing after 1+ hour"</h4>
+                <p><strong>Common Problem:</strong> Postbacks are set up correctly in Exness Partners PA, but no data is showing in your database even though more than an hour has passed.</p>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">🔍</span> Understanding Postback Timing</h3>
+                <div class="step-content">
+                    <p><strong>Exness postbacks fire at these intervals:</strong></p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Event Type</th>
+                                <th>Collection Time</th>
+                                <th>What This Means</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Registration</td>
+                                <td>Every 10 minutes</td>
+                                <td>Wait up to 10 min after someone registers</td>
+                            </tr>
+                            <tr>
+                                <td>Aggregated Deposit</td>
+                                <td>Every 10 minutes</td>
+                                <td>Wait up to 10 min after deposit</td>
+                            </tr>
+                            <tr>
+                                <td>Qualification</td>
+                                <td>Every 2 hours</td>
+                                <td>Wait up to 2 hours for CPA calculation</td>
+                            </tr>
+                            <tr>
+                                <td>Reward Processing</td>
+                                <td>Every 30 minutes</td>
+                                <td>Wait up to 30 min for reward approval</td>
+                            </tr>
+                            <tr>
+                                <td>KYC Passed</td>
+                                <td>Every 30 minutes</td>
+                                <td>Wait up to 30 min after verification</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="warning-box" style="margin-top: 20px;">
+                        <h4>⚠️ This Means:</h4>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>If someone registered 1 hour ago → Should have received postback by now</li>
+                            <li>If someone deposited 1 hour ago → Should have received postback by now</li>
+                            <li>If someone qualified 1 hour ago → Might still be waiting (fires every 2 hours)</li>
+                            <li>If NO ONE has registered yet → Postback won't fire (nothing to send!)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">1️⃣</span> Step 1: Verify Your Postback URL is Accessible</h3>
+                <div class="step-content">
+                    <p>Test if your API endpoint is working:</p>
+
+                    <ol>
+                        <li>Open a new browser tab</li>
+                        <li>Visit: <a href="https://tradeflow.blog/api/postback/exness" target="_blank" style="color: #667eea; font-weight: bold;">https://tradeflow.blog/api/postback/exness</a></li>
+                        <li>You should see a JSON response like this:</li>
+                    </ol>
+
+                    <div class="code-block" style="margin-top: 15px;">
+{
+  "success": true,
+  "message": "Exness postback endpoint is ready",
+  "postback_url": "https://tradeflow.blog/api/postback/exness",
+  "supported_events": [
+    "registration",
+    "deposit",
+    "qualification",
+    "reward",
+    "kyc"
+  ],
+  "example_postback": {
+    "partner_id": "c_8f0nxidtbt",
+    "event_type": "REGISTRATION",
+    "user_id": "{exness_user_id}"
+  }
+}
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    </div>
+
+                    <div class="danger-box" style="margin-top: 20px;">
+                        <h4>❌ If you see an error:</h4>
+                        <ul style="margin-left: 20px;">
+                            <li><strong>404 Not Found:</strong> Your API route doesn't exist</li>
+                            <li><strong>500 Server Error:</strong> Bug in your code</li>
+                            <li><strong>Timeout:</strong> Server is offline or too slow</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>Solution:</strong> Check your Render deployment logs and fix the error.</p>
+                    </div>
+
+                    <div class="success-box" style="margin-top: 20px;">
+                        <h4>✅ If you see the JSON response:</h4>
+                        <p>Your API endpoint is working correctly! The issue is either:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>No one has actually registered yet (most common)</li>
+                            <li>They didn't use your affiliate link</li>
+                            <li>Timing hasn't elapsed yet</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">2️⃣</span> Step 2: Test with Exness Built-in Test Tool</h3>
+                <div class="step-content">
+                    <ol>
+                        <li>Log into: <a href="https://partners.exness.com" target="_blank" style="color: #667eea; font-weight: bold;">https://partners.exness.com</a></li>
+                        <li>Go to: <strong>Account → Marketing Network Integration → Custom Platform</strong></li>
+                        <li>You should see your 5 postbacks listed</li>
+                        <li>Click the <strong>edit icon (✏️)</strong> next to each postback</li>
+                        <li>Click <strong>"Test all"</strong> button at the bottom</li>
+                        <li>Scroll down to see test results</li>
+                    </ol>
+
+                    <div class="success-box" style="margin-top: 20px;">
+                        <h4>✅ Expected Result:</h4>
+                        <p>You should see <strong>"200 OK"</strong> responses with this JSON:</p>
+                        <div class="code-block">
+{
+  "success": true,
+  "message": "Test postback received",
+  "event": "REGISTRATION",
+  "timestamp": "2025-01-22T10:30:00Z",
+  "partner_id": "c_8f0nxidtbt",
+  "user_id": "test_user_123"
+}
+                        </div>
+                    </div>
+
+                    <div class="danger-box" style="margin-top: 20px;">
+                        <h4>❌ If tests fail:</h4>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li><strong>Connection timeout:</strong> Your server is too slow or offline</li>
+                            <li><strong>404 error:</strong> Wrong URL in Exness PA</li>
+                            <li><strong>500 error:</strong> Bug in your postback handler code</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>Solution:</strong> Fix the errors and test again.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">3️⃣</span> Step 3: Check Supabase Database</h3>
+                <div class="step-content">
+                    <ol>
+                        <li>Go to your Supabase project</li>
+                        <li>Click <strong>"Table Editor"</strong> in sidebar</li>
+                        <li>Find table: <strong>exness_conversions</strong></li>
+                        <li>Look for entries with:</li>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><code>event_type</code> = "REGISTRATION", "AGGREGATED_DEPOSIT", etc.</li>
+                            <li><code>partner_id</code> = "c_8f0nxidtbt"</li>
+                            <li><code>created_at</code> = recent timestamp</li>
+                        </ul>
+                    </ol>
+
+                    <div class="success-box" style="margin-top: 20px;">
+                        <h4>✅ If you see test entries:</h4>
+                        <p>Your postback system is working! Entries from Exness "Test all" should appear here.</p>
+                        <p style="margin-top: 10px;"><strong>Next:</strong> Wait for real conversions from Google Ads traffic.</p>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 20px;">
+                        <h4>⚠️ If table is empty:</h4>
+                        <p><strong>Most likely reason:</strong> No one has registered through your link yet!</p>
+                        <p style="margin-top: 10px;">Remember:</p>
+                        <ul style="margin-left: 20px;">
+                            <li>Google Ads just launched today</li>
+                            <li>Takes 3-7 days for first conversions</li>
+                            <li>Even with traffic, conversion rate is only 2-5%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">4️⃣</span> Step 4: Do a Real Test Registration</h3>
+                <div class="step-content">
+                    <p><strong>The only way to truly test:</strong> Register on Exness yourself!</p>
+
+                    <ol style="line-height: 2;">
+                        <li><strong>Open incognito/private browser</strong></li>
+                        <li><strong>Go to your site:</strong> <a href="https://tradeflow.blog" target="_blank">https://tradeflow.blog</a></li>
+                        <li><strong>Click ANY Exness link</strong> (CTA button, popup, etc.)</li>
+                        <li><strong>Land on Exness.com</strong> (should open in new tab)</li>
+                        <li><strong>Register with NEW email</strong> (can't use existing account!)
+                            <ul style="margin-left: 20px;">
+                                <li>Use a different email than any previous Exness accounts</li>
+                                <li>Complete the registration form</li>
+                                <li>Verify email if required</li>
+                            </ul>
+                        </li>
+                        <li><strong>Wait 10 minutes</strong> (Registration postback fires every 10 min)</li>
+                        <li><strong>Check Supabase</strong> for new entry</li>
+                        <li><strong>Or check Admin Dashboard:</strong> <a href="https://tradeflow.blog/admin/dashboard" target="_blank">https://tradeflow.blog/admin/dashboard</a> → Conversions tab</li>
+                    </ol>
+
+                    <div class="danger-box" style="margin-top: 20px;">
+                        <h4>❌ Common Testing Mistakes:</h4>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li><strong>Using existing Exness account:</strong> Won't count as new conversion</li>
+                            <li><strong>Not clicking through YOUR link:</strong> Exness won't know it came from you</li>
+                            <li><strong>Registering on YOUR site (TradeFlow):</strong> That's completely separate from Exness!</li>
+                            <li><strong>Expecting instant postback:</strong> Takes up to 10 minutes</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box" style="margin-top: 20px;">
+                        <h4>✅ If postback arrives after 10 minutes:</h4>
+                        <p><strong>Your system works perfectly!</strong> Now you just need real traffic from Google Ads.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">5️⃣</span> Step 5: Monitor Exness Partners Dashboard</h3>
+                <div class="step-content">
+                    <p>Even if postback hasn't fired yet, you can see activity in Exness Partners:</p>
+
+                    <ol>
+                        <li>Log into: <a href="https://partners.exness.com" target="_blank">https://partners.exness.com</a></li>
+                        <li>Go to <strong>Reports</strong> or <strong>Statistics</strong></li>
+                        <li>Check:
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li><strong>Clicks:</strong> How many people clicked your affiliate link</li>
+                                <li><strong>Registrations:</strong> How many actually signed up</li>
+                                <li><strong>Deposits:</strong> How many deposited money</li>
+                                <li><strong>Rewards:</strong> Your earnings ($10-80 per qualifying deposit)</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="info-box" style="margin-top: 20px;">
+                        <h4>💡 What to Look For:</h4>
+                        <ul style="margin-left: 20px;">
+                            <li><strong>Clicks > 0:</strong> People are finding your site</li>
+                            <li><strong>Registrations > 0:</strong> People are signing up (postback should fire!)</li>
+                            <li><strong>Deposits > 0:</strong> People are funding accounts (you earn CPA!)</li>
+                        </ul>
+                        <p style="margin-top: 10px;">If you see registrations but no postback, that's a real issue to debug.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>🎯 Postback Debugging Summary:</h4>
+                <table class="table" style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th>Symptom</th>
+                            <th>Likely Cause</th>
+                            <th>Solution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>No postbacks after 1+ hour</td>
+                            <td>No real conversions yet</td>
+                            <td>Wait 3-7 days for Google Ads traffic</td>
+                        </tr>
+                        <tr>
+                            <td>API test returns error</td>
+                            <td>Server or code issue</td>
+                            <td>Check Render logs, fix bugs</td>
+                        </tr>
+                        <tr>
+                            <td>Exness "Test all" fails</td>
+                            <td>Wrong URL or server down</td>
+                            <td>Verify URL, restart server</td>
+                        </tr>
+                        <tr>
+                            <td>Exness shows registrations but no postback</td>
+                            <td>Postback URL wrong or server blocking</td>
+                            <td>Re-check Exness PA configuration</td>
+                        </tr>
+                        <tr>
+                            <td>Test registration doesn't trigger</td>
+                            <td>Used existing email or didn't click link</td>
+                            <td>Use NEW email, click through YOUR link</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 6: Daily Monitoring -->
+        <div class="section" id="section6">
+            <h2>
+                <span class="section-number">6</span>
+                Daily Monitoring & Optimization
+            </h2>
+
+            <div class="info-box">
+                <h4>📊 What to Monitor:</h4>
+                <p><strong>Time commitment:</strong> 10-15 minutes per day</p>
+                <p><strong>Goal:</strong> Maximize ROI by pausing losers and scaling winners</p>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">1️⃣</span> Daily Task 1: Check Google Ads Performance</h3>
+                <div class="step-content">
+                    <p><strong>Go to:</strong> <a href="https://ads.google.com" target="_blank">Google Ads Dashboard</a></p>
+
+                    <p style="margin-top: 20px;"><strong>Metrics to check:</strong></p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Good</th>
+                                <th>Bad</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>CTR (Click-Through Rate)</strong></td>
+                                <td>2-5%</td>
+                                <td>&lt; 1%</td>
+                                <td>Pause keywords with CTR < 1%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>CPC (Cost Per Click)</strong></td>
+                                <td>$0.15-1.20</td>
+                                <td>&gt; $2</td>
+                                <td>Lower bids or pause keyword</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Impressions</strong></td>
+                                <td>100+/day</td>
+                                <td>&lt; 10/day</td>
+                                <td>Increase bids or add keywords</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Quality Score</strong></td>
+                                <td>7-10</td>
+                                <td>&lt; 5</td>
+                                <td>Improve ad copy and landing page</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="warning-box" style="margin-top: 20px;">
+                        <h4>⚠️ Red Flags to Act On:</h4>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li><strong>Keyword with 50+ impressions but 0 clicks:</strong> Pause it</li>
+                            <li><strong>Keyword with 100+ clicks but 0 conversions:</strong> Pause it</li>
+                            <li><strong>Campaign spending $5/day with 0 conversions:</strong> Review targeting</li>
+                            <li><strong>CPC above $2:</strong> Lower max bid or pause</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">2️⃣</span> Daily Task 2: Check Exness Conversions</h3>
+                <div class="step-content">
+                    <p><strong>Check 2 places:</strong></p>
+
+                    <ol style="line-height: 2;">
+                        <li><strong>Exness Partners Dashboard:</strong>
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li>Go to: <a href="https://partners.exness.com" target="_blank">https://partners.exness.com</a></li>
+                                <li>Check: Reports → Statistics</li>
+                                <li>Look for: Registrations, Deposits, Rewards</li>
+                            </ul>
+                        </li>
+                        <li><strong>Your Admin Dashboard:</strong>
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li>Go to: <a href="https://tradeflow.blog/admin/dashboard" target="_blank">https://tradeflow.blog/admin/dashboard</a></li>
+                                <li>Click: "Conversions" tab</li>
+                                <li>See real-time postback data</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="success-box" style="margin-top: 20px;">
+                        <h4>✅ What Success Looks Like:</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Week 1</th>
+                                    <th>Month 1</th>
+                                    <th>Month 2+</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Clicks</td>
+                                    <td>50-100</td>
+                                    <td>400-600</td>
+                                    <td>800-1200</td>
+                                </tr>
+                                <tr>
+                                    <td>Registrations</td>
+                                    <td>1-3</td>
+                                    <td>8-12</td>
+                                    <td>15-25</td>
+                                </tr>
+                                <tr>
+                                    <td>Deposits (Qualified)</td>
+                                    <td>1-3</td>
+                                    <td>6-10</td>
+                                    <td>10-15</td>
+                                </tr>
+                                <tr>
+                                    <td>Revenue</td>
+                                    <td>$30-150</td>
+                                    <td>$200-500</td>
+                                    <td>$400-800</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">3️⃣</span> Daily Task 3: Check Site Analytics</h3>
+                <div class="step-content">
+                    <p><strong>Go to:</strong> <a href="https://analytics.google.com" target="_blank">Google Analytics</a></p>
+
+                    <p style="margin-top: 20px;"><strong>Key metrics:</strong></p>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Bounce Rate:</strong> Target &lt; 60%
+                            <ul style="margin-left: 20px;">
+                                <li>If &gt; 70%: Improve landing page, faster load times</li>
+                            </ul>
+                        </li>
+                        <li><strong>Avg. Session Duration:</strong> Target &gt; 2 minutes
+                            <ul style="margin-left: 20px;">
+                                <li>If &lt; 1 min: Content not engaging, improve signals/articles</li>
+                            </ul>
+                        </li>
+                        <li><strong>Pages/Session:</strong> Target &gt; 2 pages
+                            <ul style="margin-left: 20px;">
+                                <li>If = 1: Add internal links, related content</li>
+                            </ul>
+                        </li>
+                        <li><strong>Traffic Sources:</strong>
+                            <ul style="margin-left: 20px;">
+                                <li>Should see Google Ads as top source</li>
+                                <li>Track which countries convert best</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">4️⃣</span> Weekly Task: Calculate ROI</h3>
+                <div class="step-content">
+                    <p><strong>Every Sunday, calculate your weekly ROI:</strong></p>
+
+                    <div class="code-block">
+<span class="code-comment">// Week 1 Example</span>
+Ad Spend:        $25
+Conversions:     2 (1 UAE = $80, 1 Egypt = $60)
+Revenue:         $140
+Infrastructure:  $2 (weekly portion of $7/mo)
+─────────────────────────────
+Total Cost:      $27
+Net Profit:      $113
+ROI:             419%
+                    </div>
+
+                    <div class="success-box" style="margin-top: 20px;">
+                        <h4>✅ ROI Decision Making:</h4>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li><strong>ROI &gt; 100%:</strong> Profitable! Increase budget by 50%</li>
+                            <li><strong>ROI 0-100%:</strong> Break-even. Keep running, optimize</li>
+                            <li><strong>ROI &lt; 0%:</strong> Losing money. Pause and troubleshoot</li>
+                        </ul>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>How to scale winners:</strong></p>
+                    <ol style="margin-left: 20px;">
+                        <li>Identify best-performing campaign (highest ROI)</li>
+                        <li>Increase daily budget by 50%
+                            <ul style="margin-left: 20px;">
+                                <li>Example: UAE from $1.67/day → $2.50/day</li>
+                            </ul>
+                        </li>
+                        <li>Add more related keywords</li>
+                        <li>Test similar ad copy variations</li>
+                    </ol>
+
+                    <p style="margin-top: 20px;"><strong>How to pause losers:</strong></p>
+                    <ol style="margin-left: 20px;">
+                        <li>After 100 clicks with 0 conversions → Pause keyword</li>
+                        <li>After $50 spend with 0 conversions → Pause campaign</li>
+                        <li>CPC &gt; $2 consistently → Lower bid or pause</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>📅 Weekly Monitoring Checklist:</h4>
+                <ul class="checklist">
+                    <li data-task="mon1">
+                        <div class="checkbox"></div>
+                        <div><strong>Daily:</strong> Check Google Ads (5 min)</div>
+                    </li>
+                    <li data-task="mon2">
+                        <div class="checkbox"></div>
+                        <div><strong>Daily:</strong> Check Exness conversions (3 min)</div>
+                    </li>
+                    <li data-task="mon3">
+                        <div class="checkbox"></div>
+                        <div><strong>Daily:</strong> Review site analytics (5 min)</div>
+                    </li>
+                    <li data-task="mon4">
+                        <div class="checkbox"></div>
+                        <div><strong>Weekly:</strong> Calculate ROI and adjust budgets (15 min)</div>
+                    </li>
+                    <li data-task="mon5">
+                        <div class="checkbox"></div>
+                        <div><strong>Weekly:</strong> Test new ad variations (30 min)</div>
+                    </li>
+                    <li data-task="mon6">
+                        <div class="checkbox"></div>
+                        <div><strong>Monthly:</strong> A/B test popup timing/design (1 hour)</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 7: Expected Results -->
+        <div class="section" id="section7">
+            <h2>
+                <span class="section-number">7</span>
+                Expected Results & Timeline
+            </h2>
+
+            <div class="step">
+                <h3><span class="step-icon">📆</span> Day-by-Day Timeline</h3>
+                <div class="step-content">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>What Happens</th>
+                                <th>Your Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Day 1 (Today)</strong></td>
+                                <td>
+                                    • Render upgraded<br>
+                                    • Popup installed<br>
+                                    • Google Ads launched<br>
+                                    • Ads in review (1-2 hours)
+                                </td>
+                                <td>
+                                    ✅ Complete setup<br>
+                                    ✅ Test everything<br>
+                                    ✅ Wait for ad approval
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Day 2-3</strong></td>
+                                <td>
+                                    • Ads approved and live<br>
+                                    • First impressions & clicks<br>
+                                    • 10-30 visitors/day<br>
+                                    • No conversions yet (normal)
+                                </td>
+                                <td>
+                                    ✅ Monitor ad performance<br>
+                                    ✅ Check CTR and CPC<br>
+                                    ✅ Adjust bids if needed
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Day 4-7</strong></td>
+                                <td>
+                                    • 50-100 clicks total<br>
+                                    • First 1-3 Exness registrations<br>
+                                    • First postback received!<br>
+                                    • $30-150 revenue
+                                </td>
+                                <td>
+                                    ✅ Celebrate first conversion!<br>
+                                    ✅ Identify best keywords<br>
+                                    ✅ Pause poor performers
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Week 2-4</strong></td>
+                                <td>
+                                    • 400-600 clicks total<br>
+                                    • 6-10 conversions<br>
+                                    • $200-500 revenue<br>
+                                    • ROI 54-285%
+                                </td>
+                                <td>
+                                    ✅ Scale winning campaigns<br>
+                                    ✅ Add more keywords<br>
+                                    ✅ Test ad variations
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Month 2+</strong></td>
+                                <td>
+                                    • 800-1200 clicks/month<br>
+                                    • 10-15 conversions<br>
+                                    • $400-800 revenue<br>
+                                    • $200-500 net profit
+                                </td>
+                                <td>
+                                    ✅ Maintain momentum<br>
+                                    ✅ Expand to new countries<br>
+                                    ✅ Optimize continuously
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">💰</span> Month 1 Financial Projections</h3>
+                <div class="step-content">
+                    <div class="success-box">
+                        <h4>Conservative Scenario (Worst Case):</h4>
+                        <div class="code-block">
+Ad Spend:           $100
+Infrastructure:     $8
+Total Cost:         $108
+
+Conversions:        4 (mix of countries)
+Avg CPA:            $40
+Revenue:            $160
+
+Net Profit:         $52
+ROI:                48%
+                        </div>
+                        <p style="margin-top: 15px;"><strong>Result:</strong> Profitable in Month 1 ✅</p>
+                    </div>
+
+                    <div class="success-box" style="margin-top: 20px;">
+                        <h4>Expected Scenario (Realistic):</h4>
+                        <div class="code-block">
+Ad Spend:           $130
+Infrastructure:     $8
+Total Cost:         $138
+
+Conversions:        8 (2 UAE, 3 Egypt, 2 Latin America, 1 Africa)
+Revenue:            2×$80 + 3×$60 + 2×$30 + 1×$15 = $415
+
+Net Profit:         $277
+ROI:                201%
+                        </div>
+                        <p style="margin-top: 15px;"><strong>Result:</strong> Highly profitable! 2x ROI ✅✅</p>
+                    </div>
+
+                    <div class="success-box" style="margin-top: 20px;">
+                        <h4>Best Case Scenario (Optimistic):</h4>
+                        <div class="code-block">
+Ad Spend:           $150 (scaled after seeing results)
+Infrastructure:     $8
+Total Cost:         $158
+
+Conversions:        12 (4 UAE, 4 Egypt, 3 Latin America, 1 Africa)
+Revenue:            4×$80 + 4×$60 + 3×$30 + 1×$15 = $625
+
+Net Profit:         $467
+ROI:                295%
+                        </div>
+                        <p style="margin-top: 15px;"><strong>Result:</strong> Crushing it! 3x ROI 🚀🚀🚀</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3><span class="step-icon">📈</span> Scaling Path (Month 2-6)</h3>
+                <div class="step-content">
+                    <p><strong>Once profitable in Month 1, here's how to scale:</strong></p>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Budget</th>
+                                <th>Conversions</th>
+                                <th>Revenue</th>
+                                <th>Net Profit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Month 1</strong></td>
+                                <td>$130</td>
+                                <td>8</td>
+                                <td>$415</td>
+                                <td>$277</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Month 2</strong></td>
+                                <td>$200 (+50%)</td>
+                                <td>12</td>
+                                <td>$625</td>
+                                <td>$417</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Month 3</strong></td>
+                                <td>$300 (+50%)</td>
+                                <td>18</td>
+                                <td>$940</td>
+                                <td>$632</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Month 4-6</strong></td>
+                                <td>$400-500</td>
+                                <td>24-30</td>
+                                <td>$1,250-1,560</td>
+                                <td>$750-1,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="info-box" style="margin-top: 20px;">
+                        <h4>💡 Scaling Strategy:</h4>
+                        <ol style="margin-left: 20px; line-height: 2;">
+                            <li><strong>Month 1:</strong> Prove concept, optimize campaigns</li>
+                            <li><strong>Month 2:</strong> Scale winners by 50%, add new keywords</li>
+                            <li><strong>Month 3:</strong> Expand to more countries (Bahrain, Jordan, Morocco)</li>
+                            <li><strong>Month 4+:</strong> Consider Facebook Ads, YouTube, Telegram channels</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>🎯 Success Milestones:</h4>
+                <ul class="checklist">
+                    <li data-task="mile1">
+                        <div class="checkbox"></div>
+                        <div><strong>Day 1:</strong> Setup complete, ads launched ✅</div>
+                    </li>
+                    <li data-task="mile2">
+                        <div class="checkbox"></div>
+                        <div><strong>Day 2-3:</strong> First ad clicks and site visitors</div>
+                    </li>
+                    <li data-task="mile3">
+                        <div class="checkbox"></div>
+                        <div><strong>Day 4-7:</strong> First Exness conversion ($30-80)</div>
+                    </li>
+                    <li data-task="mile4">
+                        <div class="checkbox"></div>
+                        <div><strong>Week 2:</strong> Break-even point reached</div>
+                    </li>
+                    <li data-task="mile5">
+                        <div class="checkbox"></div>
+                        <div><strong>Week 4:</strong> Month 1 profitable ($50-400 net)</div>
+                    </li>
+                    <li data-task="mile6">
+                        <div class="checkbox"></div>
+                        <div><strong>Month 2:</strong> Scaled to $200-400/month profit</div>
+                    </li>
+                    <li data-task="mile7">
+                        <div class="checkbox"></div>
+                        <div><strong>Month 3+:</strong> Consistent $500-1000/month passive income</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Final CTA Section -->
+        <div class="hero">
+            <h1>🎉 You're Ready to Launch!</h1>
+            <p>Follow this guide step-by-step and you'll be profitable within 2-4 weeks</p>
+
+            <div class="button-group" style="justify-content: center; margin-top: 40px;">
+                <a href="#section2" class="cta-button">
+                    🚀 Start Step 1: Render Upgrade
+                </a>
+                <a href="https://tradeflow.blog/admin/dashboard" target="_blank" class="cta-button secondary-button">
+                    📊 Open Admin Dashboard
+                </a>
+            </div>
+
+            <div class="success-box" style="margin-top: 50px; text-align: left;">
+                <h4>📋 Quick Summary:</h4>
+                <ol style="margin-left: 20px; line-height: 2;">
+                    <li>✅ Upgrade Render to Starter ($7/mo) → Always-on hosting</li>
+                    <li>✅ Install 30-minute popup → Capture engaged visitors</li>
+                    <li>✅ Launch 4 Google Ads campaigns → $130/month budget</li>
+                    <li>✅ Debug Exness postback → Ensure tracking works</li>
+                    <li>✅ Monitor daily (10-15 min) → Optimize for ROI</li>
+                    <li>✅ Expected: $200-500 revenue in Month 1</li>
+                    <li>✅ Net profit: $70-370 (54-285% ROI)</li>
+                </ol>
+            </div>
+
+            <p style="margin-top: 40px; font-size: 1.2rem;">
+                <strong>Time to complete:</strong> 2-4 hours today<br>
+                <strong>Time to profit:</strong> 2-4 weeks<br>
+                <strong>Monthly passive income:</strong> $200-500+ (Month 2+)
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; padding: 40px; color: white;">
+            <p style="font-size: 1.1rem; margin-bottom: 10px;">
+                📚 <strong>Need help?</strong> All sections have detailed troubleshooting guides.
+            </p>
+            <p style="opacity: 0.8;">
+                TradeFlow © 2025 | Complete Launch Guide | Good luck! 🍀
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Progress tracking
+        let completedTasks = JSON.parse(localStorage.getItem('completedTasks') || '{}');
+
+        // Update progress bar
+        function updateProgress() {
+            const allTasks = document.querySelectorAll('.checklist li');
+            const completed = document.querySelectorAll('.checklist li.completed');
+            const percentage = (completed.length / allTasks.length) * 100;
+            document.getElementById('progressFill').style.width = percentage + '%';
+        }
+
+        // Task click handler
+        document.querySelectorAll('.checklist li').forEach(item => {
+            const taskId = item.dataset.task;
+
+            if (completedTasks[taskId]) {
+                item.classList.add('completed');
+            }
+
+            item.addEventListener('click', function() {
+                const taskId = this.dataset.task;
+                this.classList.toggle('completed');
+
+                if (this.classList.contains('completed')) {
+                    completedTasks[taskId] = true;
+                } else {
+                    delete completedTasks[taskId];
+                }
+
+                localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+                updateProgress();
+            });
+        });
+
+        // Initial progress update
+        updateProgress();
+
+        // Copy code function
+        function copyCode(button) {
+            const codeBlock = button.parentElement;
+            const code = codeBlock.textContent.replace('📋 Copy', '').trim();
+
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    button.textContent = '📋 Copy';
+                }, 2000);
+            });
+        }
+
+        // Sticky nav active state
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.sticky-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
