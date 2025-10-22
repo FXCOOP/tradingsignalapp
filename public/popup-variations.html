@@ -26,9 +26,71 @@
         h1 {
             text-align: center;
             color: white;
-            margin-bottom: 50px;
+            margin-bottom: 20px;
             font-size: 2.5rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .broker-banner {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 0 auto 40px;
+            max-width: 900px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .broker-banner h2 {
+            color: #d4af37;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .broker-banner p {
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .broker-features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .broker-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .recommended-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4af37 0%, #ffd700 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            box-shadow: 0 4px 15px rgba(212,175,55,0.4);
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 4px 15px rgba(212,175,55,0.4); }
+            50% { box-shadow: 0 4px 25px rgba(212,175,55,0.8); }
         }
 
         .popup-grid {
@@ -640,6 +702,33 @@
     <div class="container">
         <h1>🎨 10 Premium Broker Popup Variations</h1>
 
+        <!-- Exness Trusted Broker Banner -->
+        <div class="broker-banner">
+            <h2>
+                <span style="font-size: 2rem;">🏆</span>
+                <span>Our Trusted Broker: EXNESS</span>
+            </h2>
+            <p>TradeFlow recommends Exness as the premier broker for our community</p>
+            <div class="broker-features">
+                <div class="broker-feature">
+                    <span style="font-size: 1.3rem;">✓</span>
+                    <span>$10 Minimum Deposit</span>
+                </div>
+                <div class="broker-feature">
+                    <span style="font-size: 1.3rem;">✓</span>
+                    <span>Zero Commission</span>
+                </div>
+                <div class="broker-feature">
+                    <span style="font-size: 1.3rem;">✓</span>
+                    <span>Instant Withdrawals</span>
+                </div>
+                <div class="broker-feature">
+                    <span style="font-size: 1.3rem;">✓</span>
+                    <span>24/7 Support</span>
+                </div>
+            </div>
+        </div>
+
         <div class="popup-grid">
             <!-- Variation 1: Minimalist Professional -->
             <div class="popup-card">
@@ -820,8 +909,9 @@
             </div>
 
             <!-- Variation 8: Comparison Table -->
-            <div class="popup-card">
-                <div class="popup-title">Variation 8: Comparison Table</div>
+            <div class="popup-card" style="border: 3px solid #d4af37; position: relative;">
+                <div class="recommended-badge">⭐ RECOMMENDED</div>
+                <div class="popup-title" style="color: #d4af37; border-bottom-color: #d4af37;">Variation 8: Comparison Table</div>
                 <div class="popup-8">
                     <button class="close-btn">×</button>
                     <h3 style="margin-bottom: 20px; color: #333;">Why Traders Choose Exness</h3>
