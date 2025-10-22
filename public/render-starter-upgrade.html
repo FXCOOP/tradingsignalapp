@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Render Starter Upgrade Guide - $7/month</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #2d3748;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .comparison-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .comparison-table th {
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        .comparison-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: #f7fafc;
+        }
+
+        .comparison-table .free-plan {
+            color: #e53e3e;
+        }
+
+        .comparison-table .starter-plan {
+            color: #38a169;
+            font-weight: bold;
+        }
+
+        .step-card {
+            background: #f7fafc;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .step-content {
+            color: #4a5568;
+            margin-left: 55px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fef5e7 0%, #fdebd0 100%);
+            border-left: 5px solid #f39c12;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .highlight-box h3 {
+            color: #d68910;
+            margin-bottom: 10px;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #e8f8f5 0%, #d1f2eb 100%);
+            border-left: 5px solid #38a169;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .success-box h3 {
+            color: #38a169;
+            margin-bottom: 10px;
+        }
+
+        .danger-box {
+            background: linear-gradient(135deg, #fadbd8 0%, #f5b7b1 100%);
+            border-left: 5px solid #e53e3e;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .danger-box h3 {
+            color: #c53030;
+            margin-bottom: 10px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #68d391;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+        }
+
+        .benefit-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .benefit-list li {
+            padding: 12px 0;
+            padding-left: 40px;
+            position: relative;
+            color: #4a5568;
+            font-size: 1.05rem;
+        }
+
+        .benefit-list li:before {
+            content: '✅';
+            position: absolute;
+            left: 0;
+            font-size: 1.3rem;
+        }
+
+        .cost-breakdown {
+            background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #cbd5e0;
+        }
+
+        .cost-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: #2d3748;
+            padding-top: 20px;
+            margin-top: 10px;
+            border-top: 3px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .step-card {
+                padding: 20px;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 12px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Render Starter Plan Upgrade</h1>
+            <p>Simple $7/month upgrade for better performance</p>
+        </div>
+
+        <div class="content">
+            <!-- Why Upgrade -->
+            <div class="section">
+                <h2>💡 Why Upgrade from Free to Starter?</h2>
+
+                <div class="highlight-box">
+                    <h3>⚡ Your Current Problem (Free Plan):</h3>
+                    <p>Your site <strong>sleeps after 15 minutes of inactivity</strong>, causing:</p>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li>10-30 second loading delays for first visitors</li>
+                        <li>Lost conversions & frustrated users</li>
+                        <li>Poor Google rankings due to slow speed</li>
+                        <li>Missed Exness CPA opportunities</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h3>🎯 With Starter Plan ($7/month):</h3>
+                    <ul class="benefit-list" style="margin-left: 0;">
+                        <li><strong>Always-on service</strong> - No more sleep mode!</li>
+                        <li><strong>Instant loading</strong> - Under 2 seconds every time</li>
+                        <li><strong>Better SEO</strong> - Google loves fast sites</li>
+                        <li><strong>More conversions</strong> - Catch every visitor hot</li>
+                        <li><strong>No UptimeRobot needed</strong> - Built-in uptime</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="section">
+                <h2>📊 Free vs Starter Comparison</h2>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Free Plan</th>
+                            <th>Starter ($7/mo)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Uptime</strong></td>
+                            <td class="free-plan">Sleeps after 15 min</td>
+                            <td class="starter-plan">24/7 Always On ✅</td>
+                        </tr>
+                        <tr>
+                            <td><strong>First Load Speed</strong></td>
+                            <td class="free-plan">10-30 seconds</td>
+                            <td class="starter-plan">Under 2 seconds ✅</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RAM</strong></td>
+                            <td class="free-plan">512 MB</td>
+                            <td class="starter-plan">1 GB (2x faster) ✅</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Build Minutes</strong></td>
+                            <td class="free-plan">500/month</td>
+                            <td class="starter-plan">500/month</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Auto-Deploy</strong></td>
+                            <td class="free-plan">✅</td>
+                            <td class="starter-plan">✅</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Custom Domain</strong></td>
+                            <td class="free-plan">✅</td>
+                            <td class="starter-plan">✅</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SSL Certificate</strong></td>
+                            <td class="free-plan">✅</td>
+                            <td class="starter-plan">✅</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Monthly Cost</strong></td>
+                            <td class="free-plan">$0</td>
+                            <td class="starter-plan">$7</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Cost Breakdown -->
+            <div class="section">
+                <h2>💰 Total Monthly Cost Breakdown</h2>
+
+                <div class="cost-breakdown">
+                    <div class="cost-item">
+                        <span>Render Starter Plan</span>
+                        <span>$7.00</span>
+                    </div>
+                    <div class="cost-item">
+                        <span>OpenAI API (signals generation)</span>
+                        <span>~$0.50</span>
+                    </div>
+                    <div class="cost-item">
+                        <span>Supabase (database)</span>
+                        <span>$0.00 (free tier)</span>
+                    </div>
+                    <div class="cost-item">
+                        <span>Domain (if needed)</span>
+                        <span>~$1.00/mo</span>
+                    </div>
+                    <div class="cost-item">
+                        <span><strong>TOTAL MONTHLY COST:</strong></span>
+                        <span><strong>$7.50 - $8.50</strong></span>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <h3>💵 ROI Calculation:</h3>
+                    <p>You need just <strong>1 Exness conversion per month</strong> to cover costs:</p>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li>UAE visitor = $80 CPA (covers 10+ months!)</li>
+                        <li>Egypt visitor = $60 CPA (covers 7+ months)</li>
+                        <li>Mexico/Argentina = $30 CPA (covers 4 months)</li>
+                        <li>Kenya/South Africa = $10-20 CPA (covers 1-2 months)</li>
+                    </ul>
+                    <p style="margin-top: 15px; font-weight: bold; color: #38a169;">✅ Just 1-2 conversions = PROFITABLE!</p>
+                </div>
+            </div>
+
+            <!-- Step-by-Step Guide -->
+            <div class="section">
+                <h2>📝 Step-by-Step Upgrade Guide</h2>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">1</span>
+                        Log into Render Dashboard
+                    </div>
+                    <div class="step-content">
+                        <p>Go to <a href="https://dashboard.render.com" target="_blank">https://dashboard.render.com</a></p>
+                        <p>Sign in with your GitHub account</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">2</span>
+                        Find Your TradeFlow Service
+                    </div>
+                    <div class="step-content">
+                        <p>Click on your <strong>tradesignalapp</strong> web service</p>
+                        <p>You should see it listed under "Web Services"</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">3</span>
+                        Click "Settings" Tab
+                    </div>
+                    <div class="step-content">
+                        <p>Navigate to the <strong>Settings</strong> tab in your service</p>
+                        <p>Scroll down to find the <strong>Plan</strong> section</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">4</span>
+                        Change Plan to "Starter"
+                    </div>
+                    <div class="step-content">
+                        <p>Click <strong>"Change Plan"</strong> button</p>
+                        <p>Select <strong>"Starter - $7/month"</strong></p>
+                        <p>Confirm the upgrade</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">5</span>
+                        Add Payment Method
+                    </div>
+                    <div class="step-content">
+                        <p>Render will ask you to add a credit/debit card</p>
+                        <p>Enter your payment details</p>
+                        <p><strong>You'll be charged $7/month starting today</strong></p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">6</span>
+                        Wait for Deployment (2-3 minutes)
+                    </div>
+                    <div class="step-content">
+                        <p>Render will automatically redeploy your service</p>
+                        <p>This takes 2-3 minutes</p>
+                        <p>You'll see a "Deploy succeeded" message when ready</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">7</span>
+                        Test Your Site
+                    </div>
+                    <div class="step-content">
+                        <p>Visit your site: <strong>https://tradeflow.cloud</strong></p>
+                        <p>It should load in under 2 seconds</p>
+                        <p>Wait 30 minutes and test again - still fast!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What Happens Next -->
+            <div class="section">
+                <h2>✅ What Happens After Upgrade?</h2>
+
+                <div class="success-box">
+                    <h3>Immediate Benefits:</h3>
+                    <ul class="benefit-list" style="margin-left: 0;">
+                        <li>Your site stays awake 24/7</li>
+                        <li>All visitors get instant 2-second load times</li>
+                        <li>Better Google rankings (speed is a ranking factor)</li>
+                        <li>More Exness conversions due to faster UX</li>
+                        <li>You can remove UptimeRobot pinger (not needed anymore)</li>
+                    </ul>
+                </div>
+
+                <div class="danger-box">
+                    <h3>⚠️ Important Notes:</h3>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>You'll be charged $7 on the same day each month</li>
+                        <li>You can downgrade back to Free anytime (Settings → Change Plan)</li>
+                        <li>If you downgrade, site will sleep again after 15 minutes</li>
+                        <li>Starter plan includes 500 build minutes/month (same as Free)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="section">
+                <h2>❓ Frequently Asked Questions</h2>
+
+                <div class="step-card">
+                    <div class="step-title">Can I cancel anytime?</div>
+                    <div class="step-content">
+                        <p><strong>Yes!</strong> You can downgrade to Free plan anytime without penalty. Just go to Settings → Change Plan → Free.</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">What if I don't get conversions?</div>
+                    <div class="step-content">
+                        <p>If you're not making $7+ in Exness CPA, downgrade to Free. But with proper Google Ads targeting + fast loading, you should make 10-80x ROI.</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">Do I still need UptimeRobot?</div>
+                    <div class="step-content">
+                        <p><strong>No!</strong> Starter plan = always-on service. UptimeRobot is only needed for Free plan. Save yourself the hassle.</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">Can I upgrade to higher plans later?</div>
+                    <div class="step-content">
+                        <p><strong>Yes!</strong> Render has Pro ($20/mo) and higher plans with more RAM/CPU. Start with Starter, upgrade if you need more resources.</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">Will my site go down during upgrade?</div>
+                    <div class="step-content">
+                        <p><strong>No!</strong> Render does zero-downtime deployments. Your site stays online during the upgrade (2-3 min deploy time).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="section" style="text-align: center; margin-top: 50px;">
+                <h2 style="margin-bottom: 30px;">🚀 Ready to Upgrade?</h2>
+                <a href="https://dashboard.render.com" target="_blank" class="cta-button">
+                    Upgrade to Starter Now ($7/mo)
+                </a>
+                <p style="margin-top: 20px; color: #718096;">Takes 5 minutes. Cancel anytime. Instant performance boost.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

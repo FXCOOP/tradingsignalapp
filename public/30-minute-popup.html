@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30-Minute Engagement Popup - TradeFlow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .demo-container {
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .demo-header h1 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .demo-header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        /* Popup Overlay */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Popup Container */
+        .popup-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 24px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        .popup-overlay.active .popup-container {
+            transform: scale(1);
+        }
+
+        /* Close Button */
+        .popup-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .popup-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+
+        /* Popup Content */
+        .popup-content {
+            padding: 60px 40px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        /* Icon */
+        .popup-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Title */
+        .popup-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .popup-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        /* Benefits */
+        .popup-benefits {
+            background: rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .popup-benefit {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .popup-benefit:last-child {
+            margin-bottom: 0;
+        }
+
+        .popup-benefit-icon {
+            width: 30px;
+            height: 30px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        /* Urgency Badge */
+        .popup-urgency {
+            display: inline-block;
+            background: #ff4757;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+            animation: shake 3s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        /* CTA Button */
+        .popup-cta {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+        }
+
+        .popup-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .popup-disclaimer {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+
+        /* Demo Controls */
+        .demo-controls {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .demo-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        /* Stats */
+        .popup-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .popup-stat {
+            text-align: center;
+        }
+
+        .popup-stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .popup-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .popup-content {
+                padding: 50px 25px 30px;
+            }
+
+            .popup-title {
+                font-size: 1.6rem;
+            }
+
+            .popup-subtitle {
+                font-size: 1rem;
+            }
+
+            .popup-cta {
+                padding: 15px 40px;
+                font-size: 1.1rem;
+            }
+
+            .demo-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Implementation Code */
+        .code-section {
+            margin-top: 50px;
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .code-section h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #68d391;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .code-comment {
+            color: #90cdf4;
+        }
+
+        .info-box {
+            background: #edf2f7;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .info-box h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .info-box ul {
+            margin-left: 20px;
+            color: #4a5568;
+        }
+
+        .info-box li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>💎 30-Minute Engagement Popup</h1>
+            <p>Beautiful, conversion-optimized popup that appears after 30 minutes on site</p>
+        </div>
+
+        <div class="demo-controls">
+            <button class="demo-btn" onclick="showPopup()">👀 Preview Popup</button>
+        </div>
+
+        <!-- Popup Implementation -->
+        <div class="popup-overlay" id="exnessPopup">
+            <div class="popup-container">
+                <button class="popup-close" onclick="closePopup()">&times;</button>
+
+                <div class="popup-content">
+                    <div class="popup-icon">🚀</div>
+
+                    <div class="popup-urgency">⚡ Limited Time Offer</div>
+
+                    <h2 class="popup-title">Ready to Start Trading?</h2>
+                    <p class="popup-subtitle">Get up to $80 CPA bonus when you join Exness today!</p>
+
+                    <div class="popup-benefits">
+                        <div class="popup-benefit">
+                            <div class="popup-benefit-icon">✅</div>
+                            <div>Instant account opening</div>
+                        </div>
+                        <div class="popup-benefit">
+                            <div class="popup-benefit-icon">💰</div>
+                            <div>Up to $80 bonus deposit</div>
+                        </div>
+                        <div class="popup-benefit">
+                            <div class="popup-benefit-icon">📱</div>
+                            <div>Trade on mobile & desktop</div>
+                        </div>
+                        <div class="popup-benefit">
+                            <div class="popup-benefit-icon">⚡</div>
+                            <div>Ultra-fast execution</div>
+                        </div>
+                    </div>
+
+                    <a href="https://one.exnesstrack.org/a/ckdhtel03" target="_blank" class="popup-cta" onclick="trackConversion()">
+                        🎁 Claim Your Bonus Now
+                    </a>
+
+                    <div class="popup-stats">
+                        <div class="popup-stat">
+                            <span class="popup-stat-value">10,247</span>
+                            <span class="popup-stat-label">Active Traders</span>
+                        </div>
+                        <div class="popup-stat">
+                            <span class="popup-stat-value">4.8★</span>
+                            <span class="popup-stat-label">Trust Rating</span>
+                        </div>
+                        <div class="popup-stat">
+                            <span class="popup-stat-value">24/7</span>
+                            <span class="popup-stat-label">Support</span>
+                        </div>
+                    </div>
+
+                    <p class="popup-disclaimer">
+                        Risk warning: Trading involves risk. Only trade with money you can afford to lose.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Implementation Code -->
+        <div class="code-section">
+            <h2>📋 How to Implement (Copy & Paste)</h2>
+
+            <h3 style="color: #4a5568; margin-bottom: 15px;">1️⃣ Add this to your page.tsx (after line 70):</h3>
+            <div class="code-block">
+<span class="code-comment">// 30-minute popup state</span>
+const [show30MinPopup, setShow30MinPopup] = useState(false)
+
+<span class="code-comment">// Trigger popup after 30 minutes (1800000ms)</span>
+useEffect(() => {
+  const popupTimer = setTimeout(() => {
+    const hasSeenPopup = localStorage.getItem('seen30MinPopup')
+    if (!hasSeenPopup) {
+      setShow30MinPopup(true)
+      localStorage.setItem('seen30MinPopup', 'true')
+    }
+  }, 1800000) <span class="code-comment">// 30 minutes = 1800000ms</span>
+
+  return () => clearTimeout(popupTimer)
+}, [])
+            </div>
+
+            <h3 style="color: #4a5568; margin-bottom: 15px;">2️⃣ Add the popup component (before closing main div):</h3>
+            <div class="code-block">
+{show30MinPopup && (
+  &lt;div style={{
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: 'rgba(0,0,0,0.7)',
+    backdropFilter: 'blur(5px)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 10000
+  }}&gt;
+    &lt;div style={{
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      borderRadius: '24px',
+      maxWidth: '600px',
+      width: '90%',
+      padding: '60px 40px 40px',
+      position: 'relative',
+      textAlign: 'center',
+      color: 'white'
+    }}&gt;
+      &lt;button
+        onClick={() => setShow30MinPopup(false)}
+        style={{
+          position: 'absolute',
+          top: '20px',
+          right: '20px',
+          background: 'rgba(255,255,255,0.2)',
+          border: 'none',
+          borderRadius: '50%',
+          width: '40px',
+          height: '40px',
+          color: 'white',
+          fontSize: '24px',
+          cursor: 'pointer'
+        }}
+      &gt;×&lt;/button&gt;
+
+      &lt;div style={{ fontSize: '50px', marginBottom: '20px' }}&gt;🚀&lt;/div&gt;
+      &lt;h2 style={{ fontSize: '2rem', marginBottom: '15px' }}&gt;Ready to Start Trading?&lt;/h2&gt;
+      &lt;p style={{ fontSize: '1.2rem', marginBottom: '30px' }}&gt;Get up to $80 bonus when you join Exness!&lt;/p&gt;
+
+      &lt;a
+        href="https://one.exnesstrack.org/a/ckdhtel03"
+        target="_blank"
+        style={{
+          display: 'inline-block',
+          background: 'white',
+          color: '#667eea',
+          padding: '18px 50px',
+          borderRadius: '50px',
+          fontSize: '1.2rem',
+          fontWeight: 'bold',
+          textDecoration: 'none'
+        }}
+      &gt;
+        🎁 Claim Your Bonus Now
+      &lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+)}
+            </div>
+
+            <div class="info-box">
+                <h3>⚙️ Configuration Options:</h3>
+                <ul>
+                    <li><strong>Change timing:</strong> Modify <code>1800000</code> to any milliseconds value (e.g., 60000 = 1 minute, 900000 = 15 minutes)</li>
+                    <li><strong>Show again:</strong> Delete <code>localStorage.getItem('seen30MinPopup')</code> to show popup on every visit</li>
+                    <li><strong>Your affiliate link:</strong> Replace <code>https://one.exnesstrack.org/a/ckdhtel03</code> with your Exness tracking link</li>
+                    <li><strong>Bonus amounts:</strong> Update amounts based on target country (see country table below)</li>
+                </ul>
+            </div>
+
+            <div class="info-box" style="margin-top: 20px;">
+                <h3>💰 Country-Specific Bonus Amounts:</h3>
+                <ul>
+                    <li><strong>UAE:</strong> $80 CPA bonus</li>
+                    <li><strong>Egypt:</strong> $60 CPA bonus</li>
+                    <li><strong>Bahrain:</strong> $50 CPA bonus</li>
+                    <li><strong>Mexico, Argentina, Peru:</strong> $30 CPA bonus</li>
+                    <li><strong>South Africa, Kenya:</strong> $10-20 CPA bonus</li>
+                </ul>
+                <p style="margin-top: 10px; color: #718096;">💡 <strong>Tip:</strong> Use geo-targeting to show different bonus amounts based on visitor location!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPopup() {
+            document.getElementById('exnessPopup').classList.add('active');
+        }
+
+        function closePopup() {
+            document.getElementById('exnessPopup').classList.remove('active');
+        }
+
+        function trackConversion() {
+            console.log('Exness conversion tracked!');
+            // Add your tracking code here
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'exness_click', {
+                    'event_category': '30min_popup',
+                    'event_label': 'cpa_offer'
+                });
+            }
+        }
+
+        // Close on overlay click
+        document.getElementById('exnessPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+    </script>
+</body>
+</html>
