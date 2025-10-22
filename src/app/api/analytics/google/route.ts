@@ -20,11 +20,44 @@ export async function GET(request: NextRequest) {
       }, { status: 503 })
     }
 
+    // Parse and format the private key properly
+    let privateKey = process.env.GA_PRIVATE_KEY
+
+    // Handle different formats of private key in environment variables
+    try {
+      // If the key is base64 encoded, decode it first
+      if (!privateKey.includes('BEGIN PRIVATE KEY')) {
+        try {
+          privateKey = Buffer.from(privateKey, 'base64').toString('utf-8')
+        } catch (e) {
+          // Not base64, continue with original
+        }
+      }
+
+      // Replace escaped newlines with actual newlines
+      privateKey = privateKey.replace(/\\n/g, '\n')
+
+      // Ensure proper PEM format
+      if (!privateKey.startsWith('-----BEGIN PRIVATE KEY-----')) {
+        throw new Error('Invalid private key format: Missing PEM header')
+      }
+      if (!privateKey.endsWith('-----END PRIVATE KEY-----\n') && !privateKey.endsWith('-----END PRIVATE KEY-----')) {
+        privateKey = privateKey.trim() + '\n'
+      }
+    } catch (error: any) {
+      return NextResponse.json({
+        success: false,
+        error: 'Invalid private key format',
+        message: 'The GA_PRIVATE_KEY environment variable is not properly formatted. It should be a valid PEM private key.',
+        details: error.message
+      }, { status: 500 })
+    }
+
     // Create auth client
     const auth = new google.auth.GoogleAuth({
       credentials: {
         client_email: process.env.GA_SERVICE_ACCOUNT_EMAIL,
-        private_key: process.env.GA_PRIVATE_KEY.replace(/\\n/g, '\n'),
+        private_key: privateKey,
       },
       scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
     })
