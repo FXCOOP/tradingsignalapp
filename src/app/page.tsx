@@ -71,6 +71,9 @@ export default function HomePage() {
   // Cookie Consent
   const [showCookieConsent, setShowCookieConsent] = useState(true)
 
+  // 💎 30-minute engagement popup
+  const [show30MinPopup, setShow30MinPopup] = useState(false)
+
   // Add signal notification
   const addNotification = (message: string, type: 'success' | 'warning' | 'info' = 'info') => {
     const newNotification = {
@@ -363,6 +366,19 @@ export default function HomePage() {
 
     return () => clearTimeout(timer)
   }, [popupDismissed])
+
+  // 💎 30-minute engagement popup
+  useEffect(() => {
+    const popupTimer = setTimeout(() => {
+      const hasSeenPopup = localStorage.getItem('seen30MinPopup')
+      if (!hasSeenPopup) {
+        setShow30MinPopup(true)
+        localStorage.setItem('seen30MinPopup', 'true')
+      }
+    }, 60000) // 1 minute for testing (change to 1800000 for 30 min in production)
+
+    return () => clearTimeout(popupTimer)
+  }, [])
 
   // 🤖 FETCH AI-GENERATED SIGNALS FROM OPENAI
   const fetchAISignals = async () => {
@@ -14296,6 +14312,191 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         <p style={{ fontSize: '1px' }}>trading signals dubai abu dhabi gcc forex signals uae saudi arabia ksa qatar kuwait bahrain oman trading signals riyadh jeddah doha manama muscat kuwait city sharjah gold signals bitcoin crypto signals tasi dfm adx trading arabic signals halal trading islamic finance</p>
       </div>
 
+      {/* 💎 30-Minute Engagement Popup */}
+      {show30MinPopup && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0,0,0,0.7)',
+          backdropFilter: 'blur(5px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10000,
+          animation: 'fadeIn 0.3s ease'
+        }} onClick={(e) => {
+          if (e.target === e.currentTarget) setShow30MinPopup(false)
+        }}>
+          <div style={{
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            borderRadius: '24px',
+            maxWidth: '600px',
+            width: '90%',
+            padding: '60px 40px 40px',
+            position: 'relative',
+            textAlign: 'center',
+            color: 'white',
+            boxShadow: '0 25px 80px rgba(0,0,0,0.4)',
+            animation: 'slideUp 0.3s ease'
+          }}>
+            {/* Close Button */}
+            <button
+              onClick={() => setShow30MinPopup(false)}
+              style={{
+                position: 'absolute',
+                top: '20px',
+                right: '20px',
+                background: 'rgba(255,255,255,0.2)',
+                border: 'none',
+                borderRadius: '50%',
+                width: '40px',
+                height: '40px',
+                color: 'white',
+                fontSize: '24px',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.3)'
+                e.currentTarget.style.transform = 'rotate(90deg)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.2)'
+                e.currentTarget.style.transform = 'rotate(0deg)'
+              }}
+            >×</button>
+
+            {/* Icon */}
+            <div style={{ fontSize: '50px', marginBottom: '20px', animation: 'pulse 2s infinite' }}>🚀</div>
+
+            {/* Urgency Badge */}
+            <div style={{
+              display: 'inline-block',
+              background: '#ff4757',
+              padding: '8px 20px',
+              borderRadius: '20px',
+              fontSize: '0.9rem',
+              fontWeight: 'bold',
+              marginBottom: '20px',
+              animation: 'shake 3s infinite'
+            }}>
+              ⚡ Limited Time Offer
+            </div>
+
+            {/* Title */}
+            <h2 style={{ fontSize: '2rem', marginBottom: '15px' }}>
+              Ready to Start Trading?
+            </h2>
+            <p style={{ fontSize: '1.2rem', marginBottom: '30px' }}>
+              Get up to $80 bonus when you join Exness today!
+            </p>
+
+            {/* Benefits */}
+            <div style={{
+              background: 'rgba(255,255,255,0.15)',
+              borderRadius: '16px',
+              padding: '25px',
+              marginBottom: '30px',
+              textAlign: 'left'
+            }}>
+              {[
+                { icon: '✅', text: 'Instant account opening' },
+                { icon: '💰', text: 'Up to $80 bonus deposit' },
+                { icon: '📱', text: 'Trade on mobile & desktop' },
+                { icon: '⚡', text: 'Ultra-fast execution' }
+              ].map((benefit, i) => (
+                <div key={i} style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: i < 3 ? '15px' : '0'
+                }}>
+                  <div style={{
+                    width: '30px',
+                    height: '30px',
+                    background: 'rgba(255,255,255,0.3)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginRight: '15px',
+                    fontSize: '18px'
+                  }}>{benefit.icon}</div>
+                  <div>{benefit.text}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA Button */}
+            <a
+              href="https://one.exnesstrack.org/a/ckdhtel03"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-block',
+                background: 'white',
+                color: '#667eea',
+                padding: '18px 50px',
+                borderRadius: '50px',
+                fontSize: '1.2rem',
+                fontWeight: 'bold',
+                textDecoration: 'none',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-3px)'
+                e.currentTarget.style.boxShadow = '0 15px 40px rgba(0,0,0,0.3)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)'
+              }}
+              onClick={() => {
+                // Track conversion
+                if (typeof gtag !== 'undefined') {
+                  gtag('event', 'exness_click', {
+                    event_category: '30min_popup',
+                    event_label: 'cpa_offer'
+                  })
+                }
+              }}
+            >
+              🎁 Claim Your Bonus Now
+            </a>
+
+            {/* Stats */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              marginTop: '25px',
+              paddingTop: '25px',
+              borderTop: '1px solid rgba(255,255,255,0.3)'
+            }}>
+              {[
+                { value: '10,247', label: 'Active Traders' },
+                { value: '4.8★', label: 'Trust Rating' },
+                { value: '24/7', label: 'Support' }
+              ].map((stat, i) => (
+                <div key={i} style={{ textAlign: 'center' }}>
+                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>
+                    {stat.value}
+                  </span>
+                  <span style={{ fontSize: '0.9rem', opacity: 0.9 }}>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Disclaimer */}
+            <p style={{ fontSize: '0.85rem', opacity: 0.8, marginTop: '20px' }}>
+              Risk warning: Trading involves risk. Only trade with money you can afford to lose.
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* 🔐 Authentication Modal */}
       <AuthModal
         isOpen={showAuthModal}
@@ -14310,6 +14511,36 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         contentType={brokerPromptType}
         remaining={remainingFree}
       />
+
+      {/* CSS Animations for 30-min popup */}
+      <style jsx global>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+        }
+
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+          20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+      `}</style>
     </div>
   )
 }
