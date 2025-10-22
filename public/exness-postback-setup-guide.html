@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exness Postback Setup Guide - Step by Step</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: #333;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #2d3748;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #f093fb;
+        }
+
+        .step-card {
+            background: #f7fafc;
+            border-left: 5px solid #f093fb;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .step-content {
+            color: #4a5568;
+            line-height: 1.8;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #68d391;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            font-size: 0.95rem;
+        }
+
+        .code-inline {
+            background: #edf2f7;
+            color: #d53f8c;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+            border-left: 5px solid #38b2ac;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box h3 {
+            color: #234e52;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fef5e7 0%, #fdebd0 100%);
+            border-left: 5px solid #f39c12;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .warning-box h3 {
+            color: #c27803;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-left: 5px solid #38a169;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .success-box h3 {
+            color: #22543d;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .danger-box {
+            background: linear-gradient(135deg, #fadbd8 0%, #f5b7b1 100%);
+            border-left: 5px solid #e53e3e;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .danger-box h3 {
+            color: #c53030;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .table thead {
+            background: #f093fb;
+            color: white;
+        }
+
+        .table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .table tbody tr:hover {
+            background: #f7fafc;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(240, 147, 251, 0.4);
+        }
+
+        .copy-button {
+            background: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .copy-button:hover {
+            background: #2f855a;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .step-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔗 Exness Postback Setup Guide</h1>
+            <p>Configure postback tracking in 5 minutes</p>
+        </div>
+
+        <div class="content">
+            <!-- Overview -->
+            <div class="section">
+                <h2>📋 What You'll Do</h2>
+
+                <div class="info-box">
+                    <h3>Goal: Connect Exness to Your Server</h3>
+                    <p>When someone clicks your affiliate link and registers on Exness, Exness will automatically send a postback (webhook) to your server with the conversion data.</p>
+                    <br>
+                    <p><strong>Your postback URL:</strong></p>
+                    <div class="code-block">https://tradeflow.cloud/api/postback/exness</div>
+                    <button class="copy-button" onclick="copyToClipboard('https://tradeflow.cloud/api/postback/exness')">📋 Copy URL</button>
+                </div>
+
+                <div class="warning-box">
+                    <h3>⚠️ Important Prerequisites:</h3>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li>✅ You must have an <strong>Exness Partners account</strong></li>
+                        <li>✅ You must be approved as a <strong>Digital Affiliate</strong></li>
+                        <li>✅ Your site must be deployed and accessible online</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step-by-Step Setup -->
+            <div class="section">
+                <h2>🚀 Step-by-Step Setup</h2>
+
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Sign in to Exness Partners PA</div>
+                    <div class="step-content">
+                        <p>Go to: <a href="https://partners.exness.com" target="_blank" style="color: #f093fb; font-weight: bold;">https://partners.exness.com</a></p>
+                        <p>Log in with your partner credentials</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Navigate to Marketing Network Integration</div>
+                    <div class="step-content">
+                        <ol style="margin-left: 20px; line-height: 2;">
+                            <li>Click on the <strong>user icon</strong> in the upper right corner</li>
+                            <li>Choose <strong>Account</strong></li>
+                            <li>Select <strong>Marketing Network Integration</strong></li>
+                            <li>Click <strong>Custom Platform</strong></li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Create New Postback</div>
+                    <div class="step-content">
+                        <p>On the Postbacks page, click <strong>"Create Postbacks"</strong></p>
+                        <p>You'll see two tabs: <strong>Manual setup</strong> or <strong>Generate postbacks</strong></p>
+                        <p style="margin-top: 10px; color: #38a169; font-weight: bold;">→ Use "Manual setup" (easier!)</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Configure Event Types</div>
+                    <div class="step-content">
+                        <p>You need to create <strong>separate postbacks</strong> for each event type. Here are the 4 most important:</p>
+
+                        <table class="table" style="margin-top: 20px;">
+                            <thead>
+                                <tr>
+                                    <th>Event Type</th>
+                                    <th>Postback URL</th>
+                                    <th>When It Fires</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Registration</strong></td>
+                                    <td><span class="code-inline">https://tradeflow.cloud/api/postback/exness?event=registration</span></td>
+                                    <td>User registers (every 10 min)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Aggregated Deposit</strong></td>
+                                    <td><span class="code-inline">https://tradeflow.cloud/api/postback/exness?event=deposit</span></td>
+                                    <td>User deposits (every 10 min)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Qualification</strong></td>
+                                    <td><span class="code-inline">https://tradeflow.cloud/api/postback/exness?event=qualification</span></td>
+                                    <td>CPA reward calculated (every 2 hours)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Approved reward</strong></td>
+                                    <td><span class="code-inline">https://tradeflow.cloud/api/postback/exness?event=reward</span></td>
+                                    <td>Reward approved (every 30 min)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="info-box" style="margin-top: 20px;">
+                            <h3>📝 How to Add Each Event:</h3>
+                            <ol style="margin-left: 20px; line-height: 2;">
+                                <li>Select <strong>Event type</strong> from dropdown (e.g., "Registration")</li>
+                                <li>Enter the <strong>Postback URL</strong> (copy from table above)</li>
+                                <li>Click <strong>"Save"</strong></li>
+                                <li>Repeat for each event type</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Add Tracking Parameters (Optional but Recommended)</div>
+                    <div class="step-content">
+                        <p>For better tracking, add these parameters to your postback URLs:</p>
+
+                        <table class="table" style="margin-top: 20px;">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Token</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="code-inline">client_id</span></td>
+                                    <td><span class="code-inline">{aff_client}</span></td>
+                                    <td>Unique client ID</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="code-inline">event_id</span></td>
+                                    <td><span class="code-inline">{aff_cid}</span></td>
+                                    <td>Unique event ID</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="code-inline">amount</span></td>
+                                    <td><span class="code-inline">{aff_value}</span></td>
+                                    <td>Deposit/reward amount</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="success-box" style="margin-top: 20px;">
+                            <h3>✅ Example Complete URLs:</h3>
+                            <div class="code-block">
+<!-- Registration -->
+https://tradeflow.cloud/api/postback/exness?event=registration&client_id={aff_client}&event_id={aff_cid}&amount={aff_value}
+
+<!-- Deposit -->
+https://tradeflow.cloud/api/postback/exness?event=deposit&client_id={aff_client}&event_id={aff_cid}&amount={aff_value}
+
+<!-- Qualification -->
+https://tradeflow.cloud/api/postback/exness?event=qualification&client_id={aff_client}&event_id={aff_cid}&amount={aff_value}
+
+<!-- Approved Reward -->
+https://tradeflow.cloud/api/postback/exness?event=reward&client_id={aff_client}&event_id={aff_cid}&amount={aff_value}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="step-card">
+                    <div class="step-number">6</div>
+                    <div class="step-title">Test Your Postbacks</div>
+                    <div class="step-content">
+                        <p>Exness provides a built-in testing tool!</p>
+                        <ol style="margin-left: 20px; line-height: 2; margin-top: 10px;">
+                            <li>Go back to your postbacks list</li>
+                            <li>Click the <strong>edit icon</strong> next to each postback</li>
+                            <li>Click <strong>"Test all"</strong> button</li>
+                            <li>Scroll down to see the test results</li>
+                        </ol>
+
+                        <div class="success-box" style="margin-top: 20px;">
+                            <h3>✅ What Success Looks Like:</h3>
+                            <p>You should see a <strong>200 OK</strong> response with JSON data:</p>
+                            <div class="code-block">
+{
+  "success": true,
+  "message": "Test postback received",
+  "event": "registration",
+  "timestamp": "2025-01-22T10:30:00Z"
+}
+                            </div>
+                        </div>
+
+                        <div class="danger-box" style="margin-top: 20px;">
+                            <h3>❌ Common Test Failures:</h3>
+                            <ul style="margin-left: 20px; line-height: 2;">
+                                <li><strong>404 Not Found:</strong> Check your URL is correct</li>
+                                <li><strong>500 Server Error:</strong> Your API route has a bug</li>
+                                <li><strong>Timeout:</strong> Your server is too slow or offline</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 7 -->
+                <div class="step-card">
+                    <div class="step-number">7</div>
+                    <div class="step-title">Verify in Your Database</div>
+                    <div class="step-content">
+                        <p>After testing, check your Supabase database:</p>
+                        <ol style="margin-left: 20px; line-height: 2; margin-top: 10px;">
+                            <li>Go to your Supabase project</li>
+                            <li>Click <strong>Table Editor</strong></li>
+                            <li>Find <span class="code-inline">exness_conversions</span> table</li>
+                            <li>Look for test entries with event_type = "registration", "deposit", etc.</li>
+                        </ol>
+
+                        <p style="margin-top: 20px;">Or check your Admin Dashboard:</p>
+                        <div class="code-block">https://tradeflow.cloud/admin/dashboard</div>
+                        <p style="margin-top: 10px;">Click the <strong>"Conversions"</strong> tab to see all postbacks</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Types Reference -->
+            <div class="section">
+                <h2>📊 Event Types Reference</h2>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Event Type</th>
+                            <th>Description</th>
+                            <th>Collection Time</th>
+                            <th>{aff_value}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Registration</strong></td>
+                            <td>Client registers on Exness</td>
+                            <td>Every 10 minutes</td>
+                            <td>Fixed value = 1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aggregated Deposit</strong></td>
+                            <td>First deposit amount (or 24h cumulative for CPA)</td>
+                            <td>Every 10 minutes</td>
+                            <td>Deposit amount (e.g., 100.00)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Qualification</strong></td>
+                            <td>CPA reward calculated</td>
+                            <td>Every 2 hours</td>
+                            <td>Reward amount (e.g., 80.00)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Approved reward</strong></td>
+                            <td>Reward approved for payout</td>
+                            <td>Every 30 minutes</td>
+                            <td>Approved amount (e.g., 80.00)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Loyal clients</strong></td>
+                            <td>Client traded within 2 months</td>
+                            <td>Every 30 minutes</td>
+                            <td>Fixed value = 1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>KYC status</strong></td>
+                            <td>Verification status (In progress / Verified)</td>
+                            <td>Every 30 minutes</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Troubleshooting -->
+            <div class="section">
+                <h2>🔧 Troubleshooting</h2>
+
+                <div class="danger-box">
+                    <h3>❌ Problem: Postback Test Fails</h3>
+                    <p><strong>Solution:</strong></p>
+                    <ol style="margin-left: 20px; line-height: 2;">
+                        <li>Check your site is deployed and online: <a href="https://tradeflow.cloud" target="_blank">https://tradeflow.cloud</a></li>
+                        <li>Test API route manually: <a href="https://tradeflow.cloud/api/postback/exness" target="_blank">https://tradeflow.cloud/api/postback/exness</a></li>
+                        <li>Check Render logs for errors: <a href="https://dashboard.render.com" target="_blank">https://dashboard.render.com</a></li>
+                        <li>Verify Supabase connection is working</li>
+                    </ol>
+                </div>
+
+                <div class="danger-box">
+                    <h3>❌ Problem: No Real Conversions Showing Up</h3>
+                    <p><strong>Possible reasons:</strong></p>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Not enough time passed:</strong> Postbacks fire every 10 min to 2 hours</li>
+                        <li><strong>User didn't click your link:</strong> They must use YOUR affiliate link</li>
+                        <li><strong>Existing account:</strong> User already has Exness account (won't count)</li>
+                        <li><strong>Different email:</strong> User registered with different email than tracked</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h3>✅ How to Verify Everything is Working:</h3>
+                    <ol style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Test in Exness PA:</strong> Use built-in "Test all" button</li>
+                        <li><strong>Check Supabase:</strong> Look for test entries in <span class="code-inline">exness_conversions</span></li>
+                        <li><strong>Real test:</strong> Click your link, register on Exness with NEW email, wait 10 minutes</li>
+                        <li><strong>Check Admin Dashboard:</strong> Monitor conversions in real-time</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section">
+                <h2>✅ Quick Setup Checklist</h2>
+
+                <div class="success-box">
+                    <h3>Complete these 7 steps:</h3>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li>☐ Log into Exness Partners PA</li>
+                        <li>☐ Navigate to Account → Marketing Network Integration → Custom Platform</li>
+                        <li>☐ Create postback for "Registration" event</li>
+                        <li>☐ Create postback for "Aggregated Deposit" event</li>
+                        <li>☐ Create postback for "Qualification" event</li>
+                        <li>☐ Create postback for "Approved reward" event</li>
+                        <li>☐ Test all postbacks using built-in test tool</li>
+                        <li>☐ Verify entries appear in Supabase database</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h3>🎯 After Setup:</h3>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li>✅ Launch Google Ads campaigns (see <a href="/google-ads-keywords-strategy.html">keywords guide</a>)</li>
+                        <li>✅ Drive traffic to your site</li>
+                        <li>✅ Wait for users to click Exness links</li>
+                        <li>✅ Wait for postbacks (10 min - 2 hours)</li>
+                        <li>✅ Monitor conversions in Admin Dashboard</li>
+                        <li>✅ Earn $10-80 per conversion! 💰</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="https://partners.exness.com" target="_blank" class="cta-button">
+                    🔗 Go to Exness Partners PA
+                </a>
+                <p style="margin-top: 20px; color: #718096;">Complete setup in 5-10 minutes</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✅ Copied to clipboard: ' + text);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+    </script>
+</body>
+</html>
