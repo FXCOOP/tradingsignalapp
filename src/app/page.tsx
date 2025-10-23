@@ -6207,7 +6207,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                   AI is generating signals...
                 </div>
                 <div style={{ fontSize: '14px', color: '#3b82f6' }}>
-                  Using OpenAI GPT-5 Nano to analyze GCC markets
+                  Using OpenAI GPT-5 Nano to analyze global forex markets
                 </div>
               </div>
             )}
