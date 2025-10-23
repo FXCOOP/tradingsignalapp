@@ -6150,67 +6150,9 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                   {displaySignals.filter(s => s.status === 'ACTIVE').length} Active
                 </div>
 
-                {/* 🤖 AI Signal Generation Button */}
-                <button
-                  onClick={fetchAISignals}
-                  disabled={isLoadingSignals}
-                  style={{
-                    background: isLoadingSignals
-                      ? designSystem.colors.neutral[400]
-                      : `linear-gradient(135deg, ${designSystem.colors.primary.main} 0%, ${designSystem.colors.primary.dark} 100%)`,
-                    color: 'white',
-                    padding: isMobile ? `${designSystem.spacing[3]} ${designSystem.spacing[4]}` : `${designSystem.spacing[3]} ${designSystem.spacing[6]}`,
-                    borderRadius: designSystem.borderRadius.md,
-                    border: 'none',
-                    fontSize: isMobile ? designSystem.typography.sizes.bodySmall.mobile : designSystem.typography.sizes.bodySmall.desktop,
-                    fontWeight: designSystem.typography.weights.bold,
-                    cursor: isLoadingSignals ? 'not-allowed' : 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: isMobile ? designSystem.spacing[2] : designSystem.spacing[2],
-                    transition: designSystem.transitions.normal,
-                    boxShadow: designSystem.shadows.primary,
-                    flex: isMobile ? '1' : 'initial',
-                    justifyContent: 'center',
-                    minHeight: '44px'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isLoadingSignals) {
-                      e.currentTarget.style.transform = 'translateY(-2px)'
-                      e.currentTarget.style.boxShadow = designSystem.shadows.xl
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = designSystem.shadows.primary
-                  }}
-                >
-                  <span style={{ fontSize: designSystem.typography.sizes.h4.mobile }}>
-                    {isLoadingSignals ? '⏳' : '🤖'}
-                  </span>
-                  {isLoadingSignals ? (isMobile ? 'Generating...' : 'Generating AI Signals...') : (isMobile ? 'Generate AI Signals' : 'Generate New AI Signals')}
-                </button>
+                {/* Signals auto-generated daily by cron job - no manual generation needed */}
               </div>
             </div>
-
-            {/* Loading State */}
-            {isLoadingSignals && (
-              <div style={{
-                textAlign: 'center',
-                padding: '40px',
-                background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
-                borderRadius: '16px',
-                margin: '20px 0'
-              }}>
-                <div style={{ fontSize: '48px', marginBottom: '16px' }}>🤖</div>
-                <div style={{ fontSize: '18px', fontWeight: '600', color: '#1e40af', marginBottom: '8px' }}>
-                  AI is generating signals...
-                </div>
-                <div style={{ fontSize: '14px', color: '#3b82f6' }}>
-                  Using OpenAI GPT-5 Nano to analyze global forex markets
-                </div>
-              </div>
-            )}
 
             {/* Signal Cards */}
             <div style={{
