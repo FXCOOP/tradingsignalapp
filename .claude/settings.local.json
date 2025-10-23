@@ -12,7 +12,8 @@
       "Bash(vercel --prod)",
       "Bash(vercel --prod --yes)",
       "Bash(nslookup:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(node scripts/replace-all-exness-links.js:*)"
     ],
     "deny": [],
     "ask": []

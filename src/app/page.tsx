@@ -1839,6 +1839,7 @@ Strategic traders monitor: (1) European market opens (4:00 PM Riyadh time) for g
 **GDP (Gross Domestic Product)** measures total economic output and is the broadest indicator of economic health. Released quarterly in most countries, GDP growth above 2-3% is generally positive for stocks. GCC countries publish GDP data with Saudi Arabia targeting 3-4% annual growth under Vision 2030. Strong GDP growth supports stock market valuations and currency strength.
 
 **Inflation Indicators (CPI and PPI)** measure price changes for consumers and producers. The Consumer Price Index (CPI) tracks household spending costs while the Producer Price Index (PPI) measures wholesale prices. Central banks target inflation around 2%. High inflation forces interest rate increases, negative for stocks but potentially positive for commodities like gold. GCC inflation has been moderate (2-4%) but spikes when global food and import prices rise.
+import { ExnessLink } from '@/components/ExnessLink'
 
 **Employment Data** includes unemployment rate, job creation numbers, and wage growth. In the US, Non-Farm Payrolls (NFP) released monthly is a major market mover. Strong employment supports consumer spending and economic growth. GCC countries focus on national employment rates and Saudization/Emiratization policies that affect labor markets.
 
@@ -14308,7 +14309,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         pointerEvents: 'none'
       }}>
         <a href="/copy-trading">Auto Copy Trading GCC</a>
-        <a href="https://one.exnessonelink.com/a/c_8f0nxidtbt" rel="sponsored">Exness broker</a>
+        <ExnessLink href="https://one.exnessonelink.com/a/c_8f0nxidtbt" source="footer_link" rel="sponsored">Exness broker</ExnessLink>
         <a href="https://www.tradingview.com" rel="nofollow">TradingView charts</a>
         <a href="https://www.tadawul.com.sa" rel="nofollow">TASI Saudi Stock Exchange</a>
         <a href="https://www.dfm.ae" rel="nofollow">Dubai Financial Market</a>
@@ -14434,10 +14435,9 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
             </div>
 
             {/* CTA Button */}
-            <a
+            <ExnessLink
               href="https://one.exnesstrack.org/a/ckdhtel03"
-              target="_blank"
-              rel="noopener noreferrer"
+              source="30min_popup"
               style={{
                 display: 'inline-block',
                 background: 'white',
@@ -14450,26 +14450,9 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                 boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
                 transition: 'all 0.3s ease'
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-3px)'
-                e.currentTarget.style.boxShadow = '0 15px 40px rgba(0,0,0,0.3)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)'
-                e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)'
-              }}
-              onClick={async () => {
-                // Track conversion
-                if (typeof gtag !== 'undefined') {
-                  gtag('event', 'exness_click', {
-                    event_category: '30min_popup',
-                    event_label: 'cpa_offer'
-                  })
-                }
-              }}
             >
               🎁 Claim Your Bonus Now
-            </a>
+            </ExnessLink>
 
             {/* Stats */}
             <div style={{

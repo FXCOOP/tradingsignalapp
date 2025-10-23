@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🇪🇬 Google Ads Egypt Campaign - Complete Setup Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #c8102e 0%, #007a3d 50%, #000000 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 800;
+            text-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        header .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
+
+        header .meta {
+            font-size: 1em;
+            opacity: 0.85;
+            margin-top: 20px;
+        }
+
+        .quick-stats {
+            background: #f7fafc;
+            padding: 30px 40px;
+            border-bottom: 4px solid #c8102e;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid #c8102e;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .stat-card strong {
+            display: block;
+            color: #c8102e;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .stat-card span {
+            font-size: 1.5em;
+            color: #2d3748;
+            font-weight: 700;
+        }
+
+        nav {
+            background: #2d3748;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: 18px 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 4px solid transparent;
+        }
+
+        nav a:hover {
+            background: #4a5568;
+            border-bottom-color: #c8102e;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        section {
+            margin-bottom: 60px;
+            scroll-margin-top: 80px;
+        }
+
+        h2 {
+            font-size: 2.2em;
+            color: #2d3748;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #c8102e;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2 .emoji {
+            font-size: 1.2em;
+        }
+
+        h3 {
+            font-size: 1.6em;
+            color: #4a5568;
+            margin: 30px 0 15px 0;
+            padding-left: 20px;
+            border-left: 5px solid #c8102e;
+        }
+
+        h4 {
+            font-size: 1.3em;
+            color: #718096;
+            margin: 20px 0 12px 0;
+            font-weight: 600;
+        }
+
+        .alert {
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 12px;
+            border-left: 6px solid;
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+            border-color: #c53030;
+        }
+
+        .alert-danger strong {
+            color: #c53030;
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, #fffaf0 0%, #feebc8 100%);
+            border-color: #dd6b20;
+        }
+
+        .alert-warning strong {
+            color: #dd6b20;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+            border-color: #38a169;
+        }
+
+        .alert-success strong {
+            color: #38a169;
+        }
+
+        .alert-info {
+            background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+            border-color: #3182ce;
+        }
+
+        .alert-info strong {
+            color: #3182ce;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #c8102e 0%, #a00025 100%);
+            color: white;
+        }
+
+        th {
+            padding: 18px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tbody tr:hover {
+            background: #f7fafc;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #68d391;
+            padding: 25px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 25px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .code-block code {
+            display: block;
+            white-space: pre;
+        }
+
+        .highlight {
+            background: #fef5e7;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            color: #c8102e;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 700;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .badge-primary {
+            background: #c8102e;
+            color: white;
+        }
+
+        .badge-success {
+            background: #38a169;
+            color: white;
+        }
+
+        .badge-warning {
+            background: #dd6b20;
+            color: white;
+        }
+
+        .card {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .card h4 {
+            margin-top: 0;
+            color: #c8102e;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .rtl {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Arial', 'Tahoma', sans-serif;
+        }
+
+        .copy-btn {
+            background: #c8102e;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .copy-btn:hover {
+            background: #a00025;
+            transform: translateY(-2px);
+        }
+
+        .tracking-box {
+            background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+            border: 3px solid #38b2ac;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .tracking-box h3 {
+            color: #234e52;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            .content {
+                padding: 30px 20px;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🇪🇬 Google Ads Egypt Campaign</h1>
+            <p class="subtitle">Complete Setup Guide for TradeFlow.blog</p>
+            <p class="meta">Targeting: Egypt (Cairo, Alexandria, Giza) | Language: Arabic | Budget: $300-500/month</p>
+        </header>
+
+        <div class="quick-stats">
+            <div class="stat-card">
+                <strong>Target Market</strong>
+                <span>🇪🇬 Egypt</span>
+            </div>
+            <div class="stat-card">
+                <strong>Primary Cities</strong>
+                <span>Cairo, Alexandria, Giza</span>
+            </div>
+            <div class="stat-card">
+                <strong>Language</strong>
+                <span>العربية (Arabic)</span>
+            </div>
+            <div class="stat-card">
+                <strong>Monthly Budget</strong>
+                <span>$300-500</span>
+            </div>
+            <div class="stat-card">
+                <strong>Target CPA</strong>
+                <span>$1.50-2.00</span>
+            </div>
+            <div class="stat-card">
+                <strong>Est. CPC Range</strong>
+                <span>$0.08-0.25</span>
+            </div>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="#setup">🚀 Quick Setup</a></li>
+                <li><a href="#tracking">📊 Tracking Setup</a></li>
+                <li><a href="#keywords">🔑 Keywords</a></li>
+                <li><a href="#ads">📝 Ad Copy</a></li>
+                <li><a href="#landing">🎯 Landing Pages</a></li>
+                <li><a href="#budget">💰 Budget & Bidding</a></li>
+                <li><a href="#testing">🧪 Testing</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <!-- QUICK SETUP SECTION -->
+            <section id="setup">
+                <h2><span class="emoji">🚀</span>Quick Setup Checklist</h2>
+
+                <div class="alert alert-info">
+                    <strong>📋 Campaign Goal:</strong> Drive qualified traffic from Egypt to TradeFlow.blog, convert visitors into Exness signups, earn $10-80 per conversion via affiliate commissions.
+                </div>
+
+                <div class="card">
+                    <h4>✅ Pre-Launch Checklist (Complete These First)</h4>
+                    <ul style="line-height: 2; margin-left: 20px;">
+                        <li>☐ <strong>Domain:</strong> tradeflow.blog is live and accessible</li>
+                        <li>☐ <strong>Arabic Landing Page:</strong> /ar or /ar/signals page exists</li>
+                        <li>☐ <strong>Exness Postback:</strong> Configured in Exness Partners PA</li>
+                        <li>☐ <strong>Database Tables:</strong> exness_clicks + exness_conversions created</li>
+                        <li>☐ <strong>Google Ads Account:</strong> Created and linked to billing</li>
+                        <li>☐ <strong>Conversion Tracking:</strong> Google Tag + GA4 installed</li>
+                        <li>☐ <strong>Legal Pages:</strong> Privacy Policy, Terms of Service (Arabic versions)</li>
+                        <li>☐ <strong>Risk Disclaimers:</strong> Trading risk warnings in Arabic</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-warning">
+                    <strong>⚠️ COMPLIANCE CRITICAL:</strong> Egypt's Financial Regulatory Authority (FRA) requires clear risk disclosures for all forex/trading promotions. Ensure all Arabic landing pages include proper disclaimers.
+                </div>
+            </section>
+
+            <!-- TRACKING SETUP SECTION -->
+            <section id="tracking">
+                <h2><span class="emoji">📊</span>Complete Tracking Setup</h2>
+
+                <div class="alert alert-success">
+                    <strong>✅ Tracking Goal:</strong> Capture every click with a unique user ID (GCLID) so Exness postbacks can be matched to your users for auto-upgrade and commission attribution.
+                </div>
+
+                <h3>Step 1: Google Ads Conversion Tracking</h3>
+
+                <div class="tracking-box">
+                    <h3>🎯 Primary Conversion: Exness Click</h3>
+                    <p><strong>What to track:</strong> When user clicks "Open Exness Account" button</p>
+                    <p><strong>Conversion Name:</strong> <span class="highlight">Exness_Click_Egypt</span></p>
+                    <p><strong>Value:</strong> $50 (estimated commission per signup)</p>
+
+                    <div class="code-block" style="margin-top: 20px;">
+<!-- Google Ads Conversion Tracking Code -->
+<script>
+  gtag('event', 'conversion', {
+    'send_to': 'AW-XXXXXXXXX/YYYYYYYYYY',
+    'value': 50.0,
+    'currency': 'USD',
+    'transaction_id': ''
+  });
+</script></div>
+                </div>
+
+                <h3>Step 2: UTM Parameters with GCLID</h3>
+
+                <div class="card">
+                    <h4>🔗 Complete URL Structure for Egypt Campaign</h4>
+
+                    <div class="code-block">
+BASE URL:
+https://tradeflow.blog/ar/signals
+
+TRACKING PARAMETERS:
+?utm_source=google
+&utm_medium=cpc
+&utm_campaign=EG_AR_Search_Core_MaxConv
+&utm_term={keyword}
+&utm_content={creative}_{adgroupid}
+&gclid={gclid}          ← CRITICAL: Google Click ID
+&click_id={gclid}       ← Custom parameter for your DB
+&geo=egypt
+&lang=ar
+
+COMPLETE FINAL URL:
+https://tradeflow.blog/ar/signals?utm_source=google&utm_medium=cpc&utm_campaign=EG_AR_Search_Core_MaxConv&utm_term={keyword}&utm_content={creative}_{adgroupid}&gclid={gclid}&click_id={gclid}&geo=egypt&lang=ar</div>
+
+                    <button class="copy-btn" onclick="copyToClipboard('https://tradeflow.blog/ar/signals?utm_source=google&utm_medium=cpc&utm_campaign=EG_AR_Search_Core_MaxConv&utm_term={keyword}&utm_content={creative}_{adgroupid}&gclid={gclid}&click_id={gclid}&geo=egypt&lang=ar')">📋 Copy URL Template</button>
+                </div>
+
+                <h3>Step 3: Database Tracking Schema</h3>
+
+                <div class="code-block">
+-- Update exness_clicks table to include GCLID
+ALTER TABLE exness_clicks ADD COLUMN gclid TEXT;
+ALTER TABLE exness_clicks ADD COLUMN utm_campaign TEXT;
+ALTER TABLE exness_clicks ADD COLUMN utm_term TEXT;
+ALTER TABLE exness_clicks ADD COLUMN utm_content TEXT;
+
+-- Create index for fast GCLID lookups
+CREATE INDEX idx_exness_clicks_gclid ON exness_clicks(gclid);
+
+-- Example INSERT when user lands on page
+INSERT INTO exness_clicks (
+  user_id,
+  click_url,
+  partner_id,
+  gclid,
+  utm_campaign,
+  utm_term,
+  utm_content,
+  ip_address,
+  user_agent,
+  clicked_at
+) VALUES (
+  'user-uuid-here',
+  'https://tradeflow.blog/ar/signals',
+  'c_8f0nxidtbt',
+  'Cj0KCQiA...',  -- from URL parameter
+  'EG_AR_Search_Core_MaxConv',
+  'تداول الفوركس',
+  'ad1_12345',
+  '156.160.45.123',
+  'Mozilla/5.0...',
+  NOW()
+);</div>
+
+                <h3>Step 4: Frontend Tracking Implementation</h3>
+
+                <div class="card">
+                    <h4>📝 Add to Your Landing Page (JavaScript)</h4>
+
+                    <div class="code-block">
+// File: public/ar/signals/index.html or Next.js page
+
+<script>
+  // Capture URL parameters on page load
+  window.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Extract tracking parameters
+    const trackingData = {
+      gclid: urlParams.get('gclid') || urlParams.get('click_id'),
+      utm_source: urlParams.get('utm_source'),
+      utm_medium: urlParams.get('utm_medium'),
+      utm_campaign: urlParams.get('utm_campaign'),
+      utm_term: urlParams.get('utm_term'),
+      utm_content: urlParams.get('utm_content'),
+      geo: urlParams.get('geo'),
+      lang: urlParams.get('lang')
+    };
+
+    // Store in localStorage for later use
+    if (trackingData.gclid) {
+      localStorage.setItem('gclid', trackingData.gclid);
+      localStorage.setItem('tracking_data', JSON.stringify(trackingData));
+    }
+
+    // Send to your API to record page visit
+    fetch('/api/track/page-view', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...trackingData,
+        page: window.location.pathname,
+        referrer: document.referrer,
+        timestamp: new Date().toISOString()
+      })
+    });
+  });
+
+  // When user clicks "Open Exness Account" button
+  async function trackExnessClick() {
+    const trackingData = JSON.parse(localStorage.getItem('tracking_data') || '{}');
+    const gclid = localStorage.getItem('gclid');
+    const token = localStorage.getItem('auth_token');
+
+    await fetch('/api/track/exness-click', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        partner_id: 'c_8f0nxidtbt',
+        click_url: 'https://one.exnesstrack.net/a/c_8f0nxidtbt',
+        gclid: gclid,
+        utm_campaign: trackingData.utm_campaign,
+        utm_term: trackingData.utm_term,
+        utm_content: trackingData.utm_content
+      })
+    });
+
+    // Fire Google Ads conversion
+    gtag('event', 'conversion', {
+      'send_to': 'AW-XXXXXXXXX/Exness_Click_Egypt',
+      'value': 50.0,
+      'currency': 'USD'
+    });
+
+    // Redirect to Exness
+    window.open('https://one.exnesstrack.net/a/c_8f0nxidtbt', '_blank');
+  }
+</script></div>
+                </div>
+
+                <h3>Step 5: Postback Matching Logic</h3>
+
+                <div class="code-block">
+// File: src/app/api/postback/exness/route.ts
+
+export async function POST(request: NextRequest) {
+  const postbackData = await request.json();
+  const { partner_id, event_type, ftd_amount, user_id: exness_user_id } = postbackData;
+
+  // ENHANCED: Find user by GCLID (most accurate)
+  // Exness doesn't send GCLID, but we can match by partner_id + timing
+  const { data: clickData } = await supabaseAdmin
+    .from('exness_clicks')
+    .select('user_id, gclid, utm_campaign')
+    .eq('partner_id', partner_id)
+    .order('clicked_at', { ascending: false })
+    .limit(1)
+    .single();
+
+  if (clickData) {
+    // Record conversion with GCLID for Google Ads attribution
+    await supabaseAdmin.from('exness_conversions').insert({
+      user_id: clickData.user_id,
+      partner_id,
+      event_type,
+      ftd_amount,
+      gclid: clickData.gclid,          // ← Link back to Google Ads
+      utm_campaign: clickData.utm_campaign,
+      exness_user_id,
+      raw_postback_data: postbackData,
+      processed: false
+    });
+
+    // Auto-upgrade user
+    await supabaseAdmin
+      .from('users')
+      .update({
+        has_broker_account: true,
+        broker_name: 'Exness',
+        broker_verified_at: new Date().toISOString()
+      })
+      .eq('id', clickData.user_id);
+
+    // OPTIONAL: Send conversion back to Google Ads
+    // (requires Google Ads API setup)
+    if (clickData.gclid) {
+      await sendGoogleAdsConversion({
+        gclid: clickData.gclid,
+        conversion_name: 'Exness_Deposit_Egypt',
+        conversion_value: ftd_amount,
+        currency: 'USD'
+      });
+    }
+  }
+}</div>
+            </section>
+
+            <!-- KEYWORDS SECTION -->
+            <section id="keywords">
+                <h2><span class="emoji">🔑</span>Egyptian Arabic Keywords</h2>
+
+                <div class="alert alert-info">
+                    <strong>💡 Keyword Strategy:</strong> Focus on educational intent + local forex terms. Avoid "free" and "bonus" claims per Google policy.
+                </div>
+
+                <h3>🎯 Core Keywords (Exact Match) - Ad Group 1</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Arabic Keyword</th>
+                            <th>English Translation</th>
+                            <th>Match Type</th>
+                            <th>Est. Monthly Searches</th>
+                            <th>Est. CPC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="rtl">تعلم تداول الفوركس</td>
+                            <td>Learn forex trading</td>
+                            <td>[Exact]</td>
+                            <td>1,200</td>
+                            <td>$0.15</td>
+                        </tr>
+                        <tr>
+                            <td class="rtl">دورة تداول الفوركس</td>
+                            <td>Forex trading course</td>
+                            <td>[Exact]</td>
+                            <td>800</td>
+                            <td>$0.12</td>
+                        </tr>
+                        <tr>
+                            <td class="rtl">تداول الفوركس للمبتدئين</td>
+                            <td>Forex trading for beginners</td>
+                            <td>[Exact]</td>
+                            <td>2,500</td>
+                            <td>$0.10</td>
+                        </tr>
+                        <tr>
+                            <td class="rtl">تعليم الفوركس مصر</td>
+                            <td>Forex education Egypt</td>
+                            <td>[Exact]</td>
+                            <td>600</td>
+                            <td>$0.18</td>
+                        </tr>
+                        <tr>
+                            <td class="rtl">شرح تداول العملات</td>
+                            <td>Currency trading explained</td>
+                            <td>[Exact]</td>
+                            <td>1,800</td>
+                            <td>$0.14</td>
+                        </tr>
+                        <tr>
+                            <td class="rtl">كيف اتعلم الفوركس</td>
+                            <td>How to learn forex</td>
+                            <td>[Exact]</td>
+                            <td>3,200</td>
+                            <td>$0.09</td>
+                        </tr>
+                        <tr>
+                            <td class="rtl">افضل منصة تداول فوركس</td>
+                            <td>Best forex trading platform</td>
+                            <td>[Exact]</td>
+                            <td>950</td>
+                            <td>$0.22</td>
+                        </tr>
+                        <tr>
+                            <td class="rtl">فتح حساب فوركس</td>
+                            <td>Open forex account</td>
+                            <td>[Exact]</td>
+                            <td>700</td>
+                            <td>$0.20</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="card">
+                    <h4>📥 Download Core Keywords CSV</h4>
+                    <p>Copy this CSV format for Google Ads bulk upload:</p>
+                    <div class="code-block">
+Campaign,Ad Group,Keyword,Criterion Type
+EG_AR_Search_Core,[Core - Forex Education],[تعلم تداول الفوركس],Exact
+EG_AR_Search_Core,[Core - Forex Education],[دورة تداول الفوركس],Exact
+EG_AR_Search_Core,[Core - Forex Education],[تداول الفوركس للمبتدئين],Exact
+EG_AR_Search_Core,[Core - Forex Education],[تعليم الفوركس مصر],Exact
+EG_AR_Search_Core,[Core - Forex Education],[شرح تداول العملات],Exact
+EG_AR_Search_Core,[Core - Forex Education],[كيف اتعلم الفوركس],Exact
+EG_AR_Search_Core,[Core - Forex Education],[افضل منصة تداول فوركس],Exact
+EG_AR_Search_Core,[Core - Forex Education],[فتح حساب فوركس],Exact</div>
+                    <button class="copy-btn" onclick="copyKeywordsCSV()">📋 Copy CSV</button>
+                </div>
+
+                <h3>🌐 Broad Match Keywords - Ad Group 2</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Arabic Keyword</th>
+                            <th>English Translation</th>
+                            <th>Match Type</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="rtl">تداول فوركس</td>
+                            <td>Forex trading</td>
+                            <td>Broad</td>
+                            <td>Discover new queries</td>
+                        </tr>
+                        <tr>
+                            <td class="rtl">تعلم الفوركس</td>
+                            <td>Learn forex</td>
+                            <td>Broad</td>
+                            <td>Capture variations</td>
+                        </tr>
+                        <tr>
+                            <td class="rtl">تحليل فوركس</td>
+                            <td>Forex analysis</td>
+                            <td>Broad</td>
+                            <td>Signal seekers</td>
+                        </tr>
+                        <tr>
+                            <td class="rtl">استراتيجيات تداول</td>
+                            <td>Trading strategies</td>
+                            <td>Broad</td>
+                            <td>Strategy learners</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🚫 Negative Keywords (Apply to All Campaigns)</h3>
+
+                <div class="code-block">
+# Jobs & Employment
+وظائف، وظيفة، توظيف، عمل من المنزل، رواتب، سيرة ذاتية
+
+# Free Downloads & Piracy
+تحميل مجاني، كتاب مجاني، كورس مجاني، pdf مجاني، برنامج مقرصن
+
+# Scams & Complaints
+نصب، احتيال، شكاوى، مراجعات سلبية، فضيحة، خسائر
+
+# Irrelevant Intent
+العاب، تطبيق، اندرويد، ايفون، كازينو، مراهنات، يانصيب
+
+# Competitor Brands
+اتورو، بينومو، اي كيو اوبشن، بلس٥٠٠، اكسنس (if you want to exclude Exness brand searches)</div>
+            </section>
+
+            <!-- AD COPY SECTION -->
+            <section id="ads">
+                <h2><span class="emoji">📝</span>Compliant Arabic Ad Copy</h2>
+
+                <div class="alert alert-danger">
+                    <strong>🚨 CRITICAL COMPLIANCE:</strong> No bonus claims, no "free" with financial products, no unverifiable social proof. All ads must include risk disclaimers.
+                </div>
+
+                <h3>✅ Responsive Search Ads - Headlines (Arabic RTL)</h3>
+
+                <div class="card">
+                    <h4>📌 Ad Group: Core - Forex Education</h4>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="rtl">العنوان (Headline)</th>
+                                <th>Translation</th>
+                                <th>Length</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="rtl">تعلم تداول الفوركس اليوم</td>
+                                <td>Learn Forex Trading Today</td>
+                                <td>25 chars</td>
+                            </tr>
+                            <tr>
+                                <td class="rtl">تحليل أسواق الفوركس</td>
+                                <td>Forex Market Analysis</td>
+                                <td>20 chars</td>
+                            </tr>
+                            <tr>
+                                <td class="rtl">تعليم موثوق للأسواق</td>
+                                <td>Trusted Market Education</td>
+                                <td>19 chars</td>
+                            </tr>
+                            <tr>
+                                <td class="rtl">أدوات تحليل الذكاء الاصطناعي</td>
+                                <td>AI Analysis Tools</td>
+                                <td>28 chars</td>
+                            </tr>
+                            <tr>
+                                <td class="rtl">محتوى تعليمي للمبتدئين</td>
+                                <td>Educational Content for Beginners</td>
+                                <td>23 chars</td>
+                            </tr>
+                            <tr>
+                                <td class="rtl">تحليلات يومية للأسواق</td>
+                                <td>Daily Market Analysis</td>
+                                <td>21 chars</td>
+                            </tr>
+                            <tr>
+                                <td class="rtl">افتح حساب تداول اليوم</td>
+                                <td>Open Trading Account Today</td>
+                                <td>21 chars</td>
+                            </tr>
+                            <tr>
+                                <td class="rtl">منصة تداول موثوقة</td>
+                                <td>Trusted Trading Platform</td>
+                                <td>18 chars</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>✅ Descriptions (Arabic RTL)</h3>
+
+                <div class="card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="rtl">الوصف (Description)</th>
+                                <th>Translation</th>
+                                <th>Length</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="rtl">تعلم تداول الفوركس مع تحليلات الذكاء الاصطناعي. محتوى تعليمي. التداول ينطوي على مخاطر.</td>
+                                <td>Learn forex trading with AI analysis. Educational content. Trading involves risk.</td>
+                                <td>89 chars</td>
+                            </tr>
+                            <tr>
+                                <td class="rtl">احصل على تحليلات يومية للأسواق واستراتيجيات تداول موثوقة. ليس نصيحة مالية.</td>
+                                <td>Get daily market analysis and trusted trading strategies. Not financial advice.</td>
+                                <td>85 chars</td>
+                            </tr>
+                            <tr>
+                                <td class="rtl">افتح حساب تداول فوركس اليوم. منصة موثوقة. التداول ينطوي على مخاطر. استشر مستشار مالي.</td>
+                                <td>Open forex account today. Trusted platform. Trading involves risks. Consult advisor.</td>
+                                <td>90 chars</td>
+                            </tr>
+                            <tr>
+                                <td class="rtl">تحليلات فوركس مدعومة بالذكاء الاصطناعي. محتوى تعليمي فقط. ليس نصيحة استثمارية.</td>
+                                <td>AI-powered forex analysis. Educational content only. Not investment advice.</td>
+                                <td>84 chars</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>📱 Sitelinks (Arabic)</h3>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4 class="rtl">رابط 1: إشارات الفوركس</h4>
+                        <p><strong>Arabic:</strong> <span class="rtl">إشارات الفوركس</span></p>
+                        <p><strong>Translation:</strong> Forex Signals</p>
+                        <p><strong>URL:</strong> https://tradeflow.blog/ar/signals</p>
+                        <p><strong>Description:</strong> <span class="rtl">تحليلات يومية للأسواق</span> (Daily market analysis)</p>
+                    </div>
+
+                    <div class="card">
+                        <h4 class="rtl">رابط 2: التعليم</h4>
+                        <p><strong>Arabic:</strong> <span class="rtl">مركز التعليم</span></p>
+                        <p><strong>Translation:</strong> Education Center</p>
+                        <p><strong>URL:</strong> https://tradeflow.blog/ar/education</p>
+                        <p><strong>Description:</strong> <span class="rtl">تعلم أساسيات الفوركس</span> (Learn forex basics)</p>
+                    </div>
+
+                    <div class="card">
+                        <h4 class="rtl">رابط 3: افتح حساب</h4>
+                        <p><strong>Arabic:</strong> <span class="rtl">افتح حساب Exness</span></p>
+                        <p><strong>Translation:</strong> Open Exness Account</p>
+                        <p><strong>URL:</strong> https://one.exnesstrack.net/a/c_8f0nxidtbt</p>
+                        <p><strong>Description:</strong> <span class="rtl">ابدأ التداول اليوم</span> (Start trading today)</p>
+                    </div>
+
+                    <div class="card">
+                        <h4 class="rtl">رابط 4: التحليلات</h4>
+                        <p><strong>Arabic:</strong> <span class="rtl">تحليلات السوق</span></p>
+                        <p><strong>Translation:</strong> Market Analysis</p>
+                        <p><strong>URL:</strong> https://tradeflow.blog/ar/analysis</p>
+                        <p><strong>Description:</strong> <span class="rtl">تحليلات يومية مجانية</span> (Free daily analysis)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LANDING PAGES SECTION -->
+            <section id="landing">
+                <h2><span class="emoji">🎯</span>Landing Page Requirements</h2>
+
+                <div class="alert alert-warning">
+                    <strong>⚠️ CRITICAL:</strong> Google Ads requires language match. Arabic ads MUST link to Arabic landing pages, not English.
+                </div>
+
+                <h3>📄 Required Pages (Arabic RTL)</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Page</th>
+                            <th>URL</th>
+                            <th>Purpose</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Arabic Homepage</td>
+                            <td>https://tradeflow.blog/ar</td>
+                            <td>Main landing page</td>
+                            <td class="badge badge-warning">🟡 TODO</td>
+                        </tr>
+                        <tr>
+                            <td>Arabic Signals</td>
+                            <td>https://tradeflow.blog/ar/signals</td>
+                            <td>Signal showcase</td>
+                            <td class="badge badge-warning">🟡 TODO</td>
+                        </tr>
+                        <tr>
+                            <td>Arabic Privacy Policy</td>
+                            <td>https://tradeflow.blog/ar/privacy</td>
+                            <td>Legal compliance</td>
+                            <td class="badge badge-warning">🟡 TODO</td>
+                        </tr>
+                        <tr>
+                            <td>Arabic Terms of Service</td>
+                            <td>https://tradeflow.blog/ar/terms</td>
+                            <td>Legal compliance</td>
+                            <td class="badge badge-warning">🟡 TODO</td>
+                        </tr>
+                        <tr>
+                            <td>Arabic Risk Disclosure</td>
+                            <td>Footer on all AR pages</td>
+                            <td>FRA compliance</td>
+                            <td class="badge badge-warning">🟡 TODO</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>✅ Arabic Risk Disclosure (Required on All Pages)</h3>
+
+                <div class="code-block">
+&lt;!-- Add this to footer of ALL Arabic pages --&gt;
+&lt;div class="risk-disclaimer-ar" dir="rtl" style="background:#fff3cd; border:2px solid #f39c12; padding:20px; margin:20px 0;"&gt;
+    &lt;strong&gt;⚠️ إفصاح المخاطر:&lt;/strong&gt;
+    تداول العملات الأجنبية والمنتجات ذات الرافعة المالية يحمل مستوى عالٍ من المخاطر وقد لا يكون مناسبًا لجميع المستثمرين.
+    الأداء السابق لا يشير إلى النتائج المستقبلية.
+    يقدم هذا الموقع محتوى تعليمي فقط ولا يشكل نصيحة مالية.
+    يرجى استشارة مستشار مالي مرخص قبل اتخاذ قرارات الاستثمار.
+    قد نحصل على عمولات من إحالات الشركاء.
+&lt;/div&gt;</div>
+            </section>
+
+            <!-- BUDGET & BIDDING SECTION -->
+            <section id="budget">
+                <h2><span class="emoji">💰</span>Budget & Bidding Strategy</h2>
+
+                <h3>📊 Phase-Based Budget Allocation</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Duration</th>
+                            <th>Daily Budget</th>
+                            <th>Monthly Spend</th>
+                            <th>Bidding Strategy</th>
+                            <th>Goal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Phase 1: Learning</strong></td>
+                            <td>Days 1-14</td>
+                            <td>$10</td>
+                            <td>~$140</td>
+                            <td>Maximize Clicks</td>
+                            <td>Gather data, test ads</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 2: Optimization</strong></td>
+                            <td>Days 15-30</td>
+                            <td>$12-15</td>
+                            <td>~$210</td>
+                            <td>Maximize Conversions</td>
+                            <td>Find winning keywords</td>
+                        </tr>
+                        <tr style="background: #f0fff4;">
+                            <td><strong>Phase 3: Scale</strong></td>
+                            <td>Month 2+</td>
+                            <td>$15-20</td>
+                            <td>$450-600</td>
+                            <td>Target CPA ($1.80)</td>
+                            <td>Hit ROI targets</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🎯 Bidding Strategy Progression</h3>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Week 1-2: Maximize Clicks</h4>
+                        <ul style="line-height: 2; margin-left: 20px;">
+                            <li><strong>Goal:</strong> Get clicks, gather data</li>
+                            <li><strong>Budget:</strong> $10/day</li>
+                            <li><strong>Expected Clicks:</strong> 50-125/day</li>
+                            <li><strong>Expected CPC:</strong> $0.08-0.20</li>
+                            <li><strong>Switch When:</strong> 100+ clicks received</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>Week 3-4: Maximize Conversions</h4>
+                        <ul style="line-height: 2; margin-left: 20px;">
+                            <li><strong>Goal:</strong> Optimize for Exness clicks</li>
+                            <li><strong>Budget:</strong> $12-15/day</li>
+                            <li><strong>Expected Conversions:</strong> 5-15/day</li>
+                            <li><strong>Switch When:</strong> 30+ conversions</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>Month 2+: Target CPA</h4>
+                        <ul style="line-height: 2; margin-left: 20px;">
+                            <li><strong>Goal:</strong> Maintain CPA ≤ $1.80</li>
+                            <li><strong>Budget:</strong> $15-20/day</li>
+                            <li><strong>Target CPA:</strong> $1.80</li>
+                            <li><strong>Expected ROAS:</strong> 21.0+ (with $50 revenue per conversion)</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>Advanced: Target ROAS</h4>
+                        <ul style="line-height: 2; margin-left: 20px;">
+                            <li><strong>Goal:</strong> Maximize revenue efficiency</li>
+                            <li><strong>When to Use:</strong> After 50+ conversions</li>
+                            <li><strong>Target ROAS:</strong> 2100% (21.0)</li>
+                            <li><strong>Benefit:</strong> Auto-scales profitable keywords</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TESTING SECTION -->
+            <section id="testing">
+                <h2><span class="emoji">🧪</span>Testing & Validation</h2>
+
+                <h3>✅ Pre-Launch Testing Checklist</h3>
+
+                <div class="card">
+                    <h4>1️⃣ Tracking Validation</h4>
+                    <ol style="line-height: 2; margin-left: 20px;">
+                        <li>Visit: <code>https://tradeflow.blog/ar/signals?gclid=TEST123&click_id=TEST123&utm_campaign=EG_TEST</code></li>
+                        <li>Open browser console, verify tracking script fires</li>
+                        <li>Check Supabase → <code>exness_clicks</code> table for new row with <code>gclid=TEST123</code></li>
+                        <li>Click "Open Exness Account" button</li>
+                        <li>Verify Google Ads conversion fires (check Network tab)</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h4>2️⃣ Postback Testing</h4>
+                    <ol style="line-height: 2; margin-left: 20px;">
+                        <li>Use curl to simulate Exness postback:</li>
+                    </ol>
+                    <div class="code-block" style="margin-top: 10px;">
+curl -X POST https://tradeflow.blog/api/postback/exness \
+  -H "Content-Type: application/json" \
+  -d '{
+    "partner_id": "c_8f0nxidtbt",
+    "event_type": "FTD",
+    "ftd_amount": "50",
+    "user_id": "test-exness-123"
+  }'</div>
+                    <ol start="2" style="line-height: 2; margin-left: 20px; margin-top: 10px;">
+                        <li>Expected response: <code>{"success": true, "message": "User upgraded to premium"}</code></li>
+                        <li>Check Supabase → <code>exness_conversions</code> table</li>
+                        <li>Check Supabase → <code>users</code> table: <code>has_broker_account = true</code></li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h4>3️⃣ Google Ads Preview Tool</h4>
+                    <ol style="line-height: 2; margin-left: 20px;">
+                        <li>Go to: <a href="https://ads.google.com/aw/adpreview" target="_blank">Google Ads Ad Preview Tool</a></li>
+                        <li>Select: <strong>Location:</strong> Egypt → Cairo</li>
+                        <li>Select: <strong>Language:</strong> Arabic</li>
+                        <li>Enter: <span class="rtl">تعلم تداول الفوركس</span></li>
+                        <li>Your ad should appear (if campaign is live)</li>
+                    </ol>
+                </div>
+
+                <h3>🎯 Campaign Quality Score Checklist</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Factor</th>
+                            <th>Target</th>
+                            <th>How to Achieve</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Expected CTR</strong></td>
+                            <td>&gt; 3%</td>
+                            <td>Keyword-specific headlines, clear CTA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ad Relevance</strong></td>
+                            <td>Above Average</td>
+                            <td>Keyword in headline, landing page match</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Landing Page Experience</strong></td>
+                            <td>Above Average</td>
+                            <td>Mobile-friendly, fast load (&lt;3s), Arabic content</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Quality Score</strong></td>
+                            <td>7-10</td>
+                            <td>Optimize all three factors above</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- FINAL SETUP STEPS -->
+            <section id="final">
+                <h2><span class="emoji">🚀</span>Final Setup Steps (Do This Now!)</h2>
+
+                <div class="alert alert-success">
+                    <strong>✅ Complete These In Order:</strong>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>1️⃣ Database Setup (5 min)</h4>
+                        <ol style="line-height: 2; margin-left: 20px;">
+                            <li>Open Supabase SQL Editor</li>
+                            <li>Run: <code>ALTER TABLE exness_clicks ADD COLUMN gclid TEXT;</code></li>
+                            <li>Run: <code>CREATE INDEX idx_exness_clicks_gclid ON exness_clicks(gclid);</code></li>
+                            <li>Verify: Check table structure</li>
+                        </ol>
+                    </div>
+
+                    <div class="card">
+                        <h4>2️⃣ Create Arabic Landing Page (30 min)</h4>
+                        <ol style="line-height: 2; margin-left: 20px;">
+                            <li>Create: <code>/ar/signals/index.html</code></li>
+                            <li>Add: Arabic headlines + content</li>
+                            <li>Add: Risk disclaimer (see above)</li>
+                            <li>Add: Tracking script (see above)</li>
+                            <li>Test: Visit with <code>?gclid=TEST</code></li>
+                        </ol>
+                    </div>
+
+                    <div class="card">
+                        <h4>3️⃣ Setup Google Ads Campaign (15 min)</h4>
+                        <ol style="line-height: 2; margin-left: 20px;">
+                            <li>Login: <a href="https://ads.google.com" target="_blank">ads.google.com</a></li>
+                            <li>Click: "+ New Campaign"</li>
+                            <li>Goal: Website Traffic</li>
+                            <li>Type: Search</li>
+                            <li>Name: <code>EG_AR_Search_Core_MaxConv</code></li>
+                        </ol>
+                    </div>
+
+                    <div class="card">
+                        <h4>4️⃣ Campaign Settings</h4>
+                        <ul style="line-height: 2; margin-left: 20px;">
+                            <li><strong>Locations:</strong> Egypt (Cairo, Alexandria, Giza)</li>
+                            <li><strong>Languages:</strong> Arabic</li>
+                            <li><strong>Budget:</strong> $10/day</li>
+                            <li><strong>Bidding:</strong> Maximize Clicks</li>
+                            <li><strong>Networks:</strong> Google Search only</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>5️⃣ Create Ad Groups</h4>
+                        <ol style="line-height: 2; margin-left: 20px;">
+                            <li>Ad Group 1: "Core - Forex Education"</li>
+                            <li>Add 8 exact match keywords (see above)</li>
+                            <li>Create Responsive Search Ad (8 headlines, 4 descriptions)</li>
+                            <li>Set Final URL with tracking parameters</li>
+                        </ol>
+                    </div>
+
+                    <div class="card">
+                        <h4>6️⃣ Add Conversion Tracking</h4>
+                        <ol style="line-height: 2; margin-left: 20px;">
+                            <li>Tools → Conversions → + New Conversion</li>
+                            <li>Name: "Exness_Click_Egypt"</li>
+                            <li>Category: Lead</li>
+                            <li>Value: $50</li>
+                            <li>Copy tracking code to landing page</li>
+                        </ol>
+                    </div>
+
+                    <div class="card">
+                        <h4>7️⃣ Configure Exness Postback</h4>
+                        <ol style="line-height: 2; margin-left: 20px;">
+                            <li>Login: <a href="https://partners.exness.com" target="_blank">partners.exness.com</a></li>
+                            <li>Account → Marketing Network Integration</li>
+                            <li>Custom Platform → Create Postbacks</li>
+                            <li>Add URL: <code>https://tradeflow.blog/api/postback/exness</code></li>
+                            <li>Test: Click "Test all" button</li>
+                        </ol>
+                    </div>
+
+                    <div class="card">
+                        <h4>8️⃣ Launch & Monitor</h4>
+                        <ol style="line-height: 2; margin-left: 20px;">
+                            <li>Review all settings</li>
+                            <li>Enable campaign</li>
+                            <li>Monitor for 24 hours</li>
+                            <li>Check: Impressions, Clicks, CTR</li>
+                            <li>Adjust bids if needed</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="alert alert-info" style="margin-top: 40px;">
+                    <strong>📞 Need Help?</strong><br>
+                    <ul style="line-height: 2; margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Google Ads Support:</strong> 378-438-7658 (your number from screenshot)</li>
+                        <li><strong>Email:</strong> homebussguru@gmail.com</li>
+                        <li><strong>Exness Partners Support:</strong> partners@exness.com</li>
+                        <li><strong>This Guide:</strong> GOOGLE-ADS-EGYPT-CAMPAIGN-COMPLETE.html</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer style="background: #2d3748; color: white; padding: 40px; text-align: center;">
+            <h3 style="margin-bottom: 15px;">🇪🇬 Egypt Campaign Quick Reference</h3>
+            <p style="opacity: 0.9; margin-bottom: 20px;">
+                <strong>Target CPA:</strong> $1.50-2.00 |
+                <strong>Budget:</strong> $10/day → $20/day |
+                <strong>Language:</strong> Arabic RTL
+            </p>
+            <p style="font-size: 0.9em; opacity: 0.8;">
+                Last Updated: October 2025 | Version 1.0<br>
+                Always verify current Google Ads policies before launch
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✅ Copied to clipboard!');
+            }).catch(err => {
+                console.error('Copy failed:', err);
+            });
+        }
+
+        function copyKeywordsCSV() {
+            const csv = `Campaign,Ad Group,Keyword,Criterion Type
+EG_AR_Search_Core,[Core - Forex Education],[تعلم تداول الفوركس],Exact
+EG_AR_Search_Core,[Core - Forex Education],[دورة تداول الفوركس],Exact
+EG_AR_Search_Core,[Core - Forex Education],[تداول الفوركس للمبتدئين],Exact
+EG_AR_Search_Core,[Core - Forex Education],[تعليم الفوركس مصر],Exact
+EG_AR_Search_Core,[Core - Forex Education],[شرح تداول العملات],Exact
+EG_AR_Search_Core,[Core - Forex Education],[كيف اتعلم الفوركس],Exact
+EG_AR_Search_Core,[Core - Forex Education],[افضل منصة تداول فوركس],Exact
+EG_AR_Search_Core,[Core - Forex Education],[فتح حساب فوركس],Exact`;
+
+            copyToClipboard(csv);
+        }
+    </script>
+</body>
+</html>
