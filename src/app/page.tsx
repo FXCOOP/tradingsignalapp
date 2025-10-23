@@ -4,6 +4,7 @@ import { designSystem } from './design-system'
 import { useUser } from '@/contexts/UserContext'
 import { AuthModal } from '@/components/AuthModal'
 import { BrokerPromptModal } from '@/components/BrokerPromptModal'
+import { ExnessLink } from '@/components/ExnessLink'
 
 export default function HomePage() {
   // 🔐 Authentication
@@ -6595,13 +6596,12 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 display: 'flex',
                 justifyContent: 'center'
               }}>
-                <a
+                <ExnessLink
                   href={isMobile
                     ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
                     : "https://one.exnessonelink.com/a/c_8f0nxidtbt"
                   }
-                  target="_blank"
-                  rel="noopener noreferrer sponsored"
+                  source="broker_widget_1"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -6629,7 +6629,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                   }}
                 >
                   🚀 {isMobile ? 'Start Trading' : 'Start Trading with Exness'}
-                </a>
+                </ExnessLink>
               </div>
             </div>
 
@@ -6859,13 +6859,12 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         </div>
 
                         {/* CTA Button */}
-                        <a
+                        <ExnessLink
                           href={isMobile
                             ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
                             : "https://one.exnessonelink.com/a/c_8f0nxidtbt"
                           }
-                          target="_blank"
-                          rel="noopener noreferrer sponsored"
+                          source="broker_widget"
                           style={{
                             display: 'block',
                             width: '100%',
@@ -6898,7 +6897,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                           }}
                         >
                           {isMobile ? '🚀 Open Account Now' : '🚀 Open Account Now →'}
-                        </a>
+                        </ExnessLink>
                       </div>
                     </div>
                   </div>
@@ -7688,13 +7687,12 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         </div>
 
                         {/* CTA Button */}
-                        <a
+                        <ExnessLink
                           href={isMobile
                             ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
                             : "https://one.exnessonelink.com/a/c_8f0nxidtbt"
                           }
-                          target="_blank"
-                          rel="noopener noreferrer sponsored"
+                          source="broker_widget"
                           style={{
                             display: 'block',
                             width: '100%',
@@ -7727,7 +7725,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                           }}
                         >
                           {isMobile ? '🚀 Open Account Now' : '🚀 Open Account Now →'}
-                        </a>
+                        </ExnessLink>
                       </div>
                     </div>
                   </div>
@@ -8240,13 +8238,12 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         </div>
 
                         {/* CTA Button */}
-                        <a
+                        <ExnessLink
                           href={isMobile
                             ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
                             : "https://one.exnessonelink.com/a/c_8f0nxidtbt"
                           }
-                          target="_blank"
-                          rel="noopener noreferrer sponsored"
+                          source="broker_widget"
                           style={{
                             display: 'block',
                             width: '100%',
@@ -8279,7 +8276,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                           }}
                         >
                           {isMobile ? '🚀 Open Account Now' : '🚀 Open Account Now →'}
-                        </a>
+                        </ExnessLink>
                       </div>
                     </div>
                   </div>
@@ -10872,13 +10869,12 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                         </div>
 
                         {/* CTA Button */}
-                        <a
+                        <ExnessLink
                           href={isMobile
                             ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
                             : "https://one.exnessonelink.com/a/c_8f0nxidtbt"
                           }
-                          target="_blank"
-                          rel="noopener noreferrer sponsored"
+                          source="broker_widget"
                           style={{
                             display: 'block',
                             width: '100%',
@@ -10911,7 +10907,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                           }}
                         >
                           {isMobile ? '🚀 Open Account Now' : '🚀 Open Account Now →'}
-                        </a>
+                        </ExnessLink>
                       </div>
                     </div>
                   </div>
@@ -12790,13 +12786,12 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                         </div>
 
                         {/* CTA Button */}
-                        <a
+                        <ExnessLink
                           href={isMobile
                             ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
                             : "https://one.exnessonelink.com/a/c_8f0nxidtbt"
                           }
-                          target="_blank"
-                          rel="noopener noreferrer sponsored"
+                          source="broker_widget"
                           style={{
                             display: 'block',
                             width: '100%',
@@ -12829,7 +12824,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                           }}
                         >
                           {isMobile ? '🚀 Open Account Now' : '🚀 Open Account Now →'}
-                        </a>
+                        </ExnessLink>
                       </div>
                     </div>
                   </div>
@@ -12952,10 +12947,9 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                 gap: '20px'
               }}>
                 {/* Rotating Exness Banner */}
-                <a
+                <ExnessLink
                   href="https://one.exnessonelink.com/intl/en/a/c_8f0nxidtbt"
-                  target="_blank"
-                  rel="noopener noreferrer sponsored"
+                  source="education_sidebar_banner"
                   style={{
                     display: 'block',
                     transition: 'transform 0.3s ease',
@@ -12978,7 +12972,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                       transition: 'opacity 0.5s ease'
                     }}
                   />
-                </a>
+                </ExnessLink>
               </div>
             </aside>
           )}
@@ -12989,13 +12983,12 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
           marginTop: '48px',
           textAlign: 'center'
         }}>
-          <a
+          <ExnessLink
             href={isMobile
               ? "https://one.exnessonelink.com/intl/en/a/c_8f0nxidtbt?platform=mobile"
               : "https://one.exnessonelink.com/intl/en/a/c_8f0nxidtbt"
             }
-            target="_blank"
-            rel="noopener noreferrer sponsored"
+            source="footer_banner"
             style={{
               display: 'inline-block',
               transition: 'transform 0.3s ease',
@@ -13019,7 +13012,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                 boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
               }}
             />
-          </a>
+          </ExnessLink>
         </div>
       </main>
 

@@ -9,6 +9,8 @@ interface ExnessLinkProps {
   style?: React.CSSProperties
   rel?: string
   onClick?: () => void
+  onMouseEnter?: (e: React.MouseEvent<HTMLAnchorElement>) => void
+  onMouseLeave?: (e: React.MouseEvent<HTMLAnchorElement>) => void
 }
 
 /**
