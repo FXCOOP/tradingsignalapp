@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
     }
 
-    const { partner_id, click_url, user_email } = await request.json()
+    const { partner_id, click_url, user_email, click_source } = await request.json()
 
     // Get IP and User Agent
     const ip_address = request.headers.get('x-forwarded-for') ||
@@ -38,12 +38,13 @@ export async function POST(request: NextRequest) {
       .from('exness_clicks')
       .insert({
         user_id: decoded.userId,
-        user_email: user_email, // ✅ NEW: Store email for matching
+        user_email: user_email, // ✅ Store email for matching
         click_url,
         partner_id,
         ip_address,
         user_agent,
-        click_id // ✅ NEW: Unique identifier for this click
+        click_id, // ✅ Unique identifier for this click
+        click_source: click_source || 'unknown' // ✅ Track where click came from
       })
       .select()
       .single()
