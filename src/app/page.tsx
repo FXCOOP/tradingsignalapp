@@ -262,6 +262,7 @@ export default function HomePage() {
 
   // NEW: Popup Management Functions
   const showPopup = (type: string) => {
+    if (typeof window === 'undefined') return // SSR safety
     const dismissed = localStorage.getItem(`popup_dismissed_${type}_${new Date().toDateString()}`)
     if (!dismissed && !popupDismissed[type]) {
       setActivePopup(type)
@@ -269,6 +270,7 @@ export default function HomePage() {
   }
 
   const closePopup = (dontShowAgain: boolean = false) => {
+    if (typeof window === 'undefined') return // SSR safety
     if (dontShowAgain && activePopup) {
       localStorage.setItem(`popup_dismissed_${activePopup}_${new Date().toDateString()}`, 'true')
       setPopupDismissed(prev => ({ ...prev, [activePopup]: true }))
@@ -5363,7 +5365,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 }} />
                 <span style={{ color: designSystem.colors.success.main, fontWeight: designSystem.typography.weights.bold }}>LIVE</span>
                 <span style={{ color: designSystem.colors.neutral[400] }}>•</span>
-                <span>{currentTime.toLocaleTimeString()}</span>
+                <span>{currentTime ? currentTime.toLocaleTimeString() : '--:--:--'}</span>
               </div>
             )}
           </div>
