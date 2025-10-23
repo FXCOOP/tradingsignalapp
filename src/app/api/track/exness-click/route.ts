@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
     }
 
-    const { partner_id, click_url } = await request.json()
+    const { partner_id, click_url, user_email } = await request.json()
 
     // Get IP and User Agent
     const ip_address = request.headers.get('x-forwarded-for') ||
@@ -30,15 +30,20 @@ export async function POST(request: NextRequest) {
                       'unknown'
     const user_agent = request.headers.get('user-agent') || 'unknown'
 
+    // Generate unique click_id for tracking
+    const click_id = `click_${Date.now()}_${Math.random().toString(36).substring(7)}`
+
     // Record click in database
     const { data, error } = await supabaseAdmin
       .from('exness_clicks')
       .insert({
         user_id: decoded.userId,
+        user_email: user_email, // ✅ NEW: Store email for matching
         click_url,
         partner_id,
         ip_address,
-        user_agent
+        user_agent,
+        click_id // ✅ NEW: Unique identifier for this click
       })
       .select()
       .single()

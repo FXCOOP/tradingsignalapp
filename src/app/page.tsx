@@ -14458,7 +14458,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                 e.currentTarget.style.transform = 'translateY(0)'
                 e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)'
               }}
-              onClick={() => {
+              onClick={async () => {
                 // Track conversion
                 if (typeof gtag !== 'undefined') {
                   gtag('event', 'exness_click', {
