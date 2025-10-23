@@ -5084,17 +5084,17 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
       fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
       lineHeight: '1.6'
     }}>
-      {/* Enhanced Header with Glassmorphism */}
+      {/* Enhanced Header with Premium Glassmorphism */}
       <header style={{
-        background: 'rgba(255, 255, 255, 0.75)',
-        backdropFilter: 'blur(20px) saturate(180%)',
-        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+        background: 'rgba(255, 255, 255, 0.90)',
+        backdropFilter: 'blur(24px) saturate(200%)',
+        WebkitBackdropFilter: 'blur(24px) saturate(200%)',
         borderBottom: `1px solid ${designSystem.colors.neutral[200]}`,
-        padding: isMobile ? designSystem.spacing[4] + ' 0' : designSystem.spacing[5] + ' 0',
+        padding: isMobile ? '18px 0' : '20px 0',
         position: 'sticky',
         top: 0,
         zIndex: designSystem.zIndex.sticky,
-        boxShadow: designSystem.shadows.sm,
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05)',
         transition: designSystem.transitions.normal
       }}>
         <div style={{
@@ -5108,17 +5108,17 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: isMobile ? designSystem.spacing[2] : designSystem.spacing[3]
+            gap: isMobile ? '12px' : '16px'
           }}>
-            {/* Professional Logo */}
+            {/* Professional Logo with Enhanced Shadow */}
             {isMobile ? (
               <img
                 src="/logo-icon.svg"
                 alt="TradeFlow"
                 style={{
-                  height: '32px',
-                  width: '32px',
-                  filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))'
+                  height: '36px',
+                  width: '36px',
+                  filter: 'drop-shadow(0 2px 8px rgba(0, 82, 204, 0.2))'
                 }}
               />
             ) : (
@@ -5126,72 +5126,95 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 src="/logo.svg"
                 alt="TradeFlow"
                 style={{
-                  height: '40px',
+                  height: '44px',
                   width: 'auto',
-                  filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))'
+                  filter: 'drop-shadow(0 2px 8px rgba(0, 82, 204, 0.2))'
                 }}
               />
             )}
 
-            <span style={{
-              fontSize: designSystem.typography.sizes.tiny.mobile,
-              background: `linear-gradient(135deg, ${designSystem.colors.success.main} 0%, ${designSystem.colors.success.dark} 100%)`,
+            {/* Premium LIVE Indicator with Glow Effect */}
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              fontSize: isMobile ? '11px' : '12px',
+              background: designSystem.colors.success.gradient,
               color: 'white',
-              padding: isMobile ? `${designSystem.spacing[1]} ${designSystem.spacing[2]}` : `${designSystem.spacing[2]} ${designSystem.spacing[3]}`,
-              borderRadius: designSystem.borderRadius.full,
-              fontWeight: designSystem.typography.weights.bold,
-              boxShadow: designSystem.shadows.success,
-              animation: 'pulse 2s ease-in-out infinite'
-            }}>LIVE</span>
+              padding: isMobile ? '6px 12px' : '8px 16px',
+              borderRadius: '24px',
+              fontWeight: '700',
+              boxShadow: `${designSystem.shadows.success}, 0 0 20px rgba(0, 200, 83, 0.3)`,
+              letterSpacing: '0.5px',
+              textTransform: 'uppercase',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <span style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                background: 'white',
+                animation: 'pulse 2s ease-in-out infinite',
+                boxShadow: '0 0 8px rgba(255, 255, 255, 0.8)'
+              }}></span>
+              LIVE
+            </div>
           </div>
 
-          <div style={{ display: 'flex', gap: isMobile ? designSystem.spacing[2] : designSystem.spacing[4], alignItems: 'center' }}>
-            {/* Enhanced Notification Bell */}
+          <div style={{ display: 'flex', gap: isMobile ? '10px' : '14px', alignItems: 'center' }}>
+            {/* Premium Notification Bell */}
             <div style={{ position: 'relative' }}>
               <button style={{
-                background: `linear-gradient(135deg, ${designSystem.colors.neutral[700]} 0%, ${designSystem.colors.neutral[800]} 100%)`,
-                border: 'none',
-                color: designSystem.colors.neutral[50],
-                padding: designSystem.spacing[3],
-                borderRadius: designSystem.borderRadius.md,
+                background: 'white',
+                border: `2px solid ${designSystem.colors.neutral[200]}`,
+                color: designSystem.colors.neutral[700],
+                padding: isMobile ? '10px' : '12px',
+                borderRadius: '12px',
                 cursor: 'pointer',
-                fontSize: designSystem.typography.sizes.h4.mobile,
-                boxShadow: designSystem.shadows.md,
-                transition: designSystem.transitions.normal,
+                fontSize: '20px',
+                boxShadow: designSystem.shadows.sm,
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 transform: 'scale(1)',
-                minWidth: '44px',
-                minHeight: '44px',
+                minWidth: isMobile ? '42px' : '48px',
+                minHeight: isMobile ? '42px' : '48px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.1) translateY(-2px)'
-                e.currentTarget.style.boxShadow = designSystem.shadows.lg
+                e.currentTarget.style.transform = 'scale(1.08) translateY(-2px)'
+                e.currentTarget.style.borderColor = designSystem.colors.primary.main
+                e.currentTarget.style.boxShadow = designSystem.shadows.primary
+                e.currentTarget.style.background = designSystem.colors.primary.bg
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'scale(1)'
-                e.currentTarget.style.boxShadow = designSystem.shadows.md
+                e.currentTarget.style.borderColor = designSystem.colors.neutral[200]
+                e.currentTarget.style.boxShadow = designSystem.shadows.sm
+                e.currentTarget.style.background = 'white'
               }}>
                 🔔
               </button>
               {notifications.length > 0 && (
                 <div style={{
                   position: 'absolute',
-                  top: '-4px',
-                  right: '-4px',
-                  background: `linear-gradient(135deg, ${designSystem.colors.danger.main} 0%, ${designSystem.colors.danger.dark} 100%)`,
+                  top: '-6px',
+                  right: '-6px',
+                  background: designSystem.colors.danger.gradient,
                   color: 'white',
-                  borderRadius: designSystem.borderRadius.full,
-                  width: '20px',
-                  height: '20px',
-                  fontSize: designSystem.typography.sizes.caption.mobile,
+                  borderRadius: '20px',
+                  minWidth: '22px',
+                  height: '22px',
+                  padding: '0 6px',
+                  fontSize: '11px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontWeight: designSystem.typography.weights.bold,
-                  boxShadow: `0 2px 8px ${designSystem.colors.danger.bg}`,
-                  animation: 'bounce 1s ease infinite'
+                  fontWeight: '800',
+                  boxShadow: `${designSystem.shadows.danger}, 0 0 16px rgba(255, 23, 68, 0.4)`,
+                  animation: 'bounce 1s ease infinite',
+                  border: '2px solid white'
                 }}>
                   {notifications.length}
                 </div>
@@ -5257,36 +5280,40 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                   </div>
                 ) : (
                   // Login/Signup Buttons (not logged in)
-                  <div style={{ display: 'flex', gap: designSystem.spacing[2], alignItems: 'center' }}>
+                  <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                     <button
                       onClick={() => {
                         setAuthMode('login')
                         setShowAuthModal(true)
                       }}
                       style={{
-                        background: 'transparent',
+                        background: 'white',
                         border: `2px solid ${designSystem.colors.primary.main}`,
                         color: designSystem.colors.primary.main,
-                        padding: `${designSystem.spacing[3]} ${designSystem.spacing[4]}`,
-                        borderRadius: designSystem.borderRadius.md,
+                        padding: isMobile ? '10px 18px' : '12px 24px',
+                        borderRadius: '12px',
                         cursor: 'pointer',
-                        fontSize: designSystem.typography.sizes.bodySmall.mobile,
-                        fontWeight: designSystem.typography.weights.bold,
-                        transition: designSystem.transitions.normal,
-                        minHeight: '44px'
+                        fontSize: isMobile ? '14px' : '15px',
+                        fontWeight: '700',
+                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                        minHeight: isMobile ? '42px' : '48px',
+                        boxShadow: designSystem.shadows.sm,
+                        letterSpacing: '0.3px'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = designSystem.colors.primary.main
+                        e.currentTarget.style.background = designSystem.colors.primary.gradient
                         e.currentTarget.style.color = 'white'
-                        e.currentTarget.style.transform = 'scale(1.05)'
+                        e.currentTarget.style.transform = 'scale(1.05) translateY(-2px)'
+                        e.currentTarget.style.boxShadow = designSystem.shadows.primary
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'transparent'
+                        e.currentTarget.style.background = 'white'
                         e.currentTarget.style.color = designSystem.colors.primary.main
                         e.currentTarget.style.transform = 'scale(1)'
+                        e.currentTarget.style.boxShadow = designSystem.shadows.sm
                       }}
                     >
-                      {isMobile ? 'Sign In' : '🔑 Sign In'}
+                      {isMobile ? 'Sign In' : '🔐 Sign In'}
                     </button>
 
                     <button
@@ -5295,65 +5322,77 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         setShowAuthModal(true)
                       }}
                       style={{
-                        background: `linear-gradient(135deg, ${designSystem.colors.primary.main} 0%, ${designSystem.colors.primary.dark} 100%)`,
+                        background: designSystem.colors.primary.gradient,
                         border: 'none',
                         color: 'white',
-                        padding: `${designSystem.spacing[3]} ${designSystem.spacing[4]}`,
-                        borderRadius: designSystem.borderRadius.md,
+                        padding: isMobile ? '10px 18px' : '12px 24px',
+                        borderRadius: '12px',
                         cursor: 'pointer',
-                        fontSize: designSystem.typography.sizes.bodySmall.mobile,
-                        fontWeight: designSystem.typography.weights.bold,
-                        boxShadow: designSystem.shadows.primary,
-                        transition: designSystem.transitions.normal,
-                        minHeight: '44px'
+                        fontSize: isMobile ? '14px' : '15px',
+                        fontWeight: '700',
+                        boxShadow: `${designSystem.shadows.primary}, inset 0 1px 0 rgba(255, 255, 255, 0.2)`,
+                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                        minHeight: isMobile ? '42px' : '48px',
+                        letterSpacing: '0.3px',
+                        position: 'relative',
+                        overflow: 'hidden'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'scale(1.05)'
-                        e.currentTarget.style.boxShadow = designSystem.shadows.lg
+                        e.currentTarget.style.transform = 'scale(1.05) translateY(-2px)'
+                        e.currentTarget.style.boxShadow = `${designSystem.shadows.xl}, inset 0 1px 0 rgba(255, 255, 255, 0.2)`
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.transform = 'scale(1)'
-                        e.currentTarget.style.boxShadow = designSystem.shadows.primary
+                        e.currentTarget.style.boxShadow = `${designSystem.shadows.primary}, inset 0 1px 0 rgba(255, 255, 255, 0.2)`
                       }}
                     >
-                      {isMobile ? 'Sign Up' : '✨ Sign Up'}
+                      {isMobile ? 'Sign Up' : '✨ Sign Up FREE'}
                     </button>
                   </div>
                 )}
               </>
             )}
 
-            {/* Enhanced Language Selector */}
+            {/* Premium Language Selector */}
             <button
               onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
               style={{
-                background: `linear-gradient(135deg, ${designSystem.colors.neutral[50]} 0%, ${designSystem.colors.neutral[100]} 100%)`,
+                background: 'white',
                 border: `2px solid ${designSystem.colors.neutral[200]}`,
-                color: designSystem.colors.neutral[600],
-                padding: `${designSystem.spacing[3]} ${designSystem.spacing[4]}`,
-                borderRadius: designSystem.borderRadius.md,
+                color: designSystem.colors.neutral[700],
+                padding: isMobile ? '10px 14px' : '12px 18px',
+                borderRadius: '12px',
                 cursor: 'pointer',
-                fontSize: designSystem.typography.sizes.bodySmall.mobile,
-                fontWeight: designSystem.typography.weights.bold,
+                fontSize: isMobile ? '14px' : '15px',
+                fontWeight: '700',
                 boxShadow: designSystem.shadows.sm,
-                transition: designSystem.transitions.normal,
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 transform: 'scale(1)',
-                minHeight: '44px'
+                minHeight: isMobile ? '42px' : '48px',
+                minWidth: isMobile ? '90px' : '110px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px',
+                letterSpacing: '0.2px'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.05)'
+                e.currentTarget.style.transform = 'scale(1.05) translateY(-2px)'
                 e.currentTarget.style.borderColor = designSystem.colors.primary.main
                 e.currentTarget.style.color = designSystem.colors.primary.main
                 e.currentTarget.style.boxShadow = designSystem.shadows.primary
+                e.currentTarget.style.background = designSystem.colors.primary.bg
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'scale(1)'
                 e.currentTarget.style.borderColor = designSystem.colors.neutral[200]
-                e.currentTarget.style.color = designSystem.colors.neutral[600]
+                e.currentTarget.style.color = designSystem.colors.neutral[700]
                 e.currentTarget.style.boxShadow = designSystem.shadows.sm
+                e.currentTarget.style.background = 'white'
               }}
             >
-              {language === 'en' ? '🇦🇪 العربية' : '🇺🇸 English'}
+              <span style={{ fontSize: '18px' }}>{language === 'en' ? '🇦🇪' : '🇺🇸'}</span>
+              <span>{language === 'en' ? 'العربية' : 'English'}</span>
             </button>
 
             {/* Enhanced Live Indicator - Hide on mobile */}
@@ -6189,25 +6228,38 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                     }
                   }}
                   style={{
-                    background: `linear-gradient(135deg, ${designSystem.colors.neutral[50]} 0%, ${designSystem.colors.neutral[100]} 100%)`,
-                    border: `2px solid ${designSystem.colors.neutral[200]}`,
-                    borderRadius: designSystem.borderRadius.xl,
-                    padding: isMobile ? designSystem.spacing[6] : designSystem.spacing[8],
+                    background: 'linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%)',
+                    border: '3px solid',
+                    borderColor: signal.type === 'BUY' || signal.type === 'STRONG BUY'
+                      ? 'rgba(0, 200, 83, 0.15)'
+                      : 'rgba(255, 23, 68, 0.15)',
+                    borderRadius: '24px',
+                    padding: isMobile ? '24px' : '32px',
                     cursor: 'pointer',
-                    transition: designSystem.transitions.normal,
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                     position: 'relative',
-                    overflow: 'hidden',
-                    boxShadow: designSystem.shadows.sm
+                    overflow: 'visible',
+                    boxShadow: signal.type === 'BUY' || signal.type === 'STRONG BUY'
+                      ? '0 4px 20px rgba(0, 200, 83, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05)'
+                      : '0 4px 20px rgba(255, 23, 68, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05)'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = designSystem.colors.primary.main
-                    e.currentTarget.style.transform = 'translateY(-4px)'
-                    e.currentTarget.style.boxShadow = designSystem.shadows.xl
+                    e.currentTarget.style.borderColor = signal.type === 'BUY' || signal.type === 'STRONG BUY'
+                      ? designSystem.colors.success.main
+                      : designSystem.colors.danger.main
+                    e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)'
+                    e.currentTarget.style.boxShadow = signal.type === 'BUY' || signal.type === 'STRONG BUY'
+                      ? '0 20px 48px rgba(0, 200, 83, 0.2), 0 4px 12px rgba(0, 0, 0, 0.08)'
+                      : '0 20px 48px rgba(255, 23, 68, 0.2), 0 4px 12px rgba(0, 0, 0, 0.08)'
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = designSystem.colors.neutral[200]
-                    e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = designSystem.shadows.sm
+                    e.currentTarget.style.borderColor = signal.type === 'BUY' || signal.type === 'STRONG BUY'
+                      ? 'rgba(0, 200, 83, 0.15)'
+                      : 'rgba(255, 23, 68, 0.15)'
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)'
+                    e.currentTarget.style.boxShadow = signal.type === 'BUY' || signal.type === 'STRONG BUY'
+                      ? '0 4px 20px rgba(0, 200, 83, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05)'
+                      : '0 4px 20px rgba(255, 23, 68, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05)'
                   }}
                 >
                   {/* Signal Header */}
@@ -6239,27 +6291,36 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'flex-end',
-                      gap: designSystem.spacing[2]
+                      gap: '10px'
                     }}>
                       <div style={{
                         background: signal.type === 'BUY' || signal.type === 'STRONG BUY'
-                          ? `linear-gradient(135deg, ${designSystem.colors.success.main} 0%, ${designSystem.colors.success.dark} 100%)`
-                          : `linear-gradient(135deg, ${designSystem.colors.danger.main} 0%, ${designSystem.colors.danger.dark} 100%)`,
+                          ? designSystem.colors.success.gradient
+                          : designSystem.colors.danger.gradient,
                         color: 'white',
-                        padding: `${designSystem.spacing[2]} ${designSystem.spacing[3]}`,
-                        borderRadius: designSystem.borderRadius.sm,
-                        fontSize: designSystem.typography.sizes.bodySmall.mobile,
-                        fontWeight: designSystem.typography.weights.bold
+                        padding: '10px 20px',
+                        borderRadius: '12px',
+                        fontSize: '14px',
+                        fontWeight: '800',
+                        letterSpacing: '0.5px',
+                        textTransform: 'uppercase',
+                        boxShadow: signal.type === 'BUY' || signal.type === 'STRONG BUY'
+                          ? designSystem.shadows.success
+                          : designSystem.shadows.danger,
+                        border: '2px solid rgba(255, 255, 255, 0.3)',
+                        backdropFilter: 'blur(10px)'
                       }}>
                         {signal.type}
                       </div>
                       <div style={{
-                        background: getStatusColor(signal.status) + '20',
+                        background: getStatusColor(signal.status) + '15',
                         color: getStatusColor(signal.status),
-                        padding: `${designSystem.spacing[1]} ${designSystem.spacing[2]}`,
-                        borderRadius: designSystem.borderRadius.sm,
-                        fontSize: designSystem.typography.sizes.tiny.mobile,
-                        fontWeight: designSystem.typography.weights.semibold
+                        padding: '6px 14px',
+                        borderRadius: '8px',
+                        fontSize: '12px',
+                        fontWeight: '700',
+                        letterSpacing: '0.3px',
+                        border: `1.5px solid ${getStatusColor(signal.status)}30`
                       }}>
                         {signal.status}
                       </div>
@@ -6329,39 +6390,59 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                     </div>
                   </div>
 
-                  {/* Confidence Bar */}
-                  <div style={{ marginBottom: '16px' }}>
+                  {/* Enhanced Confidence Bar */}
+                  <div style={{ marginBottom: '20px' }}>
                     <div style={{
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      marginBottom: '8px'
+                      marginBottom: '10px'
                     }}>
-                      <span style={{ fontSize: '12px', color: '#64748b', fontWeight: '500' }}>Confidence</span>
-                      <span style={{ fontSize: '16px', fontWeight: '700', color: '#1e293b' }}>{signal.confidence}%</span>
+                      <span style={{
+                        fontSize: '13px',
+                        color: designSystem.colors.neutral[600],
+                        fontWeight: '600',
+                        letterSpacing: '0.3px'
+                      }}>Confidence Level</span>
+                      <span style={{
+                        fontSize: '18px',
+                        fontWeight: '800',
+                        color: designSystem.colors.neutral[900],
+                        letterSpacing: '-0.5px'
+                      }}>{signal.confidence}%</span>
                     </div>
                     <div style={{
                       width: '100%',
-                      height: '6px',
-                      background: '#334155',
-                      borderRadius: '3px',
-                      overflow: 'hidden'
+                      height: '8px',
+                      background: designSystem.colors.neutral[200],
+                      borderRadius: '8px',
+                      overflow: 'hidden',
+                      boxShadow: designSystem.shadows.inner
                     }}>
                       <div style={{
                         width: `${signal.confidence}%`,
                         height: '100%',
-                        background: Number(signal.confidence) >= 80 ? '#10b981' : Number(signal.confidence) >= 60 ? '#f59e0b' : '#ef4444',
-                        borderRadius: '3px',
-                        transition: 'width 0.8s ease'
+                        background: Number(signal.confidence) >= 80
+                          ? designSystem.colors.success.gradient
+                          : Number(signal.confidence) >= 60
+                          ? designSystem.colors.warning.gradient
+                          : designSystem.colors.danger.gradient,
+                        borderRadius: '8px',
+                        transition: 'width 1s cubic-bezier(0.4, 0, 0.2, 1)',
+                        boxShadow: Number(signal.confidence) >= 80
+                          ? '0 0 12px rgba(0, 200, 83, 0.4)'
+                          : Number(signal.confidence) >= 60
+                          ? '0 0 12px rgba(255, 160, 0, 0.4)'
+                          : '0 0 12px rgba(255, 23, 68, 0.4)'
                       }} />
                     </div>
                   </div>
 
-                  {/* Action Buttons */}
+                  {/* Premium Action Buttons */}
                   <div style={{
                     display: 'flex',
                     gap: '12px',
-                    marginTop: '16px'
+                    marginTop: '20px'
                   }}>
                     <button
                       onClick={(e) => {
@@ -6371,22 +6452,30 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                       style={{
                         flex: 1,
                         background: followedSignals.includes(signal.id)
-                          ? 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)'
-                          : 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+                          ? designSystem.colors.danger.gradient
+                          : designSystem.colors.primary.gradient,
                         color: 'white',
-                        border: 'none',
-                        padding: '10px 16px',
-                        borderRadius: '8px',
-                        fontSize: '13px',
-                        fontWeight: '600',
+                        border: '2px solid rgba(255, 255, 255, 0.2)',
+                        padding: '14px 20px',
+                        borderRadius: '12px',
+                        fontSize: '14px',
+                        fontWeight: '700',
                         cursor: 'pointer',
-                        transition: 'all 0.3s ease'
+                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                        boxShadow: followedSignals.includes(signal.id)
+                          ? designSystem.shadows.danger
+                          : designSystem.shadows.primary,
+                        letterSpacing: '0.3px'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'scale(1.02)'
+                        e.currentTarget.style.transform = 'scale(1.03) translateY(-2px)'
+                        e.currentTarget.style.boxShadow = designSystem.shadows.xl
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.transform = 'scale(1)'
+                        e.currentTarget.style.boxShadow = followedSignals.includes(signal.id)
+                          ? designSystem.shadows.danger
+                          : designSystem.shadows.primary
                       }}
                     >
                       {followedSignals.includes(signal.id) ? '🔔 Following' : '👁️ Follow Signal'}
@@ -6398,23 +6487,32 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         addNotification(`Copied ${signal.symbol} signal to clipboard`, 'success')
                       }}
                       style={{
-                        background: 'rgba(255, 255, 255, 0.1)',
-                        color: '#f8fafc',
-                        border: '1px solid #475569',
-                        padding: '10px 16px',
-                        borderRadius: '8px',
-                        fontSize: '13px',
-                        fontWeight: '600',
+                        background: 'white',
+                        color: designSystem.colors.neutral[700],
+                        border: `2px solid ${designSystem.colors.neutral[300]}`,
+                        padding: '14px 20px',
+                        borderRadius: '12px',
+                        fontSize: '14px',
+                        fontWeight: '700',
                         cursor: 'pointer',
-                        transition: 'all 0.3s ease'
+                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                        minWidth: '100px',
+                        boxShadow: designSystem.shadows.sm,
+                        letterSpacing: '0.3px'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = '#3b82f6'
-                        e.currentTarget.style.background = 'rgba(59, 130, 246, 0.2)'
+                        e.currentTarget.style.borderColor = designSystem.colors.primary.main
+                        e.currentTarget.style.background = designSystem.colors.primary.bg
+                        e.currentTarget.style.color = designSystem.colors.primary.main
+                        e.currentTarget.style.transform = 'scale(1.03) translateY(-2px)'
+                        e.currentTarget.style.boxShadow = designSystem.shadows.md
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = '#475569'
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'
+                        e.currentTarget.style.borderColor = designSystem.colors.neutral[300]
+                        e.currentTarget.style.background = 'white'
+                        e.currentTarget.style.color = designSystem.colors.neutral[700]
+                        e.currentTarget.style.transform = 'scale(1)'
+                        e.currentTarget.style.boxShadow = designSystem.shadows.sm
                       }}
                     >
                       📋 Copy

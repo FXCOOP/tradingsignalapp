@@ -1,61 +1,80 @@
-// TradeFlow Design System
+// TradeFlow Design System - Enhanced Professional Trading Platform
 // Unified design tokens for consistent UX across the application
 
 export const designSystem = {
   colors: {
-    // Primary Brand Colors
+    // Primary Brand Colors - Financial Blue Theme
     primary: {
-      main: '#2563eb',
-      light: '#3b82f6',
-      dark: '#1e40af',
-      bg: '#eff6ff'
+      main: '#0052CC',       // Deep professional blue
+      light: '#0065FF',      // Vibrant blue
+      dark: '#003D99',       // Dark blue
+      bg: '#E8F2FF',         // Light blue background
+      hover: '#0047B3',      // Hover state
+      gradient: 'linear-gradient(135deg, #0052CC 0%, #0065FF 100%)'
     },
 
-    // Status Colors
+    // Status Colors - Trading Specific
     success: {
-      main: '#10b981',
-      light: '#34d399',
-      dark: '#059669',
-      bg: 'rgba(16, 185, 129, 0.12)'
+      main: '#00C853',       // Professional green
+      light: '#5EFC82',      // Light green
+      dark: '#009624',       // Dark green
+      bg: 'rgba(0, 200, 83, 0.08)',
+      gradient: 'linear-gradient(135deg, #00C853 0%, #00E676 100%)'
     },
     danger: {
-      main: '#ef4444',
-      light: '#f87171',
-      dark: '#dc2626',
-      bg: 'rgba(239, 68, 68, 0.12)'
+      main: '#FF1744',       // Professional red
+      light: '#FF5252',      // Light red
+      dark: '#D50000',       // Dark red
+      bg: 'rgba(255, 23, 68, 0.08)',
+      gradient: 'linear-gradient(135deg, #FF1744 0%, #F50057 100%)'
     },
     warning: {
-      main: '#f59e0b',
-      light: '#fbbf24',
-      dark: '#d97706',
-      bg: 'rgba(245, 158, 11, 0.12)'
+      main: '#FFA000',       // Professional orange
+      light: '#FFCA28',      // Light orange
+      dark: '#FF6F00',       // Dark orange
+      bg: 'rgba(255, 160, 0, 0.08)',
+      gradient: 'linear-gradient(135deg, #FFA000 0%, #FFB300 100%)'
     },
     info: {
-      main: '#8b5cf6',
-      light: '#a78bfa',
-      dark: '#7c3aed',
-      bg: 'rgba(139, 92, 246, 0.12)'
+      main: '#2962FF',       // Information blue
+      light: '#448AFF',      // Light info blue
+      dark: '#0039CB',       // Dark info blue
+      bg: 'rgba(41, 98, 255, 0.08)',
+      gradient: 'linear-gradient(135deg, #2962FF 0%, #448AFF 100%)'
     },
 
-    // Neutral Grays
+    // Neutral Grays - Enhanced contrast
     neutral: {
-      50: '#f8fafc',
-      100: '#f1f5f9',
-      200: '#e2e8f0',
-      300: '#cbd5e1',
-      400: '#94a3b8',
-      500: '#64748b',
-      600: '#475569',
-      700: '#334155',
-      800: '#1e293b',
-      900: '#0f172a'
+      0: '#FFFFFF',          // Pure white
+      50: '#F8FAFC',         // Almost white
+      100: '#F1F5F9',        // Very light gray
+      200: '#E2E8F0',        // Light gray
+      300: '#CBD5E1',        // Medium-light gray
+      400: '#94A3B8',        // Medium gray
+      500: '#64748B',        // Gray
+      600: '#475569',        // Dark-medium gray
+      700: '#334155',        // Dark gray
+      800: '#1E293B',        // Very dark gray
+      900: '#0F172A',        // Almost black
+      950: '#020617'         // Near black
     },
 
-    // Accent (for broker/premium features)
+    // Accent (for broker/premium features) - Enhanced gold
     accent: {
       gold: '#FFD700',
-      goldLight: '#FFA500',
-      goldDark: '#DAA520'
+      goldLight: '#FFE55C',
+      goldDark: '#E6C200',
+      goldGradient: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
+      goldShadow: '0 8px 32px rgba(255, 215, 0, 0.35)'
+    },
+
+    // Background gradients
+    backgrounds: {
+      primary: 'linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)',
+      secondary: 'linear-gradient(135deg, #F8FAFC 0%, #E8F2FF 100%)',
+      dark: 'linear-gradient(180deg, #1E293B 0%, #0F172A 100%)',
+      card: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%)',
+      glassmorphism: 'rgba(255, 255, 255, 0.85)'
     }
   },
 
@@ -148,19 +167,30 @@ export const designSystem = {
     full: '9999px'
   },
 
-  // Shadows
+  // Shadows - Professional elevation system
   shadows: {
     none: 'none',
+    xs: '0 1px 2px rgba(0, 0, 0, 0.05)',
     sm: '0 2px 8px rgba(0, 0, 0, 0.08)',
-    md: '0 4px 12px rgba(0, 0, 0, 0.1)',
-    lg: '0 8px 30px rgba(0, 0, 0, 0.12)',
-    xl: '0 20px 60px rgba(0, 0, 0, 0.15)',
-    '2xl': '0 25px 80px rgba(0, 0, 0, 0.2)',
+    md: '0 4px 16px rgba(0, 0, 0, 0.1)',
+    lg: '0 8px 32px rgba(0, 0, 0, 0.12)',
+    xl: '0 16px 48px rgba(0, 0, 0, 0.15)',
+    '2xl': '0 24px 64px rgba(0, 0, 0, 0.18)',
+    '3xl': '0 32px 80px rgba(0, 0, 0, 0.22)',
 
-    // Colored shadows for CTAs
-    primary: '0 4px 12px rgba(37, 99, 235, 0.3)',
-    success: '0 4px 12px rgba(16, 185, 129, 0.3)',
-    gold: '0 4px 12px rgba(255, 215, 0, 0.4)'
+    // Colored shadows for CTAs and signal cards
+    primary: '0 8px 24px rgba(0, 82, 204, 0.25)',
+    success: '0 8px 24px rgba(0, 200, 83, 0.25)',
+    danger: '0 8px 24px rgba(255, 23, 68, 0.25)',
+    gold: '0 8px 32px rgba(255, 215, 0, 0.4)',
+
+    // Card-specific shadows
+    card: '0 2px 16px rgba(0, 0, 0, 0.06)',
+    cardHover: '0 12px 40px rgba(0, 0, 0, 0.15)',
+
+    // Inner shadows for depth
+    inner: 'inset 0 2px 4px rgba(0, 0, 0, 0.06)',
+    innerLg: 'inset 0 4px 8px rgba(0, 0, 0, 0.1)'
   },
 
   // Breakpoints
