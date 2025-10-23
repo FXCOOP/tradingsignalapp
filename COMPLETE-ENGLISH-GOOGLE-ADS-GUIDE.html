@@ -1,0 +1,2324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete English Google Ads Guide - Search + Display Campaigns</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        header .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
+        header .meta {
+            font-size: 1em;
+            opacity: 0.85;
+            margin-top: 15px;
+        }
+
+        nav {
+            background: #2c3e50;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+        nav li { margin: 0; }
+        nav a {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        nav a:hover { background: #34495e; }
+
+        .content { padding: 40px; }
+
+        section {
+            margin-bottom: 60px;
+            scroll-margin-top: 60px;
+        }
+
+        .step {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 6px;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5em;
+            margin-right: 20px;
+        }
+
+        h2 {
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        h2 .icon {
+            font-size: 1.2em;
+        }
+
+        h3 {
+            font-size: 1.6em;
+            color: #34495e;
+            margin: 30px 0 20px 0;
+            padding-left: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        h4 {
+            font-size: 1.3em;
+            color: #555;
+            margin: 25px 0 15px 0;
+            font-weight: 600;
+        }
+
+        .info-box, .warning-box, .success-box, .danger-box {
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            border-left: 5px solid;
+        }
+
+        .info-box {
+            background: #e8f4f8;
+            border-color: #3498db;
+        }
+
+        .warning-box {
+            background: #fff8e1;
+            border-color: #f39c12;
+        }
+
+        .success-box {
+            background: #d5f4e6;
+            border-color: #27ae60;
+        }
+
+        .danger-box {
+            background: #fee;
+            border-color: #e74c3c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        thead {
+            background: #667eea;
+            color: white;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .code {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .keyword-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .keyword-item {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 4px;
+            border-left: 3px solid #667eea;
+            font-size: 0.9em;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            padding-left: 35px;
+            position: relative;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .checklist li:before {
+            content: '☐';
+            position: absolute;
+            left: 0;
+            font-size: 1.4em;
+            color: #667eea;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 3px;
+        }
+
+        .badge-primary { background: #667eea; color: white; }
+        .badge-success { background: #27ae60; color: white; }
+        .badge-warning { background: #f39c12; color: white; }
+        .badge-danger { background: #e74c3c; color: white; }
+        .badge-info { background: #3498db; color: white; }
+
+        .campaign-card {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .campaign-card h3 {
+            margin-top: 0;
+            border: none;
+            padding: 0;
+            color: #667eea;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 25px;
+        }
+
+        .card h4 {
+            margin-top: 0;
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .toc ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .toc li {
+            margin-bottom: 8px;
+        }
+
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 0; }
+            header { padding: 30px 20px; }
+            header h1 { font-size: 2em; }
+            .content { padding: 20px; }
+            nav ul { flex-direction: column; }
+            .grid-2 { grid-template-columns: 1fr; }
+            table { font-size: 0.85em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Complete Google Ads Guide</h1>
+            <p class="subtitle">English Campaign - Search + Display</p>
+            <p class="meta">200+ Keywords | Step-by-Step Setup | Ready to Launch</p>
+            <p class="meta" style="font-size: 0.9em; margin-top: 10px;">
+                <span class="badge badge-success">UAE</span>
+                <span class="badge badge-success">South Africa</span>
+                <span class="badge badge-success">Kenya</span>
+                <span class="badge badge-success">Nigeria</span>
+                <span class="badge badge-success">Global English</span>
+            </p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#keywords">Keywords</a></li>
+                <li><a href="#search-campaign">Search Campaign</a></li>
+                <li><a href="#display-campaign">Display Campaign</a></li>
+                <li><a href="#ad-copy">Ad Copy</a></li>
+                <li><a href="#tracking">Tracking</a></li>
+                <li><a href="#launch">Launch</a></li>
+                <li><a href="#optimization">Optimization</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+
+            <!-- TABLE OF CONTENTS -->
+            <div class="toc">
+                <h3>📋 Table of Contents</h3>
+                <ul>
+                    <li><strong>Part 1: Overview</strong>
+                        <ul style="margin-left: 20px; margin-top: 5px;">
+                            <li><a href="#overview">Campaign Strategy & Budget</a></li>
+                            <li><a href="#target-markets">Target Markets</a></li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Part 2: Keywords (200+ Keywords)</strong>
+                        <ul style="margin-left: 20px; margin-top: 5px;">
+                            <li><a href="#keyword-themes">Keyword Themes</a></li>
+                            <li><a href="#forex-education">Forex Education Keywords (50+)</a></li>
+                            <li><a href="#trading-education">Trading Education Keywords (40+)</a></li>
+                            <li><a href="#gold-trading">Gold Trading Keywords (25+)</a></li>
+                            <li><a href="#market-analysis">Market Analysis Keywords (30+)</a></li>
+                            <li><a href="#technical-analysis">Technical Analysis Keywords (25+)</a></li>
+                            <li><a href="#broker-keywords">Broker & Platform Keywords (20+)</a></li>
+                            <li><a href="#negative-keywords">Negative Keywords (50+)</a></li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Part 3: Search Campaign Setup</strong>
+                        <ul style="margin-left: 20px; margin-top: 5px;">
+                            <li><a href="#search-step1">Step 1: Account Setup</a></li>
+                            <li><a href="#search-step2">Step 2: Campaign Settings</a></li>
+                            <li><a href="#search-step3">Step 3: Ad Groups</a></li>
+                            <li><a href="#search-step4">Step 4: Keywords</a></li>
+                            <li><a href="#search-step5">Step 5: Ad Copy</a></li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Part 4: Display Campaign Setup</strong>
+                        <ul style="margin-left: 20px; margin-top: 5px;">
+                            <li><a href="#display-step1">Step 1: Display Campaign Settings</a></li>
+                            <li><a href="#display-step2">Step 2: Targeting Options</a></li>
+                            <li><a href="#display-step3">Step 3: Display Ads</a></li>
+                            <li><a href="#display-step4">Step 4: Placements & Exclusions</a></li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Part 5: Ad Copy & Extensions</strong>
+                        <ul style="margin-left: 20px; margin-top: 5px;">
+                            <li><a href="#rsa-ads">Responsive Search Ads</a></li>
+                            <li><a href="#extensions">Ad Extensions</a></li>
+                            <li><a href="#display-ads">Display Ad Creative</a></li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Part 6: Tracking & Launch</strong>
+                        <ul style="margin-left: 20px; margin-top: 5px;">
+                            <li><a href="#conversion-tracking">Conversion Tracking</a></li>
+                            <li><a href="#launch-checklist">Pre-Launch Checklist</a></li>
+                            <li><a href="#week1">First Week Actions</a></li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Part 7: Optimization</strong>
+                        <ul style="margin-left: 20px; margin-top: 5px;">
+                            <li><a href="#daily-checks">Daily Optimization Tasks</a></li>
+                            <li><a href="#weekly-review">Weekly Review</a></li>
+                            <li><a href="#scaling">Scaling Strategy</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- PART 1: OVERVIEW -->
+            <section id="overview">
+                <h2><span class="icon">🎯</span> Campaign Overview</h2>
+
+                <div class="info-box">
+                    <h3 style="margin-top: 0; border: none; padding: 0; margin-bottom: 15px;">📊 Campaign Strategy</h3>
+                    <p><strong>Objective:</strong> Generate high-quality leads for forex education platform and drive partner conversions (Exness affiliate clicks)</p>
+                    <p style="margin-top: 10px;"><strong>Approach:</strong> Dual campaign strategy combining Search (high-intent) and Display (awareness + remarketing)</p>
+                    <p style="margin-top: 10px;"><strong>Geographic Focus:</strong> English-speaking markets with high forex trading interest</p>
+                </div>
+
+                <h3 id="target-markets">Target Markets</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Market</th>
+                            <th>Population</th>
+                            <th>Forex Interest</th>
+                            <th>Avg CPC</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🇦🇪 <strong>UAE</strong></td>
+                            <td>10M</td>
+                            <td>Very High</td>
+                            <td>$0.40 - $0.80</td>
+                            <td><span class="badge badge-danger">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td>🇿🇦 <strong>South Africa</strong></td>
+                            <td>60M</td>
+                            <td>High</td>
+                            <td>$0.15 - $0.35</td>
+                            <td><span class="badge badge-warning">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td>🇰🇪 <strong>Kenya</strong></td>
+                            <td>54M</td>
+                            <td>Medium-High</td>
+                            <td>$0.10 - $0.25</td>
+                            <td><span class="badge badge-warning">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td>🇳🇬 <strong>Nigeria</strong></td>
+                            <td>220M</td>
+                            <td>High</td>
+                            <td>$0.12 - $0.30</td>
+                            <td><span class="badge badge-warning">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td>🌍 <strong>Other English Markets</strong></td>
+                            <td>-</td>
+                            <td>Varies</td>
+                            <td>$0.20 - $0.50</td>
+                            <td><span class="badge badge-info">LOW</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Budget Breakdown</h3>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>💰 Search Campaign Budget</h4>
+                        <table style="margin-top: 15px;">
+                            <tr><td><strong>Starting Budget:</strong></td><td>$15/day ($450/month)</td></tr>
+                            <tr><td><strong>Scale Target:</strong></td><td>$30-50/day ($900-1,500/month)</td></tr>
+                            <tr><td><strong>Allocation:</strong></td><td>70% of total spend</td></tr>
+                            <tr><td><strong>Focus:</strong></td><td>High-intent keywords</td></tr>
+                        </table>
+                    </div>
+
+                    <div class="card">
+                        <h4>🎨 Display Campaign Budget</h4>
+                        <table style="margin-top: 15px;">
+                            <tr><td><strong>Starting Budget:</strong></td><td>$5/day ($150/month)</td></tr>
+                            <tr><td><strong>Scale Target:</strong></td><td>$10-20/day ($300-600/month)</td></tr>
+                            <tr><td><strong>Allocation:</strong></td><td>30% of total spend</td></tr>
+                            <tr><td><strong>Focus:</strong></td><td>Awareness + remarketing</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <h4 style="margin-top: 0;">✅ Expected Results (Month 1)</h4>
+                    <ul style="margin-top: 15px;">
+                        <li><strong>Total Spend:</strong> $600 (Search $450 + Display $150)</li>
+                        <li><strong>Search Clicks:</strong> 1,000 - 2,250 clicks (avg CPC $0.20-$0.45)</li>
+                        <li><strong>Display Impressions:</strong> 150,000 - 300,000 impressions</li>
+                        <li><strong>Display Clicks:</strong> 300 - 1,500 clicks (avg CPC $0.10-$0.50)</li>
+                        <li><strong>Total Conversions:</strong> 30 - 100 partner clicks</li>
+                        <li><strong>Cost Per Conversion:</strong> $6 - $20</li>
+                        <li><strong>Est. Revenue:</strong> $1,500 - $5,000 (at $50/conversion)</li>
+                        <li><strong>Est. Profit:</strong> $900 - $4,400</li>
+                        <li><strong>ROI:</strong> 1.5:1 to 7.3:1</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- PART 2: KEYWORDS -->
+            <section id="keywords">
+                <h2><span class="icon">🔑</span> Complete Keyword Library (200+ Keywords)</h2>
+
+                <div class="info-box">
+                    <strong>📝 Keyword Strategy:</strong>
+                    <p style="margin-top: 10px;">All keywords focus on <strong>education</strong> to maintain Google Ads policy compliance. Avoid direct "signals" or "guaranteed profit" terms.</p>
+                    <p style="margin-top: 10px;"><strong>Match Types:</strong></p>
+                    <ul style="margin-top: 10px;">
+                        <li><strong>[exact match]</strong> - Highest control, exact search term only</li>
+                        <li><strong>"phrase match"</strong> - Medium control, includes phrase + close variations</li>
+                        <li><strong>broad match</strong> - Widest reach, related searches</li>
+                    </ul>
+                </div>
+
+                <h3 id="keyword-themes">Keyword Themes Overview</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Theme</th>
+                            <th>Keywords Count</th>
+                            <th>Intent Level</th>
+                            <th>Avg CPC</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Forex Education</strong></td>
+                            <td>50+</td>
+                            <td>High</td>
+                            <td>$0.30 - $0.60</td>
+                            <td><span class="badge badge-danger">CRITICAL</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Trading Education</strong></td>
+                            <td>40+</td>
+                            <td>High</td>
+                            <td>$0.25 - $0.50</td>
+                            <td><span class="badge badge-danger">CRITICAL</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gold Trading</strong></td>
+                            <td>25+</td>
+                            <td>High</td>
+                            <td>$0.35 - $0.70</td>
+                            <td><span class="badge badge-warning">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Market Analysis</strong></td>
+                            <td>30+</td>
+                            <td>Medium</td>
+                            <td>$0.20 - $0.45</td>
+                            <td><span class="badge badge-warning">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Technical Analysis</strong></td>
+                            <td>25+</td>
+                            <td>Medium</td>
+                            <td>$0.25 - $0.50</td>
+                            <td><span class="badge badge-info">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Broker & Platform</strong></td>
+                            <td>20+</td>
+                            <td>Medium-High</td>
+                            <td>$0.30 - $0.65</td>
+                            <td><span class="badge badge-info">MEDIUM</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- FOREX EDUCATION KEYWORDS -->
+                <h3 id="forex-education">1. Forex Education Keywords (50+)</h3>
+
+                <h4>Core Forex Learning (Exact Match)</h4>
+                <div class="code">[learn forex trading]
+[forex education]
+[forex trading course]
+[forex training]
+[how to trade forex]
+[forex course for beginners]
+[online forex course]
+[forex trading lessons]
+[forex learning platform]
+[best forex course]</div>
+
+                <h4>Geo-Targeted Forex Education (Phrase Match)</h4>
+                <div class="code">"learn forex trading uae"
+"forex education dubai"
+"forex course south africa"
+"forex training kenya"
+"learn forex trading nigeria"
+"forex education johannesburg"
+"forex course nairobi"
+"forex training cape town"
+"learn forex trading lagos"
+"forex education abu dhabi"</div>
+
+                <h4>Beginner-Focused Forex (Phrase Match)</h4>
+                <div class="code">"forex for beginners"
+"learn forex from scratch"
+"beginner forex course"
+"forex basics course"
+"introduction to forex trading"
+"forex 101"
+"forex trading fundamentals"
+"how to start forex trading"
+"forex trading for dummies"
+"simple forex course"</div>
+
+                <h4>Online Forex Education (Phrase Match)</h4>
+                <div class="code">"online forex education"
+"forex online course"
+"learn forex online"
+"virtual forex training"
+"forex video course"
+"forex webinar"
+"forex online lessons"
+"forex elearning"
+"forex distance learning"
+"forex online academy"</div>
+
+                <h4>Broad Match Forex Keywords</h4>
+                <div class="code">forex education
+forex training
+forex course
+learn forex
+forex lessons
+forex academy
+forex school</div>
+
+                <!-- TRADING EDUCATION KEYWORDS -->
+                <h3 id="trading-education">2. Trading Education Keywords (40+)</h3>
+
+                <h4>General Trading Education (Exact Match)</h4>
+                <div class="code">[learn to trade]
+[trading education]
+[trading course]
+[online trading course]
+[trading lessons]
+[how to trade online]
+[stock trading course]
+[day trading course]
+[trading for beginners]
+[trading academy]</div>
+
+                <h4>Trading Skills & Strategies (Phrase Match)</h4>
+                <div class="code">"learn trading strategies"
+"trading psychology course"
+"risk management trading"
+"money management trading"
+"trading discipline course"
+"profitable trading strategies"
+"trading plan development"
+"trading journal course"
+"position sizing course"
+"trading risk control"</div>
+
+                <h4>Specific Trading Types (Phrase Match)</h4>
+                <div class="code">"swing trading course"
+"day trading education"
+"scalping trading course"
+"position trading lessons"
+"trend trading course"
+"breakout trading strategy"
+"range trading course"
+"momentum trading education"</div>
+
+                <h4>Trading Tools & Platforms (Phrase Match)</h4>
+                <div class="code">"learn metatrader"
+"trading platform tutorial"
+"mt4 course"
+"mt5 training"
+"trading software course"
+"charting software tutorial"
+"trading tools education"
+"how to use trading platform"</div>
+
+                <h4>Broad Match Trading Keywords</h4>
+                <div class="code">trading education
+trading course
+learn trading
+trading lessons
+trading training
+trading school</div>
+
+                <!-- GOLD TRADING KEYWORDS -->
+                <h3 id="gold-trading">3. Gold Trading Keywords (25+)</h3>
+
+                <h4>Gold Trading Education (Exact Match)</h4>
+                <div class="code">[learn gold trading]
+[gold trading course]
+[gold trading education]
+[how to trade gold]
+[gold trading for beginners]</div>
+
+                <h4>Gold Market Analysis (Phrase Match)</h4>
+                <div class="code">"gold market analysis"
+"gold price analysis"
+"gold trading strategies"
+"xau usd trading"
+"gold forex trading"
+"gold trading signals education"
+"gold chart analysis"
+"gold trading patterns"
+"gold market forecast education"
+"gold trading indicators"</div>
+
+                <h4>Gold Trading Specifics (Phrase Match)</h4>
+                <div class="code">"spot gold trading"
+"gold futures course"
+"gold cfd trading"
+"gold commodity trading"
+"gold day trading"
+"gold swing trading"
+"gold scalping strategy"
+"gold trading hours"
+"gold trading tips"
+"gold investment course"</div>
+
+                <!-- MARKET ANALYSIS KEYWORDS -->
+                <h3 id="market-analysis">4. Market Analysis Keywords (30+)</h3>
+
+                <h4>Market Analysis Education (Exact Match)</h4>
+                <div class="code">[market analysis course]
+[forex analysis education]
+[learn market analysis]
+[financial market analysis]
+[trading analysis tools]</div>
+
+                <h4>Fundamental Analysis (Phrase Match)</h4>
+                <div class="code">"fundamental analysis course"
+"economic calendar trading"
+"news trading course"
+"central bank analysis"
+"interest rate trading"
+"economic indicators course"
+"gdp trading education"
+"inflation trading strategy"
+"unemployment data trading"
+"nfp trading course"</div>
+
+                <h4>Market Analysis Tools (Phrase Match)</h4>
+                <div class="code">"market analysis software"
+"trading analysis tools"
+"market sentiment analysis"
+"correlation analysis trading"
+"volatility analysis course"
+"market structure education"
+"price action analysis"
+"volume analysis trading"
+"market depth analysis"
+"order flow analysis course"</div>
+
+                <h4>Specific Market Analysis (Phrase Match)</h4>
+                <div class="code">"forex market analysis"
+"commodity market analysis"
+"stock market analysis course"
+"cryptocurrency analysis education"
+"metals market analysis"
+"energy market trading"</div>
+
+                <!-- TECHNICAL ANALYSIS KEYWORDS -->
+                <h3 id="technical-analysis">5. Technical Analysis Keywords (25+)</h3>
+
+                <h4>Technical Analysis Education (Exact Match)</h4>
+                <div class="code">[technical analysis course]
+[learn technical analysis]
+[technical trading course]
+[chart analysis course]
+[candlestick course]</div>
+
+                <h4>Chart Patterns (Phrase Match)</h4>
+                <div class="code">"learn chart patterns"
+"candlestick patterns course"
+"support resistance course"
+"trend lines education"
+"head and shoulders pattern"
+"double top bottom trading"
+"triangle patterns course"
+"flag patterns trading"
+"wedge patterns education"
+"engulfing candle course"</div>
+
+                <h4>Technical Indicators (Phrase Match)</h4>
+                <div class="code">"moving average course"
+"rsi indicator course"
+"macd trading education"
+"bollinger bands course"
+"fibonacci trading course"
+"stochastic oscillator education"
+"ichimoku cloud course"
+"pivot points trading"
+"atr indicator course"
+"volume indicators education"</div>
+
+                <!-- BROKER & PLATFORM KEYWORDS -->
+                <h3 id="broker-keywords">6. Broker & Platform Keywords (20+)</h3>
+
+                <div class="warning-box">
+                    <strong>⚠️ Competitor Bidding Warning:</strong> Only use competitor brand terms if you have explicit permission. Most brands don't allow affiliates to bid on their names. These keywords are for <strong>informational comparison content only</strong>.
+                </div>
+
+                <h4>Broker Education (Generic - Safe)</h4>
+                <div class="code">"how to choose forex broker"
+"best forex broker comparison"
+"forex broker reviews education"
+"regulated forex brokers"
+"forex broker guide"
+"broker selection criteria"
+"trustworthy forex brokers"
+"forex broker features"
+"broker spreads comparison"
+"forex broker fees guide"</div>
+
+                <h4>Trading Account Education</h4>
+                <div class="code">"forex demo account"
+"practice trading account"
+"trading simulator"
+"paper trading account"
+"how to open trading account"
+"trading account types"
+"micro account forex"
+"cent account trading"
+"islamic forex account"
+"managed forex account education"</div>
+
+                <!-- NEGATIVE KEYWORDS -->
+                <h3 id="negative-keywords">7. Negative Keywords (50+) - CRITICAL</h3>
+
+                <div class="danger-box">
+                    <strong>🚨 MUST ADD THESE:</strong> Negative keywords prevent your ads from showing for unwanted searches. This saves money and improves campaign performance.
+                </div>
+
+                <h4>Jobs & Employment</h4>
+                <div class="code">job
+jobs
+career
+careers
+employment
+hiring
+recruit
+recruiting
+vacancy
+vacancies
+apply
+cv
+resume
+work from home
+remote work
+freelance
+internship
+part time
+full time
+salary</div>
+
+                <h4>Free Downloads & Piracy</h4>
+                <div class="code">free download
+pdf download
+torrent
+crack
+cracked
+nulled
+pirate
+pirated
+warez
+keygen
+serial
+license key
+activation key
+free ebook
+free pdf
+free course download</div>
+
+                <h4>Scams & Complaints</h4>
+                <div class="code">scam
+scams
+fraud
+fraudulent
+fake
+ripoff
+rip off
+complaint
+complaints
+review
+reviews
+lawsuit
+cheating
+ponzi
+pyramid scheme
+illegal
+banned</div>
+
+                <h4>Apps & Software Downloads</h4>
+                <div class="code">app
+apps
+apk
+android
+ios
+iphone
+ipad
+google play
+app store
+download app
+mobile app
+install app
+application</div>
+
+                <h4>Gambling & Games</h4>
+                <div class="code">game
+games
+betting
+bet
+casino
+poker
+lottery
+slots
+gambling
+gamble
+binary options
+binomo
+iq option
+olymp trade</div>
+
+                <h4>Wrong Intent</h4>
+                <div class="code">what is
+definition
+wiki
+wikipedia
+history of
+meaning
+images
+pictures
+video
+youtube
+news
+meme
+joke
+funny</div>
+
+                <div class="success-box" style="margin-top: 30px;">
+                    <h4 style="margin-top: 0;">✅ Keyword Library Complete</h4>
+                    <p><strong>Total Keywords:</strong> 200+ keywords across 6 themes</p>
+                    <p style="margin-top: 10px;"><strong>Total Negative Keywords:</strong> 50+ negative terms to block bad traffic</p>
+                    <p style="margin-top: 10px;"><strong>All keywords are:</strong></p>
+                    <ul style="margin-top: 10px;">
+                        <li>✓ Education-focused (policy compliant)</li>
+                        <li>✓ Organized by intent level</li>
+                        <li>✓ Ready to copy-paste into Google Ads</li>
+                        <li>✓ Include exact, phrase, and broad match variations</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- PART 3: SEARCH CAMPAIGN SETUP -->
+            <section id="search-campaign">
+                <h2><span class="icon">🔍</span> Search Campaign Setup (Step-by-Step)</h2>
+
+                <div class="step" id="search-step1">
+                    <h3 style="display: flex; align-items: center; border: none; padding: 0; margin: 0 0 20px 0;">
+                        <span class="step-number">1</span>
+                        Create Google Ads Account
+                    </h3>
+
+                    <h4>1.1 Initial Setup</h4>
+                    <ol>
+                        <li>Go to <a href="https://ads.google.com" target="_blank">ads.google.com</a></li>
+                        <li>Click <strong>"Start Now"</strong></li>
+                        <li>Sign in with your Google account (Gmail)</li>
+                        <li><strong>IMPORTANT:</strong> Click "Switch to Expert Mode" at the bottom</li>
+                        <li>Skip the guided setup wizard</li>
+                    </ol>
+
+                    <h4>1.2 Billing Information</h4>
+                    <table>
+                        <tr><td><strong>Go to:</strong></td><td>Tools & Settings → Billing → Settings</td></tr>
+                        <tr><td><strong>Add:</strong></td><td>Credit card or bank account</td></tr>
+                        <tr><td><strong>Currency:</strong></td><td>USD (⚠️ Cannot change later!)</td></tr>
+                        <tr><td><strong>Time Zone:</strong></td><td>Choose primary market time zone</td></tr>
+                        <tr><td><strong>Country:</strong></td><td>Your business location</td></tr>
+                    </table>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Critical:</strong> Your currency and time zone are <strong>PERMANENT</strong> and cannot be changed once set. Choose carefully!
+                    </div>
+                </div>
+
+                <div class="step" id="search-step2">
+                    <h3 style="display: flex; align-items: center; border: none; padding: 0; margin: 0 0 20px 0;">
+                        <span class="step-number">2</span>
+                        Create Search Campaign
+                    </h3>
+
+                    <h4>2.1 Campaign Creation</h4>
+                    <ol>
+                        <li>Click <strong>"+ New Campaign"</strong></li>
+                        <li>Choose goal: <strong>"Website traffic"</strong> or <strong>"Leads"</strong></li>
+                        <li>Campaign type: <strong>"Search"</strong></li>
+                        <li>Click <strong>"Continue"</strong></li>
+                    </ol>
+
+                    <h4>2.2 Campaign Settings</h4>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 250px;">Setting</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Campaign Name</strong></td>
+                                <td>EN_Search_ForexEducation_Tier1</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Networks</strong></td>
+                                <td>
+                                    ✓ Search Network<br>
+                                    ✗ Search Partners (uncheck - disable for now)<br>
+                                    ✗ Display Network (uncheck)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Locations</strong></td>
+                                <td>
+                                    <strong>Option 1 (UAE Focus):</strong> United Arab Emirates<br>
+                                    <strong>Option 2 (Africa Focus):</strong> South Africa, Kenya, Nigeria<br>
+                                    <strong>Option 3 (All Markets):</strong> Add all target countries
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Location Options</strong></td>
+                                <td>
+                                    Target: <strong>"People in or regularly in your targeted locations"</strong><br>
+                                    (NOT "People interested in your targeted locations")
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Languages</strong></td>
+                                <td>English</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Budget</strong></td>
+                                <td>
+                                    <strong>Starting:</strong> $15/day ($450/month)<br>
+                                    <strong>Budget Type:</strong> Daily
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bidding</strong></td>
+                                <td>
+                                    <strong>Focus on:</strong> Clicks<br>
+                                    <strong>Bidding Strategy:</strong> Maximize clicks<br>
+                                    <strong>Set max CPC bid limit:</strong> $0.60
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ad Rotation</strong></td>
+                                <td>Optimize: Prefer best performing ads</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Start Date</strong></td>
+                                <td>Today (or specific date)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>End Date</strong></td>
+                                <td>None</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>2.3 Advanced Settings (Click "Show more settings")</h4>
+
+                    <table>
+                        <tr>
+                            <td><strong>Dynamic Search Ads</strong></td>
+                            <td>Off (disable for now)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ad Schedule</strong></td>
+                            <td>All days, all hours (optimize later based on data)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Device Targeting</strong></td>
+                            <td>All devices (optimize later)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tracking Template</strong></td>
+                            <td>Leave blank (we'll use final URLs with UTM parameters)</td>
+                        </tr>
+                    </table>
+
+                    <div class="info-box">
+                        <strong>💡 Pro Tip:</strong> Start with "Maximize Clicks" to gather data. After 30-50 conversions, switch to "Maximize Conversions" or "Target CPA" for better performance.
+                    </div>
+                </div>
+
+                <div class="step" id="search-step3">
+                    <h3 style="display: flex; align-items: center; border: none; padding: 0; margin: 0 0 20px 0;">
+                        <span class="step-number">3</span>
+                        Create Ad Groups (Organized by Theme)
+                    </h3>
+
+                    <p><strong>Create 5 ad groups to organize keywords by topic:</strong></p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ad Group Name</th>
+                                <th>Theme</th>
+                                <th>Default Bid</th>
+                                <th>Keywords</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>AG1_ForexEducation</strong></td>
+                                <td>Forex learning & courses</td>
+                                <td>$0.45</td>
+                                <td>50+</td>
+                            </tr>
+                            <tr>
+                                <td><strong>AG2_TradingEducation</strong></td>
+                                <td>General trading education</td>
+                                <td>$0.40</td>
+                                <td>40+</td>
+                            </tr>
+                            <tr>
+                                <td><strong>AG3_GoldTrading</strong></td>
+                                <td>Gold trading education</td>
+                                <td>$0.50</td>
+                                <td>25+</td>
+                            </tr>
+                            <tr>
+                                <td><strong>AG4_MarketAnalysis</strong></td>
+                                <td>Market analysis & tools</td>
+                                <td>$0.35</td>
+                                <td>30+</td>
+                            </tr>
+                            <tr>
+                                <td><strong>AG5_TechnicalAnalysis</strong></td>
+                                <td>Technical analysis & charts</td>
+                                <td>$0.40</td>
+                                <td>25+</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>How to Create Each Ad Group:</h4>
+                    <ol>
+                        <li>Click <strong>"+ New Ad Group"</strong></li>
+                        <li>Enter ad group name (e.g., "AG1_ForexEducation")</li>
+                        <li>Set default bid (e.g., $0.45)</li>
+                        <li>Add keywords (see next step)</li>
+                        <li>Create ads (see step 5)</li>
+                        <li>Click "Save and Continue"</li>
+                    </ol>
+                </div>
+
+                <div class="step" id="search-step4">
+                    <h3 style="display: flex; align-items: center; border: none; padding: 0; margin: 0 0 20px 0;">
+                        <span class="step-number">4</span>
+                        Add Keywords to Each Ad Group
+                    </h3>
+
+                    <div class="campaign-card">
+                        <h3>Ad Group 1: Forex Education Keywords</h3>
+
+                        <p><strong>Copy and paste these keywords:</strong></p>
+
+                        <div class="code">[learn forex trading]
+[forex education]
+[forex trading course]
+[forex training]
+[how to trade forex]
+"forex course for beginners"
+"online forex course"
+"forex trading lessons"
+"forex for beginners"
+"learn forex from scratch"
+"forex basics course"
+"forex 101"
+"online forex education"
+"forex online course"
+"learn forex online"
+"learn forex trading uae"
+"forex education dubai"
+"forex course south africa"
+"forex training kenya"
+"forex education johannesburg"
+forex education
+forex training
+forex course
+learn forex</div>
+
+                        <p style="margin-top: 20px;"><strong>Total:</strong> 24 keywords (mix of exact, phrase, and broad match)</p>
+                    </div>
+
+                    <div class="campaign-card">
+                        <h3>Ad Group 2: Trading Education Keywords</h3>
+
+                        <div class="code">[learn to trade]
+[trading education]
+[trading course]
+[online trading course]
+[trading for beginners]
+"learn trading strategies"
+"trading psychology course"
+"risk management trading"
+"money management trading"
+"swing trading course"
+"day trading education"
+"trading platform tutorial"
+"mt4 course"
+"mt5 training"
+trading education
+trading course
+learn trading
+trading lessons</div>
+
+                        <p style="margin-top: 20px;"><strong>Total:</strong> 18 keywords</p>
+                    </div>
+
+                    <div class="campaign-card">
+                        <h3>Ad Group 3: Gold Trading Keywords</h3>
+
+                        <div class="code">[learn gold trading]
+[gold trading course]
+[gold trading education]
+[how to trade gold]
+"gold market analysis"
+"gold price analysis"
+"gold trading strategies"
+"xau usd trading"
+"gold forex trading"
+"gold chart analysis"
+"gold trading patterns"
+"spot gold trading"
+gold trading course
+gold trading education</div>
+
+                        <p style="margin-top: 20px;"><strong>Total:</strong> 14 keywords</p>
+                    </div>
+
+                    <div class="campaign-card">
+                        <h3>Ad Group 4: Market Analysis Keywords</h3>
+
+                        <div class="code">[market analysis course]
+[forex analysis education]
+[learn market analysis]
+"fundamental analysis course"
+"economic calendar trading"
+"news trading course"
+"market analysis software"
+"trading analysis tools"
+"market sentiment analysis"
+"price action analysis"
+"volume analysis trading"
+"forex market analysis"
+market analysis
+trading analysis</div>
+
+                        <p style="margin-top: 20px;"><strong>Total:</strong> 14 keywords</p>
+                    </div>
+
+                    <div class="campaign-card">
+                        <h3>Ad Group 5: Technical Analysis Keywords</h3>
+
+                        <div class="code">[technical analysis course]
+[learn technical analysis]
+[chart analysis course]
+[candlestick course]
+"learn chart patterns"
+"candlestick patterns course"
+"support resistance course"
+"moving average course"
+"rsi indicator course"
+"macd trading education"
+"bollinger bands course"
+"fibonacci trading course"
+technical analysis
+chart patterns</div>
+
+                        <p style="margin-top: 20px;"><strong>Total:</strong> 14 keywords</p>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 30px;">
+                        <h4 style="margin-top: 0;">🚨 Add Negative Keywords (Campaign Level)</h4>
+                        <p>Go to <strong>Keywords → Negative Keywords → Add Negative Keyword List</strong></p>
+                        <p style="margin-top: 15px;"><strong>Create a list called "Universal_Negatives" and add:</strong></p>
+                        <div class="code" style="margin-top: 15px;">job
+jobs
+career
+employment
+scam
+fraud
+fake
+free download
+pdf download
+torrent
+crack
+app
+apk
+game
+casino
+betting
+what is
+definition
+wiki</div>
+                    </div>
+                </div>
+
+                <div class="step" id="search-step5">
+                    <h3 style="display: flex; align-items: center; border: none; padding: 0; margin: 0 0 20px 0;">
+                        <span class="step-number">5</span>
+                        Create Responsive Search Ads (RSAs)
+                    </h3>
+
+                    <p>Create one RSA per ad group. Example for <strong>Ad Group 1: Forex Education</strong></p>
+
+                    <div class="campaign-card">
+                        <h3>Responsive Search Ad - Forex Education</h3>
+
+                        <h4>Headlines (add all 15):</h4>
+                        <div class="code">1. Learn Forex Trading Online
+2. Forex Education for Beginners
+3. Free Forex Trading Course
+4. Master Forex in 30 Days
+5. Professional Forex Training
+6. AI-Powered Market Analysis
+7. 24/7 Forex Market Insights
+8. Expert Forex Tutorials
+9. Start Learning Forex Today
+10. Comprehensive Forex Guide
+11. Risk Management Training
+12. Forex Demo Account Available
+13. Trusted by Thousands
+14. Real-Time Market Data
+15. Forex Education Platform</div>
+
+                        <h4>Descriptions (add all 4):</h4>
+                        <div class="code">1. Learn forex trading with expert courses, live analysis, and risk management training. Educational content only. Trading involves risk.
+
+2. Comprehensive forex education for beginners. AI-powered insights, demo accounts, and 24/7 support. Start learning today for free.
+
+3. Master forex with professional training, technical analysis, and market insights. Not financial advice. Educational resources only.
+
+4. Free forex education platform with courses, tools, and analysis. Practice with demo accounts. Trading carries risk of loss.</div>
+
+                        <h4>URL Settings:</h4>
+                        <table style="margin-top: 15px;">
+                            <tr>
+                                <td><strong>Final URL:</strong></td>
+                                <td>https://tradeflow.blog/forex-education?utm_source=google&utm_medium=cpc&utm_campaign=EN_Search</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Display Path 1:</strong></td>
+                                <td>Forex-Education</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Display Path 2:</strong></td>
+                                <td>Learn-Forex</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 25px;">
+                        <strong>💡 Ad Copy Best Practices:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Include target keyword in at least 3 headlines</li>
+                            <li>Use emotional triggers: "Free," "Start Today," "Expert"</li>
+                            <li>Always include risk disclaimer in descriptions</li>
+                            <li>Add "Educational content only" or "Not financial advice"</li>
+                            <li>Mention tangible benefits: demo accounts, tools, courses</li>
+                            <li>Use numbers when possible: "24/7," "30 Days," "Thousands"</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="success-box" style="margin-top: 40px;">
+                    <h3 style="margin-top: 0; border: none; padding: 0;">✅ Search Campaign Setup Complete!</h3>
+                    <p style="margin-top: 15px;"><strong>What you've created:</strong></p>
+                    <ul style="margin-top: 10px;">
+                        <li>✓ 1 Search Campaign (EN_Search_ForexEducation_Tier1)</li>
+                        <li>✓ 5 Ad Groups organized by theme</li>
+                        <li>✓ 84 keywords across all ad groups</li>
+                        <li>✓ 5 Responsive Search Ads (1 per ad group)</li>
+                        <li>✓ Negative keyword list applied</li>
+                        <li>✓ Budget: $15/day ($450/month)</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Next:</strong> Set up Display Campaign for remarketing and awareness</p>
+                </div>
+            </section>
+
+            <!-- PART 4: DISPLAY CAMPAIGN SETUP -->
+            <section id="display-campaign">
+                <h2><span class="icon">🎨</span> Display Campaign Setup (Step-by-Step)</h2>
+
+                <div class="info-box">
+                    <strong>🎯 Display Campaign Purpose:</strong>
+                    <p style="margin-top: 10px;">Display campaigns show image/video ads across 2+ million websites and apps. Use for:</p>
+                    <ul style="margin-top: 10px;">
+                        <li><strong>Remarketing:</strong> Re-engage people who visited your site</li>
+                        <li><strong>Brand Awareness:</strong> Reach new audiences interested in forex/trading</li>
+                        <li><strong>Lower CPC:</strong> Display clicks are typically $0.10-$0.30 (cheaper than Search)</li>
+                    </ul>
+                </div>
+
+                <div class="step" id="display-step1">
+                    <h3 style="display: flex; align-items: center; border: none; padding: 0; margin: 0 0 20px 0;">
+                        <span class="step-number">1</span>
+                        Create Display Campaign
+                    </h3>
+
+                    <h4>1.1 Campaign Creation</h4>
+                    <ol>
+                        <li>Click <strong>"+ New Campaign"</strong></li>
+                        <li>Choose goal: <strong>"Website traffic"</strong> or <strong>"Brand awareness"</strong></li>
+                        <li>Campaign type: <strong>"Display"</strong></li>
+                        <li>Click <strong>"Continue"</strong></li>
+                    </ol>
+
+                    <h4>1.2 Campaign Settings</h4>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 250px;">Setting</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Campaign Name</strong></td>
+                                <td>EN_Display_ForexEducation_Awareness</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Locations</strong></td>
+                                <td>Same as Search campaign (UAE, South Africa, Kenya, Nigeria)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Languages</strong></td>
+                                <td>English</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Budget</strong></td>
+                                <td>
+                                    <strong>Starting:</strong> $5/day ($150/month)<br>
+                                    <strong>Budget Type:</strong> Daily
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bidding</strong></td>
+                                <td>
+                                    <strong>Focus on:</strong> Clicks<br>
+                                    <strong>Bidding Strategy:</strong> Maximize clicks<br>
+                                    <strong>Set max CPC bid limit:</strong> $0.30
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Targeting Expansion</strong></td>
+                                <td>
+                                    <strong>Optimized targeting:</strong> OFF (disable for now)<br>
+                                    (This gives you more control)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Content Exclusions</strong></td>
+                                <td>
+                                    <strong>Excluded content:</strong><br>
+                                    ✓ Sensitive social issues<br>
+                                    ✓ Sensational and shocking<br>
+                                    ✓ Sexual content<br>
+                                    ✓ Profanity and rough language<br>
+                                    ✓ Click "Expand inventory filter" → Select "Limited inventory"
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="step" id="display-step2">
+                    <h3 style="display: flex; align-items: center; border: none; padding: 0; margin: 0 0 20px 0;">
+                        <span class="step-number">2</span>
+                        Set Up Display Targeting
+                    </h3>
+
+                    <p><strong>Display campaigns need targeting to find the right audience. Use a combination of:</strong></p>
+
+                    <h4>2.1 Audience Targeting (Who to reach)</h4>
+
+                    <div class="grid-2">
+                        <div class="card">
+                            <h4>🎯 Interest & Habit Audiences</h4>
+                            <p style="margin-bottom: 15px;">People with these interests:</p>
+                            <ul>
+                                <li>Business & Industrial → Finance → Investing</li>
+                                <li>Business & Industrial → Finance → Personal Finance</li>
+                                <li>Business Professionals</li>
+                                <li>Avid Investors</li>
+                                <li>News & Politics → Business News</li>
+                            </ul>
+                        </div>
+
+                        <div class="card">
+                            <h4>🛒 In-Market Audiences</h4>
+                            <p style="margin-bottom: 15px;">People actively researching:</p>
+                            <ul>
+                                <li>Business Services → Financial Services</li>
+                                <li>Investment Services</li>
+                                <li>Online Education</li>
+                                <li>Business Software</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>2.2 Keyword Targeting (What content they're viewing)</h4>
+
+                    <p><strong>Add these keywords to show ads on pages about these topics:</strong></p>
+
+                    <div class="code">forex trading
+forex education
+currency trading
+foreign exchange
+online trading
+stock market
+day trading
+investment education
+trading strategies
+market analysis
+technical analysis
+financial markets
+trading courses
+forex broker
+gold trading
+commodity trading
+forex signals
+trading platform
+metatrader
+forex tutorial
+learn trading
+trading for beginners
+forex tips
+market news
+economic calendar
+forex chart
+currency pairs
+pip trading
+leverage trading</div>
+
+                    <p style="margin-top: 15px;"><strong>Total:</strong> 30 keywords - These tell Google to show your ads on websites/pages about these topics</p>
+
+                    <div class="warning-box" style="margin-top: 20px;">
+                        <strong>⚠️ Display Keywords ≠ Search Keywords:</strong><br>
+                        Display keywords don't trigger ads from searches. They match your ads to relevant website content. Use broader, thematic keywords.
+                    </div>
+
+                    <h4>2.3 Topic Targeting (Categories of websites)</h4>
+
+                    <p><strong>Show ads on websites in these categories:</strong></p>
+
+                    <ul>
+                        <li><strong>Finance:</strong> Banking, Investing, Financial News</li>
+                        <li><strong>Business & Industrial:</strong> Business News, Business Education</li>
+                        <li><strong>Online Communities:</strong> Social Networks, Forums</li>
+                        <li><strong>News:</strong> Business News, Financial News</li>
+                    </ul>
+
+                    <h4>2.4 Placement Targeting (Specific websites - Optional)</h4>
+
+                    <p><strong>Add specific high-quality websites (advanced):</strong></p>
+
+                    <div class="code">bloomberg.com
+reuters.com
+ft.com (Financial Times)
+marketwatch.com
+investing.com
+tradingview.com
+forexfactory.com
+babypips.com
+dailyfx.com</div>
+
+                    <div class="info-box" style="margin-top: 20px;">
+                        <strong>💡 Targeting Strategy:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li><strong>Start broad:</strong> Use audience + keyword targeting</li>
+                            <li><strong>Monitor placement report:</strong> See where ads actually show</li>
+                            <li><strong>Optimize:</strong> Exclude bad sites, add good sites as placements</li>
+                            <li><strong>After 2 weeks:</strong> Create a remarketing campaign for site visitors</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step" id="display-step3">
+                    <h3 style="display: flex; align-items: center; border: none; padding: 0; margin: 0 0 20px 0;">
+                        <span class="step-number">3</span>
+                        Create Display Ads (Responsive Display Ads)
+                    </h3>
+
+                    <div class="info-box">
+                        <strong>📐 Responsive Display Ads (RDAs):</strong> Google automatically adjusts your ad size, appearance, and format to fit available ad spaces. You provide headlines, descriptions, images, and logos.
+                    </div>
+
+                    <h4>3.1 Ad Assets Needed</h4>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Asset Type</th>
+                                <th>Requirement</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Headlines</strong></td>
+                                <td>5 headlines (max 30 characters each)</td>
+                                <td>Short, punchy, include keywords</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Long Headline</strong></td>
+                                <td>1 headline (max 90 characters)</td>
+                                <td>Can be longer, more descriptive</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Descriptions</strong></td>
+                                <td>5 descriptions (max 90 characters each)</td>
+                                <td>Include CTA and benefits</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Images</strong></td>
+                                <td>Landscape (1.91:1) - 1200x628px<br>Square (1:1) - 1200x1200px</td>
+                                <td>Min 2 images, max 15</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Logo</strong></td>
+                                <td>Square (1:1) - 1200x1200px<br>Landscape (4:1) - 1200x300px (optional)</td>
+                                <td>Brand logo, transparent background preferred</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Business Name</strong></td>
+                                <td>Max 25 characters</td>
+                                <td>Your brand name</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Final URL</strong></td>
+                                <td>Your landing page</td>
+                                <td>https://tradeflow.blog</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>3.2 Example Display Ad Copy</h4>
+
+                    <div class="campaign-card">
+                        <h3>Responsive Display Ad - Forex Education</h3>
+
+                        <h4>Headlines (5 required):</h4>
+                        <div class="code">1. Learn Forex Trading Free
+2. Forex Education Platform
+3. Master Forex in 30 Days
+4. AI-Powered Market Insights
+5. Start Trading Smarter</div>
+
+                        <h4>Long Headline (1 required):</h4>
+                        <div class="code">Professional Forex Education - Free Courses, Tools & Analysis</div>
+
+                        <h4>Descriptions (5 required):</h4>
+                        <div class="code">1. Comprehensive forex courses for beginners. Learn risk management, strategies, and analysis. Start free today.
+
+2. AI-powered market insights and trading education. Demo accounts available. Educational content only.
+
+3. Master forex with expert tutorials, live analysis, and proven strategies. Join thousands learning to trade.
+
+4. Free forex education platform. Technical analysis, market insights, and trading tools. Risk disclaimer applies.
+
+5. Learn to trade forex with professional courses and 24/7 market data. Not financial advice. Start learning now.</div>
+
+                        <h4>Image Suggestions:</h4>
+                        <ul>
+                            <li>📊 Charts and graphs (forex charts, technical analysis)</li>
+                            <li>💻 Person at laptop (studying/learning)</li>
+                            <li>📱 Mobile trading platform screenshot</li>
+                            <li>🎓 Education/learning themed image</li>
+                            <li>💡 Professional business setting</li>
+                        </ul>
+
+                        <div class="warning-box" style="margin-top: 20px;">
+                            <strong>⚠️ Image Policy:</strong>
+                            <ul style="margin-top: 10px;">
+                                <li>NO images of money/cash</li>
+                                <li>NO "get rich quick" imagery</li>
+                                <li>NO misleading charts showing only profit</li>
+                                <li>NO before/after comparisons</li>
+                                <li>YES educational, professional, clean images</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step" id="display-step4">
+                    <h3 style="display: flex; align-items: center; border: none; padding: 0; margin: 0 0 20px 0;">
+                        <span class="step-number">4</span>
+                        Placement Exclusions (Critical!)
+                    </h3>
+
+                    <div class="danger-box">
+                        <strong>🚨 IMPORTANT:</strong> Exclude low-quality sites and apps to prevent wasted budget
+                    </div>
+
+                    <h4>4.1 Exclude These Placement Categories:</h4>
+
+                    <ol>
+                        <li>Go to campaign settings</li>
+                        <li>Click <strong>"Content exclusions"</strong></li>
+                        <li>Select <strong>"Excluded content"</strong></li>
+                        <li>Check ALL sensitive categories:
+                            <ul style="margin-top: 10px;">
+                                <li>✓ Tragedy and conflict</li>
+                                <li>✓ Sensitive social issues</li>
+                                <li>✓ Debated sensitive social issues</li>
+                                <li>✓ Sexually suggestive content</li>
+                                <li>✓ Sensational and shocking</li>
+                                <li>✓ Profanity and rough language</li>
+                            </ul>
+                        </li>
+                        <li>Under <strong>"Inventory type"</strong>, select <strong>"Limited inventory"</strong> or <strong>"Standard inventory"</strong></li>
+                    </ol>
+
+                    <h4>4.2 Exclude App Categories (Optional but Recommended):</h4>
+
+                    <p>Go to <strong>"Settings" → "All Settings" → scroll to "Content exclusions" → "Placement exclusions"</strong></p>
+
+                    <div class="code">Games
+Mobile Apps (if you want to exclude all apps)
+YouTube (if you want display-only, not video)</div>
+
+                    <h4>4.3 Add Site Category Exclusions:</h4>
+
+                    <div class="code">Parked Domains
+Error Pages
+Forums (can be low quality)
+Below the fold (ads at bottom of page - optional)</div>
+
+                    <div class="info-box" style="margin-top: 20px;">
+                        <strong>💡 Optimization Tip:</strong> After 1 week, review the "Placements" report:
+                        <ol style="margin-top: 10px;">
+                            <li>Go to campaign → Placements → Where ads showed</li>
+                            <li>Sort by <strong>"Cost"</strong> (highest spend first)</li>
+                            <li>Exclude any sites with high cost but zero conversions</li>
+                            <li>Exclude mobile apps with low CTR (under 0.5%)</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="success-box" style="margin-top: 40px;">
+                    <h3 style="margin-top: 0; border: none; padding: 0;">✅ Display Campaign Setup Complete!</h3>
+                    <p style="margin-top: 15px;"><strong>What you've created:</strong></p>
+                    <ul style="margin-top: 10px;">
+                        <li>✓ 1 Display Campaign (EN_Display_ForexEducation_Awareness)</li>
+                        <li>✓ Audience targeting (interests + in-market)</li>
+                        <li>✓ 30 keyword targets for content matching</li>
+                        <li>✓ Topic targeting (finance, business, news)</li>
+                        <li>✓ 1 Responsive Display Ad with headlines, descriptions, images</li>
+                        <li>✓ Content exclusions and placement blocks</li>
+                        <li>✓ Budget: $5/day ($150/month)</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Next:</strong> Set up conversion tracking and launch!</p>
+                </div>
+            </section>
+
+            <!-- PART 5: TRACKING -->
+            <section id="tracking">
+                <h2><span class="icon">📊</span> Conversion Tracking Setup</h2>
+
+                <div class="step" id="conversion-tracking">
+                    <h3 style="display: flex; align-items: center; border: none; padding: 0; margin: 0 0 20px 0;">
+                        <span class="step-number">1</span>
+                        Create Conversion Actions
+                    </h3>
+
+                    <h4>1.1 What to Track</h4>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Conversion</th>
+                                <th>Type</th>
+                                <th>Value</th>
+                                <th>Priority</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Partner Outbound Click</strong></td>
+                                <td>Primary</td>
+                                <td>$50</td>
+                                <td><span class="badge badge-danger">CRITICAL</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Newsletter Signup</strong></td>
+                                <td>Secondary</td>
+                                <td>$5</td>
+                                <td><span class="badge badge-warning">HIGH</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Demo Account Request</strong></td>
+                                <td>Secondary</td>
+                                <td>$10</td>
+                                <td><span class="badge badge-warning">HIGH</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Course Enrollment</strong></td>
+                                <td>Secondary</td>
+                                <td>$8</td>
+                                <td><span class="badge badge-info">MEDIUM</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>1.2 Create Conversion in Google Ads</h4>
+
+                    <ol>
+                        <li>Go to <strong>Tools & Settings → Measurement → Conversions</strong></li>
+                        <li>Click <strong>"+ New Conversion Action"</strong></li>
+                        <li>Select <strong>"Website"</strong></li>
+                        <li>Enter your website URL and click "Scan"</li>
+                        <li>Or click <strong>"Add a conversion action manually"</strong></li>
+                    </ol>
+
+                    <h4>1.3 Conversion Settings</h4>
+
+                    <table style="margin-top: 15px;">
+                        <tr><td><strong>Goal and action optimization:</strong></td><td>Submit lead form</td></tr>
+                        <tr><td><strong>Conversion name:</strong></td><td>Partner_Outbound_Click</td></tr>
+                        <tr><td><strong>Value:</strong></td><td>Use different values for each conversion → $50</td></tr>
+                        <tr><td><strong>Count:</strong></td><td>One (recommended for most conversions)</td></tr>
+                        <tr><td><strong>Click-through conversion window:</strong></td><td>30 days</td></tr>
+                        <tr><td><strong>View-through conversion window:</strong></td><td>1 day</td></tr>
+                        <tr><td><strong>Include in "Conversions":</strong></td><td>Yes</td></tr>
+                        <tr><td><strong>Attribution model:</strong></td><td>Last click</td></tr>
+                    </table>
+
+                    <h4>1.4 Installation Methods</h4>
+
+                    <div class="grid-2">
+                        <div class="card">
+                            <h4>Option A: Google Tag (Simple)</h4>
+                            <p>Copy the conversion tracking code and paste it on your thank you page or after the action completes.</p>
+                            <div class="code" style="font-size: 0.75em; margin-top: 10px;">&lt;!-- Google tag (gtag.js) --&gt;
+&lt;script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXX"&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-XXXXXXX');
+  gtag('event', 'conversion', {
+    'send_to': 'AW-XXXXXXX/XXXXXX',
+    'value': 50.0,
+    'currency': 'USD'
+  });
+&lt;/script&gt;</div>
+                        </div>
+
+                        <div class="card">
+                            <h4>Option B: API Integration (Advanced)</h4>
+                            <p>Use your existing tracking at:</p>
+                            <div class="code" style="font-size: 0.85em;">src/app/api/track/exness-click/route.ts</div>
+                            <p style="margin-top: 10px;">Send conversion data to Google Ads using:</p>
+                            <ul style="margin-top: 10px;">
+                                <li>Google Ads API</li>
+                                <li>Enhanced Conversions</li>
+                                <li>Server-side tracking with GCLID</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: 30px;">
+                    <strong>💡 Testing Conversions:</strong>
+                    <ol style="margin-top: 10px;">
+                        <li>Click on your own ad (use VPN to appear in target geo if needed)</li>
+                        <li>Complete the conversion action (click partner link)</li>
+                        <li>Wait 3-6 hours</li>
+                        <li>Check <strong>Conversions</strong> report in Google Ads</li>
+                        <li>Look for "Recent conversions" - should show your test</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- PART 6: LAUNCH CHECKLIST -->
+            <section id="launch">
+                <h2><span class="icon">🚀</span> Pre-Launch Checklist</h2>
+
+                <div class="step" id="launch-checklist">
+                    <h3 style="border: none; padding: 0; margin: 0 0 20px 0;">Complete Before Launching</h3>
+
+                    <div class="grid-2">
+                        <div class="card">
+                            <h4>✅ Account Setup</h4>
+                            <ul class="checklist">
+                                <li>Google Ads account created</li>
+                                <li>Billing information added and verified</li>
+                                <li>Currency set to USD (cannot change later)</li>
+                                <li>Time zone configured for primary market</li>
+                                <li>Account in Expert Mode (not Smart Mode)</li>
+                            </ul>
+                        </div>
+
+                        <div class="card">
+                            <h4>✅ Search Campaign</h4>
+                            <ul class="checklist">
+                                <li>Campaign created with correct settings</li>
+                                <li>Location targeting: target countries only</li>
+                                <li>Language: English</li>
+                                <li>Budget: $15/day set</li>
+                                <li>5 ad groups created</li>
+                                <li>84+ keywords added across ad groups</li>
+                                <li>Negative keywords applied (campaign level)</li>
+                                <li>5 RSAs created (1 per ad group)</li>
+                            </ul>
+                        </div>
+
+                        <div class="card">
+                            <h4>✅ Display Campaign</h4>
+                            <ul class="checklist">
+                                <li>Display campaign created</li>
+                                <li>Budget: $5/day set</li>
+                                <li>Audience targeting configured</li>
+                                <li>30 display keywords added</li>
+                                <li>Topic targeting added</li>
+                                <li>Content exclusions enabled</li>
+                                <li>Placement exclusions added</li>
+                                <li>Responsive Display Ad created with images</li>
+                            </ul>
+                        </div>
+
+                        <div class="card">
+                            <h4>✅ Landing Page</h4>
+                            <ul class="checklist">
+                                <li>Landing page loads in under 3 seconds</li>
+                                <li>Page is mobile-responsive</li>
+                                <li>Clear call-to-action visible</li>
+                                <li>Risk disclaimer present: "Trading involves risk"</li>
+                                <li>Privacy policy link in footer</li>
+                                <li>Contact information visible</li>
+                                <li>HTTPS (secure) URL</li>
+                                <li>No "bonus" or "guaranteed profit" claims</li>
+                                <li>Partner disclosure visible</li>
+                            </ul>
+                        </div>
+
+                        <div class="card">
+                            <h4>✅ Tracking</h4>
+                            <ul class="checklist">
+                                <li>Conversion action created in Google Ads</li>
+                                <li>Conversion tracking code installed</li>
+                                <li>Test conversion completed successfully</li>
+                                <li>Google Analytics connected (optional)</li>
+                                <li>UTM parameters in final URLs</li>
+                            </ul>
+                        </div>
+
+                        <div class="card">
+                            <h4>✅ Policy Compliance</h4>
+                            <ul class="checklist">
+                                <li>No "bonus" claims in ad copy</li>
+                                <li>No "guaranteed profit" language</li>
+                                <li>Risk disclaimers in all descriptions</li>
+                                <li>Educational framing used throughout</li>
+                                <li>No unverifiable claims (e.g., "10,000 users")</li>
+                                <li>No trademark bidding (unless allowed)</li>
+                                <li>No misleading claims or exaggerations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box" style="margin-top: 30px;">
+                    <h3 style="margin-top: 0; border: none; padding: 0;">🎉 Ready to Launch!</h3>
+                    <p style="margin-top: 15px;"><strong>Final Step:</strong> Enable both campaigns and monitor closely for first 48 hours.</p>
+                    <p style="margin-top: 10px;"><strong>Expected Timeline:</strong></p>
+                    <ul style="margin-top: 10px;">
+                        <li><strong>0-24 hours:</strong> Ads go into review (status: "Under review")</li>
+                        <li><strong>24-48 hours:</strong> Ads approved and start showing (status: "Eligible")</li>
+                        <li><strong>Days 3-7:</strong> Learning phase - Google gathers data</li>
+                        <li><strong>Week 2+:</strong> Optimize based on performance data</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- PART 7: OPTIMIZATION -->
+            <section id="optimization">
+                <h2><span class="icon">⚙️</span> Optimization & Scaling</h2>
+
+                <div class="step" id="week1">
+                    <h3 style="border: none; padding: 0; margin: 0 0 20px 0;">First Week: What to Monitor</h3>
+
+                    <h4>Daily Checks (5 minutes/day)</h4>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Check</th>
+                                <th>Where</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Approval Status</strong></td>
+                                <td>Campaign overview</td>
+                                <td>If disapproved, fix issue and resubmit</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Budget Pacing</strong></td>
+                                <td>Campaign overview</td>
+                                <td>Ensure daily budget is spending evenly</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Conversion</strong></td>
+                                <td>Conversions report</td>
+                                <td>Verify conversions are tracking</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Search Terms</strong></td>
+                                <td>Keywords → Search terms</td>
+                                <td>Add new negative keywords for irrelevant searches</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Display Placements</strong></td>
+                                <td>Placements report</td>
+                                <td>Exclude low-quality sites/apps</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="step" id="weekly-review">
+                    <h3 style="border: none; padding: 0; margin: 0 0 20px 0;">Weekly Review (Week 1 Benchmarks)</h3>
+
+                    <h4>Search Campaign Targets (Week 1)</h4>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Target Range</th>
+                                <th>If Below Target</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Impressions</strong></td>
+                                <td>2,000 - 10,000</td>
+                                <td>Increase budget or bids; broaden keywords</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Clicks</strong></td>
+                                <td>50 - 300</td>
+                                <td>Improve ad copy; check relevance</td>
+                            </tr>
+                            <tr>
+                                <td><strong>CTR</strong></td>
+                                <td>3% - 6%</td>
+                                <td>Rewrite headlines; add more compelling CTAs</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Avg CPC</strong></td>
+                                <td>$0.20 - $0.60</td>
+                                <td>If too high: lower bids, improve Quality Score</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Spend</strong></td>
+                                <td>~$105 (7 days × $15)</td>
+                                <td>Check if limited by budget or bids</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Conversions</strong></td>
+                                <td>2 - 10</td>
+                                <td>Check tracking; optimize landing page</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cost/Conversion</strong></td>
+                                <td>$10 - $30</td>
+                                <td>Pause low-performing keywords; improve targeting</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>Display Campaign Targets (Week 1)</h4>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Target Range</th>
+                                <th>If Below Target</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Impressions</strong></td>
+                                <td>30,000 - 100,000</td>
+                                <td>Broaden targeting; increase budget</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Clicks</strong></td>
+                                <td>15 - 100</td>
+                                <td>Improve ad creative; test new images</td>
+                            </tr>
+                            <tr>
+                                <td><strong>CTR</strong></td>
+                                <td>0.5% - 1.5%</td>
+                                <td>Test different images; improve headlines</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Avg CPC</strong></td>
+                                <td>$0.10 - $0.40</td>
+                                <td>Normal for display; monitor quality of placements</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Conversions</strong></td>
+                                <td>1 - 5</td>
+                                <td>Display has lower conversion rate - normal</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="step" id="scaling">
+                    <h3 style="border: none; padding: 0; margin: 0 0 20px 0;">Scaling Strategy (Weeks 2-12)</h3>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Timeline</th>
+                                <th>Search Budget</th>
+                                <th>Display Budget</th>
+                                <th>Total/Month</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Week 1-2</strong></td>
+                                <td>$15/day</td>
+                                <td>$5/day</td>
+                                <td>$600</td>
+                                <td>Learning phase - monitor, add negatives</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Week 3-4</strong></td>
+                                <td>$20/day</td>
+                                <td>$7/day</td>
+                                <td>$810</td>
+                                <td>Increase if CPA ≤ $20 and conv rate ≥ 2%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Week 5-8</strong></td>
+                                <td>$30/day</td>
+                                <td>$10/day</td>
+                                <td>$1,200</td>
+                                <td>Add more keywords; test new ad copy</td>
+                            </tr>
+                            <tr style="background: #d5f4e6;">
+                                <td><strong>Week 9-12</strong></td>
+                                <td>$40-50/day</td>
+                                <td>$15-20/day</td>
+                                <td>$1,650-2,100</td>
+                                <td>Scale profitable ad groups; launch remarketing</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Month 4+</strong></td>
+                                <td>$50-100/day</td>
+                                <td>$20-30/day</td>
+                                <td>$2,100-3,900</td>
+                                <td>Expand to new geos; test new campaigns</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="warning-box" style="margin-top: 25px;">
+                        <h4 style="margin-top: 0;">⚠️ Scaling Rules</h4>
+                        <p><strong>Only increase budget if:</strong></p>
+                        <ul style="margin-top: 10px;">
+                            <li>✓ CTR is above 3% (Search) or 0.8% (Display)</li>
+                            <li>✓ Cost per conversion is below $25</li>
+                            <li>✓ Conversion rate is above 2%</li>
+                            <li>✓ At least 7 days of stable performance</li>
+                            <li>✓ ROI is positive (revenue > ad spend)</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>Never:</strong></p>
+                        <ul style="margin-top: 10px;">
+                            <li>✗ Increase budget by more than 50% at once</li>
+                            <li>✗ Make multiple big changes on the same day</li>
+                            <li>✗ Scale if performance is declining</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="success-box" style="margin-top: 40px;">
+                    <h3 style="margin-top: 0; border: none; padding: 0;">🎯 Expected Results Summary</h3>
+
+                    <table style="margin-top: 15px;">
+                        <thead>
+                            <tr>
+                                <th>Timeframe</th>
+                                <th>Spend</th>
+                                <th>Conversions</th>
+                                <th>Revenue (@ $50/conv)</th>
+                                <th>Profit</th>
+                                <th>ROI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Month 1</strong></td>
+                                <td>$600</td>
+                                <td>30 - 100</td>
+                                <td>$1,500 - $5,000</td>
+                                <td>$900 - $4,400</td>
+                                <td>1.5:1 - 7.3:1</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Month 2</strong></td>
+                                <td>$900</td>
+                                <td>60 - 180</td>
+                                <td>$3,000 - $9,000</td>
+                                <td>$2,100 - $8,100</td>
+                                <td>2.3:1 - 9.0:1</td>
+                            </tr>
+                            <tr style="background: #d5f4e6;">
+                                <td><strong>Month 3</strong></td>
+                                <td>$1,200</td>
+                                <td>90 - 240</td>
+                                <td>$4,500 - $12,000</td>
+                                <td>$3,300 - $10,800</td>
+                                <td>2.75:1 - 9.0:1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p style="margin-top: 20px;"><strong>Assumptions:</strong></p>
+                    <ul>
+                        <li>Average commission per partner click: $50</li>
+                        <li>Conversion rate: 2.5% - 4% (Search), 1% - 2% (Display)</li>
+                        <li>Average CPC: $0.30 (blended)</li>
+                        <li>Continuous optimization and scaling based on performance</li>
+                    </ul>
+                </div>
+            </section>
+
+        </div>
+
+        <footer>
+            <h3 style="margin-bottom: 15px;">🚀 Ready to Launch Your English Google Ads Campaigns!</h3>
+            <p style="font-size: 1.1em; margin-bottom: 15px;">Complete guide with 200+ keywords, Search + Display setup, and optimization strategy</p>
+            <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.8;">Created: October 2025 | For: <a href="https://tradeflow.blog" target="_blank">tradeflow.blog</a></p>
+            <p style="margin-top: 10px; font-size: 0.85em; opacity: 0.7;">Always verify current Google Ads policies before launch: <a href="https://support.google.com/adspolicy" target="_blank">support.google.com/adspolicy</a></p>
+        </footer>
+    </div>
+</body>
+</html>

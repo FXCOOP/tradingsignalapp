@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyCron Setup - Copy These Exact Values</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .step {
+            background: #f7fafc;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+        .step h2 {
+            color: #1f2937;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        .field {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+        .field-name {
+            color: #667eea;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .field-value {
+            background: #1f2937;
+            color: #68d391;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            word-break: break-all;
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .copy-btn:hover {
+            background: #5568d3;
+        }
+        .warning {
+            background: #fef3c7;
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .warning strong {
+            color: #b45309;
+        }
+        .success {
+            background: #d1fae5;
+            border-left: 5px solid #10b981;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .success strong {
+            color: #065f46;
+        }
+        .screenshot-match {
+            background: #eff6ff;
+            border: 2px solid #3b82f6;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .screenshot-match h3 {
+            color: #1e40af;
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        tr:hover {
+            background: #f9fafb;
+        }
+        .big-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            transition: transform 0.2s;
+        }
+        .big-btn:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⏰ EasyCron Setup</h1>
+            <p>Copy these exact values into your EasyCron form</p>
+        </header>
+
+        <div class="content">
+            <!-- STEP 1: CRON EXPRESSION -->
+            <div class="step">
+                <h2>1️⃣ Cron Expression</h2>
+                <p style="margin-bottom: 15px;">This tells EasyCron to run <strong>every day at 4 AM UTC</strong> (which is 8 AM Dubai time).</p>
+
+                <div class="field">
+                    <div class="field-name">📝 Copy this into "Cron expression" field:</div>
+                    <div class="field-value">
+                        0 4 * * *
+                        <button class="copy-btn" onclick="copyText('0 4 * * *')">📋 Copy</button>
+                    </div>
+                </div>
+
+                <div class="screenshot-match">
+                    <h3>✅ In your screenshot, paste this where it says:</h3>
+                    <p style="font-weight: 600; color: #1f2937;">Cron expression: <span style="background: #fef3c7; padding: 5px 10px; border-radius: 4px;">0 4 * * *</span></p>
+                </div>
+            </div>
+
+            <!-- STEP 2: URL -->
+            <div class="step">
+                <h2>2️⃣ URL to Call</h2>
+                <p style="margin-bottom: 15px;">This is your API endpoint that generates signals.</p>
+
+                <div class="field">
+                    <div class="field-name">🔗 Copy this into "URL to call" field:</div>
+                    <div class="field-value">
+                        https://tradeflow.blog/api/cron/generate-daily
+                        <button class="copy-btn" onclick="copyText('https://tradeflow.blog/api/cron/generate-daily')">📋 Copy</button>
+                    </div>
+                </div>
+
+                <div class="screenshot-match">
+                    <h3>✅ In your screenshot, this is already filled in correctly!</h3>
+                    <p style="color: #065f46; font-weight: 600;">✓ https://tradeflow.blog/api/cron/generate-daily</p>
+                </div>
+            </div>
+
+            <!-- STEP 3: TIMEZONE -->
+            <div class="step">
+                <h2>3️⃣ Timezone</h2>
+                <p style="margin-bottom: 15px;">Keep it as <strong>UTC</strong> (already selected in your screenshot).</p>
+
+                <div class="field">
+                    <div class="field-name">🌍 Timezone setting:</div>
+                    <div class="field-value">
+                        UTC
+                    </div>
+                </div>
+
+                <div class="screenshot-match">
+                    <h3>✅ In your screenshot:</h3>
+                    <p style="color: #065f46; font-weight: 600;">✓ "UTC" is already selected in the dropdown</p>
+                </div>
+            </div>
+
+            <!-- STEP 4: HTTP METHOD -->
+            <div class="step">
+                <h2>4️⃣ HTTP Method (Click on "HTTP" Tab)</h2>
+                <p style="margin-bottom: 15px;">You need to click the <strong>"HTTP"</strong> tab in your EasyCron form to set this.</p>
+
+                <div class="field">
+                    <div class="field-name">📡 HTTP Method:</div>
+                    <div class="field-value">
+                        GET
+                    </div>
+                </div>
+
+                <div class="warning">
+                    <strong>⚠️ IMPORTANT:</strong> In your screenshot, click on the <strong>"HTTP"</strong> tab (next to "URL & Time") to access these settings.
+                </div>
+            </div>
+
+            <!-- STEP 5: AUTHENTICATION -->
+            <div class="step">
+                <h2>5️⃣ Authentication Header (Also in "HTTP" Tab)</h2>
+                <p style="margin-bottom: 15px;">This is the security token to prevent unauthorized access.</p>
+
+                <div class="warning">
+                    <strong>🔒 FIRST:</strong> You need to add a <code>CRON_SECRET</code> to your Render dashboard. If you haven't done this yet, see instructions below.
+                </div>
+
+                <div class="field">
+                    <div class="field-name">🔑 HTTP Header Name:</div>
+                    <div class="field-value">
+                        Authorization
+                        <button class="copy-btn" onclick="copyText('Authorization')">📋 Copy</button>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">🔐 HTTP Header Value (format):</div>
+                    <div class="field-value">
+                        Bearer YOUR_CRON_SECRET_HERE
+                        <button class="copy-btn" onclick="copyText('Bearer YOUR_CRON_SECRET_HERE')">📋 Copy</button>
+                    </div>
+                </div>
+
+                <div class="success">
+                    <strong>✅ EXAMPLE:</strong> If your CRON_SECRET is <code>abc123xyz789</code>, then enter:<br><br>
+                    <code style="background: #1f2937; color: #68d391; padding: 10px; display: block; border-radius: 6px;">Bearer abc123xyz789</code>
+                </div>
+            </div>
+
+            <!-- STEP 6: CRON_SECRET SETUP -->
+            <div class="step">
+                <h2>6️⃣ Where to Get Your CRON_SECRET</h2>
+
+                <h3 style="color: #1f2937; margin-bottom: 15px;">Option A: Check Render Dashboard</h3>
+                <ol style="margin-left: 25px; line-height: 2;">
+                    <li>Go to: <a href="https://dashboard.render.com" target="_blank" style="color: #667eea; font-weight: 600;">https://dashboard.render.com</a></li>
+                    <li>Click on your <strong>"tradesignalapp"</strong> service</li>
+                    <li>Click <strong>"Environment"</strong> in left sidebar</li>
+                    <li>Look for <strong>CRON_SECRET</strong></li>
+                    <li>If it exists, copy the value</li>
+                </ol>
+
+                <h3 style="color: #1f2937; margin: 25px 0 15px 0;">Option B: Create a New One</h3>
+                <p>If CRON_SECRET doesn't exist yet, create a random 32-character string:</p>
+
+                <div class="field">
+                    <div class="field-name">🎲 Example random CRON_SECRET (you can use this):</div>
+                    <div class="field-value">
+                        tradeflow_cron_2025_secure_key_xyz123abc456def789
+                        <button class="copy-btn" onclick="copyText('tradeflow_cron_2025_secure_key_xyz123abc456def789')">📋 Copy</button>
+                    </div>
+                </div>
+
+                <p style="margin-top: 20px;"><strong>Then add it to Render:</strong></p>
+                <ol style="margin-left: 25px; line-height: 2; margin-top: 10px;">
+                    <li>Render Dashboard → Your Service → Environment</li>
+                    <li>Click "Add Environment Variable"</li>
+                    <li>Key: <code>CRON_SECRET</code></li>
+                    <li>Value: <code>tradeflow_cron_2025_secure_key_xyz123abc456def789</code></li>
+                    <li>Click "Save Changes"</li>
+                </ol>
+            </div>
+
+            <!-- FINAL SUMMARY -->
+            <div class="step" style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-left-color: #10b981;">
+                <h2>✅ Final Values Summary</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Cron expression</strong></td>
+                            <td><code>0 4 * * *</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>URL to call</strong></td>
+                            <td><code>https://tradeflow.blog/api/cron/generate-daily</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Timezone</strong></td>
+                            <td><code>UTC</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>HTTP Method</strong></td>
+                            <td><code>GET</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>HTTP Header (Name)</strong></td>
+                            <td><code>Authorization</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>HTTP Header (Value)</strong></td>
+                            <td><code>Bearer YOUR_CRON_SECRET</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- NEXT STEPS -->
+            <div class="step">
+                <h2>🚀 After Filling the Form</h2>
+                <ol style="margin-left: 25px; line-height: 2; font-size: 1.1rem;">
+                    <li>Click <strong>"Update Cron Job"</strong> button (blue button at bottom)</li>
+                    <li>Then click <strong>"Test Run"</strong> to verify it works</li>
+                    <li>Check for success message ✅</li>
+                    <li>Done! Signals will now generate daily at 8 AM Dubai time 🎉</li>
+                </ol>
+            </div>
+
+            <div style="text-align: center; margin: 40px 0;">
+                <p style="font-size: 1.2rem; color: #6b7280; margin-bottom: 20px;">
+                    Need the CRON_SECRET setup guide?
+                </p>
+                <a href="https://dashboard.render.com" target="_blank" class="big-btn">
+                    🔐 Go to Render Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✅ Copied to clipboard:\n\n' + text);
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                alert('❌ Copy failed. Please select and copy manually.');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -427,9 +427,22 @@ export default function HomePage() {
     }
   }
 
-  // Auto-fetch AI signals on page load
+  // Load cached signals from daily cron job (NOT generate new ones)
   useEffect(() => {
-    fetchAISignals()
+    const loadCachedSignals = async () => {
+      try {
+        const response = await fetch('/api/daily-content')
+        if (response.ok) {
+          const data = await response.json()
+          if (data.signals && data.signals.length > 0) {
+            setAiSignals(data.signals)
+          }
+        }
+      } catch (error) {
+        console.error('Failed to load cached signals:', error)
+      }
+    }
+    loadCachedSignals()
   }, [])
 
   // Trading Glossary Data
