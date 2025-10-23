@@ -212,7 +212,7 @@
       <h3>📡 How This Works</h3>
       <p>This page sends <strong>simulated</strong> Exness postback events to your endpoint.</p>
       <p><strong>Note:</strong> Real postbacks will come from Exness servers when actual users register and deposit.</p>
-      <p><strong>Endpoint:</strong> <span class="code">https://bsupjdeayuylynsdmfdx.supabase.co/api/postback/exness</span></p>
+      <p><strong>Endpoint:</strong> <span class="code">https://tradeflow.blog/api/postback/exness</span></p>
     </div>
 
     <div class="warning">
@@ -310,7 +310,7 @@
       }
 
       try {
-        const response = await fetch('https://bsupjdeayuylynsdmfdx.supabase.co/api/postback/exness', {
+        const response = await fetch('https://tradeflow.blog/api/postback/exness', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
