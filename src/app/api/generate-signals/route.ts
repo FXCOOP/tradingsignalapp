@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     const rateLimitKey = request.headers.get('x-forwarded-for') || 'local'
 
     // Generate signals using OpenAI GPT-5 Nano
-    const signalsPrompt = `You are a professional trading analyst for global financial markets. Generate 6 high-quality trading signals for today.
+    const signalsPrompt = `You are a professional trading analyst for global financial markets. Generate 5 high-quality trading signals for today.
 
 Markets to cover:
 - US Stocks (Apple AAPL, Microsoft MSFT, Tesla TSLA, NVIDIA NVDA, Amazon AMZN)
@@ -60,13 +60,13 @@ IMPORTANT:
 - Include a mix of stocks, forex, commodities, and crypto
 - Provide both BUY and SELL signals
 - Make reasoning specific and actionable
-- Return ONLY a valid JSON array with 6 signals, no markdown formatting`
+- Return ONLY a valid JSON array with 5 signals, no markdown formatting`
 
     // Try GPT-5 Nano first, fallback to GPT-4o-mini if not available
     let completion
     try {
       completion = await openai.chat.completions.create({
-        model: process.env.OPENAI_MODEL || 'gpt-5-nano',
+        model: process.env.OPENAI_MODEL || 'gpt-5-nano-2025-08-07',
         messages: [
           {
             role: 'system',

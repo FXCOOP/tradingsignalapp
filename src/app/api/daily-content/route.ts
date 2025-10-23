@@ -4,7 +4,7 @@ import { saveDailyContent, getDailyContent } from '@/lib/cache'
 /**
  * MASTER DAILY CONTENT GENERATOR
  * This endpoint generates all daily content in one call:
- * - 6 Trading Signals
+ * - 5 Trading Signals
  * - 3 News Articles
  * - 1 Market Analysis
  *
