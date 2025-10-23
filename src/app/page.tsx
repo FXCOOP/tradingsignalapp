@@ -18,7 +18,7 @@ export default function HomePage() {
 
   const [activeTab, setActiveTab] = useState('signals')
   const [language, setLanguage] = useState('en')
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState<Date | null>(null)
   const [selectedSignal, setSelectedSignal] = useState<number | null>(null)
   const [signalHistory, setSignalHistory] = useState<any[]>([])
   const [totalProfit, setTotalProfit] = useState('+$2,847.50')
@@ -5040,6 +5040,8 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
   ]
 
   useEffect(() => {
+    // Initialize time on client-side only (prevents hydration mismatch)
+    setCurrentTime(new Date())
     const timer = setInterval(() => setCurrentTime(new Date()), 1000)
     return () => clearInterval(timer)
   }, [])
@@ -13961,7 +13963,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
             color: '#64748b',
             margin: 0
           }}>
-            © {new Date().getFullYear()} TradeFlow. All rights reserved. | Educational purposes only - Not financial advice.
+            © 2025 TradeFlow. All rights reserved. | Educational purposes only - Not financial advice.
           </p>
         </div>
       </footer>

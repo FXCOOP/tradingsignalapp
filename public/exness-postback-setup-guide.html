@@ -275,8 +275,8 @@
                     <p>When someone clicks your affiliate link and registers on Exness, Exness will automatically send a postback (webhook) to your server with the conversion data.</p>
                     <br>
                     <p><strong>Your postback URL:</strong></p>
-                    <div class="code-block">https://tradeflow.cloud/api/postback/exness</div>
-                    <button class="copy-button" onclick="copyToClipboard('https://tradeflow.cloud/api/postback/exness')">📋 Copy URL</button>
+                    <div class="code-block">https://tradeflow.blog/api/postback/exness</div>
+                    <button class="copy-button" onclick="copyToClipboard('https://tradeflow.blog/api/postback/exness')">📋 Copy URL</button>
                 </div>
 
                 <div class="warning-box">
@@ -346,22 +346,22 @@
                             <tbody>
                                 <tr>
                                     <td><strong>Registration</strong></td>
-                                    <td><span class="code-inline">https://tradeflow.cloud/api/postback/exness?event=registration</span></td>
+                                    <td><span class="code-inline">https://tradeflow.blog/api/postback/exness?event=registration</span></td>
                                     <td>User registers (every 10 min)</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Aggregated Deposit</strong></td>
-                                    <td><span class="code-inline">https://tradeflow.cloud/api/postback/exness?event=deposit</span></td>
+                                    <td><span class="code-inline">https://tradeflow.blog/api/postback/exness?event=deposit</span></td>
                                     <td>User deposits (every 10 min)</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Qualification</strong></td>
-                                    <td><span class="code-inline">https://tradeflow.cloud/api/postback/exness?event=qualification</span></td>
+                                    <td><span class="code-inline">https://tradeflow.blog/api/postback/exness?event=qualification</span></td>
                                     <td>CPA reward calculated (every 2 hours)</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Approved reward</strong></td>
-                                    <td><span class="code-inline">https://tradeflow.cloud/api/postback/exness?event=reward</span></td>
+                                    <td><span class="code-inline">https://tradeflow.blog/api/postback/exness?event=reward</span></td>
                                     <td>Reward approved (every 30 min)</td>
                                 </tr>
                             </tbody>
@@ -417,16 +417,16 @@
                             <h3>✅ Example Complete URLs:</h3>
                             <div class="code-block">
 <!-- Registration -->
-https://tradeflow.cloud/api/postback/exness?event=registration&client_id={aff_client}&event_id={aff_cid}&amount={aff_value}
+https://tradeflow.blog/api/postback/exness?event=registration&client_id={aff_client}&event_id={aff_cid}&amount={aff_value}
 
 <!-- Deposit -->
-https://tradeflow.cloud/api/postback/exness?event=deposit&client_id={aff_client}&event_id={aff_cid}&amount={aff_value}
+https://tradeflow.blog/api/postback/exness?event=deposit&client_id={aff_client}&event_id={aff_cid}&amount={aff_value}
 
 <!-- Qualification -->
-https://tradeflow.cloud/api/postback/exness?event=qualification&client_id={aff_client}&event_id={aff_cid}&amount={aff_value}
+https://tradeflow.blog/api/postback/exness?event=qualification&client_id={aff_client}&event_id={aff_cid}&amount={aff_value}
 
 <!-- Approved Reward -->
-https://tradeflow.cloud/api/postback/exness?event=reward&client_id={aff_client}&event_id={aff_cid}&amount={aff_value}
+https://tradeflow.blog/api/postback/exness?event=reward&client_id={aff_client}&event_id={aff_cid}&amount={aff_value}
                             </div>
                         </div>
                     </div>
@@ -483,7 +483,7 @@ https://tradeflow.cloud/api/postback/exness?event=reward&client_id={aff_client}&
                         </ol>
 
                         <p style="margin-top: 20px;">Or check your Admin Dashboard:</p>
-                        <div class="code-block">https://tradeflow.cloud/admin/dashboard</div>
+                        <div class="code-block">https://tradeflow.blog/admin/dashboard</div>
                         <p style="margin-top: 10px;">Click the <strong>"Conversions"</strong> tab to see all postbacks</p>
                     </div>
                 </div>
@@ -551,8 +551,8 @@ https://tradeflow.cloud/api/postback/exness?event=reward&client_id={aff_client}&
                     <h3>❌ Problem: Postback Test Fails</h3>
                     <p><strong>Solution:</strong></p>
                     <ol style="margin-left: 20px; line-height: 2;">
-                        <li>Check your site is deployed and online: <a href="https://tradeflow.cloud" target="_blank">https://tradeflow.cloud</a></li>
-                        <li>Test API route manually: <a href="https://tradeflow.cloud/api/postback/exness" target="_blank">https://tradeflow.cloud/api/postback/exness</a></li>
+                        <li>Check your site is deployed and online: <a href="https://tradeflow.blog" target="_blank">https://tradeflow.blog</a></li>
+                        <li>Test API route manually: <a href="https://tradeflow.blog/api/postback/exness" target="_blank">https://tradeflow.blog/api/postback/exness</a></li>
                         <li>Check Render logs for errors: <a href="https://dashboard.render.com" target="_blank">https://dashboard.render.com</a></li>
                         <li>Verify Supabase connection is working</li>
                     </ol>

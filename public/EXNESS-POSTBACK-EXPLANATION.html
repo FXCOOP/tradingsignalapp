@@ -269,7 +269,7 @@
                         <div class="flow-number">1</div>
                         <div class="flow-content">
                             <h4>Visitor Arrives on YOUR Site (TradeFlow)</h4>
-                            <p>User visits tradeflow.cloud, sees signals, reads articles</p>
+                            <p>User visits tradeflow.blog, sees signals, reads articles</p>
                         </div>
                     </div>
 
@@ -301,7 +301,7 @@
                         <div class="flow-number">5</div>
                         <div class="flow-content">
                             <h4>🔔 EXNESS Sends Postback to YOUR Server</h4>
-                            <p>Exness calls: <code>https://tradeflow.cloud/api/postback/exness</code> with registration data</p>
+                            <p>Exness calls: <code>https://tradeflow.blog/api/postback/exness</code> with registration data</p>
                         </div>
                     </div>
 
@@ -392,14 +392,14 @@
                 <div class="success-box">
                     <h3>Proper Testing Steps:</h3>
                     <ol style="margin-left: 20px; margin-top: 10px; line-height: 2;">
-                        <li><strong>Open your site:</strong> https://tradeflow.cloud</li>
+                        <li><strong>Open your site:</strong> https://tradeflow.blog</li>
                         <li><strong>Click your Exness affiliate link</strong> (any CTA button or popup)</li>
                         <li><strong>Land on Exness.com</strong> (should be in new tab)</li>
                         <li><strong>Register a NEW account on Exness</strong> (use different email than before)</li>
                         <li><strong>Complete the registration form on Exness</strong></li>
                         <li><strong>Wait 5-10 minutes</strong> for Exness to send postback</li>
                         <li><strong>Check your Supabase <code>exness_conversions</code> table</strong></li>
-                        <li><strong>Or check Admin Dashboard:</strong> https://tradeflow.cloud/admin/dashboard</li>
+                        <li><strong>Or check Admin Dashboard:</strong> https://tradeflow.blog/admin/dashboard</li>
                     </ol>
                 </div>
 
@@ -432,7 +432,7 @@
                 <div class="info-box">
                     <h3>Option 2: Admin Dashboard (Easier!)</h3>
                     <ol style="margin-left: 20px; margin-top: 10px;">
-                        <li>Go to: <a href="https://tradeflow.cloud/admin/dashboard" target="_blank">https://tradeflow.cloud/admin/dashboard</a></li>
+                        <li>Go to: <a href="https://tradeflow.blog/admin/dashboard" target="_blank">https://tradeflow.blog/admin/dashboard</a></li>
                         <li>Click "Conversions" tab</li>
                         <li>See all Exness registrations, deposits, rewards</li>
                     </ol>
@@ -495,7 +495,7 @@
                 <div class="success-box">
                     <h3>Step 1: Check if Exness postback URL is configured</h3>
                     <p style="margin-top: 10px;">Visit this URL in your browser:</p>
-                    <div class="code-block">https://tradeflow.cloud/api/postback/exness</div>
+                    <div class="code-block">https://tradeflow.blog/api/postback/exness</div>
                     <p style="margin-top: 10px;">You should see a JSON response showing your postback configuration. If you get an error, your API route isn't working.</p>
                 </div>
 
@@ -504,7 +504,7 @@
                     <ol style="margin-left: 20px; margin-top: 10px;">
                         <li>Log into Exness Partners: <a href="https://partners.exness.com" target="_blank">https://partners.exness.com</a></li>
                         <li>Go to Settings or Postback Configuration</li>
-                        <li>Make sure this URL is saved: <code>https://tradeflow.cloud/api/postback/exness</code></li>
+                        <li>Make sure this URL is saved: <code>https://tradeflow.blog/api/postback/exness</code></li>
                         <li>If not, add it and save</li>
                     </ol>
                 </div>
@@ -513,7 +513,7 @@
                     <h3>Step 3: Test with real Exness registration</h3>
                     <ol style="margin-left: 20px; margin-top: 10px;">
                         <li>Use a private/incognito browser window</li>
-                        <li>Go to your site: https://tradeflow.cloud</li>
+                        <li>Go to your site: https://tradeflow.blog</li>
                         <li>Click any Exness CTA button or popup</li>
                         <li>Register on Exness with a NEW email (can't use existing account)</li>
                         <li>Wait 5-10 minutes</li>

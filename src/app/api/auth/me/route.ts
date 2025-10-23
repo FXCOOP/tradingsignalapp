@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getUserFromRequest } from '@/lib/auth'
 
+// Force dynamic rendering (this is an auth endpoint that needs request headers)
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   try {
     // Get user from JWT token
