@@ -62,23 +62,47 @@ IMPORTANT:
 - Make reasoning specific and actionable
 - Return ONLY a valid JSON array with 6 signals, no markdown formatting`
 
-    const completion = await openai.chat.completions.create({
-      model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
-      messages: [
-        {
-          role: 'system',
-          content: 'You are a professional trading analyst specializing in global financial markets. Provide accurate, actionable trading signals in JSON format only.'
-        },
-        {
-          role: 'user',
-          content: signalsPrompt
-        }
-      ],
-      temperature: parseFloat(process.env.OPENAI_TEMPERATURE || '0.7'),
-      max_completion_tokens: parseInt(process.env.OPENAI_MAX_TOKENS || '2000')
-    }, {
-      timeout: 45000 // 45 second timeout for OpenAI
-    })
+    // Try GPT-5 Nano first, fallback to GPT-4o-mini if not available
+    let completion
+    try {
+      completion = await openai.chat.completions.create({
+        model: process.env.OPENAI_MODEL || 'gpt-5-nano',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are a professional trading analyst specializing in global financial markets. Provide accurate, actionable trading signals in JSON format only.'
+          },
+          {
+            role: 'user',
+            content: signalsPrompt
+          }
+        ],
+        temperature: parseFloat(process.env.OPENAI_TEMPERATURE || '0.7'),
+        max_completion_tokens: parseInt(process.env.OPENAI_MAX_TOKENS || '2000')
+      }, {
+        timeout: 45000 // 45 second timeout for OpenAI
+      })
+    } catch (modelError: any) {
+      console.warn('GPT-5 Nano not available, falling back to GPT-4o-mini:', modelError.message)
+      // Fallback to GPT-4o-mini if GPT-5 Nano is not available
+      completion = await openai.chat.completions.create({
+        model: 'gpt-4o-mini',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are a professional trading analyst specializing in global financial markets. Provide accurate, actionable trading signals in JSON format only.'
+          },
+          {
+            role: 'user',
+            content: signalsPrompt
+          }
+        ],
+        temperature: parseFloat(process.env.OPENAI_TEMPERATURE || '0.7'),
+        max_completion_tokens: parseInt(process.env.OPENAI_MAX_TOKENS || '2000')
+      }, {
+        timeout: 45000
+      })
+    }
 
     const content = completion.choices[0].message.content || '[]'
 
