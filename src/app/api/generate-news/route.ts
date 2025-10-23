@@ -120,6 +120,13 @@ Return ONLY a valid JSON array with 3 articles, no markdown formatting`
 
   } catch (error: any) {
     console.error('News generation error:', error)
+    console.error('Error details:', {
+      message: error.message,
+      status: error.status,
+      type: error.type,
+      code: error.code,
+      response: error.response?.data
+    })
 
     // 🚨 FALLBACK: Return demo news articles if OpenAI fails
     console.log('Returning fallback demo news due to error:', error.message)

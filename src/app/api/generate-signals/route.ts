@@ -121,6 +121,13 @@ IMPORTANT:
 
   } catch (error: any) {
     console.error('Signal generation error:', error)
+    console.error('Error details:', {
+      message: error.message,
+      status: error.status,
+      type: error.type,
+      code: error.code,
+      response: error.response?.data
+    })
 
     // 🚨 FALLBACK: Return demo signals if OpenAI fails
     console.log('Returning fallback demo signals due to error:', error.message)
