@@ -81,7 +81,7 @@ Return ONLY a valid JSON array with 3 articles, no markdown formatting`
           }
         ],
         temperature: 0.8, // Higher for more creative writing
-        max_tokens: 4000,
+        max_completion_tokens: 4000,
       }, {
         timeout: 45000
       })
@@ -101,7 +101,7 @@ Return ONLY a valid JSON array with 3 articles, no markdown formatting`
           }
         ],
         temperature: 0.8,
-        max_tokens: 4000,
+        max_completion_tokens: 4000,
       }, {
         timeout: 45000
       })

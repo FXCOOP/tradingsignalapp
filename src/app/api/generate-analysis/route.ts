@@ -98,7 +98,7 @@ Use realistic data consistent with current GCC market conditions. Return ONLY va
         }
       ],
       temperature: 0.6, // Lower for more analytical, consistent output
-      max_tokens: 3500,
+      max_completion_tokens: 3500,
     })
 
     const content = completion.choices[0].message.content || '{}'
