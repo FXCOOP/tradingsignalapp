@@ -97,7 +97,7 @@ Use realistic data consistent with current GCC market conditions. Return ONLY va
           content: analysisPrompt
         }
       ],
-      temperature: 0.6, // Lower for more analytical, consistent output
+      // temperature: 0.6, // gpt-5-nano-2025-08-07 only supports temperature=1 (default)
       max_completion_tokens: 3500,
     })
 

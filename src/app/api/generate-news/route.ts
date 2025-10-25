@@ -80,7 +80,7 @@ Return ONLY a valid JSON array with 3 articles, no markdown formatting`
             content: newsPrompt
           }
         ],
-        temperature: 0.8, // Higher for more creative writing
+        // temperature: 0.8, // gpt-5-nano-2025-08-07 only supports temperature=1 (default)
         max_completion_tokens: 4000,
       }, {
         timeout: 45000
@@ -100,7 +100,7 @@ Return ONLY a valid JSON array with 3 articles, no markdown formatting`
             content: newsPrompt
           }
         ],
-        temperature: 0.8,
+        // temperature: 0.8, // Keep for fallback model, but gpt-5-nano doesn't support this
         max_completion_tokens: 4000,
       }, {
         timeout: 45000
