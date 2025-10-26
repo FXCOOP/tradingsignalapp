@@ -91,7 +91,16 @@ IMPORTANT:
       })
     }
 
+    // 🔍 DEBUG: Log the full OpenAI response
+    console.log('🔍 OpenAI completion object:', JSON.stringify(completion, null, 2))
+    console.log('🔍 Choices:', completion.choices)
+    console.log('🔍 First choice:', completion.choices?.[0])
+    console.log('🔍 Message:', completion.choices?.[0]?.message)
+    console.log('🔍 Content:', completion.choices?.[0]?.message?.content)
+
     const content = completion.choices[0].message.content || '[]'
+    console.log('🔍 Content value:', content)
+    console.log('🔍 Content length:', content.length)
 
     // Remove markdown code blocks if present
     const cleanContent = content
@@ -99,12 +108,15 @@ IMPORTANT:
       .replace(/```\n?/g, '')
       .trim()
 
+    console.log('🔍 Clean content:', cleanContent)
+
     let signals
     try {
       signals = JSON.parse(cleanContent)
     } catch (parseError) {
-      console.error('Failed to parse OpenAI response:', cleanContent)
-      throw new Error('Invalid JSON response from OpenAI')
+      console.error('❌ Failed to parse OpenAI response:', cleanContent)
+      console.error('❌ Parse error:', parseError)
+      throw new Error(`Invalid JSON response from OpenAI: ${cleanContent.substring(0, 100)}`)
     }
 
     // Validate signals structure
