@@ -95,24 +95,13 @@ IMPORTANT:
       })
     }
 
-    // 🔍 DEBUG: Log the full OpenAI response
-    console.log('🔍 OpenAI completion object:', JSON.stringify(completion, null, 2))
-    console.log('🔍 Choices:', completion.choices)
-    console.log('🔍 First choice:', completion.choices?.[0])
-    console.log('🔍 Message:', completion.choices?.[0]?.message)
-    console.log('🔍 Content:', completion.choices?.[0]?.message?.content)
-
     const content = completion.choices[0].message.content || '[]'
-    console.log('🔍 Content value:', content)
-    console.log('🔍 Content length:', content.length)
 
     // Remove markdown code blocks if present
     const cleanContent = content
       .replace(/```json\n?/g, '')
       .replace(/```\n?/g, '')
       .trim()
-
-    console.log('🔍 Clean content:', cleanContent)
 
     let signals
     try {
