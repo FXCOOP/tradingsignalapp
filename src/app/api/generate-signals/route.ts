@@ -64,7 +64,8 @@ IMPORTANT:
             content: signalsPrompt
           }
         ],
-        max_completion_tokens: parseInt(process.env.OPENAI_MAX_TOKENS || '2000')
+        max_completion_tokens: parseInt(process.env.OPENAI_MAX_TOKENS || '4000')
+        // Increased to 4000: gpt-5-nano uses reasoning tokens internally, needs more capacity
         // temperature removed: gpt-5-nano-2025-08-07 only supports default value (1)
       }, {
         timeout: 45000 // 45 second timeout for OpenAI
@@ -84,7 +85,8 @@ IMPORTANT:
             content: signalsPrompt
           }
         ],
-        max_completion_tokens: parseInt(process.env.OPENAI_MAX_TOKENS || '2000')
+        max_completion_tokens: parseInt(process.env.OPENAI_MAX_TOKENS || '4000')
+        // Increased to 4000: gpt-5-nano uses reasoning tokens internally, needs more capacity
         // temperature removed: gpt-5-nano-2025-08-07 only supports default value (1)
       }, {
         timeout: 45000
