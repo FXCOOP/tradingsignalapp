@@ -64,8 +64,8 @@ IMPORTANT:
             content: signalsPrompt
           }
         ],
-        temperature: parseFloat(process.env.OPENAI_TEMPERATURE || '0.7'),
         max_completion_tokens: parseInt(process.env.OPENAI_MAX_TOKENS || '2000')
+        // temperature removed: gpt-5-nano-2025-08-07 only supports default value (1)
       }, {
         timeout: 45000 // 45 second timeout for OpenAI
       })
@@ -84,8 +84,8 @@ IMPORTANT:
             content: signalsPrompt
           }
         ],
-        temperature: parseFloat(process.env.OPENAI_TEMPERATURE || '0.7'),
         max_completion_tokens: parseInt(process.env.OPENAI_MAX_TOKENS || '2000')
+        // temperature removed: gpt-5-nano-2025-08-07 only supports default value (1)
       }, {
         timeout: 45000
       })
