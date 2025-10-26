@@ -146,10 +146,10 @@ IMPORTANT:
         stop_loss: signal.stopLoss,
         confidence_level: signal.confidence,
         timeframe: signal.timeframe,
-        reasoning: signal.reasoning,
+        technical_reasoning: signal.reasoning,
         risk_reward_ratio: signal.riskReward,
         status: 'active',
-        created_at: new Date().toISOString()
+        generated_at: new Date().toISOString()
       }))
 
       const { data, error } = await supabaseAdmin
@@ -300,10 +300,10 @@ IMPORTANT:
         stop_loss: signal.stopLoss,
         confidence_level: signal.confidence,
         timeframe: signal.timeframe,
-        reasoning: signal.reasoning,
+        technical_reasoning: signal.reasoning,
         risk_reward_ratio: signal.riskReward,
         status: 'active',
-        created_at: new Date().toISOString()
+        generated_at: new Date().toISOString()
       }))
 
       const { data, error } = await supabaseAdmin
