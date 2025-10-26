@@ -427,15 +427,16 @@ export default function HomePage() {
     }
   }
 
-  // Load cached signals from daily cron job (NOT generate new ones)
+  // Load cached signals from database (NOT generate new ones)
   useEffect(() => {
     const loadCachedSignals = async () => {
       try {
-        const response = await fetch('/api/daily-content')
+        const response = await fetch('/api/generate-signals') // GET existing signals from database
         if (response.ok) {
           const data = await response.json()
-          if (data.signals && data.signals.length > 0) {
+          if (data.success && data.signals && data.signals.length > 0) {
             setAiSignals(data.signals)
+            console.log(`✅ Loaded ${data.signals.length} AI signals from database`)
           }
         }
       } catch (error) {

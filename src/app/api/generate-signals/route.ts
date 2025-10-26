@@ -131,7 +131,7 @@ IMPORTANT:
     try {
       const dbSignals = enrichedSignals.map((signal: any) => ({
         symbol: signal.symbol,
-        signal_type: signal.type,
+        signal_type: signal.type.replace('_', ' '), // Fix: STRONG_BUY → STRONG BUY (database expects space)
         entry_price: signal.entryPrice,
         target_price: signal.targetPrice,
         stop_loss: signal.stopLoss,
@@ -286,7 +286,7 @@ IMPORTANT:
     try {
       const dbSignals = demoSignals.map((signal: any) => ({
         symbol: signal.symbol,
-        signal_type: signal.type,
+        signal_type: signal.type.replace('_', ' '), // Fix: STRONG_BUY → STRONG BUY (database expects space)
         entry_price: signal.entryPrice,
         target_price: signal.targetPrice,
         stop_loss: signal.stopLoss,
@@ -325,20 +325,57 @@ IMPORTANT:
   }
 }
 
-// GET endpoint to check API status
+// GET endpoint to fetch signals from database
 export async function GET(request: NextRequest) {
-  const hasApiKey = !!process.env.OPENAI_API_KEY
-  const apiKeyPreview = hasApiKey
-    ? `${process.env.OPENAI_API_KEY?.substring(0, 10)}...`
-    : 'NOT SET'
+  try {
+    // Fetch latest signals from Supabase
+    const { data: signals, error } = await supabaseAdmin
+      .from('trading_signals')
+      .select('*')
+      .eq('status', 'active')
+      .order('generated_at', { ascending: false })
+      .limit(5)
 
-  return NextResponse.json({
-    status: 'ready',
-    openaiConfigured: hasApiKey,
-    apiKeyPreview,
-    model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
-    maxTokens: process.env.OPENAI_MAX_TOKENS || '3000',
-    temperature: process.env.OPENAI_TEMPERATURE || '0.7',
-    timestamp: new Date().toISOString()
-  })
+    if (error) {
+      console.error('❌ Failed to fetch signals from database:', error)
+      return NextResponse.json({
+        success: false,
+        error: 'Failed to fetch signals from database',
+        details: error.message
+      }, { status: 500 })
+    }
+
+    // Transform database signals to API format
+    const formattedSignals = signals.map((s: any) => ({
+      id: s.id,
+      symbol: s.symbol,
+      name: s.symbol, // Use symbol as name if not stored
+      type: s.signal_type,
+      entryPrice: parseFloat(s.entry_price),
+      targetPrice: parseFloat(s.target_price),
+      stopLoss: parseFloat(s.stop_loss),
+      confidence: s.confidence_level,
+      timeframe: s.timeframe,
+      reasoning: s.technical_reasoning,
+      riskReward: parseFloat(s.risk_reward_ratio),
+      generatedAt: s.generated_at,
+      status: s.status.toUpperCase(),
+      market: s.market_type
+    }))
+
+    return NextResponse.json({
+      success: true,
+      count: formattedSignals.length,
+      signals: formattedSignals,
+      cached: true,
+      generatedAt: signals[0]?.generated_at || new Date().toISOString(),
+      timestamp: new Date().toISOString()
+    })
+  } catch (error: any) {
+    console.error('❌ Error fetching signals:', error)
+    return NextResponse.json({
+      success: false,
+      error: error.message || 'Failed to fetch signals'
+    }, { status: 500 })
+  }
 }
