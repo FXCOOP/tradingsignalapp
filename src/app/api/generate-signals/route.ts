@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import { getDailyContent } from '@/lib/cache'
+import { supabaseAdmin } from '@/lib/supabase'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -134,6 +135,39 @@ IMPORTANT:
       market: 'Global'
     }))
 
+    // 💾 Save signals to Supabase database
+    console.log('💾 Saving signals to Supabase database...')
+    try {
+      const dbSignals = enrichedSignals.map((signal: any) => ({
+        symbol: signal.symbol,
+        signal_type: signal.type,
+        entry_price: signal.entryPrice,
+        target_price: signal.targetPrice,
+        stop_loss: signal.stopLoss,
+        confidence_level: signal.confidence,
+        timeframe: signal.timeframe,
+        reasoning: signal.reasoning,
+        risk_reward_ratio: signal.riskReward,
+        status: 'active',
+        created_at: new Date().toISOString()
+      }))
+
+      const { data, error } = await supabaseAdmin
+        .from('trading_signals')
+        .insert(dbSignals)
+        .select()
+
+      if (error) {
+        console.error('❌ Failed to save signals to database:', error)
+        throw new Error(`Database error: ${error.message}`)
+      }
+
+      console.log(`✅ Successfully saved ${data?.length || 0} signals to database`)
+    } catch (dbError: any) {
+      console.error('❌ Database save error:', dbError)
+      // Continue even if database save fails - return the signals anyway
+    }
+
     return NextResponse.json({
       success: true,
       count: enrichedSignals.length,
@@ -254,6 +288,37 @@ IMPORTANT:
         market: 'Global'
       }
     ]
+
+    // 💾 Save demo signals to Supabase database
+    console.log('💾 Saving demo signals to Supabase database...')
+    try {
+      const dbSignals = demoSignals.map((signal: any) => ({
+        symbol: signal.symbol,
+        signal_type: signal.type,
+        entry_price: signal.entryPrice,
+        target_price: signal.targetPrice,
+        stop_loss: signal.stopLoss,
+        confidence_level: signal.confidence,
+        timeframe: signal.timeframe,
+        reasoning: signal.reasoning,
+        risk_reward_ratio: signal.riskReward,
+        status: 'active',
+        created_at: new Date().toISOString()
+      }))
+
+      const { data, error } = await supabaseAdmin
+        .from('trading_signals')
+        .insert(dbSignals)
+        .select()
+
+      if (error) {
+        console.error('❌ Failed to save demo signals to database:', error)
+      } else {
+        console.log(`✅ Successfully saved ${data?.length || 0} demo signals to database`)
+      }
+    } catch (dbError: any) {
+      console.error('❌ Database save error for demo signals:', dbError)
+    }
 
     return NextResponse.json({
       success: true,
