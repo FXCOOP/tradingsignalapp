@@ -15,30 +15,22 @@ function getDynamicStats() {
 
   // Base values (at launch)
   const baseTraders = 10000
-  const baseProfits = 2200000 // $2.2M
   const baseSignals = 230
 
-  // Daily growth rates
+  // Daily growth rates (COMPLIANCE: No profit tracking)
   const tradersPerDay = Math.floor(15 + Math.random() * 10) // 15-25 traders/day
-  const profitsPerDay = Math.floor(8000 + Math.random() * 4000) // $8k-12k/day
   const signalsPerDay = 5 // 5 signals generated daily
 
   // Calculate current values
   const activeTraders = baseTraders + (daysSinceLaunch * tradersPerDay)
-  const totalProfits = baseProfits + (daysSinceLaunch * profitsPerDay)
   const totalSignals = baseSignals + (daysSinceLaunch * signalsPerDay)
-
-  // Format profits
-  const profitsInMillions = (totalProfits / 1000000).toFixed(1)
 
   return {
     activeTraders,
-    totalProfits: `$${profitsInMillions}M+`,
     totalSignalsCount: totalSignals,
-    winRate: 78, // Stable
     avgRating: 4.8, // Stable
     activeSignalsCount: 3, // Current active
-    totalProfit: '+$2,847.50' // Per user average (stable)
+    yearsExperience: '5+' // COMPLIANCE: Replace profit/win rate claims
   }
 }
 
@@ -278,7 +270,7 @@ export default function HomePage() {
       rating: 4.9,
       reviews: 15420,
       features: ['0.0 Pips Spreads', 'Instant Execution', 'CySEC Regulated'],
-      bonus: '$50 Welcome Bonus',
+      bonus: 'Start Trading Free',
       popular: true,
       commission: 'Zero',
       platform: 'MT4/MT5',
@@ -287,16 +279,16 @@ export default function HomePage() {
     }
   ]
 
-  // NEW: Live Activity Feed Data
+  // NEW: Live Activity Feed Data (COMPLIANCE: No profit claims)
   const liveActivities = [
-    { name: 'Mohammed', location: 'Dubai', profit: '+$450', emoji: '🇦🇪' },
-    { name: 'Ahmed', location: 'Riyadh', profit: '+$780', emoji: '🇸🇦' },
-    { name: 'Fatima', location: 'Doha', profit: '+$320', emoji: '🇶🇦' },
-    { name: 'Hassan', location: 'Kuwait', profit: '+$590', emoji: '🇰🇼' },
-    { name: 'Sara', location: 'Abu Dhabi', profit: '+$410', emoji: '🇦🇪' },
-    { name: 'Khalid', location: 'Jeddah', profit: '+$650', emoji: '🇸🇦' },
-    { name: 'Noura', location: 'Manama', profit: '+$280', emoji: '🇧🇭' },
-    { name: 'Omar', location: 'Dubai', profit: '+$890', emoji: '🇦🇪' }
+    { name: 'Mohammed', location: 'Dubai', action: 'Viewing signals', emoji: '🇦🇪' },
+    { name: 'Ahmed', location: 'Riyadh', action: 'Just joined', emoji: '🇸🇦' },
+    { name: 'Fatima', location: 'Doha', action: 'Learning forex', emoji: '🇶🇦' },
+    { name: 'Hassan', location: 'Kuwait', action: 'Reading analysis', emoji: '🇰🇼' },
+    { name: 'Sara', location: 'Abu Dhabi', action: 'Exploring signals', emoji: '🇦🇪' },
+    { name: 'Khalid', location: 'Jeddah', action: 'Watching webinar', emoji: '🇸🇦' },
+    { name: 'Noura', location: 'Manama', action: 'Active now', emoji: '🇧🇭' },
+    { name: 'Omar', location: 'Dubai', action: 'Viewing education', emoji: '🇦🇪' }
   ]
 
   // NEW: Popup Management Functions
@@ -5980,9 +5972,8 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 fontWeight: '800',
                 fontSize: isMobile ? '13px' : '16px'
               }}>
-                {liveActivities[liveActivityIndex].profit}
+                {liveActivities[liveActivityIndex].action}
               </span>
-              {!isMobile && <span>on our signals!</span>}
             </div>
           </div>
         </div>
@@ -6045,10 +6036,10 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 WebkitTextFillColor: 'transparent',
                 marginBottom: isMobile ? '4px' : '8px'
               }}>
-                $2.4M+
+                {dynamicStats.activeTraders.toLocaleString()}+
               </div>
               <div style={{ fontSize: isMobile ? '11px' : '14px', color: '#64748b', fontWeight: '600' }}>
-                Total Profits Made
+                Active Users
               </div>
             </div>
             <div style={{ animation: 'fadeIn 0.6s ease 0.2s', animationFillMode: 'backwards' }}>
@@ -6060,10 +6051,10 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 WebkitTextFillColor: 'transparent',
                 marginBottom: isMobile ? '4px' : '8px'
               }}>
-                78%
+                {dynamicStats.yearsExperience}
               </div>
               <div style={{ fontSize: isMobile ? '11px' : '14px', color: '#64748b', fontWeight: '600' }}>
-                Average Win Rate
+                Years Experience
               </div>
             </div>
             <div style={{ animation: 'fadeIn 0.6s ease 0.3s', animationFillMode: 'backwards' }}>
