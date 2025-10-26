@@ -398,28 +398,29 @@ export default function HomePage() {
   }, [])
 
   // Beautiful popup after 10 minutes of genuine engagement
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!popupDismissed['exness']) {
-        setShowExnessPopup(true)
-      }
-    }, 600000) // 10 minutes = 600,000 milliseconds
+  // 🚫 DISABLED: Popups causing display issues on desktop
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     if (!popupDismissed['exness']) {
+  //       setShowExnessPopup(true)
+  //     }
+  //   }, 600000) // 10 minutes = 600,000 milliseconds
 
-    return () => clearTimeout(timer)
-  }, [popupDismissed])
+  //   return () => clearTimeout(timer)
+  // }, [popupDismissed])
 
-  // 💎 30-minute engagement popup
-  useEffect(() => {
-    const popupTimer = setTimeout(() => {
-      const hasSeenPopup = localStorage.getItem('seen30MinPopup')
-      if (!hasSeenPopup) {
-        setShow30MinPopup(true)
-        localStorage.setItem('seen30MinPopup', 'true')
-      }
-    }, 60000) // 1 minute for testing (change to 1800000 for 30 min in production)
+  // 💎 30-minute engagement popup - DISABLED
+  // useEffect(() => {
+  //   const popupTimer = setTimeout(() => {
+  //     const hasSeenPopup = localStorage.getItem('seen30MinPopup')
+  //     if (!hasSeenPopup) {
+  //       setShow30MinPopup(true)
+  //       localStorage.setItem('seen30MinPopup', 'true')
+  //     }
+  //   }, 60000) // 1 minute for testing (change to 1800000 for 30 min in production)
 
-    return () => clearTimeout(popupTimer)
-  }, [])
+  //   return () => clearTimeout(popupTimer)
+  // }, [])
 
   // 🤖 FETCH AI-GENERATED SIGNALS FROM OPENAI
   const fetchAISignals = async () => {
