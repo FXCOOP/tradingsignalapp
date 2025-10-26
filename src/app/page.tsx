@@ -52,9 +52,8 @@ export default function HomePage() {
   const [currentTime, setCurrentTime] = useState<Date | null>(null)
   const [selectedSignal, setSelectedSignal] = useState<number | null>(null)
   const [signalHistory, setSignalHistory] = useState<any[]>([])
-  const [totalProfit, setTotalProfit] = useState(dynamicStats.totalProfit)
-  const [winRate, setWinRate] = useState(dynamicStats.winRate)
   const [activeSignals, setActiveSignals] = useState(dynamicStats.activeSignalsCount)
+  const [totalSignalsGenerated, setTotalSignalsGenerated] = useState(dynamicStats.totalSignalsCount)
   const [notifications, setNotifications] = useState<any[]>([])
   const [followedSignals, setFollowedSignals] = useState<number[]>([])
   const [selectedCourse, setSelectedCourse] = useState<number | null>(null)
@@ -6126,13 +6125,13 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                     color: designSystem.colors.success.dark,
                     marginBottom: isMobile ? designSystem.spacing[1] : designSystem.spacing[2]
                   }}>
-                    {totalProfit}
+                    {totalSignalsGenerated}+
                   </div>
                   <div style={{
                     fontSize: isMobile ? designSystem.typography.sizes.caption.mobile : designSystem.typography.sizes.bodySmall.desktop,
                     color: designSystem.colors.neutral[500],
                     fontWeight: designSystem.typography.weights.medium
-                  }}>Total Profit</div>
+                  }}>Signals Generated</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
@@ -6141,13 +6140,13 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                     color: designSystem.colors.primary.main,
                     marginBottom: isMobile ? designSystem.spacing[1] : designSystem.spacing[2]
                   }}>
-                    {winRate}%
+                    {dynamicStats.avgRating}
                   </div>
                   <div style={{
                     fontSize: isMobile ? designSystem.typography.sizes.caption.mobile : designSystem.typography.sizes.bodySmall.desktop,
                     color: designSystem.colors.neutral[500],
                     fontWeight: designSystem.typography.weights.medium
-                  }}>Win Rate</div>
+                  }}>Average Rating</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
