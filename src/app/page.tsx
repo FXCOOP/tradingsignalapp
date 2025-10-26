@@ -6035,10 +6035,10 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 WebkitTextFillColor: 'transparent',
                 marginBottom: isMobile ? '4px' : '8px'
               }}>
-                {dynamicStats.activeTraders.toLocaleString()}+
+                {dynamicStats.totalSignalsCount.toLocaleString()}+
               </div>
               <div style={{ fontSize: isMobile ? '11px' : '14px', color: '#64748b', fontWeight: '600' }}>
-                Active Users
+                Signals Generated
               </div>
             </div>
             <div style={{ animation: 'fadeIn 0.6s ease 0.2s', animationFillMode: 'backwards' }}>
