@@ -12,23 +12,9 @@ export const maxDuration = 60
 
 export async function POST(request: NextRequest) {
   try {
-    // 🚀 Check cache first - return cached signals if available
-    const cachedContent = await getDailyContent()
-    if (cachedContent && cachedContent.signals && cachedContent.signals.length > 0) {
-      console.log('✅ Returning cached signals')
-      return NextResponse.json({
-        success: true,
-        count: cachedContent.signals.length,
-        signals: cachedContent.signals,
-        generated: cachedContent.generatedAt,
-        expiresAt: cachedContent.expiresAt,
-        model: 'cached',
-        tokensUsed: 0,
-        cached: true
-      })
-    }
-
-    console.log('🔄 No cache found, generating fresh signals...')
+    // ❌ CACHE DISABLED: Filesystem cache doesn't work on Render (ephemeral storage)
+    // Always generate fresh signals and save to database instead
+    console.log('🔄 Generating fresh signals (cache disabled)...')
     // Rate limiting check
     const rateLimitKey = request.headers.get('x-forwarded-for') || 'local'
 
