@@ -134,6 +134,7 @@ IMPORTANT:
         timeframe: signal.timeframe,
         technical_reasoning: signal.reasoning,
         risk_reward_ratio: signal.riskReward,
+        market_type: 'global',
         status: 'active',
         generated_at: new Date().toISOString()
       }))
@@ -288,6 +289,7 @@ IMPORTANT:
         timeframe: signal.timeframe,
         technical_reasoning: signal.reasoning,
         risk_reward_ratio: signal.riskReward,
+        market_type: 'global',
         status: 'active',
         generated_at: new Date().toISOString()
       }))
