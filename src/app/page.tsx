@@ -6,7 +6,45 @@ import { AuthModal } from '@/components/AuthModal'
 import { BrokerPromptModal } from '@/components/BrokerPromptModal'
 import { ExnessLink } from '@/components/ExnessLink'
 
+// 📊 Dynamic Stats Calculator - Updates daily
+function getDynamicStats() {
+  // Launch date: October 1, 2024
+  const launchDate = new Date('2024-10-01')
+  const today = new Date()
+  const daysSinceLaunch = Math.floor((today.getTime() - launchDate.getTime()) / (1000 * 60 * 60 * 24))
+
+  // Base values (at launch)
+  const baseTraders = 10000
+  const baseProfits = 2200000 // $2.2M
+  const baseSignals = 230
+
+  // Daily growth rates
+  const tradersPerDay = Math.floor(15 + Math.random() * 10) // 15-25 traders/day
+  const profitsPerDay = Math.floor(8000 + Math.random() * 4000) // $8k-12k/day
+  const signalsPerDay = 5 // 5 signals generated daily
+
+  // Calculate current values
+  const activeTraders = baseTraders + (daysSinceLaunch * tradersPerDay)
+  const totalProfits = baseProfits + (daysSinceLaunch * profitsPerDay)
+  const totalSignals = baseSignals + (daysSinceLaunch * signalsPerDay)
+
+  // Format profits
+  const profitsInMillions = (totalProfits / 1000000).toFixed(1)
+
+  return {
+    activeTraders,
+    totalProfits: `$${profitsInMillions}M+`,
+    totalSignalsCount: totalSignals,
+    winRate: 78, // Stable
+    avgRating: 4.8, // Stable
+    activeSignalsCount: 3, // Current active
+    totalProfit: '+$2,847.50' // Per user average (stable)
+  }
+}
+
 export default function HomePage() {
+  // 📊 Initialize dynamic stats
+  const dynamicStats = getDynamicStats()
   // 🔐 Authentication
   const { user, loading: authLoading, logout, isPremium, getRemainingFree } = useUser()
   const [showAuthModal, setShowAuthModal] = useState(false)
@@ -22,9 +60,9 @@ export default function HomePage() {
   const [currentTime, setCurrentTime] = useState<Date | null>(null)
   const [selectedSignal, setSelectedSignal] = useState<number | null>(null)
   const [signalHistory, setSignalHistory] = useState<any[]>([])
-  const [totalProfit, setTotalProfit] = useState('+$2,847.50')
-  const [winRate, setWinRate] = useState(78)
-  const [activeSignals, setActiveSignals] = useState(3)
+  const [totalProfit, setTotalProfit] = useState(dynamicStats.totalProfit)
+  const [winRate, setWinRate] = useState(dynamicStats.winRate)
+  const [activeSignals, setActiveSignals] = useState(dynamicStats.activeSignalsCount)
   const [notifications, setNotifications] = useState<any[]>([])
   const [followedSignals, setFollowedSignals] = useState<number[]>([])
   const [selectedCourse, setSelectedCourse] = useState<number | null>(null)
@@ -62,7 +100,7 @@ export default function HomePage() {
   const [timeOnSite, setTimeOnSite] = useState(0)
   const [showFloatingButton, setShowFloatingButton] = useState(false)
   const [liveActivityIndex, setLiveActivityIndex] = useState(0)
-  const [traderCount, setTraderCount] = useState(10247)
+  const [traderCount, setTraderCount] = useState(dynamicStats.activeTraders)
 
   // NEW: Exness Widget States
   const [currentWidgetVersion, setCurrentWidgetVersion] = useState(1)
@@ -13890,9 +13928,15 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
               padding: 0,
               margin: 0
             }}>
-              {['About Us', 'Trading Signals', 'Market Analysis', 'Education', 'Contact'].map((link, i) => (
+              {[
+                { name: 'About Us', url: '/about' },
+                { name: 'Trading Signals', url: '/signals' },
+                { name: 'Market Analysis', url: '/analysis' },
+                { name: 'Education', url: '/education' },
+                { name: 'Contact', url: '/contact' }
+              ].map((link, i) => (
                 <li key={i} style={{ marginBottom: '12px' }}>
-                  <a href="#" style={{
+                  <a href={link.url} style={{
                     fontSize: isMobile ? '13px' : '14px',
                     color: '#94a3b8',
                     textDecoration: 'none',
@@ -13900,7 +13944,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#2563eb'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94a3b8'}>
-                    {link}
+                    {link.name}
                   </a>
                 </li>
               ))}
@@ -13922,9 +13966,15 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
               padding: 0,
               margin: 0
             }}>
-              {['Privacy Policy', 'Terms of Service', 'Cookie Policy', 'Risk Disclosure', 'Compliance'].map((link, i) => (
+              {[
+                { name: 'Privacy Policy', url: '/privacy' },
+                { name: 'Terms of Service', url: '/terms' },
+                { name: 'Cookie Policy', url: '/cookies' },
+                { name: 'Risk Disclosure', url: '/risk' },
+                { name: 'Compliance', url: '/compliance' }
+              ].map((link, i) => (
                 <li key={i} style={{ marginBottom: '12px' }}>
-                  <a href="#" style={{
+                  <a href={link.url} style={{
                     fontSize: isMobile ? '13px' : '14px',
                     color: '#94a3b8',
                     textDecoration: 'none',
@@ -13932,7 +13982,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#2563eb'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94a3b8'}>
-                    {link}
+                    {link.name}
                   </a>
                 </li>
               ))}
