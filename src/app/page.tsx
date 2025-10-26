@@ -13825,38 +13825,51 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
               </a>
             </div>
 
-            {/* Trading Risk Disclaimer - Under Company Info */}
+            {/* COMPREHENSIVE TRADING RISK DISCLAIMER */}
             <div style={{
               background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
-              border: '2px solid #f59e0b',
-              borderRadius: '12px',
-              padding: isMobile ? '16px' : '20px',
-              marginTop: '20px'
+              border: '3px solid #f59e0b',
+              borderRadius: '15px',
+              padding: isMobile ? '20px' : '28px',
+              marginTop: '24px',
+              boxShadow: '0 4px 12px rgba(245, 158, 11, 0.15)'
             }}>
               <div style={{
                 display: 'flex',
                 alignItems: 'flex-start',
-                gap: isMobile ? '10px' : '12px'
+                gap: isMobile ? '12px' : '16px'
               }}>
-                <div style={{ fontSize: isMobile ? '18px' : '20px', flexShrink: 0 }}>⚠️</div>
+                <div style={{ fontSize: isMobile ? '28px' : '36px', flexShrink: 0 }}>⚠️</div>
                 <div>
                   <h4 style={{
-                    fontSize: isMobile ? '13px' : '14px',
+                    fontSize: isMobile ? '15px' : '18px',
                     fontWeight: '800',
                     color: '#92400e',
-                    marginBottom: '6px',
-                    marginTop: 0
+                    marginBottom: '12px',
+                    marginTop: 0,
+                    letterSpacing: '0.3px'
                   }}>
-                    Trading Risk Disclaimer
+                    ⚠️ TRADING RISK DISCLAIMER
                   </h4>
-                  <p style={{
-                    fontSize: isMobile ? '11px' : '12px',
+                  <div style={{
+                    fontSize: isMobile ? '11px' : '12.5px',
                     color: '#78350f',
-                    lineHeight: '1.5',
+                    lineHeight: '1.7',
                     margin: 0
                   }}>
-                    <strong>High Risk Warning:</strong> Trading forex, CFDs, cryptocurrencies, and derivatives carries a high level of risk and may not be suitable for all investors. You may lose more than your initial investment. Leverage can work against you. Past performance is not indicative of future results. Only trade with money you can afford to lose. Ensure you fully understand the risks involved and seek independent financial advice if necessary. This website is for educational and informational purposes only.
-                  </p>
+                    <p style={{ marginTop: 0, marginBottom: '12px', fontWeight: '600' }}>
+                      <strong>HIGH RISK WARNING:</strong> Trading forex, CFDs, cryptocurrencies, and derivatives carries a high level of risk and is not suitable for all investors. CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. <strong style={{ color: '#92400e' }}>51% of retail investor accounts lose money when trading CFDs.</strong>
+                    </p>
+                    <p style={{ margin: '12px 0', fontWeight: '500' }}>
+                      <strong>YOU MAY LOSE MORE THAN YOUR INITIAL INVESTMENT.</strong> Leverage can work against you. Past performance is not indicative of future results. Only trade with money you can afford to lose.
+                    </p>
+                    <p style={{ margin: '12px 0' }}>
+                      <strong>EDUCATIONAL PURPOSES ONLY:</strong> This website provides content for educational and informational purposes only and should not be considered financial advice. You should carefully consider your investment objectives, level of experience, and risk appetite before making any investment decisions.
+                    </p>
+                    <p style={{ marginBottom: 0, marginTop: '12px', fontWeight: '500' }}>
+                      <strong>SEEK PROFESSIONAL ADVICE:</strong> Ensure you fully understand the risks involved and consult a licensed financial advisor before trading. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -13924,40 +13937,6 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                 </li>
               ))}
             </ul>
-          </div>
-        </div>
-
-        {/* Risk Disclaimer - Google Ads Compliance */}
-        <div style={{
-          background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
-          border: '2px solid #f59e0b',
-          borderRadius: '12px',
-          padding: isMobile ? '20px' : '24px',
-          margin: '0 20px 40px 20px',
-          maxWidth: '1360px',
-          marginLeft: 'auto',
-          marginRight: 'auto'
-        }}>
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-            <span style={{ fontSize: '24px', flexShrink: 0 }}>⚠️</span>
-            <div>
-              <h4 style={{
-                fontSize: isMobile ? '14px' : '16px',
-                fontWeight: '700',
-                color: '#92400e',
-                marginBottom: '8px'
-              }}>
-                Risk Warning
-              </h4>
-              <p style={{
-                fontSize: isMobile ? '12px' : '13px',
-                color: '#78350f',
-                lineHeight: '1.6',
-                margin: 0
-              }}>
-                <strong>Trading involves substantial risk of loss and is not suitable for all investors.</strong> Content provided is for <strong>educational purposes only</strong> and should not be considered financial advice. Past performance is not indicative of future results. You should carefully consider your investment objectives, level of experience, and risk appetite before making any investment decisions. Consult a licensed financial advisor before trading.
-              </p>
-            </div>
           </div>
         </div>
 
