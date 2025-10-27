@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     const rateLimitKey = request.headers.get('x-forwarded-for') || 'local'
 
     // Generate signals using OpenAI GPT-5 Nano
-    const signalsPrompt = `You are a professional trading analyst for global financial markets. Generate 5 high-quality trading signals for today.
+    const signalsPrompt = `You are a professional trading analyst for global financial markets. Generate 15 high-quality trading signals for today.
 
 Markets to cover:
 - US Stocks (Apple AAPL, Microsoft MSFT, Tesla TSLA, NVIDIA NVDA, Amazon AMZN)
@@ -44,10 +44,10 @@ For each signal provide:
 
 IMPORTANT:
 - Use realistic current market prices (AAPL ~$175-185, MSFT ~$420-430, Gold ~$2,600-2,700, BTC ~$95k-105k)
-- Include a mix of stocks, forex, commodities, and crypto
-- Provide both BUY and SELL signals
+- Include a mix of stocks, forex, commodities, and crypto (diverse asset classes)
+- Provide both BUY and SELL signals (balanced recommendations)
 - Make reasoning specific and actionable
-- Return ONLY a valid JSON array with 5 signals, no markdown formatting`
+- Return ONLY a valid JSON array with exactly 15 signals, no markdown formatting`
 
     // Try GPT-5 Nano first, fallback to GPT-4o-mini if not available
     let completion
@@ -334,7 +334,7 @@ export async function GET(request: NextRequest) {
       .select('*')
       .eq('status', 'active')
       .order('generated_at', { ascending: false })
-      .limit(5)
+      .limit(15)
 
     if (error) {
       console.error('❌ Failed to fetch signals from database:', error)

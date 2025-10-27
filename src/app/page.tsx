@@ -19,7 +19,7 @@ function getDynamicStats() {
 
   // Daily growth rates (COMPLIANCE: No profit tracking)
   const tradersPerDay = Math.floor(15 + Math.random() * 10) // 15-25 traders/day
-  const signalsPerDay = 5 // 5 signals generated daily
+  const signalsPerDay = 15 // 15 signals generated daily (increased from 5)
 
   // Calculate current values
   const activeTraders = baseTraders + (daysSinceLaunch * tradersPerDay)
@@ -29,7 +29,7 @@ function getDynamicStats() {
     activeTraders,
     totalSignalsCount: totalSignals,
     avgRating: 4.8, // Stable
-    activeSignalsCount: 3, // Current active
+    activeSignalsCount: 15, // Current active (matches daily generation)
     yearsExperience: '5+' // COMPLIANCE: Replace profit/win rate claims
   }
 }
