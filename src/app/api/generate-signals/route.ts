@@ -12,9 +12,26 @@ export const maxDuration = 60
 
 export async function POST(request: NextRequest) {
   try {
-    // ❌ CACHE DISABLED: Filesystem cache doesn't work on Render (ephemeral storage)
-    // Always generate fresh signals and save to database instead
-    console.log('🔄 Generating fresh signals (cache disabled)...')
+    // 🔒 CHECK IF SIGNALS ALREADY GENERATED TODAY (prevent duplicate API calls)
+    const today = new Date().toISOString().split('T')[0] // YYYY-MM-DD
+    const { data: existingSignals, error: checkError } = await supabaseAdmin
+      .from('trading_signals')
+      .select('id, generated_at')
+      .gte('generated_at', `${today}T00:00:00.000Z`)
+      .lte('generated_at', `${today}T23:59:59.999Z`)
+      .limit(1)
+
+    if (existingSignals && existingSignals.length > 0) {
+      console.log(`⏭️ Signals already generated today (${existingSignals[0].generated_at}), skipping...`)
+      return NextResponse.json({
+        success: true,
+        message: 'Signals already generated today',
+        alreadyGenerated: true,
+        lastGenerated: existingSignals[0].generated_at
+      }, { status: 200 })
+    }
+
+    console.log('🔄 Generating fresh signals for today...')
     // Rate limiting check
     const rateLimitKey = request.headers.get('x-forwarded-for') || 'local'
 
