@@ -117,6 +117,14 @@ IMPORTANT:
       throw new Error('No signals generated')
     }
 
+    // ENFORCE 15 signals - reject if less
+    if (signals.length < 15) {
+      console.warn(`⚠️ gpt-5-nano only generated ${signals.length} signals instead of 15!`)
+      throw new Error(`Insufficient signals: got ${signals.length}, expected 15. Please regenerate.`)
+    }
+
+    console.log(`✅ Successfully generated ${signals.length} signals`)
+
     // Add metadata
     const enrichedSignals = signals.map((signal: any, index: number) => ({
       id: `signal-${Date.now()}-${index}`,
@@ -129,6 +137,20 @@ IMPORTANT:
     // 💾 Save signals to Supabase database
     console.log('💾 Saving signals to Supabase database...')
     try {
+      // 🗑️ PREVENT DUPLICATES: Delete today's signals before inserting new ones
+      const today = new Date().toISOString().split('T')[0] // YYYY-MM-DD
+      const { error: deleteError } = await supabaseAdmin
+        .from('trading_signals')
+        .delete()
+        .gte('generated_at', `${today}T00:00:00.000Z`)
+        .lte('generated_at', `${today}T23:59:59.999Z`)
+
+      if (deleteError) {
+        console.warn('⚠️ Failed to delete old signals:', deleteError.message)
+      } else {
+        console.log(`🗑️ Deleted today's existing signals to prevent duplicates`)
+      }
+
       const dbSignals = enrichedSignals.map((signal: any) => ({
         symbol: signal.symbol,
         signal_type: signal.type.replace('_', ' '), // Fix: STRONG_BUY → STRONG BUY (database expects space)
