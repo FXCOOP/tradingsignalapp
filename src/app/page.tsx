@@ -5127,7 +5127,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
         left: 0,
         right: 0,
         width: '100%',
-        zIndex: 1000,
+        zIndex: 998,
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05)',
         transition: designSystem.transitions.normal
       }}>
