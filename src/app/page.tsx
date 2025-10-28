@@ -5495,20 +5495,37 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
               style={{
-                background: activeTab === tab.key ? designSystem.colors.primary.main : 'transparent',
-                color: activeTab === tab.key ? 'white' : designSystem.colors.neutral[500],
+                background: activeTab === tab.key
+                  ? `linear-gradient(135deg, ${designSystem.colors.primary.main} 0%, ${designSystem.colors.primary.dark} 100%)`
+                  : 'transparent',
+                color: activeTab === tab.key ? 'white' : designSystem.colors.neutral[600],
                 border: 'none',
-                padding: isMobile ? `${designSystem.spacing[2]} ${designSystem.spacing[3]}` : `${designSystem.spacing[4]} ${designSystem.spacing[6]}`,
+                padding: isMobile ? '10px 16px' : '14px 24px',
                 cursor: 'pointer',
-                fontSize: isMobile ? '11px' : designSystem.typography.sizes.bodySmall.desktop,
-                fontWeight: designSystem.typography.weights.bold,
+                fontSize: isMobile ? '13px' : '14px',
+                fontWeight: '700',
                 display: 'flex',
                 alignItems: 'center',
-                gap: isMobile ? designSystem.spacing[1] : designSystem.spacing[2],
-                borderBottom: activeTab === tab.key ? `3px solid ${designSystem.colors.primary.main}` : '3px solid transparent',
+                gap: isMobile ? '6px' : '8px',
+                borderBottom: activeTab === tab.key ? `3px solid ${designSystem.colors.primary.dark}` : '3px solid transparent',
                 whiteSpace: 'nowrap',
-                transition: 'all 0.3s ease',
-                borderRadius: isMobile ? '8px 8px 0 0' : '0'
+                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                borderRadius: isMobile ? '10px 10px 0 0' : '8px 8px 0 0',
+                boxShadow: activeTab === tab.key ? '0 4px 12px rgba(37, 99, 235, 0.3)' : 'none',
+                transform: activeTab === tab.key ? 'translateY(-2px)' : 'translateY(0)',
+                margin: isMobile ? '0 2px' : '0 4px'
+              }}
+              onMouseEnter={(e) => {
+                if (activeTab !== tab.key) {
+                  e.currentTarget.style.background = 'rgba(37, 99, 235, 0.08)'
+                  e.currentTarget.style.color = designSystem.colors.primary.main
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeTab !== tab.key) {
+                  e.currentTarget.style.background = 'transparent'
+                  e.currentTarget.style.color = designSystem.colors.neutral[600]
+                }
               }}
             >
               <span style={{ fontSize: isMobile ? '14px' : '16px' }}>{tab.icon}</span>
