@@ -5116,7 +5116,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
       lineHeight: '1.6'
     }}>
       {/* Enhanced Header with Premium Glassmorphism */}
-      <header style={{
+      <header className="force-fixed-header" style={{
         background: 'rgba(255, 255, 255, 0.90)',
         backdropFilter: 'blur(24px) saturate(200%)',
         WebkitBackdropFilter: 'blur(24px) saturate(200%)',
@@ -5461,7 +5461,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
       </header>
 
       {/* Navigation - ALWAYS FIXED */}
-      <nav style={{
+      <nav className={`force-fixed-nav ${isMobile ? 'force-fixed-nav-mobile' : 'force-fixed-nav-desktop'}`} style={{
         position: 'fixed',
         top: isMobile ? '74px' : '84px',
         left: 0,
