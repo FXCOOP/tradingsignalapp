@@ -5457,16 +5457,19 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
         </div>
       </header>
 
-      {/* Navigation - STICKY */}
+      {/* Navigation - STICKY (FIXED on mobile for better scroll behavior) */}
       <nav style={{
-        position: 'sticky',
-        top: isMobile ? '44px' : '0',
-        zIndex: 998,
+        position: isMobile ? 'fixed' : 'sticky',
+        top: '0',
+        left: 0,
+        right: 0,
+        zIndex: 999,
         background: designSystem.colors.neutral[50],
         borderBottom: `1px solid ${designSystem.colors.neutral[200]}`,
         padding: '0',
         boxShadow: designSystem.shadows.sm,
-        backdropFilter: 'blur(8px)'
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)'
       }}>
         <div style={{
           maxWidth: '1400px',
@@ -5988,7 +5991,8 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
         <div style={{
           display: 'flex',
           gap: '24px',
-          flexDirection: isMobile ? 'column' : 'row'
+          flexDirection: isMobile ? 'column' : 'row',
+          paddingTop: isMobile ? '60px' : '0'
         }}>
           {/* Main Content Area */}
           <div style={{
