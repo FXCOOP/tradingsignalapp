@@ -5499,9 +5499,9 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               style={{
                 background: activeTab === tab.key
                   ? designSystem.colors.primary.gradient
-                  : 'transparent',
-                color: activeTab === tab.key ? '#FFFFFF' : designSystem.colors.neutral[600],
-                border: 'none',
+                  : 'rgba(255, 255, 255, 0.7)',
+                color: activeTab === tab.key ? '#FFFFFF' : designSystem.colors.neutral[700],
+                border: activeTab === tab.key ? 'none' : `1px solid ${designSystem.colors.neutral[200]}`,
                 padding: isMobile ? '10px 12px' : '16px 28px',
                 cursor: 'pointer',
                 fontSize: isMobile ? '13px' : '15px',
@@ -5509,13 +5509,13 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 display: 'flex',
                 alignItems: 'center',
                 gap: isMobile ? '6px' : '10px',
-                borderBottom: activeTab === tab.key ? `4px solid ${designSystem.colors.primary.dark}` : '4px solid transparent',
+                borderBottom: activeTab === tab.key ? `3px solid ${designSystem.colors.primary.dark}` : 'none',
                 whiteSpace: 'nowrap',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                borderRadius: '12px 12px 0 0',
-                boxShadow: activeTab === tab.key ? designSystem.shadows.primary : 'none',
-                transform: activeTab === tab.key ? 'translateY(-3px) scale(1.02)' : 'translateY(0) scale(1)',
-                margin: isMobile ? '0 2px' : '0 6px',
+                borderRadius: '10px 10px 0 0',
+                boxShadow: activeTab === tab.key ? `${designSystem.shadows.primary}, inset 0 1px 0 rgba(255,255,255,0.2)` : designSystem.shadows.sm,
+                transform: activeTab === tab.key ? 'translateY(-2px)' : 'translateY(0)',
+                margin: isMobile ? '0 2px' : '0 4px',
                 position: 'relative' as const,
                 overflow: 'hidden'
               }}
