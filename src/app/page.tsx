@@ -5122,9 +5122,11 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
         WebkitBackdropFilter: 'blur(24px) saturate(200%)',
         borderBottom: `1px solid ${designSystem.colors.neutral[200]}`,
         padding: isMobile ? '18px 0' : '20px 0',
-        position: 'sticky',
+        position: isMobile ? 'fixed' : 'sticky',
         top: 0,
-        zIndex: designSystem.zIndex.sticky,
+        left: 0,
+        right: 0,
+        zIndex: isMobile ? 1000 : designSystem.zIndex.sticky,
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05)',
         transition: designSystem.transitions.normal
       }}>
@@ -5460,7 +5462,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
       {/* Navigation - STICKY (FIXED on mobile for better scroll behavior) */}
       <nav style={{
         position: isMobile ? 'fixed' : 'sticky',
-        top: '0',
+        top: isMobile ? '74px' : '0',
         left: 0,
         right: 0,
         zIndex: 999,
@@ -5992,7 +5994,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
           display: 'flex',
           gap: '24px',
           flexDirection: isMobile ? 'column' : 'row',
-          paddingTop: isMobile ? '60px' : '0'
+          paddingTop: isMobile ? '130px' : '0'
         }}>
           {/* Main Content Area */}
           <div style={{
