@@ -18,7 +18,7 @@ function getDynamicStats() {
   const baseSignals = 230
 
   // Daily growth rates (COMPLIANCE: No profit tracking)
-  const tradersPerDay = Math.floor(15 + Math.random() * 10) // 15-25 traders/day
+  const tradersPerDay = 20 // Fixed value to prevent hydration errors (was: Math.random 15-25)
   const signalsPerDay = 15 // 15 signals generated daily (increased from 5)
 
   // Calculate current values
