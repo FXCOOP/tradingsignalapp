@@ -12,9 +12,13 @@
     {
       "path": "/api/cron/generate-daily",
       "schedule": "0 4 * * *"
+    },
+    {
+      "path": "/api/cron/send-emails",
+      "schedule": "*/5 * * * *"
     }
   ],
-  "comment": "Cron runs at 4:00 AM UTC which is 8:00 AM Dubai time (UTC+4)",
+  "comment": "Cron runs: generate-daily at 4:00 AM UTC (8:00 AM Dubai), send-emails every 5 minutes",
   "headers": [
     {
       "source": "/api/(.*)",

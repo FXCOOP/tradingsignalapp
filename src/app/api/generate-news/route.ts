@@ -11,6 +11,9 @@ export const maxDuration = 60
 
 export async function POST(request: NextRequest) {
   try {
+    // 🔒 CHECK IF NEWS ALREADY GENERATED TODAY (prevent duplicate API calls)
+    const today = new Date().toISOString().split('T')[0]
+
     // 🚀 Check cache first - return cached news if available
     const cachedContent = await getDailyContent()
     if (cachedContent && cachedContent.news && cachedContent.news.length > 0) {
@@ -23,7 +26,9 @@ export async function POST(request: NextRequest) {
         expiresAt: cachedContent.expiresAt,
         model: 'cached',
         tokensUsed: 0,
-        cached: true
+        cached: true,
+        alreadyGenerated: true,
+        date: today
       })
     }
 

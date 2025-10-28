@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
+import { getDailyContent } from '@/lib/cache'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -7,6 +8,28 @@ const openai = new OpenAI({
 
 export async function POST(request: NextRequest) {
   try {
+    // 🔒 CHECK IF ANALYSIS ALREADY GENERATED TODAY (prevent duplicate API calls)
+    const today = new Date().toISOString().split('T')[0]
+
+    // 🚀 Check cache first - return cached analysis if available
+    const cachedContent = await getDailyContent()
+    if (cachedContent && cachedContent.analysis) {
+      console.log('✅ Returning cached market analysis')
+      return NextResponse.json({
+        success: true,
+        analysis: cachedContent.analysis,
+        generated: cachedContent.generatedAt,
+        expiresAt: cachedContent.expiresAt,
+        model: 'cached',
+        tokensUsed: 0,
+        cached: true,
+        alreadyGenerated: true,
+        date: today
+      })
+    }
+
+    console.log('🔄 No cache found, generating fresh market analysis...')
+
     const analysisPrompt = `You are a senior market analyst covering GCC financial markets. Create a comprehensive daily market analysis.
 
 Sections to include:
