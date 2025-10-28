@@ -5476,13 +5476,15 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
         WebkitBackdropFilter: 'blur(12px) saturate(180%)'
       }}>
         <div style={{
+          width: '100%',
           maxWidth: '1400px',
           margin: '0 auto',
           display: 'flex',
           overflowX: 'auto',
           WebkitOverflowScrolling: 'touch',
           scrollbarWidth: 'none',
-          msOverflowStyle: 'none'
+          msOverflowStyle: 'none',
+          padding: isMobile ? '0 8px' : '0 16px'
         } as any}>
           {[
             { key: 'signals', label: t.liveSignals, mobileLabel: 'Signals', icon: '⚡' },
@@ -5500,20 +5502,20 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                   : 'transparent',
                 color: activeTab === tab.key ? '#FFFFFF' : designSystem.colors.neutral[600],
                 border: 'none',
-                padding: isMobile ? '12px 20px' : '16px 28px',
+                padding: isMobile ? '10px 12px' : '16px 28px',
                 cursor: 'pointer',
-                fontSize: isMobile ? '14px' : '15px',
+                fontSize: isMobile ? '13px' : '15px',
                 fontWeight: '700',
                 display: 'flex',
                 alignItems: 'center',
-                gap: isMobile ? '8px' : '10px',
+                gap: isMobile ? '6px' : '10px',
                 borderBottom: activeTab === tab.key ? `4px solid ${designSystem.colors.primary.dark}` : '4px solid transparent',
                 whiteSpace: 'nowrap',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 borderRadius: '12px 12px 0 0',
                 boxShadow: activeTab === tab.key ? designSystem.shadows.primary : 'none',
                 transform: activeTab === tab.key ? 'translateY(-3px) scale(1.02)' : 'translateY(0) scale(1)',
-                margin: isMobile ? '0 4px' : '0 6px',
+                margin: isMobile ? '0 2px' : '0 6px',
                 position: 'relative' as const,
                 overflow: 'hidden'
               }}
