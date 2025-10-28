@@ -5463,7 +5463,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
       {/* Navigation - ALWAYS FIXED */}
       <nav style={{
         position: 'fixed',
-        top: isMobile ? '74px' : '0',
+        top: isMobile ? '74px' : '84px',
         left: 0,
         right: 0,
         width: '100%',
@@ -5996,7 +5996,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
           display: 'flex',
           gap: '24px',
           flexDirection: isMobile ? 'column' : 'row',
-          paddingTop: isMobile ? '130px' : '0'
+          paddingTop: isMobile ? '130px' : '140px'
         }}>
           {/* Main Content Area */}
           <div style={{
