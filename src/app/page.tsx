@@ -5496,24 +5496,26 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               onClick={() => setActiveTab(tab.key)}
               style={{
                 background: activeTab === tab.key
-                  ? `linear-gradient(135deg, ${designSystem.colors.primary.main} 0%, ${designSystem.colors.primary.dark} 100%)`
+                  ? designSystem.colors.primary.gradient
                   : 'transparent',
-                color: activeTab === tab.key ? 'white' : designSystem.colors.neutral[600],
+                color: activeTab === tab.key ? '#FFFFFF' : designSystem.colors.neutral[600],
                 border: 'none',
-                padding: isMobile ? '10px 16px' : '14px 24px',
+                padding: isMobile ? '12px 20px' : '16px 28px',
                 cursor: 'pointer',
-                fontSize: isMobile ? '13px' : '14px',
+                fontSize: isMobile ? '14px' : '15px',
                 fontWeight: '700',
                 display: 'flex',
                 alignItems: 'center',
-                gap: isMobile ? '6px' : '8px',
-                borderBottom: activeTab === tab.key ? `3px solid ${designSystem.colors.primary.dark}` : '3px solid transparent',
+                gap: isMobile ? '8px' : '10px',
+                borderBottom: activeTab === tab.key ? `4px solid ${designSystem.colors.primary.dark}` : '4px solid transparent',
                 whiteSpace: 'nowrap',
-                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-                borderRadius: isMobile ? '10px 10px 0 0' : '8px 8px 0 0',
-                boxShadow: activeTab === tab.key ? '0 4px 12px rgba(37, 99, 235, 0.3)' : 'none',
-                transform: activeTab === tab.key ? 'translateY(-2px)' : 'translateY(0)',
-                margin: isMobile ? '0 2px' : '0 4px'
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                borderRadius: '12px 12px 0 0',
+                boxShadow: activeTab === tab.key ? designSystem.shadows.primary : 'none',
+                transform: activeTab === tab.key ? 'translateY(-3px) scale(1.02)' : 'translateY(0) scale(1)',
+                margin: isMobile ? '0 4px' : '0 6px',
+                position: 'relative' as const,
+                overflow: 'hidden'
               }}
               onMouseEnter={(e) => {
                 if (activeTab !== tab.key) {
