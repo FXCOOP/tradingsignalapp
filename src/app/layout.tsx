@@ -59,6 +59,7 @@ export const metadata = {
   },
 }
 
+import './globals.css'
 import { UserProvider } from '@/contexts/UserContext'
 
 export default function RootLayout({
