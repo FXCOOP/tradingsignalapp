@@ -5468,12 +5468,12 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
         right: 0,
         width: '100%',
         zIndex: 999,
-        background: designSystem.colors.neutral[50],
-        borderBottom: `1px solid ${designSystem.colors.neutral[200]}`,
+        background: 'rgba(248, 250, 252, 0.95)',
+        borderBottom: `2px solid ${designSystem.colors.neutral[200]}`,
         padding: '0',
-        boxShadow: designSystem.shadows.sm,
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)'
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+        backdropFilter: 'blur(12px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(12px) saturate(180%)'
       }}>
         <div style={{
           maxWidth: '1400px',
