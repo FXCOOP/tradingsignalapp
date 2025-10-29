@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Capture Popup Examples - TradeFlow Conversion Optimization</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1f2937;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: white;
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .subtitle {
+            color: #9ca3af;
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 48px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+        }
+        .popup-example {
+            background: white;
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        .popup-example::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #f3f4f6;
+            border: none;
+            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: #6b7280;
+            transition: all 0.2s ease;
+            font-weight: bold;
+        }
+        .close-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+        .popup-icon {
+            font-size: 64px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .popup-title {
+            font-size: 32px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        .popup-description {
+            font-size: 16px;
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+        .benefit-list {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 2px solid #86efac;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .benefit-list h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #15803d;
+            margin-bottom: 12px;
+        }
+        .benefit-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .benefit-list li {
+            font-size: 15px;
+            color: #166534;
+            margin-bottom: 8px;
+            padding-left: 24px;
+            position: relative;
+        }
+        .benefit-list li::before {
+            content: '✅';
+            position: absolute;
+            left: 0;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+        }
+        .submit-btn:hover {
+            transform: scale(1.02) translateY(-2px);
+            box-shadow: 0 15px 35px -5px rgba(59, 130, 246, 0.6);
+        }
+        .social-proof {
+            text-align: center;
+            font-size: 14px;
+            color: #6b7280;
+            margin-top: 16px;
+        }
+        .privacy-note {
+            text-align: center;
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 12px;
+        }
+        .urgency-bar {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #fbbf24;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 20px;
+        }
+        .timer {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            margin-left: 8px;
+        }
+        .gradient-blue {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-purple {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            margin: 24px 0;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: 800;
+            color: #3b82f6;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📧 Email Capture Popup Examples</h1>
+        <p class="subtitle">High-converting email capture designs for TradeFlow - Increase lead generation by 200-300%</p>
+
+        <div class="grid">
+            <!-- POPUP 1: Exit Intent with Lead Magnet -->
+            <div class="popup-example" data-label="Exit Intent - Lead Magnet">
+                <button class="close-btn">✕</button>
+
+                <div class="popup-icon">📊</div>
+                <h2 class="popup-title gradient-blue">Wait! Get 5 FREE Premium Signals</h2>
+                <p class="popup-description">
+                    Don't miss out! Join 17,860+ traders receiving daily high-probability trading opportunities.
+                </p>
+
+                <div class="urgency-bar">
+                    ⚡ Limited Spots: Only <strong>47 available</strong> this week
+                </div>
+
+                <div class="benefit-list">
+                    <h4>🎁 What You'll Get (FREE):</h4>
+                    <ul>
+                        <li>5 Premium Trading Signals (Worth $50)</li>
+                        <li>Daily Market Analysis & Reports</li>
+                        <li>Trading Strategy PDF Guide</li>
+                        <li>Exclusive Member-Only Insights</li>
+                    </ul>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <label for="email1">Email Address</label>
+                        <input type="email" id="email1" placeholder="your.email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name1">First Name</label>
+                        <input type="text" id="name1" placeholder="Ahmed" required>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        🚀 Send Me Free Signals
+                    </button>
+                </form>
+
+                <p class="social-proof">Join 17,860+ traders already receiving free signals</p>
+                <p class="privacy-note">🔒 We never spam. Unsubscribe anytime.</p>
+            </div>
+
+            <!-- POPUP 2: Content Gate (After 3 Free Views) -->
+            <div class="popup-example" data-label="Content Gate - After 3 Views">
+                <button class="close-btn">✕</button>
+
+                <div class="popup-icon">🔒</div>
+                <h2 class="popup-title gradient-purple">You've Viewed 3 Free Signals</h2>
+                <p class="popup-description">
+                    <strong>Great choice!</strong> Enter your email to unlock unlimited access + get 20 signals/week delivered.
+                </p>
+
+                <div class="stats-row">
+                    <div class="stat">
+                        <div class="stat-number">17,860+</div>
+                        <div class="stat-label">Active Traders</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">4.8★</div>
+                        <div class="stat-label">User Rating</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">6,125+</div>
+                        <div class="stat-label">Signals Sent</div>
+                    </div>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <input type="email" placeholder="Enter your email for unlimited access" required style="font-size: 18px; padding: 18px;">
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        ✨ Unlock Unlimited Access (FREE)
+                    </button>
+                </form>
+
+                <p class="social-proof">✅ No credit card required • Instant access</p>
+                <p class="privacy-note">🔒 Your data is safe. We use industry-standard encryption.</p>
+            </div>
+
+            <!-- POPUP 3: Time-Limited Offer -->
+            <div class="popup-example" data-label="Urgency - Time Limited">
+                <button class="close-btn">✕</button>
+
+                <div class="popup-icon">⚡</div>
+                <h2 class="popup-title" style="color: #dc2626;">Flash Offer: Get 10 Signals FREE</h2>
+                <p class="popup-description">
+                    This exclusive offer expires in <strong>5 minutes</strong>. Don't miss your chance!
+                </p>
+
+                <div class="urgency-bar" style="background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-color: #ef4444; color: #991b1b;">
+                    ⏰ Offer expires in: <span class="timer">04:57</span>
+                </div>
+
+                <div class="benefit-list" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-color: #fbbf24;">
+                    <h4 style="color: #92400e;">🎁 Limited-Time Bonuses:</h4>
+                    <ul>
+                        <li style="color: #78350f;">10 Premium Signals (Today Only!)</li>
+                        <li style="color: #78350f;">Free Trading Course ($99 Value)</li>
+                        <li style="color: #78350f;">1-on-1 Strategy Call (15 mins)</li>
+                        <li style="color: #78350f;">Priority Email Support</li>
+                    </ul>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <input type="email" placeholder="Enter email to claim offer" required style="padding: 18px; font-size: 18px; border-color: #dc2626;">
+                    </div>
+                    <button type="submit" class="submit-btn" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); animation: pulse 2s infinite;">
+                        🔥 Claim My Free Signals Now
+                    </button>
+                </form>
+
+                <p class="social-proof" style="color: #dc2626; font-weight: 600;">⚡ 347 traders claimed this offer today</p>
+            </div>
+
+            <!-- POPUP 4: Social Proof Heavy -->
+            <div class="popup-example" data-label="Social Proof - Testimonial">
+                <button class="close-btn">✕</button>
+
+                <div class="popup-icon">⭐</div>
+                <h2 class="popup-title gradient-green">See Why 17,860+ Traders Trust Us</h2>
+                <p class="popup-description">
+                    Join the fastest-growing trading community in the GCC region.
+                </p>
+
+                <div style="background: #f9fafb; border-radius: 12px; padding: 20px; margin-bottom: 24px; border-left: 4px solid #10b981;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 20px;">A</div>
+                        <div>
+                            <div style="font-weight: 700; color: #1f2937;">Ahmed Al-Mansoori</div>
+                            <div style="font-size: 14px; color: #6b7280;">Dubai, UAE • Trader since 2023</div>
+                        </div>
+                    </div>
+                    <div style="color: #fbbf24; margin-bottom: 8px;">★★★★★</div>
+                    <p style="color: #374151; font-style: italic;">
+                        "TradeFlow signals helped me grow my trading account by 43% in 3 months. The educational content is invaluable!"
+                    </p>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <input type="email" placeholder="Get signals like Ahmed - enter your email" required style="padding: 18px;">
+                    </div>
+                    <button type="submit" class="submit-btn" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        🎯 Join 17,860+ Successful Traders
+                    </button>
+                </form>
+
+                <p class="social-proof">✅ Rated 4.8/5 by 2,847 traders</p>
+                <p class="privacy-note">🔒 100% free. No credit card required.</p>
+            </div>
+
+            <!-- POPUP 5: Question-Based Engagement -->
+            <div class="popup-example" data-label="Engagement - Question Based">
+                <button class="close-btn">✕</button>
+
+                <div class="popup-icon">💡</div>
+                <h2 class="popup-title gradient-blue">Quick Question:</h2>
+                <h3 style="font-size: 24px; text-align: center; color: #374151; margin-bottom: 24px;">
+                    What's your #1 trading challenge?
+                </h3>
+
+                <div style="display: grid; gap: 12px; margin-bottom: 24px;">
+                    <label style="background: #f9fafb; border: 2px solid #e5e7eb; border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px;">
+                        <input type="radio" name="challenge" value="timing">
+                        <span style="font-weight: 600;">📊 Finding the right entry/exit times</span>
+                    </label>
+                    <label style="background: #f9fafb; border: 2px solid #e5e7eb; border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px;">
+                        <input type="radio" name="challenge" value="risk">
+                        <span style="font-weight: 600;">⚠️ Managing risk & position sizing</span>
+                    </label>
+                    <label style="background: #f9fafb; border: 2px solid #e5e7eb; border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px;">
+                        <input type="radio" name="challenge" value="education">
+                        <span style="font-weight: 600;">📚 Need better education & training</span>
+                    </label>
+                    <label style="background: #f9fafb; border: 2px solid #e5e7eb; border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px;">
+                        <input type="radio" name="challenge" value="consistency">
+                        <span style="font-weight: 600;">📈 Achieving consistent profits</span>
+                    </label>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <input type="email" placeholder="Get personalized signals for your needs" required>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        🎯 Get Custom Solutions (Free)
+                    </button>
+                </form>
+
+                <p class="privacy-note">We'll send you targeted content based on your selection</p>
+            </div>
+
+            <!-- POPUP 6: Comparison / FOMO -->
+            <div class="popup-example" data-label="FOMO - Peer Comparison">
+                <button class="close-btn">✕</button>
+
+                <div class="popup-icon">🚀</div>
+                <h2 class="popup-title" style="color: #1f2937;">While You Were Here...</h2>
+                <p class="popup-description">
+                    <strong>347 traders</strong> joined TradeFlow in the last 24 hours. Don't get left behind!
+                </p>
+
+                <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 12px; padding: 20px; margin-bottom: 24px; text-align: center;">
+                    <div style="font-size: 48px; font-weight: 800; color: #92400e; margin-bottom: 8px;">347</div>
+                    <div style="color: #78350f; font-weight: 600;">New members today</div>
+                    <div style="color: #78350f; font-size: 14px; margin-top: 8px;">⏰ 12 joined in the last hour</div>
+                </div>
+
+                <div class="benefit-list">
+                    <h4>🎁 Join Now & Get:</h4>
+                    <ul>
+                        <li>Instant access to 20 signals/week</li>
+                        <li>Daily market analysis reports</li>
+                        <li>Priority access to new features</li>
+                        <li>Community of 17,860+ traders</li>
+                    </ul>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <input type="email" placeholder="Join 347 traders who signed up today" required style="padding: 18px;">
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        ⚡ Join the Movement (FREE)
+                    </button>
+                </form>
+
+                <p class="social-proof">✅ No credit card • Cancel anytime • Instant access</p>
+            </div>
+
+            <!-- POPUP 7: WhatsApp Integration (GCC Specific) -->
+            <div class="popup-example" data-label="GCC Special - WhatsApp">
+                <button class="close-btn">✕</button>
+
+                <div class="popup-icon">💬</div>
+                <h2 class="popup-title gradient-green">Get Signals on WhatsApp!</h2>
+                <p class="popup-description">
+                    Popular in GCC! Receive instant trading alerts directly to your WhatsApp.
+                </p>
+
+                <div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border: 2px solid #86efac; border-radius: 16px; padding: 20px; margin-bottom: 24px;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <div style="font-size: 32px;">📱</div>
+                        <div>
+                            <div style="font-weight: 700; color: #15803d; font-size: 18px;">Instant WhatsApp Alerts</div>
+                            <div style="color: #166534; font-size: 14px;">Get notified immediately when new signals are posted</div>
+                        </div>
+                    </div>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="color: #166534; margin-bottom: 8px;">✅ Real-time signal notifications</li>
+                        <li style="color: #166534; margin-bottom: 8px;">✅ Works on any phone</li>
+                        <li style="color: #166534; margin-bottom: 8px;">✅ No app download needed</li>
+                        <li style="color: #166534;">✅ Preferred by 12,400+ GCC traders</li>
+                    </ul>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <label for="whatsapp">WhatsApp Number (with country code)</label>
+                        <input type="tel" id="whatsapp" placeholder="+971 50 123 4567" required style="padding: 18px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="email7">Email (for backup delivery)</label>
+                        <input type="email" id="email7" placeholder="your.email@example.com">
+                    </div>
+                    <button type="submit" class="submit-btn" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        💬 Start Receiving WhatsApp Signals
+                    </button>
+                </form>
+
+                <p class="social-proof">🇦🇪 🇸🇦 🇰🇼 🇶🇦 Trusted by traders across the GCC</p>
+                <p class="privacy-note">🔒 We never share your number with third parties</p>
+            </div>
+
+            <!-- POPUP 8: Two-Step (Gamified) -->
+            <div class="popup-example" data-label="Gamified - Two Step">
+                <button class="close-btn">✕</button>
+
+                <div class="popup-icon">🎮</div>
+                <h2 class="popup-title gradient-purple">Take Our 30-Second Quiz</h2>
+                <p class="popup-description">
+                    Answer 3 quick questions and get <strong>personalized trading signals</strong> matched to your style!
+                </p>
+
+                <div style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); border: 2px solid #c4b5fd; border-radius: 12px; padding: 16px; margin-bottom: 24px; text-align: center;">
+                    <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 8px;">
+                        <div style="width: 30px; height: 30px; background: #8b5cf6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">1</div>
+                        <div style="width: 30px; height: 30px; background: #e9d5ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #7c3aed; font-weight: 700;">2</div>
+                        <div style="width: 30px; height: 30px; background: #e9d5ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #7c3aed; font-weight: 700;">3</div>
+                    </div>
+                    <div style="color: #6b21a8; font-weight: 600; font-size: 14px;">Question 1 of 3</div>
+                </div>
+
+                <h4 style="font-size: 18px; margin-bottom: 16px; text-align: center;">What's your experience level?</h4>
+
+                <div style="display: grid; gap: 12px; margin-bottom: 24px;">
+                    <button style="background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 16px; cursor: pointer; font-size: 16px; font-weight: 600; transition: all 0.2s ease; text-align: left;">
+                        👶 Beginner (0-6 months)
+                    </button>
+                    <button style="background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 16px; cursor: pointer; font-size: 16px; font-weight: 600; transition: all 0.2s ease; text-align: left;">
+                        📈 Intermediate (6 months - 2 years)
+                    </button>
+                    <button style="background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 16px; cursor: pointer; font-size: 16px; font-weight: 600; transition: all 0.2s ease; text-align: left;">
+                        🚀 Advanced (2+ years)
+                    </button>
+                </div>
+
+                <p class="social-proof">📊 Based on your answers, you'll get the perfect signals for your level</p>
+            </div>
+        </div>
+
+        <div style="background: white; border-radius: 24px; padding: 40px; margin-top: 48px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);">
+            <h2 style="font-size: 28px; margin-bottom: 24px; color: #1f2937;">📊 Implementation Guide</h2>
+
+            <h3 style="font-size: 20px; margin-bottom: 16px; color: #374151;">When to Use Each Popup:</h3>
+
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: #f3f4f6;">
+                        <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb;">Popup Type</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb;">Trigger</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb;">Expected CVR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;"><strong>Exit Intent</strong></td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">Mouse moves to close tab</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;"><span style="color: #10b981; font-weight: 700;">15-25%</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;"><strong>Content Gate</strong></td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">After 3 free views</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;"><span style="color: #10b981; font-weight: 700;">30-40%</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;"><strong>Time-Limited</strong></td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">After 30 seconds on site</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;"><span style="color: #10b981; font-weight: 700;">12-18%</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;"><strong>Social Proof</strong></td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">First visit, 5 seconds delay</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;"><span style="color: #10b981; font-weight: 700;">10-15%</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;"><strong>Question-Based</strong></td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">Scroll 50% depth</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;"><span style="color: #10b981; font-weight: 700;">20-30%</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;"><strong>FOMO Comparison</strong></td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">After 2 minutes inactive</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;"><span style="color: #10b981; font-weight: 700;">18-25%</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;"><strong>WhatsApp (GCC)</strong></td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">Mobile only, 10 seconds</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;"><span style="color: #10b981; font-weight: 700;">35-50%</span> (GCC)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px;"><strong>Gamified Quiz</strong></td>
+                        <td style="padding: 12px;">First visit, 15 seconds delay</td>
+                        <td style="padding: 12px;"><span style="color: #10b981; font-weight: 700;">25-35%</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-radius: 12px; padding: 24px; margin-top: 32px;">
+                <h3 style="color: #1e40af; margin-bottom: 16px;">🎯 Recommended Combination:</h3>
+                <ol style="color: #1e3a8a; line-height: 2;">
+                    <li><strong>Primary:</strong> Content Gate after 3 views (highest CVR: 30-40%)</li>
+                    <li><strong>Secondary:</strong> Exit Intent for bouncing visitors (15-25% CVR)</li>
+                    <li><strong>Mobile:</strong> WhatsApp popup for GCC users (35-50% CVR)</li>
+                    <li><strong>Re-engagement:</strong> FOMO popup after 2 mins inactive (18-25% CVR)</li>
+                </ol>
+                <p style="color: #1e3a8a; margin-top: 16px;">
+                    <strong>Expected Combined Impact:</strong> <span style="font-size: 20px; color: #10b981; font-weight: 800;">+250% to +350% lead generation</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</body>
+</html>

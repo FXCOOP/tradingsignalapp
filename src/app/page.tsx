@@ -118,7 +118,14 @@ export default function HomePage() {
 
   // 🏦 Handle broker account opening
   const handleOpenBrokerAccount = async () => {
-    const baseUrl = 'https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt'
+    // Detect if mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+
+    // Use correct URL based on device type
+    const baseUrl = isMobile
+      ? 'https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile'
+      : 'https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt'
+
     let finalUrl = baseUrl
 
     // Track click and get click_id
@@ -133,15 +140,17 @@ export default function HomePage() {
         body: JSON.stringify({
           partner_id: 'c_8f0nxidtbt',
           click_url: baseUrl,
-          click_source: 'popup_cta'
+          click_source: 'popup_cta',
+          device_type: isMobile ? 'mobile' : 'desktop'
         })
       })
 
       if (response.ok) {
         const data = await response.json()
         if (data.click_id) {
-          // Append click_id to URL
-          finalUrl = `${baseUrl}?click_id=${data.click_id}`
+          // Append click_id to URL (handle existing query params)
+          const separator = baseUrl.includes('?') ? '&' : '?'
+          finalUrl = `${baseUrl}${separator}click_id=${data.click_id}`
         }
       }
     } catch (error) {
