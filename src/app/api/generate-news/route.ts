@@ -70,9 +70,9 @@ Requirements:
 
 Return ONLY a valid JSON array with 3 articles, no markdown formatting`
 
-    // Use GPT-4o-mini consistently
+    // Use GPT-5 Nano (best quality)
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini-2024-07-18',
+      model: 'gpt-5-nano-2025-08-07',
       messages: [
         {
           role: 'system',
@@ -83,8 +83,8 @@ Return ONLY a valid JSON array with 3 articles, no markdown formatting`
           content: newsPrompt
         }
       ],
-      max_tokens: 4000,
-      temperature: 0.8
+      max_completion_tokens: 16000 // High limit for detailed articles
+      // temperature: removed - gpt-5-nano-2025-08-07 only supports default value (1)
     })
 
     const content = completion.choices[0].message.content || '[]'

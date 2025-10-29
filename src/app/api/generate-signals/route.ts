@@ -66,9 +66,9 @@ IMPORTANT:
 - Make reasoning specific and actionable
 - Return ONLY a valid JSON array with exactly 15 signals, no markdown formatting`
 
-    // Use GPT-4o-mini consistently (faster, cheaper, reliable)
+    // Use GPT-5 Nano (best quality reasoning model)
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini-2024-07-18',
+      model: 'gpt-5-nano-2025-08-07',
       messages: [
         {
           role: 'system',
@@ -79,8 +79,8 @@ IMPORTANT:
           content: signalsPrompt
         }
       ],
-      max_tokens: 4000, // Reduced from 16000 - gpt-4o-mini doesn't need excessive tokens
-      temperature: 0.7 // Balanced creativity and consistency
+      max_completion_tokens: 16000 // High limit needed - gpt-5-nano uses reasoning tokens internally
+      // temperature: removed - gpt-5-nano-2025-08-07 only supports default value (1)
     })
 
     const content = completion.choices[0].message.content || '[]'
