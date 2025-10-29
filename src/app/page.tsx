@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { designSystem } from './design-system'
 import { useUser } from '@/contexts/UserContext'
 import { AuthModal } from '@/components/AuthModal'
-import { BrokerPromptModal } from '@/components/BrokerPromptModal'
+import { MultiPopupSystem } from '@/components/MultiPopupSystem'
 import { ExnessLink } from '@/components/ExnessLink'
 
 // 📊 Dynamic Stats Calculator - Updates daily
@@ -42,9 +42,7 @@ export default function HomePage() {
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [authMode, setAuthMode] = useState<'signup' | 'login'>('signup')
 
-  // 🏦 Broker prompt tracking
-  const [showBrokerPrompt, setShowBrokerPrompt] = useState(false)
-  const [brokerPromptType, setBrokerPromptType] = useState<'signals' | 'articles'>('signals')
+  // 🏦 Free tier tracking (for notifications only)
   const [remainingFree, setRemainingFree] = useState<number>(3)
 
   const [activeTab, setActiveTab] = useState('signals')
@@ -118,6 +116,33 @@ export default function HomePage() {
     }, 5000)
   }
 
+  // 🏦 Handle broker account opening
+  const handleOpenBrokerAccount = async () => {
+    const brokerLink = 'https://one.exnesstrack.net/a/c_8f0nxidtbt'
+
+    // Track click
+    try {
+      const token = localStorage.getItem('auth_token')
+      await fetch('/api/track/exness-click', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          partner_id: 'c_8f0nxidtbt',
+          click_url: brokerLink
+        })
+      })
+    } catch (error) {
+      console.error('Failed to track click:', error)
+    }
+
+    // Open Exness
+    window.open(brokerLink, '_blank')
+    addNotification('🚀 Opening broker account...', 'success')
+  }
+
   // Follow signal function - REQUIRES AUTHENTICATION
   const followSignal = (signalId: number) => {
     // 🔐 Check if user is logged in
@@ -166,10 +191,8 @@ export default function HomePage() {
       const data = await response.json()
 
       if (!data.can_view) {
-        // Free limit reached - show broker prompt
-        setBrokerPromptType('signals')
+        // Free limit reached - show notification
         setRemainingFree(data.remaining)
-        setShowBrokerPrompt(true)
         addNotification('🔒 Free signal limit reached! Open broker account for unlimited access.', 'warning')
         return false
       }
@@ -219,10 +242,8 @@ export default function HomePage() {
       const data = await response.json()
 
       if (!data.can_view) {
-        // Free limit reached - show broker prompt
-        setBrokerPromptType('articles')
+        // Free limit reached - show notification
         setRemainingFree(data.remaining)
-        setShowBrokerPrompt(true)
         addNotification('🔒 Free article limit reached! Open broker account for unlimited access.', 'warning')
         return false
       }
@@ -14547,13 +14568,8 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         defaultMode={authMode}
       />
 
-      {/* 🏦 Broker Prompt Modal */}
-      <BrokerPromptModal
-        isOpen={showBrokerPrompt}
-        onClose={() => setShowBrokerPrompt(false)}
-        contentType={brokerPromptType}
-        remaining={remainingFree}
-      />
+      {/* 🏦 Multi-Popup System */}
+      <MultiPopupSystem onOpenBrokerAccount={handleOpenBrokerAccount} />
 
       {/* CSS Animations for 30-min popup */}
       <style jsx global>{`
