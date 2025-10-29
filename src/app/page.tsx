@@ -5911,7 +5911,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
       <div style={{
         position: 'sticky',
         top: 0,
-        zIndex: 999,
+        zIndex: 900,
         background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 100%)',
         borderBottom: '1px solid #e2e8f0',
         padding: isMobile ? '8px 0' : '12px 0',
