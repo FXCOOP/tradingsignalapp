@@ -109,7 +109,7 @@ Provide response as JSON:
 Use realistic data consistent with current GCC market conditions. Return ONLY valid JSON, no markdown.`
 
     const completion = await openai.chat.completions.create({
-      model: process.env.OPENAI_MODEL || 'gpt-5-nano',
+      model: 'gpt-4o-mini-2024-07-18',
       messages: [
         {
           role: 'system',
@@ -120,8 +120,8 @@ Use realistic data consistent with current GCC market conditions. Return ONLY va
           content: analysisPrompt
         }
       ],
-      // temperature: 0.6, // gpt-5-nano-2025-08-07 only supports temperature=1 (default)
-      max_completion_tokens: 3500,
+      max_tokens: 3500,
+      temperature: 0.6
     })
 
     const content = completion.choices[0].message.content || '{}'
@@ -152,7 +152,7 @@ Use realistic data consistent with current GCC market conditions. Return ONLY va
       success: true,
       analysis: enrichedAnalysis,
       generated: new Date().toISOString(),
-      model: process.env.OPENAI_MODEL || 'gpt-5-nano',
+      model: 'gpt-4o-mini-2024-07-18',
       tokensUsed: completion.usage?.total_tokens || 0
     })
 

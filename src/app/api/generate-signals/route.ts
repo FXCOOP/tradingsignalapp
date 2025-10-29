@@ -66,51 +66,22 @@ IMPORTANT:
 - Make reasoning specific and actionable
 - Return ONLY a valid JSON array with exactly 15 signals, no markdown formatting`
 
-    // Try GPT-5 Nano first, fallback to GPT-4o-mini if not available
-    let completion
-    try {
-      completion = await openai.chat.completions.create({
-        model: process.env.OPENAI_MODEL || 'gpt-5-nano-2025-08-07',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a professional trading analyst specializing in global financial markets. Provide accurate, actionable trading signals in JSON format only.'
-          },
-          {
-            role: 'user',
-            content: signalsPrompt
-          }
-        ],
-        max_completion_tokens: parseInt(process.env.OPENAI_MAX_TOKENS || '16000')
-        // Increased to 16000: gpt-5-nano reasoning model uses A LOT of tokens internally
-        // Evidence: Used 4000 tokens for reasoning alone, need much more capacity
-        // temperature removed: gpt-5-nano-2025-08-07 only supports default value (1)
-      }, {
-        timeout: 45000 // 45 second timeout for OpenAI
-      })
-    } catch (modelError: any) {
-      console.warn('GPT-5 Nano not available, falling back to GPT-4o-mini:', modelError.message)
-      // Fallback to GPT-4o-mini if GPT-5 Nano is not available
-      completion = await openai.chat.completions.create({
-        model: 'gpt-4o-mini',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a professional trading analyst specializing in global financial markets. Provide accurate, actionable trading signals in JSON format only.'
-          },
-          {
-            role: 'user',
-            content: signalsPrompt
-          }
-        ],
-        max_completion_tokens: parseInt(process.env.OPENAI_MAX_TOKENS || '16000')
-        // Increased to 16000: gpt-5-nano reasoning model uses A LOT of tokens internally
-        // Evidence: Used 4000 tokens for reasoning alone, need much more capacity
-        // temperature removed: gpt-5-nano-2025-08-07 only supports default value (1)
-      }, {
-        timeout: 45000
-      })
-    }
+    // Use GPT-4o-mini consistently (faster, cheaper, reliable)
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o-mini-2024-07-18',
+      messages: [
+        {
+          role: 'system',
+          content: 'You are a professional trading analyst specializing in global financial markets. Provide accurate, actionable trading signals in JSON format only.'
+        },
+        {
+          role: 'user',
+          content: signalsPrompt
+        }
+      ],
+      max_tokens: 4000, // Reduced from 16000 - gpt-4o-mini doesn't need excessive tokens
+      temperature: 0.7 // Balanced creativity and consistency
+    })
 
     const content = completion.choices[0].message.content || '[]'
 
