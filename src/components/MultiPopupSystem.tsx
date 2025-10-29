@@ -1,12 +1,16 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useTranslation } from '@/lib/translations'
 
 interface MultiPopupSystemProps {
   onOpenBrokerAccount: () => void
+  language?: 'en' | 'ar'
 }
 
-export function MultiPopupSystem({ onOpenBrokerAccount }: MultiPopupSystemProps) {
+export function MultiPopupSystem({ onOpenBrokerAccount, language = 'en' }: MultiPopupSystemProps) {
+  const { t, isRTL } = useTranslation(language)
+
   const [showQuickStart, setShowQuickStart] = useState(false)
   const [showNextStep, setShowNextStep] = useState(false)
   const [showBottomBar, setShowBottomBar] = useState(false)

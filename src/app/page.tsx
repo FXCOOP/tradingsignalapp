@@ -5,6 +5,8 @@ import { useUser } from '@/contexts/UserContext'
 import { AuthModal } from '@/components/AuthModal'
 import { MultiPopupSystem } from '@/components/MultiPopupSystem'
 import { ExnessLink } from '@/components/ExnessLink'
+import { detectLanguage, saveLanguagePreference } from '@/lib/language-detector'
+import { useTranslation } from '@/lib/translations'
 
 // 📊 Dynamic Stats Calculator - Updates daily
 function getDynamicStats() {
@@ -46,7 +48,8 @@ export default function HomePage() {
   const [remainingFree, setRemainingFree] = useState<number>(3)
 
   const [activeTab, setActiveTab] = useState('signals')
-  const [language, setLanguage] = useState('en')
+  const [language, setLanguage] = useState<'en' | 'ar'>('en')
+  const [languageDetected, setLanguageDetected] = useState(false)
   const [currentTime, setCurrentTime] = useState<Date | null>(null)
   const [selectedSignal, setSelectedSignal] = useState<number | null>(null)
   const [signalHistory, setSignalHistory] = useState<any[]>([])
@@ -389,6 +392,21 @@ export default function HomePage() {
   // }, [popupDismissed])
 
   // Keep only animations (no popups)
+  // 🌍 Automatic language detection for GCC countries
+  useEffect(() => {
+    if (!languageDetected) {
+      detectLanguage().then((detectedLang) => {
+        setLanguage(detectedLang)
+        setLanguageDetected(true)
+
+        // Log detection for debugging
+        if (detectedLang === 'ar') {
+          console.log('🌍 GCC country detected - Arabic language activated')
+        }
+      })
+    }
+  }, [languageDetected])
+
   useEffect(() => {
     // Trader count animation
     const counterInterval = setInterval(() => {
@@ -5389,7 +5407,11 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
 
             {/* Premium Language Selector */}
             <button
-              onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
+              onClick={() => {
+                const newLang = language === 'en' ? 'ar' : 'en'
+                setLanguage(newLang)
+                saveLanguagePreference(newLang)
+              }}
               style={{
                 background: 'white',
                 border: `2px solid ${designSystem.colors.neutral[200]}`,
@@ -14588,7 +14610,10 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
       />
 
       {/* 🏦 Multi-Popup System */}
-      <MultiPopupSystem onOpenBrokerAccount={handleOpenBrokerAccount} />
+      <MultiPopupSystem
+        onOpenBrokerAccount={handleOpenBrokerAccount}
+        language={language}
+      />
 
       {/* CSS Animations for 30-min popup */}
       <style jsx global>{`
