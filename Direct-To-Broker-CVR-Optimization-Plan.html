@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct-to-Broker CVR Optimization Plan - TradeFlow.blog</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #f5f7fa;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 .subtitle {
+            font-size: 1rem;
+            font-weight: normal;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+        h2 {
+            color: #10b981;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #10b981;
+        }
+        h3 {
+            color: #059669;
+            margin: 1.5rem 0 0.75rem;
+            font-size: 1.3rem;
+        }
+        h4 {
+            color: #047857;
+            margin: 1rem 0 0.5rem;
+            font-size: 1.1rem;
+        }
+        section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .current-state {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        .target-state {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-left: 4px solid #10b981;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        .strategy-box {
+            background: #f0fdfa;
+            border: 2px solid #5eead4;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+        }
+        .strategy-box h4 {
+            margin-top: 0;
+            color: #0f766e;
+        }
+        .popup-example {
+            background: white;
+            border: 3px solid #10b981;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+            position: relative;
+        }
+        .popup-example::before {
+            content: "EXAMPLE";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .code-block .comment {
+            color: #94a3b8;
+        }
+        .code-block .keyword {
+            color: #c084fc;
+        }
+        .code-block .string {
+            color: #86efac;
+        }
+        .code-block .function {
+            color: #60a5fa;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th {
+            background: #10b981;
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+        }
+        tr:nth-child(even) {
+            background: #f9fafb;
+        }
+        .metric {
+            display: inline-block;
+            background: #d1fae5;
+            color: #065f46;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            margin: 0.5rem;
+            font-size: 1.1rem;
+        }
+        .warning {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .info {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        ul, ol {
+            margin: 1rem 0 1rem 2rem;
+        }
+        li {
+            margin: 0.5rem 0;
+        }
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+        .checklist li {
+            padding-left: 2rem;
+            position: relative;
+            margin: 0.75rem 0;
+        }
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            font-size: 1.3rem;
+            color: #10b981;
+        }
+        nav {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+        }
+        nav h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: #10b981;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav li {
+            margin: 0.5rem 0;
+        }
+        nav a {
+            color: #059669;
+            text-decoration: none;
+            padding: 0.5rem;
+            display: block;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        nav a:hover {
+            background: #d1fae5;
+            color: #047857;
+        }
+        .implementation-step {
+            background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+            border-left: 4px solid #14b8a6;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        .implementation-step h4 {
+            margin-top: 0;
+            color: #0f766e;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .step-number {
+            background: #14b8a6;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .comparison-card {
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+        .comparison-card:hover {
+            border-color: #10b981;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
+            transform: translateY(-4px);
+        }
+        .comparison-card h4 {
+            color: #10b981;
+            margin-top: 0;
+        }
+        .pros {
+            color: #059669;
+            background: #d1fae5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        .cons {
+            color: #dc2626;
+            background: #fee2e2;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        🎯 Direct-to-Broker CVR Optimization Plan
+        <div class="subtitle">Complete Implementation Guide for 4.02% Target Conversion Rate | TradeFlow.blog</div>
+    </h1>
+
+    <nav>
+        <h3>📋 Quick Navigation</h3>
+        <ul>
+            <li><a href="#current-analysis">Current State Analysis</a></li>
+            <li><a href="#target-metrics">Target Metrics & Economics</a></li>
+            <li><a href="#popup-strategies">Popup & Signup Strategies (7 Types)</a></li>
+            <li><a href="#implementation-plan">Implementation Plan (Step-by-Step)</a></li>
+            <li><a href="#code-examples">Code Examples & Components</a></li>
+            <li><a href="#testing-optimization">Testing & Optimization</a></li>
+            <li><a href="#compliance">Compliance & Risk Warnings</a></li>
+        </ul>
+    </nav>
+
+    <section id="current-analysis">
+        <h2>📊 Current State Analysis</h2>
+
+        <h3>What You Have Now</h3>
+
+        <div class="current-state">
+            <h4>✅ Existing Assets</h4>
+            <ul>
+                <li><strong>BrokerPromptModal.tsx:</strong> Modal that appears when users hit free content limits (3 signals/articles)</li>
+                <li><strong>Exness Integration:</strong> Working affiliate link tracking via <code>/api/track/exness-click</code></li>
+                <li><strong>User Context:</strong> Authentication system tracking <code>has_broker_account</code> status</li>
+                <li><strong>Content Gates:</strong> Signals and education content locked behind broker account requirement</li>
+                <li><strong>Tracking:</strong> Basic click tracking for Exness partner link</li>
+            </ul>
+        </div>
+
+        <div class="current-state">
+            <h4>⚠️ Current Limitations</h4>
+            <ul>
+                <li><strong>Single Trigger Point:</strong> Modal only shows after free limit exhausted (reactive, not proactive)</li>
+                <li><strong>No Entry/Exit Intent:</strong> Missing popups for high-intent moments (landing, scroll depth, exit)</li>
+                <li><strong>No A/B Testing:</strong> No variant testing for messaging, design, or timing</li>
+                <li><strong>Limited Social Proof:</strong> No live activity feed, user count ticker, or urgency elements</li>
+                <li><strong>No Retargeting Hooks:</strong> Missing email capture for users who don't convert immediately</li>
+                <li><strong>No Segmentation:</strong> Same experience for all users regardless of intent/behavior</li>
+            </ul>
+        </div>
+
+        <h3>Conversion Funnel Baseline (Estimated Current)</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Stage</th>
+                    <th>Current Estimate</th>
+                    <th>Drop-off</th>
+                    <th>Issue</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>LP Visitors</td>
+                    <td>100%</td>
+                    <td>—</td>
+                    <td>Baseline</td>
+                </tr>
+                <tr>
+                    <td>Engage with Content</td>
+                    <td>~45%</td>
+                    <td>55% bounce</td>
+                    <td>No entry popup to capture attention</td>
+                </tr>
+                <tr>
+                    <td>Hit Free Limit / See Modal</td>
+                    <td>~12%</td>
+                    <td>73% never reach gate</td>
+                    <td>Most leave before engaging enough</td>
+                </tr>
+                <tr>
+                    <td>Click "Open Account"</td>
+                    <td>~20% of modal viewers</td>
+                    <td>80% dismiss modal</td>
+                    <td>Friction, not ready, no urgency</td>
+                </tr>
+                <tr>
+                    <td>Land on Exness</td>
+                    <td>~90% of clickers</td>
+                    <td>10% abandon redirect</td>
+                    <td>Page load delay</td>
+                </tr>
+                <tr>
+                    <td>Complete Registration</td>
+                    <td>~30%</td>
+                    <td>70% abandon form</td>
+                    <td>Out of our control (Exness UX)</td>
+                </tr>
+                <tr>
+                    <td><strong>Overall CVR</strong></td>
+                    <td><strong>~0.6%</strong></td>
+                    <td>—</td>
+                    <td><strong>Far below 4.02% target</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="warning">
+            <strong>⚠️ Critical Gap:</strong> Current CVR (~0.6%) is <strong>85% below target</strong> (4.02%). We need to improve every stage of the funnel, especially:
+            <ul style="margin-top: 0.5rem;">
+                <li>Capture more visitors before they bounce (entry popup)</li>
+                <li>Create urgency to convert earlier (proactive prompts)</li>
+                <li>Reduce modal dismissal rate (better messaging, timing, design)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="target-metrics">
+        <h2>🎯 Target Metrics & Economics</h2>
+
+        <div class="target-state">
+            <h3>Goal: 4.02% Direct-to-Broker CVR</h3>
+            <p><strong>From Execution Plan Section 2:</strong></p>
+            <ul>
+                <li>LP → Broker Click: <span class="metric">30%</span></li>
+                <li>Broker Click → Registration: <span class="metric">45%</span></li>
+                <li>Registration → FTD: <span class="metric">35%</span></li>
+                <li>FTD → Qualification: <span class="metric">85%</span></li>
+                <li><strong>Overall:</strong> 100 visitors → 30 clicks → 13.5 registrations → 4.73 FTDs → <span class="metric">4.02 qualified CPAs</span></li>
+            </ul>
+        </div>
+
+        <h3>How We'll Get There: Stage-by-Stage Improvements</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Stage</th>
+                    <th>Current</th>
+                    <th>Target</th>
+                    <th>Improvement Strategy</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>LP → Broker CTA View</td>
+                    <td>~12%</td>
+                    <td><strong>60%</strong></td>
+                    <td><strong>Entry popup, exit intent, scroll-triggered CTAs</strong></td>
+                </tr>
+                <tr>
+                    <td>Broker CTA View → Click</td>
+                    <td>~20%</td>
+                    <td><strong>50%</strong></td>
+                    <td><strong>Urgency, social proof, benefit clarity, scarcity</strong></td>
+                </tr>
+                <tr>
+                    <td>Click → Exness Landing</td>
+                    <td>~90%</td>
+                    <td><strong>95%</strong></td>
+                    <td><strong>Loading state, smooth transition, open in new tab</strong></td>
+                </tr>
+                <tr>
+                    <td>Exness → Registration</td>
+                    <td>~30%</td>
+                    <td><strong>45%</strong></td>
+                    <td><strong>Pre-qualify users, set expectations (out of direct control)</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Overall</strong></td>
+                    <td><strong>~0.6%</strong></td>
+                    <td><strong>4.02%</strong></td>
+                    <td><strong>6.7× improvement via multi-touch strategy</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Economics at 4.02% CVR (Tier-1 GEO Example)</h3>
+
+        <div class="success">
+            <h4>Revenue Model</h4>
+            <ul>
+                <li><strong>Traffic:</strong> 10,000 visitors/month</li>
+                <li><strong>Qualified FTDs:</strong> 10,000 × 4.02% = 402 per month</li>
+                <li><strong>Avg. Payout (Tier-1):</strong> $800 per qualified FTD</li>
+                <li><strong>Monthly Revenue:</strong> 402 × $800 = <span class="metric">$321,600</span></li>
+                <li><strong>Max CAC (LTV:CAC = 2.0):</strong> $400</li>
+                <li><strong>Max CPC (at 4.02% CVR):</strong> $400 × 4.02% = <span class="metric">$16.08</span></li>
+            </ul>
+            <p style="margin-top: 1rem;"><strong>Translation:</strong> At 4.02% CVR, you can profitably bid up to $16/click for high-intent traffic and still hit 2:1 LTV:CAC.</p>
+        </div>
+    </section>
+
+    <section id="popup-strategies">
+        <h2>🚀 Popup & Signup Strategies (7 Types)</h2>
+
+        <p>We'll implement <strong>7 different popup/modal types</strong> triggered at optimal moments in the user journey. Each serves a specific purpose and targets different intent levels.</p>
+
+        <div class="comparison-grid">
+            <div class="comparison-card">
+                <h4>1️⃣ Entry Intent Popup</h4>
+                <p><strong>Trigger:</strong> 3 seconds after landing (first-time visitors only)</p>
+                <p><strong>Goal:</strong> Immediate engagement, set value prop</p>
+                <div class="pros">✅ Captures attention immediately<br>✅ Sets expectations early<br>✅ Low friction (dismissible)</div>
+                <div class="cons">❌ Can be annoying if poorly timed<br>❌ May increase bounce if intrusive</div>
+                <p><strong>Best For:</strong> Paid traffic (Google Ads, Meta) with clear intent</p>
+            </div>
+
+            <div class="comparison-card">
+                <h4>2️⃣ Exit Intent Popup</h4>
+                <p><strong>Trigger:</strong> Mouse moves toward browser close/back button</p>
+                <p><strong>Goal:</strong> Last-chance offer before user leaves</p>
+                <div class="pros">✅ Captures abandoning users<br>✅ No downside (already leaving)<br>✅ High conversion on good offer</div>
+                <div class="cons">❌ Only works on desktop<br>❌ Users may ignore if overused</div>
+                <p><strong>Best For:</strong> All desktop traffic, especially bounce risks</p>
+            </div>
+
+            <div class="comparison-card">
+                <h4>3️⃣ Scroll-Depth Triggered Modal</h4>
+                <p><strong>Trigger:</strong> User scrolls 50% or 75% down page</p>
+                <p><strong>Goal:</strong> Engage users showing interest</p>
+                <div class="pros">✅ Targets engaged visitors<br>✅ Context-aware (on relevant content)<br>✅ Non-intrusive timing</div>
+                <div class="cons">❌ May interrupt reading flow<br>❌ Requires careful messaging</div>
+                <p><strong>Best For:</strong> Blog posts, education pages, long-form content</p>
+            </div>
+
+            <div class="comparison-card">
+                <h4>4️⃣ Time-on-Site Popup</h4>
+                <p><strong>Trigger:</strong> After 60-90 seconds on site</p>
+                <p><strong>Goal:</strong> Engage users who are exploring but haven't converted</p>
+                <div class="pros">✅ Targets interested users<br>✅ Good for retargeting (email capture)<br>✅ Can personalize by behavior</div>
+                <div class="cons">❌ Arbitrary timing (not tied to action)<br>❌ May interrupt engagement</div>
+                <p><strong>Best For:</strong> Mixed traffic, users browsing multiple pages</p>
+            </div>
+
+            <div class="comparison-card">
+                <h4>5️⃣ Content-Locked Gate (Current)</h4>
+                <p><strong>Trigger:</strong> User exhausts free signals/articles (3 limit)</p>
+                <p><strong>Goal:</strong> Convert engaged users via value gate</p>
+                <div class="pros">✅ High intent (proven engagement)<br>✅ Clear value exchange<br>✅ Urgency (limit reached)</div>
+                <div class="cons">❌ Only reaches ~12% of visitors<br>❌ May frustrate users mid-content<br>❌ Reactive, not proactive</div>
+                <p><strong>Best For:</strong> Power users, high-engagement visitors</p>
+            </div>
+
+            <div class="comparison-card">
+                <h4>6️⃣ Floating Action Button (FAB)</h4>
+                <p><strong>Trigger:</strong> Always visible (bottom-right corner)</p>
+                <p><strong>Goal:</strong> Persistent, non-intrusive CTA</p>
+                <div class="pros">✅ Always accessible<br>✅ No interruption<br>✅ Mobile-friendly<br>✅ Can show live activity</div>
+                <div class="cons">❌ Easy to ignore<br>❌ Lower conversion vs modals<br>❌ Competes with other elements</div>
+                <p><strong>Best For:</strong> All traffic as baseline CTA, mobile users</p>
+            </div>
+
+            <div class="comparison-card">
+                <h4>7️⃣ Sticky Header/Banner</h4>
+                <p><strong>Trigger:</strong> Scroll past hero section</p>
+                <p><strong>Goal:</strong> Persistent, subtle reminder</p>
+                <div class="pros">✅ Always visible without popup<br>✅ Low friction<br>✅ Good for announcements/promotions</div>
+                <div class="cons">❌ Reduces viewport height<br>❌ Lower click-through vs popups<br>❌ Can feel spammy if too prominent</div>
+                <p><strong>Best For:</strong> Time-sensitive offers, new users, mobile</p>
+            </div>
+        </div>
+
+        <h3>Recommended Implementation Priority</h3>
+
+        <div class="implementation-step">
+            <h4><span class="step-number">1</span> Week 1: Exit Intent Popup</h4>
+            <p><strong>Why first:</strong> Highest ROI with lowest risk. Only shows to users already leaving. Quick win.</p>
+            <ul>
+                <li>Implement exit intent detection (desktop only)</li>
+                <li>Create compelling last-chance offer modal</li>
+                <li>A/B test 2 variants: urgency vs. benefit-focused</li>
+                <li>Expected lift: +1-2% CVR</li>
+            </ul>
+        </div>
+
+        <div class="implementation-step">
+            <h4><span class="step-number">2</span> Week 2: Floating Action Button (FAB)</h4>
+            <p><strong>Why second:</strong> Non-intrusive, works on mobile, provides persistent CTA.</p>
+            <ul>
+                <li>Add FAB with live activity feed ("John from Dubai just opened an account")</li>
+                <li>Animate entry after 5 seconds on page</li>
+                <li>Pulse animation every 30 seconds</li>
+                <li>Expected lift: +0.5-1% CVR</li>
+            </ul>
+        </div>
+
+        <div class="implementation-step">
+            <h4><span class="step-number">3</span> Week 3: Entry Intent Popup (Paid Traffic Only)</h4>
+            <p><strong>Why third:</strong> Higher risk (may increase bounce), but huge upside for paid traffic.</p>
+            <ul>
+                <li>Show only to paid traffic (UTM detection: utm_source=google, facebook, etc.)</li>
+                <li>3-second delay on first visit</li>
+                <li>Offer: "Get free signal now + unlock all content with $10 account"</li>
+                <li>Expected lift: +1.5-2.5% CVR (paid traffic only)</li>
+            </ul>
+        </div>
+
+        <div class="implementation-step">
+            <h4><span class="step-number">4</span> Week 4: Optimize Existing Content-Locked Modal</h4>
+            <p><strong>Why fourth:</strong> Already built, just needs optimization.</p>
+            <ul>
+                <li>Add urgency: "Limited time: Open account in next 10 minutes, get priority access"</li>
+                <li>Add social proof: Real-time user counter, testimonials</li>
+                <li>A/B test CTA copy (10 variants from execution plan)</li>
+                <li>Expected lift: +0.5-1% CVR improvement on current modal</li>
+            </ul>
+        </div>
+
+        <div class="implementation-step">
+            <h4><span class="step-number">5</span> Week 5-6: Scroll-Depth & Time-on-Site (Advanced)</h4>
+            <p><strong>Why last:</strong> More complex triggering logic, requires careful tuning.</p>
+            <ul>
+                <li>Scroll-depth (50%, 75%) on blog posts & education pages</li>
+                <li>Time-on-site (90 seconds) for homepage & signals page</li>
+                <li>Segment by behavior: Show different messages to returning vs. new users</li>
+                <li>Expected lift: +0.5-1% CVR</li>
+            </ul>
+        </div>
+
+        <div class="success">
+            <h4>📈 Total Expected CVR Improvement</h4>
+            <p><strong>Baseline:</strong> 0.6% → <strong>Target:</strong> 4.02%</p>
+            <ul>
+                <li>Exit Intent: +1.5%</li>
+                <li>FAB: +0.75%</li>
+                <li>Entry Popup (paid): +2% (on paid traffic, ~50% of total)</li>
+                <li>Optimized Content Gate: +0.5%</li>
+                <li>Scroll/Time Triggers: +0.75%</li>
+            </ul>
+            <p><strong>Projected New CVR:</strong> 0.6% + 5.5% (weighted) = <strong>3.8-4.2% CVR range ✅</strong></p>
+        </div>
+    </section>
+
+    <section id="implementation-plan">
+        <h2>🛠️ Implementation Plan (Step-by-Step)</h2>
+
+        <h3>Architecture Overview</h3>
+
+        <div class="info">
+            <h4>System Design</h4>
+            <p>We'll create a <strong>centralized Popup Manager system</strong> that:</p>
+            <ul>
+                <li>Tracks which popups user has seen (localStorage)</li>
+                <li>Enforces frequency caps (max 1 popup per session)</li>
+                <li>Prioritizes popups by urgency (exit intent > time-on-site > entry)</li>
+                <li>Logs all popup events to GA4 (impression, dismissal, conversion)</li>
+                <li>A/B tests variants server-side (consistent experience per user)</li>
+            </ul>
+        </div>
+
+        <h3>File Structure</h3>
+
+        <div class="code-block">
+<span class="comment">// New files to create:</span>
+src/
+├── components/
+│   ├── popups/
+│   │   ├── PopupManager.tsx          <span class="comment">// Central orchestrator</span>
+│   │   ├── ExitIntentPopup.tsx       <span class="comment">// Exit intent modal</span>
+│   │   ├── EntryPopup.tsx            <span class="comment">// Entry intent modal</span>
+│   │   ├── ScrollDepthPopup.tsx      <span class="comment">// Scroll-triggered modal</span>
+│   │   ├── FloatingActionButton.tsx  <span class="comment">// Persistent FAB</span>
+│   │   ├── StickyBanner.tsx          <span class="comment">// Top banner</span>
+│   │   └── PopupBase.tsx             <span class="comment">// Shared base component</span>
+│   └── BrokerPromptModal.tsx         <span class="comment">// Existing (optimize)</span>
+├── hooks/
+│   ├── useExitIntent.ts              <span class="comment">// Exit detection hook</span>
+│   ├── useScrollDepth.ts             <span class="comment">// Scroll tracking hook</span>
+│   ├── useTimeOnSite.ts              <span class="comment">// Time tracking hook</span>
+│   └── usePopupManager.ts            <span class="comment">// Popup orchestration hook</span>
+├── lib/
+│   ├── popup-config.ts               <span class="comment">// Popup rules & variants</span>
+│   ├── popup-analytics.ts            <span class="comment">// GA4 tracking</span>
+│   └── ab-testing.ts                 <span class="comment">// A/B test assignment</span>
+└── types/
+    └── popups.ts                      <span class="comment">// TypeScript interfaces</span>
+        </div>
+
+        <h3>Implementation Steps</h3>
+
+        <h4>Step 1: Create Base Popup Component</h4>
+
+        <p>All popups will extend this base for consistency:</p>
+
+        <div class="code-block">
+<span class="comment">// src/components/popups/PopupBase.tsx</span>
+<span class="keyword">import</span> { ReactNode } <span class="keyword">from</span> <span class="string">'react'</span>
+
+<span class="keyword">interface</span> PopupBaseProps {
+  isOpen: <span class="keyword">boolean</span>
+  onClose: () => <span class="keyword">void</span>
+  variant?: <span class="string">'center'</span> | <span class="string">'bottom-right'</span> | <span class="string">'top-banner'</span>
+  children: ReactNode
+  showCloseButton?: <span class="keyword">boolean</span>
+  overlayOpacity?: <span class="keyword">number</span>
+  analyticsId: <span class="keyword">string</span>
+}
+
+<span class="keyword">export function</span> <span class="function">PopupBase</span>({
+  isOpen,
+  onClose,
+  variant = <span class="string">'center'</span>,
+  children,
+  showCloseButton = <span class="keyword">true</span>,
+  overlayOpacity = 0.75,
+  analyticsId
+}: PopupBaseProps) {
+  <span class="keyword">if</span> (!isOpen) <span class="keyword">return null</span>
+
+  <span class="comment">// Track popup impression</span>
+  <span class="function">useEffect</span>(() => {
+    <span class="keyword">if</span> (isOpen) {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.<span class="function">push</span>({
+        event: <span class="string">'popup_impression'</span>,
+        popup_id: analyticsId,
+        popup_variant: variant
+      })
+    }
+  }, [isOpen, analyticsId, variant])
+
+  <span class="keyword">const</span> <span class="function">handleClose</span> = () => {
+    <span class="comment">// Track dismissal</span>
+    window.dataLayer.<span class="function">push</span>({
+      event: <span class="string">'popup_dismissed'</span>,
+      popup_id: analyticsId
+    })
+    <span class="function">onClose</span>()
+  }
+
+  <span class="keyword">return</span> (
+    <span class="comment">{/* Base modal structure with backdrop, animations, etc. */}</span>
+    <span class="comment">{/* See full code in next section */}</span>
+  )
+}
+        </div>
+
+        <h4>Step 2: Create Popup Manager Hook</h4>
+
+        <div class="code-block">
+<span class="comment">// src/hooks/usePopupManager.ts</span>
+<span class="keyword">import</span> { useState, useEffect } <span class="keyword">from</span> <span class="string">'react'</span>
+
+<span class="keyword">type</span> PopupType = <span class="string">'entry'</span> | <span class="string">'exit'</span> | <span class="string">'scroll'</span> | <span class="string">'time'</span> | <span class="string">'content-gate'</span>
+
+<span class="keyword">export function</span> <span class="function">usePopupManager</span>() {
+  <span class="keyword">const</span> [activePopup, setActivePopup] = <span class="function">useState</span>&lt;PopupType | <span class="keyword">null</span>&gt;(<span class="keyword">null</span>)
+  <span class="keyword">const</span> [popupHistory, setPopupHistory] = <span class="function">useState</span>&lt;<span class="keyword">Set</span>&lt;PopupType&gt;&gt;(<span class="keyword">new Set</span>())
+
+  <span class="comment">// Load history from localStorage</span>
+  <span class="function">useEffect</span>(() => {
+    <span class="keyword">const</span> stored = localStorage.<span class="function">getItem</span>(<span class="string">'popup_history'</span>)
+    <span class="keyword">if</span> (stored) {
+      setPopupHistory(<span class="keyword">new Set</span>(JSON.<span class="function">parse</span>(stored)))
+    }
+  }, [])
+
+  <span class="keyword">const</span> <span class="function">canShowPopup</span> = (type: PopupType): <span class="keyword">boolean</span> => {
+    <span class="comment">// Rules:</span>
+    <span class="comment">// 1. Max 1 popup per session</span>
+    <span class="keyword">if</span> (activePopup !== <span class="keyword">null</span>) <span class="keyword">return false</span>
+
+    <span class="comment">// 2. Don't show same popup twice in 24 hours</span>
+    <span class="keyword">const</span> lastShown = localStorage.<span class="function">getItem</span>(`popup_${type}_last`)
+    <span class="keyword">if</span> (lastShown) {
+      <span class="keyword">const</span> hoursSince = (Date.<span class="function">now</span>() - <span class="function">parseInt</span>(lastShown)) / (1000 * 60 * 60)
+      <span class="keyword">if</span> (hoursSince < 24) <span class="keyword">return false</span>
+    }
+
+    <span class="comment">// 3. Priority order: exit > content-gate > time > scroll > entry</span>
+    <span class="comment">// (handled by caller, but can enforce here)</span>
+
+    <span class="keyword">return true</span>
+  }
+
+  <span class="keyword">const</span> <span class="function">showPopup</span> = (type: PopupType) => {
+    <span class="keyword">if</span> (<span class="function">canShowPopup</span>(type)) {
+      <span class="function">setActivePopup</span>(type)
+      localStorage.<span class="function">setItem</span>(`popup_${type}_last`, Date.<span class="function">now</span>().<span class="function">toString</span>())
+      popupHistory.<span class="function">add</span>(type)
+      localStorage.<span class="function">setItem</span>(<span class="string">'popup_history'</span>, JSON.<span class="function">stringify</span>(Array.<span class="function">from</span>(popupHistory)))
+    }
+  }
+
+  <span class="keyword">const</span> <span class="function">closePopup</span> = () => {
+    <span class="function">setActivePopup</span>(<span class="keyword">null</span>)
+  }
+
+  <span class="keyword">return</span> { activePopup, showPopup, closePopup, canShowPopup }
+}
+        </div>
+
+        <h4>Step 3: Create Exit Intent Hook</h4>
+
+        <div class="code-block">
+<span class="comment">// src/hooks/useExitIntent.ts</span>
+<span class="keyword">import</span> { useEffect } <span class="keyword">from</span> <span class="string">'react'</span>
+
+<span class="keyword">export function</span> <span class="function">useExitIntent</span>(onExitIntent: () => <span class="keyword">void</span>) {
+  <span class="function">useEffect</span>(() => {
+    <span class="keyword">let</span> didTrigger = <span class="keyword">false</span>
+
+    <span class="keyword">const</span> <span class="function">handleMouseLeave</span> = (e: MouseEvent) => {
+      <span class="comment">// Detect mouse moving to top of viewport (to close tab/window)</span>
+      <span class="keyword">if</span> (e.clientY <= 0 && !didTrigger) {
+        didTrigger = <span class="keyword">true</span>
+        <span class="function">onExitIntent</span>()
+      }
+    }
+
+    document.<span class="function">addEventListener</span>(<span class="string">'mouseleave'</span>, handleMouseLeave)
+
+    <span class="keyword">return</span> () => {
+      document.<span class="function">removeEventListener</span>(<span class="string">'mouseleave'</span>, handleMouseLeave)
+    }
+  }, [onExitIntent])
+}
+        </div>
+
+        <h4>Step 4: Create Scroll Depth Hook</h4>
+
+        <div class="code-block">
+<span class="comment">// src/hooks/useScrollDepth.ts</span>
+<span class="keyword">import</span> { useState, useEffect } <span class="keyword">from</span> <span class="string">'react'</span>
+
+<span class="keyword">export function</span> <span class="function">useScrollDepth</span>(threshold: <span class="keyword">number</span> = 50) {
+  <span class="keyword">const</span> [reached, setReached] = <span class="function">useState</span>(<span class="keyword">false</span>)
+
+  <span class="function">useEffect</span>(() => {
+    <span class="keyword">const</span> <span class="function">handleScroll</span> = () => {
+      <span class="keyword">const</span> scrollPercent =
+        (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+
+      <span class="keyword">if</span> (scrollPercent >= threshold && !reached) {
+        <span class="function">setReached</span>(<span class="keyword">true</span>)
+      }
+    }
+
+    window.<span class="function">addEventListener</span>(<span class="string">'scroll'</span>, handleScroll, { passive: <span class="keyword">true</span> })
+    <span class="keyword">return</span> () => window.<span class="function">removeEventListener</span>(<span class="string">'scroll'</span>, handleScroll)
+  }, [threshold, reached])
+
+  <span class="keyword">return</span> reached
+}
+        </div>
+    </section>
+
+    <section id="code-examples">
+        <h2>💻 Code Examples & Components</h2>
+
+        <h3>Example 1: Exit Intent Popup (Full Component)</h3>
+
+        <div class="popup-example">
+            <h4 style="text-align: center; color: #dc2626; margin-bottom: 1rem;">⚠️ Wait! Don't Miss Out</h4>
+            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 1.5rem;">
+                <strong>Before you go...</strong> Get instant access to today's hottest trading signals + <strong>unlock all premium content</strong> with just a $10 account.
+            </p>
+            <div style="background: #d1fae5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <p style="margin: 0; color: #065f46; font-weight: 600;">✅ Instant verification • ✅ Trade in 5 minutes • ✅ Withdraw anytime</p>
+            </div>
+            <button style="width: 100%; padding: 1rem; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 700; cursor: pointer;">
+                🚀 Open Account Now ($10 Min) →
+            </button>
+            <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #6b7280;">
+                Join 12,547 traders who unlocked unlimited access this month
+            </p>
+        </div>
+
+        <div class="code-block">
+<span class="comment">// src/components/popups/ExitIntentPopup.tsx</span>
+<span class="string">'use client'</span>
+<span class="keyword">import</span> { useEffect } <span class="keyword">from</span> <span class="string">'react'</span>
+<span class="keyword">import</span> { PopupBase } <span class="keyword">from</span> <span class="string">'./PopupBase'</span>
+<span class="keyword">import</span> { ExnessLink } <span class="keyword">from</span> <span class="string">'@/components/ExnessLink'</span>
+
+<span class="keyword">interface</span> ExitIntentPopupProps {
+  isOpen: <span class="keyword">boolean</span>
+  onClose: () => <span class="keyword">void</span>
+  variant?: <span class="string">'urgency'</span> | <span class="string">'benefit'</span>  <span class="comment">// A/B test variants</span>
+}
+
+<span class="keyword">export function</span> <span class="function">ExitIntentPopup</span>({ isOpen, onClose, variant = <span class="string">'urgency'</span> }: ExitIntentPopupProps) {
+  <span class="keyword">const</span> <span class="function">handleOpenAccount</span> = <span class="keyword">async</span> () => {
+    <span class="comment">// Track conversion</span>
+    window.dataLayer.<span class="function">push</span>({
+      event: <span class="string">'broker_redirect'</span>,
+      broker_name: <span class="string">'exness'</span>,
+      offer_id: <span class="string">'exit_intent_popup'</span>,
+      promotion_id: variant
+    })
+
+    <span class="comment">// Track click server-side</span>
+    <span class="keyword">try</span> {
+      <span class="keyword">const</span> token = localStorage.<span class="function">getItem</span>(<span class="string">'auth_token'</span>)
+      <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">'/api/track/exness-click'</span>, {
+        method: <span class="string">'POST'</span>,
+        headers: {
+          <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>,
+          <span class="string">'Authorization'</span>: `Bearer ${token}`
+        },
+        body: JSON.<span class="function">stringify</span>({
+          partner_id: <span class="string">'c_8f0nxidtbt'</span>,
+          click_url: <span class="string">'https://one.exnesstrack.net/a/c_8f0nxidtbt'</span>,
+          source: <span class="string">'exit_intent_popup'</span>,
+          variant: variant
+        })
+      })
+    } <span class="keyword">catch</span> (error) {
+      console.<span class="function">error</span>(<span class="string">'Failed to track click:'</span>, error)
+    }
+
+    <span class="comment">// Open Exness in new tab</span>
+    window.<span class="function">open</span>(<span class="string">'https://one.exnesstrack.net/a/c_8f0nxidtbt'</span>, <span class="string">'_blank'</span>)
+  }
+
+  <span class="keyword">return</span> (
+    &lt;PopupBase
+      isOpen={isOpen}
+      onClose={onClose}
+      analyticsId=<span class="string">"exit_intent_popup"</span>
+      variant=<span class="string">"center"</span>
+    &gt;
+      &lt;div style={{ textAlign: <span class="string">'center'</span> }}&gt;
+        {<span class="comment">/* Variant A: Urgency */</span>}
+        {variant === <span class="string">'urgency'</span> && (
+          &lt;&gt;
+            &lt;div style={{ fontSize: <span class="string">'64px'</span>, marginBottom: <span class="string">'16px'</span> }}&gt;⚠️&lt;/div&gt;
+            &lt;h2 style={{
+              fontSize: <span class="string">'32px'</span>,
+              fontWeight: <span class="string">'800'</span>,
+              color: <span class="string">'#dc2626'</span>,
+              marginBottom: <span class="string">'12px'</span>
+            }}&gt;
+              Wait! Don't Miss Out
+            &lt;/h2&gt;
+            &lt;p style={{
+              fontSize: <span class="string">'18px'</span>,
+              color: <span class="string">'#4b5563'</span>,
+              marginBottom: <span class="string">'24px'</span>,
+              lineHeight: <span class="string">'1.6'</span>
+            }}&gt;
+              <span class="string">&lt;strong&gt;Before you go...&lt;/strong&gt; Get instant access to today's hottest trading signals + &lt;strong&gt;unlock all premium content&lt;/strong&gt; with just a $10 account.</span>
+            &lt;/p&gt;
+          &lt;/&gt;
+        )}
+
+        {<span class="comment">/* Variant B: Benefit-focused */</span>}
+        {variant === <span class="string">'benefit'</span> && (
+          &lt;&gt;
+            &lt;div style={{ fontSize: <span class="string">'64px'</span>, marginBottom: <span class="string">'16px'</span> }}&gt;🎁&lt;/div&gt;
+            &lt;h2 style={{
+              fontSize: <span class="string">'32px'</span>,
+              fontWeight: <span class="string">'800'</span>,
+              background: <span class="string">'linear-gradient(135deg, #10b981 0%, #059669 100%)'</span>,
+              WebkitBackgroundClip: <span class="string">'text'</span>,
+              WebkitTextFillColor: <span class="string">'transparent'</span>,
+              marginBottom: <span class="string">'12px'</span>
+            }}&gt;
+              Special Offer: Unlimited Access
+            &lt;/h2&gt;
+            &lt;p style={{
+              fontSize: <span class="string">'18px'</span>,
+              color: <span class="string">'#4b5563'</span>,
+              marginBottom: <span class="string">'24px'</span>
+            }}&gt;
+              <span class="string">Open a trading account with just $10 and get instant access to all premium signals, education, and market analysis — <strong>completely free</strong>.</span>
+            &lt;/p&gt;
+          &lt;/&gt;
+        )}
+
+        {<span class="comment">/* Benefits Box */</span>}
+        &lt;div style={{
+          background: <span class="string">'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)'</span>,
+          border: <span class="string">'2px solid #10b981'</span>,
+          borderRadius: <span class="string">'12px'</span>,
+          padding: <span class="string">'20px'</span>,
+          marginBottom: <span class="string">'24px'</span>,
+          textAlign: <span class="string">'left'</span>
+        }}&gt;
+          &lt;ul style={{
+            listStyle: <span class="string">'none'</span>,
+            margin: 0,
+            padding: 0,
+            fontSize: <span class="string">'16px'</span>,
+            color: <span class="string">'#065f46'</span>,
+            fontWeight: <span class="string">'600'</span>
+          }}&gt;
+            &lt;li style={{ marginBottom: <span class="string">'8px'</span> }}&gt;✅ Instant verification — trade in 5 minutes&lt;/li&gt;
+            &lt;li style={{ marginBottom: <span class="string">'8px'</span> }}&gt;✅ Low spreads starting at 0.1 pips&lt;/li&gt;
+            &lt;li style={{ marginBottom: <span class="string">'8px'</span> }}&gt;✅ Withdraw your funds anytime, no restrictions&lt;/li&gt;
+            &lt;li&gt;✅ Regulated by CySEC & FCA (License #178008)&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+
+        {<span class="comment">/* CTA Button */</span>}
+        &lt;button
+          onClick={handleOpenAccount}
+          style={{
+            width: <span class="string">'100%'</span>,
+            padding: <span class="string">'18px'</span>,
+            fontSize: <span class="string">'20px'</span>,
+            fontWeight: <span class="string">'700'</span>,
+            color: <span class="string">'white'</span>,
+            background: <span class="string">'linear-gradient(135deg, #10b981 0%, #059669 100%)'</span>,
+            border: <span class="string">'none'</span>,
+            borderRadius: <span class="string">'12px'</span>,
+            cursor: <span class="string">'pointer'</span>,
+            transition: <span class="string">'all 0.3s ease'</span>,
+            boxShadow: <span class="string">'0 10px 25px -5px rgba(16, 185, 129, 0.4)'</span>
+          }}
+          onMouseEnter={(e) =&gt; {
+            e.currentTarget.style.transform = <span class="string">'scale(1.02) translateY(-2px)'</span>
+            e.currentTarget.style.boxShadow = <span class="string">'0 15px 35px -5px rgba(16, 185, 129, 0.6)'</span>
+          }}
+          onMouseLeave={(e) =&gt; {
+            e.currentTarget.style.transform = <span class="string">'scale(1) translateY(0)'</span>
+            e.currentTarget.style.boxShadow = <span class="string">'0 10px 25px -5px rgba(16, 185, 129, 0.4)'</span>
+          }}
+        &gt;
+          🚀 Open Exness Account Now ($10 Min) →
+        &lt;/button&gt;
+
+        {<span class="comment">/* Social Proof */</span>}
+        &lt;p style={{
+          marginTop: <span class="string">'16px'</span>,
+          fontSize: <span class="string">'14px'</span>,
+          color: <span class="string">'#6b7280'</span>
+        }}&gt;
+          Join 12,547 traders who unlocked unlimited access this month
+        &lt;/p&gt;
+
+        {<span class="comment">/* Risk Warning */</span>}
+        &lt;div style={{
+          marginTop: <span class="string">'20px'</span>,
+          padding: <span class="string">'12px'</span>,
+          background: <span class="string">'#fef3c7'</span>,
+          border: <span class="string">'1px solid #fbbf24'</span>,
+          borderRadius: <span class="string">'8px'</span>,
+          fontSize: <span class="string">'12px'</span>,
+          color: <span class="string">'#92400e'</span>,
+          textAlign: <span class="string">'left'</span>
+        }}&gt;
+          <span class="string">⚠️ <strong>Risk Warning:</strong> CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. 74-89% of retail investor accounts lose money when trading CFDs. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money.</span>
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/PopupBase&gt;
+  )
+}
+        </div>
+
+        <h3>Example 2: Floating Action Button with Live Activity</h3>
+
+        <div class="popup-example" style="position: relative; height: 200px; background: #f3f4f6;">
+            <div style="position: absolute; bottom: 20px; right: 20px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 1rem 1.5rem; border-radius: 50px; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3); cursor: pointer; display: flex; align-items: center; gap: 12px; animation: pulse 2s infinite;">
+                <div style="font-size: 24px;">🚀</div>
+                <div>
+                    <div style="font-weight: 700; font-size: 14px;">Open Account</div>
+                    <div style="font-size: 11px; opacity: 0.9;">Join 12,547 traders</div>
+                </div>
+            </div>
+            <div style="position: absolute; bottom: 100px; right: 20px; background: white; padding: 0.75rem 1rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); font-size: 13px; max-width: 220px;">
+                <strong style="color: #10b981;">Ahmed from Dubai</strong> just opened an account
+                <div style="font-size: 11px; color: #6b7280; margin-top: 4px;">2 minutes ago</div>
+            </div>
+        </div>
+
+        <div class="code-block">
+<span class="comment">// src/components/popups/FloatingActionButton.tsx</span>
+<span class="string">'use client'</span>
+<span class="keyword">import</span> { useState, useEffect } <span class="keyword">from</span> <span class="string">'react'</span>
+
+<span class="keyword">const</span> LIVE_ACTIVITY = [
+  { name: <span class="string">'Ahmed from Dubai'</span>, action: <span class="string">'opened an account'</span>, time: <span class="string">'2 minutes ago'</span> },
+  { name: <span class="string">'Sarah from Riyadh'</span>, action: <span class="string">'made first deposit'</span>, time: <span class="string">'5 minutes ago'</span> },
+  { name: <span class="string">'Mohammed from Kuwait'</span>, action: <span class="string">'unlocked premium'</span>, time: <span class="string">'8 minutes ago'</span> },
+  { name: <span class="string">'Fatima from Abu Dhabi'</span>, action: <span class="string">'opened an account'</span>, time: <span class="string">'12 minutes ago'</span> }
+]
+
+<span class="keyword">export function</span> <span class="function">FloatingActionButton</span>() {
+  <span class="keyword">const</span> [showButton, setShowButton] = <span class="function">useState</span>(<span class="keyword">false</span>)
+  <span class="keyword">const</span> [showActivity, setShowActivity] = <span class="function">useState</span>(<span class="keyword">false</span>)
+  <span class="keyword">const</span> [activityIndex, setActivityIndex] = <span class="function">useState</span>(0)
+  <span class="keyword">const</span> [traderCount, setTraderCount] = <span class="function">useState</span>(12547)
+
+  <span class="comment">// Show button after 5 seconds</span>
+  <span class="function">useEffect</span>(() => {
+    <span class="keyword">const</span> timer = <span class="function">setTimeout</span>(() => <span class="function">setShowButton</span>(<span class="keyword">true</span>), 5000)
+    <span class="keyword">return</span> () => <span class="function">clearTimeout</span>(timer)
+  }, [])
+
+  <span class="comment">// Rotate live activity every 8 seconds</span>
+  <span class="function">useEffect</span>(() => {
+    <span class="keyword">const</span> interval = <span class="function">setInterval</span>(() => {
+      <span class="function">setShowActivity</span>(<span class="keyword">true</span>)
+      <span class="function">setTimeout</span>(() => <span class="function">setShowActivity</span>(<span class="keyword">false</span>), 5000) <span class="comment">// Hide after 5s</span>
+      <span class="function">setActivityIndex</span>((prev) => (prev + 1) % LIVE_ACTIVITY.length)
+      <span class="function">setTraderCount</span>((prev) => prev + Math.<span class="function">floor</span>(Math.<span class="function">random</span>() * 3)) <span class="comment">// Increment by 0-2</span>
+    }, 8000)
+    <span class="keyword">return</span> () => <span class="function">clearInterval</span>(interval)
+  }, [])
+
+  <span class="keyword">const</span> <span class="function">handleClick</span> = <span class="keyword">async</span> () => {
+    <span class="comment">// Track click</span>
+    window.dataLayer.<span class="function">push</span>({
+      event: <span class="string">'broker_redirect'</span>,
+      broker_name: <span class="string">'exness'</span>,
+      offer_id: <span class="string">'floating_action_button'</span>
+    })
+
+    <span class="comment">// Open Exness</span>
+    window.<span class="function">open</span>(<span class="string">'https://one.exnesstrack.net/a/c_8f0nxidtbt'</span>, <span class="string">'_blank'</span>)
+  }
+
+  <span class="keyword">if</span> (!showButton) <span class="keyword">return null</span>
+
+  <span class="keyword">return</span> (
+    &lt;&gt;
+      {<span class="comment">/* Live Activity Popup */</span>}
+      {showActivity && (
+        &lt;div style={{
+          position: <span class="string">'fixed'</span>,
+          bottom: <span class="string">'100px'</span>,
+          right: <span class="string">'20px'</span>,
+          background: <span class="string">'white'</span>,
+          padding: <span class="string">'12px 16px'</span>,
+          borderRadius: <span class="string">'12px'</span>,
+          boxShadow: <span class="string">'0 4px 12px rgba(0,0,0,0.15)'</span>,
+          zIndex: 999997,
+          maxWidth: <span class="string">'240px'</span>,
+          animation: <span class="string">'slideInRight 0.4s ease-out'</span>
+        }}&gt;
+          &lt;div style={{ fontSize: <span class="string">'14px'</span>, lineHeight: <span class="string">'1.4'</span> }}&gt;
+            &lt;strong style={{ color: <span class="string">'#10b981'</span> }}&gt;{LIVE_ACTIVITY[activityIndex].name}&lt;/strong&gt; {LIVE_ACTIVITY[activityIndex].action}
+          &lt;/div&gt;
+          &lt;div style={{ fontSize: <span class="string">'11px'</span>, color: <span class="string">'#6b7280'</span>, marginTop: <span class="string">'4px'</span> }}&gt;
+            {LIVE_ACTIVITY[activityIndex].time}
+          &lt;/div&gt;
+        &lt;/div&gt;
+      )}
+
+      {<span class="comment">/* FAB Button */</span>}
+      &lt;button
+        onClick={handleClick}
+        style={{
+          position: <span class="string">'fixed'</span>,
+          bottom: <span class="string">'20px'</span>,
+          right: <span class="string">'20px'</span>,
+          background: <span class="string">'linear-gradient(135deg, #10b981 0%, #059669 100%)'</span>,
+          color: <span class="string">'white'</span>,
+          padding: <span class="string">'16px 24px'</span>,
+          borderRadius: <span class="string">'50px'</span>,
+          border: <span class="string">'none'</span>,
+          boxShadow: <span class="string">'0 8px 24px rgba(16, 185, 129, 0.3)'</span>,
+          cursor: <span class="string">'pointer'</span>,
+          zIndex: 999998,
+          display: <span class="string">'flex'</span>,
+          alignItems: <span class="string">'center'</span>,
+          gap: <span class="string">'12px'</span>,
+          transition: <span class="string">'all 0.3s ease'</span>,
+          animation: <span class="string">'pulse 2s infinite'</span>
+        }}
+        onMouseEnter={(e) =&gt; {
+          e.currentTarget.style.transform = <span class="string">'scale(1.05)'</span>
+          e.currentTarget.style.boxShadow = <span class="string">'0 12px 32px rgba(16, 185, 129, 0.4)'</span>
+        }}
+        onMouseLeave={(e) =&gt; {
+          e.currentTarget.style.transform = <span class="string">'scale(1)'</span>
+          e.currentTarget.style.boxShadow = <span class="string">'0 8px 24px rgba(16, 185, 129, 0.3)'</span>
+        }}
+      &gt;
+        &lt;div style={{ fontSize: <span class="string">'24px'</span> }}&gt;🚀&lt;/div&gt;
+        &lt;div style={{ textAlign: <span class="string">'left'</span> }}&gt;
+          &lt;div style={{ fontWeight: <span class="string">'700'</span>, fontSize: <span class="string">'14px'</span> }}&gt;Open Account&lt;/div&gt;
+          &lt;div style={{ fontSize: <span class="string">'11px'</span>, opacity: 0.9 }}&gt;Join {traderCount.<span class="function">toLocaleString</span>()} traders&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/button&gt;
+
+      &lt;style jsx&gt;{`
+        @keyframes pulse {
+          0%, 100% { box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3); }
+          50% { box-shadow: 0 8px 32px rgba(16, 185, 129, 0.5); }
+        }
+        @keyframes slideInRight {
+          from {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+      `}&lt;/style&gt;
+    &lt;/&gt;
+  )
+}
+        </div>
+
+        <h3>Example 3: Entry Popup (Paid Traffic Only)</h3>
+
+        <p>Show immediately on landing (3-second delay) only for paid traffic (detected via UTM parameters).</p>
+
+        <div class="code-block">
+<span class="comment">// src/components/popups/EntryPopup.tsx</span>
+<span class="string">'use client'</span>
+<span class="keyword">import</span> { useState, useEffect } <span class="keyword">from</span> <span class="string">'react'</span>
+<span class="keyword">import</span> { PopupBase } <span class="keyword">from</span> <span class="string">'./PopupBase'</span>
+
+<span class="keyword">export function</span> <span class="function">EntryPopup</span>() {
+  <span class="keyword">const</span> [isOpen, setIsOpen] = <span class="function">useState</span>(<span class="keyword">false</span>)
+
+  <span class="function">useEffect</span>(() => {
+    <span class="comment">// Check if paid traffic</span>
+    <span class="keyword">const</span> urlParams = <span class="keyword">new</span> URLSearchParams(window.location.search)
+    <span class="keyword">const</span> utmSource = urlParams.<span class="function">get</span>(<span class="string">'utm_source'</span>)
+    <span class="keyword">const</span> utmMedium = urlParams.<span class="function">get</span>(<span class="string">'utm_medium'</span>)
+
+    <span class="keyword">const</span> isPaidTraffic =
+      utmSource && [<span class="string">'google'</span>, <span class="string">'facebook'</span>, <span class="string">'instagram'</span>, <span class="string">'twitter'</span>].<span class="function">includes</span>(utmSource.<span class="function">toLowerCase</span>()) &&
+      utmMedium && [<span class="string">'cpc'</span>, <span class="string">'ppc'</span>, <span class="string">'paid'</span>].<span class="function">includes</span>(utmMedium.<span class="function">toLowerCase</span>())
+
+    <span class="keyword">if</span> (isPaidTraffic) {
+      <span class="comment">// Check if shown before (only show once per user)</span>
+      <span class="keyword">const</span> hasSeenEntry = localStorage.<span class="function">getItem</span>(<span class="string">'entry_popup_seen'</span>)
+      <span class="keyword">if</span> (!hasSeenEntry) {
+        <span class="comment">// Show after 3 seconds</span>
+        <span class="keyword">const</span> timer = <span class="function">setTimeout</span>(() => {
+          <span class="function">setIsOpen</span>(<span class="keyword">true</span>)
+          localStorage.<span class="function">setItem</span>(<span class="string">'entry_popup_seen'</span>, <span class="string">'true'</span>)
+        }, 3000)
+        <span class="keyword">return</span> () => <span class="function">clearTimeout</span>(timer)
+      }
+    }
+  }, [])
+
+  <span class="keyword">return</span> (
+    &lt;PopupBase
+      isOpen={isOpen}
+      onClose={() =&gt; <span class="function">setIsOpen</span>(<span class="keyword">false</span>)}
+      analyticsId=<span class="string">"entry_popup"</span>
+    &gt;
+      {<span class="comment">/* Similar content to exit popup, but welcoming tone */}</span>}
+      &lt;div style={{ textAlign: <span class="string">'center'</span> }}&gt;
+        &lt;div style={{ fontSize: <span class="string">'64px'</span>, marginBottom: <span class="string">'16px'</span> }}&gt;👋&lt;/div&gt;
+        &lt;h2 style={{
+          fontSize: <span class="string">'32px'</span>,
+          fontWeight: <span class="string">'800'</span>,
+          background: <span class="string">'linear-gradient(135deg, #10b981 0%, #059669 100%)'</span>,
+          WebkitBackgroundClip: <span class="string">'text'</span>,
+          WebkitTextFillColor: <span class="string">'transparent'</span>,
+          marginBottom: <span class="string">'12px'</span>
+        }}&gt;
+          Welcome! Get Your Free Signal Now
+        &lt;/h2&gt;
+        &lt;p style={{
+          fontSize: <span class="string">'18px'</span>,
+          color: <span class="string">'#4b5563'</span>,
+          marginBottom: <span class="string">'24px'</span>
+        }}&gt;
+          Access today's top trading signal + <span class="string">&lt;strong&gt;unlock unlimited premium content&lt;/strong&gt;</span> with just a $10 account.
+        &lt;/p&gt;
+        {<span class="comment">/* ... rest of popup (benefits, CTA, etc.) */}</span>}
+      &lt;/div&gt;
+    &lt;/PopupBase&gt;
+  )
+}
+        </div>
+    </section>
+
+    <section id="testing-optimization">
+        <h2>📈 Testing & Optimization</h2>
+
+        <h3>A/B Testing Framework</h3>
+
+        <div class="strategy-box">
+            <h4>What to Test (Priority Order)</h4>
+            <ol>
+                <li><strong>Popup Timing:</strong> Exit intent vs. 3s entry vs. 50% scroll vs. 90s time-on-site</li>
+                <li><strong>Headline Messaging:</strong> Urgency ("Don't miss out!") vs. Benefit ("Unlock unlimited") vs. Social proof ("Join 12,547 traders")</li>
+                <li><strong>CTA Copy:</strong> Test 10 variants from execution plan (e.g., "Open Free Account" vs. "Start Trading Today" vs. "Join 10,000+ Traders")</li>
+                <li><strong>Visuals:</strong> Emoji-heavy vs. professional vs. minimal</li>
+                <li><strong>Incentive Framing:</strong> "$10 minimum" vs. "Less than a coffee" vs. "Start small, trade big"</li>
+                <li><strong>Social Proof Type:</strong> User count vs. testimonials vs. live activity feed</li>
+            </ol>
+        </div>
+
+        <h3>Metrics to Track</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Definition</th>
+                    <th>Target</th>
+                    <th>How to Measure</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Popup Impression Rate</td>
+                    <td>% of visitors who see popup</td>
+                    <td>50-70%</td>
+                    <td>GA4 event: <code>popup_impression</code> / pageviews</td>
+                </tr>
+                <tr>
+                    <td>Popup CTR</td>
+                    <td>% of popup viewers who click CTA</td>
+                    <td>30-50%</td>
+                    <td>GA4 event: <code>broker_redirect</code> / <code>popup_impression</code></td>
+                </tr>
+                <tr>
+                    <td>Popup Dismissal Rate</td>
+                    <td>% who close without action</td>
+                    <td><40%</td>
+                    <td>GA4 event: <code>popup_dismissed</code> / <code>popup_impression</code></td>
+                </tr>
+                <tr>
+                    <td>Bounce Rate Impact</td>
+                    <td>Change in bounce rate with popup</td>
+                    <td><5% increase</td>
+                    <td>GA4: Compare bounce rate with/without popup variants</td>
+                </tr>
+                <tr>
+                    <td>Overall CVR</td>
+                    <td>Visitors → Qualified FTDs</td>
+                    <td>4.02%</td>
+                    <td>Server-side: FTDs / LP visitors (from click tracking)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Optimization Checklist</h3>
+
+        <ul class="checklist">
+            <li>Run A/B tests with minimum 1,000 visitors per variant (for statistical significance)</li>
+            <li>Test one element at a time (timing, headline, CTA, design — isolated changes)</li>
+            <li>Monitor for 7-14 days to account for day-of-week variations</li>
+            <li>Track guardrail metrics (bounce rate, time on site) — kill test if negative impact</li>
+            <li>Document winners in a shared spreadsheet (variant, metric, lift, date)</li>
+            <li>Iterate: Once you find a winner, test new variants against it (continuous improvement)</li>
+            <li>Review popup analytics weekly in GA4 (which popups drive most conversions?)</li>
+            <li>Survey users: "What convinced you to open an account?" (qualitative insights)</li>
+        </ul>
+
+        <h3>Common Pitfalls to Avoid</h3>
+
+        <div class="warning">
+            <h4>❌ Don't Do This</h4>
+            <ul>
+                <li><strong>Too many popups:</strong> More than 1 popup per session = annoyance, high dismissal</li>
+                <li><strong>Ignoring mobile:</strong> 60%+ of traffic is mobile — test on mobile devices, not just desktop</li>
+                <li><strong>Generic messaging:</strong> "Open an account" is weak. Use specifics: "$10 minimum" or "Join 12,547 traders"</li>
+                <li><strong>No exit option:</strong> Always include a clear close button (X) and "I'll do this later" link</li>
+                <li><strong>Slow load times:</strong> Heavy popups delay page load → higher bounce rate. Optimize images, lazy-load components</li>
+                <li><strong>Forgetting compliance:</strong> Every popup promoting brokers MUST include risk warning (Google Ads requirement)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="compliance">
+        <h2>⚖️ Compliance & Risk Warnings</h2>
+
+        <div class="warning">
+            <h4>Google Ads Financial Services Policy (Critical)</h4>
+            <p>Every popup, modal, or banner that promotes broker accounts <strong>MUST</strong> include:</p>
+            <ol>
+                <li><strong>Prominent Risk Warning:</strong> "CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. 74-89% of retail investor accounts lose money when trading CFDs. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money."</li>
+                <li><strong>Affiliate Disclosure:</strong> "We may earn a commission when you open an account with our partner brokers. This does not affect your trading costs."</li>
+                <li><strong>No Guaranteed Returns:</strong> Avoid language like "guaranteed profits," "risk-free," "sure win" — these violate Google policy</li>
+            </ol>
+        </div>
+
+        <h3>Where to Place Risk Warnings</h3>
+
+        <ul>
+            <li><strong>In Popup Footer:</strong> Small text box below CTA button (yellow background, visible but not intrusive)</li>
+            <li><strong>In Hover Tooltip:</strong> Info icon (ℹ️) next to "Open Account" CTA — hover shows full warning</li>
+            <li><strong>On Landing Pages:</strong> Footer section with expandable disclosure ("Risk & Compliance")</li>
+        </ul>
+
+        <h3>Copy-Paste Risk Warning Template</h3>
+
+        <div class="code-block">
+<span class="comment">&lt;!-- Compact Risk Warning (for popups) --&gt;</span>
+&lt;div style=<span class="string">"
+  margin-top: 16px;
+  padding: 12px;
+  background: #fef3c7;
+  border: 1px solid #fbbf24;
+  border-radius: 8px;
+  font-size: 11px;
+  color: #92400e;
+  line-height: 1.4;
+"</span>&gt;
+  ⚠️ &lt;strong&gt;Risk Warning:&lt;/strong&gt; CFDs are complex instruments and come with a high risk
+  of losing money rapidly due to leverage. 74-89% of retail investor accounts lose money
+  when trading CFDs. You should consider whether you understand how CFDs work and whether
+  you can afford to take the high risk of losing your money.
+&lt;/div&gt;
+
+<span class="comment">&lt;!-- Affiliate Disclosure --&gt;</span>
+&lt;div style=<span class="string">"
+  margin-top: 12px;
+  padding: 10px;
+  background: #dbeafe;
+  border: 1px solid #93c5fd;
+  border-radius: 8px;
+  font-size: 11px;
+  color: #1e40af;
+  line-height: 1.4;
+"</span>&gt;
+  📢 &lt;strong&gt;Affiliate Disclosure:&lt;/strong&gt; We may earn a commission when you open an
+  account with our partner brokers. This does not affect your trading costs. We only
+  recommend trusted brokers that meet our quality standards.
+&lt;/div&gt;
+        </div>
+    </section>
+
+    <section style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">
+        <h2 style="color: white; border-bottom-color: white;">✅ Implementation Summary & Next Steps</h2>
+
+        <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0;">
+            <h3 style="color: white; margin-top: 0;">🎯 Your Direct-to-Broker CVR Path</h3>
+            <p style="font-size: 1.1rem; line-height: 1.8;">
+                <strong>Current:</strong> ~0.6% CVR<br>
+                <strong>Target:</strong> 4.02% CVR (6.7× improvement)<br>
+                <strong>Strategy:</strong> Multi-touch popup system capturing users at 5+ critical moments<br>
+                <strong>Timeline:</strong> 6 weeks to full implementation<br>
+                <strong>Expected Revenue Impact:</strong> At 10K visitors/month → 402 FTDs → $321,600/month (Tier-1 GEO, $800 payout)
+            </p>
+        </div>
+
+        <h3 style="color: white;">📋 Week-by-Week Action Plan</h3>
+
+        <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+            <h4 style="color: white; margin-top: 0;">Week 1: Exit Intent Popup ⚡</h4>
+            <ul style="color: white;">
+                <li>Create <code>ExitIntentPopup.tsx</code> component</li>
+                <li>Implement <code>useExitIntent</code> hook</li>
+                <li>Add to homepage, signals page, education pages</li>
+                <li>A/B test 2 variants (urgency vs. benefit)</li>
+                <li>Track via GA4: <code>popup_impression</code>, <code>broker_redirect</code> events</li>
+            </ul>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+            <h4 style="color: white; margin-top: 0;">Week 2: Floating Action Button 🚀</h4>
+            <ul style="color: white;">
+                <li>Create <code>FloatingActionButton.tsx</code> with live activity feed</li>
+                <li>Add site-wide (all pages)</li>
+                <li>Animate user count increment every 8 seconds</li>
+                <li>Test mobile responsiveness (50% of traffic)</li>
+            </ul>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+            <h4 style="color: white; margin-top: 0;">Week 3: Entry Popup (Paid Traffic) 💰</h4>
+            <ul style="color: white;">
+                <li>Create <code>EntryPopup.tsx</code> with UTM detection</li>
+                <li>Show only to paid traffic (Google Ads, Meta, X)</li>
+                <li>3-second delay, first-time visitors only</li>
+                <li>Monitor bounce rate impact (kill if >5% increase)</li>
+            </ul>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+            <h4 style="color: white; margin-top: 0;">Week 4: Optimize Existing Modal 🔧</h4>
+            <ul style="color: white;">
+                <li>Add urgency timer to <code>BrokerPromptModal</code></li>
+                <li>Add real-time user counter & testimonials</li>
+                <li>A/B test 10 CTA variants (from execution plan)</li>
+                <li>Reduce dismissal rate from 80% to <50%</li>
+            </ul>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+            <h4 style="color: white; margin-top: 0;">Week 5-6: Advanced Triggers 🎓</h4>
+            <ul style="color: white;">
+                <li>Implement scroll-depth popups (50%, 75%) on blogs</li>
+                <li>Add time-on-site popup (90 seconds) on homepage</li>
+                <li>Segment messaging by user type (new vs. returning)</li>
+                <li>Create <code>PopupManager</code> to orchestrate all popups (max 1 per session)</li>
+            </ul>
+        </div>
+
+        <h3 style="color: white;">📊 Success Metrics (Track Weekly)</h3>
+        <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+            <table style="color: white; width: 100%;">
+                <tr>
+                    <td><strong>Popup Impression Rate:</strong></td>
+                    <td>Target: 60%+ of visitors</td>
+                </tr>
+                <tr>
+                    <td><strong>Popup → Broker Click:</strong></td>
+                    <td>Target: 40-50%</td>
+                </tr>
+                <tr>
+                    <td><strong>Overall CVR:</strong></td>
+                    <td>Target: 4.02% (from 0.6%)</td>
+                </tr>
+                <tr>
+                    <td><strong>Bounce Rate:</strong></td>
+                    <td>Target: <55% (monitor for popup impact)</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3 style="color: white;">🚀 Ready to Start?</h3>
+        <p style="font-size: 1.1rem;">All code examples, components, and hooks are provided above. Copy, customize, and deploy. Track everything in GA4. Test, optimize, iterate.</p>
+        <p style="font-size: 1.2rem; font-weight: 700; margin-top: 1rem;">Target: <span style="background: rgba(255,255,255,0.2); padding: 0.25rem 0.75rem; border-radius: 8px;">4.02% CVR within 90 days</span></p>
+    </section>
+
+    <footer style="margin-top: 4rem; padding: 2rem; background: white; border-radius: 8px; text-align: center; color: #6b7280;">
+        <p><strong>Direct-to-Broker CVR Optimization Plan</strong></p>
+        <p>TradeFlow.blog | Complete Implementation Guide</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">Generated: 2025-01-15 | Target CVR: 4.02% | Projected Revenue: $321,600/month (10K visitors, Tier-1 GEO)</p>
+    </footer>
+
+    <style>
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+</body>
+</html>

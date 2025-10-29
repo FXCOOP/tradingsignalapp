@@ -1,0 +1,2329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradeFlow.blog — Complete Acquisition System Scheme</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #f5f7fa;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #667eea;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #667eea;
+        }
+        h3 {
+            color: #764ba2;
+            margin: 1.5rem 0 0.75rem;
+        }
+        h4 {
+            color: #4a5568;
+            margin: 1rem 0 0.5rem;
+        }
+        section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        th {
+            background: #667eea;
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+        }
+        tr:nth-child(even) {
+            background: #f7fafc;
+        }
+        pre {
+            background: #1a202c;
+            color: #68d391;
+            padding: 1.5rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        code {
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+        ul, ol {
+            margin: 1rem 0 1rem 2rem;
+        }
+        li {
+            margin: 0.5rem 0;
+        }
+        details {
+            background: #edf2f7;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: #667eea;
+            user-select: none;
+            padding: 0.5rem;
+            margin: -0.5rem;
+        }
+        summary:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        .flow {
+            font-family: monospace;
+            background: #f7fafc;
+            padding: 1.5rem;
+            border: 2px solid #cbd5e0;
+            border-radius: 4px;
+            margin: 1rem 0;
+            white-space: pre;
+            overflow-x: auto;
+        }
+        .warning {
+            background: #fff5f5;
+            border-left: 4px solid #fc8181;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .info {
+            background: #ebf8ff;
+            border-left: 4px solid #4299e1;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .success {
+            background: #f0fff4;
+            border-left: 4px solid #48bb78;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        nav {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        nav a:hover {
+            background: #667eea;
+            color: white;
+        }
+        .metric {
+            display: inline-block;
+            background: #edf2f7;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            margin: 0.25rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>TradeFlow.blog — Complete Acquisition System Scheme</h1>
+
+    <nav>
+        <ul>
+            <li><a href="#funnel">1. Funnel Overview</a></li>
+            <li><a href="#traffic">2. Traffic Sources</a></li>
+            <li><a href="#tracking">3. Tracking & Attribution</a></li>
+            <li><a href="#data">4. Data Schema</a></li>
+            <li><a href="#webhooks">5. Webhooks/Postbacks</a></li>
+            <li><a href="#signup">6. Sign-up Decision Tree</a></li>
+            <li><a href="#cro">7. CRO Loop</a></li>
+            <li><a href="#compliance">8. Compliance & Risk</a></li>
+            <li><a href="#analytics">9. Analytics</a></li>
+            <li><a href="#dashboards">10. Dashboards & KPIs</a></li>
+            <li><a href="#automation">11. Automation</a></li>
+            <li><a href="#tech">12. Tech Stack</a></li>
+        </ul>
+    </nav>
+
+    <section id="funnel">
+        <h2>1. Funnel Overview</h2>
+
+        <div class="flow">
+┌─────────────────────────────────────────────────────────────────────────┐
+│                         TRAFFIC SOURCES                                  │
+│  Google Ads │ Meta/X │ SEO/Organic │ Newsletters │ Partners/Affiliates  │
+└──────────────────────────┬──────────────────────────────────────────────┘
+                           │
+                           ↓ (UTM tagged + click_id)
+┌─────────────────────────────────────────────────────────────────────────┐
+│                      LANDING PAGES (LP)                                  │
+│  • Signal-to-Value Gate LP (paid search)                                │
+│  • Education Hub LP (SEO/newsletters)                                    │
+│  • Broker Comparison LP (high intent)                                    │
+└──────────────────────────┬──────────────────────────────────────────────┘
+                           │
+                    ┌──────┴──────┐
+                    │             │
+                    ↓             ↓
+        ┌────────────────┐  ┌────────────────┐
+        │  VALUE GATES   │  │  DIRECT CTA    │
+        │  • Free Signal │  │  to Broker     │
+        │  • PDF Guide   │  │  (High Intent) │
+        │  • Calculator  │  └────────┬───────┘
+        └────────┬───────┘           │
+                 │                   │
+                 ↓                   │
+        ┌─────────────────┐          │
+        │  LEAD CAPTURE   │          │
+        │  On-site Form   │          │
+        │  Email/Phone    │          │
+        └────────┬────────┘          │
+                 │                   │
+                 ↓                   │
+        ┌─────────────────┐          │
+        │  NURTURE/ROUTE  │          │
+        │  • Email seq.   │          │
+        │  • Broker match │          │
+        │  • Warm handoff │          │
+        └────────┬────────┘          │
+                 │                   │
+                 └─────────┬─────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    BROKER CTAs / REDIRECTION                             │
+│  Click → Redirector (/r/<offer>) → Broker with partner params           │
+└──────────────────────────┬──────────────────────────────────────────────┘
+                           │
+                           ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    BROKER SIGN-UP & VERIFICATION                         │
+│  • Registration (postback: registration event)                           │
+│  • Email verification                                                    │
+│  • KYC/AML (compliance)                                                  │
+└──────────────────────────┬──────────────────────────────────────────────┘
+                           │
+                           ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    FIRST-TIME DEPOSIT (FTD)                              │
+│  • Min. deposit: $2-$10 (broker dependent)                               │
+│  • Postback triggered → CPA payout triggered                             │
+│  • Trade 0.1 lot requirement (180-day window for Exness)                 │
+└──────────────────────────┬──────────────────────────────────────────────┘
+                           │
+                           ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    REVENUE CAPTURE                                       │
+│  • CPA payout credited to partner account                                │
+│  • RevShare (IB program, ongoing commissions based on volume)            │
+└─────────────────────────────────────────────────────────────────────────┘
+        </div>
+
+        <h3>Key Conversion Points</h3>
+        <ul>
+            <li><strong>Traffic → LP:</strong> Click (measured)</li>
+            <li><strong>LP → Value Gate:</strong> Engagement (view_item, generate_lead)</li>
+            <li><strong>Value Gate → Lead:</strong> Form submission (on-site lead_capture)</li>
+            <li><strong>LP → Broker CTA:</strong> Direct click (select_promotion)</li>
+            <li><strong>Broker CTA → Registration:</strong> Account created (postback: registration)</li>
+            <li><strong>Registration → FTD:</strong> First deposit (postback: first_deposit + qualification)</li>
+            <li><strong>FTD → Payout:</strong> Revenue recognized (internal event: payout_credited)</li>
+        </ul>
+
+        <div class="info">
+            <strong>Two-Path Strategy:</strong> High-intent users (from comparison/broker keywords) go direct to broker. Education/signal seekers go through value gate → nurture → warm handoff to maximize quality and conversion.
+        </div>
+    </section>
+
+    <section id="traffic">
+        <h2>2. Traffic Sources & Campaign Structure</h2>
+
+        <h3>Google Ads</h3>
+        <details>
+            <summary>Campaign Structure & Requirements</summary>
+            <p><strong>Certification Required:</strong> Must apply for Google Ads certification for CFD/Forex advertising (per targeted geography). See: <a href="https://support.google.com/adspolicy/answer/2464998">Google Ads Financial Products Policy</a></p>
+
+            <h4>Campaign Types</h4>
+            <ul>
+                <li><strong>Search - Brand Protection:</strong> Exact match brand terms, direct to homepage</li>
+                <li><strong>Search - High Intent (Broker Comparison):</strong> "best forex broker [GEO]", "exness vs [competitor]"</li>
+                <li><strong>Search - Educational (Signals/Info):</strong> "forex signals", "trading indicators", "market analysis"</li>
+                <li><strong>Performance Max:</strong> Asset groups for each offer type (signals, education, broker comparison)</li>
+                <li><strong>Display Remarketing:</strong> Engaged visitors, segmented by funnel stage</li>
+            </ul>
+
+            <h4>Keyword Themes</h4>
+            <table>
+                <tr>
+                    <th>Theme</th>
+                    <th>Intent</th>
+                    <th>Example Keywords</th>
+                    <th>Landing Page</th>
+                </tr>
+                <tr>
+                    <td>Broker Selection</td>
+                    <td>Transactional</td>
+                    <td>best forex broker, exness review, open trading account</td>
+                    <td>Broker Comparison LP</td>
+                </tr>
+                <tr>
+                    <td>Trading Signals</td>
+                    <td>Informational → Lead</td>
+                    <td>free forex signals, trading alerts, buy sell signals</td>
+                    <td>Signal-to-Value Gate LP</td>
+                </tr>
+                <tr>
+                    <td>Education</td>
+                    <td>Informational</td>
+                    <td>how to trade forex, technical analysis guide, trading strategies</td>
+                    <td>Education Hub LP</td>
+                </tr>
+                <tr>
+                    <td>Market News</td>
+                    <td>Awareness</td>
+                    <td>forex news today, market analysis, economic calendar</td>
+                    <td>Blog → Value Gate</td>
+                </tr>
+            </table>
+
+            <h4>Negative Keywords (Starter List)</h4>
+            <pre><code>job, jobs, career, employment, salary
+free, gratis, download, pirate, crack, hack
+scam, fraud, complaint, lawsuit, problem
+robot, bot, automated, EA, expert advisor (if not offering)
+course, training, certification (if not offering)
+demo, practice, simulator (unless offering demo accounts)
+            </code></pre>
+        </details>
+
+        <h3>Meta (Facebook/Instagram)</h3>
+        <details>
+            <summary>Campaign Structure</summary>
+            <ul>
+                <li><strong>Awareness:</strong> Carousel ads with educational content (market insights, tips)</li>
+                <li><strong>Consideration:</strong> Lead gen forms (on-platform) or traffic to value gate</li>
+                <li><strong>Conversion:</strong> Custom audiences (website visitors, engaged users) → broker CTA</li>
+                <li><strong>Creative Angles:</strong> Market volatility alerts, success stories (compliant testimonials with disclaimers), educational content, tool/calculator promotion</li>
+            </ul>
+            <div class="warning">
+                <strong>Compliance Note:</strong> Avoid guarantee language, income claims, or misleading success rates. All creative must include risk warnings for CFD/forex trading.
+            </div>
+        </details>
+
+        <h3>X (Twitter)</h3>
+        <details>
+            <summary>Paid & Organic Strategy</summary>
+            <ul>
+                <li><strong>Promoted Tweets:</strong> Market commentary with CTA to signals or analysis</li>
+                <li><strong>Follower Campaigns:</strong> Build audience for organic reach</li>
+                <li><strong>Content Mix:</strong> 70% value (analysis, charts, news), 20% engagement (polls, questions), 10% promotional</li>
+            </ul>
+        </details>
+
+        <h3>Telegram/Discord Communities</h3>
+        <details>
+            <summary>Community-Led Acquisition</summary>
+            <ul>
+                <li><strong>Free Signals Channel:</strong> Daily signals with attribution to tradeflow.blog</li>
+                <li><strong>Premium Tier:</strong> Gated access via email capture or micro-payment</li>
+                <li><strong>Broker Promotions:</strong> Exclusive offers for community members (tracked via unique UTM/promo codes)</li>
+                <li><strong>Moderation:</strong> Clear community guidelines, no spam, compliant disclaimers pinned</li>
+            </ul>
+        </details>
+
+        <h3>SEO & Organic</h3>
+        <details>
+            <summary>Content Strategy</summary>
+            <ul>
+                <li><strong>News Content:</strong> Daily market news, analysis (high frequency, topical keywords)</li>
+                <li><strong>Evergreen Guides:</strong> How-to content, strategy guides, broker reviews</li>
+                <li><strong>Comparison Pages:</strong> "Exness vs XM", "Best Forex Brokers 2025"</li>
+                <li><strong>Internal Linking:</strong> News → Evergreen → Broker LP → CTA</li>
+                <li><strong>Schema Markup:</strong> Article, HowTo, FAQPage, Organization, Review (with disclaimer)</li>
+            </ul>
+        </details>
+
+        <h3>Newsletters</h3>
+        <details>
+            <summary>Email Acquisition & Retention</summary>
+            <ul>
+                <li><strong>Lead Magnets:</strong> Daily signals digest, weekly market outlook, trading guides (PDF)</li>
+                <li><strong>Segmentation:</strong> By interest (signals, news, education), engagement level, GEO</li>
+                <li><strong>Monetization:</strong> Broker promotions (2-3 per month max), premium content upsell</li>
+            </ul>
+        </details>
+
+        <h3>Partner/Affiliate Traffic</h3>
+        <details>
+            <summary>Sub-Affiliate Program</summary>
+            <ul>
+                <li><strong>Revenue Share:</strong> 20-30% of CPA payout for qualified referrals</li>
+                <li><strong>Tracking:</strong> Unique promo codes or sub-IDs in URL (utm_source=partner_name)</li>
+                <li><strong>Attribution Window:</strong> 30 days (last-click)</li>
+                <li><strong>Quality Controls:</strong> Fraud detection, IP filtering, velocity checks</li>
+            </ul>
+        </details>
+    </section>
+
+    <section id="tracking">
+        <h2>3. Tracking & Attribution</h2>
+
+        <h3>Client-Side Tracking</h3>
+        <p>Google Tag Manager (GTM) container on all pages, managing:</p>
+        <ul>
+            <li>Google Analytics 4 (GA4) configuration tag</li>
+            <li>Google Ads conversion tracking</li>
+            <li>Meta Pixel</li>
+            <li>X (Twitter) event tracking</li>
+            <li>Custom event triggers (form submissions, CTA clicks, value gate completions)</li>
+        </ul>
+
+        <h3>Server-Side Tracking Architecture</h3>
+        <div class="flow">
+User Click on Ad/Link
+    │
+    ↓
+Click Interceptor/Redirector: /r/<offer>
+    │
+    ├─ Generate unique click_id (UUID v4)
+    ├─ Store in clicks table: {click_id, utm_*, ip, ua, timestamp, offer_id}
+    ├─ Set 1st-party cookie: tf_cid=<click_id> (365 days)
+    ├─ Store in localStorage: tf_click_data={click_id, utm_*, timestamp}
+    ├─ Capture GCLID/FBCLID/other platform IDs
+    │
+    ↓
+302 Redirect to Landing Page with ?cid=<click_id>
+    │
+    ↓
+Landing Page
+    │
+    ├─ GTM dataLayer.push({event:'page_view', click_id, utm_*, ...})
+    ├─ GA4 tracks with click_id as custom dimension
+    │
+    ↓ (User engages)
+    │
+Form Submission / Value Gate / Broker CTA Click
+    │
+    ├─ GTM dataLayer.push({event:'generate_lead'|'select_promotion', click_id, ...})
+    ├─ Client-side: POST to /api/leads or /api/clicks/<click_id>/event
+    │
+    ↓
+Server Endpoint: /api/leads or /api/clicks/<click_id>/event
+    │
+    ├─ Retrieve click_id from payload or cookie fallback
+    ├─ Log event: {click_id, event_type, user_id (if known), timestamp, ...}
+    ├─ If lead: create user record, store email/phone, link to click_id
+    ├─ If broker CTA: update click record with broker_redirect_at timestamp
+    │
+    ↓ (User redirects to broker)
+    │
+Broker Registration & Deposit
+    │
+    ↓
+Broker Postback: POST /api/webhooks/broker
+    │
+    ├─ Verify signature (HMAC or partner-specific token)
+    ├─ Extract broker_user_id, event (registration|first_deposit), amount, timestamp
+    ├─ Match to internal user via click_id or email (in postback params)
+    ├─ Update conversions table: {click_id, user_id, broker_user_id, event, amount, payout_amount}
+    ├─ Fire server-side event to GA4, Google Ads (offline conversion import), Meta CAPI
+    │
+    ↓
+Revenue Attribution
+    │
+    └─ Join clicks → leads → conversions → calculate LTV, CAC, ROAS per campaign/source
+        </div>
+
+        <h3>Cookie-less & Privacy-First Fallbacks</h3>
+        <ul>
+            <li><strong>LocalStorage:</strong> Store click_id in localStorage as backup (persists across sessions, same-device)</li>
+            <li><strong>Email/Phone Hashing:</strong> On lead capture, hash email+phone → store in server DB → match broker postback by hashed identifier</li>
+            <li><strong>Fingerprinting (Privacy-Compliant):</strong> Browser fingerprint (IP + UA + language + timezone hash) for probabilistic matching (low confidence, use only if no click_id available)</li>
+            <li><strong>Server-Side Session:</strong> For users who accept cookies, maintain server session tied to click_id</li>
+        </ul>
+
+        <h3>Platform-Specific ID Capture</h3>
+        <table>
+            <tr>
+                <th>Platform</th>
+                <th>ID Parameter</th>
+                <th>Storage</th>
+                <th>Use Case</th>
+            </tr>
+            <tr>
+                <td>Google Ads</td>
+                <td>gclid, gbraid, wbraid</td>
+                <td>clicks.gclid</td>
+                <td>Offline conversion import to Google Ads</td>
+            </tr>
+            <tr>
+                <td>Meta</td>
+                <td>fbclid</td>
+                <td>clicks.fbclid</td>
+                <td>Conversions API (CAPI) event matching</td>
+            </tr>
+            <tr>
+                <td>X (Twitter)</td>
+                <td>twclid</td>
+                <td>clicks.twclid</td>
+                <td>Event tracking & attribution</td>
+            </tr>
+            <tr>
+                <td>TikTok</td>
+                <td>ttclid</td>
+                <td>clicks.ttclid</td>
+                <td>Event API</td>
+            </tr>
+        </table>
+
+        <h3>Attribution Models</h3>
+        <ul>
+            <li><strong>Primary:</strong> Last-click (30-day window) — simplest for CPA payouts</li>
+            <li><strong>Secondary Analysis:</strong> First-click, linear multi-touch (for understanding awareness vs. conversion sources)</li>
+            <li><strong>Deduplication Rule:</strong> If user has multiple click_ids, attribute to most recent click within 30 days; if tie, prefer paid over organic</li>
+        </ul>
+    </section>
+
+    <section id="data">
+        <h2>4. Data Schema</h2>
+
+        <h3>Database Tables</h3>
+
+        <h4>clicks</h4>
+        <pre><code>CREATE TABLE clicks (
+    click_id VARCHAR(36) PRIMARY KEY,          -- UUID v4
+    offer_id VARCHAR(50),                       -- e.g., 'exness_cpa', 'generic_broker'
+    utm_source VARCHAR(100),                    -- e.g., 'google', 'facebook', 'newsletter'
+    utm_medium VARCHAR(100),                    -- e.g., 'cpc', 'social', 'email'
+    utm_campaign VARCHAR(200),                  -- e.g., 'q1_signals_eu', 'retarget_ftd'
+    utm_term VARCHAR(200),                      -- keyword (for search)
+    utm_content VARCHAR(200),                   -- ad variant ID
+    utm_network VARCHAR(50),                    -- 'search', 'display', 'shopping'
+    utm_geo VARCHAR(10),                        -- ISO country code
+    utm_lp VARCHAR(100),                        -- landing page variant
+    utm_funnel_step VARCHAR(50),                -- 'awareness', 'consideration', 'conversion'
+    utm_variant VARCHAR(50),                    -- A/B test variant
+    gclid VARCHAR(200),                         -- Google click ID
+    fbclid VARCHAR(200),                        -- Facebook click ID
+    twclid VARCHAR(200),                        -- Twitter click ID
+    ip_address VARCHAR(45),                     -- IPv4 or IPv6
+    user_agent TEXT,                            -- full UA string
+    user_agent_hash VARCHAR(64),                -- SHA256(UA) for fingerprinting
+    fingerprint_hash VARCHAR(64),               -- composite fingerprint hash
+    country_code CHAR(2),                       -- detected from IP
+    device_type VARCHAR(20),                    -- 'mobile', 'tablet', 'desktop'
+    browser VARCHAR(50),
+    os VARCHAR(50),
+    referrer TEXT,                              -- HTTP referrer
+    landing_url TEXT,                           -- final LP URL user saw
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP,                       -- created_at + 30 days
+    INDEX idx_gclid (gclid),
+    INDEX idx_fbclid (fbclid),
+    INDEX idx_created (created_at),
+    INDEX idx_offer (offer_id)
+);
+</code></pre>
+
+        <h4>users</h4>
+        <pre><code>CREATE TABLE users (
+    user_id VARCHAR(36) PRIMARY KEY,            -- UUID v4
+    click_id VARCHAR(36),                        -- FK to clicks.click_id (first touch)
+    email VARCHAR(255) UNIQUE,
+    email_hash VARCHAR(64),                      -- SHA256(lowercase(email))
+    phone VARCHAR(50),
+    phone_hash VARCHAR(64),                      -- SHA256(E.164 format phone)
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    country_code CHAR(2),
+    language_code CHAR(5),                       -- e.g., 'en-US', 'es-ES'
+    opt_in_marketing BOOLEAN DEFAULT FALSE,
+    opt_in_sms BOOLEAN DEFAULT FALSE,
+    lead_source VARCHAR(100),                    -- 'value_gate', 'direct_form', 'partner'
+    lead_score INT DEFAULT 0,                    -- 0-100
+    status VARCHAR(20) DEFAULT 'new',            -- 'new', 'nurturing', 'qualified', 'converted', 'inactive'
+    broker_routed_to VARCHAR(50),                -- e.g., 'exness', 'xtb', 'pepperstone'
+    broker_user_id VARCHAR(100),                 -- broker's internal user ID (from postback)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_active_at TIMESTAMP,
+    FOREIGN KEY (click_id) REFERENCES clicks(click_id),
+    INDEX idx_email_hash (email_hash),
+    INDEX idx_phone_hash (phone_hash),
+    INDEX idx_status (status),
+    INDEX idx_broker_user_id (broker_user_id)
+);
+</code></pre>
+
+        <h4>events</h4>
+        <pre><code>CREATE TABLE events (
+    event_id VARCHAR(36) PRIMARY KEY,
+    click_id VARCHAR(36),
+    user_id VARCHAR(36),
+    event_name VARCHAR(100) NOT NULL,            -- see Event Dictionary below
+    event_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    event_properties JSON,                        -- flexible key-value store
+    page_url TEXT,
+    ga_client_id VARCHAR(100),                   -- GA4 client_id for cross-ref
+    session_id VARCHAR(100),
+    ip_address VARCHAR(45),
+    user_agent TEXT,
+    FOREIGN KEY (click_id) REFERENCES clicks(click_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    INDEX idx_event_name (event_name),
+    INDEX idx_click_id (click_id),
+    INDEX idx_user_id (user_id),
+    INDEX idx_timestamp (event_timestamp)
+);
+</code></pre>
+
+        <h4>conversions</h4>
+        <pre><code>CREATE TABLE conversions (
+    conversion_id VARCHAR(36) PRIMARY KEY,
+    click_id VARCHAR(36) NOT NULL,
+    user_id VARCHAR(36),
+    broker_user_id VARCHAR(100),                 -- broker's ID for this user
+    broker_name VARCHAR(50),                     -- e.g., 'exness', 'xtb'
+    conversion_type VARCHAR(50),                 -- 'registration', 'first_deposit', 'qualification'
+    conversion_timestamp TIMESTAMP,
+    deposit_amount DECIMAL(10,2),                -- deposit amount (if FTD)
+    deposit_currency CHAR(3),                    -- ISO currency code
+    payout_amount DECIMAL(10,2),                 -- CPA payout amount
+    payout_currency CHAR(3),
+    payout_status VARCHAR(20) DEFAULT 'pending', -- 'pending', 'approved', 'paid', 'rejected'
+    postback_received_at TIMESTAMP,
+    postback_payload JSON,                        -- full postback for audit
+    is_valid BOOLEAN DEFAULT TRUE,               -- fraud/quality flag
+    rejection_reason TEXT,
+    FOREIGN KEY (click_id) REFERENCES clicks(click_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    INDEX idx_click_id (click_id),
+    INDEX idx_user_id (user_id),
+    INDEX idx_broker_user_id (broker_user_id),
+    INDEX idx_conversion_type (conversion_type),
+    INDEX idx_payout_status (payout_status)
+);
+</code></pre>
+
+        <h3>Event Dictionary (GA4 & Internal)</h3>
+        <table>
+            <tr>
+                <th>Event Name</th>
+                <th>Trigger</th>
+                <th>Required Parameters</th>
+                <th>Optional Parameters</th>
+            </tr>
+            <tr>
+                <td>page_view</td>
+                <td>Every page load</td>
+                <td>page_location, page_title, click_id</td>
+                <td>utm_*, gclid, fbclid</td>
+            </tr>
+            <tr>
+                <td>click</td>
+                <td>User clicks any tracked link</td>
+                <td>link_url, link_text, click_id</td>
+                <td>link_classes, link_id</td>
+            </tr>
+            <tr>
+                <td>view_item_list</td>
+                <td>User views broker comparison table or signal list</td>
+                <td>item_list_name, click_id</td>
+                <td>items (array of broker/signal objects)</td>
+            </tr>
+            <tr>
+                <td>select_promotion</td>
+                <td>User clicks broker CTA or promotional banner</td>
+                <td>promotion_id, promotion_name, click_id</td>
+                <td>creative_name, creative_slot</td>
+            </tr>
+            <tr>
+                <td>generate_lead</td>
+                <td>User submits email/phone form (value gate or direct lead capture)</td>
+                <td>click_id, lead_source</td>
+                <td>email_hash, phone_hash, country</td>
+            </tr>
+            <tr>
+                <td>sign_up</td>
+                <td>User completes on-site registration (if applicable)</td>
+                <td>user_id, click_id, method</td>
+                <td>—</td>
+            </tr>
+            <tr>
+                <td>broker_redirect</td>
+                <td>User clicks final CTA to go to broker site</td>
+                <td>broker_name, click_id, user_id</td>
+                <td>offer_id</td>
+            </tr>
+            <tr>
+                <td>broker_registration</td>
+                <td>Broker postback: user registered account</td>
+                <td>broker_user_id, broker_name, click_id</td>
+                <td>email_hash, registration_timestamp</td>
+            </tr>
+            <tr>
+                <td>first_deposit</td>
+                <td>Broker postback: user made first deposit</td>
+                <td>broker_user_id, deposit_amount, deposit_currency, click_id</td>
+                <td>payment_method</td>
+            </tr>
+            <tr>
+                <td>qualification</td>
+                <td>Broker postback: user met CPA qualification criteria (e.g., traded 0.1 lot)</td>
+                <td>broker_user_id, payout_amount, payout_currency, click_id</td>
+                <td>qualification_timestamp</td>
+            </tr>
+            <tr>
+                <td>payout_credited</td>
+                <td>Internal: CPA payout credited to partner account</td>
+                <td>conversion_id, payout_amount, payout_currency</td>
+                <td>—</td>
+            </tr>
+            <tr>
+                <td>compliance_notice_viewed</td>
+                <td>User expands risk warning or compliance modal</td>
+                <td>notice_type, click_id</td>
+                <td>page_location</td>
+            </tr>
+            <tr>
+                <td>value_gate_completed</td>
+                <td>User completes value gate (downloads PDF, accesses signal, uses calculator)</td>
+                <td>gate_type, click_id</td>
+                <td>user_id (if logged in)</td>
+            </tr>
+        </table>
+
+        <h3>GTM dataLayer Push Examples</h3>
+        <pre><code>// Page view
+dataLayer.push({
+  event: 'page_view',
+  click_id: '{{Click ID from cookie or URL}}',
+  page_location: window.location.href,
+  page_title: document.title,
+  utm_source: '{{URL param: utm_source}}',
+  utm_medium: '{{URL param: utm_medium}}',
+  utm_campaign: '{{URL param: utm_campaign}}',
+  gclid: '{{URL param: gclid}}'
+});
+
+// Generate lead (form submission)
+dataLayer.push({
+  event: 'generate_lead',
+  click_id: '{{Click ID}}',
+  user_id: '{{User ID if known}}',
+  lead_source: 'value_gate_signal',
+  email_hash: SHA256(email.toLowerCase()),
+  phone_hash: SHA256(E164Phone),
+  country: 'US',
+  form_id: 'signal_download_form'
+});
+
+// Broker redirect
+dataLayer.push({
+  event: 'broker_redirect',
+  click_id: '{{Click ID}}',
+  user_id: '{{User ID}}',
+  broker_name: 'exness',
+  offer_id: 'exness_cpa_q1_2025',
+  promotion_id: 'hero_cta_1'
+});
+
+// Select promotion (broker CTA click)
+dataLayer.push({
+  event: 'select_promotion',
+  click_id: '{{Click ID}}',
+  promotion_id: 'exness_comparison_table_row',
+  promotion_name: 'Exness - Open Account',
+  creative_name: 'broker_comparison_v2',
+  creative_slot: 'table_row_1'
+});
+</code></pre>
+    </section>
+
+    <section id="webhooks">
+        <h2>5. Webhooks/Postbacks</h2>
+
+        <h3>Exness Postback Configuration</h3>
+        <p><strong>Source:</strong> Exness Partner Personal Area → Marketing Network Integration → Custom Platform → Postbacks</p>
+
+        <h4>Event Types Supported</h4>
+        <ul>
+            <li><strong>Registration:</strong> Client created account</li>
+            <li><strong>Deposit:</strong> Any deposit (includes amount per deposit)</li>
+            <li><strong>First Deposit:</strong> First-time deposit amount</li>
+            <li><strong>Qualification:</strong> CPA qualification met (e.g., $2+ deposit + 0.1 lot traded within 180 days)</li>
+        </ul>
+
+        <h4>Exness Postback URL Template</h4>
+        <pre><code>https://tradeflow.blog/api/webhooks/exness?event={event_type}&cid={cid}&broker_user_id={client_id}&amount={aff_value}&currency={currency}&timestamp={timestamp}&signature={signature}
+
+Parameters (sent by Exness):
+  {event_type}  → 'registration' | 'first_deposit' | 'qualification'
+  {cid}         → Your click_id (passed via landing page param to Exness)
+  {client_id}   → Exness internal client ID
+  {aff_value}   → Deposit amount or payout amount (for qualification event)
+  {currency}    → ISO currency code (USD, EUR, etc.)
+  {timestamp}   → Unix timestamp of event
+  {signature}   → HMAC-SHA256(payload, shared_secret) — verify server-side
+</code></pre>
+
+        <h4>Example Exness Postback Payloads</h4>
+
+        <details>
+            <summary>Registration Postback</summary>
+            <pre><code>POST /api/webhooks/exness HTTP/1.1
+Host: tradeflow.blog
+Content-Type: application/x-www-form-urlencoded
+
+event=registration&cid=a3f2c8e1-4b9d-4a5c-8f3e-1d2c3b4a5e6f&broker_user_id=EXN987654321&timestamp=1704067200&signature=abc123def456...
+</code></pre>
+        </details>
+
+        <details>
+            <summary>First Deposit Postback</summary>
+            <pre><code>POST /api/webhooks/exness HTTP/1.1
+Host: tradeflow.blog
+Content-Type: application/x-www-form-urlencoded
+
+event=first_deposit&cid=a3f2c8e1-4b9d-4a5c-8f3e-1d2c3b4a5e6f&broker_user_id=EXN987654321&amount=250.00&currency=USD&timestamp=1704153600&signature=xyz789ghi012...
+</code></pre>
+        </details>
+
+        <details>
+            <summary>Qualification Postback (CPA Payout Triggered)</summary>
+            <pre><code>POST /api/webhooks/exness HTTP/1.1
+Host: tradeflow.blog
+Content-Type: application/x-www-form-urlencoded
+
+event=qualification&cid=a3f2c8e1-4b9d-4a5c-8f3e-1d2c3b4a5e6f&broker_user_id=EXN987654321&amount=850.00&currency=USD&timestamp=1704240000&signature=mno345pqr678...
+
+Note: 'amount' here is the CPA payout amount (e.g., $850 for Tier-1 GEO qualified lead)
+</code></pre>
+        </details>
+
+        <h3>Broker-Agnostic Postback Endpoint</h3>
+        <p>Generic endpoint for other brokers (XTB, Pepperstone, AvaTrade, etc.)</p>
+
+        <h4>Standard Postback URL Template</h4>
+        <pre><code>https://tradeflow.blog/api/webhooks/broker
+
+POST JSON Payload (expected format):
+{
+  "broker": "xtb",                              // broker identifier
+  "event": "registration",                       // 'registration' | 'first_deposit' | 'qualification'
+  "click_id": "a3f2c8e1-4b9d-4a5c-8f3e-1d2c3b4a5e6f",
+  "broker_user_id": "XTB123456",
+  "timestamp": "2025-01-15T10:30:00Z",          // ISO 8601
+  "email": "user@example.com",                  // optional, for matching if click_id not available
+  "phone": "+14155551234",                      // optional
+  "deposit_amount": 500.00,                     // required for first_deposit events
+  "deposit_currency": "USD",
+  "payout_amount": 650.00,                      // required for qualification events
+  "payout_currency": "USD",
+  "signature": "hmac_sha256_signature_here"     // HMAC-SHA256(payload, broker_shared_secret)
+}
+</code></pre>
+
+        <h3>Server Endpoint: POST /api/webhooks/broker</h3>
+        <pre><code>// Pseudo-code for broker webhook handler
+
+app.post('/api/webhooks/broker', async (req, res) => {
+  const {
+    broker,
+    event,
+    click_id,
+    broker_user_id,
+    timestamp,
+    email,
+    phone,
+    deposit_amount,
+    deposit_currency,
+    payout_amount,
+    payout_currency,
+    signature
+  } = req.body;
+
+  // 1. Verify signature
+  const expected_signature = HMAC_SHA256(
+    JSON.stringify(req.body, excludeKeys(['signature'])),
+    BROKER_SECRETS[broker]
+  );
+  if (signature !== expected_signature) {
+    return res.status(401).json({ error: 'Invalid signature' });
+  }
+
+  // 2. Find user by click_id or email/phone hash
+  let user = await db.users.findOne({ click_id });
+  if (!user && email) {
+    const email_hash = SHA256(email.toLowerCase());
+    user = await db.users.findOne({ email_hash });
+  }
+  if (!user && phone) {
+    const phone_hash = SHA256(normalizePhone(phone));
+    user = await db.users.findOne({ phone_hash });
+  }
+  if (!user) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  // 3. Check for duplicate (idempotency)
+  const existing = await db.conversions.findOne({
+    broker_user_id,
+    conversion_type: event
+  });
+  if (existing) {
+    return res.status(200).json({ message: 'Conversion already recorded' });
+  }
+
+  // 4. Create conversion record
+  const conversion = await db.conversions.create({
+    conversion_id: uuidv4(),
+    click_id: user.click_id,
+    user_id: user.user_id,
+    broker_user_id,
+    broker_name: broker,
+    conversion_type: event,
+    conversion_timestamp: new Date(timestamp),
+    deposit_amount: deposit_amount || null,
+    deposit_currency: deposit_currency || null,
+    payout_amount: payout_amount || null,
+    payout_currency: payout_currency || null,
+    payout_status: (event === 'qualification') ? 'pending' : 'n/a',
+    postback_received_at: new Date(),
+    postback_payload: req.body,
+    is_valid: true
+  });
+
+  // 5. Update user record
+  await db.users.update(
+    { user_id: user.user_id },
+    {
+      broker_user_id,
+      broker_routed_to: broker,
+      status: (event === 'qualification') ? 'converted' : 'qualified'
+    }
+  );
+
+  // 6. Fire server-side events to ad platforms
+  if (event === 'first_deposit' || event === 'qualification') {
+    // Google Ads Offline Conversion Import
+    await sendGoogleAdsOfflineConversion({
+      gclid: user.gclid,
+      conversion_name: (event === 'first_deposit') ? 'First_Deposit' : 'CPA_Qualified',
+      conversion_time: timestamp,
+      conversion_value: payout_amount || deposit_amount,
+      conversion_currency: payout_currency || deposit_currency
+    });
+
+    // Meta Conversions API
+    await sendMetaCAPI({
+      event_name: (event === 'first_deposit') ? 'Purchase' : 'CompleteRegistration',
+      event_time: Math.floor(new Date(timestamp).getTime() / 1000),
+      user_data: {
+        em: [SHA256(email)],
+        ph: [SHA256(phone)],
+        client_ip_address: user.ip_address,
+        client_user_agent: user.user_agent,
+        fbc: user.fbclid,
+        fbp: user.fb_pixel_cookie
+      },
+      custom_data: {
+        value: payout_amount || deposit_amount,
+        currency: payout_currency || deposit_currency
+      }
+    });
+
+    // GA4 Measurement Protocol
+    await sendGA4Event({
+      client_id: user.ga_client_id,
+      events: [{
+        name: (event === 'first_deposit') ? 'first_deposit' : 'qualification',
+        params: {
+          click_id: user.click_id,
+          broker_name: broker,
+          value: payout_amount || deposit_amount,
+          currency: payout_currency || deposit_currency
+        }
+      }]
+    });
+  }
+
+  // 7. Return success
+  res.status(200).json({ success: true, conversion_id: conversion.conversion_id });
+});
+</code></pre>
+
+        <h3>On-Site Lead → Broker API (Create Lead)</h3>
+        <p>When user submits form on tradeflow.blog, push lead to broker API (if broker supports it)</p>
+
+        <h4>Example: POST /broker/create-lead (Generic)</h4>
+        <pre><code>// Client-side form submission triggers server endpoint
+
+POST /api/leads HTTP/1.1
+Host: tradeflow.blog
+Content-Type: application/json
+
+{
+  "click_id": "a3f2c8e1-4b9d-4a5c-8f3e-1d2c3b4a5e6f",
+  "email": "trader@example.com",
+  "phone": "+14155551234",
+  "first_name": "John",
+  "last_name": "Doe",
+  "country": "US",
+  "language": "en",
+  "opt_in_marketing": true,
+  "opt_in_sms": false,
+  "lead_source": "value_gate_signal",
+  "preferred_broker": "exness"               // optional routing hint
+}
+
+// Server-side (/api/leads handler):
+
+1. Validate input (email format, phone E.164, required fields)
+2. De-duplicate: check if email/phone already exists
+3. Create user record in database
+4. If preferred_broker specified and broker API available:
+
+   POST https://api.broker.com/v1/leads
+   Headers:
+     Authorization: Bearer {broker_api_key}
+     Content-Type: application/json
+   Body:
+   {
+     "partner_id": "tradeflow_blog",
+     "sub_id": "a3f2c8e1-4b9d-4a5c-8f3e-1d2c3b4a5e6f",  // click_id
+     "email": "trader@example.com",
+     "phone": "+14155551234",
+     "first_name": "John",
+     "last_name": "Doe",
+     "country": "US",
+     "language": "en",
+     "source": "value_gate_signal",
+     "callback_url": "https://tradeflow.blog/api/webhooks/broker"
+   }
+
+5. Store broker API response (broker_lead_id) in users table
+6. Trigger nurture email sequence (welcome, education, warm handoff)
+7. Return success to client
+
+Response:
+{
+  "success": true,
+  "user_id": "u-9d8e7f6g5h4i3j2k1",
+  "message": "Lead created and sent to broker"
+}
+</code></pre>
+
+        <div class="warning">
+            <strong>Important:</strong> Not all brokers provide public APIs for lead creation. Exness, for example, primarily uses postback-only integration. For brokers without APIs, use email handoff or direct redirects with tracking params.
+        </div>
+    </section>
+
+    <section id="signup">
+        <h2>6. On-Site Sign-Up vs Direct-to-Broker Decision Tree</h2>
+
+        <div class="flow">
+┌─────────────────────────────────────────────────────────────────────────┐
+│  User Lands on LP with UTM tags + click_id                              │
+└───────────────────────────────┬─────────────────────────────────────────┘
+                                │
+                        ┌───────▼───────┐
+                        │ Analyze Signal │
+                        └───────┬───────┘
+                                │
+        ┌───────────────────────┼───────────────────────┐
+        │                       │                       │
+        ▼                       ▼                       ▼
+┌───────────────┐    ┌──────────────────┐    ┌──────────────────┐
+│ HIGH INTENT   │    │ EDUCATION SEEKER │    │ UNCERTAIN/TIRE   │
+│               │    │                  │    │ KICKER           │
+│ Indicators:   │    │ Indicators:      │    │                  │
+│ • Broker KW   │    │ • Signal KW      │    │ Indicators:      │
+│ • Comparison  │    │ • How-to KW      │    │ • Generic KW     │
+│ • "Open acct" │    │ • Newsletter ref │    │ • Low eng. time  │
+│ • Returning   │    │ • First visit    │    │ • Bounce risk    │
+└───────┬───────┘    └────────┬─────────┘    └────────┬─────────┘
+        │                     │                        │
+        ▼                     ▼                        ▼
+┌──────────────────┐  ┌──────────────────┐  ┌───────────────────┐
+│ DIRECT TO BROKER │  │ VALUE GATE FIRST │  │ MINIMAL VALUE GATE│
+│                  │  │                  │  │                   │
+│ • Show broker    │  │ • Offer free sig-│  │ • Lightweight pop-│
+│   comparison tbl │  │   nal, PDF guide │  │   up or exit int. │
+│ • Highlight top  │  │ • Capture email/ │  │ • Email-only cap- │
+│   choice (Exness)│  │   phone in form  │  │   ture (no phone) │
+│ • CTA: "Open     │  │ • Send to nurture│  │ • Immediate value │
+│   Account Now"   │  │   sequence (7d)  │  │   delivery        │
+│ • Click → /r/    │  │ • Day 3: warm    │  │ • Retargeting ad  │
+│   exness_cpa     │  │   handoff email  │  │   with broker CTA │
+│   redirector     │  │   with broker    │  │                   │
+│                  │  │   recommendation │  │                   │
+└──────────────────┘  └──────────────────┘  └───────────────────┘
+        │                     │                        │
+        ▼                     ▼                        ▼
+┌──────────────────────────────────────────────────────────────┐
+│  Click ID propagated to broker via URL param or sub_id       │
+│  Broker postback returns with click_id → revenue attribution │
+└──────────────────────────────────────────────────────────────┘
+        </div>
+
+        <h3>Decision Rules</h3>
+        <table>
+            <tr>
+                <th>User Segment</th>
+                <th>Path</th>
+                <th>Rationale</th>
+                <th>Conversion Target</th>
+            </tr>
+            <tr>
+                <td>High Intent (transactional keywords, returning visitor, clicked broker CTA before)</td>
+                <td>Direct to Broker</td>
+                <td>User ready to act; friction reduces CVR</td>
+                <td>Click → Registration → FTD (fast funnel)</td>
+            </tr>
+            <tr>
+                <td>Education Seeker (informational keywords, first visit, engaged 60+ seconds)</td>
+                <td>Value Gate → Nurture → Warm Handoff</td>
+                <td>Build trust, provide value, qualify lead before broker handoff</td>
+                <td>Lead → Email engagement → Broker account (slower, higher quality)</td>
+            </tr>
+            <tr>
+                <td>Uncertain/Tire Kicker (generic keywords, low time on site, high bounce probability)</td>
+                <td>Minimal Value Gate → Retargeting</td>
+                <td>Capture email with low friction, retarget with ads</td>
+                <td>Email capture → Ad retargeting → Future conversion</td>
+            </tr>
+        </table>
+
+        <h3>Routing Logic (Server-Side)</h3>
+        <pre><code>// Pseudo-code for LP variant routing
+
+function determineLandingPageVariant(utmParams, userBehavior) {
+  const { utm_term, utm_medium, utm_campaign } = utmParams;
+  const { isReturning, previousBrokerClick, sessionDuration } = userBehavior;
+
+  // High Intent signals
+  if (
+    utm_term?.includes('broker') ||
+    utm_term?.includes('open account') ||
+    utm_term?.includes('exness review') ||
+    isReturning && previousBrokerClick
+  ) {
+    return 'broker_comparison_direct';  // Direct-to-broker LP variant
+  }
+
+  // Education Seeker signals
+  if (
+    utm_term?.includes('signals') ||
+    utm_term?.includes('how to trade') ||
+    utm_term?.includes('strategy') ||
+    utm_medium === 'newsletter' ||
+    utm_campaign?.includes('education')
+  ) {
+    return 'value_gate_education';      // Value gate with PDF/signal offer
+  }
+
+  // Default: Minimal friction
+  return 'value_gate_minimal';          // Lightweight email capture
+}
+</code></pre>
+
+        <h3>Broker Failover & Load Balancing</h3>
+        <p>If using on-site lead capture and routing to multiple brokers:</p>
+        <ul>
+            <li><strong>Primary Broker:</strong> Exness (highest payout, best postback reliability)</li>
+            <li><strong>Fallback Brokers:</strong> XTB, Pepperstone, AvaTrade (if Exness API/geo unavailable)</li>
+            <li><strong>Routing Rules:</strong>
+                <ul>
+                    <li>GEO: US → AvaTrade (CFD restrictions); EU → Exness/XTB; LATAM → Exness; APAC → Pepperstone</li>
+                    <li>Regulation: ESMA clients → brokers with 1:30 leverage cap compliance</li>
+                    <li>Language: Spanish speakers → Exness (supports ES); Portuguese → XTB (BR support)</li>
+                    <li>A/B Test: 10% random assignment to secondary broker for payout/CVR comparison</li>
+                </ul>
+            </li>
+            <li><strong>Latency SLA:</strong> If broker API does not respond within 3 seconds, failover to next broker or skip API push (handoff via email)</li>
+        </ul>
+    </section>
+
+    <section id="cro">
+        <h2>7. CRO Loop</h2>
+
+        <h3>Landing Page Variants</h3>
+
+        <h4>LP1: Signal-to-Value Gate (For Paid Search)</h4>
+        <details>
+            <summary>Wireframe Outline</summary>
+            <ul>
+                <li><strong>Hero Section:</strong>
+                    <ul>
+                        <li>Headline: "Get Today's Top Forex Signals — Free"</li>
+                        <li>Subheadline: "Join 12,000+ traders receiving daily buy/sell alerts with entry, SL, and TP levels"</li>
+                        <li>Hero Image: Chart with signal overlay (EUR/USD example)</li>
+                        <li>CTA Button: "Get Free Signals" (opens email capture modal)</li>
+                    </ul>
+                </li>
+                <li><strong>Social Proof:</strong>
+                    <ul>
+                        <li>Testimonials (3) with photos, first names, country flags, star ratings</li>
+                        <li>Disclaimer: "Results may vary. Trading involves risk."</li>
+                    </ul>
+                </li>
+                <li><strong>How It Works (3 Steps):</strong>
+                    <ol>
+                        <li>Enter your email below</li>
+                        <li>Receive daily signals in your inbox</li>
+                        <li>Open a free account with our recommended broker to trade</li>
+                    </ol>
+                </li>
+                <li><strong>Value Gate Form (Modal):</strong>
+                    <ul>
+                        <li>Email (required)</li>
+                        <li>Phone (optional, incentivized: "Add phone for SMS alerts")</li>
+                        <li>Country (auto-detected, editable dropdown)</li>
+                        <li>Checkboxes: "I agree to receive marketing emails" (required), "I agree to SMS" (optional)</li>
+                        <li>Risk Warning (below form, small text): "CFDs are complex instruments..."</li>
+                        <li>CTA: "Send Me Signals"</li>
+                    </ul>
+                </li>
+                <li><strong>Below Fold:</strong>
+                    <ul>
+                        <li>Trust Badges: "Secure", "No Spam", "Unsubscribe Anytime"</li>
+                        <li>FAQ Accordion (5 questions)</li>
+                        <li>Footer: Privacy Policy, Terms, Risk Disclosure, Contact</li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="success">
+                <strong>Performance Target:</strong> Click → Lead CVR = 15-25%
+            </div>
+        </details>
+
+        <h4>LP2: Education Hub (For SEO/Newsletters)</h4>
+        <details>
+            <summary>Wireframe Outline</summary>
+            <ul>
+                <li><strong>Hero Section:</strong>
+                    <ul>
+                        <li>Headline: "Master Forex Trading with Our Free Guides"</li>
+                        <li>Subheadline: "Step-by-step strategies, risk management, and live market analysis"</li>
+                        <li>Hero Image: Laptop with trading platform + PDF guide mockup</li>
+                        <li>CTA Button: "Download Free Guide"</li>
+                    </ul>
+                </li>
+                <li><strong>Content Previews (3 Cards):</strong>
+                    <ul>
+                        <li>Card 1: "Beginner's Guide to Forex" (PDF, 20 pages) → CTA: Download</li>
+                        <li>Card 2: "Top 5 Technical Indicators" (Article) → CTA: Read Now</li>
+                        <li>Card 3: "Risk Management Checklist" (PDF) → CTA: Download</li>
+                    </ul>
+                </li>
+                <li><strong>Email Capture (Inline Form):</strong>
+                    <ul>
+                        <li>Headline: "Get All Guides + Weekly Market Insights"</li>
+                        <li>Email field + "Subscribe" CTA</li>
+                    </ul>
+                </li>
+                <li><strong>Broker Recommendation Section (Below Content):</strong>
+                    <ul>
+                        <li>Headline: "Ready to Trade? Start with Our Top-Rated Broker"</li>
+                        <li>Broker card: Exness logo, key features (tight spreads, fast execution, $10 min deposit), CTA: "Open Free Account"</li>
+                        <li>Disclaimer: Risk warning</li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="success">
+                <strong>Performance Target:</strong> Visit → Email capture = 20-35%, Email → Broker click = 10-18%
+            </div>
+        </details>
+
+        <h4>LP3: Broker Comparison (Compliance-Aware)</h4>
+        <details>
+            <summary>Wireframe Outline</summary>
+            <ul>
+                <li><strong>Hero Section:</strong>
+                    <ul>
+                        <li>Headline: "Compare Top Forex Brokers — Choose the Best Fit"</li>
+                        <li>Subheadline: "Regulated, trusted, and tested by our team"</li>
+                    </ul>
+                </li>
+                <li><strong>Comparison Table (Top 3 Brokers):</strong>
+                    <table>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Exness</th>
+                            <th>XTB</th>
+                            <th>Pepperstone</th>
+                        </tr>
+                        <tr>
+                            <td>Min. Deposit</td>
+                            <td>$10</td>
+                            <td>$0</td>
+                            <td>$200</td>
+                        </tr>
+                        <tr>
+                            <td>Regulation</td>
+                            <td>CySEC, FCA, FSCA</td>
+                            <td>FCA, CySEC</td>
+                            <td>FCA, ASIC</td>
+                        </tr>
+                        <tr>
+                            <td>Avg. Spread (EUR/USD)</td>
+                            <td>0.7 pips</td>
+                            <td>0.9 pips</td>
+                            <td>0.8 pips</td>
+                        </tr>
+                        <tr>
+                            <td>Platforms</td>
+                            <td>MT4, MT5, Web</td>
+                            <td>xStation 5, MT4</td>
+                            <td>MT4, MT5, cTrader</td>
+                        </tr>
+                        <tr>
+                            <td>CTA</td>
+                            <td><button>Open Account</button></td>
+                            <td><button>Open Account</button></td>
+                            <td><button>Open Account</button></td>
+                        </tr>
+                    </table>
+                </li>
+                <li><strong>Badges:</strong> "Our Top Pick" badge on Exness row</li>
+                <li><strong>Risk Warning (Prominent):</strong> "CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. Between 74-89% of retail investor accounts lose money when trading CFDs with these providers. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money."</li>
+                <li><strong>Footer Disclaimers:</strong> Links to each broker's risk disclosure, regulatory info</li>
+            </ul>
+            <div class="success">
+                <strong>Performance Target:</strong> Visit → Broker click = 25-40%, Broker click → Registration = 35-55%
+            </div>
+        </details>
+
+        <h3>10 CTA Microcopy Variants (A/B Ready)</h3>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>CTA Copy</th>
+                <th>Context</th>
+                <th>Hypothesis</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Open Free Account</td>
+                <td>Generic, direct</td>
+                <td>Baseline, clear and simple</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Start Trading Today</td>
+                <td>Action-oriented</td>
+                <td>Urgency, immediate benefit</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Join 10,000+ Traders</td>
+                <td>Social proof</td>
+                <td>Bandwagon effect, trust signal</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Get Started – No Minimum Deposit</td>
+                <td>Low barrier</td>
+                <td>Reduces friction (though Exness has $10 min; accurate for XTB)</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Try Risk-Free Demo First</td>
+                <td>Low commitment</td>
+                <td>Appeal to cautious users, demo → real conversion</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Claim Your Bonus</td>
+                <td>Incentive (if broker offers)</td>
+                <td>FOMO, value-add (verify broker terms, comply with regulations)</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Compare Brokers →</td>
+                <td>Navigation</td>
+                <td>Low pressure, informed decision</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>See Why Traders Choose [Broker]</td>
+                <td>Curiosity</td>
+                <td>Social proof + curiosity gap</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Open Account in 3 Minutes</td>
+                <td>Speed</td>
+                <td>Low time commitment, reduces procrastination</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Start with $10 Only</td>
+                <td>Low entry cost</td>
+                <td>Affordability angle (accurate for Exness)</td>
+            </tr>
+        </table>
+
+        <h3>Form Strategy</h3>
+        <h4>2-Step Form (Value Gate)</h4>
+        <ul>
+            <li><strong>Step 1 (Micro-commitment):</strong> Email only + "Continue" CTA</li>
+            <li><strong>Step 2 (Progressive disclosure):</strong> Phone (optional), Country (auto-filled, editable), Consent checkboxes, "Get Signals" CTA</li>
+            <li><strong>Rationale:</strong> 2-step forms typically increase completion rates by 20-30% vs. single-step</li>
+        </ul>
+
+        <h4>Phone Verification Option (SMS OTP)</h4>
+        <ul>
+            <li>If user provides phone, send SMS OTP to verify</li>
+            <li>Increases lead quality (verified contact)</li>
+            <li>Higher email deliverability (verified users more engaged)</li>
+        </ul>
+
+        <h4>Country Detection & Language Auto-Switch</h4>
+        <ul>
+            <li>Detect country via IP geolocation (CloudFlare, MaxMind)</li>
+            <li>Pre-fill country dropdown</li>
+            <li>Auto-switch language if non-English GEO and translation available (e.g., ES for Spain/LATAM, AR for Arabic GEOs)</li>
+            <li>Show relevant broker recommendation based on GEO regulations</li>
+        </ul>
+
+        <h3>A/B Testing Roadmap</h3>
+        <table>
+            <tr>
+                <th>Week</th>
+                <th>Test</th>
+                <th>Variants</th>
+                <th>Metric</th>
+                <th>MDE</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Hero Headline</td>
+                <td>A: "Get Free Signals" vs. B: "Join 12,000+ Traders"</td>
+                <td>Click → Lead</td>
+                <td>15% rel. lift</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>CTA Copy</td>
+                <td>Test variants 1, 2, 5 (multi-variant)</td>
+                <td>CTA click rate</td>
+                <td>10% rel. lift</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Form Type</td>
+                <td>A: 1-step vs. B: 2-step</td>
+                <td>Form completion</td>
+                <td>20% rel. lift</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Social Proof</td>
+                <td>A: Testimonials vs. B: Stats ("12K traders, 4.8★")</td>
+                <td>Engagement time</td>
+                <td>10% rel. lift</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Broker CTA Placement</td>
+                <td>A: Above fold vs. B: Below value gate</td>
+                <td>Broker click rate</td>
+                <td>15% rel. lift</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Risk Warning Visibility</td>
+                <td>A: Collapsible vs. B: Always visible</td>
+                <td>Click → Registration (compliance test)</td>
+                <td>5% rel. lift</td>
+            </tr>
+        </table>
+        <p><strong>MDE:</strong> Minimum Detectable Effect (target lift to consider test a win). Use <a href="https://www.evanmiller.org/ab-testing/sample-size.html">sample size calculator</a> to determine required traffic per variant (α=0.05, β=0.2).</p>
+    </section>
+
+    <section id="compliance">
+        <h2>8. Compliance & Risk Controls</h2>
+
+        <h3>Google Ads Financial Services Policy Requirements</h3>
+        <div class="warning">
+            <strong>Source:</strong> <a href="https://support.google.com/adspolicy/answer/2464998">Google Ads Financial Products Policy</a> (verified 2025-01-15)
+        </div>
+
+        <h4>Certification Requirements</h4>
+        <ul>
+            <li><strong>Application Required:</strong> Must apply for certification per targeted geography</li>
+            <li><strong>Eligibility:</strong> Advertiser must be licensed by relevant financial services authority in target location</li>
+            <li><strong>Prohibited:</strong> Ads for trading signals, tips, or speculative trading information are prohibited</li>
+            <li><strong>Affiliate Sites:</strong> Affiliate sites containing broker reviews or signal content are restricted</li>
+        </ul>
+
+        <div class="info">
+            <strong>Implication for TradeFlow:</strong> Direct promotion of "trading signals" on Google Ads is prohibited. Strategy: Advertise educational content, broker comparison, or tools (e.g., "Forex Calculator") instead. Use signals as value gate after click, not in ad copy.
+        </div>
+
+        <h4>Ad Copy Do's and Don'ts</h4>
+        <table>
+            <tr>
+                <th>Do ✓</th>
+                <th>Don't ✗</th>
+            </tr>
+            <tr>
+                <td>"Learn Forex Trading Strategies"</td>
+                <td>"Get Rich Quick with Forex Signals"</td>
+            </tr>
+            <tr>
+                <td>"Compare Top Regulated Brokers"</td>
+                <td>"Best Forex Signals - 90% Win Rate"</td>
+            </tr>
+            <tr>
+                <td>"Open a Trading Account (Risk Warning Applied)"</td>
+                <td>"Guaranteed Profits - Join Now"</td>
+            </tr>
+            <tr>
+                <td>"Free Educational Resources for Traders"</td>
+                <td>"Insider Trading Tips - Free Access"</td>
+            </tr>
+            <tr>
+                <td>"Trade with a Regulated Broker - Terms Apply"</td>
+                <td>"Turn $100 into $10,000 - Start Today"</td>
+            </tr>
+        </table>
+
+        <h4>Landing Page Requirements</h4>
+        <ul>
+            <li><strong>Risk Warnings:</strong> Must display prominent risk warnings for CFD/forex (e.g., "74-89% of retail accounts lose money")</li>
+            <li><strong>Regulatory Disclosure:</strong> If promoting a specific broker, disclose regulatory status (FCA, CySEC, etc.)</li>
+            <li><strong>No Misleading Claims:</strong> Avoid income guarantees, exaggerated success rates, or testimonials implying guaranteed results</li>
+            <li><strong>Clear Disclaimers:</strong> Past performance does not guarantee future results; trading involves risk of loss</li>
+        </ul>
+
+        <h3>Broker/KYC Disclaimers</h3>
+        <h4>Standard Risk Warning (EU ESMA Template)</h4>
+        <pre><code>CFDs are complex instruments and come with a high risk of losing money
+rapidly due to leverage. Between 74-89% of retail investor accounts lose
+money when trading CFDs with this provider. You should consider whether
+you understand how CFDs work and whether you can afford to take the high
+risk of losing your money.
+</code></pre>
+
+        <h4>Broker Routing Disclosure</h4>
+        <pre><code>TradeFlow.blog is an independent publisher. We may receive compensation
+when you open an account with a broker via our links. This does not affect
+our editorial independence or your trading costs. All brokers listed are
+regulated and vetted by our team. Please read each broker's risk disclosure
+before opening an account.
+</code></pre>
+
+        <h4>Geographic/Regulatory Restrictions</h4>
+        <ul>
+            <li><strong>US:</strong> CFD trading is restricted; do not promote CFD brokers to US users (use forex brokers registered with CFTC/NFA instead, or exclude US traffic)</li>
+            <li><strong>EU/EEA:</strong> ESMA regulations apply (1:30 leverage cap for retail, negative balance protection, risk warnings)</li>
+            <li><strong>UK:</strong> FCA regulations; must display risk warnings and link to broker's FCA authorization</li>
+            <li><strong>Australia:</strong> ASIC regulations; similar disclosure requirements</li>
+        </ul>
+
+        <h3>Content Do's and Don'ts Checklist</h3>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Do ✓</th>
+                <th>Don't ✗</th>
+            </tr>
+            <tr>
+                <td>Income Claims</td>
+                <td>"Our signals aim to identify opportunities"</td>
+                <td>"Make $500/day with our signals"</td>
+            </tr>
+            <tr>
+                <td>Performance Stats</td>
+                <td>"Past signals archive available (for educational purposes)"</td>
+                <td>"90% win rate - proven track record"</td>
+            </tr>
+            <tr>
+                <td>Testimonials</td>
+                <td>Generic positive feedback with disclaimer</td>
+                <td>Specific profit claims from users</td>
+            </tr>
+            <tr>
+                <td>Broker Promotion</td>
+                <td>"Exness is regulated by CySEC (License #XXX)"</td>
+                <td>"Exness is the best broker - guaranteed"</td>
+            </tr>
+            <tr>
+                <td>Risk Communication</td>
+                <td>"Trading involves significant risk; only invest what you can afford to lose"</td>
+                <td>"Risk-free trading with our system"</td>
+            </tr>
+            <tr>
+                <td>Education</td>
+                <td>"Learn to read charts and manage risk"</td>
+                <td>"Our course guarantees trading success"</td>
+            </tr>
+        </table>
+
+        <h3>Automated Compliance Checks</h3>
+        <ul>
+            <li><strong>Ad Copy Review:</strong> Before launch, scan copy for prohibited terms (guarantee, no risk, get rich, etc.) using regex or NLP tool</li>
+            <li><strong>LP Compliance Audit:</strong> Checklist for each LP: Risk warning present? Broker regulatory info disclosed? No income guarantees?</li>
+            <li><strong>GEO Restrictions:</strong> Automatically block/redirect US traffic from CFD broker promotions</li>
+            <li><strong>Form Validation:</strong> Require age verification (18+), country compliance check before broker handoff</li>
+        </ul>
+
+        <h3>Quality & Fraud Controls</h3>
+        <ul>
+            <li><strong>Email Validation:</strong> Check MX records, disposable email detection (e.g., mailinator, guerrillamail)</li>
+            <li><strong>Phone Validation:</strong> E.164 format check, SMS OTP verification, VoIP/burner phone detection</li>
+            <li><strong>IP Filtering:</strong> Block known VPN/proxy IPs, datacenter IPs (bot traffic)</li>
+            <li><strong>Velocity Checks:</strong> Flag if same IP/device submits multiple forms within short timeframe</li>
+            <li><strong>Referrer Check:</strong> Reject submissions with suspicious referrers (known fraud domains)</li>
+            <li><strong>Honeypot Fields:</strong> Hidden form fields to catch bots</li>
+        </ul>
+    </section>
+
+    <section id="analytics">
+        <h2>9. Analytics (GA4 Configuration)</h2>
+
+        <h3>GA4 Custom Dimensions</h3>
+        <table>
+            <tr>
+                <th>Dimension Name</th>
+                <th>Scope</th>
+                <th>Parameter</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>click_id</td>
+                <td>Event</td>
+                <td>click_id</td>
+                <td>First-party click tracking ID</td>
+            </tr>
+            <tr>
+                <td>offer_id</td>
+                <td>Event</td>
+                <td>offer_id</td>
+                <td>Broker offer identifier (e.g., exness_cpa)</td>
+            </tr>
+            <tr>
+                <td>broker_name</td>
+                <td>Event</td>
+                <td>broker_name</td>
+                <td>Broker partner name</td>
+            </tr>
+            <tr>
+                <td>lead_source</td>
+                <td>User</td>
+                <td>lead_source</td>
+                <td>How user became a lead (value_gate, direct_form, etc.)</td>
+            </tr>
+            <tr>
+                <td>user_status</td>
+                <td>User</td>
+                <td>user_status</td>
+                <td>Current user lifecycle status (new, nurturing, converted)</td>
+            </tr>
+            <tr>
+                <td>lp_variant</td>
+                <td>Event</td>
+                <td>utm_lp</td>
+                <td>Landing page variant identifier</td>
+            </tr>
+            <tr>
+                <td>ab_test_variant</td>
+                <td>Event</td>
+                <td>utm_variant</td>
+                <td>A/B test variant</td>
+            </tr>
+        </table>
+
+        <h3>GA4 Custom Metrics</h3>
+        <table>
+            <tr>
+                <th>Metric Name</th>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>deposit_value</td>
+                <td>deposit_amount</td>
+                <td>Currency</td>
+                <td>FTD amount from postback</td>
+            </tr>
+            <tr>
+                <td>payout_value</td>
+                <td>payout_amount</td>
+                <td>Currency</td>
+                <td>CPA payout amount</td>
+            </tr>
+            <tr>
+                <td>lead_score</td>
+                <td>lead_score</td>
+                <td>Standard</td>
+                <td>Predictive lead quality score (0-100)</td>
+            </tr>
+        </table>
+
+        <h3>GA4 Key Events (Conversions)</h3>
+        <ul>
+            <li><strong>generate_lead</strong> — User submits email/phone (value gate or direct form)</li>
+            <li><strong>broker_redirect</strong> — User clicks CTA to go to broker site</li>
+            <li><strong>first_deposit</strong> — Broker postback confirms FTD (imported via Measurement Protocol)</li>
+            <li><strong>qualification</strong> — CPA payout qualification met (imported via Measurement Protocol)</li>
+        </ul>
+
+        <h3>GA4 Funnels</h3>
+        <h4>Funnel 1: Value Gate → Broker Account</h4>
+        <ol>
+            <li>page_view (LP)</li>
+            <li>generate_lead (value gate completion)</li>
+            <li>broker_redirect (email link click or retarget ad click)</li>
+            <li>broker_registration (postback)</li>
+            <li>first_deposit (postback)</li>
+        </ol>
+
+        <h4>Funnel 2: Direct → Broker Account</h4>
+        <ol>
+            <li>page_view (Broker Comparison LP)</li>
+            <li>select_promotion (broker CTA click)</li>
+            <li>broker_redirect</li>
+            <li>broker_registration (postback)</li>
+            <li>first_deposit (postback)</li>
+        </ol>
+
+        <h3>GA4 Audiences</h3>
+        <table>
+            <tr>
+                <th>Audience Name</th>
+                <th>Criteria</th>
+                <th>Use Case</th>
+            </tr>
+            <tr>
+                <td>Engaged Visitors</td>
+                <td>Session duration ≥ 60s OR pages/session ≥ 2</td>
+                <td>Retargeting (warm audience)</td>
+            </tr>
+            <tr>
+                <td>Value Gate Completers</td>
+                <td>Event: generate_lead</td>
+                <td>Exclude from lead gen ads, target with broker conversion ads</td>
+            </tr>
+            <tr>
+                <td>Broker Clickers (Non-Converters)</td>
+                <td>Event: broker_redirect AND NOT broker_registration within 30 days</td>
+                <td>Re-engagement campaign</td>
+            </tr>
+            <tr>
+                <td>High-Value GEOs</td>
+                <td>Country in [US, UK, DE, AU, CA]</td>
+                <td>Prioritize in bidding, dedicated campaigns</td>
+            </tr>
+            <tr>
+                <td>Mobile Users</td>
+                <td>Device category = mobile</td>
+                <td>Mobile-optimized creative testing</td>
+            </tr>
+        </table>
+
+        <h3>Enhanced Measurement Settings</h3>
+        <p>Enable in GA4:</p>
+        <ul>
+            <li>Page views ✓</li>
+            <li>Scrolls ✓ (25%, 50%, 75%, 90%)</li>
+            <li>Outbound clicks ✓ (track broker redirects)</li>
+            <li>Site search ✗ (not applicable unless search function added)</li>
+            <li>Video engagement ✗ (unless video content added)</li>
+            <li>File downloads ✓ (track PDF downloads)</li>
+        </ul>
+    </section>
+
+    <section id="dashboards">
+        <h2>10. Dashboards & KPIs</h2>
+
+        <h3>North-Star Metric</h3>
+        <div class="success">
+            <strong>Qualified FTDs per Month</strong> — First-time deposits that meet CPA qualification criteria (e.g., Exness: $2+ deposit + 0.1 lot traded)
+        </div>
+
+        <h3>Primary KPIs</h3>
+        <table>
+            <tr>
+                <th>KPI</th>
+                <th>Formula</th>
+                <th>Target (Initial)</th>
+                <th>Data Source</th>
+            </tr>
+            <tr>
+                <td>LTV:CAC Ratio</td>
+                <td>(Avg. CPA Payout) / (Cost per Qualified FTD)</td>
+                <td>≥ 2.0</td>
+                <td>Conversions + Ad Spend</td>
+            </tr>
+            <tr>
+                <td>ROAS</td>
+                <td>(Total Payout Revenue) / (Ad Spend)</td>
+                <td>≥ 200%</td>
+                <td>Conversions + Ad Platforms</td>
+            </tr>
+            <tr>
+                <td>CAC (Customer Acquisition Cost)</td>
+                <td>(Total Ad Spend) / (# Qualified FTDs)</td>
+                <td>≤ $400 (Tier-1), ≤ $200 (Tier-2)</td>
+                <td>Ad Platforms + Conversions</td>
+            </tr>
+            <tr>
+                <td>CPA (Cost Per Action - Lead)</td>
+                <td>(Ad Spend) / (# Leads)</td>
+                <td>≤ $15 (paid), $5 (organic)</td>
+                <td>Ad Platforms + Events</td>
+            </tr>
+            <tr>
+                <td>LP Conversion Rate</td>
+                <td>(Leads) / (LP Visitors)</td>
+                <td>12-20%</td>
+                <td>GA4 Events</td>
+            </tr>
+            <tr>
+                <td>Lead → Broker Account CVR</td>
+                <td>(Broker Registrations) / (Leads)</td>
+                <td>30-45%</td>
+                <td>Events + Postbacks</td>
+            </tr>
+            <tr>
+                <td>Registration → FTD CVR</td>
+                <td>(FTDs) / (Registrations)</td>
+                <td>25-40%</td>
+                <td>Postbacks</td>
+            </tr>
+            <tr>
+                <td>Overall Funnel CVR</td>
+                <td>(Qualified FTDs) / (LP Visitors)</td>
+                <td>1.5-3.5%</td>
+                <td>GA4 + Postbacks</td>
+            </tr>
+            <tr>
+                <td>EVPM (Expected Value per Mille)</td>
+                <td>(Total Payout Revenue / Impressions) × 1000</td>
+                <td>≥ $5</td>
+                <td>Ad Platforms + Conversions</td>
+            </tr>
+            <tr>
+                <td>Avg. Payout per FTD</td>
+                <td>(Total Payout Revenue) / (# Qualified FTDs)</td>
+                <td>$600-$1200 (GEO dependent)</td>
+                <td>Conversions</td>
+            </tr>
+        </table>
+
+        <h3>Secondary KPIs (Diagnostic)</h3>
+        <ul>
+            <li><strong>Bounce Rate:</strong> % visitors leaving LP without engagement (target: &lt;50%)</li>
+            <li><strong>Avg. Session Duration:</strong> Time on site (target: &gt;90s for engaged visits)</li>
+            <li><strong>Email Open Rate:</strong> Nurture sequence performance (target: 25-35%)</li>
+            <li><strong>Email Click Rate:</strong> Broker CTA clicks in emails (target: 8-15%)</li>
+            <li><strong>Postback Match Rate:</strong> % of broker postbacks successfully matched to internal user_id (target: &gt;95%)</li>
+            <li><strong>Fraud/Rejection Rate:</strong> % of conversions rejected by broker or flagged as fraudulent (target: &lt;5%)</li>
+        </ul>
+
+        <h3>Dashboard Specification (Looker Studio / Tableau)</h3>
+
+        <h4>Page 1: Acquisition Overview</h4>
+        <ul>
+            <li><strong>Scorecard Widgets:</strong> Total Spend, Total Leads, Total FTDs, Total Revenue, ROAS, LTV:CAC</li>
+            <li><strong>Time Series Chart:</strong> Daily trend of Spend, Leads, FTDs, Revenue (4 lines, dual-axis)</li>
+            <li><strong>Breakdown Table:</strong> By utm_source/medium/campaign: Impressions, Clicks, CTR, Spend, Leads, CPA, FTDs, CAC, Revenue, ROAS</li>
+            <li><strong>Geo Map:</strong> Conversions by country (heatmap)</li>
+        </ul>
+
+        <h4>Page 2: Funnel Performance</h4>
+        <ul>
+            <li><strong>Sankey Diagram:</strong> Traffic Source → LP → Lead/Direct → Broker → Registration → FTD</li>
+            <li><strong>Conversion Rate Widgets:</strong> LP→Lead, Lead→Broker, Broker→Reg, Reg→FTD (each as %, with trend sparkline)</li>
+            <li><strong>Drop-off Analysis Table:</strong> Stage-by-stage drop-off counts and %</li>
+        </ul>
+
+        <h4>Page 3: Revenue & Payouts</h4>
+        <ul>
+            <li><strong>Revenue by Broker:</strong> Pie chart (Exness, XTB, others)</li>
+            <li><strong>Payout Status Breakdown:</strong> Stacked bar (Pending, Approved, Paid, Rejected) by month</li>
+            <li><strong>Avg. Payout per FTD Trend:</strong> Line chart over time, segmented by GEO tier</li>
+            <li><strong>Top Campaigns by Revenue:</strong> Table sorted by total payout revenue</li>
+        </ul>
+
+        <h4>Page 4: Creative & Variant Performance</h4>
+        <ul>
+            <li><strong>LP Variant Comparison:</strong> Table with LP variant, visits, leads, CVR, broker clicks</li>
+            <li><strong>CTA Variant Performance:</strong> Bar chart of click rates per CTA copy variant</li>
+            <li><strong>A/B Test Results:</strong> Table with test name, variant, sample size, CVR, p-value, winner</li>
+        </ul>
+
+        <h3>SQL Outline for Joining Data</h3>
+        <pre><code>-- Master query for campaign performance dashboard
+
+SELECT
+  c.utm_source,
+  c.utm_medium,
+  c.utm_campaign,
+  c.offer_id,
+  COUNT(DISTINCT c.click_id) AS clicks,
+  SUM(c.ad_spend) AS total_spend,  -- if tracking spend in clicks table or separate ad_spend table
+  COUNT(DISTINCT u.user_id) AS leads,
+  COUNT(DISTINCT CASE WHEN cv.conversion_type = 'broker_registration' THEN cv.conversion_id END) AS registrations,
+  COUNT(DISTINCT CASE WHEN cv.conversion_type = 'first_deposit' THEN cv.conversion_id END) AS ftds,
+  COUNT(DISTINCT CASE WHEN cv.conversion_type = 'qualification' THEN cv.conversion_id END) AS qualified_ftds,
+  SUM(CASE WHEN cv.conversion_type = 'qualification' THEN cv.payout_amount ELSE 0 END) AS total_revenue,
+  SAFE_DIVIDE(SUM(CASE WHEN cv.conversion_type = 'qualification' THEN cv.payout_amount ELSE 0 END), SUM(c.ad_spend)) AS roas,
+  SAFE_DIVIDE(SUM(c.ad_spend), COUNT(DISTINCT CASE WHEN cv.conversion_type = 'qualification' THEN cv.conversion_id END)) AS cac
+FROM
+  clicks c
+LEFT JOIN
+  users u ON c.click_id = u.click_id
+LEFT JOIN
+  conversions cv ON u.user_id = cv.user_id
+WHERE
+  c.created_at >= '2025-01-01'
+  AND c.utm_source IS NOT NULL
+GROUP BY
+  c.utm_source, c.utm_medium, c.utm_campaign, c.offer_id
+ORDER BY
+  total_revenue DESC;
+</code></pre>
+    </section>
+
+    <section id="automation">
+        <h2>11. Automation</h2>
+
+        <h3>Lead Scoring (Predictive Quality)</h3>
+        <p>Assign each lead a score (0-100) based on engagement signals and demographic fit.</p>
+
+        <h4>Scoring Model (Rule-Based, V1)</h4>
+        <table>
+            <tr>
+                <th>Signal</th>
+                <th>Points</th>
+                <th>Rationale</th>
+            </tr>
+            <tr>
+                <td>Email domain (professional, not Gmail/Yahoo)</td>
+                <td>+10</td>
+                <td>Higher intent, disposable income</td>
+            </tr>
+            <tr>
+                <td>Phone provided + verified (SMS OTP)</td>
+                <td>+15</td>
+                <td>Verified contact, higher quality</td>
+            </tr>
+            <tr>
+                <td>High-value GEO (US, UK, DE, AU, CA)</td>
+                <td>+20</td>
+                <td>Higher CPA payouts, better conversion rates</td>
+            </tr>
+            <tr>
+                <td>Tier-2 GEO (EU, UAE, SG)</td>
+                <td>+10</td>
+                <td>Mid-tier payouts</td>
+            </tr>
+            <tr>
+                <td>Session duration ≥ 120s</td>
+                <td>+10</td>
+                <td>Engaged, researching</td>
+            </tr>
+            <tr>
+                <td>Pages viewed ≥ 3</td>
+                <td>+10</td>
+                <td>Exploring content, high intent</td>
+            </tr>
+            <tr>
+                <td>UTM source = google (paid search)</td>
+                <td>+5</td>
+                <td>Active search intent</td>
+            </tr>
+            <tr>
+                <td>UTM campaign contains "broker" or "account"</td>
+                <td>+10</td>
+                <td>Transactional intent</td>
+            </tr>
+            <tr>
+                <td>Returning visitor (cookie detected)</td>
+                <td>+5</td>
+                <td>Familiarity, warmer lead</td>
+            </tr>
+            <tr>
+                <td>Email opened within 1 hour of submission</td>
+                <td>+10</td>
+                <td>Actively engaged, inbox monitored</td>
+            </tr>
+            <tr>
+                <td>Negative: Disposable email (e.g., Mailinator)</td>
+                <td>-50</td>
+                <td>Low quality, likely spam</td>
+            </tr>
+            <tr>
+                <td>Negative: VPN/Proxy IP detected</td>
+                <td>-20</td>
+                <td>Potential fraud</td>
+            </tr>
+        </table>
+
+        <h4>Score Tiers & Routing</h4>
+        <ul>
+            <li><strong>80-100 (Hot Lead):</strong> Immediate email + SMS with broker CTA; route to top-tier broker (Exness); prioritize in CRM</li>
+            <li><strong>60-79 (Warm Lead):</strong> Standard nurture sequence; route to Exness or XTB</li>
+            <li><strong>40-59 (Cool Lead):</strong> Extended nurture (10-day sequence); route to secondary broker or A/B test</li>
+            <li><strong>0-39 (Cold/Low Quality):</strong> Minimal touchpoints; exclude from SMS; monitor for engagement before broker handoff</li>
+        </ul>
+
+        <h3>Broker Routing Automation</h3>
+        <pre><code>// Pseudo-code for broker routing logic
+
+function routeUserToBroker(user) {
+  const { country_code, lead_score, language_code, device_type } = user;
+
+  // GEO-based primary routing
+  if (country_code === 'US') {
+    return null; // Do not route US users to CFD brokers (compliance)
+  }
+
+  if (['GB', 'DE', 'FR', 'IT', 'ES', 'NL', 'SE', 'AU', 'CA'].includes(country_code)) {
+    // Tier-1 GEO: prioritize Exness (highest payout)
+    if (lead_score >= 60) {
+      return 'exness';
+    } else {
+      return 'xtb';  // Fallback for lower scores (still regulated, good support)
+    }
+  }
+
+  if (['AE', 'SA', 'SG', 'HK', 'ZA'].includes(country_code)) {
+    // Tier-2 GEO: Exness or Pepperstone
+    return (lead_score >= 70) ? 'exness' : 'pepperstone';
+  }
+
+  // Default: Exness (global coverage)
+  return 'exness';
+}
+</code></pre>
+
+        <h3>Suppression Lists & Re-engagement</h3>
+        <ul>
+            <li><strong>Unsubscribes:</strong> Auto-suppress from all marketing emails (legally required); keep in DB for postback matching</li>
+            <li><strong>Bounced Emails:</strong> After 2 hard bounces, mark email as invalid, suppress from future sends</li>
+            <li><strong>Inactive Leads (30+ days, no engagement):</strong> Move to re-engagement campaign (1-2 emails max), then suppress if no response</li>
+            <li><strong>Converted Users (FTD confirmed):</strong> Suppress from acquisition campaigns; move to retention/upsell messaging (if applicable for IB program)</li>
+        </ul>
+
+        <h3>Alerts & Monitoring</h3>
+        <table>
+            <tr>
+                <th>Alert Type</th>
+                <th>Trigger</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td>Postback Downtime</td>
+                <td>No postbacks received from broker in 6 hours (during business hours)</td>
+                <td>Slack/email alert to ops team; check broker API status</td>
+            </tr>
+            <tr>
+                <td>Fraud Spike</td>
+                <td>&gt;10% of leads flagged as low quality (score &lt;40) in 1 hour</td>
+                <td>Alert to review traffic source; possible bot attack</td>
+            </tr>
+            <tr>
+                <td>LP CVR Drop</td>
+                <td>LP conversion rate drops &gt;20% vs. 7-day avg for 2+ hours</td>
+                <td>Check for LP errors, form issues, tracking bugs</td>
+            </tr>
+            <tr>
+                <td>CAC Threshold Breach</td>
+                <td>Campaign CAC exceeds $500 (Tier-1) or $250 (Tier-2)</td>
+                <td>Auto-pause campaign; review targeting/creative</td>
+            </tr>
+            <tr>
+                <td>High ROAS Campaign</td>
+                <td>Campaign achieves ROAS &gt;400% over 7 days</td>
+                <td>Increase budget allocation (positive alert)</td>
+            </tr>
+        </table>
+    </section>
+
+    <section id="tech">
+        <h2>12. Tech Stack Diagram</h2>
+
+        <div class="flow">
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        CLIENT-SIDE (Browser)                             │
+│                                                                          │
+│  Website (tradeflow.blog)                                                │
+│    │                                                                     │
+│    ├─ Google Tag Manager (GTM)                                          │
+│    │    ├─ GA4 Config Tag                                               │
+│    │    ├─ Google Ads Conversion Tag                                    │
+│    │    ├─ Meta Pixel                                                   │
+│    │    ├─ X Event Tag                                                  │
+│    │    └─ Custom HTML/JS (dataLayer events)                            │
+│    │                                                                     │
+│    ├─ First-party Cookies: tf_cid (click_id), _ga (GA client_id)        │
+│    └─ LocalStorage: tf_click_data {click_id, utm_*, timestamp}          │
+│                                                                          │
+└───────────────────────────┬──────────────────────────────────────────────┘
+                            │
+                            ↓ (HTTP requests)
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        SERVER-SIDE (Node.js/Express)                     │
+│                                                                          │
+│  Endpoints:                                                              │
+│    GET  /r/<offer>              → Click redirector (generate click_id)  │
+│    POST /api/leads              → Lead capture & validation             │
+│    POST /api/clicks/:id/event   → Event logging                         │
+│    POST /api/webhooks/exness    → Exness postback handler               │
+│    POST /api/webhooks/broker    → Generic broker postback handler       │
+│                                                                          │
+│  Middleware:                                                             │
+│    • CORS, Helmet (security)                                            │
+│    • Rate limiting (express-rate-limit)                                 │
+│    • Body parser, cookie parser                                         │
+│    • GeoIP lookup (MaxMind GeoIP2 or CloudFlare headers)                │
+│    • Signature verification (HMAC for postbacks)                        │
+│                                                                          │
+│  Services:                                                               │
+│    • EmailService (Resend, SendGrid, or SES)                            │
+│    • SMSService (Twilio)                                                │
+│    • BrokerAPIClient (for brokers with public APIs)                     │
+│    • GoogleAdsOfflineConversion (API client)                            │
+│    • MetaCAPI (Conversions API client)                                  │
+│    • GA4MeasurementProtocol (server-side event sending)                 │
+│                                                                          │
+└───────────────────────────┬──────────────────────────────────────────────┘
+                            │
+                            ↓ (Database queries)
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        DATABASE (PostgreSQL or MySQL)                    │
+│                                                                          │
+│  Tables:                                                                 │
+│    • clicks       (click tracking, UTM params, platform IDs)            │
+│    • users        (leads, contact info, status, scores)                 │
+│    • events       (all user events, timestamped)                        │
+│    • conversions  (broker postbacks, payouts, status)                   │
+│    • campaigns    (optional: campaign metadata, budgets)                │
+│                                                                          │
+└───────────────────────────┬──────────────────────────────────────────────┘
+                            │
+                            ↓ (Data sync, ETL)
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    CRM / CDP (HubSpot, Customer.io, or Lightweight)      │
+│                                                                          │
+│  Functions:                                                              │
+│    • Lead management & segmentation                                     │
+│    • Email/SMS automation (nurture sequences)                           │
+│    • Lead scoring (if not done in app logic)                            │
+│    • User journey tracking                                              │
+│    • Sync user data from DB via API or ETL                              │
+│                                                                          │
+└───────────────────────────┬──────────────────────────────────────────────┘
+                            │
+                            ↓ (Data export for analysis)
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    DATA WAREHOUSE (BigQuery, Redshift, Snowflake)        │
+│                                                                          │
+│  ETL Jobs (daily or real-time):                                          │
+│    • clicks, users, events, conversions → data warehouse                │
+│    • Google Ads data (via API or connector)                             │
+│    • GA4 data (via BigQuery export or API)                              │
+│    • Meta Ads data (via API)                                            │
+│                                                                          │
+│  Joins & Aggregations:                                                  │
+│    • Master performance tables (campaign → clicks → leads → FTDs)       │
+│    • Attribution modeling (multi-touch, cohort analysis)                │
+│                                                                          │
+└───────────────────────────┬──────────────────────────────────────────────┘
+                            │
+                            ↓ (Reporting & Visualization)
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    BI TOOLS (Looker Studio, Tableau, Metabase)           │
+│                                                                          │
+│  Dashboards (as specified in Section 10):                               │
+│    • Acquisition Overview                                               │
+│    • Funnel Performance                                                 │
+│    • Revenue & Payouts                                                  │
+│    • Creative & Variant Performance                                     │
+│                                                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    OPTIONAL: AFFILIATE TRACKER (RedTrack, Voluum)        │
+│                                                                          │
+│  If using third-party tracker:                                          │
+│    • Tracker redirects clicks (parallel to /r/<offer>)                  │
+│    • Tracker receives postbacks from server (duplicate for tracking)    │
+│    • Provides additional fraud detection, performance insights          │
+│    • Can replace custom click tracking (but less control)               │
+│                                                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+        </div>
+
+        <h3>Tech Stack Summary</h3>
+        <table>
+            <tr>
+                <th>Layer</th>
+                <th>Tool/Service</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>Tag Management</td>
+                <td>Google Tag Manager</td>
+                <td>Client-side event tracking, ad pixels</td>
+            </tr>
+            <tr>
+                <td>Analytics</td>
+                <td>Google Analytics 4</td>
+                <td>User behavior, funnel analysis, audiences</td>
+            </tr>
+            <tr>
+                <td>Ad Platforms</td>
+                <td>Google Ads, Meta Ads, X Ads</td>
+                <td>Paid acquisition</td>
+            </tr>
+            <tr>
+                <td>Server Runtime</td>
+                <td>Node.js + Express</td>
+                <td>API endpoints, click redirector, postback handlers</td>
+            </tr>
+            <tr>
+                <td>Database</td>
+                <td>PostgreSQL or MySQL</td>
+                <td>Store clicks, users, events, conversions</td>
+            </tr>
+            <tr>
+                <td>CRM/CDP</td>
+                <td>HubSpot, Customer.io, or custom</td>
+                <td>Lead management, email/SMS automation</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>Resend, SendGrid, Amazon SES</td>
+                <td>Transactional & marketing emails</td>
+            </tr>
+            <tr>
+                <td>SMS</td>
+                <td>Twilio</td>
+                <td>SMS OTP, marketing SMS</td>
+            </tr>
+            <tr>
+                <td>GeoIP</td>
+                <td>MaxMind GeoIP2 or CloudFlare</td>
+                <td>Country detection, fraud prevention</td>
+            </tr>
+            <tr>
+                <td>Data Warehouse</td>
+                <td>BigQuery, Redshift, Snowflake</td>
+                <td>Centralized data, advanced analytics</td>
+            </tr>
+            <tr>
+                <td>BI/Dashboards</td>
+                <td>Looker Studio, Tableau, Metabase</td>
+                <td>Reporting, KPI monitoring</td>
+            </tr>
+            <tr>
+                <td>Affiliate Tracker (Optional)</td>
+                <td>RedTrack, Voluum, AnyTrack</td>
+                <td>Advanced tracking, fraud detection</td>
+            </tr>
+        </table>
+
+        <h3>Server-Side Tagging (Optional Advanced Setup)</h3>
+        <p>For enhanced privacy and accuracy, implement <strong>Google Tag Manager Server-Side</strong> (sGTM):</p>
+        <ul>
+            <li>Deploy sGTM container on Cloud Run, App Engine, or own server</li>
+            <li>Client-side GTM sends events to sGTM endpoint (first-party domain)</li>
+            <li>sGTM forwards events to GA4, Google Ads, Meta CAPI (server-to-server)</li>
+            <li>Benefits: Bypass ad blockers, improve data accuracy, control PII handling</li>
+            <li>Cost: ~$50-150/month for hosting + setup complexity</li>
+        </ul>
+        <p><strong>Decision:</strong> Phase 2 enhancement after validating core funnel with client-side tracking.</p>
+    </section>
+
+    <section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <h2 style="color: white; border-bottom-color: white;">Summary & Next Steps</h2>
+
+        <p>This scheme outlines a complete, broker-agnostic acquisition system for tradeflow.blog with Exness as the anchor partner. Key takeaways:</p>
+
+        <ul style="font-size: 1.05rem; line-height: 1.8;">
+            <li><strong>Two-Path Funnel:</strong> Direct-to-broker for high intent, value gate + nurture for education seekers</li>
+            <li><strong>Robust Tracking:</strong> First-party click_id system, server-side postback handling, offline conversion imports to ad platforms</li>
+            <li><strong>Compliance-First:</strong> Google Ads certification required; avoid signal/tip language in ads; prominent risk warnings on LPs</li>
+            <li><strong>Data-Driven CRO:</strong> Weekly A/B tests on headlines, CTAs, forms, and LP variants</li>
+            <li><strong>Scalable Tech:</strong> Modular architecture (GTM → Server → DB → CRM → DW → BI) supports multi-broker expansion</li>
+            <li><strong>Economics Target:</strong> ROAS ≥ 200%, LTV:CAC ≥ 2.0, CAC ≤ $400 (Tier-1)</li>
+        </ul>
+
+        <div style="background: rgba(255,255,255,0.2); padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+            <h3 style="color: white; margin-top: 0;">First 10 Actions This Week</h3>
+            <ol style="font-size: 1.05rem; line-height: 1.8;">
+                <li>Set up database tables (clicks, users, events, conversions) using schema in Section 4</li>
+                <li>Implement click redirector endpoint: <code>GET /r/&lt;offer&gt;</code> with click_id generation and UTM capture</li>
+                <li>Configure Exness postback URL in partner dashboard (Section 5 template)</li>
+                <li>Implement broker postback handler: <code>POST /api/webhooks/exness</code> with signature verification</li>
+                <li>Deploy GTM container with dataLayer events (page_view, generate_lead, broker_redirect) per Section 4</li>
+                <li>Create GA4 custom dimensions (click_id, offer_id, broker_name) and key events (generate_lead, first_deposit)</li>
+                <li>Build LP variant 1: Signal-to-Value Gate using wireframe in Section 7 (mobile-first, risk warnings)</li>
+                <li>Set up email service (Resend/SendGrid) and create 3-email nurture sequence (welcome, education, warm handoff)</li>
+                <li>Apply for Google Ads certification for target GEOs (EU, UK, AU); prepare compliant ad copy per Section 8</li>
+                <li>Launch test campaign with $100 budget: 1 ad group (broker comparison keywords), 1 LP variant, track click → lead → FTD flow end-to-end</li>
+            </ol>
+        </div>
+    </section>
+
+    <footer style="margin-top: 4rem; padding: 2rem; background: #2d3748; color: #e2e8f0; border-radius: 8px; text-align: center;">
+        <p><strong>TradeFlow.blog Acquisition System Scheme</strong></p>
+        <p>Generated: 2025-01-15 | For: tradeflow.blog | Primary Broker: Exness</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">This document is a living blueprint. Update as you test, learn, and scale.</p>
+    </footer>
+</body>
+</html>

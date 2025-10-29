@@ -118,12 +118,13 @@ export default function HomePage() {
 
   // 🏦 Handle broker account opening
   const handleOpenBrokerAccount = async () => {
-    const brokerLink = 'https://one.exnesstrack.net/a/c_8f0nxidtbt'
+    const baseUrl = 'https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt'
+    let finalUrl = baseUrl
 
-    // Track click
+    // Track click and get click_id
     try {
       const token = localStorage.getItem('auth_token')
-      await fetch('/api/track/exness-click', {
+      const response = await fetch('/api/track/exness-click', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -131,15 +132,24 @@ export default function HomePage() {
         },
         body: JSON.stringify({
           partner_id: 'c_8f0nxidtbt',
-          click_url: brokerLink
+          click_url: baseUrl,
+          click_source: 'popup_cta'
         })
       })
+
+      if (response.ok) {
+        const data = await response.json()
+        if (data.click_id) {
+          // Append click_id to URL
+          finalUrl = `${baseUrl}?click_id=${data.click_id}`
+        }
+      }
     } catch (error) {
       console.error('Failed to track click:', error)
     }
 
-    // Open Exness
-    window.open(brokerLink, '_blank')
+    // Open Exness with click_id
+    window.open(finalUrl, '_blank')
     addNotification('🚀 Opening broker account...', 'success')
   }
 

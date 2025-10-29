@@ -14,25 +14,24 @@ export function MultiPopupSystem({ onOpenBrokerAccount }: MultiPopupSystemProps)
   const [quickStartClosed, setQuickStartClosed] = useState(false)
   const [quickStartClosedTime, setQuickStartClosedTime] = useState<number | null>(null)
 
-  // Countdown timer state
-  const [hours, setHours] = useState(9)
-  const [minutes, setMinutes] = useState(47)
+  // Countdown timer state - using seconds for smooth countdown
+  const [timeRemaining, setTimeRemaining] = useState(9 * 3600 + 47 * 60) // 9 hours 47 minutes in seconds
 
-  // Countdown timer logic
+  // Countdown timer logic - updates every second
   useEffect(() => {
-    if (showCountdown) {
+    if (showCountdown && timeRemaining > 0) {
       const timer = setInterval(() => {
-        if (minutes > 0) {
-          setMinutes(minutes - 1)
-        } else if (hours > 0) {
-          setHours(hours - 1)
-          setMinutes(59)
-        }
-      }, 60000) // Update every minute
+        setTimeRemaining(prev => Math.max(0, prev - 1))
+      }, 1000) // Update every second
 
       return () => clearInterval(timer)
     }
-  }, [showCountdown, hours, minutes])
+  }, [showCountdown, timeRemaining])
+
+  // Calculate hours and minutes from seconds
+  const hours = Math.floor(timeRemaining / 3600)
+  const minutes = Math.floor((timeRemaining % 3600) / 60)
+  const seconds = timeRemaining % 60
 
   // Initial popup after 2 seconds
   useEffect(() => {
@@ -455,7 +454,7 @@ export function MultiPopupSystem({ onOpenBrokerAccount }: MultiPopupSystemProps)
               fontSize: '18px',
               letterSpacing: '2px'
             }}>
-              {String(hours).padStart(2, '0')}:{String(minutes).padStart(2, '0')}
+              {String(hours).padStart(2, '0')}:{String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
             </div>
           </div>
           <button

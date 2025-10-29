@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>35 High-Converting Popup Examples - TradeFlow.blog</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #f0f4f8;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+        }
+        h1 .subtitle {
+            font-size: 1rem;
+            font-weight: normal;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+        .category {
+            margin-bottom: 4rem;
+        }
+        .category-header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .category-header h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.8rem;
+        }
+        .category-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+        .popup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+        }
+        .popup-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .popup-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+        }
+        .popup-label {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-bottom-left-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .popup-title {
+            color: #1f2937;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0 0 1rem 0;
+            padding-right: 100px;
+        }
+        .popup-preview {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            min-height: 300px;
+        }
+        .popup-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        .meta-tag {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .meta-tag.green {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .meta-tag.purple {
+            background: #e9d5ff;
+            color: #6b21a8;
+        }
+        .meta-tag.orange {
+            background: #fed7aa;
+            color: #92400e;
+        }
+
+        /* Popup Styling */
+        .popup-content {
+            position: relative;
+        }
+        .popup-emoji {
+            font-size: 64px;
+            text-align: center;
+            margin-bottom: 16px;
+            animation: bounce 1s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .popup-heading {
+            font-size: 24px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-red {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .popup-description {
+            text-align: center;
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .benefits-box {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        .benefits-box.blue {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-color: #3b82f6;
+        }
+        .benefits-box.purple {
+            background: linear-gradient(135deg, #e9d5ff 0%, #d8b4fe 100%);
+            border-color: #a855f7;
+        }
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .benefits-list li {
+            padding: 6px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #065f46;
+        }
+        .benefits-box.blue .benefits-list li {
+            color: #1e40af;
+        }
+        .benefits-box.purple .benefits-list li {
+            color: #6b21a8;
+        }
+        .cta-button {
+            width: 100%;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            text-align: center;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+        }
+        .cta-button.blue {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        .cta-button.purple {
+            background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+        }
+        .cta-button.red {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+        .social-proof {
+            text-align: center;
+            font-size: 13px;
+            color: #9ca3af;
+            margin-top: 12px;
+        }
+        .timer {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #fbbf24;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 16px;
+        }
+        .countdown {
+            font-size: 24px;
+            color: #dc2626;
+            font-weight: 800;
+            margin: 8px 0;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .feature-item {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #e5e7eb;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+        }
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+        .testimonial {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .testimonial-text {
+            font-size: 13px;
+            color: #4b5563;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        .testimonial-author {
+            font-size: 12px;
+            color: #10b981;
+            font-weight: 700;
+        }
+        .stars {
+            color: #fbbf24;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        .risk-warning {
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            color: #92400e;
+            margin-top: 12px;
+            line-height: 1.4;
+        }
+        .live-activity {
+            background: white;
+            border: 2px solid #10b981;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+        }
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .live-text {
+            font-size: 13px;
+            color: #065f46;
+            font-weight: 600;
+        }
+        .comparison-table {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+        .comparison-table td {
+            padding: 8px;
+            font-size: 13px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .comparison-table td:first-child {
+            color: #6b7280;
+        }
+        .comparison-table td:last-child {
+            font-weight: 700;
+            color: #10b981;
+        }
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .progress-bar {
+            background: #e5e7eb;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .progress-fill {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            height: 100%;
+            animation: fillProgress 3s ease-out;
+        }
+        @keyframes fillProgress {
+            from { width: 0; }
+            to { width: 87%; }
+        }
+        .scarcity-text {
+            color: #dc2626;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .guarantee-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border: 2px solid #3b82f6;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .guarantee-text {
+            font-size: 13px;
+            color: #1e40af;
+            font-weight: 700;
+        }
+        .nav {
+            position: sticky;
+            top: 1rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .nav h3 {
+            margin: 0 0 1rem 0;
+            color: #1f2937;
+        }
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .nav-link {
+            background: #f3f4f6;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .nav-link:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            🎨 35 High-Converting Popup Examples
+            <div class="subtitle">7 Categories × 5 Variants Each | Copy, Customize, Deploy | TradeFlow.blog</div>
+        </h1>
+
+        <div class="nav">
+            <h3>Jump to Category:</h3>
+            <ul class="nav-list">
+                <li><a href="#exit-intent" class="nav-link">1️⃣ Exit Intent (5)</a></li>
+                <li><a href="#entry-intent" class="nav-link">2️⃣ Entry Intent (5)</a></li>
+                <li><a href="#scroll-depth" class="nav-link">3️⃣ Scroll Depth (5)</a></li>
+                <li><a href="#time-on-site" class="nav-link">4️⃣ Time-on-Site (5)</a></li>
+                <li><a href="#content-gate" class="nav-link">5️⃣ Content Gate (5)</a></li>
+                <li><a href="#floating-button" class="nav-link">6️⃣ Floating Button (5)</a></li>
+                <li><a href="#sticky-banner" class="nav-link">7️⃣ Sticky Banner (5)</a></li>
+            </ul>
+        </div>
+
+        <!-- CATEGORY 1: EXIT INTENT POPUPS -->
+        <div class="category" id="exit-intent">
+            <div class="category-header">
+                <h2>1️⃣ Exit Intent Popups (5 Variants)</h2>
+                <p>Trigger: Mouse moves to close tab/browser. Goal: Last-chance offer to prevent abandonment. Best for: Desktop traffic, all pages.</p>
+            </div>
+
+            <div class="popup-grid">
+                <!-- Exit Intent 1: Urgency + Scarcity -->
+                <div class="popup-card">
+                    <div class="popup-label">EXIT #1</div>
+                    <h3 class="popup-title">Urgency + Scarcity</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">⚠️</div>
+                            <h2 class="popup-heading gradient-red">Wait! Don't Miss Out</h2>
+                            <p class="popup-description">
+                                <strong>Before you go...</strong> Only <strong style="color: #dc2626;">47 spots left</strong> for unlimited access this week.
+                            </p>
+
+                            <div class="timer">
+                                ⏰ This Offer Expires In:
+                                <div class="countdown">09:47</div>
+                            </div>
+
+                            <div class="benefits-box">
+                                <ul class="benefits-list">
+                                    <li>✅ Unlimited trading signals</li>
+                                    <li>✅ Full market analysis & education</li>
+                                    <li>✅ Just $10 minimum deposit</li>
+                                    <li>✅ Start trading in 5 minutes</li>
+                                </ul>
+                            </div>
+
+                            <button class="cta-button red">
+                                🚀 Claim My Spot Now (47 Left)
+                            </button>
+
+                            <div class="social-proof">
+                                🔥 12,547 traders joined this month
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ <strong>Risk Warning:</strong> CFDs are complex instruments. 74-89% of retail accounts lose money trading CFDs.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag orange">Urgency Driven</span>
+                        <span class="meta-tag">Timer: 10 min</span>
+                        <span class="meta-tag green">High CVR: 35-45%</span>
+                    </div>
+                </div>
+
+                <!-- Exit Intent 2: Benefit-Focused -->
+                <div class="popup-card">
+                    <div class="popup-label">EXIT #2</div>
+                    <h3 class="popup-title">Benefit-Focused</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">🎁</div>
+                            <h2 class="popup-heading gradient-green">Special Offer: Unlimited Access</h2>
+                            <p class="popup-description">
+                                Get <strong>instant access</strong> to all premium signals, education, and market analysis — completely free with a $10 account.
+                            </p>
+
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">📊</div>
+                                    Unlimited Signals
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🎓</div>
+                                    Full Education
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">📰</div>
+                                    Daily News
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">💼</div>
+                                    Market Analysis
+                                </div>
+                            </div>
+
+                            <div class="guarantee-box">
+                                <div class="guarantee-text">
+                                    🛡️ 100% Regulated • FCA & CySEC Licensed • Withdraw Anytime
+                                </div>
+                            </div>
+
+                            <button class="cta-button">
+                                🎯 Unlock All Features Now →
+                            </button>
+
+                            <div class="social-proof">
+                                Join 12,547 traders who unlocked unlimited access
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag blue">Benefit Focus</span>
+                        <span class="meta-tag">Feature Grid</span>
+                        <span class="meta-tag green">CVR: 30-40%</span>
+                    </div>
+                </div>
+
+                <!-- Exit Intent 3: Social Proof Heavy -->
+                <div class="popup-card">
+                    <div class="popup-label">EXIT #3</div>
+                    <h3 class="popup-title">Social Proof Heavy</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">👥</div>
+                            <h2 class="popup-heading gradient-text">Join 12,547 Successful Traders</h2>
+                            <p class="popup-description">
+                                See why thousands of traders chose us for their trading journey.
+                            </p>
+
+                            <div class="live-activity">
+                                <div class="live-dot"></div>
+                                <div class="live-text">
+                                    <strong>Ahmed from Dubai</strong> just opened an account
+                                </div>
+                            </div>
+
+                            <div class="testimonial">
+                                <div class="stars">⭐⭐⭐⭐⭐</div>
+                                <div class="testimonial-text">
+                                    "Best signals I've found. Clear, accurate, and the education content is invaluable."
+                                </div>
+                                <div class="testimonial-author">— Sarah M., Riyadh</div>
+                            </div>
+
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 87%"></div>
+                            </div>
+                            <div style="font-size: 12px; color: #6b7280; margin-bottom: 16px; text-align: center;">
+                                87% of members trade within first 24 hours
+                            </div>
+
+                            <button class="cta-button">
+                                🚀 Join 12,547+ Traders Now
+                            </button>
+
+                            <div class="social-proof">
+                                ⭐ 4.8/5 rating from 3,241 reviews
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Trading involves risk. Past performance does not guarantee future results.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag purple">Social Proof</span>
+                        <span class="meta-tag">Live Activity</span>
+                        <span class="meta-tag green">CVR: 32-42%</span>
+                    </div>
+                </div>
+
+                <!-- Exit Intent 4: Value Comparison -->
+                <div class="popup-card">
+                    <div class="popup-label">EXIT #4</div>
+                    <h3 class="popup-title">Value Comparison</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">💰</div>
+                            <h2 class="popup-heading gradient-green">Why Pay More Elsewhere?</h2>
+                            <p class="popup-description">
+                                Get <strong>premium features for free</strong> — just open a $10 account.
+                            </p>
+
+                            <table class="comparison-table">
+                                <tr>
+                                    <td>📊 Trading Signals</td>
+                                    <td>$99/mo → FREE</td>
+                                </tr>
+                                <tr>
+                                    <td>🎓 Trading Education</td>
+                                    <td>$199/mo → FREE</td>
+                                </tr>
+                                <tr>
+                                    <td>📰 Daily Market News</td>
+                                    <td>$49/mo → FREE</td>
+                                </tr>
+                                <tr>
+                                    <td>💼 Market Analysis</td>
+                                    <td>$79/mo → FREE</td>
+                                </tr>
+                                <tr style="border-top: 2px solid #10b981;">
+                                    <td><strong>Total Value:</strong></td>
+                                    <td><strong style="color: #dc2626; text-decoration: line-through;">$426/mo</strong> <strong style="color: #10b981;">→ $0</strong></td>
+                                </tr>
+                            </table>
+
+                            <div class="benefits-box">
+                                <ul class="benefits-list">
+                                    <li>🎯 Just $10 minimum deposit</li>
+                                    <li>🎯 Instant access to everything</li>
+                                    <li>🎯 Cancel or withdraw anytime</li>
+                                </ul>
+                            </div>
+
+                            <button class="cta-button">
+                                💎 Get $426/mo Value FREE →
+                            </button>
+
+                            <div class="social-proof">
+                                Save $5,112 per year compared to competitors
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ CFDs carry risk. Only invest what you can afford to lose.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag blue">Value Focus</span>
+                        <span class="meta-tag">Comparison Table</span>
+                        <span class="meta-tag green">CVR: 28-38%</span>
+                    </div>
+                </div>
+
+                <!-- Exit Intent 5: FOMO + Time Limit -->
+                <div class="popup-card">
+                    <div class="popup-label">EXIT #5</div>
+                    <h3 class="popup-title">FOMO + Time Limit</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="badge">⚡ LIMITED TIME OFFER</div>
+                            <div class="popup-emoji">🔥</div>
+                            <h2 class="popup-heading gradient-red">Last Chance: Spots Filling Fast!</h2>
+                            <p class="popup-description">
+                                We're limiting new accounts to maintain quality. <strong>47 spots remaining</strong> for unlimited access this week.
+                            </p>
+
+                            <div class="scarcity-text">
+                                ⏰ Only 47 spots left • Offer expires in 9 minutes
+                            </div>
+
+                            <div class="benefits-box blue">
+                                <ul class="benefits-list">
+                                    <li>⚡ Instant verification (no waiting)</li>
+                                    <li>⚡ Trade in 5 minutes</li>
+                                    <li>⚡ Low spreads from 0.1 pips</li>
+                                    <li>⚡ 24/7 support in Arabic & English</li>
+                                </ul>
+                            </div>
+
+                            <button class="cta-button red">
+                                🚨 Claim My Spot Before It's Gone
+                            </button>
+
+                            <div class="social-proof">
+                                ⚠️ 127 traders joined in the last hour
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ <strong>Risk Warning:</strong> 74-89% of retail accounts lose money trading CFDs with leveraged products.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag orange">FOMO Heavy</span>
+                        <span class="meta-tag">Scarcity + Urgency</span>
+                        <span class="meta-tag green">CVR: 38-48%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 2: ENTRY INTENT POPUPS -->
+        <div class="category" id="entry-intent">
+            <div class="category-header">
+                <h2>2️⃣ Entry Intent Popups (5 Variants)</h2>
+                <p>Trigger: 3-5 seconds after landing (first-time visitors). Goal: Immediate engagement, set value prop. Best for: Paid traffic (Google Ads, Meta).</p>
+            </div>
+
+            <div class="popup-grid">
+                <!-- Entry Intent 1: Welcome Bonus -->
+                <div class="popup-card">
+                    <div class="popup-label">ENTRY #1</div>
+                    <h3 class="popup-title">Welcome Bonus</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">👋</div>
+                            <h2 class="popup-heading gradient-text">Welcome! Get Your Free Signal</h2>
+                            <p class="popup-description">
+                                New here? Get <strong>today's top trading signal FREE</strong> + unlock unlimited access with just $10.
+                            </p>
+
+                            <div class="benefits-box blue">
+                                <strong style="color: #1e40af; display: block; margin-bottom: 8px;">🎁 Your Welcome Package:</strong>
+                                <ul class="benefits-list">
+                                    <li>✅ 1 Free Premium Signal (Today)</li>
+                                    <li>✅ Beginner's Trading Guide (PDF)</li>
+                                    <li>✅ 30-Day Access to All Content</li>
+                                    <li>✅ Priority Customer Support</li>
+                                </ul>
+                            </div>
+
+                            <button class="cta-button blue">
+                                🎯 Claim My Welcome Package →
+                            </button>
+
+                            <div class="social-proof">
+                                🎉 New members get premium for 30 days
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Trading carries risk. Ensure you understand the risks before trading.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag blue">Welcome Offer</span>
+                        <span class="meta-tag">First-Time Visitors</span>
+                        <span class="meta-tag green">CVR: 25-35%</span>
+                    </div>
+                </div>
+
+                <!-- Entry Intent 2: Quick Start -->
+                <div class="popup-card">
+                    <div class="popup-label">ENTRY #2</div>
+                    <h3 class="popup-title">Quick Start Guide</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">🚀</div>
+                            <h2 class="popup-heading gradient-green">Start Trading in 3 Easy Steps</h2>
+                            <p class="popup-description">
+                                Join thousands of traders from the GCC who started their journey with us.
+                            </p>
+
+                            <div style="text-align: left; margin-bottom: 16px;">
+                                <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
+                                    <div style="background: #10b981; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">1</div>
+                                    <div>
+                                        <strong style="display: block; color: #1f2937;">Open Account (2 min)</strong>
+                                        <span style="font-size: 13px; color: #6b7280;">Just $10 minimum • Instant verification</span>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
+                                    <div style="background: #10b981; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">2</div>
+                                    <div>
+                                        <strong style="display: block; color: #1f2937;">Get Free Signals</strong>
+                                        <span style="font-size: 13px; color: #6b7280;">Access unlimited trading signals & analysis</span>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: start; gap: 12px;">
+                                    <div style="background: #10b981; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">3</div>
+                                    <div>
+                                        <strong style="display: block; color: #1f2937;">Start Trading</strong>
+                                        <span style="font-size: 13px; color: #6b7280;">Trade your first position in 5 minutes</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="cta-button">
+                                ✨ Get Started Now (2 Min Setup)
+                            </button>
+
+                            <div class="social-proof">
+                                12,547 traders started this way
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ CFDs are complex instruments. Consider your risk tolerance before trading.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag green">Process Clarity</span>
+                        <span class="meta-tag">Step-by-Step</span>
+                        <span class="meta-tag green">CVR: 28-38%</span>
+                    </div>
+                </div>
+
+                <!-- Entry Intent 3: Regional Focus -->
+                <div class="popup-card">
+                    <div class="popup-label">ENTRY #3</div>
+                    <h3 class="popup-title">GCC Regional Focus</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">🌍</div>
+                            <h2 class="popup-heading gradient-text">Built for GCC Traders 🇦🇪 🇸🇦 🇰🇼</h2>
+                            <p class="popup-description">
+                                Trade with a broker that understands the <strong>Gulf markets</strong>. Arabic support, local payment methods, Sharia-compliant options.
+                            </p>
+
+                            <div class="benefits-box">
+                                <ul class="benefits-list">
+                                    <li>🇦🇪 UAE Residents Welcome</li>
+                                    <li>🗣️ 24/7 Arabic Support</li>
+                                    <li>💳 Local Payment Methods (AED/SAR)</li>
+                                    <li>🕌 Sharia-Compliant Accounts Available</li>
+                                    <li>📊 GCC Market Analysis</li>
+                                </ul>
+                            </div>
+
+                            <button class="cta-button">
+                                🚀 Open Account in Arabic/English
+                            </button>
+
+                            <div class="social-proof">
+                                🌟 Trusted by 8,000+ GCC traders
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ تحذير من المخاطر: عقود الفروقات هي أدوات معقدة وتحمل مخاطر عالية. | Risk Warning: CFDs carry high risk of loss.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag purple">Regional</span>
+                        <span class="meta-tag">GCC Focus</span>
+                        <span class="meta-tag green">CVR: 30-40%</span>
+                    </div>
+                </div>
+
+                <!-- Entry Intent 4: Limited Offer -->
+                <div class="popup-card">
+                    <div class="popup-label">ENTRY #4</div>
+                    <h3 class="popup-title">New Member Special</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="badge">🎁 NEW MEMBER SPECIAL</div>
+                            <div class="popup-emoji">🎉</div>
+                            <h2 class="popup-heading gradient-green">First 100 Sign-Ups Today Get Extra Perks</h2>
+                            <p class="popup-description">
+                                You're visitor #87 today. Sign up now and get <strong>premium access + bonus content</strong>.
+                            </p>
+
+                            <div class="timer">
+                                ⏰ This Offer Resets In:
+                                <div class="countdown">04:23:17</div>
+                                <div style="font-size: 11px; margin-top: 4px;">Until midnight (Dubai time)</div>
+                            </div>
+
+                            <div class="benefits-box purple">
+                                <strong style="color: #6b21a8; display: block; margin-bottom: 8px;">🎁 TODAY ONLY: Extra Bonuses</strong>
+                                <ul class="benefits-list">
+                                    <li>🎯 7-Day Premium Trial (FREE)</li>
+                                    <li>🎯 1-on-1 Onboarding Call</li>
+                                    <li>🎯 Exclusive Trading eBook</li>
+                                    <li>🎯 Priority Signal Alerts</li>
+                                </ul>
+                            </div>
+
+                            <button class="cta-button purple">
+                                🎁 Claim My Bonus Package Now
+                            </button>
+
+                            <div class="social-proof">
+                                Only 13 spots left for today's special offer
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Trading involves significant risk. Bonuses do not guarantee profits.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag orange">Time-Limited</span>
+                        <span class="meta-tag">Daily Reset</span>
+                        <span class="meta-tag green">CVR: 32-42%</span>
+                    </div>
+                </div>
+
+                <!-- Entry Intent 5: Question-Based -->
+                <div class="popup-card">
+                    <div class="popup-label">ENTRY #5</div>
+                    <h3 class="popup-title">Question-Based Engagement</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">🤔</div>
+                            <h2 class="popup-heading gradient-text">Want to Improve Your Trading?</h2>
+                            <p class="popup-description">
+                                Answer one question to get <strong>personalized recommendations</strong>:
+                            </p>
+
+                            <div style="background: white; border: 2px solid #e5e7eb; border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+                                <div style="font-weight: 700; color: #1f2937; margin-bottom: 12px;">What's your trading experience level?</div>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <button style="padding: 12px; border: 2px solid #10b981; background: white; border-radius: 6px; cursor: pointer; font-weight: 600; color: #065f46; transition: all 0.2s;" onmouseover="this.style.background='#d1fae5'" onmouseout="this.style.background='white'">
+                                        🌱 Beginner (Just starting)
+                                    </button>
+                                    <button style="padding: 12px; border: 2px solid #e5e7eb; background: white; border-radius: 6px; cursor: pointer; font-weight: 600; color: #374151; transition: all 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
+                                        📊 Intermediate (Some experience)
+                                    </button>
+                                    <button style="padding: 12px; border: 2px solid #e5e7eb; background: white; border-radius: 6px; cursor: pointer; font-weight: 600; color: #374151; transition: all 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
+                                        💎 Advanced (Active trader)
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div style="font-size: 13px; color: #6b7280; text-align: center; margin-bottom: 12px;">
+                                Based on your answer, we'll recommend the best starting point + give you free access to relevant content.
+                            </div>
+
+                            <div class="social-proof">
+                                ✨ 94% of members find this helpful
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ All trading carries risk. Past performance is not indicative of future results.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag blue">Interactive</span>
+                        <span class="meta-tag">Personalization</span>
+                        <span class="meta-tag green">CVR: 26-36%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 3: SCROLL DEPTH POPUPS -->
+        <div class="category" id="scroll-depth">
+            <div class="category-header">
+                <h2>3️⃣ Scroll Depth Popups (5 Variants)</h2>
+                <p>Trigger: User scrolls 50% or 75% down page. Goal: Engage users showing interest. Best for: Blog posts, education pages, long-form content.</p>
+            </div>
+
+            <div class="popup-grid">
+                <!-- Scroll Depth 1: Content Upgrade -->
+                <div class="popup-card">
+                    <div class="popup-label">SCROLL #1</div>
+                    <h3 class="popup-title">Content Upgrade</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">📚</div>
+                            <h2 class="popup-heading gradient-text">Enjoying This Article?</h2>
+                            <p class="popup-description">
+                                Get the <strong>full guide + 47 more like this</strong> when you unlock unlimited access.
+                            </p>
+
+                            <div class="benefits-box">
+                                <strong style="color: #065f46; display: block; margin-bottom: 8px;">📖 What You'll Get:</strong>
+                                <ul class="benefits-list">
+                                    <li>✅ This Article + PDF Download</li>
+                                    <li>✅ 47 In-Depth Trading Guides</li>
+                                    <li>✅ Video Tutorials & Webinars</li>
+                                    <li>✅ Daily Market Analysis</li>
+                                </ul>
+                            </div>
+
+                            <button class="cta-button">
+                                📚 Unlock All Content (Just $10)
+                            </button>
+
+                            <div class="social-proof">
+                                🎓 2,341 members unlocked education this week
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Educational content does not guarantee trading success. Trade responsibly.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag purple">Content Focus</span>
+                        <span class="meta-tag">Article Readers</span>
+                        <span class="meta-tag green">CVR: 22-32%</span>
+                    </div>
+                </div>
+
+                <!-- Scroll Depth 2: Related Content -->
+                <div class="popup-card">
+                    <div class="popup-label">SCROLL #2</div>
+                    <h3 class="popup-title">Related Content Tease</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">🎯</div>
+                            <h2 class="popup-heading gradient-green">Want to Learn More?</h2>
+                            <p class="popup-description">
+                                Since you're interested in this topic, check out these <strong>premium resources</strong>:
+                            </p>
+
+                            <div style="background: white; border: 2px solid #e5e7eb; border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+                                <div style="font-weight: 700; color: #1f2937; font-size: 14px; margin-bottom: 4px;">📊 Advanced Technical Analysis</div>
+                                <div style="font-size: 12px; color: #6b7280;">Master chart patterns & indicators</div>
+                                <div style="background: #fbbf24; color: white; display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-top: 6px;">PREMIUM</div>
+                            </div>
+
+                            <div style="background: white; border: 2px solid #e5e7eb; border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+                                <div style="font-weight: 700; color: #1f2937; font-size: 14px; margin-bottom: 4px;">🎓 Risk Management Course</div>
+                                <div style="font-size: 12px; color: #6b7280;">Protect your capital like a pro</div>
+                                <div style="background: #fbbf24; color: white; display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-top: 6px;">PREMIUM</div>
+                            </div>
+
+                            <div style="background: white; border: 2px solid #e5e7eb; border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+                                <div style="font-weight: 700; color: #1f2937; font-size: 14px; margin-bottom: 4px;">💼 Live Trading Sessions</div>
+                                <div style="font-size: 12px; color: #6b7280;">Watch experts trade in real-time</div>
+                                <div style="background: #fbbf24; color: white; display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-top: 6px;">PREMIUM</div>
+                            </div>
+
+                            <button class="cta-button">
+                                🔓 Unlock Premium Content Now
+                            </button>
+
+                            <div class="social-proof">
+                                Access 50+ courses for free with $10 account
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Trading education does not eliminate risk. Trade with caution.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag blue">Contextual</span>
+                        <span class="meta-tag">Related Content</span>
+                        <span class="meta-tag green">CVR: 24-34%</span>
+                    </div>
+                </div>
+
+                <!-- Scroll Depth 3: Progress-Based -->
+                <div class="popup-card">
+                    <div class="popup-label">SCROLL #3</div>
+                    <h3 class="popup-title">Progress Celebration</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">🎉</div>
+                            <h2 class="popup-heading gradient-text">You're Halfway There!</h2>
+                            <p class="popup-description">
+                                You've read <strong>50% of this guide</strong>. Want the full experience + 47 more guides?
+                            </p>
+
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 50%"></div>
+                            </div>
+                            <div style="font-size: 13px; color: #6b7280; margin-bottom: 16px; text-align: center;">
+                                📖 Article Progress: 50% Complete
+                            </div>
+
+                            <div class="benefits-box blue">
+                                <strong style="color: #1e40af; display: block; margin-bottom: 8px;">🚀 Finish Faster With Premium:</strong>
+                                <ul class="benefits-list">
+                                    <li>📥 Download PDF for offline reading</li>
+                                    <li>🎯 Interactive quizzes & exercises</li>
+                                    <li>📹 Video explanations of key concepts</li>
+                                    <li>💬 Ask questions to experts</li>
+                                </ul>
+                            </div>
+
+                            <button class="cta-button blue">
+                                ⚡ Upgrade My Learning Experience
+                            </button>
+
+                            <div class="social-proof">
+                                Premium members learn 3× faster
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Learning materials are educational only. Not financial advice.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag green">Gamification</span>
+                        <span class="meta-tag">Progress Bar</span>
+                        <span class="meta-tag green">CVR: 26-36%</span>
+                    </div>
+                </div>
+
+                <!-- Scroll Depth 4: Takeaway Offer -->
+                <div class="popup-card">
+                    <div class="popup-label">SCROLL #4</div>
+                    <h3 class="popup-title">Takeaway Offer</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">📝</div>
+                            <h2 class="popup-heading gradient-green">Don't Forget These Key Points</h2>
+                            <p class="popup-description">
+                                <strong>Save this article</strong> + get instant access to <strong>actionable checklists</strong> and downloadable resources.
+                            </p>
+
+                            <div style="background: white; border: 2px solid #10b981; border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+                                <div style="font-weight: 700; color: #065f46; margin-bottom: 12px;">📥 Free Downloads Included:</div>
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                                    <div style="background: #d1fae5; padding: 8px; border-radius: 6px; text-align: center; font-size: 12px; font-weight: 600; color: #065f46;">
+                                        ✅ Trading Checklist
+                                    </div>
+                                    <div style="background: #d1fae5; padding: 8px; border-radius: 6px; text-align: center; font-size: 12px; font-weight: 600; color: #065f46;">
+                                        📊 Strategy Template
+                                    </div>
+                                    <div style="background: #d1fae5; padding: 8px; border-radius: 6px; text-align: center; font-size: 12px; font-weight: 600; color: #065f46;">
+                                        💼 Risk Calculator
+                                    </div>
+                                    <div style="background: #d1fae5; padding: 8px; border-radius: 6px; text-align: center; font-size: 12px; font-weight: 600; color: #065f46;">
+                                        🎓 Quick Reference
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="cta-button">
+                                📥 Get My Free Downloads Now
+                            </button>
+
+                            <div class="social-proof">
+                                8,245 traders downloaded these this month
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Tools and templates are for educational purposes. Not financial advice.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag purple">Lead Magnet</span>
+                        <span class="meta-tag">Download Offer</span>
+                        <span class="meta-tag green">CVR: 28-38%</span>
+                    </div>
+                </div>
+
+                <!-- Scroll Depth 5: Next Step Guide -->
+                <div class="popup-card">
+                    <div class="popup-label">SCROLL #5</div>
+                    <h3 class="popup-title">Next Step Guide</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">🎯</div>
+                            <h2 class="popup-heading gradient-text">Ready to Apply What You Learned?</h2>
+                            <p class="popup-description">
+                                Turn knowledge into action. Get <strong>step-by-step implementation guides</strong> + practice signals.
+                            </p>
+
+                            <div style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border: 2px solid #3b82f6; border-radius: 12px; padding: 16px; margin-bottom: 16px;">
+                                <div style="font-weight: 700; color: #1e40af; margin-bottom: 12px;">🚀 Your Next Steps:</div>
+                                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                                    <div style="background: #3b82f6; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0;">1</div>
+                                    <span style="font-size: 13px; color: #1e40af; font-weight: 600;">Open demo account (practice risk-free)</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                                    <div style="background: #3b82f6; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0;">2</div>
+                                    <span style="font-size: 13px; color: #1e40af; font-weight: 600;">Follow our practice signals (20 signals/week)</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div style="background: #3b82f6; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0;">3</div>
+                                    <span style="font-size: 13px; color: #1e40af; font-weight: 600;">Go live when ready ($10 minimum)</span>
+                                </div>
+                            </div>
+
+                            <button class="cta-button blue">
+                                🎯 Start Practicing Now (Free Demo)
+                            </button>
+
+                            <div class="social-proof">
+                                92% of successful traders started with demo
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Demo results may differ from live trading. Always start small.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag green">Action-Oriented</span>
+                        <span class="meta-tag">Next Steps</span>
+                        <span class="meta-tag green">CVR: 25-35%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 4: TIME-ON-SITE POPUPS -->
+        <div class="category" id="time-on-site">
+            <div class="category-header">
+                <h2>4️⃣ Time-on-Site Popups (5 Variants)</h2>
+                <p>Trigger: After 60-90 seconds on site. Goal: Engage exploring users who haven't converted. Best for: Mixed traffic, multi-page browsers.</p>
+            </div>
+
+            <div class="popup-grid">
+                <!-- Time-on-Site 1: Personalized Offer -->
+                <div class="popup-card">
+                    <div class="popup-label">TIME #1</div>
+                    <h3 class="popup-title">Personalized Offer</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">💎</div>
+                            <h2 class="popup-heading gradient-text">Still Exploring?</h2>
+                            <p class="popup-description">
+                                We see you're interested in <strong>trading signals</strong>. Get <strong>personalized recommendations</strong> based on your browsing.
+                            </p>
+
+                            <div class="benefits-box blue">
+                                <strong style="color: #1e40af; display: block; margin-bottom: 8px;">🎯 Based on Your Interest, We Recommend:</strong>
+                                <ul class="benefits-list">
+                                    <li>📊 Forex Signals Package (Daily)</li>
+                                    <li>🎓 Beginner's Trading Course</li>
+                                    <li>📰 GCC Market News Feed</li>
+                                    <li>💼 Risk Management Tools</li>
+                                </ul>
+                            </div>
+
+                            <button class="cta-button blue">
+                                🎯 Get My Personalized Package
+                            </button>
+
+                            <div class="social-proof">
+                                Tailored for your learning path
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Personalized content based on browsing. Not financial advice.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag purple">Personalized</span>
+                        <span class="meta-tag">Behavior-Based</span>
+                        <span class="meta-tag green">CVR: 27-37%</span>
+                    </div>
+                </div>
+
+                <!-- Time-on-Site 2: Engagement Reward -->
+                <div class="popup-card">
+                    <div class="popup-label">TIME #2</div>
+                    <h3 class="popup-title">Engagement Reward</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">🏆</div>
+                            <h2 class="popup-heading gradient-green">You've Been Here 90 Seconds...</h2>
+                            <p class="popup-description">
+                                That means you're serious about trading. Here's a <strong>special reward for engaged visitors</strong>:
+                            </p>
+
+                            <div class="benefits-box purple">
+                                <strong style="color: #6b21a8; display: block; margin-bottom: 8px;">🎁 Exclusive Bonus (Limited Time):</strong>
+                                <ul class="benefits-list">
+                                    <li>🎯 First Month: Premium Access FREE</li>
+                                    <li>🎯 1-on-1 Onboarding with Expert</li>
+                                    <li>🎯 Trading Plan Template</li>
+                                    <li>🎯 VIP Telegram Group Access</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #fbbf24; padding: 12px; border-radius: 8px; text-align: center; margin-bottom: 16px;">
+                                <div style="font-size: 13px; color: #92400e; font-weight: 700;">
+                                    ⚡ Claim in next 5 minutes or lose this offer
+                                </div>
+                            </div>
+
+                            <button class="cta-button purple">
+                                🏆 Claim My Engagement Reward
+                            </button>
+
+                            <div class="social-proof">
+                                Only for visitors who spend 90+ seconds
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Bonus offer does not guarantee trading success. Trade responsibly.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag orange">Reward-Based</span>
+                        <span class="meta-tag">Engagement Trigger</span>
+                        <span class="meta-tag green">CVR: 29-39%</span>
+                    </div>
+                </div>
+
+                <!-- Time-on-Site 3: Question Prompt -->
+                <div class="popup-card">
+                    <div class="popup-label">TIME #3</div>
+                    <h3 class="popup-title">Help Prompt</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">🤝</div>
+                            <h2 class="popup-heading gradient-text">Can We Help You Find Something?</h2>
+                            <p class="popup-description">
+                                You've been browsing for a while. Let us <strong>guide you to what you need</strong>:
+                            </p>
+
+                            <div style="background: white; border: 2px solid #e5e7eb; border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+                                <div style="font-weight: 700; color: #1f2937; margin-bottom: 12px;">What brings you here today?</div>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <button style="padding: 12px; border: 2px solid #10b981; background: white; border-radius: 6px; cursor: pointer; font-weight: 600; color: #065f46; transition: all 0.2s; text-align: left;" onmouseover="this.style.background='#d1fae5'" onmouseout="this.style.background='white'">
+                                        📊 I want trading signals
+                                    </button>
+                                    <button style="padding: 12px; border: 2px solid #e5e7eb; background: white; border-radius: 6px; cursor: pointer; font-weight: 600; color: #374151; transition: all 0.2s; text-align: left;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
+                                        🎓 I want to learn trading
+                                    </button>
+                                    <button style="padding: 12px; border: 2px solid #e5e7eb; background: white; border-radius: 6px; cursor: pointer; font-weight: 600; color: #374151; transition: all 0.2s; text-align: left;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
+                                        💼 I need a broker
+                                    </button>
+                                    <button style="padding: 12px; border: 2px solid #e5e7eb; background: white; border-radius: 6px; cursor: pointer; font-weight: 600; color: #374151; transition: all 0.2s; text-align: left;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='white'">
+                                        📰 I want market news
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="social-proof">
+                                Get instant recommendations based on your goal
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Recommendations are educational. Not personalized financial advice.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag blue">Interactive</span>
+                        <span class="meta-tag">Help-Oriented</span>
+                        <span class="meta-tag green">CVR: 24-34%</span>
+                    </div>
+                </div>
+
+                <!-- Time-on-Site 4: Comparison -->
+                <div class="popup-card">
+                    <div class="popup-label">TIME #4</div>
+                    <h3 class="popup-title">Competitive Comparison</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">⚖️</div>
+                            <h2 class="popup-heading gradient-green">Comparing Options?</h2>
+                            <p class="popup-description">
+                                See why <strong>12,547 traders chose us</strong> over competitors:
+                            </p>
+
+                            <table class="comparison-table">
+                                <tr>
+                                    <td><strong>Feature</strong></td>
+                                    <td><strong>Us</strong></td>
+                                    <td><strong>Others</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Signals/Day</td>
+                                    <td style="color: #10b981;">15-20</td>
+                                    <td style="color: #6b7280;">3-5</td>
+                                </tr>
+                                <tr>
+                                    <td>Minimum Deposit</td>
+                                    <td style="color: #10b981;">$10</td>
+                                    <td style="color: #6b7280;">$100+</td>
+                                </tr>
+                                <tr>
+                                    <td>Education Content</td>
+                                    <td style="color: #10b981;">50+ Courses</td>
+                                    <td style="color: #6b7280;">5-10</td>
+                                </tr>
+                                <tr>
+                                    <td>Support Language</td>
+                                    <td style="color: #10b981;">AR + EN 24/7</td>
+                                    <td style="color: #6b7280;">EN Only</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Cost</td>
+                                    <td style="color: #10b981;"><strong>$0/mo</strong></td>
+                                    <td style="color: #dc2626;"><strong>$99-299/mo</strong></td>
+                                </tr>
+                            </table>
+
+                            <button class="cta-button">
+                                ✅ Choose the Better Option
+                            </button>
+
+                            <div class="social-proof">
+                                Rated #1 for value by GCC traders
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Comparison based on advertised features. Verify independently.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag purple">Comparison</span>
+                        <span class="meta-tag">Competitive</span>
+                        <span class="meta-tag green">CVR: 26-36%</span>
+                    </div>
+                </div>
+
+                <!-- Time-on-Site 5: Last Chance -->
+                <div class="popup-card">
+                    <div class="popup-label">TIME #5</div>
+                    <h3 class="popup-title">Inactivity Prompt</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">👀</div>
+                            <h2 class="popup-heading gradient-red">Still There?</h2>
+                            <p class="popup-description">
+                                We noticed you've been inactive for a bit. <strong>Don't miss today's top opportunities</strong>:
+                            </p>
+
+                            <div class="live-activity">
+                                <div class="live-dot"></div>
+                                <div class="live-text">
+                                    🔥 EUR/USD signal just triggered (+47 pips)
+                                </div>
+                            </div>
+
+                            <div class="benefits-box">
+                                <strong style="color: #065f46; display: block; margin-bottom: 8px;">⚡ What You're Missing Right Now:</strong>
+                                <ul class="benefits-list">
+                                    <li>🎯 3 Active High-Probability Signals</li>
+                                    <li>🎯 Breaking: Fed Rate Decision Alert</li>
+                                    <li>🎯 Live Trading Room (87 traders online)</li>
+                                    <li>🎯 Today's Market Analysis (Just Posted)</li>
+                                </ul>
+                            </div>
+
+                            <button class="cta-button red">
+                                ⚡ Jump In Now (Don't Miss Out)
+                            </button>
+
+                            <div class="social-proof">
+                                127 traders took action in last 15 minutes
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Real-time signals for educational purposes. Trade at your own risk.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag orange">Urgency</span>
+                        <span class="meta-tag">Inactivity Trigger</span>
+                        <span class="meta-tag green">CVR: 28-38%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 5: CONTENT GATE POPUPS -->
+        <div class="category" id="content-gate">
+            <div class="category-header">
+                <h2>5️⃣ Content Gate Popups (5 Variants)</h2>
+                <p>Trigger: User exhausts free content limit (3 signals/articles). Goal: Convert engaged users. Best for: Power users, repeat visitors.</p>
+            </div>
+
+            <div class="popup-grid">
+                <!-- Content Gate 1: Limit Reached -->
+                <div class="popup-card">
+                    <div class="popup-label">GATE #1</div>
+                    <h3 class="popup-title">Limit Reached (Standard)</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">🔒</div>
+                            <h2 class="popup-heading gradient-red">Free Limit Reached!</h2>
+                            <p class="popup-description">
+                                You've used all <strong>3 free signals</strong> for today. Unlock <strong>unlimited access</strong> with just $10.
+                            </p>
+
+                            <div class="benefits-box">
+                                <strong style="color: #065f46; display: block; margin-bottom: 8px;">🎁 Get UNLIMITED Access:</strong>
+                                <ul class="benefits-list">
+                                    <li>✅ Unlimited Trading Signals (15-20/day)</li>
+                                    <li>✅ Full Market Analysis & Education</li>
+                                    <li>✅ Real-Time News & Alerts</li>
+                                    <li>✅ Expert Support 24/7</li>
+                                </ul>
+                            </div>
+
+                            <button class="cta-button">
+                                🚀 Unlock Unlimited Access Now
+                            </button>
+
+                            <div class="social-proof">
+                                8,245 traders unlocked unlimited this week
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Unlimited access via broker account. CFDs carry risk of loss.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag orange">Hard Gate</span>
+                        <span class="meta-tag">Limit Enforcement</span>
+                        <span class="meta-tag green">CVR: 30-40%</span>
+                    </div>
+                </div>
+
+                <!-- Content Gate 2: Preview + Unlock -->
+                <div class="popup-card">
+                    <div class="popup-label">GATE #2</div>
+                    <h3 class="popup-title">Preview + Unlock</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">👁️</div>
+                            <h2 class="popup-heading gradient-text">Want to See the Full Signal?</h2>
+                            <p class="popup-description">
+                                You can see <strong>part of this signal</strong> for free, but the <strong>entry price, stop-loss & take-profit</strong> are locked.
+                            </p>
+
+                            <div style="background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 16px; margin-bottom: 16px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <span style="font-weight: 700; color: #1f2937;">EUR/USD</span>
+                                    <span style="background: #10b981; color: white; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 700;">BUY</span>
+                                </div>
+                                <div style="font-size: 13px; color: #6b7280; margin-bottom: 12px;">
+                                    Strong bullish momentum on 4H chart. Technical indicators align...
+                                </div>
+                                <div style="background: rgba(107, 114, 128, 0.1); padding: 12px; border-radius: 8px; position: relative; filter: blur(4px);">
+                                    <div style="font-size: 13px; color: #374151;">
+                                        Entry: 1.0850<br>
+                                        Stop Loss: 1.0820<br>
+                                        Take Profit: 1.0920
+                                    </div>
+                                </div>
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1f2937; color: white; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 14px;">
+                                    🔒 LOCKED
+                                </div>
+                            </div>
+
+                            <button class="cta-button">
+                                🔓 Unlock This Signal Now
+                            </button>
+
+                            <div class="social-proof">
+                                + 12 more premium signals unlocked today
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Signals are for educational purposes. Not financial advice.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag blue">Preview</span>
+                        <span class="meta-tag">Partial Access</span>
+                        <span class="meta-tag green">CVR: 35-45%</span>
+                    </div>
+                </div>
+
+                <!-- Content Gate 3: Progress Loss -->
+                <div class="popup-card">
+                    <div class="popup-label">GATE #3</div>
+                    <h3 class="popup-title">Progress Loss Warning</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">⚠️</div>
+                            <h2 class="popup-heading gradient-red">Don't Lose Your Progress!</h2>
+                            <p class="popup-description">
+                                You've completed <strong>8 lessons</strong> so far. Unlock unlimited access to <strong>save your progress</strong> and continue learning.
+                            </p>
+
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 32%"></div>
+                            </div>
+                            <div style="font-size: 13px; color: #6b7280; margin-bottom: 16px; text-align: center;">
+                                📚 Course Progress: 8/25 Lessons (32%)
+                            </div>
+
+                            <div class="benefits-box purple">
+                                <strong style="color: #6b21a8; display: block; margin-bottom: 8px;">🔓 Continue Your Journey:</strong>
+                                <ul class="benefits-list">
+                                    <li>📖 Save Progress Across All Courses</li>
+                                    <li>📜 Get Completion Certificates</li>
+                                    <li>🎯 Unlock 17 Remaining Lessons</li>
+                                    <li>💬 Join Course Discussion Groups</li>
+                                </ul>
+                            </div>
+
+                            <button class="cta-button purple">
+                                💎 Save My Progress & Continue
+                            </button>
+
+                            <div class="social-proof">
+                                Don't start over — unlock now and pick up where you left off
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Course content is educational. Not personalized financial advice.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag orange">Loss Aversion</span>
+                        <span class="meta-tag">Progress Tracking</span>
+                        <span class="meta-tag green">CVR: 32-42%</span>
+                    </div>
+                </div>
+
+                <!-- Content Gate 4: Peer Comparison -->
+                <div class="popup-card">
+                    <div class="popup-label">GATE #4</div>
+                    <h3 class="popup-title">Peer Comparison</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">📊</div>
+                            <h2 class="popup-heading gradient-green">You're More Engaged Than 87% of Visitors</h2>
+                            <p class="popup-description">
+                                You've viewed <strong>12 signals</strong> today — that's more than most! <strong>Join the top 13%</strong> who unlock unlimited access.
+                            </p>
+
+                            <div style="background: white; border: 2px solid #10b981; border-radius: 12px; padding: 16px; margin-bottom: 16px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                    <span style="font-weight: 700; color: #1f2937;">You</span>
+                                    <span style="background: #10b981; color: white; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 700;">TOP 13%</span>
+                                </div>
+                                <div class="progress-bar" style="margin-bottom: 8px;">
+                                    <div class="progress-fill" style="width: 87%"></div>
+                                </div>
+                                <div style="font-size: 12px; color: #6b7280;">
+                                    You're ahead of 87% of visitors. Join the elite 13% with unlimited access.
+                                </div>
+                            </div>
+
+                            <div class="benefits-box">
+                                <strong style="color: #065f46; display: block; margin-bottom: 8px;">🏆 Benefits for Top Performers:</strong>
+                                <ul class="benefits-list">
+                                    <li>⭐ VIP Badge in Community</li>
+                                    <li>⭐ Early Access to New Signals</li>
+                                    <li>⭐ Priority Support Queue</li>
+                                    <li>⭐ Exclusive Webinars & Events</li>
+                                </ul>
+                            </div>
+
+                            <button class="cta-button">
+                                🏆 Join the Top 13% Now
+                            </button>
+
+                            <div class="social-proof">
+                                Elite members outperform by 2.3× on average
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Performance statistics are educational. Past results don't guarantee future success.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag purple">Social Comparison</span>
+                        <span class="meta-tag">Gamification</span>
+                        <span class="meta-tag green">CVR: 33-43%</span>
+                    </div>
+                </div>
+
+                <!-- Content Gate 5: Alternative Path -->
+                <div class="popup-card">
+                    <div class="popup-label">GATE #5</div>
+                    <h3 class="popup-title">Alternative Path Offer</h3>
+                    <div class="popup-preview">
+                        <div class="popup-content">
+                            <div class="popup-emoji">🤔</div>
+                            <h2 class="popup-heading gradient-text">Free Limit Reached. Choose Your Path:</h2>
+                            <p class="popup-description">
+                                You have <strong>2 options</strong> to continue accessing premium signals:
+                            </p>
+
+                            <div style="display: grid; gap: 12px; margin-bottom: 16px;">
+                                <div style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border: 3px solid #10b981; border-radius: 12px; padding: 16px; position: relative;">
+                                    <div style="position: absolute; top: -12px; left: 12px; background: #10b981; color: white; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 700;">RECOMMENDED</div>
+                                    <div style="font-weight: 700; color: #065f46; font-size: 16px; margin-bottom: 8px; margin-top: 8px;">
+                                        🚀 Option 1: Unlimited Access
+                                    </div>
+                                    <div style="font-size: 13px; color: #047857; margin-bottom: 12px;">
+                                        Open broker account ($10 min) → Get unlimited signals, education, news forever
+                                    </div>
+                                    <div style="background: white; padding: 8px 12px; border-radius: 6px; font-size: 12px; color: #065f46; font-weight: 700;">
+                                        ✅ Best Value: $0/month forever
+                                    </div>
+                                </div>
+
+                                <div style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border: 2px solid #3b82f6; border-radius: 12px; padding: 16px;">
+                                    <div style="font-weight: 700; color: #1e40af; font-size: 16px; margin-bottom: 8px;">
+                                        📧 Option 2: Email Signup
+                                    </div>
+                                    <div style="font-size: 13px; color: #1e40af; margin-bottom: 12px;">
+                                        Get 1 free signal per day via email (no broker account needed)
+                                    </div>
+                                    <div style="background: white; padding: 8px 12px; border-radius: 6px; font-size: 12px; color: #1e40af; font-weight: 700;">
+                                        Limited: 1 signal/day only
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="cta-button">
+                                🚀 Choose Option 1 (Unlimited)
+                            </button>
+
+                            <div style="text-align: center; margin-top: 12px;">
+                                <button style="background: transparent; border: none; color: #6b7280; font-size: 13px; cursor: pointer; text-decoration: underline;">
+                                    Or choose Option 2 (Email only)
+                                </button>
+                            </div>
+
+                            <div class="risk-warning">
+                                ⚠️ Both options carry no cost. Broker account enables trading (risk applies).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-meta">
+                        <span class="meta-tag blue">Choice Architecture</span>
+                        <span class="meta-tag">2-Path Offer</span>
+                        <span class="meta-tag green">CVR: 36-46%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 6: FLOATING ACTION BUTTONS -->
+        <div class="category" id="floating-button">
+            <div class="category-header">
+                <h2>6️⃣ Floating Action Buttons (5 Variants)</h2>
+                <p>Trigger: Always visible (bottom-right corner). Goal: Persistent, non-intrusive CTA. Best for: All traffic, mobile users, baseline conversion.</p>
+            </div>
+
+            <div class="popup-grid">
+                <!-- Floating Button 1: Live Activity -->
+                <div class="popup-card">
+                    <div class="popup-label">FAB #1</div>
+                    <h3 class="popup-title">Live Activity Feed</h3>
+                    <div class="popup-preview">
+                        <div style="position: relative; height: 300px; background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border-radius: 8px; padding: 20px;">
+
+                            <!-- Live Activity Notification -->
+                            <div style="position: absolute; bottom: 100px; right: 20px; background: white; padding: 12px 16px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); max-width: 240px; animation: slideIn 0.4s ease-out;">
+                                <div style="font-size: 13px; line-height: 1.4;">
+                                    <strong style="color: #10b981;">Ahmed from Dubai</strong> just opened an account
+                                </div>
+                                <div style="font-size: 11px; color: #9ca3af; margin-top: 4px;">
+                                    2 minutes ago
+                                </div>
+                            </div>
+
+                            <!-- Floating Action Button -->
+                            <div style="position: absolute; bottom: 20px; right: 20px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 16px 24px; border-radius: 50px; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3); cursor: pointer; display: flex; align-items: center; gap: 12px; transition: all 0.3s;">
+                                <div style="font-size: 24px; animation: bounce 1s infinite;">🚀</div>
+                                <div>
+                                    <div style="font-weight: 700; font-size: 14px; line-height: 1.2;">Open Account</div>
+                                    <div style="font-size: 11px; opacity: 0.9; line-height: 1.2;">Join 12,547 traders</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="popup-meta" style="margin-top: 1rem;">
+                            <span class="meta-tag green">Live Updates</span>
+                            <span class="meta-tag">Social Proof</span>
+                            <span class="meta-tag purple">Always Visible</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Button 2: Pulse + Counter -->
+                <div class="popup-card">
+                    <div class="popup-label">FAB #2</div>
+                    <h3 class="popup-title">Pulsing Counter</h3>
+                    <div class="popup-preview">
+                        <div style="position: relative; height: 300px; background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border-radius: 8px; padding: 20px;">
+
+                            <div style="position: absolute; bottom: 20px; right: 20px;">
+                                <!-- Badge Counter -->
+                                <div style="position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; border: 3px solid white; z-index: 10; animation: pulse 2s infinite;">
+                                    3
+                                </div>
+
+                                <!-- Button -->
+                                <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 32px;">
+                                    🎁
+                                </div>
+                            </div>
+
+                            <div style="position: absolute; bottom: 100px; right: 20px; background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-size: 12px; max-width: 200px;">
+                                <strong style="color: #3b82f6;">3 new signals available!</strong>
+                                <div style="color: #6b7280; margin-top: 4px;">Click to unlock</div>
+                            </div>
+                        </div>
+
+                        <div class="popup-meta" style="margin-top: 1rem;">
+                            <span class="meta-tag orange">Notification Badge</span>
+                            <span class="meta-tag">Count Updates</span>
+                            <span class="meta-tag green">High Attention</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Button 3: Expandable -->
+                <div class="popup-card">
+                    <div class="popup-label">FAB #3</div>
+                    <h3 class="popup-title">Expandable Menu</h3>
+                    <div class="popup-preview">
+                        <div style="position: relative; height: 300px; background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border-radius: 8px; padding: 20px;">
+
+                            <!-- Expanded Menu Items -->
+                            <div style="position: absolute; bottom: 100px; right: 20px; display: flex; flex-direction: column; gap: 12px;">
+                                <div style="background: white; padding: 12px 16px; border-radius: 50px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1f2937;">
+                                    📊 View Signals
+                                </div>
+                                <div style="background: white; padding: 12px 16px; border-radius: 50px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1f2937;">
+                                    💬 Live Chat
+                                </div>
+                                <div style="background: white; padding: 12px 16px; border-radius: 50px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1f2937;">
+                                    📚 Education
+                                </div>
+                            </div>
+
+                            <!-- Main FAB -->
+                            <div style="position: absolute; bottom: 20px; right: 20px; background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%); color: white; width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 28px;">
+                                ✨
+                            </div>
+                        </div>
+
+                        <div class="popup-meta" style="margin-top: 1rem;">
+                            <span class="meta-tag purple">Multi-Option</span>
+                            <span class="meta-tag">Expandable</span>
+                            <span class="meta-tag blue">Interactive</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Button 4: Minimal Text -->
+                <div class="popup-card">
+                    <div class="popup-label">FAB #4</div>
+                    <h3 class="popup-title">Text Callout</h3>
+                    <div class="popup-preview">
+                        <div style="position: relative; height: 300px; background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border-radius: 8px; padding: 20px;">
+
+                            <!-- Callout Bubble -->
+                            <div style="position: absolute; bottom: 100px; right: 20px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #fbbf24; padding: 12px 16px; border-radius: 12px; max-width: 200px; box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3); animation: bounce 1s infinite;">
+                                <div style="font-size: 13px; font-weight: 700; color: #92400e; text-align: center;">
+                                    💎 Limited: Only 47 spots left!
+                                </div>
+                                <div style="position: absolute; bottom: -8px; right: 30px; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 8px solid #fbbf24;"></div>
+                            </div>
+
+                            <!-- Button -->
+                            <div style="position: absolute; bottom: 20px; right: 20px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; padding: 16px 24px; border-radius: 50px; box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4); cursor: pointer; display: flex; align-items: center; gap: 12px; font-weight: 700;">
+                                🔥 Claim Spot
+                            </div>
+                        </div>
+
+                        <div class="popup-meta" style="margin-top: 1rem;">
+                            <span class="meta-tag orange">Urgency</span>
+                            <span class="meta-tag">Callout Bubble</span>
+                            <span class="meta-tag green">High Conversion</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Button 5: Progress Indicator -->
+                <div class="popup-card">
+                    <div class="popup-label">FAB #5</div>
+                    <h3 class="popup-title">Progress Indicator</h3>
+                    <div class="popup-preview">
+                        <div style="position: relative; height: 300px; background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border-radius: 8px; padding: 20px;">
+
+                            <!-- Button with Progress Ring -->
+                            <div style="position: absolute; bottom: 20px; right: 20px;">
+                                <!-- Progress Ring (SVG-like representation) -->
+                                <div style="position: absolute; top: -4px; left: -4px; right: -4px; bottom: -4px; border: 4px solid #e5e7eb; border-radius: 50%;"></div>
+                                <div style="position: absolute; top: -4px; left: -4px; width: 72px; height: 72px; border: 4px solid #10b981; border-radius: 50%; clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 62%);"></div>
+
+                                <!-- Main Button -->
+                                <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                    <div style="font-size: 20px; font-weight: 700; line-height: 1;">2/3</div>
+                                    <div style="font-size: 9px; opacity: 0.9; line-height: 1;">Free Left</div>
+                                </div>
+                            </div>
+
+                            <div style="position: absolute; bottom: 100px; right: 20px; background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-size: 12px; max-width: 200px;">
+                                <div style="font-weight: 700; color: #1f2937; margin-bottom: 4px;">You've used 1 of 3 free signals</div>
+                                <div style="color: #6b7280;">Unlock unlimited access now</div>
+                            </div>
+                        </div>
+
+                        <div class="popup-meta" style="margin-top: 1rem;">
+                            <span class="meta-tag blue">Visual Progress</span>
+                            <span class="meta-tag">Gamification</span>
+                            <span class="meta-tag green">Clear Value</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 7: STICKY BANNERS -->
+        <div class="category" id="sticky-banner">
+            <div class="category-header">
+                <h2>7️⃣ Sticky Banners (5 Variants)</h2>
+                <p>Trigger: Scroll past hero section. Goal: Persistent reminder without popup. Best for: Announcements, time-sensitive offers, all devices.</p>
+            </div>
+
+            <div class="popup-grid">
+                <!-- Sticky Banner 1: Top Bar (Minimal) -->
+                <div class="popup-card">
+                    <div class="popup-label">BANNER #1</div>
+                    <h3 class="popup-title">Top Bar (Minimal)</h3>
+                    <div class="popup-preview">
+                        <div style="background: linear-gradient(135deg, #1f2937 0%, #111827 100%); color: white; padding: 12px 20px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+                            <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+                                <div style="font-size: 20px;">🚀</div>
+                                <div style="font-size: 14px; line-height: 1.4;">
+                                    <strong>Limited Offer:</strong> Get unlimited access with just $10 minimum deposit
+                                </div>
+                            </div>
+                            <button style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 10px 20px; border: none; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; white-space: nowrap;">
+                                Open Account →
+                            </button>
+                            <button style="background: transparent; border: none; color: white; font-size: 20px; cursor: pointer; opacity: 0.7;">✕</button>
+                        </div>
+
+                        <div class="popup-meta" style="margin-top: 1rem;">
+                            <span class="meta-tag">Minimal Design</span>
+                            <span class="meta-tag blue">Top Position</span>
+                            <span class="meta-tag green">Clear CTA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sticky Banner 2: Countdown Timer -->
+                <div class="popup-card">
+                    <div class="popup-label">BANNER #2</div>
+                    <h3 class="popup-title">Countdown Timer</h3>
+                    <div class="popup-preview">
+                        <div style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; padding: 16px 20px; border-radius: 8px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div style="font-size: 24px;">⚡</div>
+                                    <div>
+                                        <div style="font-size: 16px; font-weight: 700; line-height: 1.2; margin-bottom: 4px;">
+                                            FLASH SALE: Premium Access for $10
+                                        </div>
+                                        <div style="font-size: 12px; opacity: 0.9;">
+                                            Offer ends in:
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div style="display: flex; gap: 8px;">
+                                        <div style="background: rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 6px; text-align: center;">
+                                            <div style="font-size: 20px; font-weight: 700; line-height: 1;">09</div>
+                                            <div style="font-size: 10px; opacity: 0.8;">HRS</div>
+                                        </div>
+                                        <div style="font-size: 20px; font-weight: 700;">:</div>
+                                        <div style="background: rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 6px; text-align: center;">
+                                            <div style="font-size: 20px; font-weight: 700; line-height: 1;">47</div>
+                                            <div style="font-size: 10px; opacity: 0.8;">MIN</div>
+                                        </div>
+                                    </div>
+                                    <button style="background: white; color: #dc2626; padding: 12px 24px; border: none; border-radius: 6px; font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap;">
+                                        Claim Now →
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="popup-meta" style="margin-top: 1rem;">
+                            <span class="meta-tag orange">Countdown</span>
+                            <span class="meta-tag">Urgency</span>
+                            <span class="meta-tag green">High Impact</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sticky Banner 3: Multi-Benefit -->
+                <div class="popup-card">
+                    <div class="popup-label">BANNER #3</div>
+                    <h3 class="popup-title">Multi-Benefit Bar</h3>
+                    <div class="popup-preview">
+                        <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 14px 20px; border-radius: 8px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+                                <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; flex: 1;">
+                                    <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600;">
+                                        ✅ Unlimited Signals
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600;">
+                                        ✅ 24/7 Support
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600;">
+                                        ✅ $10 Minimum
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600;">
+                                        ✅ Instant Access
+                                    </div>
+                                </div>
+                                <button style="background: white; color: #2563eb; padding: 10px 24px; border: none; border-radius: 6px; font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap;">
+                                    Get Started →
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="popup-meta" style="margin-top: 1rem;">
+                            <span class="meta-tag blue">Feature List</span>
+                            <span class="meta-tag">Multi-Benefit</span>
+                            <span class="meta-tag green">Informative</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sticky Banner 4: Social Proof -->
+                <div class="popup-card">
+                    <div class="popup-label">BANNER #4</div>
+                    <h3 class="popup-title">Live Social Proof</h3>
+                    <div class="popup-preview">
+                        <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 14px 20px; border-radius: 8px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+                                <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+                                    <div style="background: rgba(255,255,255,0.2); width: 8px; height: 8px; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                                    <div style="font-size: 14px; font-weight: 600;">
+                                        🔥 <strong>127 traders</strong> joined in the last hour
+                                    </div>
+                                    <div style="font-size: 13px; opacity: 0.9;">
+                                        • <strong>12,547</strong> total members
+                                    </div>
+                                </div>
+                                <button style="background: white; color: #059669; padding: 10px 24px; border: none; border-radius: 6px; font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap;">
+                                    Join Now →
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="popup-meta" style="margin-top: 1rem;">
+                            <span class="meta-tag purple">Social Proof</span>
+                            <span class="meta-tag">Live Counter</span>
+                            <span class="meta-tag green">Credibility</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sticky Banner 5: Bottom Bar (Mobile-Optimized) -->
+                <div class="popup-card">
+                    <div class="popup-label">BANNER #5</div>
+                    <h3 class="popup-title">Bottom Bar (Mobile)</h3>
+                    <div class="popup-preview">
+                        <div style="background: white; border-top: 3px solid #10b981; padding: 16px 20px; border-radius: 8px; box-shadow: 0 -4px 12px rgba(0,0,0,0.1);">
+                            <div style="display: flex; align-items: center; gap: 16px;">
+                                <div style="flex: 1;">
+                                    <div style="font-size: 15px; font-weight: 700; color: #1f2937; margin-bottom: 4px;">
+                                        Ready to start trading?
+                                    </div>
+                                    <div style="font-size: 12px; color: #6b7280;">
+                                        Join 12,547+ traders • Just $10 minimum
+                                    </div>
+                                </div>
+                                <button style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 14px 24px; border: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">
+                                    Open Account
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="popup-meta" style="margin-top: 1rem;">
+                            <span class="meta-tag green">Mobile-First</span>
+                            <span class="meta-tag">Bottom Position</span>
+                            <span class="meta-tag blue">Thumb-Friendly</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3rem 2rem; border-radius: 12px; text-align: center; margin-top: 4rem;">
+            <h2 style="margin: 0 0 1rem 0; font-size: 2rem;">✅ 35 High-Converting Popups Ready to Deploy</h2>
+            <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem;">
+                Copy the HTML, customize the styling, add your tracking, and start converting!
+            </p>
+            <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                <h3 style="margin: 0 0 1rem 0;">📊 Expected Results:</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: left;">
+                    <div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">Exit Intent</div>
+                        <div style="font-size: 1.5rem; font-weight: 700;">+1.5% CVR</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">Entry Popup</div>
+                        <div style="font-size: 1.5rem; font-weight: 700;">+2% CVR</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">Floating Button</div>
+                        <div style="font-size: 1.5rem; font-weight: 700;">+0.75% CVR</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">Total Impact</div>
+                        <div style="font-size: 1.5rem; font-weight: 700;">0.6% → 4.02%</div>
+                    </div>
+                </div>
+            </div>
+            <p style="font-size: 0.9rem; opacity: 0.8;">
+                TradeFlow.blog Popup Library | Generated: 2025-01-15 | All examples are copy-paste ready
+            </p>
+        </footer>
+    </div>
+
+    <style>
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</body>
+</html>
