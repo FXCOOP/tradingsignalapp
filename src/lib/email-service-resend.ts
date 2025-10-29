@@ -52,14 +52,14 @@ export async function sendEmail(
     });
 
     console.log(`✅ [${emailType}] Email sent to ${user.email}`, {
-      messageId: result.id,
+      messageId: result.data?.id || 'unknown',
       emailType,
       userId: user.id,
     });
 
     return {
       success: true,
-      messageId: result.id,
+      messageId: result.data?.id || 'unknown',
     };
   } catch (error: any) {
     console.error(`❌ [${emailType}] Email failed to ${user.email}`, {
