@@ -6733,7 +6733,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 <ExnessLink
                   href={isMobile
                     ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
-                    : "https://one.exnessonelink.com/a/c_8f0nxidtbt"
+                    : "https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt"
                   }
                   source="broker_widget_1"
                   style={{
@@ -6996,7 +6996,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         <ExnessLink
                           href={isMobile
                             ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
-                            : "https://one.exnessonelink.com/a/c_8f0nxidtbt"
+                            : "https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt"
                           }
                           source="broker_widget"
                           style={{
@@ -7824,7 +7824,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         <ExnessLink
                           href={isMobile
                             ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
-                            : "https://one.exnessonelink.com/a/c_8f0nxidtbt"
+                            : "https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt"
                           }
                           source="broker_widget"
                           style={{
@@ -8375,7 +8375,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         <ExnessLink
                           href={isMobile
                             ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
-                            : "https://one.exnessonelink.com/a/c_8f0nxidtbt"
+                            : "https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt"
                           }
                           source="broker_widget"
                           style={{
@@ -11006,7 +11006,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                         <ExnessLink
                           href={isMobile
                             ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
-                            : "https://one.exnessonelink.com/a/c_8f0nxidtbt"
+                            : "https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt"
                           }
                           source="broker_widget"
                           style={{
@@ -12923,7 +12923,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                         <ExnessLink
                           href={isMobile
                             ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
-                            : "https://one.exnessonelink.com/a/c_8f0nxidtbt"
+                            : "https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt"
                           }
                           source="broker_widget"
                           style={{
@@ -13577,7 +13577,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
               <a
                 href={isMobile
                   ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
-                  : "https://one.exnessonelink.com/a/c_8f0nxidtbt"
+                  : "https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt"
                 }
                 target="_blank"
                 rel="noopener noreferrer sponsored"
@@ -14427,7 +14427,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         pointerEvents: 'none'
       }}>
         <a href="/copy-trading">Auto Copy Trading GCC</a>
-        <ExnessLink href="https://one.exnessonelink.com/a/c_8f0nxidtbt" source="footer_link" rel="sponsored">Exness broker</ExnessLink>
+        <ExnessLink href="https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt" source="footer_link" rel="sponsored">Exness broker</ExnessLink>
         <a href="https://www.tradingview.com" rel="nofollow">TradingView charts</a>
         <a href="https://www.tadawul.com.sa" rel="nofollow">TASI Saudi Stock Exchange</a>
         <a href="https://www.dfm.ae" rel="nofollow">Dubai Financial Market</a>
@@ -14554,7 +14554,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
 
             {/* CTA Button */}
             <ExnessLink
-              href="https://one.exnesstrack.org/a/ckdhtel03"
+              href="https://one.exnessonelink.com/boarding/sign-up/a/ckdhtel03"
               source="30min_popup"
               style={{
                 display: 'inline-block',

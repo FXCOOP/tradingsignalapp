@@ -24,7 +24,7 @@ export function BrokerPromptModal({
       logo: '🏦',
       minDeposit: '$10',
       benefits: 'Instant verification, Low spreads, Fast withdrawals',
-      link: 'https://one.exnesstrack.net/a/c_8f0nxidtbt'
+      link: 'https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt'
     }
   ]
 
