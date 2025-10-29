@@ -29,10 +29,15 @@ export function ExnessLink({ href, source, children, onClick, ...props }: Exness
   const { user } = useUser()
 
   const handleClick = async (e: React.MouseEvent) => {
+    e.preventDefault() // Prevent immediate navigation
+
     // Call custom onClick if provided
     if (onClick) {
       onClick()
     }
+
+    let finalUrl = href
+    let clickId = null
 
     try {
       // ✅ Track in Google Analytics
@@ -63,21 +68,37 @@ export function ExnessLink({ href, source, children, onClick, ...props }: Exness
 
         if (response.ok) {
           const data = await response.json()
+          clickId = data.click_id
+
+          // Add click_id to URL as subid parameter
+          const url = new URL(href)
+          url.searchParams.set('subid', clickId)
+          finalUrl = url.toString()
+
           console.log('✅ Exness click tracked:', {
             source,
-            click_id: data.click_id,
-            email: user.email
+            click_id: clickId,
+            email: user.email,
+            final_url: finalUrl
           })
         } else {
           console.warn('⚠️ Failed to track click in database:', await response.text())
         }
       } else {
         console.log('ℹ️ User not logged in - click tracked in GA only')
+        // For non-logged-in users, generate a simple click_id
+        clickId = `anon_${Date.now()}_${Math.random().toString(36).substring(7)}`
+        const url = new URL(href)
+        url.searchParams.set('subid', clickId)
+        finalUrl = url.toString()
       }
     } catch (error) {
       console.error('❌ Failed to track Exness click:', error)
-      // Don't block the link navigation on error
+      // Continue with original URL if tracking fails
     }
+
+    // Open the final URL with click_id
+    window.open(finalUrl, '_blank', 'noopener,noreferrer')
   }
 
   return (

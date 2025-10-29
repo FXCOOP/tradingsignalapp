@@ -85,24 +85,49 @@ export async function POST(request: NextRequest) {
       reward_amount = postbackData.rewardAmount,
       kyc_status = postbackData.kycStatus,
       qualification_status = postbackData.qualificationStatus,
+      subid = postbackData.subid, // 🆕 Extract click_id from subid parameter
       ...otherData
     } = postbackData
+
+    console.log('🔍 Postback includes click_id (subid):', subid)
 
     // Verify partner ID matches
     if (partner_id && partner_id !== EXNESS_PARTNER_ID) {
       console.warn('⚠️ Partner ID mismatch:', partner_id, 'Expected:', EXNESS_PARTNER_ID)
     }
 
-    // Find which user clicked this link (by partner_id or session tracking)
-    const { data: clickData, error: clickError } = await supabaseAdmin
-      .from('exness_clicks')
-      .select('user_id, clicked_at')
-      .eq('partner_id', EXNESS_PARTNER_ID)
-      .order('clicked_at', { ascending: false })
-      .limit(1)
-      .maybeSingle()
+    let userId: string | null = null
 
-    let userId: string | null = clickData?.user_id || null
+    // 🆕 PRIORITY 1: Find user by click_id (from subid parameter)
+    if (subid) {
+      console.log('🔍 Looking up user by click_id:', subid)
+      const { data: clickData, error: clickError } = await supabaseAdmin
+        .from('exness_clicks')
+        .select('user_id, user_email, clicked_at')
+        .eq('click_id', subid)
+        .maybeSingle()
+
+      if (clickData) {
+        userId = clickData.user_id
+        console.log('✅ Found user by click_id:', userId, 'Email:', clickData.user_email)
+      } else {
+        console.warn('⚠️ No click found with click_id:', subid)
+      }
+    }
+
+    // FALLBACK: If no click_id, try to find by most recent click (old method)
+    if (!userId) {
+      console.log('🔍 Falling back to most recent click lookup')
+      const { data: clickData, error: clickError } = await supabaseAdmin
+        .from('exness_clicks')
+        .select('user_id, clicked_at')
+        .eq('partner_id', EXNESS_PARTNER_ID)
+        .order('clicked_at', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+
+      userId = clickData?.user_id || null
+    }
 
     // If no click found, try to find user by Exness user ID (if we've seen them before)
     if (!userId && exness_user_id) {
