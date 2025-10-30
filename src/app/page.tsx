@@ -14610,11 +14610,11 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         defaultMode={authMode}
       />
 
-      {/* 🏦 Multi-Popup System */}
-      <MultiPopupSystem
+      {/* 🏦 Multi-Popup System - Commented out until implemented */}
+      {/* <MultiPopupSystem
         onOpenBrokerAccount={handleOpenBrokerAccount}
         language={language}
-      />
+      /> */}
 
       {/* CSS Animations for 30-min popup */}
       <style jsx global>{`
