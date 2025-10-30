@@ -1,0 +1,2362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15+ Gamification-Style High-Converting Popups - GCC Signal Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 1.2em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .popup-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .popup-header {
+            margin-bottom: 20px;
+        }
+
+        .popup-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .popup-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .popup-desc {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 36px;
+            height: 36px;
+            background: rgba(0,0,0,0.15);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-weight: 300;
+        }
+
+        .close-btn:hover {
+            background: rgba(0,0,0,0.3);
+            transform: rotate(90deg);
+        }
+
+        /* POPUP 1: Original Style - Pink/Orange Gradient */
+        .popup1 {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ffeaa7 100%);
+            padding: 45px 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(255, 154, 158, 0.4);
+        }
+
+        .popup1 .icon {
+            text-align: center;
+            font-size: 70px;
+            margin-bottom: 25px;
+            animation: bounce 2s infinite;
+        }
+
+        .popup1 h3 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #2d3748;
+            font-weight: 800;
+        }
+
+        .popup1 .tagline {
+            text-align: center;
+            color: #4a5568;
+            font-size: 1.05em;
+            margin-bottom: 35px;
+        }
+
+        .popup1 .steps {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup1 .step {
+            background: white;
+            padding: 22px 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .popup1 .step:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+        .popup1 .step-num {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4em;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .popup1 .step-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: #2d3748;
+        }
+
+        .popup1 .step-content p {
+            color: #10b981;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .popup1 .cta-btn {
+            width: 100%;
+            background: white;
+            color: #e74c8c;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.3s;
+        }
+
+        .popup1 .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* POPUP 2: Blue Ocean Waves */
+        .popup2 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 45px 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(79, 172, 254, 0.4);
+        }
+
+        .popup2 .icon {
+            text-align: center;
+            font-size: 70px;
+            margin-bottom: 25px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .popup2 h3 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: white;
+            font-weight: 800;
+        }
+
+        .popup2 .tagline {
+            text-align: center;
+            color: rgba(255,255,255,0.95);
+            font-size: 1.05em;
+            margin-bottom: 35px;
+        }
+
+        .popup2 .steps {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup2 .step {
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            padding: 22px 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+
+        .popup2 .step:hover {
+            background: rgba(255,255,255,0.35);
+            transform: translateX(8px);
+        }
+
+        .popup2 .step-num {
+            width: 50px;
+            height: 50px;
+            background: white;
+            color: #4facfe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4em;
+            flex-shrink: 0;
+        }
+
+        .popup2 .step-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: white;
+        }
+
+        .popup2 .step-content p {
+            color: #fef08a;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .popup2 .cta-btn {
+            width: 100%;
+            background: white;
+            color: #4facfe;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .popup2 .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* POPUP 3: Purple Sunset */
+        .popup3 {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 45px 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(168, 237, 234, 0.4);
+        }
+
+        .popup3 .icon {
+            text-align: center;
+            font-size: 70px;
+            margin-bottom: 25px;
+            animation: pulse 2s infinite;
+        }
+
+        .popup3 h3 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #2d3748;
+            font-weight: 800;
+        }
+
+        .popup3 .tagline {
+            text-align: center;
+            color: #4a5568;
+            font-size: 1.05em;
+            margin-bottom: 35px;
+        }
+
+        .popup3 .steps {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup3 .step {
+            background: white;
+            padding: 22px 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-left: 5px solid #a8edea;
+            transition: all 0.3s;
+        }
+
+        .popup3 .step:hover {
+            border-left-color: #fed6e3;
+            transform: translateX(5px);
+        }
+
+        .popup3 .step-num {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4em;
+            color: #2d3748;
+            flex-shrink: 0;
+        }
+
+        .popup3 .step-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: #2d3748;
+        }
+
+        .popup3 .step-content p {
+            color: #8b5cf6;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .popup3 .cta-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: #2d3748;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(168, 237, 234, 0.3);
+            transition: all 0.3s;
+        }
+
+        .popup3 .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* POPUP 4: Green Success */
+        .popup4 {
+            background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+            padding: 45px 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(150, 230, 161, 0.4);
+        }
+
+        .popup4 .icon {
+            text-align: center;
+            font-size: 70px;
+            margin-bottom: 25px;
+            animation: rotate 4s linear infinite;
+        }
+
+        .popup4 h3 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #065f46;
+            font-weight: 800;
+        }
+
+        .popup4 .tagline {
+            text-align: center;
+            color: #047857;
+            font-size: 1.05em;
+            margin-bottom: 35px;
+        }
+
+        .popup4 .steps {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup4 .step {
+            background: white;
+            padding: 22px 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .popup4 .step::before {
+            content: '✓';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 80px;
+            color: rgba(16, 185, 129, 0.05);
+            font-weight: bold;
+        }
+
+        .popup4 .step:hover {
+            transform: scale(1.02);
+        }
+
+        .popup4 .step-num {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4em;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .popup4 .step-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: #065f46;
+        }
+
+        .popup4 .step-content p {
+            color: #059669;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .popup4 .cta-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            transition: all 0.3s;
+        }
+
+        .popup4 .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* POPUP 5: Orange Energy */
+        .popup5 {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            padding: 45px 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(250, 112, 154, 0.4);
+        }
+
+        .popup5 .icon {
+            text-align: center;
+            font-size: 70px;
+            margin-bottom: 25px;
+            animation: swing 2s ease-in-out infinite;
+        }
+
+        .popup5 h3 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: white;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .popup5 .tagline {
+            text-align: center;
+            color: rgba(255,255,255,0.95);
+            font-size: 1.05em;
+            margin-bottom: 35px;
+        }
+
+        .popup5 .steps {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup5 .step {
+            background: white;
+            padding: 22px 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .popup5 .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+
+        .popup5 .step-num {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #fa709a, #fee140);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4em;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(250, 112, 154, 0.3);
+        }
+
+        .popup5 .step-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: #2d3748;
+        }
+
+        .popup5 .step-content p {
+            color: #f97316;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .popup5 .cta-btn {
+            width: 100%;
+            background: white;
+            color: #fa709a;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.3s;
+        }
+
+        .popup5 .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* POPUP 6: Royal Purple */
+        .popup6 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 45px 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+        }
+
+        .popup6 .icon {
+            text-align: center;
+            font-size: 70px;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+        }
+
+        .popup6 h3 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: white;
+            font-weight: 800;
+        }
+
+        .popup6 .tagline {
+            text-align: center;
+            color: rgba(255,255,255,0.95);
+            font-size: 1.05em;
+            margin-bottom: 35px;
+        }
+
+        .popup6 .steps {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup6 .step {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 22px 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+
+        .popup6 .step:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .popup6 .step-num {
+            width: 50px;
+            height: 50px;
+            background: white;
+            color: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4em;
+            flex-shrink: 0;
+        }
+
+        .popup6 .step-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: white;
+        }
+
+        .popup6 .step-content p {
+            color: #fbbf24;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .popup6 .cta-btn {
+            width: 100%;
+            background: white;
+            color: #667eea;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .popup6 .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* POPUP 7: Red Power */
+        .popup7 {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            padding: 45px 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(255, 107, 107, 0.4);
+        }
+
+        .popup7 .icon {
+            text-align: center;
+            font-size: 70px;
+            margin-bottom: 25px;
+            animation: shake 3s infinite;
+        }
+
+        .popup7 h3 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: white;
+            font-weight: 800;
+        }
+
+        .popup7 .tagline {
+            text-align: center;
+            color: rgba(255,255,255,0.95);
+            font-size: 1.05em;
+            margin-bottom: 35px;
+        }
+
+        .popup7 .steps {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup7 .step {
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            padding: 22px 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+
+        .popup7 .step:hover {
+            background: rgba(255,255,255,0.35);
+        }
+
+        .popup7 .step-num {
+            width: 50px;
+            height: 50px;
+            background: white;
+            color: #ff6b6b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4em;
+            flex-shrink: 0;
+        }
+
+        .popup7 .step-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: white;
+        }
+
+        .popup7 .step-content p {
+            color: #fef08a;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .popup7 .cta-btn {
+            width: 100%;
+            background: white;
+            color: #ff6b6b;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .popup7 .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* POPUP 8: Teal Fresh */
+        .popup8 {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            padding: 45px 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(67, 233, 123, 0.4);
+        }
+
+        .popup8 .icon {
+            text-align: center;
+            font-size: 70px;
+            margin-bottom: 25px;
+        }
+
+        .popup8 h3 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #065f46;
+            font-weight: 800;
+        }
+
+        .popup8 .tagline {
+            text-align: center;
+            color: #047857;
+            font-size: 1.05em;
+            margin-bottom: 35px;
+        }
+
+        .popup8 .steps {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup8 .step {
+            background: white;
+            padding: 22px 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .popup8 .step:hover {
+            transform: translateX(-5px);
+        }
+
+        .popup8 .step-num {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #43e97b, #38f9d7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4em;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .popup8 .step-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: #065f46;
+        }
+
+        .popup8 .step-content p {
+            color: #059669;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .popup8 .cta-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #065f46, #047857);
+            color: white;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(6, 95, 70, 0.3);
+            transition: all 0.3s;
+        }
+
+        .popup8 .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* POPUP 9: Dark Mode */
+        .popup9 {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            padding: 45px 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .popup9 .icon {
+            text-align: center;
+            font-size: 70px;
+            margin-bottom: 25px;
+        }
+
+        .popup9 h3 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: white;
+            font-weight: 800;
+        }
+
+        .popup9 .tagline {
+            text-align: center;
+            color: #cbd5e0;
+            font-size: 1.05em;
+            margin-bottom: 35px;
+        }
+
+        .popup9 .steps {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup9 .step {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            padding: 22px 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.3s;
+        }
+
+        .popup9 .step:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.25);
+        }
+
+        .popup9 .step-num {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4em;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .popup9 .step-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: white;
+        }
+
+        .popup9 .step-content p {
+            color: #60a5fa;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .popup9 .cta-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s;
+        }
+
+        .popup9 .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* POPUP 10: Golden Luxury */
+        .popup10 {
+            background: linear-gradient(135deg, #f7b733 0%, #fc4a1a 100%);
+            padding: 45px 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(247, 183, 51, 0.4);
+        }
+
+        .popup10 .icon {
+            text-align: center;
+            font-size: 70px;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+        }
+
+        .popup10 h3 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: white;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .popup10 .tagline {
+            text-align: center;
+            color: rgba(255,255,255,0.95);
+            font-size: 1.05em;
+            margin-bottom: 35px;
+        }
+
+        .popup10 .steps {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup10 .step {
+            background: white;
+            padding: 22px 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transition: all 0.3s;
+        }
+
+        .popup10 .step:hover {
+            transform: scale(1.03);
+        }
+
+        .popup10 .step-num {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #f7b733, #fc4a1a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4em;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .popup10 .step-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: #2d3748;
+        }
+
+        .popup10 .step-content p {
+            color: #dc2626;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .popup10 .cta-btn {
+            width: 100%;
+            background: white;
+            color: #fc4a1a;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .popup10 .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* POPUP 11: Neon Cyber */
+        .popup11 {
+            background: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+            padding: 45px 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(20, 30, 48, 0.8), 0 0 50px rgba(0, 255, 255, 0.2);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .popup11 .icon {
+            text-align: center;
+            font-size: 70px;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.6));
+        }
+
+        .popup11 h3 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #00ffff;
+            font-weight: 800;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .popup11 .tagline {
+            text-align: center;
+            color: #a0aec0;
+            font-size: 1.05em;
+            margin-bottom: 35px;
+        }
+
+        .popup11 .steps {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup11 .step {
+            background: rgba(0, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 22px 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .popup11 .step:hover {
+            background: rgba(0, 255, 255, 0.1);
+            border-color: rgba(0, 255, 255, 0.6);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .popup11 .step-num {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00ffff, #00bfff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4em;
+            color: #141e30;
+            flex-shrink: 0;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .popup11 .step-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: white;
+        }
+
+        .popup11 .step-content p {
+            color: #00ffff;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .popup11 .cta-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #00ffff, #00bfff);
+            color: #141e30;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4), 0 0 30px rgba(0, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .popup11 .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 255, 255, 0.6), 0 0 50px rgba(0, 255, 255, 0.5);
+        }
+
+        /* POPUP 12: Rose Gold */
+        .popup12 {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            padding: 45px 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(255, 154, 158, 0.4);
+        }
+
+        .popup12 .icon {
+            text-align: center;
+            font-size: 70px;
+            margin-bottom: 25px;
+        }
+
+        .popup12 h3 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #831843;
+            font-weight: 800;
+        }
+
+        .popup12 .tagline {
+            text-align: center;
+            color: #9f1239;
+            font-size: 1.05em;
+            margin-bottom: 35px;
+        }
+
+        .popup12 .steps {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup12 .step {
+            background: white;
+            padding: 22px 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 8px 20px rgba(131, 24, 67, 0.1);
+            transition: all 0.3s;
+        }
+
+        .popup12 .step:hover {
+            box-shadow: 0 12px 30px rgba(131, 24, 67, 0.2);
+        }
+
+        .popup12 .step-num {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ec4899, #be185d);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4em;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .popup12 .step-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: #831843;
+        }
+
+        .popup12 .step-content p {
+            color: #ec4899;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .popup12 .cta-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ec4899, #be185d);
+            color: white;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+            transition: all 0.3s;
+        }
+
+        .popup12 .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* POPUP 13: Indigo Night */
+        .popup13 {
+            background: linear-gradient(135deg, #5f72bd 0%, #9b23ea 100%);
+            padding: 45px 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(95, 114, 189, 0.4);
+        }
+
+        .popup13 .icon {
+            text-align: center;
+            font-size: 70px;
+            margin-bottom: 25px;
+        }
+
+        .popup13 h3 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: white;
+            font-weight: 800;
+        }
+
+        .popup13 .tagline {
+            text-align: center;
+            color: rgba(255,255,255,0.95);
+            font-size: 1.05em;
+            margin-bottom: 35px;
+        }
+
+        .popup13 .steps {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup13 .step {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 22px 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+
+        .popup13 .step:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .popup13 .step-num {
+            width: 50px;
+            height: 50px;
+            background: white;
+            color: #5f72bd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4em;
+            flex-shrink: 0;
+        }
+
+        .popup13 .step-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: white;
+        }
+
+        .popup13 .step-content p {
+            color: #fde68a;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .popup13 .cta-btn {
+            width: 100%;
+            background: white;
+            color: #5f72bd;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .popup13 .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* POPUP 14: Lime Energy */
+        .popup14 {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            padding: 45px 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(132, 250, 176, 0.4);
+        }
+
+        .popup14 .icon {
+            text-align: center;
+            font-size: 70px;
+            margin-bottom: 25px;
+        }
+
+        .popup14 h3 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #065f46;
+            font-weight: 800;
+        }
+
+        .popup14 .tagline {
+            text-align: center;
+            color: #047857;
+            font-size: 1.05em;
+            margin-bottom: 35px;
+        }
+
+        .popup14 .steps {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup14 .step {
+            background: white;
+            padding: 22px 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .popup14 .step:hover {
+            transform: translateY(-3px);
+        }
+
+        .popup14 .step-num {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #84fab0, #8fd3f4);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4em;
+            color: #065f46;
+            flex-shrink: 0;
+        }
+
+        .popup14 .step-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: #065f46;
+        }
+
+        .popup14 .step-content p {
+            color: #0891b2;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .popup14 .cta-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #065f46, #0891b2);
+            color: white;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(6, 95, 70, 0.3);
+            transition: all 0.3s;
+        }
+
+        .popup14 .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* POPUP 15: Coral Beach */
+        .popup15 {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 45px 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(252, 182, 159, 0.4);
+        }
+
+        .popup15 .icon {
+            text-align: center;
+            font-size: 70px;
+            margin-bottom: 25px;
+        }
+
+        .popup15 h3 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #7c2d12;
+            font-weight: 800;
+        }
+
+        .popup15 .tagline {
+            text-align: center;
+            color: #9a3412;
+            font-size: 1.05em;
+            margin-bottom: 35px;
+        }
+
+        .popup15 .steps {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup15 .step {
+            background: white;
+            padding: 22px 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 8px 20px rgba(124, 45, 18, 0.1);
+            transition: all 0.3s;
+        }
+
+        .popup15 .step:hover {
+            box-shadow: 0 12px 30px rgba(124, 45, 18, 0.15);
+        }
+
+        .popup15 .step-num {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4em;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .popup15 .step-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            color: #7c2d12;
+        }
+
+        .popup15 .step-content p {
+            color: #ea580c;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .popup15 .cta-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: white;
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.25em;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.4);
+            transition: all 0.3s;
+        }
+
+        .popup15 .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Animations */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .popup1, .popup2, .popup3, .popup4, .popup5,
+            .popup6, .popup7, .popup8, .popup9, .popup10,
+            .popup11, .popup12, .popup13, .popup14, .popup15 {
+                padding: 35px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 15 Gamification-Style Popups</h1>
+        <p class="subtitle">Same style as your favorite design - Different colors & animations for maximum engagement!</p>
+
+        <div class="grid">
+            <!-- POPUP 1: Pink/Orange Gradient (Original) -->
+            <div class="popup-card">
+                <div class="popup-header">
+                    <span class="popup-number">Style #1</span>
+                    <h3 class="popup-name">Pink/Orange Gradient</h3>
+                    <p class="popup-desc">Your original favorite! Perfect for warm, friendly, inviting brands.</p>
+                </div>
+
+                <div class="popup1">
+                    <button class="close-btn">×</button>
+                    <div class="icon">🏆</div>
+                    <h3>Unlock Your Trading Success</h3>
+                    <p class="tagline">Complete these 3 simple steps to activate all bonuses</p>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Open Free Account (2 min)</h4>
+                                <p>🎁 Unlock: Welcome Bonus + Free Signals</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Verify Your Account</h4>
+                                <p>🎁 Unlock: Premium Indicators + Analysis</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Take Your First Trade</h4>
+                                <p>🎁 Unlock: VIP Community + Expert Support</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn">START UNLOCKING REWARDS →</button>
+                </div>
+            </div>
+
+            <!-- POPUP 2: Blue Ocean -->
+            <div class="popup-card">
+                <div class="popup-header">
+                    <span class="popup-number">Style #2</span>
+                    <h3 class="popup-name">Blue Ocean Waves</h3>
+                    <p class="popup-desc">Trust & reliability. Great for financial services, professional platforms.</p>
+                </div>
+
+                <div class="popup2">
+                    <button class="close-btn">×</button>
+                    <div class="icon">💎</div>
+                    <h3>Start Your Profit Journey</h3>
+                    <p class="tagline">Three easy steps to unlock premium trading tools</p>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Create Free Account</h4>
+                                <p>⚡ Unlock: $500 Bonus + Live Signals</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Complete Quick Verification</h4>
+                                <p>⚡ Unlock: AI Analysis + Pro Charts</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Execute First Trade</h4>
+                                <p>⚡ Unlock: Expert Coaching + Priority Support</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn">BEGIN YOUR SUCCESS STORY →</button>
+                </div>
+            </div>
+
+            <!-- POPUP 3: Purple Sunset -->
+            <div class="popup-card">
+                <div class="popup-header">
+                    <span class="popup-number">Style #3</span>
+                    <h3 class="popup-name">Purple Sunset</h3>
+                    <p class="popup-desc">Calm & elegant. Perfect for premium services, luxury brands.</p>
+                </div>
+
+                <div class="popup3">
+                    <button class="close-btn" style="color: #2d3748;">×</button>
+                    <div class="icon">✨</div>
+                    <h3>Unlock Elite Trading Status</h3>
+                    <p class="tagline">Follow these steps to access premium features</p>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Sign Up Free (90 seconds)</h4>
+                                <p>🌟 Get: Welcome Pack + Free Trial</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Verify Identity</h4>
+                                <p>🌟 Get: Premium Tools + Real-time Data</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Make First Trade</h4>
+                                <p>🌟 Get: VIP Access + Personal Manager</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn">ACTIVATE ELITE STATUS →</button>
+                </div>
+            </div>
+
+            <!-- POPUP 4: Green Success -->
+            <div class="popup-card">
+                <div class="popup-header">
+                    <span class="popup-number">Style #4</span>
+                    <h3 class="popup-name">Green Success</h3>
+                    <p class="popup-desc">Growth & profit focus. Ideal for investment, money-making platforms.</p>
+                </div>
+
+                <div class="popup4">
+                    <button class="close-btn" style="color: #065f46;">×</button>
+                    <div class="icon">💰</div>
+                    <h3>Start Earning Today</h3>
+                    <p class="tagline">Complete setup in 3 minutes and start profiting</p>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Open Profit Account</h4>
+                                <p>💵 Earn: First $100 Bonus Instantly</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Verify & Activate</h4>
+                                <p>💵 Earn: Daily Profit Signals (78% Win Rate)</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Start Trading</h4>
+                                <p>💵 Earn: Premium Strategy + Profit Guarantee</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn">START EARNING NOW →</button>
+                </div>
+            </div>
+
+            <!-- POPUP 5: Orange Energy -->
+            <div class="popup-card">
+                <div class="popup-header">
+                    <span class="popup-number">Style #5</span>
+                    <h3 class="popup-name">Orange Energy</h3>
+                    <p class="popup-desc">High energy & enthusiasm. Great for action-driven, exciting offers.</p>
+                </div>
+
+                <div class="popup5">
+                    <button class="close-btn">×</button>
+                    <div class="icon">🚀</div>
+                    <h3>Blast Off to Profits!</h3>
+                    <p class="tagline">3 quick steps to launch your trading career</p>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Launch Your Account</h4>
+                                <p>🔥 Get: Rocket Start Bonus Package</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Power Up with Verification</h4>
+                                <p>🔥 Get: Turbo Signals + Fast Analytics</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Ignite First Trade</h4>
+                                <p>🔥 Get: Explosive Growth Tools</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn">IGNITE MY SUCCESS →</button>
+                </div>
+            </div>
+
+            <!-- POPUP 6: Royal Purple -->
+            <div class="popup-card">
+                <div class="popup-header">
+                    <span class="popup-number">Style #6</span>
+                    <h3 class="popup-name">Royal Purple</h3>
+                    <p class="popup-desc">Premium & exclusive. Perfect for high-value, luxury positioning.</p>
+                </div>
+
+                <div class="popup6">
+                    <button class="close-btn">×</button>
+                    <div class="icon">👑</div>
+                    <h3>Join The Elite Traders</h3>
+                    <p class="tagline">Exclusive access for select members only</p>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Request VIP Access</h4>
+                                <p>👑 Unlock: Exclusive Welcome Suite</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Complete Elite Verification</h4>
+                                <p>👑 Unlock: Private Trading Lounge</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Begin Royal Trading</h4>
+                                <p>👑 Unlock: Personal Trading Butler</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn">CLAIM VIP STATUS →</button>
+                </div>
+            </div>
+
+            <!-- POPUP 7: Red Power -->
+            <div class="popup-card">
+                <div class="popup-header">
+                    <span class="popup-number">Style #7</span>
+                    <h3 class="popup-name">Red Power</h3>
+                    <p class="popup-desc">Urgency & action. Best for limited-time offers, flash sales.</p>
+                </div>
+
+                <div class="popup7">
+                    <button class="close-btn">×</button>
+                    <div class="icon">⚡</div>
+                    <h3>Don't Miss This Opportunity!</h3>
+                    <p class="tagline">Limited spots available - Act fast!</p>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Grab Your Spot NOW</h4>
+                                <p>🎯 Limited: First 100 Get $1000 Bonus</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Quick Verify (2 mins)</h4>
+                                <p>🎯 Limited: Priority Signal Access</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Trade Before Time Runs Out</h4>
+                                <p>🎯 Limited: Exclusive Flash Bonuses</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn">SECURE MY SPOT NOW →</button>
+                </div>
+            </div>
+
+            <!-- POPUP 8: Teal Fresh -->
+            <div class="popup-card">
+                <div class="popup-header">
+                    <span class="popup-number">Style #8</span>
+                    <h3 class="popup-name">Teal Fresh</h3>
+                    <p class="popup-desc">Modern & clean. Great for tech platforms, fresh startups.</p>
+                </div>
+
+                <div class="popup8">
+                    <button class="close-btn" style="color: #065f46;">×</button>
+                    <div class="icon">🌊</div>
+                    <h3>Dive Into Smart Trading</h3>
+                    <p class="tagline">Fresh start with cutting-edge tools</p>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Create Smart Account</h4>
+                                <p>💧 Access: Modern Trading Dashboard</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Quick Setup</h4>
+                                <p>💧 Access: AI-Powered Predictions</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Start Smart Trading</h4>
+                                <p>💧 Access: Auto-Trade Features</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn">START SMART TRADING →</button>
+                </div>
+            </div>
+
+            <!-- POPUP 9: Dark Mode -->
+            <div class="popup-card">
+                <div class="popup-header">
+                    <span class="popup-number">Style #9</span>
+                    <h3 class="popup-name">Dark Mode Premium</h3>
+                    <p class="popup-desc">Sleek & professional. Perfect for crypto, tech-savvy audiences.</p>
+                </div>
+
+                <div class="popup9">
+                    <button class="close-btn">×</button>
+                    <div class="icon">🌙</div>
+                    <h3>Enter The Dark Side of Profit</h3>
+                    <p class="tagline">Join elite night traders worldwide</p>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Join Dark Pool</h4>
+                                <p>🌟 Access: Stealth Trading Mode</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Activate Night Mode</h4>
+                                <p>🌟 Access: 24/7 Global Markets</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Trade Like a Shadow</h4>
+                                <p>🌟 Access: Anonymous Profit System</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn">ENTER DARK MODE →</button>
+                </div>
+            </div>
+
+            <!-- POPUP 10: Golden Luxury -->
+            <div class="popup-card">
+                <div class="popup-header">
+                    <span class="popup-number">Style #10</span>
+                    <h3 class="popup-name">Golden Luxury</h3>
+                    <p class="popup-desc">Premium wealth focus. Ideal for high-ticket, exclusive services.</p>
+                </div>
+
+                <div class="popup10">
+                    <button class="close-btn">×</button>
+                    <div class="icon">💎</div>
+                    <h3>Unlock Golden Opportunities</h3>
+                    <p class="tagline">Where millionaires are made</p>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Open Gold Account</h4>
+                                <p>✨ Receive: $5,000 Welcome Bonus</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Verify Wealth Status</h4>
+                                <p>✨ Receive: Diamond Tier Signals</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Begin Wealth Creation</h4>
+                                <p>✨ Receive: Billionaire Strategies</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn">CLAIM GOLDEN ACCESS →</button>
+                </div>
+            </div>
+
+            <!-- POPUP 11: Neon Cyber -->
+            <div class="popup-card">
+                <div class="popup-header">
+                    <span class="popup-number">Style #11</span>
+                    <h3 class="popup-name">Neon Cyber</h3>
+                    <p class="popup-desc">Futuristic & cutting-edge. Perfect for crypto, NFT, Web3 platforms.</p>
+                </div>
+
+                <div class="popup11">
+                    <button class="close-btn">×</button>
+                    <div class="icon">⚡</div>
+                    <h3>Enter The Matrix</h3>
+                    <p class="tagline">Hack the market with cyber intelligence</p>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Initialize System</h4>
+                                <p>⚡ Upload: Quantum Trading Protocol</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Verify Biometrics</h4>
+                                <p>⚡ Upload: Neural Network Access</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Execute Trade Matrix</h4>
+                                <p>⚡ Upload: AI Autopilot Mode</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn">JACK INTO THE MATRIX →</button>
+                </div>
+            </div>
+
+            <!-- POPUP 12: Rose Gold -->
+            <div class="popup-card">
+                <div class="popup-header">
+                    <span class="popup-number">Style #12</span>
+                    <h3 class="popup-name">Rose Gold Elegance</h3>
+                    <p class="popup-desc">Feminine & sophisticated. Great for lifestyle, beauty brands.</p>
+                </div>
+
+                <div class="popup12">
+                    <button class="close-btn" style="color: #831843;">×</button>
+                    <div class="icon">🌹</div>
+                    <h3>Treat Yourself to Success</h3>
+                    <p class="tagline">Because you deserve the best</p>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Begin Your Journey</h4>
+                                <p>💝 Gift: Luxury Welcome Package</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Pamper with Verification</h4>
+                                <p>💝 Gift: Premium Spa of Signals</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Indulge in Trading</h4>
+                                <p>💝 Gift: White Glove Service</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn">PAMPER YOURSELF NOW →</button>
+                </div>
+            </div>
+
+            <!-- POPUP 13: Indigo Night -->
+            <div class="popup-card">
+                <div class="popup-header">
+                    <span class="popup-number">Style #13</span>
+                    <h3 class="popup-name">Indigo Night Sky</h3>
+                    <p class="popup-desc">Mysterious & captivating. Perfect for exclusive, mystique brands.</p>
+                </div>
+
+                <div class="popup13">
+                    <button class="close-btn">×</button>
+                    <div class="icon">🌠</div>
+                    <h3>Reach For The Stars</h3>
+                    <p class="tagline">Your constellation of success awaits</p>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Chart Your Course</h4>
+                                <p>⭐ Discover: Cosmic Profit Paths</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Align Your Stars</h4>
+                                <p>⭐ Discover: Universal Trading Wisdom</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Launch Into Profit</h4>
+                                <p>⭐ Discover: Galactic Wealth System</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn">LAUNCH TO STARS →</button>
+                </div>
+            </div>
+
+            <!-- POPUP 14: Lime Energy -->
+            <div class="popup-card">
+                <div class="popup-header">
+                    <span class="popup-number">Style #14</span>
+                    <h3 class="popup-name">Lime Fresh Energy</h3>
+                    <p class="popup-desc">Vibrant & refreshing. Great for health, wellness, growth brands.</p>
+                </div>
+
+                <div class="popup14">
+                    <button class="close-btn" style="color: #065f46;">×</button>
+                    <div class="icon">🍃</div>
+                    <h3>Grow Your Wealth Naturally</h3>
+                    <p class="tagline">Organic growth, sustainable profits</p>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Plant Your Seed</h4>
+                                <p>🌱 Nurture: Growth Starter Pack</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Cultivate Success</h4>
+                                <p>🌱 Nurture: Organic Trading Methods</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Harvest Profits</h4>
+                                <p>🌱 Nurture: Evergreen Income Streams</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn">START GROWING →</button>
+                </div>
+            </div>
+
+            <!-- POPUP 15: Coral Beach -->
+            <div class="popup-card">
+                <div class="popup-header">
+                    <span class="popup-number">Style #15</span>
+                    <h3 class="popup-name">Coral Beach Vibes</h3>
+                    <p class="popup-desc">Relaxed & tropical. Perfect for travel, leisure, lifestyle brands.</p>
+                </div>
+
+                <div class="popup15">
+                    <button class="close-btn" style="color: #7c2d12;">×</button>
+                    <div class="icon">🏖️</div>
+                    <h3>Trade From Paradise</h3>
+                    <p class="tagline">Make money while living your best life</p>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>Pack Your Bags</h4>
+                                <p>🌴 Enjoy: Vacation Mode Trading</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Set Up Beach Office</h4>
+                                <p>🌴 Enjoy: Remote Profit System</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Profit in Paradise</h4>
+                                <p>🌴 Enjoy: Passive Income Freedom</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn">ESCAPE TO PROFIT →</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Implementation Guide -->
+        <div style="background: white; padding: 50px; border-radius: 24px; margin-top: 50px;">
+            <h2 style="font-size: 2em; margin-bottom: 25px; color: #1a1a1a;">🎯 How to Choose & Implement</h2>
+
+            <div style="display: grid; gap: 25px;">
+                <div style="padding: 25px; background: #f0f9ff; border-radius: 15px; border-left: 5px solid #3b82f6;">
+                    <h3 style="color: #1e40af; margin-bottom: 15px; font-size: 1.3em;">🎨 Choosing Your Color Psychology</h3>
+                    <ul style="line-height: 2; color: #1e3a8a; font-size: 1.05em;">
+                        <li><strong>Pink/Orange/Rose Gold (#1, #5, #12):</strong> Friendly, warm, inviting - best for consumer brands</li>
+                        <li><strong>Blue/Teal (#2, #8):</strong> Trust, reliability - best for financial services</li>
+                        <li><strong>Purple/Indigo (#3, #6, #13):</strong> Premium, exclusive - best for luxury brands</li>
+                        <li><strong>Green (#4, #14):</strong> Growth, money, success - best for investment platforms</li>
+                        <li><strong>Red/Orange (#7, #10):</strong> Urgency, action - best for limited-time offers</li>
+                        <li><strong>Dark Mode/Neon (#9, #11):</strong> Modern, tech - best for crypto/Web3</li>
+                        <li><strong>Coral/Peach (#15):</strong> Relaxed, lifestyle - best for travel/leisure</li>
+                    </ul>
+                </div>
+
+                <div style="padding: 25px; background: #f0fdf4; border-radius: 15px; border-left: 5px solid #10b981;">
+                    <h3 style="color: #065f46; margin-bottom: 15px; font-size: 1.3em;">💡 Implementation Tips</h3>
+                    <ul style="line-height: 2; color: #047857; font-size: 1.05em;">
+                        <li><strong>React/Next.js:</strong> Copy the styles into a styled component or CSS module</li>
+                        <li><strong>Trigger timing:</strong> Show popup 3-5 seconds after page load for best results</li>
+                        <li><strong>Mobile optimization:</strong> All designs are responsive and mobile-friendly</li>
+                        <li><strong>A/B testing:</strong> Test 2-3 variants to find what converts best for your audience</li>
+                        <li><strong>Exit intent:</strong> Can also trigger on exit intent for abandoned visitors</li>
+                        <li><strong>Frequency:</strong> Show once per session using localStorage</li>
+                    </ul>
+                </div>
+
+                <div style="padding: 25px; background: #fef3c7; border-radius: 15px; border-left: 5px solid #f59e0b;">
+                    <h3 style="color: #92400e; margin-bottom: 15px; font-size: 1.3em;">📊 Conversion Best Practices</h3>
+                    <ul style="line-height: 2; color: #78350f; font-size: 1.05em;">
+                        <li><strong>Keep it 3 steps:</strong> More than 3 feels overwhelming, less than 3 feels incomplete</li>
+                        <li><strong>Use specific benefits:</strong> "Welcome Bonus + Free Signals" beats generic "Get Started"</li>
+                        <li><strong>Add urgency subtly:</strong> "Limited spots" or "Join 12,547 traders" creates FOMO</li>
+                        <li><strong>Clear CTA:</strong> Action-oriented button text ("START UNLOCKING" > "Submit")</li>
+                        <li><strong>Easy close:</strong> Always provide a visible X button - don't annoy users</li>
+                        <li><strong>Value first:</strong> Show what they GET, not what they need to DO</li>
+                    </ul>
+                </div>
+
+                <div style="padding: 25px; background: #fce7f3; border-radius: 15px; border-left: 5px solid #ec4899;">
+                    <h3 style="color: #831843; margin-bottom: 15px; font-size: 1.3em;">🚀 Expected Conversion Rates</h3>
+                    <ul style="line-height: 2; color: #9f1239; font-size: 1.05em;">
+                        <li><strong>Good popup:</strong> 3-5% conversion rate</li>
+                        <li><strong>Great popup:</strong> 5-10% conversion rate</li>
+                        <li><strong>Exceptional popup:</strong> 10-15% conversion rate</li>
+                        <li><strong>With these designs:</strong> Properly implemented, expect 7-12% average</li>
+                        <li><strong>Key factors:</strong> Timing, targeting, offer quality, and design all matter</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 35px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; text-align: center; color: white;">
+                <h3 style="font-size: 1.8em; margin-bottom: 15px;">🎉 Ready to Boost Your Conversions?</h3>
+                <p style="font-size: 1.2em; margin-bottom: 25px; opacity: 0.95;">
+                    Pick your favorite style, customize the copy for your offer, and watch your signups soar!
+                </p>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; font-size: 0.95em;">
+                    <div style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 25px;">✅ Mobile Optimized</div>
+                    <div style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 25px;">✅ Animated</div>
+                    <div style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 25px;">✅ Easy to Customize</div>
+                    <div style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 25px;">✅ Conversion Optimized</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

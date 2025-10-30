@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High-Converting Trading Popup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse-slow {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 2s ease-in-out infinite;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+
+    <!-- Demo Background Content -->
+    <div class="absolute inset-0 flex items-center justify-center text-gray-400">
+        <div class="text-center">
+            <h1 class="text-4xl font-bold mb-4">Trading Signal Platform</h1>
+            <p class="text-xl">Background content (popup will appear on top)</p>
+        </div>
+    </div>
+
+    <!-- Backdrop -->
+    <div id="backdrop" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[9998] transition-opacity duration-300"></div>
+
+    <!-- Popup Container -->
+    <div class="fixed inset-0 z-[9999] flex items-center justify-center p-4 pointer-events-none">
+        <div id="popup" class="relative bg-white rounded-3xl shadow-2xl w-full max-w-md pointer-events-auto transform transition-all duration-300">
+
+            <!-- Close Button -->
+            <button onclick="closePopup()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors text-gray-600 z-10">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+
+            <!-- Content -->
+            <div class="p-8 md:p-10">
+
+                <!-- Rocket Icon with Pulse Animation -->
+                <div class="text-center mb-6">
+                    <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full animate-pulse-slow">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Title -->
+                <h3 class="text-2xl md:text-3xl font-bold text-center mb-3 text-blue-600 leading-tight">
+                    Start Trading in 3 Easy Steps
+                </h3>
+
+                <!-- Subtitle -->
+                <p class="text-center text-gray-600 mb-8 text-sm">
+                    Join thousands of traders who started their journey with us.
+                </p>
+
+                <!-- Steps -->
+                <div class="space-y-3 mb-6">
+
+                    <!-- Step 1 -->
+                    <div class="bg-blue-50 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow border border-blue-100">
+                        <div class="flex items-center gap-3">
+                            <div class="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                                1
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-gray-900 mb-0.5 text-base">
+                                    Open Account (2 min)
+                                </div>
+                                <div class="text-gray-600 text-xs">
+                                    Just $10 minimum • Instant verification
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-blue-50 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow border border-blue-100">
+                        <div class="flex items-center gap-3">
+                            <div class="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                                2
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-gray-900 mb-0.5 text-base">
+                                    Get Free Signals
+                                </div>
+                                <div class="text-gray-600 text-xs">
+                                    Access unlimited trading signals & analysis
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-blue-50 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow border border-blue-100">
+                        <div class="flex items-center gap-3">
+                            <div class="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                                3
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-gray-900 mb-0.5 text-base">
+                                    Start Trading
+                                </div>
+                                <div class="text-gray-600 text-xs">
+                                    Trade your first position in 5 minutes
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <button onclick="handleCTA()" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-6 rounded-full font-bold text-base shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 mb-4">
+                    ✨ Get Started Now (2 Min Setup)
+                </button>
+
+                <!-- Social Proof -->
+                <p class="text-center text-gray-600 text-xs mb-4">
+                    12,547 traders started this way
+                </p>
+
+                <!-- Risk Warning -->
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 flex items-start gap-2">
+                    <span class="text-yellow-600 text-sm flex-shrink-0">⚠️</span>
+                    <p class="text-yellow-800 text-xs leading-relaxed">
+                        CFDs are complex instruments. Consider your risk tolerance before trading.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            const backdrop = document.getElementById('backdrop');
+
+            popup.classList.add('scale-95', 'opacity-0');
+            backdrop.classList.add('opacity-0');
+
+            setTimeout(() => {
+                popup.parentElement.style.display = 'none';
+                backdrop.style.display = 'none';
+            }, 300);
+        }
+
+        function handleCTA() {
+            alert('🚀 Opening account registration...\n\nThis would redirect to: https://one.exnesstrack.net/a/0oq2t8o0u4');
+            closePopup();
+        }
+
+        // Show popup with entrance animation
+        window.addEventListener('load', () => {
+            const popup = document.getElementById('popup');
+            popup.classList.add('scale-100', 'opacity-100');
+        });
+    </script>
+</body>
+</html>

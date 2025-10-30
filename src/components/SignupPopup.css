@@ -1,0 +1,799 @@
+/* Base Overlay Styles */
+.signup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-in-out;
+  backdrop-filter: blur(8px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Base Popup Styles */
+.signup-popup {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.4s ease-out;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background: #f0f0f0;
+  color: #000;
+}
+
+/* Header Styles */
+.popup-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.icon-wrapper {
+  margin-bottom: 15px;
+}
+
+.icon {
+  font-size: 48px;
+  display: inline-block;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.popup-header h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 10px 0;
+  line-height: 1.3;
+}
+
+.popup-header p {
+  font-size: 15px;
+  color: #666;
+  margin: 10px 0 0;
+  line-height: 1.5;
+}
+
+/* Form Styles */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.detected {
+  font-size: 11px;
+  color: #10b981;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 10px;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.terms-checkbox {
+  margin-top: 5px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.checkbox-label span {
+  flex: 1;
+}
+
+.checkbox-label a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.checkbox-label a:hover {
+  text-decoration: underline;
+}
+
+.privacy-note {
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+
+/* Success Message */
+.success-message {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 40px;
+  color: white;
+  animation: scaleIn 0.5s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.success-message h2 {
+  font-size: 28px;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+.success-message p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* ========================================
+   DESIGN VARIATIONS (1-20)
+   ======================================== */
+
+/* Design 1: Classic Blue Gradient */
+.design-1 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.design-1 .popup-header h2,
+.design-1 .form-group label {
+  color: white;
+}
+
+.design-1 .popup-header p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.design-1 .submit-btn {
+  background: white;
+  color: #667eea;
+}
+
+.design-1 .form-group input,
+.design-1 .form-group select {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.design-1 .form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.design-1 .privacy-note {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Design 2: Elegant Dark */
+.design-2 {
+  background: #1a1a1a;
+  color: white;
+  border: 2px solid #333;
+}
+
+.design-2 .popup-header h2,
+.design-2 .form-group label {
+  color: white;
+}
+
+.design-2 .popup-header p {
+  color: #999;
+}
+
+.design-2 .form-group input,
+.design-2 .form-group select {
+  background: #2a2a2a;
+  border-color: #404040;
+  color: white;
+}
+
+.design-2 .submit-btn {
+  background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+}
+
+.design-2 .close-btn {
+  color: white;
+}
+
+.design-2 .close-btn:hover {
+  background: #2a2a2a;
+}
+
+/* Design 3: Modern Green */
+.design-3 {
+  border: 3px solid #10b981;
+}
+
+.design-3 .popup-header h2 {
+  color: #10b981;
+}
+
+.design-3 .submit-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.design-3 .form-group input:focus,
+.design-3 .form-group select:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Design 4: Luxury Gold */
+.design-4 {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  border-radius: 30px;
+}
+
+.design-4 .popup-header h2 {
+  color: #78350f;
+}
+
+.design-4 .form-group label {
+  color: #78350f;
+}
+
+.design-4 .submit-btn {
+  background: #78350f;
+  color: #fbbf24;
+}
+
+.design-4 .form-group input,
+.design-4 .form-group select {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(120, 53, 15, 0.2);
+}
+
+/* Design 5: Minimalist White */
+.design-5 {
+  box-shadow: 0 0 0 1px #e5e7eb;
+  border-radius: 0;
+}
+
+.design-5 .form-group input,
+.design-5 .form-group select {
+  border-radius: 0;
+  border-width: 0 0 2px 0;
+  padding-left: 0;
+}
+
+.design-5 .submit-btn {
+  border-radius: 0;
+  background: #000;
+}
+
+/* Design 6: Teal Ocean */
+.design-6 {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  color: white;
+}
+
+.design-6 .popup-header h2,
+.design-6 .form-group label {
+  color: white;
+}
+
+.design-6 .form-group input,
+.design-6 .form-group select {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.design-6 .submit-btn {
+  background: white;
+  color: #0891b2;
+}
+
+/* Design 7: Rose Pink */
+.design-7 {
+  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+  color: white;
+}
+
+.design-7 .popup-header h2,
+.design-7 .form-group label {
+  color: white;
+}
+
+.design-7 .form-group input,
+.design-7 .form-group select {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.design-7 .submit-btn {
+  background: white;
+  color: #e11d48;
+}
+
+/* Design 8: Tech Purple */
+.design-8 {
+  background: #1e1b4b;
+  color: white;
+  border: 2px solid #6366f1;
+}
+
+.design-8 .popup-header h2,
+.design-8 .form-group label {
+  color: white;
+}
+
+.design-8 .form-group input,
+.design-8 .form-group select {
+  background: #312e81;
+  border-color: #4f46e5;
+  color: white;
+}
+
+.design-8 .submit-btn {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+}
+
+/* Design 9: Coral Sunset */
+.design-9 {
+  background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+  color: white;
+  border-radius: 40px;
+}
+
+.design-9 .popup-header h2,
+.design-9 .form-group label {
+  color: white;
+}
+
+.design-9 .form-group input,
+.design-9 .form-group select {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: white;
+  border-radius: 20px;
+}
+
+.design-9 .submit-btn {
+  background: white;
+  color: #f97316;
+  border-radius: 20px;
+}
+
+/* Design 10: Neon Cyber */
+.design-10 {
+  background: #0a0a0a;
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+}
+
+.design-10 .popup-header h2,
+.design-10 .form-group label {
+  color: #00ff00;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.design-10 .form-group input,
+.design-10 .form-group select {
+  background: #1a1a1a;
+  border-color: #00ff00;
+  color: #00ff00;
+}
+
+.design-10 .submit-btn {
+  background: #00ff00;
+  color: #0a0a0a;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+}
+
+/* Design 11: Slate Professional */
+.design-11 {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.design-11 .popup-header h2 {
+  color: #0f172a;
+}
+
+.design-11 .form-group input,
+.design-11 .form-group select {
+  background: white;
+  border-color: #cbd5e1;
+}
+
+.design-11 .submit-btn {
+  background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+}
+
+/* Design 12: Emerald Fresh */
+.design-12 {
+  background: white;
+  border: 3px solid #10b981;
+  border-radius: 25px;
+}
+
+.design-12 .icon-wrapper {
+  background: #d1fae5;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+}
+
+.design-12 .popup-header h2 {
+  color: #047857;
+}
+
+.design-12 .submit-btn {
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+}
+
+/* Design 13: Royal Blue */
+.design-13 {
+  background: linear-gradient(180deg, #3b82f6 0%, #1e40af 100%);
+  color: white;
+}
+
+.design-13 .popup-header h2,
+.design-13 .form-group label {
+  color: white;
+}
+
+.design-13 .form-group input,
+.design-13 .form-group select {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.design-13 .submit-btn {
+  background: white;
+  color: #1e40af;
+}
+
+/* Design 14: Amber Warm */
+.design-14 {
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+}
+
+.design-14 .popup-header h2 {
+  color: #78350f;
+}
+
+.design-14 .form-group label {
+  color: #78350f;
+}
+
+.design-14 .form-group input,
+.design-14 .form-group select {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: #d97706;
+}
+
+.design-14 .submit-btn {
+  background: #78350f;
+  color: #fbbf24;
+}
+
+/* Design 15: Indigo Night */
+.design-15 {
+  background: #312e81;
+  color: white;
+  box-shadow: 0 20px 60px rgba(99, 102, 241, 0.4);
+}
+
+.design-15 .popup-header h2,
+.design-15 .form-group label {
+  color: #c7d2fe;
+}
+
+.design-15 .form-group input,
+.design-15 .form-group select {
+  background: #3730a3;
+  border-color: #4f46e5;
+  color: white;
+}
+
+.design-15 .submit-btn {
+  background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+}
+
+/* Design 16: Clean Borders */
+.design-16 {
+  background: white;
+  border: 4px solid #000;
+  border-radius: 0;
+  box-shadow: 12px 12px 0 #000;
+}
+
+.design-16 .form-group input,
+.design-16 .form-group select {
+  border: 2px solid #000;
+  border-radius: 0;
+}
+
+.design-16 .submit-btn {
+  background: #000;
+  border-radius: 0;
+  border: none;
+}
+
+.design-16 .submit-btn:hover:not(:disabled) {
+  background: #333;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Design 17: Sky Blue Light */
+.design-17 {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+}
+
+.design-17 .popup-header h2 {
+  color: #075985;
+}
+
+.design-17 .form-group label {
+  color: #0c4a6e;
+}
+
+.design-17 .form-group input,
+.design-17 .form-group select {
+  background: white;
+  border-color: #7dd3fc;
+}
+
+.design-17 .submit-btn {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+}
+
+/* Design 18: Lime Fresh */
+.design-18 {
+  background: white;
+  border: 3px solid #84cc16;
+  box-shadow: 0 0 0 6px #f7fee7;
+}
+
+.design-18 .popup-header h2 {
+  color: #3f6212;
+}
+
+.design-18 .icon-wrapper {
+  background: #ecfccb;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+}
+
+.design-18 .submit-btn {
+  background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+}
+
+/* Design 19: Violet Dream */
+.design-19 {
+  background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+  color: white;
+  border-radius: 30px;
+}
+
+.design-19 .popup-header h2,
+.design-19 .form-group label {
+  color: white;
+}
+
+.design-19 .form-group input,
+.design-19 .form-group select {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: white;
+  border-radius: 15px;
+}
+
+.design-19 .submit-btn {
+  background: white;
+  color: #7c3aed;
+  border-radius: 15px;
+}
+
+/* Design 20: Red Power */
+.design-20 {
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  color: white;
+}
+
+.design-20 .popup-header h2,
+.design-20 .form-group label {
+  color: white;
+}
+
+.design-20 .popup-header p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.design-20 .form-group input,
+.design-20 .form-group select {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.design-20 .submit-btn {
+  background: white;
+  color: #dc2626;
+  font-weight: 700;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .signup-popup {
+    padding: 30px 20px;
+    border-radius: 15px;
+    width: 95%;
+  }
+
+  .popup-header h2 {
+    font-size: 22px;
+  }
+
+  .popup-header p {
+    font-size: 14px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .icon {
+    font-size: 36px;
+  }
+}

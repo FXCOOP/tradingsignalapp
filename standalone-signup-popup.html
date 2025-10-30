@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GCC Signal Pro - Signup</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* Popup Overlay */
+    .signup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      backdrop-filter: blur(8px);
+    }
+
+    /* Popup Container */
+    .signup-popup {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.4s ease-out;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #666;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+
+    .close-btn:hover {
+      background: #f0f0f0;
+      color: #000;
+    }
+
+    /* Header */
+    .popup-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .icon {
+      font-size: 48px;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+
+    .popup-header h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 10px 0;
+      line-height: 1.3;
+    }
+
+    .popup-header p {
+      font-size: 15px;
+      color: #666;
+      margin: 10px 0 0;
+      line-height: 1.5;
+    }
+
+    /* Form */
+    .signup-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 15px;
+    }
+
+    .form-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .detected {
+      font-size: 11px;
+      color: #10b981;
+      font-weight: 500;
+      margin-left: 5px;
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 12px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 15px;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    /* Terms Checkbox */
+    .terms-checkbox {
+      margin-top: 5px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      margin-top: 3px;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .checkbox-label span {
+      flex: 1;
+    }
+
+    .checkbox-label a {
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .checkbox-label a:hover {
+      text-decoration: underline;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .privacy-note {
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    /* Success Message */
+    .success-message {
+      text-align: center;
+      padding: 40px 20px;
+      display: none;
+    }
+
+    .success-message.active {
+      display: block;
+    }
+
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 40px;
+      color: white;
+      animation: scaleIn 0.5s ease-out;
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .success-message h2 {
+      font-size: 28px;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+    }
+
+    .success-message p {
+      font-size: 16px;
+      color: #666;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .signup-popup {
+        padding: 30px 20px;
+      }
+
+      .popup-header h2 {
+        font-size: 22px;
+      }
+
+      .form-row {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .icon {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-overlay">
+    <div class="signup-popup">
+      <button class="close-btn" onclick="closePopup()">✕</button>
+
+      <!-- Success Message (hidden by default) -->
+      <div class="success-message" id="successMessage">
+        <div class="success-icon">✓</div>
+        <h2>Welcome Aboard!</h2>
+        <p>Our professional broker will contact you shortly</p>
+      </div>
+
+      <!-- Form (visible by default) -->
+      <div id="formContainer">
+        <div class="popup-header">
+          <div class="icon-wrapper">
+            <span class="icon">🎯</span>
+          </div>
+          <h2>Get Your Personal Trading Guide</h2>
+          <p>Connect with a trusted professional broker for one-on-one guidance</p>
+        </div>
+
+        <form class="signup-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" name="firstName" placeholder="Ahmed" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" name="lastName" placeholder="Al-Maktoum" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="ahmed@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label>Country <span class="detected" id="countryDetected"></span></label>
+            <select name="country" id="countrySelect" required>
+              <!-- GCC Countries -->
+              <option value="AE">🇦🇪 United Arab Emirates</option>
+              <option value="SA">🇸🇦 Saudi Arabia</option>
+              <option value="QA">🇶🇦 Qatar</option>
+              <option value="KW">🇰🇼 Kuwait</option>
+              <option value="BH">🇧🇭 Bahrain</option>
+              <option value="OM">🇴🇲 Oman</option>
+
+              <!-- Middle East -->
+              <option value="EG">🇪🇬 Egypt</option>
+              <option value="JO">🇯🇴 Jordan</option>
+              <option value="LB">🇱🇧 Lebanon</option>
+              <option value="IQ">🇮🇶 Iraq</option>
+              <option value="SY">🇸🇾 Syria</option>
+              <option value="PS">🇵🇸 Palestine</option>
+              <option value="IR">🇮🇷 Iran</option>
+              <option value="IL">🇮🇱 Israel</option>
+              <option value="TR">🇹🇷 Turkey</option>
+
+              <!-- Major Markets -->
+              <option value="US">🇺🇸 United States</option>
+              <option value="CA">🇨🇦 Canada</option>
+              <option value="GB">🇬🇧 United Kingdom</option>
+              <option value="AU">🇦🇺 Australia</option>
+              <option value="NZ">🇳🇿 New Zealand</option>
+
+              <!-- Europe -->
+              <option value="DE">🇩🇪 Germany</option>
+              <option value="FR">🇫🇷 France</option>
+              <option value="IT">🇮🇹 Italy</option>
+              <option value="ES">🇪🇸 Spain</option>
+              <option value="NL">🇳🇱 Netherlands</option>
+              <option value="CH">🇨🇭 Switzerland</option>
+              <option value="AT">🇦🇹 Austria</option>
+              <option value="BE">🇧🇪 Belgium</option>
+              <option value="GR">🇬🇷 Greece</option>
+              <option value="PT">🇵🇹 Portugal</option>
+              <option value="SE">🇸🇪 Sweden</option>
+              <option value="NO">🇳🇴 Norway</option>
+              <option value="DK">🇩🇰 Denmark</option>
+              <option value="FI">🇫🇮 Finland</option>
+              <option value="PL">🇵🇱 Poland</option>
+              <option value="CZ">🇨🇿 Czech Republic</option>
+              <option value="HU">🇭🇺 Hungary</option>
+              <option value="RO">🇷🇴 Romania</option>
+              <option value="IE">🇮🇪 Ireland</option>
+              <option value="RU">🇷🇺 Russia</option>
+
+              <!-- Asia -->
+              <option value="CN">🇨🇳 China</option>
+              <option value="IN">🇮🇳 India</option>
+              <option value="JP">🇯🇵 Japan</option>
+              <option value="KR">🇰🇷 South Korea</option>
+              <option value="TW">🇹🇼 Taiwan</option>
+              <option value="HK">🇭🇰 Hong Kong</option>
+              <option value="SG">🇸🇬 Singapore</option>
+              <option value="MY">🇲🇾 Malaysia</option>
+              <option value="TH">🇹🇭 Thailand</option>
+              <option value="VN">🇻🇳 Vietnam</option>
+              <option value="PH">🇵🇭 Philippines</option>
+              <option value="ID">🇮🇩 Indonesia</option>
+              <option value="PK">🇵🇰 Pakistan</option>
+              <option value="BD">🇧🇩 Bangladesh</option>
+              <option value="LK">🇱🇰 Sri Lanka</option>
+
+              <!-- Africa -->
+              <option value="ZA">🇿🇦 South Africa</option>
+              <option value="NG">🇳🇬 Nigeria</option>
+              <option value="KE">🇰🇪 Kenya</option>
+              <option value="GH">🇬🇭 Ghana</option>
+              <option value="MA">🇲🇦 Morocco</option>
+              <option value="DZ">🇩🇿 Algeria</option>
+              <option value="TN">🇹🇳 Tunisia</option>
+              <option value="ET">🇪🇹 Ethiopia</option>
+
+              <!-- Latin America -->
+              <option value="MX">🇲🇽 Mexico</option>
+              <option value="BR">🇧🇷 Brazil</option>
+              <option value="AR">🇦🇷 Argentina</option>
+              <option value="CL">🇨🇱 Chile</option>
+              <option value="CO">🇨🇴 Colombia</option>
+              <option value="PE">🇵🇪 Peru</option>
+              <option value="VE">🇻🇪 Venezuela</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group" style="flex: 0 0 120px;">
+              <label>Code</label>
+              <select name="countryCode" id="codeSelect" required>
+                <option value="+971">🇦🇪 +971</option>
+                <option value="+966">🇸🇦 +966</option>
+                <option value="+974">🇶🇦 +974</option>
+                <option value="+965">🇰🇼 +965</option>
+                <option value="+973">🇧🇭 +973</option>
+                <option value="+968">🇴🇲 +968</option>
+                <option value="+20">🇪🇬 +20</option>
+                <option value="+962">🇯🇴 +962</option>
+                <option value="+961">🇱🇧 +961</option>
+                <option value="+964">🇮🇶 +964</option>
+                <option value="+963">🇸🇾 +963</option>
+                <option value="+970">🇵🇸 +970</option>
+                <option value="+98">🇮🇷 +98</option>
+                <option value="+972">🇮🇱 +972</option>
+                <option value="+90">🇹🇷 +90</option>
+                <option value="+1">🇺🇸 +1</option>
+                <option value="+44">🇬🇧 +44</option>
+                <option value="+61">🇦🇺 +61</option>
+                <option value="+64">🇳🇿 +64</option>
+                <option value="+49">🇩🇪 +49</option>
+                <option value="+33">🇫🇷 +33</option>
+                <option value="+39">🇮🇹 +39</option>
+                <option value="+34">🇪🇸 +34</option>
+                <option value="+31">🇳🇱 +31</option>
+                <option value="+41">🇨🇭 +41</option>
+                <option value="+86">🇨🇳 +86</option>
+                <option value="+91">🇮🇳 +91</option>
+                <option value="+81">🇯🇵 +81</option>
+                <option value="+82">🇰🇷 +82</option>
+                <option value="+65">🇸🇬 +65</option>
+                <option value="+60">🇲🇾 +60</option>
+                <option value="+66">🇹🇭 +66</option>
+                <option value="+84">🇻🇳 +84</option>
+                <option value="+63">🇵🇭 +63</option>
+                <option value="+62">🇮🇩 +62</option>
+                <option value="+92">🇵🇰 +92</option>
+                <option value="+27">🇿🇦 +27</option>
+                <option value="+234">🇳🇬 +234</option>
+                <option value="+52">🇲🇽 +52</option>
+                <option value="+55">🇧🇷 +55</option>
+                <option value="+54">🇦🇷 +54</option>
+              </select>
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label>Phone Number</label>
+              <input type="tel" name="phoneNumber" placeholder="501234567" required>
+            </div>
+          </div>
+
+          <div class="terms-checkbox">
+            <label class="checkbox-label">
+              <input type="checkbox" name="termsAccepted" checked required>
+              <span>
+                I agree to the <a href="#" target="_blank">Terms & Conditions</a> and <a href="#" target="_blank">Privacy Policy</a>
+              </span>
+            </label>
+          </div>
+
+          <button type="submit" class="submit-btn">Get Started Now</button>
+
+          <p class="privacy-note">
+            🔒 Your information is secure and will only be used to connect you with our professional brokers
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Country code mapping
+    const countryCodeMap = {
+      'AE': '+971', 'SA': '+966', 'QA': '+974', 'KW': '+965', 'BH': '+973', 'OM': '+968',
+      'EG': '+20', 'JO': '+962', 'LB': '+961', 'IQ': '+964', 'SY': '+963', 'PS': '+970',
+      'IR': '+98', 'IL': '+972', 'TR': '+90', 'US': '+1', 'CA': '+1', 'GB': '+44',
+      'AU': '+61', 'NZ': '+64', 'DE': '+49', 'FR': '+33', 'IT': '+39', 'ES': '+34',
+      'NL': '+31', 'CH': '+41', 'CN': '+86', 'IN': '+91', 'JP': '+81', 'KR': '+82',
+      'SG': '+65', 'MY': '+60', 'TH': '+66', 'VN': '+84', 'PH': '+63', 'ID': '+62',
+      'PK': '+92', 'ZA': '+27', 'NG': '+234', 'MX': '+52', 'BR': '+55', 'AR': '+54'
+    };
+
+    const countryNameMap = {
+      'AE': 'United Arab Emirates', 'SA': 'Saudi Arabia', 'QA': 'Qatar', 'KW': 'Kuwait',
+      'BH': 'Bahrain', 'OM': 'Oman', 'EG': 'Egypt', 'JO': 'Jordan', 'LB': 'Lebanon',
+      'US': 'United States', 'GB': 'United Kingdom', 'IN': 'India', 'CN': 'China'
+    };
+
+    // Detect country on load
+    fetch('https://ipapi.co/json/')
+      .then(res => res.json())
+      .then(data => {
+        const country = data.country_code;
+        const countrySelect = document.getElementById('countrySelect');
+        const codeSelect = document.getElementById('codeSelect');
+        const detected = document.getElementById('countryDetected');
+
+        if (countryCodeMap[country]) {
+          countrySelect.value = country;
+          codeSelect.value = countryCodeMap[country];
+          const countryName = countryNameMap[country] || data.country_name || country;
+          detected.textContent = `(${countryName} detected)`;
+        }
+      })
+      .catch(err => {
+        console.log('Country detection failed:', err);
+        // Defaults to UAE
+      });
+
+    // Sync country and code
+    document.getElementById('countrySelect').addEventListener('change', function() {
+      const code = countryCodeMap[this.value];
+      if (code) {
+        document.getElementById('codeSelect').value = code;
+      }
+    });
+
+    function handleSubmit(event) {
+      event.preventDefault();
+
+      const formData = new FormData(event.target);
+      const data = {
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        email: formData.get('email'),
+        countryCode: formData.get('countryCode'),
+        phoneNumber: formData.get('phoneNumber'),
+        country: formData.get('country'),
+        termsAccepted: formData.get('termsAccepted') === 'on'
+      };
+
+      console.log('Form submitted:', data);
+
+      // TODO: Send to your API endpoint
+      // fetch('/api/signup', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data)
+      // })
+      // .then(res => res.json())
+      // .then(result => {
+      //   if (result.success) {
+      //     showSuccess();
+      //   }
+      // });
+
+      // For demo: show success immediately
+      showSuccess();
+    }
+
+    function showSuccess() {
+      document.getElementById('formContainer').style.display = 'none';
+      document.getElementById('successMessage').classList.add('active');
+
+      // Auto close after 2 seconds
+      setTimeout(() => {
+        closePopup();
+      }, 2000);
+    }
+
+    function closePopup() {
+      alert('Popup closed! In production, this would hide the popup.');
+      // window.parent.postMessage('closePopup', '*');
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closePopup();
+      }
+    });
+
+    // Show popup after 10 seconds (for demo, remove in production)
+    setTimeout(() => {
+      console.log('Popup visible (already visible in this demo)');
+    }, 10000);
+  </script>
+</body>
+</html>
