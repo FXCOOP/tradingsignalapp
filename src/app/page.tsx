@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react'
 import { designSystem } from './design-system'
 import { useUser } from '@/contexts/UserContext'
 import { AuthModal } from '@/components/AuthModal'
-import { GamificationPopup } from '@/components/GamificationPopup'
-import { AutoOptimizingPopup, PopupAnalyticsDashboard } from '@/components/AutoOptimizingPopup'
+import { MultiPopupSystem } from '@/components/MultiPopupSystem'
 import { ExnessLink } from '@/components/ExnessLink'
 import { detectLanguage, saveLanguagePreference } from '@/lib/language-detector'
 import { useTranslation } from '@/lib/translations'
@@ -14610,11 +14609,11 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         defaultMode={authMode}
       />
 
-      {/* 🏦 Multi-Popup System - Commented out until implemented */}
-      {/* <MultiPopupSystem
+      {/* 🏦 Multi-Popup System */}
+      <MultiPopupSystem
         onOpenBrokerAccount={handleOpenBrokerAccount}
         language={language}
-      /> */}
+      />
 
       {/* CSS Animations for 30-min popup */}
       <style jsx global>{`
