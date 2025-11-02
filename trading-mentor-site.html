@@ -671,7 +671,13 @@
     <!-- Header -->
     <header class="header">
         <div class="header-content">
-            <div class="logo">💎 Elite Trading Mentorship</div>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="logo">💎 Elite Trading Mentorship</div>
+                <div style="border-left: 2px solid rgba(255, 255, 255, 0.2); padding-left: 20px;">
+                    <div style="font-size: 12px; color: rgba(255, 255, 255, 0.5); margin-bottom: 2px;">Powered by</div>
+                    <div style="font-size: 18px; font-weight: 900; background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">FinoGlob</div>
+                </div>
+            </div>
             <button class="cta-header-btn" onclick="openModal()">Get Your Mentor</button>
         </div>
     </header>
@@ -679,9 +685,9 @@
     <!-- Hero -->
     <section class="hero">
         <div class="hero-content">
-            <div class="hero-badge">🏆 VIP Trading Guidance</div>
+            <div class="hero-badge">🏆 VIP Trading Guidance • Powered by FinoGlob</div>
             <h1>Your Personal <span class="hero-highlight">Trading Guru</span><br>1-on-1 Mentorship</h1>
-            <p>Stop learning alone. Get direct guidance from elite traders who've made millions. Live signals, daily analysis, and personal support.</p>
+            <p>Stop learning alone. Get direct guidance from elite traders who've made millions. Live signals, daily analysis, and personal support. <strong>Trade with FinoGlob</strong>, our trusted broker partner.</p>
             <div class="hero-cta">
                 <button class="btn-primary" onclick="openModal()">🚀 Get Matched with a Mentor</button>
                 <button class="btn-secondary" onclick="scrollToMentors()">👥 Meet the Mentors</button>
@@ -711,10 +717,38 @@
         </div>
     </section>
 
+    <!-- Trusted Broker -->
+    <section style="background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%); padding: 80px 24px; text-align: center; border-top: 2px solid #2563eb; border-bottom: 2px solid #2563eb; position: relative;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.1) 0%, transparent 70%); pointer-events: none;"></div>
+        <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
+            <p style="font-size: 14px; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 40px;">🏆 Official Broker Partner</p>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 50px; flex-wrap: wrap;">
+                <div style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%); border: 3px solid #2563eb; border-radius: 20px; padding: 40px 70px; box-shadow: 0 10px 40px rgba(37, 99, 235, 0.3);">
+                    <h3 style="font-size: 56px; font-weight: 900; background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; letter-spacing: -1px;">FinoGlob</h3>
+                    <p style="font-size: 16px; color: #e0e7ff; font-weight: 700; letter-spacing: 2px;">REGULATED • SECURE • TRUSTED</p>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="background: rgba(59, 130, 246, 0.1); border: 2px solid rgba(59, 130, 246, 0.3); padding: 20px 28px; border-radius: 12px; font-size: 15px; font-weight: 700; color: #93c5fd;">
+                        🏦 Regulated
+                    </div>
+                    <div style="background: rgba(59, 130, 246, 0.1); border: 2px solid rgba(59, 130, 246, 0.3); padding: 20px 28px; border-radius: 12px; font-size: 15px; font-weight: 700; color: #93c5fd;">
+                        🔒 SSL Secure
+                    </div>
+                    <div style="background: rgba(59, 130, 246, 0.1); border: 2px solid rgba(59, 130, 246, 0.3); padding: 20px 28px; border-radius: 12px; font-size: 15px; font-weight: 700; color: #93c5fd;">
+                        ⚡ Fast Trading
+                    </div>
+                    <div style="background: rgba(59, 130, 246, 0.1); border: 2px solid rgba(59, 130, 246, 0.3); padding: 20px 28px; border-radius: 12px; font-size: 15px; font-weight: 700; color: #93c5fd;">
+                        💼 Pro Platform
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- What You Get -->
     <section class="section">
         <h2 class="section-title">What You Get with Your Personal Mentor</h2>
-        <p class="section-subtitle">Forget boring courses. Get real-time guidance from someone who trades for a living</p>
+        <p class="section-subtitle">Forget boring courses. Get real-time guidance from someone who trades for a living + Trade with FinoGlob's professional platform</p>
 
         <div class="features-grid">
             <div class="feature-card">
@@ -733,6 +767,15 @@
                 <div class="feature-icon">📱</div>
                 <h3 class="feature-title">Daily Market Analysis</h3>
                 <p class="feature-desc">Every morning, your mentor sends a video breaking down what's happening in the markets and where the opportunities are.</p>
+            </div>
+
+            <div class="feature-card" style="border: 3px solid #2563eb; background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(59, 130, 246, 0.05) 100%); box-shadow: 0 8px 30px rgba(37, 99, 235, 0.25);">
+                <div class="feature-icon" style="background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); color: white;">🏦</div>
+                <h3 class="feature-title" style="color: #3b82f6;">FinoGlob Trading Account</h3>
+                <p class="feature-desc">Get connected with FinoGlob, our regulated broker partner. Professional platform, fast execution, and secure trading environment.</p>
+                <div style="margin-top: 20px; padding: 12px; background: rgba(37, 99, 235, 0.1); border-radius: 8px; font-size: 13px; font-weight: 600; color: #93c5fd;">
+                    ⭐ Premium Broker Partnership
+                </div>
             </div>
 
             <div class="feature-card">
@@ -944,14 +987,26 @@
     <!-- Final CTA -->
     <section class="cta-section">
         <h2>Ready for Your Personal Trading Mentor?</h2>
-        <p>Fill out the form. We'll match you with the perfect mentor based on your goals and experience.</p>
-        <button class="btn-primary" onclick="openModal()" style="box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);">🚀 Get Started Now</button>
+        <p>Fill out the form. We'll match you with the perfect mentor based on your goals and experience. Start trading with FinoGlob today.</p>
+        <button class="btn-primary" onclick="openModal()" style="box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);">🚀 Get Started with FinoGlob</button>
+        <p style="margin-top: 30px; font-size: 16px; opacity: 0.8;">
+            Trusted by 2,847+ traders worldwide • Powered by FinoGlob
+        </p>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
+        <div style="margin-bottom: 30px;">
+            <div style="font-size: 32px; font-weight: 900; margin-bottom: 12px;">
+                <span style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">FinoGlob</span>
+            </div>
+            <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">Elite Trading Mentorship • Trusted Broker Partner</p>
+        </div>
         <p>⚠️ Risk Warning: Trading involves substantial risk of loss. Mentorship is for educational purposes. Past performance does not guarantee future results.</p>
-        <p style="margin-top: 12px;">© 2025 Elite Trading Mentorship. All rights reserved.</p>
+        <p style="margin-top: 12px;">© 2025 FinoGlob Elite Trading Mentorship. All rights reserved.</p>
+        <p style="margin-top: 8px; font-size: 13px; color: rgba(255, 255, 255, 0.4);">
+            FinoGlob is a regulated broker providing professional trading services worldwide.
+        </p>
     </footer>
 
     <!-- Floating Button -->
@@ -963,8 +1018,12 @@
             <button class="modal-close" onclick="closeModal()">×</button>
 
             <div id="signupForm">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="font-size: 24px; font-weight: 900; background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">FinoGlob</div>
+                    <div style="font-size: 11px; color: rgba(255, 255, 255, 0.5); margin-top: 4px;">Elite Trading Mentorship</div>
+                </div>
                 <h2 class="modal-title">Get Matched with Your Mentor</h2>
-                <p class="modal-subtitle">Tell us about yourself and we'll find the perfect mentor for you</p>
+                <p class="modal-subtitle">Tell us about yourself and we'll find the perfect mentor for you + connect you with FinoGlob</p>
 
                 <form onsubmit="handleSignup(event)">
                     <div class="form-group">
@@ -1023,7 +1082,7 @@
                         <textarea class="form-textarea" name="challenge" placeholder="Tell us what you're struggling with..." required></textarea>
                     </div>
 
-                    <button type="submit" class="submit-btn">🚀 Get Matched with a Mentor</button>
+                    <button type="submit" class="submit-btn">🚀 Get Matched with a Mentor + Join FinoGlob</button>
                 </form>
             </div>
 
@@ -1035,8 +1094,9 @@
                     <strong>What happens next:</strong><br>
                     1. We'll match you with the perfect mentor (within 24 hours)<br>
                     2. You'll receive a WhatsApp message from your mentor<br>
-                    3. Your mentor will set up your first 1-on-1 call<br><br>
-                    <strong>You'll also receive information about opening a live trading account to practice with real money!</strong>
+                    3. Your mentor will set up your first 1-on-1 call<br>
+                    4. We'll connect you with <strong>FinoGlob</strong>, our trusted broker partner<br><br>
+                    <strong>You'll receive account setup information to start trading with our regulated broker partner FinoGlob!</strong>
                 </p>
             </div>
         </div>

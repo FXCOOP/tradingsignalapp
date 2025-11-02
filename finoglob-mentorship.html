@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinoGlob Elite Trading Mentorship - Professional Trading Guidance</title>
+    <meta name="description" content="Premium 1-on-1 trading mentorship from FinoGlob. Connect with expert mentors, receive live signals, and trade with our trusted broker partners.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid #e5e7eb;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: #1a1a1a;
+        }
+
+        .logo-highlight {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-tagline {
+            font-size: 11px;
+            color: #6b7280;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #4b5563;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #2563eb;
+        }
+
+        .cta-header-btn {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+            transition: all 0.3s;
+        }
+
+        .cta-header-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+            padding: 120px 40px 100px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-left h1 {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: #1a1a1a;
+            letter-spacing: -2px;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-left p {
+            font-size: 20px;
+            color: #6b7280;
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #059669;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .trust-badge-icon {
+            width: 20px;
+            height: 20px;
+            background: #059669;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            padding: 18px 36px;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1a1a1a;
+            border: 2px solid #e5e7eb;
+            padding: 16px 36px;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: #2563eb;
+            background: #f9fafb;
+        }
+
+        .hero-right {
+            position: relative;
+        }
+
+        .stats-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        /* Broker Partners */
+        .broker-section {
+            background: #f9fafb;
+            padding: 60px 40px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .broker-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .broker-title {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 30px;
+        }
+
+        .broker-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .broker-logo {
+            height: 40px;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+            filter: grayscale(100%);
+        }
+
+        .broker-logo:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+
+        .broker-badge {
+            display: inline-block;
+            background: white;
+            border: 1px solid #e5e7eb;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        /* Section */
+        .section {
+            padding: 100px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: #eff6ff;
+            color: #2563eb;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            color: #6b7280;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 40px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: #2563eb;
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 24px;
+        }
+
+        .feature-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .feature-desc {
+            font-size: 16px;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        /* Mentors */
+        .mentor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .mentor-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .mentor-card:hover {
+            border-color: #2563eb;
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.15);
+        }
+
+        .mentor-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 900;
+            color: white;
+        }
+
+        .mentor-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #1a1a1a;
+        }
+
+        .mentor-title {
+            font-size: 14px;
+            color: #2563eb;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .mentor-desc {
+            font-size: 15px;
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .mentor-stats {
+            display: flex;
+            justify-content: space-around;
+            padding-top: 24px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .mentor-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .mentor-stat-label {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+
+        /* How It Works */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .step-card {
+            position: relative;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 24px;
+            font-weight: 900;
+            color: white;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .step-desc {
+            font-size: 16px;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            color: #4b5563;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .author-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 18px;
+            color: white;
+        }
+
+        .author-name {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1a1a1a;
+        }
+
+        .author-location {
+            font-size: 13px;
+            color: #9ca3af;
+            margin-top: 2px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 100px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            font-size: 52px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            color: #cbd5e1;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 550px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #9ca3af;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #1a1a1a;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .modal-logo {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .modal-title {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .modal-subtitle {
+            font-size: 16px;
+            color: #6b7280;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #059669;
+            margin-bottom: 16px;
+        }
+
+        .success-text {
+            font-size: 16px;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            background: #f9fafb;
+            padding: 60px 40px 40px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand {
+            max-width: 350px;
+        }
+
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .footer-desc {
+            font-size: 15px;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        .footer-section h4 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #2563eb;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 40px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .disclaimer {
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #78350f;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+            .hero-left h1 {
+                font-size: 48px;
+            }
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-left h1 {
+                font-size: 36px;
+            }
+            .section-title {
+                font-size: 36px;
+            }
+            .header-nav {
+                display: none;
+            }
+            .features-grid,
+            .mentor-grid,
+            .testimonials-grid,
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <div class="logo">Fino<span class="logo-highlight">Glob</span></div>
+                <div style="border-left: 2px solid #e5e7eb; padding-left: 12px;">
+                    <div class="logo-tagline">Elite Mentorship</div>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#mentors" class="nav-link">Mentors</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#testimonials" class="nav-link">Reviews</a>
+            </nav>
+            <button class="cta-header-btn" onclick="openModal()">Apply Now</button>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-left">
+                <h1>Professional Trading Mentorship with <span class="hero-highlight">FinoGlob</span></h1>
+                <p>Get paired with elite trading mentors. Receive personalized 1-on-1 guidance, live market signals, and direct support to accelerate your trading success.</p>
+
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <div class="trust-badge-icon">✓</div>
+                        Regulated Brokers
+                    </div>
+                    <div class="trust-badge">
+                        <div class="trust-badge-icon">✓</div>
+                        15+ Expert Mentors
+                    </div>
+                    <div class="trust-badge">
+                        <div class="trust-badge-icon">✓</div>
+                        2,847+ Active Clients
+                    </div>
+                </div>
+
+                <div class="hero-cta">
+                    <button class="btn-primary" onclick="openModal()">Get Matched with a Mentor</button>
+                    <button class="btn-secondary" onclick="scrollToMentors()">Meet Our Mentors</button>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="stats-card">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">2,847</div>
+                            <div class="stat-label">Active Clients</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">4.9★</div>
+                            <div class="stat-label">Client Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">15+</div>
+                            <div class="stat-label">Expert Mentors</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">24/7</div>
+                            <div class="stat-label">Support Available</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted Brokers -->
+    <section class="broker-section">
+        <div class="broker-content">
+            <p class="broker-title">Trade with Our Trusted Broker Partners</p>
+            <div class="broker-logos">
+                <div class="broker-badge">🏦 Regulated Brokers</div>
+                <div class="broker-badge">🔒 Secure Platforms</div>
+                <div class="broker-badge">⚡ Fast Execution</div>
+                <div class="broker-badge">💼 Professional Support</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section" id="features">
+        <div class="section-header">
+            <div class="section-badge">What You Get</div>
+            <h2 class="section-title">Premium Mentorship Benefits</h2>
+            <p class="section-subtitle">Everything you need to succeed in trading, backed by FinoGlob's proven methodology</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3 class="feature-title">Direct Mentor Access</h3>
+                <p class="feature-desc">WhatsApp and Telegram access to your personal mentor. Get answers to your questions within minutes, not days.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Live Trading Signals</h3>
+                <p class="feature-desc">10-15 high-probability signals daily across Forex, Crypto, Stocks, and Gold with complete trade setup details.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📞</div>
+                <h3 class="feature-title">Weekly 1-on-1 Calls</h3>
+                <p class="feature-desc">30-minute private video calls every week to review your progress, fix mistakes, and refine your strategy.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Daily Market Analysis</h3>
+                <p class="feature-desc">Morning video briefings breaking down market conditions, key levels, and trading opportunities for the day ahead.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Trade Review & Feedback</h3>
+                <p class="feature-desc">Send screenshots of your trades for detailed analysis. Learn exactly what you did right and what to improve.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3 class="feature-title">Private Community</h3>
+                <p class="feature-desc">Join an exclusive group of serious traders. Share ideas, get peer feedback, and network with like-minded professionals.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mentors -->
+    <section class="section" id="mentors" style="background: #f9fafb;">
+        <div class="section-header">
+            <div class="section-badge">Expert Team</div>
+            <h2 class="section-title">Meet Your FinoGlob Mentors</h2>
+            <p class="section-subtitle">Elite traders with proven track records. Each mentor is vetted and certified by FinoGlob</p>
+        </div>
+
+        <div class="mentor-grid">
+            <div class="mentor-card">
+                <div class="mentor-avatar">AK</div>
+                <h3 class="mentor-name">Ahmed Khalil</h3>
+                <p class="mentor-title">Forex & Gold Specialist</p>
+                <p class="mentor-desc">12 years trading experience. Former institutional trader. Specializes in EUR/USD, GBP/USD, and XAUUSD. Expert in swing trading strategies.</p>
+                <div class="mentor-stats">
+                    <div>
+                        <div class="mentor-stat-value">12Y</div>
+                        <div class="mentor-stat-label">Experience</div>
+                    </div>
+                    <div>
+                        <div class="mentor-stat-value">340+</div>
+                        <div class="mentor-stat-label">Clients</div>
+                    </div>
+                    <div>
+                        <div class="mentor-stat-value">4.9★</div>
+                        <div class="mentor-stat-label">Rating</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mentor-card">
+                <div class="mentor-avatar">MR</div>
+                <h3 class="mentor-name">Marcus Rivera</h3>
+                <p class="mentor-title">Cryptocurrency Expert</p>
+                <p class="mentor-desc">8 years in crypto markets. Early Bitcoin investor. Specializes in BTC, ETH, and altcoin day trading with proven scalping strategies.</p>
+                <div class="mentor-stats">
+                    <div>
+                        <div class="mentor-stat-value">8Y</div>
+                        <div class="mentor-stat-label">Experience</div>
+                    </div>
+                    <div>
+                        <div class="mentor-stat-value">215+</div>
+                        <div class="mentor-stat-label">Clients</div>
+                    </div>
+                    <div>
+                        <div class="mentor-stat-value">5.0★</div>
+                        <div class="mentor-stat-label">Rating</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mentor-card">
+                <div class="mentor-avatar">SL</div>
+                <h3 class="mentor-name">Sarah Lancaster</h3>
+                <p class="mentor-title">Stock Market Strategist</p>
+                <p class="mentor-desc">15 years on Wall Street. Former hedge fund manager. Focuses on S&P 500, NASDAQ tech stocks, and options trading strategies.</p>
+                <div class="mentor-stats">
+                    <div>
+                        <div class="mentor-stat-value">15Y</div>
+                        <div class="mentor-stat-label">Experience</div>
+                    </div>
+                    <div>
+                        <div class="mentor-stat-value">180+</div>
+                        <div class="mentor-stat-label">Clients</div>
+                    </div>
+                    <div>
+                        <div class="mentor-stat-value">4.8★</div>
+                        <div class="mentor-stat-label">Rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section" id="how-it-works">
+        <div class="section-header">
+            <div class="section-badge">Simple Process</div>
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Get started in 4 simple steps</p>
+        </div>
+
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3 class="step-title">Apply & Get Matched</h3>
+                <p class="step-desc">Fill out the application form. We'll match you with the perfect mentor based on your goals, experience, and trading interests.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3 class="step-title">Open Trading Account</h3>
+                <p class="step-desc">Get connected with one of our trusted broker partners. Open your account and access professional trading platforms.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3 class="step-title">Start Learning</h3>
+                <p class="step-desc">Your mentor will contact you directly. Begin receiving daily signals, market analysis, and personalized guidance.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3 class="step-title">Trade & Grow</h3>
+                <p class="step-desc">Follow signals, attend weekly calls, and refine your strategy. Your mentor supports you every step of the way.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section" id="testimonials" style="background: #f9fafb;">
+        <div class="section-header">
+            <div class="section-badge">Client Success</div>
+            <h2 class="section-title">What Our Clients Say</h2>
+            <p class="section-subtitle">Real results from traders who transformed their trading with FinoGlob</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"FinoGlob matched me with Ahmed and it changed everything. His signals are incredibly accurate and he actually responds on WhatsApp. In 3 months I went from losing to consistently profitable."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">KM</div>
+                    <div>
+                        <div class="author-name">Khalid Mohammed</div>
+                        <div class="author-location">Dubai, UAE</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Marcus taught me crypto trading from zero. Started with $2K, now at $18K in 5 months. The weekly calls alone are worth the investment. Best decision I made."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">DJ</div>
+                    <div>
+                        <div class="author-name">David Johnson</div>
+                        <div class="author-location">London, UK</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Sarah doesn't just give signals, she teaches you the 'why' behind every trade. Now I can spot opportunities on my own. The FinoGlob program is top-tier."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">RP</div>
+                    <div>
+                        <div class="author-name">Ravi Patel</div>
+                        <div class="author-location">Mumbai, India</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>Ready to Elevate Your Trading?</h2>
+        <p>Join thousands of traders who are learning from the best. Get matched with your personal mentor today.</p>
+        <button class="btn-primary" onclick="openModal()" style="box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);">Apply for Mentorship</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">Fino<span class="logo-highlight">Glob</span></div>
+                <p class="footer-desc">Professional trading mentorship connecting you with elite traders. Trade with confidence backed by expert guidance and trusted broker partnerships.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#mentors">Trading Mentorship</a></li>
+                    <li><a href="#features">Live Signals</a></li>
+                    <li><a href="#features">Market Analysis</a></li>
+                    <li><a href="#">Broker Partners</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Mentors</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Risk Disclosure</a></li>
+                    <li><a href="#">Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="disclaimer">
+                ⚠️ <strong>Risk Warning:</strong> Trading in financial markets involves substantial risk of loss. CFDs, Forex, and Cryptocurrency trading may not be suitable for all investors. FinoGlob provides educational mentorship only and does not provide financial advice. Past performance does not guarantee future results. Only trade with money you can afford to lose.
+            </div>
+            <p>© 2025 FinoGlob Elite Mentorship. All rights reserved. | Connecting traders with trusted brokers worldwide.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+
+            <div id="signupForm">
+                <div class="modal-header">
+                    <div class="modal-logo">Fino<span class="logo-highlight">Glob</span></div>
+                    <h2 class="modal-title">Apply for Mentorship</h2>
+                    <p class="modal-subtitle">We'll match you with the perfect mentor for your goals</p>
+                </div>
+
+                <form onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label class="form-label">Full Name *</label>
+                        <input type="text" class="form-input" name="fullName" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" class="form-input" name="email" placeholder="john@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">WhatsApp Number *</label>
+                        <input type="tel" class="form-input" name="phone" placeholder="+971 50 123 4567" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Trading Experience *</label>
+                        <select class="form-select" name="experience" required>
+                            <option value="">Select your level</option>
+                            <option value="beginner">Complete Beginner</option>
+                            <option value="novice">Novice (0-6 months)</option>
+                            <option value="intermediate">Intermediate (6 months - 2 years)</option>
+                            <option value="advanced">Advanced (2+ years)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">What do you want to trade? *</label>
+                        <select class="form-select" name="interest" required>
+                            <option value="">Select primary interest</option>
+                            <option value="forex">Forex (EUR/USD, GBP/USD, etc.)</option>
+                            <option value="gold">Gold & Commodities</option>
+                            <option value="crypto">Cryptocurrency (BTC, ETH)</option>
+                            <option value="stocks">US Stocks (Apple, Tesla, etc.)</option>
+                            <option value="indices">Stock Indices (S&P 500)</option>
+                            <option value="all">Open to Everything</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Account Size (Optional)</label>
+                        <select class="form-select" name="accountSize">
+                            <option value="">Select range</option>
+                            <option value="under-1k">Under $1,000</option>
+                            <option value="1k-5k">$1,000 - $5,000</option>
+                            <option value="5k-10k">$5,000 - $10,000</option>
+                            <option value="10k-50k">$10,000 - $50,000</option>
+                            <option value="50k-plus">$50,000+</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">What's your main goal? *</label>
+                        <textarea class="form-textarea" name="goal" placeholder="Tell us what you want to achieve..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Submit Application</button>
+                </form>
+            </div>
+
+            <div id="successMessage" class="success-message">
+                <div class="success-icon">✅</div>
+                <h3 class="success-title">Application Received!</h3>
+                <p class="success-text">
+                    Thank you for applying to FinoGlob Elite Mentorship.<br><br>
+                    <strong>What happens next:</strong><br>
+                    1. We'll review your application within 24 hours<br>
+                    2. Match you with the perfect mentor for your goals<br>
+                    3. Your mentor will contact you on WhatsApp<br>
+                    4. We'll connect you with a trusted broker partner<br><br>
+                    Check your email for next steps!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('signupModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('signupModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function scrollToMentors() {
+            document.getElementById('mentors').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const data = {
+                fullName: formData.get('fullName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                experience: formData.get('experience'),
+                interest: formData.get('interest'),
+                accountSize: formData.get('accountSize'),
+                goal: formData.get('goal'),
+                timestamp: new Date().toISOString(),
+                source: 'finoglob-mentorship',
+                leadType: 'mentorship-application',
+                utmSource: getUrlParameter('utm_source') || 'direct',
+                utmMedium: getUrlParameter('utm_medium') || 'none',
+                utmCampaign: getUrlParameter('utm_campaign') || 'none'
+            };
+
+            // Send to broker's CRM
+            sendLeadToBroker(data);
+
+            // Show success
+            document.getElementById('signupForm').style.display = 'none';
+            document.getElementById('successMessage').classList.add('active');
+
+            // Track conversion
+            trackConversion(data);
+        }
+
+        function sendLeadToBroker(data) {
+            // Replace with actual broker API
+            fetch('https://your-broker-crm.com/api/leads', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer YOUR_API_KEY'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Lead sent to broker:', result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function trackConversion(data) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'finoglob_mentorship_application', {
+                    method: 'application_form',
+                    value: data.email
+                });
+            }
+
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', {
+                    content_name: 'FinoGlob Mentorship',
+                    value: 500,
+                    currency: 'USD'
+                });
+            }
+        }
+
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Modal close on outside click
+        document.getElementById('signupModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
