@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
 async function findBestBroker(leadId: string) {
   // Get the lead details
   const leads = await getAllSignups();
-  const lead = leads?.find((l: any) => l.id === leadId);
+  const lead = leads.find((l: any) => l.id === leadId);
 
   if (!lead) return null;
 
