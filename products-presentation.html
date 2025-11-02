@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradeFlow Products - Academy | Case Studies | Trading Signals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #1e293b;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #0052CC 0%, #00C853 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #0052CC;
+            color: white;
+            border-color: #0052CC;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 120px auto 60px;
+            padding: 0 24px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #0052CC 0%, #00C853 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: 24px;
+            color: #64748b;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+            padding: 40px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .products-section {
+            margin: 80px 0;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 900;
+            margin-bottom: 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #0052CC 0%, #00C853 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-bottom: 100px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(135deg, #0052CC 0%, #00C853 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 82, 204, 0.2);
+            border-color: rgba(0, 82, 204, 0.2);
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .product-title {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+
+        .product-description {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            color: #334155;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-check {
+            color: #00C853;
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .price-tag {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin: 24px 0;
+        }
+
+        .price-amount {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #0052CC 0%, #00C853 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .price-period {
+            font-size: 16px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .cta-button {
+            width: 100%;
+            background: linear-gradient(135deg, #0052CC 0%, #0065FF 100%);
+            color: white;
+            border: none;
+            padding: 18px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 24px rgba(0, 82, 204, 0.25);
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 32px rgba(0, 82, 204, 0.35);
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #00C853 0%, #00E676 100%);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .badge-premium {
+            background: linear-gradient(135deg, #FFA000 0%, #FFCA28 100%);
+        }
+
+        .badge-new {
+            background: linear-gradient(135deg, #2962FF 0%, #448AFF 100%);
+        }
+
+        .testimonial-section {
+            background: white;
+            border-radius: 24px;
+            padding: 60px 40px;
+            margin: 80px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 30px;
+            border-left: 4px solid #0052CC;
+        }
+
+        .testimonial-text {
+            font-size: 15px;
+            color: #334155;
+            margin-bottom: 20px;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0052CC 0%, #00C853 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        .author-info {
+            flex: 1;
+        }
+
+        .author-name {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 14px;
+        }
+
+        .author-role {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .footer {
+            background: #0f172a;
+            color: white;
+            padding: 40px 0;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero p {
+                font-size: 18px;
+            }
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            .product-card {
+                padding: 30px;
+            }
+        }
+
+        .comparison-table {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 60px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .check-mark {
+            color: #00C853;
+            font-size: 20px;
+        }
+
+        .x-mark {
+            color: #ef4444;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">TradeFlow</div>
+            <div class="header-nav">
+                <button class="nav-btn">🏠 Home</button>
+                <button class="nav-btn">📚 Products</button>
+                <button class="nav-btn">💼 Enterprise</button>
+                <button class="nav-btn">🔐 Login</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>🚀 TradeFlow Products Suite</h1>
+            <p>Professional Trading Education, Real-World Case Studies & Live Trading Signals</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value">17,900+</div>
+                <div class="stat-label">Active Students</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">6,155+</div>
+                <div class="stat-label">Signals Generated</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">450+</div>
+                <div class="stat-label">Case Studies</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">4.8★</div>
+                <div class="stat-label">Average Rating</div>
+            </div>
+        </div>
+
+        <!-- Product Variation 1: Premium All-in-One Bundle -->
+        <div class="products-section">
+            <h2 class="section-title">💎 Product Option 1: Premium All-in-One Bundle</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <span class="badge badge-premium">MOST POPULAR</span>
+                    <div class="product-icon">🎯</div>
+                    <h3 class="product-title">Complete Trading Mastery</h3>
+                    <p class="product-description">
+                        Everything you need to become a professional trader - Academy courses, live signals, and 450+ real case studies all in one package.
+                    </p>
+                    <ul class="features-list">
+                        <li><span class="feature-check">✓</span> Full Academy Access (50+ courses)</li>
+                        <li><span class="feature-check">✓</span> Live Trading Signals (24/7)</li>
+                        <li><span class="feature-check">✓</span> 450+ Case Studies Library</li>
+                        <li><span class="feature-check">✓</span> AI Market Analysis</li>
+                        <li><span class="feature-check">✓</span> Priority Support</li>
+                        <li><span class="feature-check">✓</span> Certificate of Completion</li>
+                        <li><span class="feature-check">✓</span> Private Discord Community</li>
+                    </ul>
+                    <div class="price-tag">
+                        <span class="price-amount">$199</span>
+                        <span class="price-period">/month</span>
+                    </div>
+                    <button class="cta-button">🚀 Start Learning Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Variation 2: Individual Products -->
+        <div class="products-section">
+            <h2 class="section-title">📦 Product Option 2: Individual Products</h2>
+            <div class="products-grid">
+                <!-- Academy Only -->
+                <div class="product-card">
+                    <div class="product-icon">🎓</div>
+                    <h3 class="product-title">Trading Academy</h3>
+                    <p class="product-description">
+                        Comprehensive video courses covering Forex, Stocks, Crypto, and Technical Analysis from beginner to advanced.
+                    </p>
+                    <ul class="features-list">
+                        <li><span class="feature-check">✓</span> 50+ Video Courses</li>
+                        <li><span class="feature-check">✓</span> Live Webinars</li>
+                        <li><span class="feature-check">✓</span> Quiz & Assessments</li>
+                        <li><span class="feature-check">✓</span> Certificate Program</li>
+                        <li><span class="feature-check">✓</span> Lifetime Access</li>
+                    </ul>
+                    <div class="price-tag">
+                        <span class="price-amount">$79</span>
+                        <span class="price-period">/month</span>
+                    </div>
+                    <button class="cta-button">📚 Enroll Now</button>
+                </div>
+
+                <!-- Case Studies Only -->
+                <div class="product-card">
+                    <div class="product-icon">📊</div>
+                    <h3 class="product-title">Case Studies Library</h3>
+                    <p class="product-description">
+                        450+ real-world trading case studies with detailed analysis, strategies, and outcomes from actual trades.
+                    </p>
+                    <ul class="features-list">
+                        <li><span class="feature-check">✓</span> 450+ Case Studies</li>
+                        <li><span class="feature-check">✓</span> Success & Failure Analysis</li>
+                        <li><span class="feature-check">✓</span> Strategy Breakdowns</li>
+                        <li><span class="feature-check">✓</span> Weekly Updates</li>
+                        <li><span class="feature-check">✓</span> Downloadable PDFs</li>
+                    </ul>
+                    <div class="price-tag">
+                        <span class="price-amount">$49</span>
+                        <span class="price-period">/month</span>
+                    </div>
+                    <button class="cta-button">📖 Access Library</button>
+                </div>
+
+                <!-- Trading Signals Only -->
+                <div class="product-card">
+                    <span class="badge badge-new">LIVE</span>
+                    <div class="product-icon">⚡</div>
+                    <h3 class="product-title">Live Trading Signals</h3>
+                    <p class="product-description">
+                        Real-time trading signals for Forex, Stocks, Gold, and Crypto with entry, target, and stop-loss levels.
+                    </p>
+                    <ul class="features-list">
+                        <li><span class="feature-check">✓</span> 15+ Daily Signals</li>
+                        <li><span class="feature-check">✓</span> Multi-Asset Coverage</li>
+                        <li><span class="feature-check">✓</span> AI-Powered Analysis</li>
+                        <li><span class="feature-check">✓</span> Mobile Notifications</li>
+                        <li><span class="feature-check">✓</span> Risk Management Tools</li>
+                    </ul>
+                    <div class="price-tag">
+                        <span class="price-amount">$99</span>
+                        <span class="price-period">/month</span>
+                    </div>
+                    <button class="cta-button">⚡ Get Signals</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Variation 3: Tiered Pricing -->
+        <div class="products-section">
+            <h2 class="section-title">🎯 Product Option 3: Tiered Plans</h2>
+            <div class="products-grid">
+                <!-- Starter -->
+                <div class="product-card">
+                    <div class="product-icon">🌱</div>
+                    <h3 class="product-title">Starter Plan</h3>
+                    <p class="product-description">
+                        Perfect for beginners who want to learn the fundamentals and explore trading.
+                    </p>
+                    <ul class="features-list">
+                        <li><span class="feature-check">✓</span> 10 Academy Courses</li>
+                        <li><span class="feature-check">✓</span> 50 Case Studies</li>
+                        <li><span class="feature-check">✓</span> 5 Signals/Day</li>
+                        <li><span class="feature-check">✓</span> Email Support</li>
+                    </ul>
+                    <div class="price-tag">
+                        <span class="price-amount">$49</span>
+                        <span class="price-period">/month</span>
+                    </div>
+                    <button class="cta-button">🌱 Start Free Trial</button>
+                </div>
+
+                <!-- Professional -->
+                <div class="product-card">
+                    <span class="badge">RECOMMENDED</span>
+                    <div class="product-icon">💼</div>
+                    <h3 class="product-title">Professional Plan</h3>
+                    <p class="product-description">
+                        For serious traders ready to take their skills to the next level.
+                    </p>
+                    <ul class="features-list">
+                        <li><span class="feature-check">✓</span> 30 Academy Courses</li>
+                        <li><span class="feature-check">✓</span> 200 Case Studies</li>
+                        <li><span class="feature-check">✓</span> 10 Signals/Day</li>
+                        <li><span class="feature-check">✓</span> Priority Support</li>
+                        <li><span class="feature-check">✓</span> Weekly Live Sessions</li>
+                    </ul>
+                    <div class="price-tag">
+                        <span class="price-amount">$99</span>
+                        <span class="price-period">/month</span>
+                    </div>
+                    <button class="cta-button">💼 Upgrade Now</button>
+                </div>
+
+                <!-- Elite -->
+                <div class="product-card">
+                    <span class="badge badge-premium">VIP ACCESS</span>
+                    <div class="product-icon">👑</div>
+                    <h3 class="product-title">Elite Plan</h3>
+                    <p class="product-description">
+                        Ultimate package for professional traders who demand the best.
+                    </p>
+                    <ul class="features-list">
+                        <li><span class="feature-check">✓</span> All 50+ Academy Courses</li>
+                        <li><span class="feature-check">✓</span> All 450+ Case Studies</li>
+                        <li><span class="feature-check">✓</span> 15+ Signals/Day</li>
+                        <li><span class="feature-check">✓</span> 1-on-1 Mentorship</li>
+                        <li><span class="feature-check">✓</span> Private Trading Room</li>
+                        <li><span class="feature-check">✓</span> API Access</li>
+                    </ul>
+                    <div class="price-tag">
+                        <span class="price-amount">$199</span>
+                        <span class="price-period">/month</span>
+                    </div>
+                    <button class="cta-button">👑 Go Elite</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Variation 4: Pay-Per-Use -->
+        <div class="products-section">
+            <h2 class="section-title">💰 Product Option 4: Pay-As-You-Go</h2>
+            <div class="products-grid">
+                <!-- Course Credits -->
+                <div class="product-card">
+                    <div class="product-icon">🎟️</div>
+                    <h3 class="product-title">Course Credits</h3>
+                    <p class="product-description">
+                        Buy credits and use them for any academy course. Credits never expire.
+                    </p>
+                    <ul class="features-list">
+                        <li><span class="feature-check">✓</span> 1 Credit = 1 Course</li>
+                        <li><span class="feature-check">✓</span> No Expiration</li>
+                        <li><span class="feature-check">✓</span> Lifetime Access to Purchased Courses</li>
+                        <li><span class="feature-check">✓</span> Flexible Learning</li>
+                    </ul>
+                    <div class="price-tag">
+                        <span class="price-amount">$29</span>
+                        <span class="price-period">/credit</span>
+                    </div>
+                    <button class="cta-button">🎟️ Buy Credits</button>
+                </div>
+
+                <!-- Case Study Packs -->
+                <div class="product-card">
+                    <div class="product-icon">📦</div>
+                    <h3 class="product-title">Case Study Packs</h3>
+                    <p class="product-description">
+                        Purchase curated case study collections by topic or strategy.
+                    </p>
+                    <ul class="features-list">
+                        <li><span class="feature-check">✓</span> 50 Case Studies/Pack</li>
+                        <li><span class="feature-check">✓</span> Organized by Strategy</li>
+                        <li><span class="feature-check">✓</span> Downloadable PDFs</li>
+                        <li><span class="feature-check">✓</span> One-time Payment</li>
+                    </ul>
+                    <div class="price-tag">
+                        <span class="price-amount">$39</span>
+                        <span class="price-period">/pack</span>
+                    </div>
+                    <button class="cta-button">📦 Choose Pack</button>
+                </div>
+
+                <!-- Daily Signals Pass -->
+                <div class="product-card">
+                    <div class="product-icon">🎫</div>
+                    <h3 class="product-title">Daily Signals Pass</h3>
+                    <p class="product-description">
+                        Get 24-hour access to all live trading signals. Perfect for testing.
+                    </p>
+                    <ul class="features-list">
+                        <li><span class="feature-check">✓</span> 24-Hour Access</li>
+                        <li><span class="feature-check">✓</span> All Signals Included</li>
+                        <li><span class="feature-check">✓</span> No Commitment</li>
+                        <li><span class="feature-check">✓</span> Great for Testing</li>
+                    </ul>
+                    <div class="price-tag">
+                        <span class="price-amount">$9.99</span>
+                        <span class="price-period">/day</span>
+                    </div>
+                    <button class="cta-button">🎫 Get Day Pass</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Variation 5: Enterprise & Custom Solutions -->
+        <div class="products-section">
+            <h2 class="section-title">🏢 Product Option 5: Enterprise Solutions</h2>
+            <div class="products-grid">
+                <!-- Corporate Training -->
+                <div class="product-card">
+                    <div class="product-icon">🏢</div>
+                    <h3 class="product-title">Corporate Training</h3>
+                    <p class="product-description">
+                        Custom trading education programs for financial institutions and trading firms.
+                    </p>
+                    <ul class="features-list">
+                        <li><span class="feature-check">✓</span> Unlimited Team Members</li>
+                        <li><span class="feature-check">✓</span> Custom Curriculum</li>
+                        <li><span class="feature-check">✓</span> Dedicated Support</li>
+                        <li><span class="feature-check">✓</span> Progress Tracking</li>
+                        <li><span class="feature-check">✓</span> Branded Platform</li>
+                        <li><span class="feature-check">✓</span> API Integration</li>
+                    </ul>
+                    <div class="price-tag">
+                        <span class="price-amount">Custom</span>
+                        <span class="price-period">pricing</span>
+                    </div>
+                    <button class="cta-button">💼 Contact Sales</button>
+                </div>
+
+                <!-- White Label Solution -->
+                <div class="product-card">
+                    <div class="product-icon">🎨</div>
+                    <h3 class="product-title">White Label Platform</h3>
+                    <p class="product-description">
+                        Launch your own branded trading education platform powered by TradeFlow.
+                    </p>
+                    <ul class="features-list">
+                        <li><span class="feature-check">✓</span> Full Content Library</li>
+                        <li><span class="feature-check">✓</span> Your Branding</li>
+                        <li><span class="feature-check">✓</span> Signal API Access</li>
+                        <li><span class="feature-check">✓</span> Revenue Sharing</li>
+                        <li><span class="feature-check">✓</span> Technical Support</li>
+                        <li><span class="feature-check">✓</span> Regular Updates</li>
+                    </ul>
+                    <div class="price-tag">
+                        <span class="price-amount">Custom</span>
+                        <span class="price-period">pricing</span>
+                    </div>
+                    <button class="cta-button">🎨 Learn More</button>
+                </div>
+
+                <!-- API Access -->
+                <div class="product-card">
+                    <div class="product-icon">⚙️</div>
+                    <h3 class="product-title">Signal API Access</h3>
+                    <p class="product-description">
+                        Integrate our trading signals directly into your platform or application.
+                    </p>
+                    <ul class="features-list">
+                        <li><span class="feature-check">✓</span> REST & WebSocket API</li>
+                        <li><span class="feature-check">✓</span> Real-time Data</li>
+                        <li><span class="feature-check">✓</span> 99.9% Uptime SLA</li>
+                        <li><span class="feature-check">✓</span> Developer Support</li>
+                        <li><span class="feature-check">✓</span> Documentation</li>
+                        <li><span class="feature-check">✓</span> Rate Limits</li>
+                    </ul>
+                    <div class="price-tag">
+                        <span class="price-amount">$499</span>
+                        <span class="price-period">/month</span>
+                    </div>
+                    <button class="cta-button">⚙️ Get API Key</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="comparison-table">
+            <h2 class="section-title">📊 Feature Comparison</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Starter ($49)</th>
+                        <th>Professional ($99)</th>
+                        <th>Elite ($199)</th>
+                        <th>Enterprise (Custom)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Academy Courses</td>
+                        <td>10 courses</td>
+                        <td>30 courses</td>
+                        <td>50+ courses</td>
+                        <td>Custom curriculum</td>
+                    </tr>
+                    <tr>
+                        <td>Case Studies</td>
+                        <td>50 studies</td>
+                        <td>200 studies</td>
+                        <td>450+ studies</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td>Daily Signals</td>
+                        <td>5 signals</td>
+                        <td>10 signals</td>
+                        <td>15+ signals</td>
+                        <td>Unlimited + API</td>
+                    </tr>
+                    <tr>
+                        <td>Live Sessions</td>
+                        <td><span class="x-mark">✗</span></td>
+                        <td><span class="check-mark">✓</span> Weekly</td>
+                        <td><span class="check-mark">✓</span> Daily</td>
+                        <td><span class="check-mark">✓</span> On-demand</td>
+                    </tr>
+                    <tr>
+                        <td>1-on-1 Mentorship</td>
+                        <td><span class="x-mark">✗</span></td>
+                        <td><span class="x-mark">✗</span></td>
+                        <td><span class="check-mark">✓</span> Monthly</td>
+                        <td><span class="check-mark">✓</span> Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td>API Access</td>
+                        <td><span class="x-mark">✗</span></td>
+                        <td><span class="x-mark">✗</span></td>
+                        <td><span class="check-mark">✓</span></td>
+                        <td><span class="check-mark">✓</span> Custom</td>
+                    </tr>
+                    <tr>
+                        <td>Support</td>
+                        <td>Email</td>
+                        <td>Priority</td>
+                        <td>VIP 24/7</td>
+                        <td>Dedicated Manager</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="testimonial-section">
+            <h2 class="section-title">💬 What Our Traders Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "The case studies library is invaluable. Learning from real trades helped me avoid costly mistakes and understand what works in different market conditions."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AM</div>
+                        <div class="author-info">
+                            <div class="author-name">Ahmed Mohammed</div>
+                            <div class="author-role">Dubai, UAE</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "The Academy courses are comprehensive and easy to follow. I went from complete beginner to confidently analyzing charts in just 3 months."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SK</div>
+                        <div class="author-info">
+                            <div class="author-name">Sarah Khan</div>
+                            <div class="author-role">Riyadh, Saudi Arabia</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "The live signals are incredibly accurate. The AI analysis helps me understand the reasoning behind each signal, not just blindly follow."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">YA</div>
+                        <div class="author-info">
+                            <div class="author-name">Youssef Ali</div>
+                            <div class="author-role">Doha, Qatar</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p style="font-size: 14px; color: #94a3b8; margin-bottom: 16px;">
+                ⚠️ Risk Disclaimer: Trading involves substantial risk of loss. All content is for educational purposes only and should not be considered financial advice.
+            </p>
+            <p style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">TradeFlow</p>
+            <p style="font-size: 14px; color: #94a3b8;">© 2025 TradeFlow. All rights reserved.</p>
+            <div style="margin-top: 20px; display: flex; justify-content: center; gap: 20px;">
+                <a href="#" style="color: #94a3b8; text-decoration: none;">Privacy Policy</a>
+                <a href="#" style="color: #94a3b8; text-decoration: none;">Terms of Service</a>
+                <a href="#" style="color: #94a3b8; text-decoration: none;">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add button click animations
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
+
+        // Animated stats counter
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                element.textContent = Math.floor(progress * (end - start) + start).toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s, transform 0.6s';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

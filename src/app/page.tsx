@@ -14611,13 +14611,13 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
       />
 
       {/* 🏦 Multi-Popup System */}
-      <MultiPopupSystem
+      {/* <MultiPopupSystem
         onOpenBrokerAccount={handleOpenBrokerAccount}
         language={language}
-      />
+      /> */}
 
       {/* 📝 Signup Popup - Professional Broker Contact Form */}
-      <SignupPopup variant={1} delay={10000} />
+      <SignupPopup variant={1} delay={2000} />
 
       {/* CSS Animations for 30-min popup */}
       <style jsx global>{`
