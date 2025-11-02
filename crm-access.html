@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM Access - Affiliate Back Office</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .access-card {
+      background: white;
+      border-radius: 24px;
+      padding: 48px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .icon {
+      font-size: 80px;
+      margin-bottom: 24px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    p {
+      font-size: 16px;
+      color: #6b7280;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+    }
+
+    .features {
+      margin-top: 40px;
+      text-align: left;
+      background: #f9fafb;
+      padding: 24px;
+      border-radius: 12px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    .feature-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .feature-icon {
+      font-size: 20px;
+    }
+
+    .info-box {
+      margin-top: 24px;
+      background: #eff6ff;
+      border: 1px solid #bae6fd;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 14px;
+      color: #0c4a6e;
+    }
+
+    @media (max-width: 640px) {
+      .access-card {
+        padding: 32px 24px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .icon {
+        font-size: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="access-card">
+    <div class="icon">🎯</div>
+    <h1>Affiliate CRM & Back Office</h1>
+    <p>Manage your leads, brokers, and traffic with our comprehensive CRM system</p>
+
+    <a href="/crm" class="btn-primary">
+      🚀 Access CRM Dashboard
+    </a>
+
+    <div class="features">
+      <div class="feature-item">
+        <span class="feature-icon">👥</span>
+        <span><strong>Lead Management</strong> - View and manage all signups</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🏢</span>
+        <span><strong>Broker Integration</strong> - Connect with multiple brokers</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📊</span>
+        <span><strong>Real-Time Analytics</strong> - Track conversions and performance</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🔗</span>
+        <span><strong>Webhook System</strong> - Receive status updates from brokers</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🎯</span>
+        <span><strong>Smart Routing</strong> - Auto-assign leads based on rules</span>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>📖 Documentation:</strong> Check the <code>CRM-QUICK-START.md</code> file for setup instructions and usage guide.
+    </div>
+  </div>
+
+  <script>
+    // Add click tracking
+    document.querySelector('.btn-primary').addEventListener('click', function(e) {
+      console.log('CRM Access clicked at:', new Date().toISOString());
+    });
+  </script>
+</body>
+</html>
