@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>White Label Trading Platform - Product Catalog for Brokers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            padding-bottom: 40px;
+            border-bottom: 3px solid #e2e8f0;
+        }
+
+        .logo {
+            font-size: 18px;
+            color: #64748b;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .main-title {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: #0f172a;
+            letter-spacing: -2px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: #64748b;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .intro-box {
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+            border-left: 6px solid #3b82f6;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 80px;
+        }
+
+        .intro-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+
+        .intro-text {
+            font-size: 18px;
+            color: #475569;
+            line-height: 1.8;
+        }
+
+        .section-header {
+            font-size: 42px;
+            font-weight: 900;
+            margin: 80px 0 40px;
+            color: #0f172a;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            margin: 20px auto 0;
+        }
+
+        /* Product Cards */
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 60px;
+            margin: 60px 0;
+        }
+
+        .product-card {
+            background: white;
+            border: 3px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 50px;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: -20px;
+            left: 50px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+        }
+
+        .product-header {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: start;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .product-info h3 {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+
+        .product-tagline {
+            font-size: 18px;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .product-price {
+            text-align: right;
+        }
+
+        .price-amount {
+            font-size: 52px;
+            font-weight: 900;
+            color: #10b981;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .price-period {
+            font-size: 16px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .product-description {
+            font-size: 17px;
+            color: #475569;
+            line-height: 1.9;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin: 40px 0;
+        }
+
+        .column-section h4 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            padding: 14px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 16px;
+            color: #334155;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            color: #10b981;
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .best-for-box {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border: 2px solid #10b981;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .best-for-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #059669;
+            margin-bottom: 12px;
+        }
+
+        .best-for-text {
+            font-size: 16px;
+            color: #064e3b;
+            line-height: 1.8;
+        }
+
+        /* Comparison Table */
+        .comparison-section {
+            margin: 80px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .comparison-table thead {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+        }
+
+        .comparison-table th {
+            padding: 24px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .comparison-table td {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 15px;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .check {
+            color: #10b981;
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .cross {
+            color: #ef4444;
+            font-size: 20px;
+        }
+
+        /* Implementation Timeline */
+        .timeline {
+            margin: 60px 0;
+            padding: 50px;
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            border-radius: 24px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .timeline-title {
+            font-size: 32px;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #0f172a;
+        }
+
+        .timeline-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .timeline-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            color: white;
+            font-size: 24px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+        }
+
+        .step-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+
+        .step-desc {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* CTA Box */
+        .cta-box {
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            color: white;
+            padding: 60px;
+            border-radius: 24px;
+            text-align: center;
+            margin: 80px 0;
+        }
+
+        .cta-title {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .cta-text {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            background: white;
+            color: #0f172a;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        @media (max-width: 1024px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            .timeline-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .product-card {
+                page-break-inside: avoid;
+                page-break-after: always;
+            }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 60px 0;
+            padding: 40px;
+            background: #f8fafc;
+            border-radius: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 48px;
+            font-weight: 900;
+            color: #3b82f6;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">White Label Solutions</div>
+            <h1 class="main-title">Trading Education Platform<br>Product Catalog</h1>
+            <p class="subtitle">Complete turnkey solutions for brokers to educate, engage, and convert traders</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="intro-box">
+            <h2 class="intro-title">📋 What We Build For You</h2>
+            <p class="intro-text">
+                We provide complete white-label trading education platforms that help brokers attract, educate, and retain clients. Each package includes a professional academy, real-world case studies, and live trading signals - all branded as your own and integrated directly with your brokerage. Choose from 5 packages below, or we can create a custom solution tailored to your specific needs.
+            </p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value">30 Days</div>
+                <div class="stat-label">Launch Timeline</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">8-15%</div>
+                <div class="stat-label">Conversion Rate</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">85%</div>
+                <div class="stat-label">Client Retention</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">400%</div>
+                <div class="stat-label">Average ROI</div>
+            </div>
+        </div>
+
+        <!-- Product 1: Starter Academy -->
+        <h2 class="section-header">Package Options</h2>
+
+        <div class="product-grid">
+
+            <!-- PACKAGE 1: STARTER -->
+            <div class="product-card">
+                <div class="product-badge">Package 1: Starter</div>
+                <div class="product-header">
+                    <div class="product-info">
+                        <h3>🌱 Education Essentials</h3>
+                        <p class="product-tagline">Perfect for regional brokers and IBs starting with educational content</p>
+                    </div>
+                    <div class="product-price">
+                        <div class="price-amount">$2,500</div>
+                        <div class="price-period">per month</div>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    <strong>What you get:</strong> A professionally branded trading academy with core educational content and case studies. Ideal for brokers who want to add value to their offering without overwhelming complexity. Includes your branding, domain setup, and direct integration to your trading platform.
+                </div>
+
+                <div class="two-column">
+                    <div class="column-section">
+                        <h4>📚 Content Included</h4>
+                        <ul class="feature-list">
+                            <li><span class="feature-icon">✓</span> <strong>20 Core Trading Courses</strong> (Beginner to Intermediate)</li>
+                            <li><span class="feature-icon">✓</span> <strong>100 Real Case Studies</strong> (Success & failures analyzed)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Weekly Content Updates</strong> (New lessons added)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Certificate Program</strong> (Branded completion certificates)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Quiz System</strong> (Test learner knowledge)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Progress Tracking</strong> (Monitor user engagement)</li>
+                        </ul>
+                    </div>
+
+                    <div class="column-section">
+                        <h4>🔧 Platform Features</h4>
+                        <ul class="feature-list">
+                            <li><span class="feature-icon">✓</span> <strong>Complete White Labeling</strong> (Your logo, colors, domain)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Broker Integration</strong> ("Open Account" buttons linked to your platform)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Basic Analytics</strong> (User signups, course completion)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Mobile Responsive</strong> (Works on all devices)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Email Support</strong> (Business hours)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Hosting Included</strong> (99.9% uptime)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="best-for-box">
+                    <div class="best-for-title">👥 Best For:</div>
+                    <div class="best-for-text">
+                        • Regional brokers with 500-2000 clients<br>
+                        • Introducing Brokers (IBs) looking to add value<br>
+                        • New brokerages building brand credibility<br>
+                        • Brokers testing educational content for first time
+                    </div>
+                </div>
+            </div>
+
+            <!-- PACKAGE 2: PROFESSIONAL -->
+            <div class="product-card">
+                <div class="product-badge" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">Package 2: Professional ⭐ RECOMMENDED</div>
+                <div class="product-header">
+                    <div class="product-info">
+                        <h3>💼 Complete Trading Hub</h3>
+                        <p class="product-tagline">Full-featured platform with academy, case studies, AND live trading signals</p>
+                    </div>
+                    <div class="product-price">
+                        <div class="price-amount">$5,900</div>
+                        <div class="price-period">per month</div>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    <strong>What you get:</strong> Everything in Starter PLUS live trading signals, AI market analysis, advanced analytics, and priority support. This is our most popular package - it gives clients the complete experience: learn, practice with signals, then trade on your platform. Proven to increase client retention by 85%.
+                </div>
+
+                <div class="two-column">
+                    <div class="column-section">
+                        <h4>📚 Content Included</h4>
+                        <ul class="feature-list">
+                            <li><span class="feature-icon">✓</span> <strong>All 50+ Academy Courses</strong> (Beginner to Expert)</li>
+                            <li><span class="feature-icon">✓</span> <strong>All 450+ Case Studies</strong> (Complete library access)</li>
+                            <li><span class="feature-icon">✓</span> <strong>10+ Daily Live Signals</strong> (Forex, Stocks, Gold, Crypto)</li>
+                            <li><span class="feature-icon">✓</span> <strong>AI Market Analysis</strong> (Real-time insights)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Live Webinars</strong> (Monthly expert sessions)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Economic Calendar</strong> (Integrated news feed)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Strategy Library</strong> (Proven trading strategies)</li>
+                        </ul>
+                    </div>
+
+                    <div class="column-section">
+                        <h4>🔧 Platform Features</h4>
+                        <ul class="feature-list">
+                            <li><span class="feature-icon">✓</span> <strong>Everything in Starter +</strong></li>
+                            <li><span class="feature-icon">✓</span> <strong>Advanced Analytics Dashboard</strong> (Conversion tracking, revenue attribution)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Mobile App Ready</strong> (Push notifications for signals)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Multi-Language Support</strong> (English + Arabic included, 8 more available)</li>
+                            <li><span class="feature-icon">✓</span> <strong>CRM Integration</strong> (Sync user data)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Priority Support 24/7</strong> (Dedicated support team)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Custom Subdomain</strong> (academy.yourbroker.com)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="best-for-box">
+                    <div class="best-for-title">👥 Best For:</div>
+                    <div class="best-for-text">
+                        • Established brokers with 2000+ clients<br>
+                        • Brokers wanting a complete client retention solution<br>
+                        • Platforms looking to differentiate from competition<br>
+                        • Brokers targeting serious/professional traders
+                    </div>
+                </div>
+            </div>
+
+            <!-- PACKAGE 3: ENTERPRISE -->
+            <div class="product-card">
+                <div class="product-badge" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">Package 3: Enterprise</div>
+                <div class="product-header">
+                    <div class="product-info">
+                        <h3>👑 Premium All-Inclusive</h3>
+                        <p class="product-tagline">Enterprise solution with custom features, API access, and dedicated support</p>
+                    </div>
+                    <div class="product-price">
+                        <div class="price-amount">$12,500</div>
+                        <div class="price-period">per month</div>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    <strong>What you get:</strong> Everything in Professional PLUS custom course development, API access, dedicated account manager, unlimited users, and optional revenue sharing. Built for large brokerages, financial institutions, and multi-brand operators who need full control and customization.
+                </div>
+
+                <div class="two-column">
+                    <div class="column-section">
+                        <h4>📚 Content Included</h4>
+                        <ul class="feature-list">
+                            <li><span class="feature-icon">✓</span> <strong>Everything in Professional +</strong></li>
+                            <li><span class="feature-icon">✓</span> <strong>15+ Premium Daily Signals</strong> (Higher confidence, multi-timeframe)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Custom Course Development</strong> (We create courses on your topics)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Exclusive Analyst Reports</strong> (Weekly professional market reports)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Trading Room Access</strong> (Live trading commentary)</li>
+                            <li><span class="feature-icon">✓</span> <strong>1-on-1 Mentorship</strong> (For your VIP clients)</li>
+                        </ul>
+                    </div>
+
+                    <div class="column-section">
+                        <h4>🔧 Platform Features</h4>
+                        <ul class="feature-list">
+                            <li><span class="feature-icon">✓</span> <strong>Everything in Professional +</strong></li>
+                            <li><span class="feature-icon">✓</span> <strong>Full API Access</strong> (REST & WebSocket for custom integrations)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Dedicated Account Manager</strong> (Single point of contact)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Custom Feature Development</strong> (Quarterly custom features)</li>
+                            <li><span class="feature-icon">✓</span> <strong>White-Glove Onboarding</strong> (Concierge setup service)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Unlimited Users</strong> (No user limits)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Revenue Sharing Options</strong> (Negotiate custom terms)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Source Code Access</strong> (Optional, for full control)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="best-for-box">
+                    <div class="best-for-title">👥 Best For:</div>
+                    <div class="best-for-text">
+                        • Large brokerages with 10,000+ clients<br>
+                        • Financial institutions and banks<br>
+                        • Multi-brand operators (multiple broker licenses)<br>
+                        • Platforms requiring heavy customization and API access
+                    </div>
+                </div>
+            </div>
+
+            <!-- PACKAGE 4: REVENUE SHARE -->
+            <div class="product-card">
+                <div class="product-badge" style="background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);">Package 4: Revenue Share</div>
+                <div class="product-header">
+                    <div class="product-info">
+                        <h3>🤝 Partnership Model</h3>
+                        <p class="product-tagline">Zero upfront costs - we grow together and share success</p>
+                    </div>
+                    <div class="product-price">
+                        <div class="price-amount">$0</div>
+                        <div class="price-period">setup fee</div>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    <strong>What you get:</strong> The complete Professional platform (worth $5,900/mo) at zero monthly cost. Instead of a fixed fee, we take a percentage of the revenue generated from clients who come through the platform. Perfect for brokers who want zero financial risk and are confident in their ability to convert educated traders.
+                </div>
+
+                <div class="two-column">
+                    <div class="column-section">
+                        <h4>💰 Revenue Share Structure</h4>
+                        <ul class="feature-list">
+                            <li><span class="feature-icon">✓</span> <strong>15-30% Revenue Share</strong> (Negotiable based on volume)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Commission on Deposits</strong> (We earn when you earn)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Trading Volume Bonuses</strong> (Shared success on active traders)</li>
+                            <li><span class="feature-icon">✓</span> <strong>No Hidden Fees</strong> (100% transparent)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Monthly Reconciliation</strong> (Clear revenue reports)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Quarterly Business Reviews</strong> (Optimize performance together)</li>
+                        </ul>
+                    </div>
+
+                    <div class="column-section">
+                        <h4>🔧 What's Included</h4>
+                        <ul class="feature-list">
+                            <li><span class="feature-icon">✓</span> <strong>Full Professional Package</strong> (All 50+ courses, 450+ case studies, 10+ signals)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Complete White Labeling</strong> (Your brand, your platform)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Advanced Analytics</strong> (Track every conversion)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Priority Support</strong> (We're invested in your success)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Performance Marketing</strong> (We help drive traffic)</li>
+                            <li><span class="feature-icon">✓</span> <strong>No Long-Term Contract</strong> (30-day notice to cancel)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="best-for-box">
+                    <div class="best-for-title">👥 Best For:</div>
+                    <div class="best-for-text">
+                        • Brokers wanting zero financial risk<br>
+                        • New brokerages with limited marketing budget<br>
+                        • IBs with existing traffic but no educational content<br>
+                        • Brokers confident in their conversion rates
+                    </div>
+                </div>
+            </div>
+
+            <!-- PACKAGE 5: CUSTOM BUILD -->
+            <div class="product-card">
+                <div class="product-badge" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);">Package 5: Custom Build</div>
+                <div class="product-header">
+                    <div class="product-info">
+                        <h3>🎨 Bespoke Solution</h3>
+                        <p class="product-tagline">Fully custom platform built to your exact specifications</p>
+                    </div>
+                    <div class="product-price">
+                        <div class="price-amount">Custom</div>
+                        <div class="price-period">quote</div>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    <strong>What you get:</strong> A completely custom-built trading education platform from the ground up. We design, develop, and deploy a solution that matches your exact brand guidelines, content strategy, and technical requirements. This is NOT a white-label - it's a proprietary platform built exclusively for you.
+                </div>
+
+                <div class="two-column">
+                    <div class="column-section">
+                        <h4>🎨 Custom Development</h4>
+                        <ul class="feature-list">
+                            <li><span class="feature-icon">✓</span> <strong>Custom Design & UX</strong> (100% unique to your brand)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Proprietary Content Creation</strong> (We create all courses from scratch)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Your Signal Algorithms</strong> (Custom trading logic)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Custom Integrations</strong> (MT4, MT5, proprietary CRM, payment systems)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Regulatory Compliance</strong> (Built to your jurisdiction's rules)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Dedicated Dev Team</strong> (Full-time team for 6-12 months)</li>
+                        </ul>
+                    </div>
+
+                    <div class="column-section">
+                        <h4>🔧 Technical Specs</h4>
+                        <ul class="feature-list">
+                            <li><span class="feature-icon">✓</span> <strong>Technology Stack of Your Choice</strong> (React, Vue, Node, etc.)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Database Design</strong> (Optimized for your needs)</li>
+                            <li><span class="feature-icon">✓</span> <strong>API Architecture</strong> (REST, GraphQL, WebSocket)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Security & Compliance</strong> (SOC2, GDPR, etc.)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Scalability Planning</strong> (Built to handle millions of users)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Full Source Code</strong> (You own everything)</li>
+                            <li><span class="feature-icon">✓</span> <strong>Ongoing Maintenance</strong> (Post-launch support packages)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="best-for-box" style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); border-color: #ec4899;">
+                    <div class="best-for-title" style="color: #be185d;">💰 Investment Range:</div>
+                    <div class="best-for-text" style="color: #831843;">
+                        <strong>One-time build:</strong> $50,000 - $250,000+ (depending on complexity)<br>
+                        <strong>Timeline:</strong> 6-12 months from kickoff to launch<br>
+                        <strong>Ongoing:</strong> $3,000 - $10,000/mo (hosting, maintenance, updates)<br><br>
+                        <strong>Best For:</strong> Large institutions wanting a proprietary solution, multi-million dollar brokerages, or platforms with very specific/unique requirements that can't be met with white-label
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Comparison Table -->
+        <h2 class="section-header">Side-by-Side Comparison</h2>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Starter<br>$2,500/mo</th>
+                    <th>Professional<br>$5,900/mo</th>
+                    <th>Enterprise<br>$12,500/mo</th>
+                    <th>Revenue Share<br>15-30%</th>
+                    <th>Custom Build<br>$50K-250K+</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Academy Courses</strong></td>
+                    <td>20 courses</td>
+                    <td>50+ courses</td>
+                    <td>50+ courses</td>
+                    <td>50+ courses</td>
+                    <td>Custom created</td>
+                </tr>
+                <tr>
+                    <td><strong>Case Studies</strong></td>
+                    <td>100 studies</td>
+                    <td>450+ studies</td>
+                    <td>450+ studies</td>
+                    <td>450+ studies</td>
+                    <td>Custom created</td>
+                </tr>
+                <tr>
+                    <td><strong>Live Trading Signals</strong></td>
+                    <td><span class="cross">✗</span></td>
+                    <td>10+ daily</td>
+                    <td>15+ daily</td>
+                    <td>10+ daily</td>
+                    <td>Custom algorithm</td>
+                </tr>
+                <tr>
+                    <td><strong>AI Market Analysis</strong></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="check">✓</span></td>
+                    <td><span class="check">✓</span></td>
+                    <td><span class="check">✓</span></td>
+                    <td><span class="check">✓</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Multi-Language Support</strong></td>
+                    <td>English only</td>
+                    <td>EN + AR + 8 more</td>
+                    <td>EN + AR + 8 more</td>
+                    <td>EN + AR + 8 more</td>
+                    <td>Unlimited</td>
+                </tr>
+                <tr>
+                    <td><strong>Mobile App Ready</strong></td>
+                    <td>Responsive web</td>
+                    <td><span class="check">✓</span></td>
+                    <td><span class="check">✓</span></td>
+                    <td><span class="check">✓</span></td>
+                    <td>Native apps</td>
+                </tr>
+                <tr>
+                    <td><strong>Analytics Dashboard</strong></td>
+                    <td>Basic</td>
+                    <td>Advanced</td>
+                    <td>Advanced</td>
+                    <td>Advanced</td>
+                    <td>Custom built</td>
+                </tr>
+                <tr>
+                    <td><strong>API Access</strong></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="check">✓</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="check">✓</span> Full</td>
+                </tr>
+                <tr>
+                    <td><strong>Custom Course Development</strong></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="check">✓</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="check">✓</span> Unlimited</td>
+                </tr>
+                <tr>
+                    <td><strong>Dedicated Account Manager</strong></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="check">✓</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="check">✓</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Support</strong></td>
+                    <td>Email (biz hours)</td>
+                    <td>24/7 Priority</td>
+                    <td>24/7 VIP</td>
+                    <td>24/7 Priority</td>
+                    <td>Dedicated team</td>
+                </tr>
+                <tr>
+                    <td><strong>Launch Timeline</strong></td>
+                    <td>2-3 weeks</td>
+                    <td>3-4 weeks</td>
+                    <td>4-6 weeks</td>
+                    <td>3-4 weeks</td>
+                    <td>6-12 months</td>
+                </tr>
+                <tr>
+                    <td><strong>Source Code Access</strong></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td>Optional</td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="check">✓</span> Full ownership</td>
+                </tr>
+                <tr>
+                    <td><strong>Best For</strong></td>
+                    <td>Regional brokers, IBs</td>
+                    <td>Established brokers</td>
+                    <td>Large institutions</td>
+                    <td>Zero-risk startups</td>
+                    <td>Proprietary platforms</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Implementation Timeline -->
+        <div class="timeline">
+            <h3 class="timeline-title">⏱️ Launch Timeline (Professional Package)</h3>
+            <div class="timeline-steps">
+                <div class="timeline-step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Week 1</div>
+                    <div class="step-desc">Kickoff call, branding assets, domain setup</div>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Week 2</div>
+                    <div class="step-desc">Platform customization, broker integration</div>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Week 3</div>
+                    <div class="step-desc">Testing, QA, CRM integration</div>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Week 4</div>
+                    <div class="step-desc">Go live, training, marketing materials</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-box">
+            <h2 class="cta-title">Ready to Launch Your Trading Academy?</h2>
+            <p class="cta-text">Schedule a demo call to see the platform in action and discuss which package fits your needs</p>
+            <button class="cta-button">📅 Schedule Demo Call</button>
+            <button class="cta-button secondary">📄 Request Full Proposal</button>
+            <div style="margin-top: 40px; font-size: 16px; opacity: 0.9;">
+                <p>📧 Email: sales@tradeflow.cloud</p>
+                <p>📱 WhatsApp: +971-XX-XXX-XXXX</p>
+                <p>🌐 www.tradeflow.cloud/white-label</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; padding: 40px 0; border-top: 2px solid #e2e8f0; margin-top: 80px; color: #64748b;">
+            <p style="font-size: 14px; margin-bottom: 10px;">© 2025 TradeFlow White Label Solutions. All rights reserved.</p>
+            <p style="font-size: 13px;">All packages include 30-day money-back guarantee • No long-term contracts • Cancel anytime</p>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -8,6 +8,7 @@ interface SignupFormData {
   firstName: string;
   lastName: string;
   email: string;
+  password: string;
   countryCode: string;
   phoneNumber: string;
   country: string;
@@ -26,6 +27,7 @@ export default function SignupPopup({ variant = 1, delay = 10000, onClose }: Sig
     firstName: '',
     lastName: '',
     email: '',
+    password: '',
     countryCode: '+971',
     phoneNumber: '',
     country: 'AE',
@@ -86,10 +88,21 @@ export default function SignupPopup({ variant = 1, delay = 10000, onClose }: Sig
       });
 
       if (response.ok) {
-        setIsSuccess(true);
+        const data = await response.json();
+
+        // Save auth token and mark signup as completed
         localStorage.setItem('gcc_signup_completed', 'true');
+
+        // If the API returns a token, save it for authentication
+        if (data.token) {
+          localStorage.setItem('auth_token', data.token);
+        }
+
+        setIsSuccess(true);
+
+        // Reload page after 2 seconds to refresh user context
         setTimeout(() => {
-          handleClose();
+          window.location.reload();
         }, 2000);
       }
     } catch (error) {
@@ -172,6 +185,19 @@ export default function SignupPopup({ variant = 1, delay = 10000, onClose }: Sig
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="ahmed@example.com"
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Create a secure password"
+                  minLength={6}
                   required
                 />
               </div>
