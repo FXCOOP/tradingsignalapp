@@ -288,6 +288,25 @@ export default function HomePage() {
     }
   }
 
+  // 🚀 Universal handler to trigger signup popup on any content click
+  const handleContentClick = (e: React.MouseEvent, action?: () => void) => {
+    const hasSignedUp = localStorage.getItem('gcc_signup_completed')
+
+    if (!hasSignedUp) {
+      e.preventDefault()
+      e.stopPropagation()
+      setShow30MinPopup(true)
+      addNotification('🔐 Please sign up to access this content!', 'warning')
+      return false
+    }
+
+    // If user has signed up, execute the action
+    if (action) {
+      action()
+    }
+    return true
+  }
+
   // Access course function (for Exness subscribers)
   const accessCourse = (courseId: number, courseName: string) => {
     if (!hasExnessAccount) {
@@ -5559,7 +5578,14 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
           ].map(tab => (
             <button
               key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
+              onClick={() => {
+                // Check if user has signed up
+                const hasSignedUp = localStorage.getItem('gcc_signup_completed');
+                if (!hasSignedUp) {
+                  setShow30MinPopup(true); // Show signup popup
+                }
+                setActiveTab(tab.key);
+              }}
               style={{
                 background: activeTab === tab.key
                   ? designSystem.colors.primary.gradient
@@ -14658,7 +14684,12 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
       /> */}
 
       {/* 📝 Signup Popup - Professional Broker Contact Form */}
-      <SignupPopup variant={1} delay={500} />
+      <SignupPopup
+        variant={1}
+        delay={0}
+        show={show30MinPopup}
+        onClose={() => setShow30MinPopup(false)}
+      />
 
       {/* CSS Animations for 30-min popup */}
       <style jsx global>{`

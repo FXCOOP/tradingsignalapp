@@ -68,21 +68,32 @@ export default function CRMDashboard() {
   const fetchData = async () => {
     try {
       setLoading(true);
+      console.log('🔄 Fetching CRM data...');
+
       const [analyticsRes, leadsRes, brokersRes] = await Promise.all([
         fetch('/api/crm/analytics'),
         fetch('/api/crm/leads?limit=100'),
         fetch('/api/crm/brokers')
       ]);
 
+      console.log('📊 Analytics response:', analyticsRes.status);
+      console.log('👥 Leads response:', leadsRes.status);
+      console.log('🏢 Brokers response:', brokersRes.status);
+
       const analyticsData = await analyticsRes.json();
       const leadsData = await leadsRes.json();
       const brokersData = await brokersRes.json();
+
+      console.log('📊 Analytics data:', analyticsData);
+      console.log('👥 Leads data:', leadsData);
+      console.log('🏢 Brokers data:', brokersData);
 
       setAnalytics(analyticsData.analytics);
       setLeads(leadsData.leads || []);
       setBrokers(brokersData.brokers || []);
     } catch (error) {
-      console.error('Failed to fetch data:', error);
+      console.error('❌ Failed to fetch data:', error);
+      alert('Error loading CRM data. Check console for details.');
     } finally {
       setLoading(false);
     }
@@ -160,8 +171,15 @@ export default function CRMDashboard() {
       </nav>
 
       {/* Dashboard Tab */}
-      {activeTab === 'dashboard' && analytics && (
+      {activeTab === 'dashboard' && (
         <div className="crm-content">
+          {!analytics ? (
+            <div className="empty-state">
+              <h3>Loading analytics data...</h3>
+              <p>If this persists, check browser console (F12) for errors</p>
+            </div>
+          ) : (
+            <>
           <h2>Overview</h2>
           <div className="stats-grid">
             <div className="stat-card">
@@ -253,6 +271,8 @@ export default function CRMDashboard() {
               </div>
             </div>
           </div>
+            </>
+          )}
         </div>
       )}
 

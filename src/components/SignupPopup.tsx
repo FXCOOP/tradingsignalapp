@@ -19,9 +19,10 @@ interface SignupPopupProps {
   variant?: number; // 1-20 for different designs
   delay?: number; // Delay in milliseconds before showing popup
   onClose?: () => void;
+  show?: boolean; // External control to show popup
 }
 
-export default function SignupPopup({ variant = 1, delay = 10000, onClose }: SignupPopupProps) {
+export default function SignupPopup({ variant = 1, delay = 10000, onClose, show }: SignupPopupProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [formData, setFormData] = useState<SignupFormData>({
     firstName: '',
@@ -70,6 +71,16 @@ export default function SignupPopup({ variant = 1, delay = 10000, onClose }: Sig
 
     return () => clearTimeout(timer);
   }, [delay]);
+
+  // Handle external show prop
+  useEffect(() => {
+    if (show) {
+      const hasSignedUp = localStorage.getItem('gcc_signup_completed');
+      if (!hasSignedUp) {
+        setIsVisible(true);
+      }
+    }
+  }, [show]);
 
   const handleClose = () => {
     setIsVisible(false);

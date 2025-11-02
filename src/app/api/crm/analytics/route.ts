@@ -13,18 +13,27 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const days = parseInt(searchParams.get('days') || '30');
 
-    // Fetch data in parallel
-    const [
-      brokerPerformance,
-      dailyStats,
-      allSignups,
-      allBrokers
-    ] = await Promise.all([
-      getBrokerPerformance(),
-      getDailyLeadStats(days),
+    // Fetch basic data
+    const [allSignups, allBrokers] = await Promise.all([
       getAllSignups(),
       getAllBrokers()
     ]);
+
+    // Calculate broker performance from signups
+    const brokerPerformance = allBrokers.map((broker: any) => {
+      const brokerLeads = allSignups.filter((l: any) => l.assigned_broker_id === broker.id);
+      const convertedLeads = brokerLeads.filter((l: any) => l.lead_status === 'deposit_made');
+      return {
+        id: broker.id,
+        name: broker.name,
+        assigned_leads: brokerLeads.length,
+        deposited_leads: convertedLeads.length,
+        conversion_rate: brokerLeads.length > 0 ? (convertedLeads.length / brokerLeads.length) * 100 : 0
+      };
+    });
+
+    // Generate daily stats from signups
+    const dailyStats: any[] = [];
 
     // Calculate overall metrics
     const totalLeads = allSignups.length;
