@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createSignup, getAllSignups, getSignupByEmail, type SignupData } from '@/lib/supabase';
+import { createSignup, getAllSignups, getSignupByEmail, createUser, getUserByEmail, updateLastLogin, type SignupData } from '@/lib/supabase';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 export async function POST(request: NextRequest) {
   try {
@@ -87,24 +89,53 @@ export async function POST(request: NextRequest) {
       utm_campaign: utmCampaign,
     };
 
-    // Save signup to signups table (lead generation only)
+    // Save signup to signups table (lead generation)
     const signup = await createSignup(signupData);
 
-    // TODO: In the future, we can add:
-    // - Password hashing and user creation in 'users' table
-    // - Auto-login with JWT token
-    // - Send email notification to admin
-    // - Send welcome email to user
-    // - Add to CRM system
-    // - Trigger webhook to trading platform
+    // Hash password
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    // Create user account with premium access
+    const user = await createUser({
+      email,
+      password_hash: passwordHash,
+      full_name: `${firstName} ${lastName}`,
+      access_tier: 'premium', // All signups get FREE premium access
+      phone: `${countryCode}${phoneNumber}` // Store phone number
+    });
+
+    // Update last login
+    await updateLastLogin(user.id);
+
+    // Generate JWT token for auto-login
+    const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+    const token = jwt.sign(
+      {
+        userId: user.id,
+        email: user.email,
+        access_tier: user.access_tier,
+        isPremium: true // Everyone gets premium for free
+      },
+      JWT_SECRET,
+      { expiresIn: '30d' } // Token valid for 30 days
+    );
 
     console.log('New signup created:', signup);
+    console.log('User account created with premium access:', user.id);
 
     return NextResponse.json(
       {
         success: true,
-        message: 'Thank you for signing up! Our broker will contact you soon.',
-        id: signup.id
+        message: 'Thank you for signing up! You now have full premium access.',
+        id: signup.id,
+        user: {
+          id: user.id,
+          email: user.email,
+          full_name: user.full_name,
+          access_tier: user.access_tier,
+          isPremium: true
+        },
+        token // Send token for auto-login
       },
       { status: 200 }
     );

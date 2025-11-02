@@ -118,7 +118,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
   }
 
   const isPremium = () => {
-    return user?.has_broker_account === true
+    // User is premium if they have access_level premium OR have verified broker account
+    return user?.access_level === 'premium' || user?.has_broker_account === true
   }
 
   const getRemainingFree = (type: 'signals' | 'articles') => {

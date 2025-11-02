@@ -108,6 +108,88 @@ export async function getSignupByEmail(email: string) {
 }
 
 // =====================================================
+// USER ACCOUNT FUNCTIONS
+// =====================================================
+
+// Create a new user account (for authentication)
+export async function createUser(data: {
+  email: string
+  password_hash: string
+  full_name: string
+  access_tier?: 'free' | 'premium'
+  phone?: string
+}) {
+  const { data: user, error } = await supabaseAdmin
+    .from('users')
+    .insert([{
+      email: data.email,
+      password_hash: data.password_hash,
+      full_name: data.full_name,
+      phone: data.phone || null,
+      access_tier: data.access_tier || 'premium', // Default to premium for all signups
+      email_verified: false,
+      free_views_count: 0,
+      free_views_reset_date: new Date().toISOString()
+    }])
+    .select()
+    .single()
+
+  if (error) {
+    console.error('Error creating user:', error)
+    throw error
+  }
+
+  return user as User
+}
+
+// Get user by email
+export async function getUserByEmail(email: string) {
+  const { data, error } = await supabaseAdmin
+    .from('users')
+    .select('*')
+    .eq('email', email)
+    .single()
+
+  if (error && error.code !== 'PGRST116') {
+    console.error('Error fetching user:', error)
+    throw error
+  }
+
+  return data as User | null
+}
+
+// Get user by ID
+export async function getUserById(id: string) {
+  const { data, error } = await supabaseAdmin
+    .from('users')
+    .select('*')
+    .eq('id', id)
+    .single()
+
+  if (error && error.code !== 'PGRST116') {
+    console.error('Error fetching user:', error)
+    throw error
+  }
+
+  return data as User | null
+}
+
+// Update user's last login
+export async function updateLastLogin(userId: string) {
+  const { error } = await supabaseAdmin
+    .from('users')
+    .update({ last_login: new Date().toISOString() })
+    .eq('id', userId)
+
+  if (error) {
+    console.error('Error updating last login:', error)
+    throw error
+  }
+
+  return true
+}
+
+// =====================================================
 // CRM FUNCTIONS
 // =====================================================
 

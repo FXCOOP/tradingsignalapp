@@ -100,16 +100,26 @@ export default function SignupPopup({ variant = 1, delay = 10000, onClose, show 
       });
 
       if (response.ok) {
+        const data = await response.json();
+
         // Mark signup as completed
         localStorage.setItem('gcc_signup_completed', 'true');
+
+        // Auto-login: Save auth token and user data
+        if (data.token) {
+          localStorage.setItem('auth_token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          console.log('✅ Auto-login successful! Premium access granted.');
+        }
 
         // Show success message
         setIsSuccess(true);
 
-        // Close popup after 5 seconds
+        // Close popup and reload page after 3 seconds to apply login state
         setTimeout(() => {
           handleClose();
-        }, 5000);
+          window.location.reload(); // Reload to apply logged-in state
+        }, 3000);
       } else {
         // Handle error
         const data = await response.json();
@@ -149,27 +159,28 @@ export default function SignupPopup({ variant = 1, delay = 10000, onClose, show 
         {isSuccess ? (
           <div className="success-message">
             <div className="success-icon">✓</div>
-            <h2>Thank You for Signing Up!</h2>
-            <p style={{ marginBottom: '16px' }}>Your registration has been successfully submitted.</p>
+            <h2>Welcome! You're All Set!</h2>
+            <p style={{ marginBottom: '16px' }}>Your account has been created successfully.</p>
             <div style={{
-              background: '#f0f9ff',
-              border: '1px solid #bae6fd',
+              background: '#dcfce7',
+              border: '1px solid #86efac',
               borderRadius: '12px',
               padding: '20px',
               textAlign: 'left',
               marginBottom: '16px'
             }}>
-              <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#0369a1', marginBottom: '12px' }}>
-                📞 What Happens Next?
+              <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#15803d', marginBottom: '12px' }}>
+                🎉 Premium Access Granted (FREE)
               </h3>
-              <ul style={{ margin: 0, paddingLeft: '20px', color: '#0c4a6e', lineHeight: '1.8' }}>
-                <li>Our professional broker will contact you within <strong>24 hours</strong></li>
-                <li>You'll receive personalized trading guidance</li>
-                <li>Get access to premium trading tools and signals</li>
+              <ul style={{ margin: 0, paddingLeft: '20px', color: '#166534', lineHeight: '1.8' }}>
+                <li><strong>Unlimited access</strong> to all trading signals</li>
+                <li><strong>Full access</strong> to market analysis & news</li>
+                <li><strong>Premium education</strong> resources & tutorials</li>
+                <li><strong>Personal broker support</strong> within 24 hours</li>
               </ul>
             </div>
-            <p style={{ fontSize: '14px', color: '#6b7280' }}>
-              Check your email for confirmation and next steps.
+            <p style={{ fontSize: '14px', color: '#6b7280', fontWeight: '600' }}>
+              🔄 Logging you in automatically...
             </p>
           </div>
         ) : (
