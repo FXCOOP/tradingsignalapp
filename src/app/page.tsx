@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { designSystem } from './design-system'
 import { useUser } from '@/contexts/UserContext'
 import { AuthModal } from '@/components/AuthModal'
-import { MultiPopupSystem } from '@/components/MultiPopupSystem'
+// import { MultiPopupSystem } from '@/components/MultiPopupSystem'
 import SignupPopup from '@/components/SignupPopup'
 import { ExnessLink } from '@/components/ExnessLink'
 import { detectLanguage, saveLanguagePreference } from '@/lib/language-detector'
@@ -492,7 +492,14 @@ export default function HomePage() {
         console.error('Failed to load cached signals:', error)
       }
     }
+
+    // Load signals immediately
     loadCachedSignals()
+
+    // Auto-refresh signals every 30 seconds
+    const signalsRefreshInterval = setInterval(loadCachedSignals, 30000)
+
+    return () => clearInterval(signalsRefreshInterval)
   }, [])
 
   // Trading Glossary Data
@@ -14617,7 +14624,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
       /> */}
 
       {/* 📝 Signup Popup - Professional Broker Contact Form */}
-      <SignupPopup variant={1} delay={2000} />
+      <SignupPopup variant={1} delay={500} />
 
       {/* CSS Animations for 30-min popup */}
       <style jsx global>{`
