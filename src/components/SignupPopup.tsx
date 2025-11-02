@@ -38,9 +38,10 @@ export default function SignupPopup({ variant = 1, delay = 10000, onClose }: Sig
   const [detectedCountry, setDetectedCountry] = useState<string | null>(null);
 
   useEffect(() => {
-    // Check if user has already signed up
+    // Check if user has already signed up or dismissed popup
     const hasSignedUp = localStorage.getItem('gcc_signup_completed');
-    if (hasSignedUp) return;
+    const hasDismissed = localStorage.getItem('gcc_popup_dismissed');
+    if (hasSignedUp || hasDismissed) return;
 
     // Detect user's country by IP
     const detectCountry = async () => {
@@ -73,6 +74,8 @@ export default function SignupPopup({ variant = 1, delay = 10000, onClose }: Sig
 
   const handleClose = () => {
     setIsVisible(false);
+    // Save to localStorage so popup doesn't show again this session
+    localStorage.setItem('gcc_popup_dismissed', 'true');
     if (onClose) onClose();
   };
 
