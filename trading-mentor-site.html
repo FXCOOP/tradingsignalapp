@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Trading Mentorship - Your Personal Trading Guru</title>
+    <meta name="description" content="Get personalized 1-on-1 trading guidance from expert mentors. Live signals, daily market analysis, and direct support.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta-header-btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+            transition: all 0.3s;
+        }
+
+        .cta-header-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(245, 158, 11, 0.6);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            padding: 120px 24px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.2);
+            border: 1px solid #f59e0b;
+            color: #fbbf24;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 26px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 50px;
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            padding: 22px 50px;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 20px 50px;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: #f59e0b;
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        /* Stats */
+        .stats-section {
+            background: #0a0a0a;
+            padding: 60px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 56px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 52px;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 22px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 70px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 50px;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: #f59e0b;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(245, 158, 11, 0.2);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 64px;
+            margin-bottom: 24px;
+        }
+
+        .feature-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .feature-desc {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+        }
+
+        /* Mentor Profiles */
+        .mentor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .mentor-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .mentor-card:hover {
+            border-color: #f59e0b;
+            transform: translateY(-5px);
+        }
+
+        .mentor-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 900;
+            color: white;
+            border: 4px solid rgba(0, 0, 0, 0.5);
+        }
+
+        .mentor-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .mentor-title {
+            font-size: 16px;
+            color: #f59e0b;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .mentor-desc {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.7;
+        }
+
+        .mentor-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mentor-stat {
+            text-align: center;
+        }
+
+        .mentor-stat-value {
+            font-size: 24px;
+            font-weight: 900;
+            color: #f59e0b;
+        }
+
+        .mentor-stat-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 4px;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: #fbbf24;
+        }
+
+        .service-card ul {
+            list-style: none;
+        }
+
+        .service-card li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .service-card li:last-child {
+            border-bottom: none;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .testimonial-text {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .author-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 20px;
+            color: white;
+        }
+
+        .author-name {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .author-result {
+            font-size: 14px;
+            color: #10b981;
+            margin-top: 4px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            padding: 100px 24px;
+            text-align: center;
+            margin: 100px 0 0;
+        }
+
+        .cta-section h2 {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .cta-section p {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 50px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 60px;
+            max-width: 550px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.5);
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #f59e0b;
+        }
+
+        .modal-title {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 8px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #f59e0b;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(245, 158, 11, 0.6);
+        }
+
+        /* Success */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-size: 32px;
+            font-weight: 900;
+            color: #10b981;
+            margin-bottom: 16px;
+        }
+
+        .success-text {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000000;
+            padding: 40px 24px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+
+        /* Floating Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.5);
+            z-index: 999;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 42px; }
+            .hero p { font-size: 20px; }
+            .section-title { font-size: 36px; }
+            .features-grid,
+            .mentor-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">💎 Elite Trading Mentorship</div>
+            <button class="cta-header-btn" onclick="openModal()">Get Your Mentor</button>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🏆 VIP Trading Guidance</div>
+            <h1>Your Personal <span class="hero-highlight">Trading Guru</span><br>1-on-1 Mentorship</h1>
+            <p>Stop learning alone. Get direct guidance from elite traders who've made millions. Live signals, daily analysis, and personal support.</p>
+            <div class="hero-cta">
+                <button class="btn-primary" onclick="openModal()">🚀 Get Matched with a Mentor</button>
+                <button class="btn-secondary" onclick="scrollToMentors()">👥 Meet the Mentors</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value">2,847</div>
+                <div class="stat-label">Active Clients</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">15+</div>
+                <div class="stat-label">Expert Mentors</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">24/7</div>
+                <div class="stat-label">Support Available</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">4.9★</div>
+                <div class="stat-label">Client Rating</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What You Get -->
+    <section class="section">
+        <h2 class="section-title">What You Get with Your Personal Mentor</h2>
+        <p class="section-subtitle">Forget boring courses. Get real-time guidance from someone who trades for a living</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3 class="feature-title">Direct WhatsApp Access</h3>
+                <p class="feature-desc">Your mentor's personal WhatsApp. Ask questions anytime, get answers within minutes. No waiting, no email tickets.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Live Trading Signals</h3>
+                <p class="feature-desc">10-15 high-probability signals daily sent directly to you. Entry, target, stop loss, and the reasoning behind each trade.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3 class="feature-title">Daily Market Analysis</h3>
+                <p class="feature-desc">Every morning, your mentor sends a video breaking down what's happening in the markets and where the opportunities are.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📞</div>
+                <h3 class="feature-title">Weekly 1-on-1 Calls</h3>
+                <p class="feature-desc">30-minute private calls every week to review your trades, fix mistakes, and build your personalized strategy.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3 class="feature-title">Private Community</h3>
+                <p class="feature-desc">Join an exclusive group of serious traders. Share ideas, get feedback, and network with people at your level.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Trade Review & Feedback</h3>
+                <p class="feature-desc">Send screenshots of your trades. Your mentor reviews them and tells you exactly what you did right or wrong.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet the Mentors -->
+    <section class="section" id="mentors" style="background: rgba(245, 158, 11, 0.02);">
+        <h2 class="section-title">Meet Your Future Mentor</h2>
+        <p class="section-subtitle">Elite traders with proven track records. Each mentor specializes in different markets</p>
+
+        <div class="mentor-grid">
+            <div class="mentor-card">
+                <div class="mentor-avatar">AK</div>
+                <h3 class="mentor-name">Ahmed K.</h3>
+                <p class="mentor-title">Forex & Gold Specialist</p>
+                <p class="mentor-desc">12 years trading experience. Former bank trader. Specializes in EUR/USD and XAUUSD. Helps you master swing trading.</p>
+                <div class="mentor-stats">
+                    <div class="mentor-stat">
+                        <div class="mentor-stat-value">12Y</div>
+                        <div class="mentor-stat-label">Experience</div>
+                    </div>
+                    <div class="mentor-stat">
+                        <div class="mentor-stat-value">340+</div>
+                        <div class="mentor-stat-label">Clients</div>
+                    </div>
+                    <div class="mentor-stat">
+                        <div class="mentor-stat-value">4.9★</div>
+                        <div class="mentor-stat-label">Rating</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mentor-card">
+                <div class="mentor-avatar">MR</div>
+                <h3 class="mentor-name">Marcus R.</h3>
+                <p class="mentor-title">Crypto & Day Trading</p>
+                <p class="mentor-desc">Bitcoin millionaire since 2017. Day trades BTC, ETH, and top altcoins. Teaches aggressive scalping strategies.</p>
+                <div class="mentor-stats">
+                    <div class="mentor-stat">
+                        <div class="mentor-stat-value">8Y</div>
+                        <div class="mentor-stat-label">Experience</div>
+                    </div>
+                    <div class="mentor-stat">
+                        <div class="mentor-stat-value">215+</div>
+                        <div class="mentor-stat-label">Clients</div>
+                    </div>
+                    <div class="mentor-stat">
+                        <div class="mentor-stat-value">5.0★</div>
+                        <div class="mentor-stat-label">Rating</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mentor-card">
+                <div class="mentor-avatar">SL</div>
+                <h3 class="mentor-name">Sarah L.</h3>
+                <p class="mentor-title">Stock Market Expert</p>
+                <p class="mentor-desc">Wall Street veteran. 15 years managing hedge funds. Focuses on S&P 500, tech stocks, and options trading.</p>
+                <div class="mentor-stats">
+                    <div class="mentor-stat">
+                        <div class="mentor-stat-value">15Y</div>
+                        <div class="mentor-stat-label">Experience</div>
+                    </div>
+                    <div class="mentor-stat">
+                        <div class="mentor-stat-value">180+</div>
+                        <div class="mentor-stat-label">Clients</div>
+                    </div>
+                    <div class="mentor-stat">
+                        <div class="mentor-stat-value">4.8★</div>
+                        <div class="mentor-stat-label">Rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What's Included -->
+    <section class="section">
+        <h2 class="section-title">Everything Included in Your Mentorship</h2>
+        <p class="section-subtitle">No upsells. No hidden fees. One price, everything included.</p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>🎯 Daily Signals</h3>
+                <ul>
+                    <li>✓ 10-15 trades per day</li>
+                    <li>✓ All major assets covered</li>
+                    <li>✓ Entry, target, stop loss</li>
+                    <li>✓ Risk/reward analysis</li>
+                    <li>✓ Trade reasoning explained</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>💬 Direct Communication</h3>
+                <ul>
+                    <li>✓ WhatsApp access to mentor</li>
+                    <li>✓ Telegram private channel</li>
+                    <li>✓ Response within 1-2 hours</li>
+                    <li>✓ Voice messages supported</li>
+                    <li>✓ Screen sharing for charts</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>📞 Personal Sessions</h3>
+                <ul>
+                    <li>✓ Weekly 1-on-1 video calls</li>
+                    <li>✓ Strategy customization</li>
+                    <li>✓ Trade review sessions</li>
+                    <li>✓ Psychology coaching</li>
+                    <li>✓ Risk management audit</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>📊 Market Analysis</h3>
+                <ul>
+                    <li>✓ Daily morning briefing</li>
+                    <li>✓ Evening recap videos</li>
+                    <li>✓ Weekly outlook reports</li>
+                    <li>✓ Major news analysis</li>
+                    <li>✓ Economic calendar alerts</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>👥 Community Access</h3>
+                <ul>
+                    <li>✓ Private Discord/Telegram</li>
+                    <li>✓ Network with other traders</li>
+                    <li>✓ Share trade ideas</li>
+                    <li>✓ Group strategy sessions</li>
+                    <li>✓ Monthly live webinars</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>🎓 Learning Resources</h3>
+                <ul>
+                    <li>✓ Curated video library</li>
+                    <li>✓ Trading strategy guides</li>
+                    <li>✓ Chart pattern cheat sheets</li>
+                    <li>✓ Risk calculator tools</li>
+                    <li>✓ Trade journal templates</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section" style="background: rgba(245, 158, 11, 0.02);">
+        <h2 class="section-title">What Our Clients Say</h2>
+        <p class="section-subtitle">Real results from real traders</p>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"I was losing money for 2 years straight. Got matched with Ahmed, and within 3 months I'm finally profitable. His daily signals are insane and he actually answers my questions on WhatsApp."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">KM</div>
+                    <div>
+                        <div class="author-name">Khalid M.</div>
+                        <div class="author-result">First profitable year in 2024</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Marcus taught me crypto day trading from scratch. Started with $2K, now I'm at $18K in 5 months. The 1-on-1 calls are worth it alone. Best investment I ever made."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">DJ</div>
+                    <div>
+                        <div class="author-name">David J.</div>
+                        <div class="author-result">800% account growth</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Sarah doesn't just give you signals, she teaches you WHY. Now I can spot setups on my own. Still follow her signals but I understand the game now. Life-changing."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">RP</div>
+                    <div>
+                        <div class="author-name">Ravi P.</div>
+                        <div class="author-result">Now trading independently</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta-section">
+        <h2>Ready for Your Personal Trading Mentor?</h2>
+        <p>Fill out the form. We'll match you with the perfect mentor based on your goals and experience.</p>
+        <button class="btn-primary" onclick="openModal()" style="box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);">🚀 Get Started Now</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>⚠️ Risk Warning: Trading involves substantial risk of loss. Mentorship is for educational purposes. Past performance does not guarantee future results.</p>
+        <p style="margin-top: 12px;">© 2025 Elite Trading Mentorship. All rights reserved.</p>
+    </footer>
+
+    <!-- Floating Button -->
+    <button class="fab" onclick="openModal()">💬</button>
+
+    <!-- Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+
+            <div id="signupForm">
+                <h2 class="modal-title">Get Matched with Your Mentor</h2>
+                <p class="modal-subtitle">Tell us about yourself and we'll find the perfect mentor for you</p>
+
+                <form onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label class="form-label">Full Name *</label>
+                        <input type="text" class="form-input" name="fullName" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" class="form-input" name="email" placeholder="john@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">WhatsApp Number *</label>
+                        <input type="tel" class="form-input" name="phone" placeholder="+971 50 123 4567" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Current Trading Experience *</label>
+                        <select class="form-select" name="experience" required>
+                            <option value="">Select your level</option>
+                            <option value="beginner">Complete Beginner (Never traded)</option>
+                            <option value="novice">Novice (0-6 months)</option>
+                            <option value="intermediate">Intermediate (6 months - 2 years)</option>
+                            <option value="advanced">Advanced (2+ years)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">What do you want to trade? *</label>
+                        <select class="form-select" name="interest" required>
+                            <option value="">Select primary interest</option>
+                            <option value="forex">Forex (EUR/USD, GBP/USD, etc.)</option>
+                            <option value="gold">Gold & Commodities</option>
+                            <option value="crypto">Cryptocurrency (BTC, ETH)</option>
+                            <option value="stocks">US Stocks (Apple, Tesla, etc.)</option>
+                            <option value="indices">Stock Indices (S&P 500, Nasdaq)</option>
+                            <option value="all">Open to Everything</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Account Size (Optional)</label>
+                        <select class="form-select" name="accountSize">
+                            <option value="">Select range</option>
+                            <option value="under-1k">Under $1,000</option>
+                            <option value="1k-5k">$1,000 - $5,000</option>
+                            <option value="5k-10k">$5,000 - $10,000</option>
+                            <option value="10k-50k">$10,000 - $50,000</option>
+                            <option value="50k-plus">$50,000+</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">What's your biggest challenge? *</label>
+                        <textarea class="form-textarea" name="challenge" placeholder="Tell us what you're struggling with..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">🚀 Get Matched with a Mentor</button>
+                </form>
+            </div>
+
+            <div id="successMessage" class="success-message">
+                <div class="success-icon">✅</div>
+                <h3 class="success-title">Application Received!</h3>
+                <p class="success-text">
+                    Thank you! Our team is reviewing your application.<br><br>
+                    <strong>What happens next:</strong><br>
+                    1. We'll match you with the perfect mentor (within 24 hours)<br>
+                    2. You'll receive a WhatsApp message from your mentor<br>
+                    3. Your mentor will set up your first 1-on-1 call<br><br>
+                    <strong>You'll also receive information about opening a live trading account to practice with real money!</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('signupModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('signupModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function scrollToMentors() {
+            document.getElementById('mentors').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const data = {
+                fullName: formData.get('fullName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                experience: formData.get('experience'),
+                interest: formData.get('interest'),
+                accountSize: formData.get('accountSize'),
+                challenge: formData.get('challenge'),
+                timestamp: new Date().toISOString(),
+                source: 'mentorship-website',
+                leadType: 'high-intent-mentorship',
+                utmSource: getUrlParameter('utm_source') || 'direct',
+                utmMedium: getUrlParameter('utm_medium') || 'none',
+                utmCampaign: getUrlParameter('utm_campaign') || 'none'
+            };
+
+            // 🔥 Send to broker's CRM
+            sendLeadToBroker(data);
+
+            // Show success
+            document.getElementById('signupForm').style.display = 'none';
+            document.getElementById('successMessage').classList.add('active');
+
+            // Track conversion
+            trackConversion(data);
+        }
+
+        function sendLeadToBroker(data) {
+            // Replace with broker's actual API
+            fetch('https://your-broker-crm.com/api/leads', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer YOUR_API_KEY'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Lead sent:', result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function trackConversion(data) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'mentorship_signup', {
+                    method: 'mentorship_form',
+                    value: data.email
+                });
+            }
+
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', {
+                    content_name: 'Mentorship Program',
+                    value: 500,
+                    currency: 'USD'
+                });
+            }
+        }
+
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Auto-open after 20 seconds
+        setTimeout(() => {
+            if (!localStorage.getItem('mentorship_visited')) {
+                openModal();
+                localStorage.setItem('mentorship_visited', 'true');
+            }
+        }, 20000);
+
+        // Close on outside click
+        document.getElementById('signupModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+
+</body>
+</html>

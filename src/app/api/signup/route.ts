@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createSignup, getAllSignups, getSignupByEmail, type SignupData, supabaseAdmin } from '@/lib/supabase';
-import { generateToken, hashPassword } from '@/lib/auth';
+import { createSignup, getAllSignups, getSignupByEmail, type SignupData } from '@/lib/supabase';
 
 export async function POST(request: NextRequest) {
   try {
@@ -88,99 +87,24 @@ export async function POST(request: NextRequest) {
       utm_campaign: utmCampaign,
     };
 
-    // Save signup to signups table
+    // Save signup to signups table (lead generation only)
     const signup = await createSignup(signupData);
 
-    // Hash password
-    const passwordHash = await hashPassword(password);
-
-    // Create user account in users table with premium access (broker signup = premium)
-    const { data: user, error: userError } = await supabaseAdmin
-      .from('users')
-      .insert({
-        email,
-        password_hash: passwordHash,
-        full_name: `${firstName} ${lastName}`,
-        phone: `${countryCode}${phoneNumber}`,
-        access_level: 'premium',
-        has_broker_account: true,
-        broker_verified_at: new Date().toISOString(),
-        free_signals_count: 0,
-        free_articles_count: 0,
-        created_at: new Date().toISOString(),
-        last_login_at: new Date().toISOString()
-      })
-      .select()
-      .single();
-
-    if (userError) {
-      // If user already exists, try to fetch existing user
-      const { data: existingUser } = await supabaseAdmin
-        .from('users')
-        .select('*')
-        .eq('email', email)
-        .single();
-
-      if (existingUser) {
-        // Generate JWT token for existing user
-        const authToken = generateToken(existingUser.id, existingUser.email);
-
-        return NextResponse.json(
-          {
-            success: true,
-            message: 'Welcome back! You are now logged in.',
-            id: signup.id,
-            token: authToken,
-            user: {
-              id: existingUser.id,
-              email: existingUser.email,
-              full_name: existingUser.full_name,
-              access_level: existingUser.access_level,
-              has_broker_account: existingUser.has_broker_account,
-              free_signals_count: existingUser.free_signals_count,
-              free_articles_count: existingUser.free_articles_count,
-              broker_verified_at: existingUser.broker_verified_at
-            }
-          },
-          { status: 200 }
-        );
-      }
-
-      throw userError;
-    }
-
-    // Generate JWT token for new user
-    const authToken = generateToken(user.id, user.email);
-
-    // Here you can add additional logic like:
+    // TODO: In the future, we can add:
+    // - Password hashing and user creation in 'users' table
+    // - Auto-login with JWT token
     // - Send email notification to admin
     // - Send welcome email to user
     // - Add to CRM system
     // - Trigger webhook to trading platform
 
-    // Optional: Send notification email
-    // await sendAdminNotification(signup);
-    // await sendWelcomeEmail(signup);
-
     console.log('New signup created:', signup);
-    console.log('New user created:', user);
 
     return NextResponse.json(
       {
         success: true,
-        message: 'Signup successful! You now have full access to all features.',
-        id: signup.id,
-        token: authToken,
-        user: {
-          id: user.id,
-          email: user.email,
-          full_name: user.full_name,
-          access_level: user.access_level,
-          has_broker_account: user.has_broker_account,
-          free_signals_count: user.free_signals_count,
-          free_articles_count: user.free_articles_count,
-          broker_verified_at: user.broker_verified_at
-        }
+        message: 'Thank you for signing up! Our broker will contact you soon.',
+        id: signup.id
       },
       { status: 200 }
     );
