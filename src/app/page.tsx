@@ -171,7 +171,7 @@ export default function HomePage() {
     // 🔐 Check if user is logged in
     if (!user) {
       setAuthMode('signup')
-      setShowAuthModal(true)
+      setShow30MinPopup(true)
       addNotification('🔐 Please sign up to follow signals (it\'s FREE!)', 'warning')
       return
     }
@@ -190,7 +190,7 @@ export default function HomePage() {
   const trackSignalView = async (signalId: number) => {
     if (!user) {
       setAuthMode('signup')
-      setShowAuthModal(true)
+      setShow30MinPopup(true)
       addNotification('🔐 Please sign up to view signals (it\'s FREE!)', 'warning')
       return false
     }
@@ -241,7 +241,7 @@ export default function HomePage() {
   const trackArticleView = async (articleId: number) => {
     if (!user) {
       setAuthMode('signup')
-      setShowAuthModal(true)
+      setShow30MinPopup(true)
       addNotification('🔐 Please sign up to read articles (it\'s FREE!)', 'warning')
       return false
     }
@@ -5378,7 +5378,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                     <button
                       onClick={() => {
                         setAuthMode('login')
-                        setShowAuthModal(true)
+                        setShow30MinPopup(true)
                       }}
                       style={{
                         background: 'white',
@@ -5413,7 +5413,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                     <button
                       onClick={() => {
                         setAuthMode('signup')
-                        setShowAuthModal(true)
+                        setShow30MinPopup(true)
                       }}
                       style={{
                         background: designSystem.colors.primary.gradient,

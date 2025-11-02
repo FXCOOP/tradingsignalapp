@@ -552,7 +552,7 @@ export async function getLeadsWithFilters(filters: {
 }) {
   let query = supabaseAdmin
     .from('signups')
-    .select('*, brokers(*)')
+    .select('*')
     .order('created_at', { ascending: false })
 
   if (filters.status) {
