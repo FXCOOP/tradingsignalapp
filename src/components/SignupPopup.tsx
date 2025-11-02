@@ -38,10 +38,9 @@ export default function SignupPopup({ variant = 1, delay = 10000, onClose }: Sig
   const [detectedCountry, setDetectedCountry] = useState<string | null>(null);
 
   useEffect(() => {
-    // Check if user has already signed up or dismissed popup
+    // Check if user has already signed up
     const hasSignedUp = localStorage.getItem('gcc_signup_completed');
-    const hasDismissed = localStorage.getItem('gcc_popup_dismissed');
-    if (hasSignedUp || hasDismissed) return;
+    if (hasSignedUp) return;
 
     // Detect user's country by IP
     const detectCountry = async () => {
@@ -74,8 +73,7 @@ export default function SignupPopup({ variant = 1, delay = 10000, onClose }: Sig
 
   const handleClose = () => {
     setIsVisible(false);
-    // Save to localStorage so popup doesn't show again this session
-    localStorage.setItem('gcc_popup_dismissed', 'true');
+    // Don't save dismissed state - popup can appear again when user interacts
     if (onClose) onClose();
   };
 
@@ -91,25 +89,24 @@ export default function SignupPopup({ variant = 1, delay = 10000, onClose }: Sig
       });
 
       if (response.ok) {
-        const data = await response.json();
-
-        // Save auth token and mark signup as completed
+        // Mark signup as completed
         localStorage.setItem('gcc_signup_completed', 'true');
 
-        // If the API returns a token, save it for authentication
-        if (data.token) {
-          localStorage.setItem('auth_token', data.token);
-        }
-
+        // Show success message
         setIsSuccess(true);
 
-        // Reload page after 2 seconds to refresh user context
+        // Close popup after 5 seconds
         setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+          handleClose();
+        }, 5000);
+      } else {
+        // Handle error
+        const data = await response.json();
+        alert(data.error || 'Signup failed. Please try again.');
       }
     } catch (error) {
       console.error('Signup failed:', error);
+      alert('Network error. Please check your connection and try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -141,8 +138,28 @@ export default function SignupPopup({ variant = 1, delay = 10000, onClose }: Sig
         {isSuccess ? (
           <div className="success-message">
             <div className="success-icon">✓</div>
-            <h2>Welcome Aboard!</h2>
-            <p>Our professional broker will contact you shortly</p>
+            <h2>Thank You for Signing Up!</h2>
+            <p style={{ marginBottom: '16px' }}>Your registration has been successfully submitted.</p>
+            <div style={{
+              background: '#f0f9ff',
+              border: '1px solid #bae6fd',
+              borderRadius: '12px',
+              padding: '20px',
+              textAlign: 'left',
+              marginBottom: '16px'
+            }}>
+              <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#0369a1', marginBottom: '12px' }}>
+                📞 What Happens Next?
+              </h3>
+              <ul style={{ margin: 0, paddingLeft: '20px', color: '#0c4a6e', lineHeight: '1.8' }}>
+                <li>Our professional broker will contact you within <strong>24 hours</strong></li>
+                <li>You'll receive personalized trading guidance</li>
+                <li>Get access to premium trading tools and signals</li>
+              </ul>
+            </div>
+            <p style={{ fontSize: '14px', color: '#6b7280' }}>
+              Check your email for confirmation and next steps.
+            </p>
           </div>
         ) : (
           <>

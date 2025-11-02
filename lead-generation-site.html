@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Trading Academy - Learn Forex, Stocks & Crypto</title>
+    <meta name="description" content="Join thousands learning to trade with our free academy. Professional courses, live signals, and expert mentorship.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* Sticky Header */
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta-header-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+            transition: all 0.3s;
+        }
+
+        .cta-header-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 100px 24px 80px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 900;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 24px;
+            color: #94a3b8;
+            margin-bottom: 40px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 20px 48px;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 18px 48px;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #0f172a;
+        }
+
+        /* Trust Badges */
+        .trust-section {
+            background: white;
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .trust-stats {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        /* Features Grid */
+        .features-section {
+            padding: 80px 24px;
+            background: #f8fafc;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+
+        .feature-desc {
+            font-size: 16px;
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        /* Course Preview */
+        .courses-section {
+            padding: 80px 24px;
+            background: white;
+        }
+
+        .courses-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .course-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .course-card:hover {
+            border-color: #10b981;
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2);
+        }
+
+        .course-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        .course-content {
+            padding: 30px;
+        }
+
+        .course-badge {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .course-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+
+        .course-desc {
+            font-size: 15px;
+            color: #64748b;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .course-lessons {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .course-cta {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Signup Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 50px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .modal-title {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+
+        .modal-subtitle {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: start;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .form-checkbox input {
+            margin-top: 4px;
+        }
+
+        .form-checkbox label {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 80px 24px;
+            background: #f8fafc;
+        }
+
+        .testimonials-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            color: #334155;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        .author-name {
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .author-title {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 100px 24px;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 52px;
+            font-weight: 900;
+            margin-bottom: 24px;
+        }
+
+        .final-cta p {
+            font-size: 20px;
+            color: #94a3b8;
+            margin-bottom: 40px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 40px 24px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-size: 28px;
+            font-weight: 900;
+            color: #10b981;
+            margin-bottom: 12px;
+        }
+
+        .success-text {
+            font-size: 16px;
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+            .hero p {
+                font-size: 18px;
+            }
+            .section-title {
+                font-size: 36px;
+            }
+            .features-grid,
+            .courses-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+            z-index: 999;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">🎓 Trading Academy</div>
+            <button class="cta-header-btn" onclick="openSignupModal()">Start Free Trial</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Learn to Trade Like a <span class="hero-highlight">Professional</span></h1>
+            <p>Join 17,900+ students mastering Forex, Stocks, Gold & Crypto with our free academy and live signals</p>
+            <div class="hero-cta">
+                <button class="btn-primary" onclick="openSignupModal()">🚀 Start Free Today</button>
+                <button class="btn-secondary" onclick="scrollToCourses()">📚 Browse Courses</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Badges -->
+    <section class="trust-section">
+        <div class="trust-stats">
+            <div class="stat-item">
+                <div class="stat-value">17,900+</div>
+                <div class="stat-label">Active Students</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">50+</div>
+                <div class="stat-label">Expert Courses</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">450+</div>
+                <div class="stat-label">Case Studies</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">4.8★</div>
+                <div class="stat-label">Student Rating</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features-section">
+        <h2 class="section-title">What You'll Get</h2>
+        <p class="section-subtitle">Everything you need to become a successful trader</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎓</div>
+                <h3 class="feature-title">Professional Courses</h3>
+                <p class="feature-desc">50+ video courses from beginner to advanced. Learn Forex, stocks, crypto, gold, and risk management from industry experts.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Live Trading Signals</h3>
+                <p class="feature-desc">Receive 10+ daily trading signals with entry, target, and stop-loss levels. AI-powered analysis for high-probability setups.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Real Case Studies</h3>
+                <p class="feature-desc">450+ documented trades with full analysis. Learn from both winning and losing trades to avoid common mistakes.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3 class="feature-title">AI Market Analysis</h3>
+                <p class="feature-desc">Real-time market insights powered by artificial intelligence. Stay ahead with automated technical and fundamental analysis.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3 class="feature-title">Community Support</h3>
+                <p class="feature-desc">Join thousands of traders in our private community. Share strategies, get feedback, and learn from peers.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3 class="feature-title">Certification Program</h3>
+                <p class="feature-desc">Earn professional trading certificates. Prove your skills and knowledge with recognized credentials.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Preview -->
+    <section class="courses-section" id="courses">
+        <h2 class="section-title">Popular Courses</h2>
+        <p class="section-subtitle">Start with these beginner-friendly courses</p>
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-image">📈</div>
+                <div class="course-content">
+                    <span class="course-badge">BEGINNER</span>
+                    <h3 class="course-title">Forex Trading Fundamentals</h3>
+                    <p class="course-desc">Learn the basics of currency trading, market structure, and how to read forex charts. Perfect for complete beginners.</p>
+                    <div class="course-meta">
+                        <span class="course-lessons">📚 12 Lessons • 3.5 Hours</span>
+                        <button class="course-cta" onclick="openSignupModal()">Enroll Free</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-image">💰</div>
+                <div class="course-content">
+                    <span class="course-badge">BEGINNER</span>
+                    <h3 class="course-title">Stock Market Basics</h3>
+                    <p class="course-desc">Understand how stock markets work, company valuations, and fundamental analysis for long-term investing.</p>
+                    <div class="course-meta">
+                        <span class="course-lessons">📚 10 Lessons • 2.8 Hours</span>
+                        <button class="course-cta" onclick="openSignupModal()">Enroll Free</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-image">🪙</div>
+                <div class="course-content">
+                    <span class="course-badge">INTERMEDIATE</span>
+                    <h3 class="course-title">Cryptocurrency Trading</h3>
+                    <p class="course-desc">Master crypto markets including Bitcoin, Ethereum, and altcoins. Learn blockchain basics and crypto-specific strategies.</p>
+                    <div class="course-meta">
+                        <span class="course-lessons">📚 15 Lessons • 4.2 Hours</span>
+                        <button class="course-cta" onclick="openSignupModal()">Enroll Free</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-image">📊</div>
+                <div class="course-content">
+                    <span class="course-badge">INTERMEDIATE</span>
+                    <h3 class="course-title">Technical Analysis Mastery</h3>
+                    <p class="course-desc">Deep dive into chart patterns, indicators, and technical trading strategies used by professionals.</p>
+                    <div class="course-meta">
+                        <span class="course-lessons">📚 18 Lessons • 5.5 Hours</span>
+                        <button class="course-cta" onclick="openSignupModal()">Enroll Free</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-image">🎯</div>
+                <div class="course-content">
+                    <span class="course-badge">ADVANCED</span>
+                    <h3 class="course-title">Risk Management Pro</h3>
+                    <p class="course-desc">Learn position sizing, portfolio management, and how to protect your capital like institutional traders.</p>
+                    <div class="course-meta">
+                        <span class="course-lessons">📚 8 Lessons • 3.0 Hours</span>
+                        <button class="course-cta" onclick="openSignupModal()">Enroll Free</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-image">🔥</div>
+                <div class="course-content">
+                    <span class="course-badge">ADVANCED</span>
+                    <h3 class="course-title">Live Trading Strategies</h3>
+                    <p class="course-desc">Watch real trades executed in real-time. Learn professional strategies and decision-making processes.</p>
+                    <div class="course-meta">
+                        <span class="course-lessons">📚 20 Lessons • 6.5 Hours</span>
+                        <button class="course-cta" onclick="openSignupModal()">Enroll Free</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <h2 class="section-title">Student Success Stories</h2>
+        <p class="section-subtitle">Hear from traders who transformed their skills</p>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"I went from losing money every month to consistently profitable. The case studies showed me exactly what I was doing wrong. Best trading education I've ever received."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MK</div>
+                    <div>
+                        <div class="author-name">Mohammed K.</div>
+                        <div class="author-title">Dubai, UAE</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p class="testimonial-text">"The live signals helped me practice with real setups while learning. After 3 months in the academy, I opened my first live account and haven't looked back."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SA</div>
+                    <div>
+                        <div class="author-name">Sarah A.</div>
+                        <div class="author-title">London, UK</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Coming from zero knowledge, the beginner courses made everything crystal clear. Now I'm trading forex and crypto confidently. Thank you!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">RJ</div>
+                    <div>
+                        <div class="author-name">Raj J.</div>
+                        <div class="author-title">Mumbai, India</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <h2>Ready to Start Your Trading Journey?</h2>
+        <p>Join 17,900+ students learning to trade professionally. 100% free to start.</p>
+        <button class="btn-primary" onclick="openSignupModal()">🚀 Create Free Account</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>⚠️ Risk Warning: Trading involves substantial risk of loss. Content is for educational purposes only.</p>
+        <p style="margin-top: 12px;">© 2025 Trading Academy. All rights reserved.</p>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="openSignupModal()" title="Sign Up Now">🚀</button>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeSignupModal()">×</button>
+
+            <!-- Initial Form -->
+            <div id="signupForm">
+                <h2 class="modal-title">Start Learning Free</h2>
+                <p class="modal-subtitle">Join 17,900+ students. No credit card required.</p>
+
+                <form onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label class="form-label">Full Name *</label>
+                        <input type="text" class="form-input" name="fullName" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" class="form-input" name="email" placeholder="john@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Phone Number *</label>
+                        <input type="tel" class="form-input" name="phone" placeholder="+971 50 123 4567" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Country *</label>
+                        <select class="form-select" name="country" required>
+                            <option value="">Select your country</option>
+                            <option value="UAE">🇦🇪 United Arab Emirates</option>
+                            <option value="SA">🇸🇦 Saudi Arabia</option>
+                            <option value="QA">🇶🇦 Qatar</option>
+                            <option value="KW">🇰🇼 Kuwait</option>
+                            <option value="BH">🇧🇭 Bahrain</option>
+                            <option value="OM">🇴🇲 Oman</option>
+                            <option value="UK">🇬🇧 United Kingdom</option>
+                            <option value="US">🇺🇸 United States</option>
+                            <option value="IN">🇮🇳 India</option>
+                            <option value="PK">🇵🇰 Pakistan</option>
+                            <option value="Other">🌍 Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Trading Experience *</label>
+                        <select class="form-select" name="experience" required>
+                            <option value="">Select experience level</option>
+                            <option value="beginner">Complete Beginner</option>
+                            <option value="some">Some Knowledge</option>
+                            <option value="intermediate">Intermediate Trader</option>
+                            <option value="advanced">Advanced Trader</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">What interests you most? *</label>
+                        <select class="form-select" name="interest" required>
+                            <option value="">Select your interest</option>
+                            <option value="forex">Forex Trading</option>
+                            <option value="stocks">Stock Trading</option>
+                            <option value="crypto">Cryptocurrency</option>
+                            <option value="gold">Gold & Commodities</option>
+                            <option value="all">All of the Above</option>
+                        </select>
+                    </div>
+
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">I agree to receive educational emails and trading insights. I understand that trading involves risk.</label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">🚀 Create Free Account</button>
+                </form>
+            </div>
+
+            <!-- Success Message -->
+            <div id="successMessage" class="success-message">
+                <div class="success-icon">✅</div>
+                <h3 class="success-title">Welcome to the Academy!</h3>
+                <p class="success-text">
+                    Check your email for login details and next steps.<br><br>
+                    Our team will contact you within 24 hours to help you get started.<br><br>
+                    <strong>You'll also receive information about opening a live trading account to practice what you learn!</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Functions
+        function openSignupModal() {
+            document.getElementById('signupModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSignupModal() {
+            document.getElementById('signupModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function scrollToCourses() {
+            document.getElementById('courses').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Handle Signup Form Submission
+        function handleSignup(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const data = {
+                fullName: formData.get('fullName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                country: formData.get('country'),
+                experience: formData.get('experience'),
+                interest: formData.get('interest'),
+                timestamp: new Date().toISOString(),
+                source: 'trading-academy-website',
+                utmSource: getUrlParameter('utm_source') || 'direct',
+                utmMedium: getUrlParameter('utm_medium') || 'none',
+                utmCampaign: getUrlParameter('utm_campaign') || 'none'
+            };
+
+            // 🔥 CRITICAL: Send lead to YOUR BROKER'S CRM/API
+            // Option 1: Direct API call to broker
+            sendLeadToBroker(data);
+
+            // Option 2: Send to your backend first (recommended)
+            // sendToYourBackend(data);
+
+            // Show success message
+            document.getElementById('signupForm').style.display = 'none';
+            document.getElementById('successMessage').classList.add('active');
+
+            // Track conversion
+            trackConversion(data);
+        }
+
+        // Send lead to broker's system
+        function sendLeadToBroker(data) {
+            // 🔥 REPLACE WITH YOUR BROKER'S API ENDPOINT
+            fetch('https://your-broker-crm.com/api/leads', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer YOUR_API_KEY' // Replace with actual API key
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Lead sent to broker:', result);
+
+                // Optional: Redirect to broker signup page
+                // setTimeout(() => {
+                //     window.location.href = 'https://broker.com/register?ref=academy&email=' + data.email;
+                // }, 3000);
+            })
+            .catch(error => {
+                console.error('Error sending lead:', error);
+                // Still show success to user even if API fails
+            });
+        }
+
+        // Alternative: Send to your own backend first
+        function sendToYourBackend(data) {
+            fetch('/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Signup successful:', result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Track conversion for analytics
+        function trackConversion(data) {
+            // Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'sign_up', {
+                    method: 'trading_academy',
+                    value: data.email
+                });
+            }
+
+            // Facebook Pixel
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'CompleteRegistration', {
+                    content_name: 'Trading Academy Signup',
+                    status: 'completed'
+                });
+            }
+
+            // TikTok Pixel
+            if (typeof ttq !== 'undefined') {
+                ttq.track('CompleteRegistration');
+            }
+        }
+
+        // Get URL parameters
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Auto-open modal after 30 seconds (optional)
+        setTimeout(() => {
+            if (!localStorage.getItem('visited')) {
+                openSignupModal();
+                localStorage.setItem('visited', 'true');
+            }
+        }, 30000);
+
+        // Close modal on outside click
+        document.getElementById('signupModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSignupModal();
+            }
+        });
+    </script>
+
+    <!-- Google Analytics (Replace with your tracking ID) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script> -->
+
+    <!-- Facebook Pixel (Replace with your pixel ID) -->
+    <!-- <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'YOUR_PIXEL_ID');
+        fbq('track', 'PageView');
+    </script> -->
+
+</body>
+</html>

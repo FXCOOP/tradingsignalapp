@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Generation Website - Broker Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a;
+            color: white;
+            padding: 60px 40px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            padding-bottom: 40px;
+            border-bottom: 3px solid #334155;
+        }
+
+        .header h1 {
+            font-size: 64px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            font-size: 28px;
+            color: #94a3b8;
+        }
+
+        .section {
+            background: #1e293b;
+            border-radius: 24px;
+            padding: 50px;
+            margin-bottom: 40px;
+            border: 2px solid #334155;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 30px;
+            color: #10b981;
+        }
+
+        .section-content {
+            font-size: 20px;
+            color: #cbd5e1;
+            line-height: 1.9;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 30px 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .box {
+            background: #0f172a;
+            border: 2px solid #334155;
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .box h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #3b82f6;
+        }
+
+        .box p {
+            font-size: 16px;
+            color: #94a3b8;
+            line-height: 1.8;
+        }
+
+        .box ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .box ul li {
+            padding: 12px 0;
+            border-bottom: 1px solid #334155;
+            color: #cbd5e1;
+            font-size: 16px;
+        }
+
+        .box ul li:last-child {
+            border-bottom: none;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: none;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .highlight-box h3 {
+            font-size: 32px;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .highlight-box p {
+            font-size: 20px;
+            color: white;
+            opacity: 0.95;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .flow-step {
+            background: #0f172a;
+            border: 3px solid #3b82f6;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            min-width: 180px;
+        }
+
+        .flow-step.highlight {
+            border-color: #10b981;
+            background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);
+        }
+
+        .flow-step .number {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .flow-step .title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .flow-step .desc {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .flow-arrow {
+            font-size: 40px;
+            color: #10b981;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-box {
+            background: #0f172a;
+            border: 2px solid #10b981;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 56px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            border-radius: 24px;
+            padding: 60px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .cta-section h2 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            background: white;
+            color: #0f172a;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            margin: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Header -->
+        <div class="header">
+            <h1>Lead Generation Website</h1>
+            <p>Convert Website Visitors into Depositing Traders</p>
+        </div>
+
+        <!-- What We Build -->
+        <div class="section">
+            <h2 class="section-title">🎯 What We're Building for You</h2>
+            <div class="section-content">
+                <p style="font-size: 24px; margin-bottom: 30px;">A professional <strong>trading education website</strong> that attracts potential traders, educates them, and automatically sends qualified leads directly to your brokerage CRM.</p>
+            </div>
+
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <div class="number">1️⃣</div>
+                    <div class="title">Traffic</div>
+                    <div class="desc">SEO, Ads, Social Media</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="number">2️⃣</div>
+                    <div class="title">Learn</div>
+                    <div class="desc">Free Courses & Signals</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="number">3️⃣</div>
+                    <div class="title">Sign Up</div>
+                    <div class="desc">Lead Capture Form</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step highlight">
+                    <div class="number">4️⃣</div>
+                    <div class="title">YOUR BROKER</div>
+                    <div class="desc">Auto-sent to your CRM</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step highlight">
+                    <div class="number">5️⃣</div>
+                    <div class="title">FTDs</div>
+                    <div class="desc">First Time Depositors</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What's Included -->
+        <div class="section">
+            <h2 class="section-title">📦 What's Included in the Website</h2>
+            <div class="grid-3">
+                <div class="box">
+                    <h3>🎓 Trading Academy</h3>
+                    <p>Professional education content to attract and engage visitors:</p>
+                    <ul>
+                        <li>✓ 50+ Trading Courses</li>
+                        <li>✓ Beginner to Advanced</li>
+                        <li>✓ Forex, Stocks, Crypto, Gold</li>
+                        <li>✓ Video Lessons</li>
+                        <li>✓ Quiz System</li>
+                    </ul>
+                </div>
+
+                <div class="box">
+                    <h3>⚡ Live Trading Signals</h3>
+                    <p>Keep visitors engaged daily with real-time signals:</p>
+                    <ul>
+                        <li>✓ 10+ Daily Signals</li>
+                        <li>✓ Entry/Target/Stop Loss</li>
+                        <li>✓ AI-Powered Analysis</li>
+                        <li>✓ Multi-Asset Coverage</li>
+                        <li>✓ Push Notifications</li>
+                    </ul>
+                </div>
+
+                <div class="box">
+                    <h3>📊 Case Studies</h3>
+                    <p>Build trust with real trade examples:</p>
+                    <ul>
+                        <li>✓ 450+ Real Trades</li>
+                        <li>✓ Success & Failures</li>
+                        <li>✓ Strategy Breakdowns</li>
+                        <li>✓ Risk Management</li>
+                        <li>✓ Learning From Mistakes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lead Capture -->
+        <div class="section">
+            <h2 class="section-title">🎣 Lead Capture System</h2>
+            <div class="grid-2">
+                <div class="box">
+                    <h3>Data We Collect</h3>
+                    <p>Every signup captures:</p>
+                    <ul>
+                        <li>✓ Full Name</li>
+                        <li>✓ Email Address</li>
+                        <li>✓ Phone Number</li>
+                        <li>✓ Country/Location</li>
+                        <li>✓ Trading Experience Level</li>
+                        <li>✓ Interest (Forex/Stocks/Crypto)</li>
+                        <li>✓ UTM Tracking (ad source)</li>
+                        <li>✓ Timestamp</li>
+                    </ul>
+                </div>
+
+                <div class="box">
+                    <h3>Where Leads Go</h3>
+                    <p>Automatically sent to:</p>
+                    <ul>
+                        <li>✓ <strong>Your CRM API</strong> (instant)</li>
+                        <li>✓ Email notification to your sales team</li>
+                        <li>✓ Google Sheets backup (optional)</li>
+                        <li>✓ WhatsApp notification (optional)</li>
+                        <li>✓ Zapier integration (optional)</li>
+                        <li>✓ Slack notification (optional)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expected Results -->
+        <div class="section">
+            <h2 class="section-title">📈 Expected Results</h2>
+            <div class="section-content">
+                <p style="margin-bottom: 30px;">Based on similar implementations for other brokers:</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value">35%</div>
+                    <div class="stat-label">Visitor → Signup</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">25%</div>
+                    <div class="stat-label">Signup → Active Learner</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">15%</div>
+                    <div class="stat-label">Learner → Demo Account</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">8-12%</div>
+                    <div class="stat-label">Demo → Live Trader (FTD)</div>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 40px;">
+                <h3>Example: 10,000 Monthly Visitors</h3>
+                <p>
+                    3,500 signups → 875 active learners → 130 demo accounts → <strong>10-15 FTDs per month</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="section">
+            <h2 class="section-title">✨ Technical Features</h2>
+            <div class="grid-2">
+                <div class="box">
+                    <h3>🔧 Integration & Automation</h3>
+                    <ul>
+                        <li>✓ Direct CRM API integration</li>
+                        <li>✓ Google Analytics tracking</li>
+                        <li>✓ Facebook Pixel conversion tracking</li>
+                        <li>✓ TikTok Pixel (optional)</li>
+                        <li>✓ Auto-email to leads</li>
+                        <li>✓ Lead scoring system</li>
+                    </ul>
+                </div>
+
+                <div class="box">
+                    <h3>🎨 Design & UX</h3>
+                    <ul>
+                        <li>✓ Mobile responsive (works on all devices)</li>
+                        <li>✓ Fast loading (under 2 seconds)</li>
+                        <li>✓ SEO optimized</li>
+                        <li>✓ Multi-language ready</li>
+                        <li>✓ Conversion-optimized layout</li>
+                        <li>✓ A/B testing ready</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing -->
+        <div class="section">
+            <h2 class="section-title">💰 Investment Options</h2>
+            <div class="grid-3">
+                <div class="box">
+                    <h3>Option 1: One-Time Build</h3>
+                    <p style="font-size: 32px; font-weight: 900; color: #10b981; margin: 20px 0;">$3,500</p>
+                    <ul>
+                        <li>✓ Complete website build</li>
+                        <li>✓ CRM integration</li>
+                        <li>✓ Analytics setup</li>
+                        <li>✓ 3 months support</li>
+                        <li>✓ You host & maintain</li>
+                    </ul>
+                </div>
+
+                <div class="box">
+                    <h3>Option 2: Monthly Service</h3>
+                    <p style="font-size: 32px; font-weight: 900; color: #10b981; margin: 20px 0;">$500/mo</p>
+                    <ul>
+                        <li>✓ Everything in Option 1</li>
+                        <li>✓ Hosting included</li>
+                        <li>✓ Content updates</li>
+                        <li>✓ Technical support</li>
+                        <li>✓ Performance optimization</li>
+                        <li>✓ Monthly reporting</li>
+                    </ul>
+                </div>
+
+                <div class="box" style="border-color: #10b981; background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);">
+                    <h3 style="color: #10b981;">Option 3: Revenue Share</h3>
+                    <p style="font-size: 32px; font-weight: 900; color: #10b981; margin: 20px 0;">$0 Setup</p>
+                    <ul>
+                        <li>✓ Zero upfront cost</li>
+                        <li>✓ We build & maintain</li>
+                        <li>✓ Everything included</li>
+                        <li>✓ Pay per FTD generated</li>
+                        <li>✓ $150-300 per FTD</li>
+                        <li>✓ OR 20% of deposits</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="section">
+            <h2 class="section-title">⏱️ Launch Timeline</h2>
+            <div class="grid-2">
+                <div class="box">
+                    <h3>Week 1: Setup</h3>
+                    <ul>
+                        <li>✓ Domain registration</li>
+                        <li>✓ Branding & design</li>
+                        <li>✓ CRM API keys</li>
+                        <li>✓ Content planning</li>
+                    </ul>
+                </div>
+
+                <div class="box">
+                    <h3>Week 2-3: Development</h3>
+                    <ul>
+                        <li>✓ Website build</li>
+                        <li>✓ CRM integration</li>
+                        <li>✓ Testing & QA</li>
+                        <li>✓ Analytics setup</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 30px;">
+                <h3>⚡ Go Live in 2-3 Weeks</h3>
+                <p>From kickoff to first leads in under a month</p>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2>Ready to Start Generating Leads?</h2>
+            <p>Let's build your lead generation machine</p>
+            <button class="cta-button">📅 Schedule Call</button>
+            <button class="cta-button">📄 See Demo Site</button>
+        </div>
+
+    </div>
+
+    <script>
+        // Add some interactivity
+        document.querySelectorAll('.box').forEach(box => {
+            box.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.transition = 'all 0.3s';
+            });
+            box.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
