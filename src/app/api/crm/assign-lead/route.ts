@@ -86,8 +86,7 @@ export async function POST(request: NextRequest) {
 // Helper function to find the best broker for a lead
 async function findBestBroker(leadId: string) {
   // Get the lead details
-  const signups = await getAllSignups();
-  const leads = Array.isArray(signups) ? signups : signups?.data || [];
+  const leads = await getAllSignups();
   const lead = leads?.find((l: any) => l.id === leadId);
 
   if (!lead) return null;
