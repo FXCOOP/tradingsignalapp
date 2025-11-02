@@ -109,9 +109,24 @@ export default function HomePage() {
   // Show signup popup on initial load
   useEffect(() => {
     const hasSignedUp = localStorage.getItem('gcc_signup_completed');
-    if (!hasSignedUp) {
-      // Show popup immediately on page load
-      setShow30MinPopup(true);
+    const isLoggedIn = localStorage.getItem('auth_token');
+
+    // Show popup if user hasn't signed up AND isn't logged in
+    if (!hasSignedUp && !isLoggedIn) {
+      // Show popup after 2 seconds for better UX
+      const popupTimer = setTimeout(() => {
+        setShow30MinPopup(true);
+      }, 2000);
+
+      // Show floating button after 5 seconds as backup
+      const buttonTimer = setTimeout(() => {
+        setShowFloatingButton(true);
+      }, 5000);
+
+      return () => {
+        clearTimeout(popupTimer);
+        clearTimeout(buttonTimer);
+      };
     }
   }, []); // Empty dependency array = runs once on mount
 
@@ -14533,6 +14548,43 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         show={show30MinPopup}
         onClose={() => setShow30MinPopup(false)}
       />
+
+      {/* 🎯 Floating Sign Up Button (always visible if not logged in) */}
+      {!user && showFloatingButton && (
+        <button
+          onClick={() => setShow30MinPopup(true)}
+          style={{
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            backgroundColor: '#6366f1',
+            color: 'white',
+            padding: '16px 24px',
+            borderRadius: '50px',
+            border: 'none',
+            fontSize: '16px',
+            fontWeight: '700',
+            cursor: 'pointer',
+            boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)',
+            zIndex: 999,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            transition: 'all 0.3s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 6px 30px rgba(99, 102, 241, 0.6)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 20px rgba(99, 102, 241, 0.4)';
+          }}
+        >
+          <span>🚀</span>
+          Get Free Premium Access
+        </button>
+      )}
 
       {/* CSS Animations for 30-min popup */}
       <style jsx global>{`
