@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createSignup, getAllSignups, getSignupByEmail, createUser, getUserByEmail, updateLastLogin, type SignupData } from '@/lib/supabase';
+import { createSignup, getAllSignups, getSignupByEmail, createUser, type SignupData } from '@/lib/supabase';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -103,8 +103,8 @@ export async function POST(request: NextRequest) {
       access_level: 'premium' // All signups get FREE premium access
     });
 
-    // Update last login
-    await updateLastLogin(user.id);
+    // Note: Not updating last_login - column doesn't exist in users table
+    // Last login tracking can be added later if needed
 
     // Generate JWT token for auto-login
     const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
