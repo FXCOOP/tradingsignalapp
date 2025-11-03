@@ -219,8 +219,8 @@ export default function HomePage() {
       return false
     }
 
-    // Check if user is premium (has broker account)
-    if (user.has_broker_account) {
+    // Check if user is premium (has access_level premium OR broker account)
+    if (isPremium()) {
       return true // Premium users can view unlimited
     }
 
@@ -270,8 +270,8 @@ export default function HomePage() {
       return false
     }
 
-    // Check if user is premium (has broker account)
-    if (user.has_broker_account) {
+    // Check if user is premium (has access_level premium OR broker account)
+    if (isPremium()) {
       return true // Premium users can view unlimited
     }
 
@@ -5353,39 +5353,41 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                       </span>
                     </div>
 
-                    {/* CRM Button */}
-                    <a
-                      href="/crm"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                        border: 'none',
-                        color: 'white',
-                        padding: `${designSystem.spacing[3]} ${designSystem.spacing[4]}`,
-                        borderRadius: designSystem.borderRadius.md,
-                        cursor: 'pointer',
-                        fontSize: designSystem.typography.sizes.bodySmall.mobile,
-                        fontWeight: designSystem.typography.weights.bold,
-                        boxShadow: '0 4px 12px rgba(102, 126, 234, 0.4)',
-                        transition: designSystem.transitions.normal,
-                        minHeight: '44px',
-                        textDecoration: 'none',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'scale(1.05) translateY(-2px)'
-                        e.currentTarget.style.boxShadow = '0 8px 20px rgba(102, 126, 234, 0.5)'
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'scale(1)'
-                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.4)'
-                      }}
-                    >
-                      {isMobile ? '🎯' : '🎯 CRM'}
-                    </a>
+                    {/* CRM Button - Only for admin users */}
+                    {user && user.email && user.email.includes('@') && user.email.split('@')[0] === 'admin' && (
+                      <a
+                        href="/crm"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                          border: 'none',
+                          color: 'white',
+                          padding: `${designSystem.spacing[3]} ${designSystem.spacing[4]}`,
+                          borderRadius: designSystem.borderRadius.md,
+                          cursor: 'pointer',
+                          fontSize: designSystem.typography.sizes.bodySmall.mobile,
+                          fontWeight: designSystem.typography.weights.bold,
+                          boxShadow: '0 4px 12px rgba(102, 126, 234, 0.4)',
+                          transition: designSystem.transitions.normal,
+                          minHeight: '44px',
+                          textDecoration: 'none',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'scale(1.05) translateY(-2px)'
+                          e.currentTarget.style.boxShadow = '0 8px 20px rgba(102, 126, 234, 0.5)'
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'scale(1)'
+                          e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.4)'
+                        }}
+                      >
+                        {isMobile ? '🎯' : '🎯 CRM'}
+                      </a>
+                    )}
 
                     {/* Logout Button */}
                     <button
