@@ -343,17 +343,17 @@ export default function HomePage() {
   const brokerPartners = [
     {
       id: 1,
-      name: 'Your Broker',
+      name: 'Your Broker Name',
       logo: '💎',
-      rating: 4.9,
-      reviews: 15420,
-      features: ['0.0 Pips Spreads', 'Instant Execution', 'CySEC Regulated'],
-      bonus: 'Start Trading Free',
+      rating: 4.8,
+      reviews: 12500,
+      features: ['Competitive Spreads', 'Fast Execution', 'Regulated Broker'],
+      bonus: 'Special Trading Offer',
       popular: true,
-      commission: 'Zero',
-      platform: 'MT4/MT5',
-      minDeposit: '$10',
-      color: '#FFD700'
+      commission: 'Contact for Details',
+      platform: 'Multiple Platforms',
+      minDeposit: 'Contact for Details',
+      color: '#3B82F6'
     }
   ]
 
@@ -6747,71 +6747,6 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               ))}
             </div>
 
-            {/* Broker Information Section */}
-            <div style={{
-              marginTop: '48px',
-              background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
-              border: '2px solid #FFD700',
-              borderRadius: '24px',
-              padding: '32px',
-              boxShadow: '0 8px 32px rgba(255, 215, 0, 0.15)'
-            }}>
-              <div style={{
-                textAlign: 'center',
-                marginBottom: '24px'
-              }}>
-                <h3 style={{
-                  fontSize: '28px',
-                  fontWeight: '800',
-                  background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  marginBottom: '8px'
-                }}>
-                  💎 Why Choose This Broker?
-                </h3>
-                <p style={{
-                  fontSize: '14px',
-                  color: '#64748b'
-                }}>
-                  Learn about the best trading conditions
-                </p>
-              </div>
-
-              <div style={{
-                position: 'relative',
-                paddingBottom: '56.25%',
-                height: 0,
-                overflow: 'hidden',
-                borderRadius: '16px',
-                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
-                background: '#000'
-              }}>
-                <iframe
-                  src="https://brandfolder.com/brandfolder/attachments/embed/46s8kg2p4qx4sz96k5pjs?loop=true&muted=true&autoplay=true"
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    border: 'none'
-                  }}
-                  allow="autoplay; encrypted-media"
-                  allowFullScreen
-                />
-              </div>
-
-              <div style={{
-                marginTop: isMobile ? '16px' : '24px',
-                textAlign: 'center',
-                padding: isMobile ? '0 20px' : '0',
-                display: 'flex',
-                justifyContent: 'center'
-              }}>
-                
-              </div>
-            </div>
 
             {/* Broker Partners Section - STICKY */}
             <div style={{

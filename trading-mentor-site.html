@@ -9,10 +9,8 @@
     <style>
         /* Language Selector */
         .language-bar {
-            position: fixed;
-            top: 90px;
-            right: 24px;
-            z-index: 1001;
+            position: relative;
+            z-index: 10;
         }
 
         .lang-selector-container {
@@ -22,18 +20,18 @@
         .lang-current {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 12px 20px;
+            border-radius: 10px;
+            padding: 10px 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 15px;
+            gap: 8px;
+            font-size: 14px;
             font-weight: 600;
             color: #1a1a1a;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            min-width: 140px;
+            min-width: 110px;
             justify-content: space-between;
         }
 
@@ -238,6 +236,51 @@
             animation: fadeInUp 0.6s ease-out forwards;
         }
 
+        /* Chart and Dashboard Animations */
+        @keyframes fillBar {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes growBar {
+            from {
+                height: 0;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-20px) scale(1.1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
         /* Header */
         .header {
             background: rgba(255, 255, 255, 0.98);
@@ -263,6 +306,10 @@
             font-size: 28px;
             font-weight: 900;
             color: #1a1a1a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 350px;
         }
 
         .mobile-menu-btn {
@@ -333,8 +380,8 @@
 
         .hero-badge {
             display: inline-block;
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid #bfdbfe;
             color: #1d4ed8;
             padding: 10px 24px;
             border-radius: 30px;
@@ -343,6 +390,8 @@
             margin-bottom: 30px;
             letter-spacing: 1px;
             text-transform: uppercase;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
         }
 
         .hero h1 {
@@ -387,12 +436,33 @@
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.5);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px) scale(0.98);
         }
 
         .btn-secondary {
@@ -404,12 +474,36 @@
             font-size: 18px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+            transition: width 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn-secondary:hover::before {
+            width: 100%;
         }
 
         .btn-secondary:hover {
             border-color: #2563eb;
-            background: #f8fafc;
+            color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15);
+        }
+
+        .btn-secondary:active {
+            transform: translateY(0px);
         }
 
         /* Stats */
@@ -430,6 +524,32 @@
 
         .stat-item {
             text-align: center;
+            padding: 30px 20px;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border-radius: 20px;
+        }
+
+        .stat-item:hover::before {
+            opacity: 1;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
         }
 
         .stat-value {
@@ -439,6 +559,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 8px;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out forwards;
         }
 
         .stat-label {
@@ -521,6 +643,13 @@
             justify-content: center;
             font-size: 32px;
             margin-bottom: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
         }
 
         .feature-title {
@@ -952,11 +1081,12 @@
         /* Responsive Design */
         @media (max-width: 968px) {
             .header-content {
-                padding: 0 16px;
+                padding: 0 12px;
             }
 
             .logo {
-                font-size: 20px;
+                font-size: 16px;
+                max-width: 200px;
             }
 
             .logo-finoglob {
@@ -964,23 +1094,55 @@
             }
 
             .cta-header-btn {
-                padding: 12px 24px;
-                font-size: 14px;
+                display: none;
             }
 
             .mobile-menu-btn {
                 display: block;
             }
 
-            .language-bar {
-                top: 80px;
-                right: 16px;
+            .lang-current {
+                padding: 8px 12px;
+                font-size: 13px;
+                min-width: 80px;
+            }
+
+            #currentLangName {
+                display: none;
+            }
+
+            .lang-flag {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content {
+                padding: 0 8px;
+            }
+
+            .logo {
+                font-size: 14px;
+                max-width: 150px;
             }
 
             .lang-current {
-                padding: 10px 16px;
-                font-size: 14px;
-                min-width: 120px;
+                padding: 6px 10px;
+                font-size: 12px;
+                min-width: 70px;
+            }
+
+            .lang-flag {
+                font-size: 16px;
+            }
+
+            .lang-arrow {
+                font-size: 10px;
+            }
+
+            .mobile-menu-btn {
+                font-size: 24px;
+                padding: 4px;
             }
         }
 
@@ -1174,14 +1336,8 @@
                 </div>
             </div>
             <div style="display: flex; align-items: center; gap: 12px;">
-                <button class="cta-header-btn" onclick="openModal()">Get Your Mentor</button>
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Language Selector -->
-    <div class="language-bar">
+                <!-- Language Selector -->
+                <div class="language-bar">
         <div class="lang-selector-container" id="langSelector">
             <div class="lang-current" onclick="toggleLanguageDropdown()">
                 <div class="lang-current-content">
@@ -1229,7 +1385,12 @@
                 </button>
             </div>
         </div>
-    </div>
+                </div>
+                <button class="cta-header-btn" onclick="openModal()">Get Your Mentor</button>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            </div>
+        </div>
+    </header>
 
     <!-- Mobile Navigation -->
     <div class="mobile-nav" id="mobileNav">
@@ -1271,6 +1432,226 @@
             <div class="stat-item">
                 <div class="stat-value">4.9★</div>
                 <div class="stat-label">Client Rating</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trading Performance Dashboard -->
+    <section style="background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%); padding: 100px 24px; position: relative; overflow: hidden; border-top: 1px solid rgba(59, 130, 246, 0.2);">
+        <!-- Animated Background Grid -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px); background-size: 50px 50px; opacity: 0.5;"></div>
+
+        <!-- Animated Background Orbs -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.15;">
+            <div style="position: absolute; top: 10%; left: 5%; width: 400px; height: 400px; background: radial-gradient(circle, #3b82f6 0%, transparent 70%); animation: float 8s ease-in-out infinite; filter: blur(60px);"></div>
+            <div style="position: absolute; bottom: 10%; right: 5%; width: 500px; height: 500px; background: radial-gradient(circle, #10b981 0%, transparent 70%); animation: float 10s ease-in-out infinite reverse; filter: blur(60px);"></div>
+            <div style="position: absolute; top: 50%; left: 50%; width: 350px; height: 350px; background: radial-gradient(circle, #8b5cf6 0%, transparent 70%); animation: float 12s ease-in-out infinite; filter: blur(60px); transform: translate(-50%, -50%);"></div>
+        </div>
+
+        <div style="max-width: 1300px; margin: 0 auto; position: relative; z-index: 1;">
+            <div style="text-align: center; margin-bottom: 70px;">
+                <div style="display: inline-flex; align-items: center; gap: 12px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); padding: 12px 24px; border-radius: 50px; margin-bottom: 24px;">
+                    <div style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; animation: pulse 2s ease-in-out infinite; box-shadow: 0 0 12px #10b981;"></div>
+                    <span style="font-size: 13px; font-weight: 700; color: #60a5fa; text-transform: uppercase; letter-spacing: 2px;">Live Data • Updated Real-Time</span>
+                </div>
+                <h2 style="font-size: 52px; font-weight: 900; color: white; margin-bottom: 20px; line-height: 1.2; text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);">
+                    📈 <span style="background: linear-gradient(135deg, #60a5fa 0%, #34d399 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Live Performance</span> Metrics
+                </h2>
+                <p style="font-size: 19px; color: #94a3b8; max-width: 650px; margin: 0 auto; line-height: 1.6;">Real-time trading results from our elite mentor community across global markets</p>
+            </div>
+
+            <!-- Trading Cards Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; margin-bottom: 60px;">
+                <!-- Win Rate Card -->
+                <div style="background: linear-gradient(135deg, #1e293b 0%, #2d3748 100%); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 24px; padding: 36px; position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); transition: all 0.4s ease;">
+                    <div style="position: absolute; top: -50px; right: -50px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, transparent 70%); filter: blur(30px);"></div>
+                    <div style="position: absolute; top: 16px; right: 16px; font-size: 40px; opacity: 0.1;">📊</div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                        <div style="width: 10px; height: 10px; background: #10b981; border-radius: 50%; box-shadow: 0 0 12px #10b981;"></div>
+                        <div style="font-size: 13px; color: #10b981; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">Win Rate</div>
+                    </div>
+                    <div style="font-size: 56px; font-weight: 900; color: #10b981; margin-bottom: 16px; text-shadow: 0 2px 20px rgba(16, 185, 129, 0.4);">87.3%</div>
+                    <div style="background: rgba(16, 185, 129, 0.15); height: 10px; border-radius: 10px; overflow: hidden; margin-bottom: 16px; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);">
+                        <div style="background: linear-gradient(90deg, #10b981 0%, #34d399 100%); height: 100%; width: 87.3%; animation: fillBar 2s ease-out; box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);"></div>
+                    </div>
+                    <div style="font-size: 14px; color: #94a3b8; display: flex; align-items: center; gap: 6px;">
+                        <span style="color: #10b981; font-weight: 700;">↗ +2.3%</span>
+                        <span>this month</span>
+                    </div>
+                </div>
+
+                <!-- Average Profit Card -->
+                <div style="background: linear-gradient(135deg, #1e293b 0%, #2d3748 100%); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 24px; padding: 36px; position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); transition: all 0.4s ease;">
+                    <div style="position: absolute; top: -50px; right: -50px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%); filter: blur(30px);"></div>
+                    <div style="position: absolute; top: 16px; right: 16px; font-size: 40px; opacity: 0.1;">💰</div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                        <div style="width: 10px; height: 10px; background: #3b82f6; border-radius: 50%; box-shadow: 0 0 12px #3b82f6;"></div>
+                        <div style="font-size: 13px; color: #3b82f6; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">Avg Profit</div>
+                    </div>
+                    <div style="font-size: 56px; font-weight: 900; color: #3b82f6; margin-bottom: 16px; text-shadow: 0 2px 20px rgba(59, 130, 246, 0.4);">+$2,847</div>
+                    <div style="background: rgba(59, 130, 246, 0.15); height: 10px; border-radius: 10px; overflow: hidden; margin-bottom: 16px; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);">
+                        <div style="background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%); height: 100%; width: 75%; animation: fillBar 2s ease-out 0.2s backwards; box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);"></div>
+                    </div>
+                    <div style="font-size: 14px; color: #94a3b8;">Per trader per month</div>
+                </div>
+
+                <!-- Active Signals Card -->
+                <div style="background: linear-gradient(135deg, #1e293b 0%, #2d3748 100%); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 24px; padding: 36px; position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); transition: all 0.4s ease;">
+                    <div style="position: absolute; top: -50px; right: -50px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(251, 191, 36, 0.25) 0%, transparent 70%); filter: blur(30px);"></div>
+                    <div style="position: absolute; top: 16px; right: 16px; font-size: 40px; opacity: 0.1;">⚡</div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                        <div style="width: 10px; height: 10px; background: #fbbf24; border-radius: 50%; box-shadow: 0 0 12px #fbbf24;"></div>
+                        <div style="font-size: 13px; color: #fbbf24; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">Signals Today</div>
+                    </div>
+                    <div style="font-size: 56px; font-weight: 900; color: #fbbf24; margin-bottom: 16px; text-shadow: 0 2px 20px rgba(251, 191, 36, 0.4);">18</div>
+                    <div style="background: rgba(251, 191, 36, 0.15); height: 10px; border-radius: 10px; overflow: hidden; margin-bottom: 16px; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);">
+                        <div style="background: linear-gradient(90deg, #fbbf24 0%, #fcd34d 100%); height: 100%; width: 90%; animation: fillBar 2s ease-out 0.4s backwards; box-shadow: 0 0 12px rgba(251, 191, 36, 0.6);"></div>
+                    </div>
+                    <div style="font-size: 14px; color: #94a3b8; display: flex; align-items: center; gap: 6px;">
+                        <span style="color: #10b981; font-weight: 700;">12 profitable</span>
+                        <span>•</span>
+                        <span style="color: #fbbf24;">6 pending</span>
+                    </div>
+                </div>
+
+                <!-- ROI Card -->
+                <div style="background: linear-gradient(135deg, #7c3aed 0%, #9333ea 100%); border: 2px solid rgba(167, 139, 250, 0.5); border-radius: 24px; padding: 36px; position: relative; overflow: hidden; box-shadow: 0 12px 40px rgba(124, 58, 237, 0.4); transition: all 0.4s ease;">
+                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><circle cx=\"10\" cy=\"10\" r=\"1.5\" fill=\"white\" opacity=\"0.2\"/><circle cx=\"30\" cy=\"30\" r=\"1.5\" fill=\"white\" opacity=\"0.2\"/><circle cx=\"50\" cy=\"10\" r=\"1.5\" fill=\"white\" opacity=\"0.2\"/><circle cx=\"70\" cy=\"40\" r=\"1.5\" fill=\"white\" opacity=\"0.2\"/><circle cx=\"90\" cy=\"20\" r=\"1.5\" fill=\"white\" opacity=\"0.2\"/><circle cx=\"20\" cy=\"50\" r=\"1.5\" fill=\"white\" opacity=\"0.2\"/><circle cx=\"60\" cy=\"70\" r=\"1.5\" fill=\"white\" opacity=\"0.2\"/><circle cx=\"80\" cy=\"60\" r=\"1.5\" fill=\"white\" opacity=\"0.2\"/></svg>'); opacity: 0.3;"></div>
+                    <div style="position: absolute; top: 16px; right: 16px; font-size: 40px; opacity: 0.2;">🚀</div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; position: relative;">
+                        <div style="width: 10px; height: 10px; background: white; border-radius: 50%; box-shadow: 0 0 12px white; animation: pulse 2s ease-in-out infinite;"></div>
+                        <div style="font-size: 13px; color: white; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">Monthly ROI</div>
+                    </div>
+                    <div style="font-size: 56px; font-weight: 900; color: white; margin-bottom: 16px; text-shadow: 0 2px 20px rgba(255, 255, 255, 0.3);">+124%</div>
+                    <div style="background: rgba(255, 255, 255, 0.25); height: 10px; border-radius: 10px; overflow: hidden; margin-bottom: 16px; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);">
+                        <div style="background: white; height: 100%; width: 95%; animation: fillBar 2s ease-out 0.6s backwards; box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);"></div>
+                    </div>
+                    <div style="font-size: 14px; color: rgba(255, 255, 255, 0.9); display: flex; align-items: center; gap: 6px;">
+                        <span>⭐</span>
+                        <span style="font-weight: 600;">Premium members average</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mini Chart Visualization -->
+            <div style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border: 1px solid #334155; border-radius: 24px; padding: 40px; margin-bottom: 50px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 20px;">
+                    <div>
+                        <h3 style="font-size: 24px; font-weight: 800; color: white; margin-bottom: 8px;">Weekly Performance Chart</h3>
+                        <p style="font-size: 14px; color: #94a3b8;">Average profit trend across all mentors</p>
+                    </div>
+                    <div style="display: flex; gap: 16px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div style="width: 12px; height: 12px; background: #10b981; border-radius: 3px;"></div>
+                            <span style="font-size: 13px; color: #94a3b8; font-weight: 600;">Profit</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div style="width: 12px; height: 12px; background: #ef4444; border-radius: 3px;"></div>
+                            <span style="font-size: 13px; color: #94a3b8; font-weight: 600;">Loss</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart Bars -->
+                <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; height: 200px; position: relative;">
+                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                        <div style="flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center;">
+                            <div style="width: 80%; background: linear-gradient(180deg, #10b981 0%, #059669 100%); border-radius: 8px 8px 0 0; height: 60%; animation: growBar 1.5s ease-out;"></div>
+                        </div>
+                        <div style="font-size: 12px; color: #64748b; margin-top: 12px; font-weight: 600;">Mon</div>
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                        <div style="flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center;">
+                            <div style="width: 80%; background: linear-gradient(180deg, #10b981 0%, #059669 100%); border-radius: 8px 8px 0 0; height: 75%; animation: growBar 1.5s ease-out 0.1s backwards;"></div>
+                        </div>
+                        <div style="font-size: 12px; color: #64748b; margin-top: 12px; font-weight: 600;">Tue</div>
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                        <div style="flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center;">
+                            <div style="width: 80%; background: linear-gradient(180deg, #10b981 0%, #059669 100%); border-radius: 8px 8px 0 0; height: 85%; animation: growBar 1.5s ease-out 0.2s backwards;"></div>
+                        </div>
+                        <div style="font-size: 12px; color: #64748b; margin-top: 12px; font-weight: 600;">Wed</div>
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                        <div style="flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center;">
+                            <div style="width: 80%; background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%); border-radius: 8px 8px 0 0; height: 40%; animation: growBar 1.5s ease-out 0.3s backwards;"></div>
+                        </div>
+                        <div style="font-size: 12px; color: #64748b; margin-top: 12px; font-weight: 600;">Thu</div>
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                        <div style="flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center;">
+                            <div style="width: 80%; background: linear-gradient(180deg, #10b981 0%, #059669 100%); border-radius: 8px 8px 0 0; height: 95%; animation: growBar 1.5s ease-out 0.4s backwards;"></div>
+                        </div>
+                        <div style="font-size: 12px; color: #64748b; margin-top: 12px; font-weight: 600;">Fri</div>
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                        <div style="flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center;">
+                            <div style="width: 80%; background: linear-gradient(180deg, #10b981 0%, #059669 100%); border-radius: 8px 8px 0 0; height: 70%; animation: growBar 1.5s ease-out 0.5s backwards;"></div>
+                        </div>
+                        <div style="font-size: 12px; color: #64748b; margin-top: 12px; font-weight: 600;">Sat</div>
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                        <div style="flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center;">
+                            <div style="width: 80%; background: linear-gradient(180deg, #10b981 0%, #059669 100%); border-radius: 8px 8px 0 0; height: 65%; animation: growBar 1.5s ease-out 0.6s backwards;"></div>
+                        </div>
+                        <div style="font-size: 12px; color: #64748b; margin-top: 12px; font-weight: 600;">Sun</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Signal Feed -->
+            <div style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border: 1px solid #334155; border-radius: 24px; padding: 40px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 30px;">
+                    <div style="width: 12px; height: 12px; background: #10b981; border-radius: 50%; animation: pulse 2s ease-in-out infinite;"></div>
+                    <h3 style="font-size: 24px; font-weight: 800; color: white;">Live Trading Signals</h3>
+                </div>
+
+                <div style="display: grid; gap: 16px;">
+                    <!-- Signal 1 -->
+                    <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="font-size: 32px;">📈</div>
+                            <div>
+                                <div style="font-size: 18px; font-weight: 700; color: white; margin-bottom: 4px;">EUR/USD LONG</div>
+                                <div style="font-size: 13px; color: #94a3b8;">Entry: 1.0850 • Target: 1.0920 • SL: 1.0810</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="background: rgba(16, 185, 129, 0.2); color: #10b981; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 14px;">+65 pips</div>
+                            <div style="font-size: 12px; color: #64748b;">2 min ago</div>
+                        </div>
+                    </div>
+
+                    <!-- Signal 2 -->
+                    <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="font-size: 32px;">💎</div>
+                            <div>
+                                <div style="font-size: 18px; font-weight: 700; color: white; margin-bottom: 4px;">GOLD (XAUUSD) SHORT</div>
+                                <div style="font-size: 13px; color: #94a3b8;">Entry: 2045 • Target: 2030 • SL: 2055</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 14px;">⏳ Pending</div>
+                            <div style="font-size: 12px; color: #64748b;">15 min ago</div>
+                        </div>
+                    </div>
+
+                    <!-- Signal 3 -->
+                    <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="font-size: 32px;">🚀</div>
+                            <div>
+                                <div style="font-size: 18px; font-weight: 700; color: white; margin-bottom: 4px;">BTC/USD LONG</div>
+                                <div style="font-size: 13px; color: #94a3b8;">Entry: 43,200 • Target: 44,800 • SL: 42,500</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="background: rgba(16, 185, 129, 0.2); color: #10b981; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 14px;">+$1,600</div>
+                            <div style="font-size: 12px; color: #64748b;">1 hour ago</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
