@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
       email,
       password_hash: passwordHash,
       full_name: `${firstName} ${lastName}`,
-      access_tier: 'premium', // All signups get FREE premium access
+      access_level: 'premium', // All signups get FREE premium access
       phone: `${countryCode}${phoneNumber}` // Store phone number
     });
 
@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
       {
         userId: user.id,
         email: user.email,
-        access_tier: user.access_tier,
+        access_level: user.access_level,
         isPremium: true // Everyone gets premium for free
       },
       JWT_SECRET,
@@ -132,7 +132,7 @@ export async function POST(request: NextRequest) {
           id: user.id,
           email: user.email,
           full_name: user.full_name,
-          access_tier: user.access_tier,
+          access_level: user.access_level,
           isPremium: true
         },
         token // Send token for auto-login
@@ -140,10 +140,21 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Signup error:', error);
+    console.error('Error details:', {
+      message: error?.message,
+      code: error?.code,
+      details: error?.details,
+      hint: error?.hint,
+      stack: error?.stack
+    });
+
     return NextResponse.json(
-      { error: 'Internal server error' },
+      {
+        error: error?.message || 'Internal server error',
+        details: error?.details || error?.hint || 'Please try again or contact support'
+      },
       { status: 500 }
     );
   }

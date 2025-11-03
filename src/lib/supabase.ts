@@ -20,7 +20,7 @@ export interface User {
   id: string
   email: string
   full_name: string | null
-  access_tier: 'free' | 'premium'
+  access_level: 'free' | 'premium' // Database uses access_level, not access_tier
   email_verified: boolean
   free_views_count: number
   free_views_reset_date: string
@@ -116,7 +116,7 @@ export async function createUser(data: {
   email: string
   password_hash: string
   full_name: string
-  access_tier?: 'free' | 'premium'
+  access_level?: 'free' | 'premium' // Changed from access_tier to match database
   phone?: string
 }) {
   const { data: user, error } = await supabaseAdmin
@@ -126,10 +126,11 @@ export async function createUser(data: {
       password_hash: data.password_hash,
       full_name: data.full_name,
       phone: data.phone || null,
-      access_tier: data.access_tier || 'premium', // Default to premium for all signups
+      access_level: data.access_level || 'premium', // Default to premium for all signups
       email_verified: false,
-      free_views_count: 0,
-      free_views_reset_date: new Date().toISOString()
+      free_signals_count: 0, // Initialize counters
+      free_articles_count: 0,
+      has_broker_account: false
     }])
     .select()
     .single()
