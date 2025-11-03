@@ -100,8 +100,7 @@ export async function POST(request: NextRequest) {
       email,
       password_hash: passwordHash,
       full_name: `${firstName} ${lastName}`,
-      access_level: 'premium', // All signups get FREE premium access
-      phone: `${countryCode}${phoneNumber}` // Store phone number
+      access_level: 'premium' // All signups get FREE premium access
     });
 
     // Update last login

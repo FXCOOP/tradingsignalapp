@@ -117,7 +117,6 @@ export async function createUser(data: {
   password_hash: string
   full_name: string
   access_level?: 'free' | 'premium' // Changed from access_tier to match database
-  phone?: string
 }) {
   const { data: user, error } = await supabaseAdmin
     .from('users')
@@ -125,7 +124,6 @@ export async function createUser(data: {
       email: data.email,
       password_hash: data.password_hash,
       full_name: data.full_name,
-      phone: data.phone || null,
       access_level: data.access_level || 'premium', // Default to premium for all signups
       email_verified: false,
       free_signals_count: 0, // Initialize counters
