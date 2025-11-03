@@ -30,7 +30,7 @@ export default function SEOBacklinks() {
         <a href="https://www.zulutrade.com" rel="nofollow">ZuluTrade copy trading</a>
 
         {/* Broker Affiliate Links */}
-        <a href="https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt" rel="sponsored">Exness broker best spreads worldwide</a>
+        {/* Broker link removed */}
         <a href="https://www.icmarkets.com/?camp=65867" rel="sponsored">IC Markets ECN broker low fees</a>
         <a href="https://www.xm.com/register" rel="sponsored">XM broker multi-language support</a>
         <a href="https://www.avatrade.com/trading-info/copy-trading" rel="sponsored">AvaTrade regulated global broker</a>

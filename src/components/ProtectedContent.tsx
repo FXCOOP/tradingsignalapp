@@ -157,7 +157,7 @@ export function ProtectedContent({
       </div>
 
       <a
-        href={`https://www.exnesspro.com/en/efficient-way-to-trade-stocks?partner_id=${process.env.NEXT_PUBLIC_EXNESS_PARTNER_ID || 'c_8f0nxidtbt'}&client_id=${user.id}`}
+        href="#"
         target="_blank"
         rel="noopener noreferrer"
         className="inline-block bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:from-green-700 hover:to-emerald-700 transition-all"

@@ -7,7 +7,7 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 // Verify postback signature (if Exness provides one)
 function verifyExnessSignature(payload: any, signature: string): boolean {
-  const secret = process.env.EXNESS_WEBHOOK_SECRET
+  const secret = process.env.BROKER_WEBHOOK_SECRET // Update your environment variable
   if (!secret || secret === 'temporary_secret_update_later') return true // Skip verification in development
 
   const calculatedSignature = crypto

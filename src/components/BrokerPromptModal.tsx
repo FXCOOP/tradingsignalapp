@@ -18,19 +18,28 @@ export function BrokerPromptModal({
 
   if (!isOpen) return null
 
-  const brokers = [
-    {
-      name: 'Exness',
-      logo: '🏦',
-      minDeposit: '$10',
-      benefits: 'Instant verification, Low spreads, Fast withdrawals',
-      link: 'https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt'
-    }
+  interface Broker {
+    name: string
+    logo: string
+    minDeposit: string
+    benefits: string
+    link: string
+  }
+
+  const brokers: Broker[] = [
+    // Add your broker configuration here
+    // {
+    //   name: 'Broker Name',
+    //   logo: '🏦',
+    //   minDeposit: '$10',
+    //   benefits: 'List benefits here',
+    //   link: 'https://your-broker-link.com'
+    // }
   ]
 
-  // Auto-select Exness (only option)
-  if (!selectedBroker) {
-    setSelectedBroker('Exness')
+  // Auto-select first broker if available
+  if (!selectedBroker && brokers.length > 0) {
+    setSelectedBroker(brokers[0].name)
   }
 
   return (
@@ -270,23 +279,8 @@ export function BrokerPromptModal({
               if (selectedBroker) {
                 const broker = brokers.find(b => b.name === selectedBroker)
                 if (broker) {
-                  // Track click
-                  try {
-                    const token = localStorage.getItem('auth_token')
-                    await fetch('/api/track/exness-click', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                      },
-                      body: JSON.stringify({
-                        partner_id: 'c_8f0nxidtbt',
-                        click_url: broker.link
-                      })
-                    })
-                  } catch (error) {
-                    console.error('Failed to track click:', error)
-                  }
+                  // Track click if needed
+                  // Add your tracking logic here
 
                   // Open Exness
                   window.open(broker.link, '_blank')

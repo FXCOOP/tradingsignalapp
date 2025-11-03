@@ -100,7 +100,7 @@ const VARIANTS: PopupVariant[] = [
   }
 ]
 
-const EXNESS_URL = 'https://one.exnesstrack.net/a/0oq2t8o0u4'
+const BROKER_URL = '#' // Replace with your broker link
 const STORAGE_KEY = 'gcc_popup_analytics'
 const POPUP_SHOWN_KEY = 'gcc_popup_shown'
 
@@ -234,8 +234,8 @@ export function AutoOptimizingPopup() {
       saveAnalytics(newAnalytics)
     }
 
-    // Redirect to Exness
-    window.location.href = EXNESS_URL
+    // Redirect to broker
+    window.location.href = BROKER_URL
   }
 
   if (!isVisible || !currentVariant) return null

@@ -235,7 +235,7 @@ export default function EducationPage() {
               🎓 Start Learning Now
             </a>
             <a
-              href="https://one.exnessonelink.com/boarding/sign-up/a/scknhe9tsg"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
               style={{

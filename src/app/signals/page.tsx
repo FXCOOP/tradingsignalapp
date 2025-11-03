@@ -169,7 +169,7 @@ export default function SignalsPage() {
               ⚡ View Live Signals
             </a>
             <a
-              href="https://one.exnessonelink.com/boarding/sign-up/a/scknhe9tsg"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
               style={{

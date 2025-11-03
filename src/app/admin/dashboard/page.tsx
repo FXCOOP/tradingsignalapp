@@ -78,7 +78,7 @@ export default function AdminDashboard() {
 
       // Fetch conversions
       const { data: conversionsData } = await supabase
-        .from('exness_conversions')
+        .from('broker_conversions') // Update table name
         .select('*')
         .gte('created_at', startDate.toISOString())
         .order('created_at', { ascending: false })
@@ -638,7 +638,7 @@ function ConversionsTab({ conversions }: any) {
                     {conv.user_id ? `${conv.user_id.substring(0, 8)}...` : '-'}
                   </td>
                   <td style={{ padding: '12px', fontFamily: 'monospace', fontSize: '11px' }}>
-                    {conv.exness_user_id || '-'}
+                    {conv.broker_user_id || '-'}
                   </td>
                   <td style={{ padding: '12px', fontWeight: '600' }}>
                     ${(conv.ftd_amount || 0).toFixed(2)}

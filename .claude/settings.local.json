@@ -14,7 +14,14 @@
       "Bash(nslookup:*)",
       "Bash(curl:*)",
       "Bash(node scripts/replace-all-exness-links.js:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(node -e:*)",
+      "Bash(node scripts/remove-all-exness.js:*)",
+      "Bash(if exist \"c:\\Users\\User\\OneDrive\\Desktop\\tradesignalapp\\src\\lib\\email-templates-exness.ts\" del \"c:\\Users\\User\\OneDrive\\Desktop\\tradesignalapp\\src\\lib\\email-templates-exness.ts\")",
+      "Bash(test:*)",
+      "Bash(node scripts/remove-exness-urls.js:*)",
+      "Bash(node scripts/clean-page-exness.js:*)",
+      "Bash(node scripts/verify-exness-removal.js:*)"
     ],
     "deny": [],
     "ask": []

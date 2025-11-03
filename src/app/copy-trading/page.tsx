@@ -64,7 +64,7 @@ export default function CopyTradingPage() {
       logo: '🏆',
       description: 'Zero spreads, instant execution',
       supported: true,
-      signupUrl: 'https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt'
+      signupUrl: '#' // Replace with your broker URL
     },
     {
       id: 'icmarkets',
@@ -717,7 +717,7 @@ export default function CopyTradingPage() {
         <a href="https://www.myfxbook.com">myfxbook copy trading</a>
         <a href="https://www.etoro.com">etoro copy trader</a>
         <a href="https://www.zulutrade.com">zulutrade automated trading</a>
-        <a href="https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt">exness broker gcc</a>
+        <a href="#">exness broker gcc</a>
         <a href="https://www.icmarkets.com">ic markets uae</a>
         <a href="https://www.xm.com">xm broker saudi arabia</a>
         <a href="https://www.tadawul.com.sa">saudi stock exchange</a>

@@ -5,9 +5,9 @@ import { useUser } from '@/contexts/UserContext'
 import { AuthModal } from '@/components/AuthModal'
 // import { MultiPopupSystem } from '@/components/MultiPopupSystem'
 import SignupPopup from '@/components/SignupPopup'
-import { ExnessLink } from '@/components/ExnessLink'
 import { detectLanguage, saveLanguagePreference } from '@/lib/language-detector'
 import { useTranslation } from '@/lib/translations'
+import { checkAndGenerateSignals } from '@/lib/auto-generate'
 
 // 📊 Dynamic Stats Calculator - Updates daily
 function getDynamicStats() {
@@ -59,7 +59,6 @@ export default function HomePage() {
   const [notifications, setNotifications] = useState<any[]>([])
   const [followedSignals, setFollowedSignals] = useState<number[]>([])
   const [selectedCourse, setSelectedCourse] = useState<number | null>(null)
-  const [hasExnessAccount, setHasExnessAccount] = useState<boolean>(false)
   const [selectedArticle, setSelectedArticle] = useState<number | null>(null)
   const [dailyContent, setDailyContent] = useState<any>(null)
   const [expandedLesson, setExpandedLesson] = useState<string | null>(null)
@@ -94,10 +93,6 @@ export default function HomePage() {
   const [showFloatingButton, setShowFloatingButton] = useState(false)
   const [liveActivityIndex, setLiveActivityIndex] = useState(0)
   const [traderCount, setTraderCount] = useState(dynamicStats.activeTraders)
-
-  // NEW: Exness Widget States
-  const [currentWidgetVersion, setCurrentWidgetVersion] = useState(1)
-  const [showExnessPopup, setShowExnessPopup] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
 
   // Cookie Consent
@@ -105,6 +100,14 @@ export default function HomePage() {
 
   // 💎 30-minute engagement popup
   const [show30MinPopup, setShow30MinPopup] = useState(false)
+
+  // 🤖 Auto-generate daily signals when users visit
+  useEffect(() => {
+    // Trigger signal generation check (with cooldown to prevent spam)
+    checkAndGenerateSignals().catch(err => {
+      console.error('Failed to auto-generate signals:', err);
+    });
+  }, []); // Runs once on mount
 
   // Show signup popup on initial load
   useEffect(() => {
@@ -151,15 +154,15 @@ export default function HomePage() {
 
     // Use correct URL based on device type
     const baseUrl = isMobile
-      ? 'https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile'
-      : 'https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt'
+      ? '#'
+      : '#'
 
     let finalUrl = baseUrl
 
     // Track click and get click_id
     try {
       const token = localStorage.getItem('auth_token')
-      const response = await fetch('/api/track/exness-click', {
+      const response = await fetch('/api/track/broker-click', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -185,7 +188,7 @@ export default function HomePage() {
       console.error('Failed to track click:', error)
     }
 
-    // Open Exness with click_id
+    // Open broker with click_id
     window.open(finalUrl, '_blank')
     addNotification('🚀 Opening broker account...', 'success')
   }
@@ -331,27 +334,16 @@ export default function HomePage() {
     return true
   }
 
-  // Access course function (for Exness subscribers)
+  // Access course function
   const accessCourse = (courseId: number, courseName: string) => {
-    if (!hasExnessAccount) {
-      addNotification('Open an Exness account to access free education!', 'warning')
-      return
-    }
-    addNotification(`Accessing ${courseName} - Free for Exness clients!`, 'success')
+    addNotification(`Accessing ${courseName}`, 'success')
   }
 
-  // Verify Exness account
-  const verifyExnessAccount = () => {
-    // This would integrate with Exness API
-    setHasExnessAccount(true)
-    addNotification('✅ Exness account verified! Free education unlocked.', 'success')
-  }
-
-  // TRUSTED BROKER: Only Exness (user requested)
+  // TRUSTED BROKER: Configure your preferred broker
   const brokerPartners = [
     {
       id: 1,
-      name: 'Exness',
+      name: 'Your Broker',
       logo: '💎',
       rating: 4.9,
       reviews: 15420,
@@ -467,16 +459,10 @@ export default function HomePage() {
       setTimeOnSite(prev => prev + 1)
     }, 1000)
 
-    // Rotate Exness widget versions every 30 seconds
-    const widgetRotation = setInterval(() => {
-      setCurrentWidgetVersion(prev => prev === 1 ? 2 : 1)
-    }, 30000)
-
     return () => {
       clearInterval(counterInterval)
       clearInterval(activityInterval)
       clearInterval(siteTimer)
-      clearInterval(widgetRotation)
     }
   }, [])
 
@@ -494,7 +480,7 @@ export default function HomePage() {
   // 🚫 DISABLED: Popups causing display issues on desktop
   // useEffect(() => {
   //   const timer = setTimeout(() => {
-  //     if (!popupDismissed['exness']) {
+  // if (!popupDismissed['broker']) {
   //       setShowExnessPopup(true)
   //     }
   //   }, 600000) // 10 minutes = 600,000 milliseconds
@@ -1529,7 +1515,7 @@ export default function HomePage() {
         {
           name: 'Forex Broker',
           definition: 'Financial institution providing platform and liquidity for retail forex trading. Can be market maker or ECN/STP broker.',
-          example: 'Popular GCC forex brokers: Exness, FBS, XM, offering competitive spreads, multiple currency pairs, and leverage options for UAE traders.'
+          example: 'Popular GCC forex brokers: Choose your preferred broker, offering competitive spreads, multiple currency pairs, and leverage options for UAE traders.'
         },
         {
           name: 'ECN (Electronic Communication Network)',
@@ -1953,7 +1939,6 @@ Strategic traders monitor: (1) European market opens (4:00 PM Riyadh time) for g
 **GDP (Gross Domestic Product)** measures total economic output and is the broadest indicator of economic health. Released quarterly in most countries, GDP growth above 2-3% is generally positive for stocks. GCC countries publish GDP data with Saudi Arabia targeting 3-4% annual growth under Vision 2030. Strong GDP growth supports stock market valuations and currency strength.
 
 **Inflation Indicators (CPI and PPI)** measure price changes for consumers and producers. The Consumer Price Index (CPI) tracks household spending costs while the Producer Price Index (PPI) measures wholesale prices. Central banks target inflation around 2%. High inflation forces interest rate increases, negative for stocks but potentially positive for commodities like gold. GCC inflation has been moderate (2-4%) but spikes when global food and import prices rise.
-import { ExnessLink } from '@/components/ExnessLink'
 
 **Employment Data** includes unemployment rate, job creation numbers, and wage growth. In the US, Non-Farm Payrolls (NFP) released monthly is a major market mover. Strong employment supports consumer spending and economic growth. GCC countries focus on national employment rates and Saudization/Emiratization policies that affect labor markets.
 
@@ -3744,7 +3729,7 @@ Successful pattern trading requires patience to wait for complete formation and 
       ],
       explanation: `Demo trading accounts provide a risk-free environment to practice trading strategies, test ideas, and build skills before risking real capital. They use virtual money but connect to real market data, allowing you to experience actual market conditions without financial risk. However, demo trading has important limitations you must understand to use it effectively.
 
-**Setting Up Your Demo Account**: Most brokers offering GCC market access provide free demo accounts. For Tadawul (Saudi stocks), brokers like Falcom, Al Rajhi Capital, and SNB Capital offer demo platforms. For multi-market access including UAE, Qatar, and international markets, platforms like Exness, IG, and CMC Markets provide comprehensive demos. When setting up, configure your virtual capital to match what you'll actually trade - if you plan to start with $10,000, set your demo to $10,000, not $100,000. This creates realistic position sizing and emotional simulation.
+**Setting Up Your Demo Account**: Most brokers offering GCC market access provide free demo accounts. For Tadawul (Saudi stocks), brokers like Falcom, Al Rajhi Capital, and SNB Capital offer demo platforms. For multi-market access including UAE, Qatar, and international markets, major trading platforms provide comprehensive demos. When setting up, configure your virtual capital to match what you'll actually trade - if you plan to start with $10,000, set your demo to $10,000, not $100,000. This creates realistic position sizing and emotional simulation.
 
 **Realistic Market Conditions**: Set your demo platform to show real GCC market hours (Saudi: Sunday-Thursday 10 AM-3 PM AST, UAE: Sunday-Thursday 10 AM-2 PM), use real commission structures (typically 0.15-0.25% on GCC stocks), and include realistic slippage (difference between expected and actual fill price). Many traders fail when transitioning from demo to live because their demo used unrealistic conditions - instant fills, no commissions, unrealistic leverage. The closer your demo mirrors reality, the better prepared you'll be.
 
@@ -3760,7 +3745,7 @@ Treat your demo account as if it's real money. Set realistic goals (such as 2-3%
         { term: 'Platform Mechanics', definition: 'Technical aspects of using trading software: placing orders, reading data, setting alerts, using tools. Best learned risk-free in demo.' }
       ],
       gccExamples: [
-        'New trader opens Exness demo with $10,000, configures to show TASI stocks with 0.20% commission and GCC market hours. Practices for 3 months taking 45 trades, refining strategy until achieving 65% win rate before opening live account.',
+        'New trader opens demo account with $10,000, configures to show TASI stocks with 0.20% commission and GCC market hours. Practices for 3 months taking 45 trades, refining strategy until achieving 65% win rate before opening live account.',
         'UAE trader uses SNB Capital demo to practice trading Saudi banks (Al Rajhi, Saudi National Bank, Riyad Bank) during actual market hours, discovering that 10 AM and 2:30 PM periods show highest volatility for entry opportunities.',
         'Qatar-based trader tests ascending triangle breakout strategy on QSE stocks in demo: 12 trades over 6 weeks, 8 winners (67%), avg win 6.2%, avg loss 2.8%, proving strategy before going live.',
         'Beginner discovers in demo that their "perfect" strategy from backtesting only works 45% of time in real-time conditions with delayed data and realistic fills - saves from losing real money discovering this flaw.'
@@ -6762,7 +6747,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
               ))}
             </div>
 
-            {/* Exness Video Section */}
+            {/* Broker Information Section */}
             <div style={{
               marginTop: '48px',
               background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
@@ -6783,13 +6768,13 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                   WebkitTextFillColor: 'transparent',
                   marginBottom: '8px'
                 }}>
-                  💎 Why Trade with Exness?
+                  💎 Why Choose This Broker?
                 </h3>
                 <p style={{
                   fontSize: '14px',
                   color: '#64748b'
                 }}>
-                  Watch how Exness provides the best trading conditions
+                  Learn about the best trading conditions
                 </p>
               </div>
 
@@ -6824,40 +6809,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                 display: 'flex',
                 justifyContent: 'center'
               }}>
-                <ExnessLink
-                  href={isMobile
-                    ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
-                    : "https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt"
-                  }
-                  source="broker_widget_1"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: isMobile ? 'auto' : 'auto',
-                    maxWidth: isMobile ? '100%' : 'auto',
-                    padding: isMobile ? `${designSystem.spacing[4]} ${designSystem.spacing[8]}` : `${designSystem.spacing[4]} ${designSystem.spacing[8]}`,
-                    background: `linear-gradient(135deg, ${designSystem.colors.accent.gold} 0%, ${designSystem.colors.accent.goldLight} 100%)`,
-                    color: designSystem.colors.neutral[900],
-                    textDecoration: 'none',
-                    fontWeight: designSystem.typography.weights.bold,
-                    fontSize: isMobile ? designSystem.typography.sizes.bodySmall.mobile : designSystem.typography.sizes.body.desktop,
-                    borderRadius: designSystem.borderRadius.md,
-                    boxShadow: designSystem.shadows.gold,
-                    transition: designSystem.transitions.normal,
-                    minHeight: '44px'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-2px)'
-                    e.currentTarget.style.boxShadow = designSystem.shadows['2xl']
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = designSystem.shadows.gold
-                  }}
-                >
-                  🚀 {isMobile ? 'Start Trading' : 'Start Trading with Exness'}
-                </ExnessLink>
+                
               </div>
             </div>
 
@@ -7087,45 +7039,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         </div>
 
                         {/* CTA Button */}
-                        <ExnessLink
-                          href={isMobile
-                            ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
-                            : "https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt"
-                          }
-                          source="broker_widget"
-                          style={{
-                            display: 'block',
-                            width: '100%',
-                            maxWidth: '100%',
-                            padding: isMobile ? '14px 16px' : '18px',
-                            background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
-                            color: '#1e293b',
-                            border: 'none',
-                            borderRadius: isMobile ? '12px' : '16px',
-                            fontSize: isMobile ? '14px' : '16px',
-                            fontWeight: '900',
-                            cursor: 'pointer',
-                            boxShadow: `0 8px 24px ${broker.color}40`,
-                            transition: 'all 0.3s ease',
-                            textAlign: 'center',
-                            textDecoration: 'none',
-                            letterSpacing: '0.5px',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                            boxSizing: 'border-box'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-2px)'
-                            e.currentTarget.style.boxShadow = `0 12px 32px ${broker.color}60`
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'translateY(0)'
-                            e.currentTarget.style.boxShadow = `0 8px 24px ${broker.color}40`
-                          }}
-                        >
-                          {isMobile ? '🚀 Open Account Now' : '🚀 Open Account Now →'}
-                        </ExnessLink>
+                        
                       </div>
                     </div>
                   </div>
@@ -7915,45 +7829,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         </div>
 
                         {/* CTA Button */}
-                        <ExnessLink
-                          href={isMobile
-                            ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
-                            : "https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt"
-                          }
-                          source="broker_widget"
-                          style={{
-                            display: 'block',
-                            width: '100%',
-                            maxWidth: '100%',
-                            padding: isMobile ? '14px 16px' : '18px',
-                            background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
-                            color: '#1e293b',
-                            border: 'none',
-                            borderRadius: isMobile ? '12px' : '16px',
-                            fontSize: isMobile ? '14px' : '16px',
-                            fontWeight: '900',
-                            cursor: 'pointer',
-                            boxShadow: `0 8px 24px ${broker.color}40`,
-                            transition: 'all 0.3s ease',
-                            textAlign: 'center',
-                            textDecoration: 'none',
-                            letterSpacing: '0.5px',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                            boxSizing: 'border-box'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-2px)'
-                            e.currentTarget.style.boxShadow = `0 12px 32px ${broker.color}60`
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'translateY(0)'
-                            e.currentTarget.style.boxShadow = `0 8px 24px ${broker.color}40`
-                          }}
-                        >
-                          {isMobile ? '🚀 Open Account Now' : '🚀 Open Account Now →'}
-                        </ExnessLink>
+                        
                       </div>
                     </div>
                   </div>
@@ -8466,45 +8342,7 @@ The pattern across all mistakes is lack of discipline and emotional control. Suc
                         </div>
 
                         {/* CTA Button */}
-                        <ExnessLink
-                          href={isMobile
-                            ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
-                            : "https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt"
-                          }
-                          source="broker_widget"
-                          style={{
-                            display: 'block',
-                            width: '100%',
-                            maxWidth: '100%',
-                            padding: isMobile ? '14px 16px' : '18px',
-                            background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
-                            color: '#1e293b',
-                            border: 'none',
-                            borderRadius: isMobile ? '12px' : '16px',
-                            fontSize: isMobile ? '14px' : '16px',
-                            fontWeight: '900',
-                            cursor: 'pointer',
-                            boxShadow: `0 8px 24px ${broker.color}40`,
-                            transition: 'all 0.3s ease',
-                            textAlign: 'center',
-                            textDecoration: 'none',
-                            letterSpacing: '0.5px',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                            boxSizing: 'border-box'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-2px)'
-                            e.currentTarget.style.boxShadow = `0 12px 32px ${broker.color}60`
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'translateY(0)'
-                            e.currentTarget.style.boxShadow = `0 8px 24px ${broker.color}40`
-                          }}
-                        >
-                          {isMobile ? '🚀 Open Account Now' : '🚀 Open Account Now →'}
-                        </ExnessLink>
+                        
                       </div>
                     </div>
                   </div>
@@ -11097,45 +10935,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                         </div>
 
                         {/* CTA Button */}
-                        <ExnessLink
-                          href={isMobile
-                            ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
-                            : "https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt"
-                          }
-                          source="broker_widget"
-                          style={{
-                            display: 'block',
-                            width: '100%',
-                            maxWidth: '100%',
-                            padding: isMobile ? '14px 16px' : '18px',
-                            background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
-                            color: '#1e293b',
-                            border: 'none',
-                            borderRadius: isMobile ? '12px' : '16px',
-                            fontSize: isMobile ? '14px' : '16px',
-                            fontWeight: '900',
-                            cursor: 'pointer',
-                            boxShadow: `0 8px 24px ${broker.color}40`,
-                            transition: 'all 0.3s ease',
-                            textAlign: 'center',
-                            textDecoration: 'none',
-                            letterSpacing: '0.5px',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                            boxSizing: 'border-box'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-2px)'
-                            e.currentTarget.style.boxShadow = `0 12px 32px ${broker.color}60`
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'translateY(0)'
-                            e.currentTarget.style.boxShadow = `0 8px 24px ${broker.color}40`
-                          }}
-                        >
-                          {isMobile ? '🚀 Open Account Now' : '🚀 Open Account Now →'}
-                        </ExnessLink>
+                        
                       </div>
                     </div>
                   </div>
@@ -11385,7 +11185,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                   rating: 4.9,
                   students: 2847,
                   price: 'FREE',
-                  originalPrice: 'For Exness Clients',
+                  originalPrice: 'Free for Members',
                   description: 'Master the complete foundations of trading with this comprehensive course designed for absolute beginners to intermediate traders.',
                   lessons: 45,
                   duration: '25 hours',
@@ -11490,7 +11290,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                   rating: 4.8,
                   students: 1923,
                   price: 'FREE',
-                  originalPrice: 'For Exness Clients',
+                  originalPrice: 'Free for Members',
                   description: 'Become a technical analysis expert with advanced chart reading, pattern recognition, and indicator mastery.',
                   lessons: 60,
                   duration: '40 hours',
@@ -11604,7 +11404,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                   rating: 4.9,
                   students: 856,
                   price: 'FREE',
-                  originalPrice: 'For Exness Clients',
+                  originalPrice: 'Free for Members',
                   description: 'Master advanced options strategies, derivatives trading, and institutional-level techniques for professional traders.',
                   lessons: 75,
                   duration: '55 hours',
@@ -12243,9 +12043,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                       }}
                       style={{
                         flex: 1,
-                        background: hasExnessAccount
-                          ? `linear-gradient(135deg, #059669 0%, #047857 100%)`
-                          : `linear-gradient(135deg, ${course.color} 0%, ${course.color}DD 100%)`,
+                        background: `linear-gradient(135deg, ${course.color} 0%, ${course.color}DD 100%)`,
                         color: 'white',
                         border: 'none',
                         padding: '16px 24px',
@@ -13014,45 +12812,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                         </div>
 
                         {/* CTA Button */}
-                        <ExnessLink
-                          href={isMobile
-                            ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
-                            : "https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt"
-                          }
-                          source="broker_widget"
-                          style={{
-                            display: 'block',
-                            width: '100%',
-                            maxWidth: '100%',
-                            padding: isMobile ? '14px 16px' : '18px',
-                            background: `linear-gradient(135deg, ${broker.color} 0%, ${broker.color}dd 100%)`,
-                            color: '#1e293b',
-                            border: 'none',
-                            borderRadius: isMobile ? '12px' : '16px',
-                            fontSize: isMobile ? '14px' : '16px',
-                            fontWeight: '900',
-                            cursor: 'pointer',
-                            boxShadow: `0 8px 24px ${broker.color}40`,
-                            transition: 'all 0.3s ease',
-                            textAlign: 'center',
-                            textDecoration: 'none',
-                            letterSpacing: '0.5px',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                            boxSizing: 'border-box'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-2px)'
-                            e.currentTarget.style.boxShadow = `0 12px 32px ${broker.color}60`
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'translateY(0)'
-                            e.currentTarget.style.boxShadow = `0 8px 24px ${broker.color}40`
-                          }}
-                        >
-                          {isMobile ? '🚀 Open Account Now' : '🚀 Open Account Now →'}
-                        </ExnessLink>
+                        
                       </div>
                     </div>
                   </div>
@@ -13174,33 +12934,8 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
                 flexDirection: 'column',
                 gap: '20px'
               }}>
-                {/* Rotating Exness Banner */}
-                <ExnessLink
-                  href="https://one.exnessonelink.com/intl/en/a/c_8f0nxidtbt"
-                  source="education_sidebar_banner"
-                  style={{
-                    display: 'block',
-                    transition: 'transform 0.3s ease',
-                    cursor: 'pointer'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                >
-                  <img
-                    src={currentWidgetVersion === 1
-                      ? "https://d3dpet1g0ty5ed.cloudfront.net/EN_Spreads_Stable_pricing_for_unstable_markets_3-33_Google_120x600.jpg"
-                      : "https://d3dpet1g0ty5ed.cloudfront.net/EN_Spreads_Keep_more_of_what_you_make_3-33_Google_120x600.jpg"
-                    }
-                    width="120"
-                    height="600"
-                    alt="Trade with Exness"
-                    style={{
-                      borderRadius: '8px',
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                      transition: 'opacity 0.5s ease'
-                    }}
-                  />
-                </ExnessLink>
+                {/* Rotating Broker Banner */}
+                
               </div>
             </aside>
           )}
@@ -13211,545 +12946,10 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
           marginTop: '48px',
           textAlign: 'center'
         }}>
-          <ExnessLink
-            href={isMobile
-              ? "https://one.exnessonelink.com/intl/en/a/c_8f0nxidtbt?platform=mobile"
-              : "https://one.exnessonelink.com/intl/en/a/c_8f0nxidtbt"
-            }
-            source="footer_banner"
-            style={{
-              display: 'inline-block',
-              transition: 'transform 0.3s ease',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-          >
-            <img
-              src={currentWidgetVersion === 1
-                ? "https://d3dpet1g0ty5ed.cloudfront.net/EN_Spreads_Stable_pricing_for_unstable_markets_3-33_Google_728x90.jpg"
-                : "https://d3dpet1g0ty5ed.cloudfront.net/EN_Spreads_Keep_more_of_what_you_make_3-33_Google_728x90.jpg"
-              }
-              width={isMobile ? "100%" : "728"}
-              height={isMobile ? "auto" : "90"}
-              alt="Start Trading with Exness"
-              style={{
-                maxWidth: '100%',
-                height: 'auto',
-                borderRadius: '12px',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
-              }}
-            />
-          </ExnessLink>
+          
         </div>
       </main>
 
-      {/* Exness Scroll Popup - Small & Beautiful */}
-      {showExnessPopup && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(0, 0, 0, 0.5)',
-            backdropFilter: 'blur(8px)',
-            zIndex: 10000,
-            display: 'flex',
-            alignItems: isMobile ? 'flex-end' : 'center',
-            justifyContent: 'center',
-            padding: isMobile ? '0' : '20px',
-            animation: 'fadeIn 0.3s ease'
-          }}
-          onClick={() => {
-            setShowExnessPopup(false)
-            setPopupDismissed(prev => ({ ...prev, exness: true }))
-          }}
-        >
-          <div
-            style={{
-              background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
-              borderRadius: isMobile ? '24px 24px 0 0' : '20px',
-              maxWidth: isMobile ? '100%' : '420px',
-              width: '100%',
-              maxHeight: isMobile ? '70vh' : 'auto',
-              overflowY: isMobile ? 'auto' : 'visible',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
-              animation: isMobile ? 'slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-              position: 'relative',
-              border: '2px solid rgba(59, 130, 246, 0.2)'
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button
-              onClick={() => {
-                setShowExnessPopup(false)
-                setPopupDismissed(prev => ({ ...prev, exness: true }))
-              }}
-              style={{
-                position: 'absolute',
-                top: '12px',
-                right: '12px',
-                background: '#f1f5f9',
-                border: '1px solid #e2e8f0',
-                borderRadius: '50%',
-                width: '32px',
-                height: '32px',
-                fontSize: '20px',
-                color: '#64748b',
-                cursor: 'pointer',
-                zIndex: 10,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-                transition: 'all 0.2s ease',
-                fontWeight: '700'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.1)'
-                e.currentTarget.style.background = '#ef4444'
-                e.currentTarget.style.color = 'white'
-                e.currentTarget.style.borderColor = '#dc2626'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)'
-                e.currentTarget.style.background = '#f1f5f9'
-                e.currentTarget.style.color = '#64748b'
-                e.currentTarget.style.borderColor = '#e2e8f0'
-              }}
-            >
-              ✕
-            </button>
-
-            {/* Hero Section with Real Trading Image */}
-            <div style={{
-              background: `linear-gradient(135deg, rgba(255, 215, 0, 0.95) 0%, rgba(255, 165, 0, 0.95) 50%, rgba(255, 140, 0, 0.95) 100%),
-                url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80') center/cover`,
-              padding: isMobile ? '32px 24px 24px' : '40px 32px 32px',
-              borderRadius: isMobile ? '28px 28px 0 0' : '28px 28px 0 0',
-              position: 'relative',
-              overflow: 'hidden'
-            }}>
-              {/* Overlay for better text readability */}
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.7) 0%, rgba(255, 165, 0, 0.7) 50%, rgba(255, 140, 0, 0.7) 100%)',
-                backdropFilter: 'blur(2px)'
-              }} />
-
-              {/* Trust Badge */}
-              <div style={{
-                position: 'absolute',
-                top: isMobile ? '16px' : '20px',
-                left: isMobile ? '16px' : '20px',
-                background: 'rgba(255, 255, 255, 0.95)',
-                backdropFilter: 'blur(8px)',
-                padding: '6px 12px',
-                borderRadius: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                fontSize: isMobile ? '11px' : '12px',
-                fontWeight: '700',
-                color: '#15803d',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
-              }}>
-                <span>🛡️</span>
-                <span>VERIFIED</span>
-              </div>
-
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                {/* Star Rating */}
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  gap: '4px',
-                  marginBottom: isMobile ? '12px' : '16px',
-                  fontSize: isMobile ? '20px' : '24px'
-                }}>
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} style={{
-                      color: '#1e293b',
-                      filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-                      animation: `pulse ${1 + i * 0.1}s ease-in-out infinite`
-                    }}>★</span>
-                  ))}
-                </div>
-
-                <h2 style={{
-                  fontSize: isMobile ? '24px' : '32px',
-                  fontWeight: '900',
-                  marginBottom: isMobile ? '8px' : '12px',
-                  color: '#0f172a',
-                  textAlign: 'center',
-                  textShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                  letterSpacing: '-0.02em'
-                }}>
-                  Start Trading Like a Pro
-                </h2>
-                <p style={{
-                  fontSize: isMobile ? '14px' : '16px',
-                  color: '#1e293b',
-                  textAlign: 'center',
-                  fontWeight: '600',
-                  opacity: 0.95
-                }}>
-                  Join 500,000+ traders worldwide
-                </p>
-              </div>
-            </div>
-
-            {/* CSS-Based Mini Profit Chart */}
-            <div style={{
-              padding: isMobile ? '20px 24px' : '24px 32px',
-              background: 'rgba(255, 255, 255, 0.03)'
-            }}>
-              <div style={{
-                background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%)',
-                borderRadius: '16px',
-                padding: isMobile ? '16px' : '20px',
-                border: '1px solid rgba(34, 197, 94, 0.2)',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: '12px'
-                }}>
-                  <div>
-                    <div style={{
-                      fontSize: isMobile ? '11px' : '12px',
-                      color: 'rgba(255, 255, 255, 0.6)',
-                      fontWeight: '600',
-                      marginBottom: '4px'
-                    }}>
-                      Average Monthly Return
-                    </div>
-                    <div style={{
-                      fontSize: isMobile ? '28px' : '36px',
-                      fontWeight: '900',
-                      color: '#22c55e',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px'
-                    }}>
-                      +47.3%
-                      <span style={{ fontSize: isMobile ? '16px' : '20px' }}>📈</span>
-                    </div>
-                  </div>
-                  <div style={{
-                    background: 'rgba(34, 197, 94, 0.2)',
-                    padding: '8px 12px',
-                    borderRadius: '12px',
-                    fontSize: isMobile ? '11px' : '12px',
-                    fontWeight: '700',
-                    color: '#22c55e'
-                  }}>
-                    LIVE
-                  </div>
-                </div>
-
-                {/* Simple CSS Line Chart */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'flex-end',
-                  gap: isMobile ? '4px' : '6px',
-                  height: isMobile ? '60px' : '80px',
-                  position: 'relative'
-                }}>
-                  {[30, 45, 40, 55, 50, 65, 60, 75, 70, 85, 90, 95].map((height, i) => (
-                    <div key={i} style={{
-                      flex: 1,
-                      height: `${height}%`,
-                      background: `linear-gradient(180deg, #22c55e ${100 - i * 5}%, #10b981 100%)`,
-                      borderRadius: '4px 4px 0 0',
-                      animation: `growUp 0.8s ease ${i * 0.05}s backwards`,
-                      boxShadow: '0 -2px 8px rgba(34, 197, 94, 0.3)'
-                    }} />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Stats Grid with Glassmorphism Cards */}
-            <div style={{
-              padding: isMobile ? '0 24px 24px' : '0 32px 32px',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: isMobile ? '12px' : '16px'
-            }}>
-              {[
-                { icon: '👥', value: '500K+', label: 'Active Users' },
-                { icon: '💰', value: '$2.1B', label: 'Daily Volume' },
-                { icon: '🎯', value: '89%', label: 'Win Rate' }
-              ].map((stat, i) => (
-                <div key={i} style={{
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  backdropFilter: 'blur(8px)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  borderRadius: '16px',
-                  padding: isMobile ? '12px 8px' : '16px 12px',
-                  textAlign: 'center',
-                  transition: 'all 0.3s ease',
-                  cursor: 'default'
-                }}>
-                  <div style={{ fontSize: isMobile ? '24px' : '32px', marginBottom: '4px' }}>{stat.icon}</div>
-                  <div style={{
-                    fontSize: isMobile ? '16px' : '20px',
-                    fontWeight: '800',
-                    color: '#FFD700',
-                    marginBottom: '2px'
-                  }}>
-                    {stat.value}
-                  </div>
-                  <div style={{
-                    fontSize: isMobile ? '9px' : '10px',
-                    color: 'rgba(255, 255, 255, 0.6)',
-                    fontWeight: '600',
-                    lineHeight: '1.2'
-                  }}>
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Features with Icons */}
-            <div style={{
-              padding: isMobile ? '0 24px 24px' : '0 32px 32px',
-              display: 'grid',
-              gap: isMobile ? '10px' : '12px'
-            }}>
-              {[
-                { icon: '⚡', title: '0.0 Pips Spreads', subtitle: 'Trade with zero markup', gradient: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)' },
-                { icon: '🛡️', title: 'CySEC Regulated', subtitle: 'Your funds protected up to €20,000', gradient: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)' },
-                { icon: '🚀', title: 'Instant Execution', subtitle: '0.1 second average trade speed', gradient: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)' },
-                { icon: '🎁', title: '$50 Welcome Bonus', subtitle: 'Start trading with extra capital', gradient: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)' }
-              ].map((feature, i) => (
-                <div key={i} style={{
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  backdropFilter: 'blur(8px)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  borderRadius: '14px',
-                  padding: isMobile ? '14px' : '16px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: isMobile ? '12px' : '16px',
-                  transition: 'all 0.3s ease'
-                }}>
-                  <div style={{
-                    background: feature.gradient,
-                    borderRadius: '12px',
-                    width: isMobile ? '48px' : '56px',
-                    height: isMobile ? '48px' : '56px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: isMobile ? '24px' : '28px',
-                    flexShrink: 0,
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
-                  }}>
-                    {feature.icon}
-                  </div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{
-                      fontWeight: '700',
-                      fontSize: isMobile ? '14px' : '15px',
-                      color: 'white',
-                      marginBottom: '2px'
-                    }}>
-                      {feature.title}
-                    </div>
-                    <div style={{
-                      fontSize: isMobile ? '11px' : '12px',
-                      color: 'rgba(255, 255, 255, 0.6)',
-                      lineHeight: '1.3'
-                    }}>
-                      {feature.subtitle}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Social Proof */}
-            <div style={{
-              padding: isMobile ? '0 24px 20px' : '0 32px 24px'
-            }}>
-              <div style={{
-                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.05) 100%)',
-                border: '1px solid rgba(59, 130, 246, 0.2)',
-                borderRadius: '16px',
-                padding: isMobile ? '16px' : '20px'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  gap: '12px',
-                  marginBottom: '12px'
-                }}>
-                  <div style={{
-                    width: isMobile ? '40px' : '48px',
-                    height: isMobile ? '40px' : '48px',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: isMobile ? '20px' : '24px',
-                    flexShrink: 0
-                  }}>
-                    👤
-                  </div>
-                  <div>
-                    <div style={{
-                      color: 'white',
-                      fontSize: isMobile ? '13px' : '14px',
-                      fontStyle: 'italic',
-                      lineHeight: '1.5',
-                      marginBottom: '8px'
-                    }}>
-                      "Best trading platform I've used. Fast execution and great support!"
-                    </div>
-                    <div style={{
-                      display: 'flex',
-                      gap: '2px',
-                      fontSize: isMobile ? '12px' : '14px'
-                    }}>
-                      {[...Array(5)].map((_, i) => (
-                        <span key={i} style={{ color: '#FFD700' }}>★</span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <div style={{
-                  fontSize: isMobile ? '11px' : '12px',
-                  color: 'rgba(255, 255, 255, 0.6)',
-                  fontWeight: '600'
-                }}>
-                  - Michael R., Professional Trader
-                </div>
-              </div>
-            </div>
-
-            {/* CTA Section */}
-            <div style={{
-              padding: isMobile ? '0 24px 28px' : '0 32px 36px'
-            }}>
-              {/* Urgency Badge */}
-              <div style={{
-                background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-                borderRadius: '12px',
-                padding: '12px',
-                marginBottom: '16px',
-                textAlign: 'center',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                animation: 'pulse 2s ease-in-out infinite'
-              }}>
-                <span style={{ fontSize: isMobile ? '16px' : '18px' }}>🔥</span>
-                <span style={{
-                  color: 'white',
-                  fontWeight: '700',
-                  fontSize: isMobile ? '13px' : '14px'
-                }}>
-                  Limited Time: Bonus expires in 24 hours!
-                </span>
-              </div>
-
-              {/* Main CTA Button */}
-              <a
-                href={isMobile
-                  ? "https://one.exnessonelink.com/a/c_8f0nxidtbt?platform=mobile"
-                  : "https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt"
-                }
-                target="_blank"
-                rel="noopener noreferrer sponsored"
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  padding: isMobile ? '18px' : '20px',
-                  background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
-                  color: '#0f172a',
-                  textAlign: 'center',
-                  borderRadius: '16px',
-                  fontWeight: '900',
-                  fontSize: isMobile ? '16px' : '18px',
-                  textDecoration: 'none',
-                  boxShadow: '0 8px 24px rgba(255, 215, 0, 0.5), 0 0 0 1px rgba(255, 215, 0, 0.2)',
-                  transition: 'all 0.3s ease',
-                  border: 'none',
-                  cursor: 'pointer',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  letterSpacing: '0.02em'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-3px) scale(1.02)'
-                  e.currentTarget.style.boxShadow = '0 12px 32px rgba(255, 215, 0, 0.6), 0 0 0 2px rgba(255, 215, 0, 0.3)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0) scale(1)'
-                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(255, 215, 0, 0.5), 0 0 0 1px rgba(255, 215, 0, 0.2)'
-                }}
-              >
-                <span style={{ position: 'relative', zIndex: 1 }}>
-                  🚀 {isMobile ? 'Start Trading Now' : 'Open Free Account & Get $50 Bonus'}
-                </span>
-              </a>
-
-              {/* Progress Bar Animation */}
-              <div style={{
-                marginTop: '16px',
-                background: 'rgba(255, 255, 255, 0.1)',
-                borderRadius: '8px',
-                height: '8px',
-                overflow: 'hidden'
-              }}>
-                <div style={{
-                  height: '100%',
-                  background: 'linear-gradient(90deg, #FFD700 0%, #FFA500 100%)',
-                  borderRadius: '8px',
-                  width: '73%',
-                  animation: 'fillProgress 3s ease-in-out infinite'
-                }} />
-              </div>
-              <div style={{
-                marginTop: '8px',
-                textAlign: 'center',
-                fontSize: isMobile ? '11px' : '12px',
-                color: 'rgba(255, 255, 255, 0.6)',
-                fontWeight: '600'
-              }}>
-                73% of today's bonus claimed - Act fast!
-              </div>
-
-              {/* Disclaimer */}
-              <p style={{
-                fontSize: isMobile ? '10px' : '11px',
-                color: 'rgba(255, 255, 255, 0.4)',
-                textAlign: 'center',
-                marginTop: '16px',
-                lineHeight: '1.5',
-                borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-                paddingTop: '16px'
-              }}>
-                Risk Warning: CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. 51% of retail investor accounts lose money when trading CFDs. You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money.
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Cookie Consent Banner */}
       {showCookieConsent && (
@@ -14521,7 +13721,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
         pointerEvents: 'none'
       }}>
         <a href="/copy-trading">Auto Copy Trading GCC</a>
-        <ExnessLink href="https://one.exnessonelink.com/boarding/sign-up/a/c_8f0nxidtbt" source="footer_link" rel="sponsored">Exness broker</ExnessLink>
+        
         <a href="https://www.tradingview.com" rel="nofollow">TradingView charts</a>
         <a href="https://www.tadawul.com.sa" rel="nofollow">TASI Saudi Stock Exchange</a>
         <a href="https://www.dfm.ae" rel="nofollow">Dubai Financial Market</a>
