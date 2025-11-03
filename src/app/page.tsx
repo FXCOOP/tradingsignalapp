@@ -343,7 +343,7 @@ export default function HomePage() {
   const brokerPartners = [
     {
       id: 1,
-      name: 'Your Broker Name',
+      name: 'Our Trusted Broker',
       logo: '💎',
       rating: 4.8,
       reviews: 12500,

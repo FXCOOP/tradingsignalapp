@@ -21,7 +21,9 @@
       "Bash(test:*)",
       "Bash(node scripts/remove-exness-urls.js:*)",
       "Bash(node scripts/clean-page-exness.js:*)",
-      "Bash(node scripts/verify-exness-removal.js:*)"
+      "Bash(node scripts/verify-exness-removal.js:*)",
+      "Bash(start chrome:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "ask": []
