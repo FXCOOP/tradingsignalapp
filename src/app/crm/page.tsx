@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { BrokerManagement } from '@/components/BrokerManagement';
 import './crm.css';
 
 interface Analytics {
@@ -42,9 +43,19 @@ interface Broker {
   email: string;
   status: string;
   country_codes: string[];
+  traffic_percentage?: number;
+  traffic_priority?: number;
+  max_leads_per_day: number;
+  max_leads_per_hour: number;
+  max_leads_per_month?: number;
   total_leads_received: number;
   total_leads_converted: number;
   conversion_rate: number;
+  api_endpoint?: string;
+  auto_push_enabled?: boolean;
+  country_distribution?: Record<string, number>;
+  min_lead_amount?: number;
+  max_lead_amount?: number;
 }
 
 export default function CRMDashboard() {
@@ -353,47 +364,7 @@ export default function CRMDashboard() {
       {/* Brokers Tab */}
       {activeTab === 'brokers' && (
         <div className="crm-content">
-          <div className="content-header">
-            <h2>Broker Management</h2>
-            <button className="btn-primary">+ Add Broker</button>
-          </div>
-
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Company</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th>Countries</th>
-                <th>Leads Received</th>
-                <th>Converted</th>
-                <th>Conversion Rate</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {brokers.map((broker) => (
-                <tr key={broker.id}>
-                  <td>{broker.name}</td>
-                  <td>{broker.company_name}</td>
-                  <td>{broker.email}</td>
-                  <td>
-                    <span className={`status-badge status-${broker.status}`}>
-                      {broker.status}
-                    </span>
-                  </td>
-                  <td>{broker.country_codes.join(', ')}</td>
-                  <td>{broker.total_leads_received}</td>
-                  <td>{broker.total_leads_converted}</td>
-                  <td>{broker.conversion_rate.toFixed(1)}%</td>
-                  <td>
-                    <button className="btn-small">Edit</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <BrokerManagement brokers={brokers} onRefresh={fetchData} />
         </div>
       )}
 

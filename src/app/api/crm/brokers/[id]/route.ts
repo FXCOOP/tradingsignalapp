@@ -69,6 +69,31 @@ export async function PUT(
   }
 }
 
+// PATCH /api/crm/brokers/[id] - Partial update broker
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const brokerId = params.id;
+    const updates = await request.json();
+
+    const broker = await updateBroker(brokerId, updates);
+
+    return NextResponse.json({
+      success: true,
+      broker
+    });
+
+  } catch (error: any) {
+    console.error('Error updating broker:', error);
+    return NextResponse.json(
+      { error: error.message || 'Failed to update broker' },
+      { status: 500 }
+    );
+  }
+}
+
 // DELETE /api/crm/brokers/[id] - Delete broker
 export async function DELETE(
   request: NextRequest,
