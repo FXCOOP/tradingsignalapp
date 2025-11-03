@@ -25,7 +25,7 @@ export interface User {
   free_views_count: number
   free_views_reset_date: string
   created_at: string
-  last_login: string | null
+  last_login_at: string | null // Database uses last_login_at, not last_login
 }
 
 // Type for broker account
@@ -177,7 +177,7 @@ export async function getUserById(id: string) {
 export async function updateLastLogin(userId: string) {
   const { error } = await supabaseAdmin
     .from('users')
-    .update({ last_login: new Date().toISOString() })
+    .update({ last_login_at: new Date().toISOString() })
     .eq('id', userId)
 
   if (error) {
