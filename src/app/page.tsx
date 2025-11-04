@@ -4,7 +4,7 @@ import { designSystem } from './design-system'
 import { useUser } from '@/contexts/UserContext'
 import { AuthModal } from '@/components/AuthModal'
 // import { MultiPopupSystem } from '@/components/MultiPopupSystem'
-import SignupPopup from '@/components/SignupPopup'
+import SignupPopupImproved from '@/components/SignupPopupImproved'
 import { detectLanguage, saveLanguagePreference } from '@/lib/language-detector'
 import { useTranslation } from '@/lib/translations'
 import { checkAndGenerateSignals } from '@/lib/auto-generate'
@@ -13679,7 +13679,7 @@ The GCC's $45 billion technology investment wave is just the beginning, with str
       /> */}
 
       {/* 📝 Signup Popup - Professional Broker Contact Form */}
-      <SignupPopup
+      <SignupPopupImproved
         variant={1}
         delay={0}
         show={show30MinPopup}
