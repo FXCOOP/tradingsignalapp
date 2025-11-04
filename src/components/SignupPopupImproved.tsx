@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { COUNTRIES, getCountryByISO, getPhoneCodeFromISO } from '@/lib/countries';
+import { ALL_COUNTRIES, getSortedCountries, getCountryByISO, getPhoneCodeFromISO, Country } from '@/lib/countries-enhanced';
 import './SignupPopupImproved.css';
 
 // 20 Popular Languages for Trading
@@ -86,6 +86,8 @@ export default function SignupPopupImproved({ variant = 1, delay = 10000, onClos
   const [isSuccess, setIsSuccess] = useState(false);
   const [detectedCountry, setDetectedCountry] = useState<string | null>(null);
   const [detectedLanguage, setDetectedLanguage] = useState<string | null>(null);
+  const [sortedCountries, setSortedCountries] = useState<Country[]>(ALL_COUNTRIES);
+  const [sortedLanguages, setSortedLanguages] = useState(LANGUAGES);
 
   useEffect(() => {
     const hasSignedUp = localStorage.getItem('gcc_signup_completed');
@@ -115,6 +117,17 @@ export default function SignupPopupImproved({ variant = 1, delay = 10000, onClos
           setDetectedCountry(country.name);
           const langName = LANGUAGES.find(l => l.code === finalLanguage)?.name;
           setDetectedLanguage(langName || 'English');
+
+          // Sort countries: Detected first, then alphabetical
+          const sorted = getSortedCountries(country.iso);
+          setSortedCountries(sorted);
+
+          // Sort languages: Detected first, then keep original order
+          const detectedLangObj = LANGUAGES.find(l => l.code === finalLanguage);
+          if (detectedLangObj) {
+            const otherLangs = LANGUAGES.filter(l => l.code !== finalLanguage);
+            setSortedLanguages([detectedLangObj, ...otherLangs]);
+          }
         }
       } catch (error) {
         console.error('Failed to detect location:', error);
@@ -252,7 +265,7 @@ export default function SignupPopupImproved({ variant = 1, delay = 10000, onClos
             <div className="popup-header-improved">
               <div className="icon-badge">🎯</div>
               <h2>Get Your Personal Trading Guide</h2>
-              <p>Connect with a professional broker for personalized guidance</p>
+              <p>Connect with a professional broker for personalized guidance and free premium access to signals and education kit</p>
             </div>
 
             <form onSubmit={handleSubmit} className="signup-form-improved">
@@ -271,7 +284,7 @@ export default function SignupPopupImproved({ variant = 1, delay = 10000, onClos
                   className="select-improved language-select"
                   required
                 >
-                  {LANGUAGES.map(lang => (
+                  {sortedLanguages.map(lang => (
                     <option key={lang.code} value={lang.code}>
                       {lang.flag} {lang.nativeName} ({lang.name})
                     </option>
@@ -344,7 +357,7 @@ export default function SignupPopupImproved({ variant = 1, delay = 10000, onClos
                   className="select-improved"
                   required
                 >
-                  {COUNTRIES.map(country => (
+                  {sortedCountries.map(country => (
                     <option key={country.iso} value={country.iso}>
                       {country.flag} {country.name}
                     </option>
@@ -366,7 +379,7 @@ export default function SignupPopupImproved({ variant = 1, delay = 10000, onClos
                     className="select-improved code-select"
                     required
                   >
-                    {COUNTRIES.map((country, index) => (
+                    {sortedCountries.map((country, index) => (
                       <option key={`${country.code}-${index}`} value={country.code}>
                         {country.flag} {country.code}
                       </option>

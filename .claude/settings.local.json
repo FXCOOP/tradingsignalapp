@@ -23,7 +23,8 @@
       "Bash(node scripts/clean-page-exness.js:*)",
       "Bash(node scripts/verify-exness-removal.js:*)",
       "Bash(start chrome:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(and free premium access to signals and education kit\"\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
     ],
     "deny": [],
     "ask": []
