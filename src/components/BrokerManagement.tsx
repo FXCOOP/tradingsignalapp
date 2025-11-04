@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { CountryAutocomplete } from './CountryAutocomplete';
 
 interface Broker {
   id: string;
@@ -35,6 +36,8 @@ export function BrokerManagement({ brokers, onRefresh }: BrokerManagementProps) 
   const [selectedBroker, setSelectedBroker] = useState<Broker | null>(null);
   const [showApiUpload, setShowApiUpload] = useState(false);
   const [apiFile, setApiFile] = useState<File | null>(null);
+  const [documentFile, setDocumentFile] = useState<File | null>(null);
+  const [uploadingDoc, setUploadingDoc] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -54,15 +57,6 @@ export function BrokerManagement({ brokers, onRefresh }: BrokerManagementProps) 
     max_lead_amount: 0,
     status: 'active'
   });
-
-  const countries = [
-    { code: 'AE', name: 'UAE' },
-    { code: 'SA', name: 'Saudi Arabia' },
-    { code: 'QA', name: 'Qatar' },
-    { code: 'KW', name: 'Kuwait' },
-    { code: 'BH', name: 'Bahrain' },
-    { code: 'OM', name: 'Oman' }
-  ];
 
   const handleAddBroker = async () => {
     try {
@@ -141,6 +135,35 @@ export function BrokerManagement({ brokers, onRefresh }: BrokerManagementProps) 
     } catch (error) {
       console.error('Error uploading API config:', error);
       alert('Failed to upload API configuration');
+    }
+  };
+
+  const handleUploadDocument = async (file: File, brokerId: string) => {
+    setUploadingDoc(true);
+    try {
+      const formDataObj = new FormData();
+      formDataObj.append('file', file);
+      formDataObj.append('brokerId', brokerId);
+      formDataObj.append('documentType', 'api_documentation');
+
+      const response = await fetch('/api/crm/brokers/upload-document', {
+        method: 'POST',
+        body: formDataObj
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        alert(`${result.message}`);
+        setDocumentFile(null);
+      } else {
+        const error = await response.json();
+        alert(`Error: ${error.error}`);
+      }
+    } catch (error) {
+      console.error('Error uploading document:', error);
+      alert('Failed to upload document');
+    } finally {
+      setUploadingDoc(false);
     }
   };
 
@@ -455,42 +478,10 @@ export function BrokerManagement({ brokers, onRefresh }: BrokerManagementProps) 
                 <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600' }}>
                   Accepted Countries
                 </label>
-                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                  {countries.map((country) => (
-                    <label
-                      key={country.code}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '4px',
-                        padding: '8px 12px',
-                        border: '2px solid #e2e8f0',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        background: formData.country_codes.includes(country.code) ? '#dbeafe' : 'white'
-                      }}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={formData.country_codes.includes(country.code)}
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setFormData({
-                              ...formData,
-                              country_codes: [...formData.country_codes, country.code]
-                            });
-                          } else {
-                            setFormData({
-                              ...formData,
-                              country_codes: formData.country_codes.filter((c) => c !== country.code)
-                            });
-                          }
-                        }}
-                      />
-                      {country.name}
-                    </label>
-                  ))}
-                </div>
+                <CountryAutocomplete
+                  selectedCountries={formData.country_codes}
+                  onChange={(countries) => setFormData({ ...formData, country_codes: countries })}
+                />
               </div>
 
               {/* Traffic Distribution */}
@@ -614,6 +605,67 @@ export function BrokerManagement({ brokers, onRefresh }: BrokerManagementProps) 
                   Automatically push leads to this broker's API when assigned
                 </p>
               </div>
+
+              {/* API Documentation Upload */}
+              {selectedBroker && (
+                <div
+                  style={{
+                    padding: '16px',
+                    background: '#f8fafc',
+                    borderRadius: '8px',
+                    border: '1px solid #e2e8f0'
+                  }}
+                >
+                  <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600' }}>
+                    📄 Upload API Documentation (PDF/JSON/TXT/DOC)
+                  </label>
+                  <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '12px' }}>
+                    Upload API documentation or configuration files for reference
+                  </p>
+                  <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                    <input
+                      type="file"
+                      accept=".pdf,.json,.txt,.doc,.docx"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          setDocumentFile(file);
+                        }
+                      }}
+                      style={{
+                        flex: 1,
+                        padding: '8px',
+                        border: '1px solid #cbd5e1',
+                        borderRadius: '6px',
+                        fontSize: '14px'
+                      }}
+                    />
+                    {documentFile && (
+                      <button
+                        onClick={() => handleUploadDocument(documentFile, selectedBroker.id)}
+                        disabled={uploadingDoc}
+                        style={{
+                          padding: '8px 16px',
+                          background: uploadingDoc ? '#94a3b8' : '#3b82f6',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '6px',
+                          cursor: uploadingDoc ? 'not-allowed' : 'pointer',
+                          fontWeight: '600',
+                          fontSize: '14px'
+                        }}
+                      >
+                        {uploadingDoc ? 'Uploading...' : '📤 Upload'}
+                      </button>
+                    )}
+                  </div>
+                  {documentFile && (
+                    <div style={{ marginTop: '8px', fontSize: '12px', color: '#64748b' }}>
+                      Selected: <strong>{documentFile.name}</strong> ({(documentFile.size / 1024).toFixed(2)} KB)
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Lead Amount Filters */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
