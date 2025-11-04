@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20 Languages Signup Form - Better Looking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .signup-container {
+            background: white;
+            border-radius: 24px;
+            padding: 48px 40px;
+            max-width: 520px;
+            width: 100%;
+            max-height: 95vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .icon {
+            font-size: 56px;
+            margin-bottom: 16px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .phone-row {
+            grid-template-columns: 140px 1fr;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .label-icon {
+            font-size: 16px;
+        }
+
+        .detected-badge {
+            font-size: 11px;
+            font-weight: 600;
+            color: #10b981;
+            background: #d1fae5;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-left: auto;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: white;
+            color: #1e293b;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            transform: translateY(-1px);
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        .language-group {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #bae6fd;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .language-group select {
+            border-color: #7dd3fc;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .language-group select:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #3b82f6;
+        }
+
+        .checkbox-container label {
+            font-size: 13px;
+            font-weight: 400;
+            color: #64748b;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .checkbox-container a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .checkbox-container a:hover {
+            text-decoration: underline;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 12px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .trust-badges {
+            display: flex;
+            justify-content: space-around;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .trust-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .trust-badge span:first-child {
+            font-size: 20px;
+        }
+
+        @media (max-width: 640px) {
+            .signup-container {
+                padding: 36px 24px;
+            }
+
+            .form-row, .phone-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+        }
+
+        /* Custom scrollbar */
+        .signup-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .signup-container::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        .signup-container::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .signup-container::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="header">
+            <div class="icon">🎯</div>
+            <h1>Get Your Personal Trading Guide</h1>
+            <p>Connect with a professional broker for personalized guidance</p>
+        </div>
+
+        <form id="signupForm">
+            <!-- LANGUAGE SELECTOR - PROMINENT POSITION -->
+            <div class="language-group">
+                <label>
+                    <span class="label-icon">🌍</span>
+                    Preferred Language
+                    <span class="detected-badge" id="detectedLang">Auto-detected</span>
+                </label>
+                <select id="language" name="language" required>
+                    <!-- 20 POPULAR LANGUAGES -->
+                    <option value="en">🇬🇧 English</option>
+                    <option value="ar">🇸🇦 العربية (Arabic)</option>
+                    <option value="zh">🇨🇳 中文 (Chinese)</option>
+                    <option value="es">🇪🇸 Español (Spanish)</option>
+                    <option value="hi">🇮🇳 हिन्दी (Hindi)</option>
+                    <option value="fr">🇫🇷 Français (French)</option>
+                    <option value="de">🇩🇪 Deutsch (German)</option>
+                    <option value="pt">🇧🇷 Português (Portuguese)</option>
+                    <option value="ru">🇷🇺 Русский (Russian)</option>
+                    <option value="ja">🇯🇵 日本語 (Japanese)</option>
+                    <option value="tr">🇹🇷 Türkçe (Turkish)</option>
+                    <option value="ko">🇰🇷 한국어 (Korean)</option>
+                    <option value="it">🇮🇹 Italiano (Italian)</option>
+                    <option value="id">🇮🇩 Bahasa Indonesia</option>
+                    <option value="th">🇹🇭 ไทย (Thai)</option>
+                    <option value="vi">🇻🇳 Tiếng Việt (Vietnamese)</option>
+                    <option value="pl">🇵🇱 Polski (Polish)</option>
+                    <option value="nl">🇳🇱 Nederlands (Dutch)</option>
+                    <option value="ms">🇲🇾 Bahasa Melayu (Malay)</option>
+                    <option value="fa">🇮🇷 فارسی (Persian)</option>
+                </select>
+            </div>
+
+            <!-- NAME FIELDS -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label>
+                        <span class="label-icon">👤</span>
+                        First Name
+                    </label>
+                    <input type="text" id="firstName" name="firstName" placeholder="Ahmed" required>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <span class="label-icon">👤</span>
+                        Last Name
+                    </label>
+                    <input type="text" id="lastName" name="lastName" placeholder="Al-Maktoum" required>
+                </div>
+            </div>
+
+            <!-- EMAIL -->
+            <div class="form-group">
+                <label>
+                    <span class="label-icon">📧</span>
+                    Email Address
+                </label>
+                <input type="email" id="email" name="email" placeholder="ahmed@example.com" required>
+            </div>
+
+            <!-- COUNTRY -->
+            <div class="form-group">
+                <label>
+                    <span class="label-icon">🌎</span>
+                    Country
+                    <span class="detected-badge" id="detectedCountry">Detecting...</span>
+                </label>
+                <select id="country" name="country" required>
+                    <option value="AE">🇦🇪 United Arab Emirates</option>
+                    <option value="SA">🇸🇦 Saudi Arabia</option>
+                    <option value="QA">🇶🇦 Qatar</option>
+                    <option value="KW">🇰🇼 Kuwait</option>
+                    <option value="BH">🇧🇭 Bahrain</option>
+                    <option value="OM">🇴🇲 Oman</option>
+                    <option value="EG">🇪🇬 Egypt</option>
+                    <option value="JO">🇯🇴 Jordan</option>
+                    <option value="LB">🇱🇧 Lebanon</option>
+                    <option value="US">🇺🇸 United States</option>
+                    <option value="GB">🇬🇧 United Kingdom</option>
+                    <option value="DE">🇩🇪 Germany</option>
+                    <option value="FR">🇫🇷 France</option>
+                    <option value="ES">🇪🇸 Spain</option>
+                    <option value="IT">🇮🇹 Italy</option>
+                    <option value="IN">🇮🇳 India</option>
+                    <option value="CN">🇨🇳 China</option>
+                    <option value="JP">🇯🇵 Japan</option>
+                    <option value="KR">🇰🇷 South Korea</option>
+                    <option value="BR">🇧🇷 Brazil</option>
+                </select>
+            </div>
+
+            <!-- PHONE NUMBER -->
+            <div class="form-row phone-row">
+                <div class="form-group">
+                    <label>
+                        <span class="label-icon">📞</span>
+                        Code
+                    </label>
+                    <select id="countryCode" name="countryCode" required>
+                        <option value="+971">🇦🇪 +971</option>
+                        <option value="+966">🇸🇦 +966</option>
+                        <option value="+974">🇶🇦 +974</option>
+                        <option value="+965">🇰🇼 +965</option>
+                        <option value="+973">🇧🇭 +973</option>
+                        <option value="+968">🇴🇲 +968</option>
+                        <option value="+20">🇪🇬 +20</option>
+                        <option value="+962">🇯🇴 +962</option>
+                        <option value="+961">🇱🇧 +961</option>
+                        <option value="+1">🇺🇸 +1</option>
+                        <option value="+44">🇬🇧 +44</option>
+                        <option value="+49">🇩🇪 +49</option>
+                        <option value="+33">🇫🇷 +33</option>
+                        <option value="+34">🇪🇸 +34</option>
+                        <option value="+39">🇮🇹 +39</option>
+                        <option value="+91">🇮🇳 +91</option>
+                        <option value="+86">🇨🇳 +86</option>
+                        <option value="+81">🇯🇵 +81</option>
+                        <option value="+82">🇰🇷 +82</option>
+                        <option value="+55">🇧🇷 +55</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <span class="label-icon">📱</span>
+                        Phone Number
+                    </label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="501234567" required>
+                </div>
+            </div>
+
+            <!-- TERMS CHECKBOX -->
+            <div class="checkbox-container">
+                <input type="checkbox" id="terms" name="terms" required checked>
+                <label for="terms">
+                    I agree to the <a href="/terms" target="_blank">Terms & Conditions</a> and <a href="/privacy" target="_blank">Privacy Policy</a>
+                </label>
+            </div>
+
+            <!-- SUBMIT BUTTON -->
+            <button type="submit" class="submit-btn">
+                Get Started Now →
+            </button>
+
+            <!-- TRUST BADGES -->
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <span>🔒</span>
+                    <span>Secure & Encrypted</span>
+                </div>
+                <div class="trust-badge">
+                    <span>⚡</span>
+                    <span>Instant Access</span>
+                </div>
+                <div class="trust-badge">
+                    <span>✓</span>
+                    <span>No Credit Card</span>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // AUTO-DETECT COUNTRY AND LANGUAGE BY IP
+        async function detectLocation() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+
+                // Language mapping by country
+                const languageMap = {
+                    'AE': 'ar', 'SA': 'ar', 'QA': 'ar', 'KW': 'ar', 'BH': 'ar', 'OM': 'ar',
+                    'EG': 'ar', 'JO': 'ar', 'LB': 'ar',
+                    'CN': 'zh', 'TW': 'zh', 'HK': 'zh',
+                    'ES': 'es', 'MX': 'es', 'AR': 'es', 'CO': 'es',
+                    'IN': 'hi',
+                    'FR': 'fr', 'CA': 'fr',
+                    'DE': 'de', 'AT': 'de', 'CH': 'de',
+                    'BR': 'pt', 'PT': 'pt',
+                    'RU': 'ru', 'BY': 'ru', 'KZ': 'ru',
+                    'JP': 'ja',
+                    'TR': 'tr',
+                    'KR': 'ko',
+                    'IT': 'it',
+                    'ID': 'id',
+                    'TH': 'th',
+                    'VN': 'vi',
+                    'PL': 'pl',
+                    'NL': 'nl',
+                    'MY': 'ms',
+                    'IR': 'fa'
+                };
+
+                const countryCode = data.country_code;
+                const detectedLang = languageMap[countryCode] || 'en';
+
+                // Update country dropdown
+                const countrySelect = document.getElementById('country');
+                if (countrySelect) {
+                    countrySelect.value = countryCode;
+                    document.getElementById('detectedCountry').textContent = data.country_name + ' detected';
+                }
+
+                // Update language dropdown
+                const languageSelect = document.getElementById('language');
+                if (languageSelect) {
+                    languageSelect.value = detectedLang;
+                    const langName = languageSelect.options[languageSelect.selectedIndex].text;
+                    document.getElementById('detectedLang').textContent = langName.split(' ')[1] + ' detected';
+                }
+
+                // Update phone code based on country
+                updatePhoneCode(countryCode);
+
+            } catch (error) {
+                console.error('Failed to detect location:', error);
+                // Fallback to browser language
+                const browserLang = navigator.language.split('-')[0];
+                const languageSelect = document.getElementById('language');
+                const option = Array.from(languageSelect.options).find(opt => opt.value === browserLang);
+                if (option) {
+                    languageSelect.value = browserLang;
+                }
+            }
+        }
+
+        // Update phone code when country changes
+        function updatePhoneCode(countryCode) {
+            const phoneCodeMap = {
+                'AE': '+971', 'SA': '+966', 'QA': '+974', 'KW': '+965', 'BH': '+973', 'OM': '+968',
+                'EG': '+20', 'JO': '+962', 'LB': '+961',
+                'US': '+1', 'GB': '+44', 'DE': '+49', 'FR': '+33', 'ES': '+34', 'IT': '+39',
+                'IN': '+91', 'CN': '+86', 'JP': '+81', 'KR': '+82', 'BR': '+55'
+            };
+
+            const phoneCodeSelect = document.getElementById('countryCode');
+            if (phoneCodeSelect && phoneCodeMap[countryCode]) {
+                phoneCodeSelect.value = phoneCodeMap[countryCode];
+            }
+        }
+
+        // Listen to country changes
+        document.getElementById('country').addEventListener('change', function(e) {
+            updatePhoneCode(e.target.value);
+        });
+
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = {
+                language: document.getElementById('language').value,
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                country: document.getElementById('country').value,
+                countryCode: document.getElementById('countryCode').value,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                termsAccepted: document.getElementById('terms').checked
+            };
+
+            console.log('Form submitted:', formData);
+
+            // Show success message
+            alert('✅ Signup successful!\n\n' +
+                  'Language: ' + formData.language + '\n' +
+                  'Name: ' + formData.firstName + ' ' + formData.lastName + '\n' +
+                  'Email: ' + formData.email + '\n' +
+                  'Country: ' + formData.country + '\n' +
+                  'Phone: ' + formData.countryCode + ' ' + formData.phoneNumber);
+
+            // In production, send to your API:
+            // fetch('/api/signup', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(formData)
+            // });
+        });
+
+        // Run detection on page load
+        detectLocation();
+    </script>
+</body>
+</html>

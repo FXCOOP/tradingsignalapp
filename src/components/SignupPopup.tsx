@@ -8,7 +8,6 @@ interface SignupFormData {
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
   countryCode: string;
   phoneNumber: string;
   country: string;
@@ -28,7 +27,6 @@ export default function SignupPopup({ variant = 1, delay = 10000, onClose, show 
     firstName: '',
     lastName: '',
     email: '',
-    password: '',
     countryCode: '+971',
     phoneNumber: '',
     country: 'AE',
@@ -227,19 +225,6 @@ export default function SignupPopup({ variant = 1, delay = 10000, onClose, show 
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="ahmed@example.com"
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Create a secure password"
-                  minLength={6}
                   required
                 />
               </div>
