@@ -28,14 +28,14 @@
   }
 }
 
-/* Main Popup Container */
+/* Main Popup Container - COMPACT VERSION */
 .signup-popup-improved {
   background: #ffffff;
-  border-radius: 24px;
-  padding: 48px 40px;
-  max-width: 520px;
+  border-radius: 20px;
+  padding: 32px 28px;
+  max-width: 460px;
   width: 100%;
-  max-height: 95vh;
+  max-height: 92vh;
   overflow-y: auto;
   position: relative;
   animation: slideUpBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -100,14 +100,14 @@
   transform: rotate(90deg);
 }
 
-/* Header */
+/* Header - COMPACT */
 .popup-header-improved {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .icon-badge {
-  font-size: 56px;
+  font-size: 42px;
   display: inline-block;
   animation: floatIcon 3s ease-in-out infinite;
   filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.2));
@@ -118,37 +118,37 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 }
 
 .popup-header-improved h2 {
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 800;
   color: #0f172a;
-  margin: 16px 0 8px;
+  margin: 12px 0 6px;
   line-height: 1.2;
   letter-spacing: -0.5px;
 }
 
 .popup-header-improved p {
-  font-size: 16px;
+  font-size: 14px;
   color: #64748b;
   margin: 0;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-/* Form */
+/* Form - COMPACT */
 .signup-form-improved {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
 }
 
 .form-row-improved {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 12px;
 }
 
 .phone-row {
@@ -196,13 +196,13 @@
   }
 }
 
-/* Input Fields */
+/* Input Fields - COMPACT */
 .input-improved,
 .select-improved {
-  padding: 14px 16px;
+  padding: 10px 12px;
   border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 15px;
+  border-radius: 10px;
+  font-size: 14px;
   font-family: inherit;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   background: #ffffff;

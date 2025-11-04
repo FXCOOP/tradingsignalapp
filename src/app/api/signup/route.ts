@@ -7,20 +7,12 @@ export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
 
-    // Validate required fields
-    const { firstName, lastName, email, password, countryCode, phoneNumber, country, termsAccepted } = data;
+    // Validate required fields (NO PASSWORD REQUIRED!)
+    const { firstName, lastName, email, countryCode, phoneNumber, country, termsAccepted, language } = data;
 
-    if (!firstName || !lastName || !email || !password || !countryCode || !phoneNumber || !country) {
+    if (!firstName || !lastName || !email || !countryCode || !phoneNumber || !country) {
       return NextResponse.json(
         { error: 'All fields are required' },
-        { status: 400 }
-      );
-    }
-
-    // Validate password length
-    if (password.length < 6) {
-      return NextResponse.json(
-        { error: 'Password must be at least 6 characters long' },
         { status: 400 }
       );
     }
@@ -92,15 +84,18 @@ export async function POST(request: NextRequest) {
     // Save signup to signups table (lead generation)
     const signup = await createSignup(signupData);
 
-    // Hash password
-    const passwordHash = await bcrypt.hash(password, 10);
+    // Generate random password for passwordless signup
+    // User will use email verification or phone verification to login
+    const randomPassword = Math.random().toString(36).slice(-12) + Math.random().toString(36).slice(-12);
+    const passwordHash = await bcrypt.hash(randomPassword, 10);
 
     // Create user account with premium access
     const user = await createUser({
       email,
       password_hash: passwordHash,
       full_name: `${firstName} ${lastName}`,
-      access_level: 'premium' // All signups get FREE premium access
+      access_level: 'premium', // All signups get FREE premium access
+      language: language || 'en' // Save preferred language
     });
 
     // Note: Not updating last_login - column doesn't exist in users table
