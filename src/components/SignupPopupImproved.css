@@ -32,10 +32,10 @@
 .signup-popup-improved {
   background: #ffffff;
   border-radius: 20px;
-  padding: 32px 28px;
+  padding: 24px 22px;
   max-width: 460px;
   width: 100%;
-  max-height: 92vh;
+  max-height: 95vh;
   overflow-y: auto;
   position: relative;
   animation: slideUpBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -103,11 +103,11 @@
 /* Header - COMPACT */
 .popup-header-improved {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .icon-badge {
-  font-size: 42px;
+  font-size: 36px;
   display: inline-block;
   animation: floatIcon 3s ease-in-out infinite;
   filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.2));
@@ -123,32 +123,32 @@
 }
 
 .popup-header-improved h2 {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 800;
   color: #0f172a;
-  margin: 12px 0 6px;
+  margin: 10px 0 4px;
   line-height: 1.2;
   letter-spacing: -0.5px;
 }
 
 .popup-header-improved p {
-  font-size: 14px;
+  font-size: 13px;
   color: #64748b;
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 /* Form - COMPACT */
 .signup-form-improved {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
 .form-row-improved {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 10px;
 }
 
 .phone-row {
@@ -158,16 +158,16 @@
 .form-group-improved {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .label-improved {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: #1e293b;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   user-select: none;
 }
 
@@ -199,9 +199,9 @@
 /* Input Fields - COMPACT */
 .input-improved,
 .select-improved {
-  padding: 10px 12px;
+  padding: 8px 10px;
   border: 2px solid #e2e8f0;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 14px;
   font-family: inherit;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -225,16 +225,16 @@
 .language-selector-group {
   background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
   border: 2px solid #bae6fd;
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 8px;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 4px;
 }
 
 .language-select {
   border-color: #7dd3fc;
   background: #ffffff;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .language-select:focus {
@@ -249,7 +249,7 @@
 
 /* Terms Checkbox */
 .terms-checkbox-improved {
-  margin-top: 4px;
+  margin-top: 0px;
 }
 
 .checkbox-label-improved {
@@ -292,13 +292,13 @@
   background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   color: white;
   border: none;
-  padding: 16px 32px;
-  border-radius: 12px;
-  font-size: 17px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-top: 12px;
+  margin-top: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -367,9 +367,9 @@
 .trust-badges {
   display: flex;
   justify-content: space-around;
-  gap: 12px;
-  margin-top: 20px;
-  padding-top: 20px;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
   border-top: 1px solid #e2e8f0;
 }
 
@@ -377,8 +377,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  font-size: 11px;
+  gap: 4px;
+  font-size: 10px;
   color: #64748b;
   font-weight: 600;
   text-align: center;
@@ -386,7 +386,7 @@
 }
 
 .trust-badge span:first-child {
-  font-size: 20px;
+  font-size: 18px;
   opacity: 0.8;
 }
 
@@ -559,62 +559,138 @@
 
 /* Responsive Design */
 @media (max-width: 640px) {
+  .signup-overlay-improved {
+    padding: 8px;
+    align-items: flex-start;
+    padding-top: 4vh;
+  }
+
   .signup-popup-improved {
-    padding: 36px 24px;
-    border-radius: 20px;
+    padding: 18px 16px;
+    border-radius: 16px;
     max-width: 100%;
+    max-height: 96vh;
+  }
+
+  .popup-header-improved {
+    margin-bottom: 12px;
   }
 
   .popup-header-improved h2 {
-    font-size: 26px;
+    font-size: 19px;
+    margin: 8px 0 3px;
   }
 
   .popup-header-improved p {
-    font-size: 14px;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .icon-badge {
+    font-size: 32px;
   }
 
   .form-row-improved {
     grid-template-columns: 1fr;
+    gap: 8px;
   }
 
   .phone-row {
     grid-template-columns: 1fr;
   }
 
-  .icon-badge {
-    font-size: 48px;
+  .signup-form-improved {
+    gap: 8px;
+  }
+
+  .form-group-improved {
+    gap: 4px;
+  }
+
+  .label-improved {
+    font-size: 12px;
+  }
+
+  .input-improved,
+  .select-improved {
+    padding: 7px 9px;
+    font-size: 14px;
+  }
+
+  .language-selector-group {
+    padding: 10px;
+    margin-bottom: 2px;
+  }
+
+  .submit-btn-improved {
+    padding: 11px 20px;
+    font-size: 15px;
+    margin-top: 4px;
+  }
+
+  .trust-badges {
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+
+  .trust-badge {
+    font-size: 9px;
+    gap: 3px;
+  }
+
+  .trust-badge span:first-child {
+    font-size: 16px;
+  }
+
+  .checkbox-text {
+    font-size: 11px;
+    line-height: 1.4;
   }
 
   .benefits-grid {
     grid-template-columns: 1fr;
   }
 
-  .trust-badges {
-    flex-wrap: wrap;
+  .success-message-improved h2 {
+    font-size: 24px;
   }
 
-  .success-message-improved h2 {
-    font-size: 28px;
+  .close-btn-improved {
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
   }
 }
 
 @media (max-width: 480px) {
   .signup-overlay-improved {
-    padding: 12px;
+    padding: 6px;
+    padding-top: 3vh;
   }
 
   .signup-popup-improved {
-    padding: 28px 20px;
-    border-radius: 16px;
+    padding: 16px 14px;
+    border-radius: 14px;
   }
 
   .popup-header-improved h2 {
-    font-size: 22px;
+    font-size: 18px;
+  }
+
+  .popup-header-improved p {
+    font-size: 11px;
+  }
+
+  .icon-badge {
+    font-size: 28px;
   }
 
   .submit-btn-improved {
-    padding: 14px 24px;
-    font-size: 16px;
+    padding: 10px 18px;
+    font-size: 14px;
   }
 }
 
