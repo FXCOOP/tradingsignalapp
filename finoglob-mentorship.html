@@ -1300,19 +1300,34 @@
             document.getElementById('mentors').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function handleSignup(event) {
+        async function handleSignup(event) {
             event.preventDefault();
 
             const formData = new FormData(event.target);
+            const fullName = formData.get('fullName');
+            const nameParts = fullName.trim().split(' ');
+            const firstName = nameParts[0];
+            const lastName = nameParts.slice(1).join(' ') || nameParts[0];
+
+            const phone = formData.get('phone');
+            // Extract country code and phone number
+            const phoneClean = phone.replace(/[^\d+]/g, '');
+            const countryCode = phoneClean.startsWith('+') ? phoneClean.substring(0, phoneClean.length - 9) : '+1';
+            const phoneNumber = phoneClean.slice(phoneClean.length - 9);
+
             const data = {
-                fullName: formData.get('fullName'),
+                firstName: firstName,
+                lastName: lastName,
                 email: formData.get('email'),
-                phone: formData.get('phone'),
+                countryCode: countryCode,
+                phoneNumber: phoneNumber,
+                country: detectCountryFromPhone(countryCode), // Auto-detect country
+                language: 'en',
                 experience: formData.get('experience'),
                 interest: formData.get('interest'),
                 accountSize: formData.get('accountSize'),
                 goal: formData.get('goal'),
-                timestamp: new Date().toISOString(),
+                agreeToTerms: true,
                 source: 'finoglob-mentorship',
                 leadType: 'mentorship-application',
                 utmSource: getUrlParameter('utm_source') || 'direct',
@@ -1320,34 +1335,81 @@
                 utmCampaign: getUrlParameter('utm_campaign') || 'none'
             };
 
-            // Send to broker's CRM
-            sendLeadToBroker(data);
+            try {
+                // Show loading state
+                const submitBtn = event.target.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = '⏳ Processing...';
+                submitBtn.disabled = true;
 
-            // Show success
-            document.getElementById('signupForm').style.display = 'none';
-            document.getElementById('successMessage').classList.add('active');
+                // Send to YOUR CRM (not direct to broker)
+                const result = await sendLeadToCRM(data);
 
-            // Track conversion
-            trackConversion(data);
+                if (result.success) {
+                    // Show success
+                    document.getElementById('signupForm').style.display = 'none';
+                    document.getElementById('successMessage').classList.add('active');
+
+                    // Track conversion
+                    trackConversion(data);
+
+                    // Redirect to broker thank you page if provided
+                    if (result.brokerIntegration && result.brokerIntegration.redirectUrl) {
+                        setTimeout(() => {
+                            window.location.href = result.brokerIntegration.redirectUrl;
+                        }, 2000);
+                    }
+                } else {
+                    // Show error
+                    alert('There was an error submitting your information. Please try again or contact support.');
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('There was an error submitting your information. Please try again or contact support.');
+                const submitBtn = event.target.querySelector('button[type="submit"]');
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 Get Matched Now';
+            }
         }
 
-        function sendLeadToBroker(data) {
-            // Replace with actual broker API
-            fetch('https://your-broker-crm.com/api/leads', {
+        function detectCountryFromPhone(countryCode) {
+            const countryMap = {
+                '+60': 'MY',  // Malaysia
+                '+90': 'TR',  // Turkey
+                '+33': 'FR',  // France
+                '+39': 'IT',  // Italy
+                '+852': 'HK', // Hong Kong
+                '+65': 'SG',  // Singapore
+                '+886': 'TW', // Taiwan
+                '+55': 'BR',  // Brazil
+                '+1': 'US',   // USA/Canada
+                '+44': 'GB',  // UK
+                '+971': 'AE', // UAE
+            };
+            return countryMap[countryCode] || 'US';
+        }
+
+        async function sendLeadToCRM(data) {
+            // Send to YOUR CRM API endpoint
+            const apiUrl = window.location.hostname === 'localhost'
+                ? 'http://localhost:3000/api/signup'
+                : 'https://trading.the-future-of-online-trading.online/api/signup';
+
+            const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer YOUR_API_KEY'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(result => {
-                console.log('Lead sent to broker:', result);
-            })
-            .catch(error => {
-                console.error('Error:', error);
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            return await response.json();
         }
 
         function trackConversion(data) {
