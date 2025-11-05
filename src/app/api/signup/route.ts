@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createSignup, getAllSignups, getSignupByEmail, createUser, type SignupData } from '@/lib/supabase';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { createTradingCRMClient, TradingCRMClient, type LeadData } from '@/lib/trading-crm-api';
 
 export async function POST(request: NextRequest) {
   try {
@@ -117,6 +118,59 @@ export async function POST(request: NextRequest) {
     console.log('New signup created:', signup);
     console.log('User account created with premium access:', user.id);
 
+    // Extract country ISO code from country name or use detected country
+    let countryIso = extractCountryIso(country, detectedCountry);
+
+    // Auto-send lead to Trading CRM if country is supported
+    let tradingCrmResult = null;
+    const isTradingCrmEnabled = process.env.TRADING_CRM_ENABLED !== 'false';
+
+    if (isTradingCrmEnabled && countryIso && TradingCRMClient.isSupportedCountry(countryIso)) {
+      console.log(`Country ${countryIso} is supported by Trading CRM. Sending lead automatically...`);
+
+      try {
+        const client = createTradingCRMClient();
+        const leadData: LeadData = {
+          firstName,
+          lastName,
+          email,
+          phone: `${countryCode}${phoneNumber}`,
+          country: countryIso,
+          language: language || TradingCRMClient.getLanguageForCountry(countryIso),
+          ip,
+          campaignId: utmCampaign || process.env.TRADING_CRM_DEFAULT_CAMPAIGN_ID,
+          tag: utmSource || 'pk_signal_pulse',
+          tag1: utmMedium,
+          utmSource,
+          utmCampaign,
+          affiliateTransactionId: signup.id,
+          registrationUrl: process.env.NEXT_PUBLIC_APP_URL,
+          additionalInfo1: `Signup ID: ${signup.id}`,
+          additionalInfo2: `User ID: ${user.id}`,
+          additionalInfo3: 'Auto-sent on signup',
+        };
+
+        tradingCrmResult = await client.registerLead(leadData);
+
+        if (tradingCrmResult.success) {
+          console.log('Lead successfully sent to Trading CRM:', {
+            email,
+            country: countryIso,
+            leadId: tradingCrmResult.leadId,
+          });
+        } else {
+          console.error('Failed to send lead to Trading CRM:', tradingCrmResult.error);
+        }
+      } catch (tradingCrmError) {
+        console.error('Error sending lead to Trading CRM:', tradingCrmError);
+        // Continue signup flow even if broker integration fails
+      }
+    } else if (!isTradingCrmEnabled) {
+      console.log('Trading CRM integration is disabled');
+    } else {
+      console.log(`Country ${countryIso} is not supported by Trading CRM`);
+    }
+
     return NextResponse.json(
       {
         success: true,
@@ -129,7 +183,12 @@ export async function POST(request: NextRequest) {
           access_level: user.access_level,
           isPremium: true
         },
-        token // Send token for auto-login
+        token, // Send token for auto-login
+        brokerIntegration: tradingCrmResult ? {
+          sent: tradingCrmResult.success,
+          leadId: tradingCrmResult.leadId,
+          redirectUrl: tradingCrmResult.redirectUrl,
+        } : null
       },
       { status: 200 }
     );
@@ -194,4 +253,37 @@ async function sendWelcomeEmail(signup: any) {
   //   subject: 'Welcome to GCC Signal Pro',
   //   body: `Hi ${signup.firstName}, welcome aboard!`
   // });
+}
+
+// Helper function to extract country ISO code from country name
+function extractCountryIso(countryName: string, detectedCountry: string | null): string | null {
+  // Country name to ISO mapping for Trading CRM target countries
+  const countryMapping: Record<string, string> = {
+    'malaysia': 'MY',
+    'turkey': 'TR',
+    'france': 'FR',
+    'italy': 'IT',
+    'hong kong': 'HK',
+    'singapore': 'SG',
+    'taiwan': 'TW',
+    'brazil': 'BR',
+  };
+
+  // Try to match country name (case insensitive)
+  const normalized = countryName.toLowerCase().trim();
+  if (countryMapping[normalized]) {
+    return countryMapping[normalized];
+  }
+
+  // If country name is already an ISO code, return it
+  if (countryName.length === 2) {
+    return countryName.toUpperCase();
+  }
+
+  // Try detected country if available
+  if (detectedCountry && detectedCountry.length === 2) {
+    return detectedCountry.toUpperCase();
+  }
+
+  return null;
 }
