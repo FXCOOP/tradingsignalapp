@@ -33,44 +33,47 @@ export async function GET(request: NextRequest) {
 
     console.log('🕐 Cron job triggered - Generating daily content...')
 
-    // Call the daily content generator
     const baseUrl = process.env.APP_BASE_URL || 'http://localhost:3000'
-    const response = await fetch(`${baseUrl}/api/daily-content`, {
+
+    // ⚡ NON-BLOCKING: Trigger content generation without waiting
+    // This prevents EasyCron timeout (5 second limit)
+    fetch(`${baseUrl}/api/daily-content`, {
       method: 'POST'
+    }).then(async (response) => {
+      const data = await response.json()
+      if (data.success) {
+        console.log('✅ Daily content generated successfully:', {
+          signals: data.content.signals.count,
+          news: data.content.news.count,
+          analysis: !!data.content.analysis,
+          tokens: data.usage.totalTokens,
+          cost: data.usage.estimatedCost
+        })
+        // Optional: Send notification email to admin
+        // await sendAdminNotification(data)
+      } else {
+        console.error('❌ Content generation failed:', data.error)
+        // Optional: Send error notification to admin
+        // await sendErrorNotification(data.error)
+      }
+    }).catch((error) => {
+      console.error('❌ Content generation request failed:', error)
+      // Optional: Send error notification to admin
+      // await sendErrorNotification(error)
     })
 
-    const data = await response.json()
-
-    if (!data.success) {
-      throw new Error(data.error || 'Content generation failed')
-    }
-
-    // Optional: Send notification email to admin
-    // await sendAdminNotification(data)
-
-    // Optional: Store in database
-    // await saveContentToDatabase(data)
-
-    console.log('✅ Cron job completed successfully')
-
+    // Return immediately to prevent EasyCron timeout
     return NextResponse.json({
       success: true,
-      message: 'Daily content generated successfully',
+      message: 'Daily content generation job started',
+      status: 'processing',
       timestamp: new Date().toISOString(),
-      generatedContent: {
-        signals: data.content.signals.count,
-        news: data.content.news.count,
-        analysisGenerated: !!data.content.analysis
-      },
-      usage: data.usage,
+      note: 'Content generation is running in the background. Check logs for completion status.',
       nextRun: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
     })
 
   } catch (error: any) {
     console.error('❌ Cron job failed:', error)
-
-    // Optional: Send error notification to admin
-    // await sendErrorNotification(error)
 
     return NextResponse.json(
       {
