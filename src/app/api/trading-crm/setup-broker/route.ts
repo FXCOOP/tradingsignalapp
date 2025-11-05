@@ -35,10 +35,10 @@ export async function POST(request: NextRequest) {
       email: 'support@tradingcrm.com',
       phone: '+1-XXX-XXX-XXXX', // Update with actual broker contact
       country_codes: countryCodes, // ['MY', 'TR', 'FR', 'IT', 'HK', 'SG', 'TW', 'BR']
-      status: 'active',
+      status: 'active' as const,
       api_endpoint: process.env.TRADING_CRM_API_ENDPOINT || 'https://affiliate365.tradingcrm.com:4477/accounts/registrationwithsso',
       api_key: process.env.TRADING_CRM_USERNAME || '225X',
-      api_method: 'POST',
+      api_method: 'POST' as const,
       api_headers: {
         'Content-Type': 'application/json-patch+json',
         'Accept': 'application/json',
@@ -87,7 +87,7 @@ export async function GET(request: NextRequest) {
       company_name: 'Trading CRM (affiliate365)',
       email: 'support@tradingcrm.com',
       country_codes: countryCodes,
-      status: 'active',
+      status: 'active' as const,
       api_endpoint: process.env.TRADING_CRM_API_ENDPOINT || 'Not configured',
       max_leads_per_day: 1000,
       max_leads_per_hour: 100,
