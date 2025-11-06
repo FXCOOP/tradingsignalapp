@@ -194,11 +194,14 @@ export class TradingCRMClient {
       // Format payload
       const payload = this.formatPayload(lead);
 
-      console.log('Sending lead to Trading CRM:', {
+      // Log exact payload being sent (for debugging)
+      console.log('📤 Trading CRM Request:', {
+        endpoint: this.config.apiEndpoint,
         email: lead.email,
         country: lead.country,
-        endpoint: this.config.apiEndpoint,
+        language: payload.language,
       });
+      console.log('📤 Exact Payload (JSON):', JSON.stringify(payload, null, 2));
 
       // Send request
       const response = await fetch(this.config.apiEndpoint, {
@@ -213,15 +216,24 @@ export class TradingCRMClient {
 
       const responseData = await response.json();
 
+      // Log full response
+      console.log('📥 Trading CRM Response:', {
+        status: response.status,
+        statusText: response.statusText,
+        data: responseData,
+      });
+
       if (!response.ok) {
-        console.error('Trading CRM API error:', {
+        console.error('❌ Trading CRM API Error:', {
           status: response.status,
-          data: responseData,
+          statusText: response.statusText,
+          error: responseData?.message || responseData?.error,
+          fullResponse: responseData,
         });
 
         return {
           success: false,
-          error: responseData?.message || `API error: ${response.status}`,
+          error: responseData?.message || responseData?.error || `API error: ${response.status}`,
           rawResponse: responseData,
         };
       }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSignup, getAllSignups, getSignupByEmail, createUser, type SignupData } from '@/lib/supabase';
+import { createTradingCRMClient, TradingCRMClient } from '@/lib/trading-crm-api';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -85,6 +86,31 @@ export async function POST(request: NextRequest) {
 
     // Save signup to signups table (lead generation)
     const signup = await createSignup(signupData);
+
+    console.log('✅ Signup created in CRM:', signup.id);
+
+    // 🚀 AUTO-PUSH TO BROKER (Trading CRM)
+    // Check if country is supported for Trading CRM
+    if (TradingCRMClient.isSupportedCountry(country)) {
+      console.log('🔄 Auto-pushing lead to Trading CRM...', { email, country });
+
+      // Push to Trading CRM in background (don't block signup)
+      pushLeadToBroker(signup, {
+        firstName,
+        lastName,
+        email,
+        phone: `${countryCode}${phoneNumber}`,
+        country,
+        language: language || 'en',
+        ip,
+        signupId: signup.id
+      }).catch(error => {
+        console.error('❌ Failed to auto-push to Trading CRM:', error);
+        // Don't fail the signup if broker push fails
+      });
+    } else {
+      console.log('ℹ️ Country not supported for Trading CRM:', country);
+    }
 
     // Generate random password for passwordless signup
     // User will use email verification or phone verification to login
@@ -196,4 +222,87 @@ async function sendWelcomeEmail(signup: any) {
   //   subject: 'Welcome to GCC Signal Pro',
   //   body: `Hi ${signup.firstName}, welcome aboard!`
   // });
+}
+
+/**
+ * Push lead to Trading CRM broker automatically
+ */
+async function pushLeadToBroker(signup: any, data: any) {
+  try {
+    const { createClient } = await import('@supabase/supabase-js');
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+
+    console.log('📤 Pushing lead to Trading CRM:', data.email);
+
+    // Create Trading CRM client
+    const client = createTradingCRMClient();
+
+    // Send lead to Trading CRM
+    const result = await client.registerLead({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      phone: data.phone,
+      country: data.country,
+      language: data.language,
+      ip: data.ip,
+      affiliateTransactionId: data.signupId,
+      utmSource: 'pksignalpulse',
+      tag: 'signal_pulse',
+    });
+
+    if (result.success) {
+      console.log('✅ Lead successfully pushed to Trading CRM:', result.leadId);
+
+      // Update signup record with success
+      await supabase
+        .from('signups')
+        .update({
+          assigned_broker: 'Trading CRM - AFF 225X',
+          crm_status: 'sent_to_broker',
+          pushed_to_crm: true,
+          push_status_code: 200,
+          push_response: JSON.stringify({
+            success: true,
+            leadId: result.leadId,
+            redirectUrl: result.redirectUrl,
+            timestamp: new Date().toISOString(),
+            message: 'Lead successfully sent to Trading CRM',
+            rawResponse: result.rawResponse
+          }),
+          push_error: null,
+          pushed_at: new Date().toISOString(),
+        })
+        .eq('id', data.signupId);
+
+      console.log('✅ Database updated with push success');
+    } else {
+      console.error('❌ Trading CRM push failed:', result.error);
+
+      // Update signup record with failure
+      await supabase
+        .from('signups')
+        .update({
+          pushed_to_crm: false,
+          push_status_code: 500,
+          push_response: JSON.stringify({
+            success: false,
+            error: result.error,
+            timestamp: new Date().toISOString(),
+            rawResponse: result.rawResponse
+          }),
+          push_error: result.error,
+          pushed_at: new Date().toISOString(),
+        })
+        .eq('id', data.signupId);
+
+      console.log('❌ Database updated with push failure');
+    }
+  } catch (error) {
+    console.error('❌ Error in pushLeadToBroker:', error);
+    throw error;
+  }
 }

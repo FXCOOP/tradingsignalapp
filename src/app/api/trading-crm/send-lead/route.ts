@@ -132,7 +132,12 @@ export async function POST(request: NextRequest) {
           .update({
             pushed_to_crm: false,
             push_status_code: 500,
-            push_response: result.error,
+            push_response: JSON.stringify({
+              success: false,
+              error: result.error,
+              timestamp: new Date().toISOString(),
+              rawResponse: result.rawResponse
+            }),
             push_error: result.error,
             pushed_at: new Date().toISOString(),
           })
@@ -171,7 +176,14 @@ export async function POST(request: NextRequest) {
           assigned_broker: 'Trading CRM - AFF 225X',
           pushed_to_crm: true,
           push_status_code: 200,
-          push_response: 'Lead successfully sent to Trading CRM',
+          push_response: JSON.stringify({
+            success: true,
+            leadId: result.leadId,
+            redirectUrl: result.redirectUrl,
+            timestamp: new Date().toISOString(),
+            message: 'Lead successfully sent to Trading CRM',
+            rawResponse: result.rawResponse
+          }),
           push_error: null,
           pushed_at: new Date().toISOString(),
         })

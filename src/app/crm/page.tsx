@@ -77,6 +77,10 @@ export default function CRMDashboard() {
   const [loading, setLoading] = useState(true);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [showAssignModal, setShowAssignModal] = useState(false);
+  const [showPushDetailsModal, setShowPushDetailsModal] = useState(false);
+  const [selectedPushDetails, setSelectedPushDetails] = useState<any>(null);
+  const [showBrokerStatusModal, setShowBrokerStatusModal] = useState(false);
+  const [selectedBrokerStatus, setSelectedBrokerStatus] = useState<any>(null);
 
   // Filters
   const [statusFilter, setStatusFilter] = useState('');
@@ -139,6 +143,95 @@ export default function CRMDashboard() {
     } catch (error) {
       console.error('Error assigning lead:', error);
       alert('Error assigning lead');
+    }
+  };
+
+  const fetchLiveBrokerStatus = async (lead: Lead) => {
+    try {
+      console.log('🔄 Fetching live broker status for:', lead.id);
+
+      // Set loading state
+      setSelectedBrokerStatus({
+        lead,
+        loading: true,
+        status: lead.broker_status,
+        statusCode: lead.broker_status_code,
+        ftdExists: lead.ftd_exists,
+        tpAccount: lead.tp_account,
+        lastCheck: lead.last_status_check
+      });
+      setShowBrokerStatusModal(true);
+
+      // Check if lead is with Trading CRM or other broker
+      const isTradingCRM = lead.assigned_broker?.includes('Trading CRM') ||
+                          lead.assigned_broker?.includes('AFF 225X');
+
+      if (!isTradingCRM) {
+        // For Finoglob and other brokers, show current status only
+        console.log('ℹ️ Lead assigned to:', lead.assigned_broker, '- Showing current status');
+        setSelectedBrokerStatus({
+          lead,
+          loading: false,
+          status: lead.broker_status || 'Not available',
+          statusCode: lead.broker_status_code,
+          ftdExists: lead.ftd_exists || false,
+          tpAccount: lead.tp_account,
+          lastCheck: lead.last_status_check,
+          liveData: null,
+          info: `This lead is assigned to ${lead.assigned_broker || 'external broker'}. Live status sync is only available for Trading CRM leads.`
+        });
+        return;
+      }
+
+      // Fetch live status from Trading CRM
+      const response = await fetch('/api/trading-crm/sync-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ signupId: lead.id })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        console.log('✅ Live broker status fetched:', data);
+        setSelectedBrokerStatus({
+          lead: { ...lead, broker_status: data.status, broker_status_code: data.statusCode, ftd_exists: data.ftdExists, tp_account: data.tpAccount },
+          loading: false,
+          status: data.status,
+          statusCode: data.statusCode,
+          ftdExists: data.ftdExists,
+          tpAccount: data.tpAccount,
+          lastCheck: new Date().toISOString(),
+          liveData: data
+        });
+
+        // Refresh the table to show updated status
+        fetchData();
+      } else {
+        console.error('❌ Failed to fetch broker status:', data.error);
+        setSelectedBrokerStatus({
+          lead,
+          loading: false,
+          status: lead.broker_status,
+          statusCode: lead.broker_status_code,
+          ftdExists: lead.ftd_exists,
+          tpAccount: lead.tp_account,
+          lastCheck: lead.last_status_check,
+          error: data.error || 'Lead not found in Trading CRM'
+        });
+      }
+    } catch (error) {
+      console.error('❌ Error fetching broker status:', error);
+      setSelectedBrokerStatus({
+        lead,
+        loading: false,
+        status: lead.broker_status,
+        statusCode: lead.broker_status_code,
+        ftdExists: lead.ftd_exists,
+        tpAccount: lead.tp_account,
+        lastCheck: lead.last_status_check,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
     }
   };
 
@@ -356,19 +449,43 @@ export default function CRMDashboard() {
                         : 'Unassigned'}
                     </td>
                     <td>
-                      {lead.pushed_to_crm !== null ? (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      {lead.pushed_to_crm === true && lead.push_status_code ? (
+                        <div
+                          style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}
+                          onClick={() => {
+                            try {
+                              const details = lead.push_response ? JSON.parse(lead.push_response) : {
+                                status: lead.push_status_code,
+                                error: lead.push_error,
+                                raw: lead.push_response
+                              };
+                              setSelectedPushDetails({ lead, details });
+                              setShowPushDetailsModal(true);
+                            } catch (e) {
+                              setSelectedPushDetails({
+                                lead,
+                                details: {
+                                  status: lead.push_status_code,
+                                  error: lead.push_error,
+                                  raw: lead.push_response
+                                }
+                              });
+                              setShowPushDetailsModal(true);
+                            }
+                          }}
+                          title="Click to view full API response"
+                        >
                           <span
                             className={`status-badge ${lead.push_status_code === 200 ? 'status-push-success' : 'status-push-failed'}`}
-                            title={lead.push_response || lead.push_error || 'No details'}
                           >
-                            {lead.push_status_code === 200 ? '✅' : '❌'} {lead.push_status_code || '???'}
+                            {lead.push_status_code === 200 ? '✅' : '❌'} {lead.push_status_code}
                           </span>
                           {lead.pushed_at && (
                             <span style={{ fontSize: '0.85em', color: '#666' }}>
                               {new Date(lead.pushed_at).toLocaleDateString()}
                             </span>
                           )}
+                          <span style={{ fontSize: '0.75em', color: '#666' }}>🔍</span>
                         </div>
                       ) : (
                         <span style={{ color: '#999', fontSize: '0.9em' }}>Not pushed</span>
@@ -376,15 +493,26 @@ export default function CRMDashboard() {
                     </td>
                     <td>
                       {lead.broker_status ? (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <div
+                          style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}
+                          onClick={() => fetchLiveBrokerStatus(lead)}
+                          title="Click to fetch live broker status from Trading CRM"
+                        >
                           <span className={`status-badge status-broker-${lead.broker_status_code === 9 || lead.ftd_exists ? 'ftd' : 'active'}`}>
                             {lead.broker_status}
                           </span>
                           {lead.ftd_exists && <span title="First Time Deposit - Converted!">💰</span>}
                           {lead.tp_account && <span title={`Trading Account: ${lead.tp_account}`}>📊</span>}
+                          <span style={{ fontSize: '0.75em', color: '#666' }}>🔍</span>
                         </div>
                       ) : (
-                        <span style={{ color: '#999', fontSize: '0.9em' }}>Not synced</span>
+                        <span
+                          style={{ color: '#999', fontSize: '0.9em', cursor: 'pointer' }}
+                          onClick={() => fetchLiveBrokerStatus(lead)}
+                          title="Click to fetch broker status from Trading CRM"
+                        >
+                          Not synced 🔍
+                        </span>
                       )}
                     </td>
                     <td>{new Date(lead.created_at).toLocaleDateString()}</td>
@@ -468,6 +596,295 @@ export default function CRMDashboard() {
             <button className="btn-secondary" onClick={() => setShowAssignModal(false)}>
               Cancel
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Broker Status Modal */}
+      {showBrokerStatusModal && selectedBrokerStatus && (
+        <div className="modal-overlay" onClick={() => setShowBrokerStatusModal(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '800px', maxHeight: '90vh', overflow: 'auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h3>🏢 Live Broker Status</h3>
+              <button
+                onClick={() => setShowBrokerStatusModal(false)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  fontSize: '24px',
+                  cursor: 'pointer',
+                  color: '#666'
+                }}
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Loading State */}
+            {selectedBrokerStatus.loading && (
+              <div style={{ textAlign: 'center', padding: '40px' }}>
+                <div className="spinner" style={{ margin: '0 auto 20px' }}></div>
+                <p>Fetching live status from Trading CRM...</p>
+              </div>
+            )}
+
+            {/* Info Message */}
+            {!selectedBrokerStatus.loading && selectedBrokerStatus.info && (
+              <div style={{
+                background: '#d1ecf1',
+                padding: '15px',
+                borderRadius: '8px',
+                marginBottom: '20px',
+                border: '1px solid #bee5eb',
+                color: '#0c5460'
+              }}>
+                <strong>ℹ️ Info:</strong> {selectedBrokerStatus.info}
+              </div>
+            )}
+
+            {/* Error State */}
+            {!selectedBrokerStatus.loading && selectedBrokerStatus.error && !selectedBrokerStatus.info && (
+              <div style={{
+                background: '#f8d7da',
+                padding: '15px',
+                borderRadius: '8px',
+                marginBottom: '20px',
+                border: '1px solid #f5c6cb',
+                color: '#721c24'
+              }}>
+                <strong>❌ Error:</strong> {selectedBrokerStatus.error}
+              </div>
+            )}
+
+            {/* Content */}
+            {!selectedBrokerStatus.loading && (
+              <>
+                {/* Lead Info */}
+                <div style={{
+                  background: '#f8f9fa',
+                  padding: '15px',
+                  borderRadius: '8px',
+                  marginBottom: '20px',
+                  border: '1px solid #dee2e6'
+                }}>
+                  <h4 style={{ margin: '0 0 10px 0', fontSize: '16px' }}>Lead Information</h4>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', fontSize: '14px' }}>
+                    <div><strong>Name:</strong> {selectedBrokerStatus.lead.first_name} {selectedBrokerStatus.lead.last_name}</div>
+                    <div><strong>Email:</strong> {selectedBrokerStatus.lead.email}</div>
+                    <div><strong>Phone:</strong> {selectedBrokerStatus.lead.country_code}{selectedBrokerStatus.lead.phone_number}</div>
+                    <div><strong>Country:</strong> {selectedBrokerStatus.lead.country}</div>
+                    <div><strong>Broker:</strong> {selectedBrokerStatus.lead.assigned_broker || 'N/A'}</div>
+                    <div><strong>Last Check:</strong> {selectedBrokerStatus.lastCheck ? new Date(selectedBrokerStatus.lastCheck).toLocaleString() : 'Never'}</div>
+                  </div>
+                </div>
+
+                {/* Status Overview */}
+                <div style={{
+                  background: selectedBrokerStatus.ftdExists ? '#d4edda' : '#fff3cd',
+                  padding: '15px',
+                  borderRadius: '8px',
+                  marginBottom: '20px',
+                  border: `1px solid ${selectedBrokerStatus.ftdExists ? '#c3e6cb' : '#ffeaa7'}`
+                }}>
+                  <h4 style={{ margin: '0 0 10px 0', fontSize: '16px' }}>
+                    {selectedBrokerStatus.ftdExists ? '💰 Converted (FTD)' : '📊 Lead Status'}
+                  </h4>
+                  <div style={{ fontSize: '14px' }}>
+                    <div><strong>Status:</strong> {selectedBrokerStatus.status || 'Unknown'}</div>
+                    <div><strong>Status Code:</strong> {selectedBrokerStatus.statusCode || 'N/A'}</div>
+                    {selectedBrokerStatus.tpAccount && (
+                      <div style={{ marginTop: '5px' }}>
+                        <strong>Trading Account:</strong> {selectedBrokerStatus.tpAccount}
+                      </div>
+                    )}
+                    {selectedBrokerStatus.ftdExists && (
+                      <div style={{ marginTop: '10px', padding: '10px', background: '#28a745', color: 'white', borderRadius: '6px', fontWeight: 'bold' }}>
+                        🎉 FIRST TIME DEPOSIT CONFIRMED!
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Live Data Response */}
+                {selectedBrokerStatus.liveData && (
+                  <div style={{ marginBottom: '20px' }}>
+                    <h4 style={{ fontSize: '16px', marginBottom: '10px' }}>Trading CRM Response</h4>
+                    <div style={{ display: 'grid', gap: '10px', fontSize: '14px' }}>
+                      <div style={{ background: '#f8f9fa', padding: '10px', borderRadius: '6px' }}>
+                        <strong>Lead ID:</strong> {selectedBrokerStatus.liveData.leadId || 'N/A'}
+                      </div>
+                      <div style={{ background: '#f8f9fa', padding: '10px', borderRadius: '6px' }}>
+                        <strong>Updated:</strong> {selectedBrokerStatus.liveData.updated ? 'Yes ✅' : 'No changes'}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Full JSON Response */}
+                {selectedBrokerStatus.liveData && (
+                  <div>
+                    <h4 style={{ fontSize: '16px', marginBottom: '10px' }}>Full API Response (JSON)</h4>
+                    <pre style={{
+                      background: '#282c34',
+                      color: '#abb2bf',
+                      padding: '15px',
+                      borderRadius: '8px',
+                      overflow: 'auto',
+                      fontSize: '12px',
+                      lineHeight: '1.5',
+                      maxHeight: '400px'
+                    }}>
+                      {JSON.stringify(selectedBrokerStatus.liveData, null, 2)}
+                    </pre>
+                  </div>
+                )}
+
+                <div style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
+                  {selectedBrokerStatus.liveData && (
+                    <button
+                      className="btn-primary"
+                      onClick={() => {
+                        navigator.clipboard.writeText(JSON.stringify(selectedBrokerStatus.liveData, null, 2));
+                        alert('Response copied to clipboard!');
+                      }}
+                    >
+                      📋 Copy JSON
+                    </button>
+                  )}
+                  {!selectedBrokerStatus.info && (
+                    <button
+                      className="btn-primary"
+                      onClick={() => fetchLiveBrokerStatus(selectedBrokerStatus.lead)}
+                    >
+                      🔄 Refresh Status
+                    </button>
+                  )}
+                  <button className="btn-secondary" onClick={() => setShowBrokerStatusModal(false)}>
+                    Close
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Push Details Modal */}
+      {showPushDetailsModal && selectedPushDetails && (
+        <div className="modal-overlay" onClick={() => setShowPushDetailsModal(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '800px', maxHeight: '90vh', overflow: 'auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h3>📡 API Push Response</h3>
+              <button
+                onClick={() => setShowPushDetailsModal(false)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  fontSize: '24px',
+                  cursor: 'pointer',
+                  color: '#666'
+                }}
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Lead Info */}
+            <div style={{
+              background: '#f8f9fa',
+              padding: '15px',
+              borderRadius: '8px',
+              marginBottom: '20px',
+              border: '1px solid #dee2e6'
+            }}>
+              <h4 style={{ margin: '0 0 10px 0', fontSize: '16px' }}>Lead Information</h4>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', fontSize: '14px' }}>
+                <div><strong>Name:</strong> {selectedPushDetails.lead.first_name} {selectedPushDetails.lead.last_name}</div>
+                <div><strong>Email:</strong> {selectedPushDetails.lead.email}</div>
+                <div><strong>Phone:</strong> {selectedPushDetails.lead.country_code}{selectedPushDetails.lead.phone_number}</div>
+                <div><strong>Country:</strong> {selectedPushDetails.lead.country}</div>
+                <div><strong>Broker:</strong> {selectedPushDetails.lead.assigned_broker || 'N/A'}</div>
+                <div><strong>Pushed At:</strong> {selectedPushDetails.lead.pushed_at ? new Date(selectedPushDetails.lead.pushed_at).toLocaleString() : 'N/A'}</div>
+              </div>
+            </div>
+
+            {/* Status Overview */}
+            <div style={{
+              background: selectedPushDetails.lead.push_status_code === 200 ? '#d4edda' : '#f8d7da',
+              padding: '15px',
+              borderRadius: '8px',
+              marginBottom: '20px',
+              border: `1px solid ${selectedPushDetails.lead.push_status_code === 200 ? '#c3e6cb' : '#f5c6cb'}`
+            }}>
+              <h4 style={{ margin: '0 0 10px 0', fontSize: '16px' }}>
+                {selectedPushDetails.lead.push_status_code === 200 ? '✅ Success' : '❌ Failed'}
+              </h4>
+              <div style={{ fontSize: '14px' }}>
+                <div><strong>HTTP Status:</strong> {selectedPushDetails.lead.push_status_code}</div>
+                {selectedPushDetails.details.message && (
+                  <div style={{ marginTop: '5px' }}><strong>Message:</strong> {selectedPushDetails.details.message}</div>
+                )}
+                {selectedPushDetails.details.error && (
+                  <div style={{ marginTop: '5px', color: '#721c24' }}><strong>Error:</strong> {selectedPushDetails.details.error}</div>
+                )}
+              </div>
+            </div>
+
+            {/* API Response Details */}
+            {selectedPushDetails.details.success !== undefined && (
+              <div style={{ marginBottom: '20px' }}>
+                <h4 style={{ fontSize: '16px', marginBottom: '10px' }}>Response Summary</h4>
+                <div style={{ display: 'grid', gap: '10px', fontSize: '14px' }}>
+                  {selectedPushDetails.details.leadId && (
+                    <div style={{ background: '#f8f9fa', padding: '10px', borderRadius: '6px' }}>
+                      <strong>Lead ID:</strong> {selectedPushDetails.details.leadId}
+                    </div>
+                  )}
+                  {selectedPushDetails.details.redirectUrl && (
+                    <div style={{ background: '#f8f9fa', padding: '10px', borderRadius: '6px' }}>
+                      <strong>Redirect URL:</strong> <a href={selectedPushDetails.details.redirectUrl} target="_blank" rel="noopener noreferrer">{selectedPushDetails.details.redirectUrl}</a>
+                    </div>
+                  )}
+                  {selectedPushDetails.details.timestamp && (
+                    <div style={{ background: '#f8f9fa', padding: '10px', borderRadius: '6px' }}>
+                      <strong>Timestamp:</strong> {new Date(selectedPushDetails.details.timestamp).toLocaleString()}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Full JSON Response */}
+            <div>
+              <h4 style={{ fontSize: '16px', marginBottom: '10px' }}>Full API Response (JSON)</h4>
+              <pre style={{
+                background: '#282c34',
+                color: '#abb2bf',
+                padding: '15px',
+                borderRadius: '8px',
+                overflow: 'auto',
+                fontSize: '12px',
+                lineHeight: '1.5',
+                maxHeight: '400px'
+              }}>
+                {JSON.stringify(selectedPushDetails.details, null, 2)}
+              </pre>
+            </div>
+
+            <div style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
+              <button
+                className="btn-primary"
+                onClick={() => {
+                  navigator.clipboard.writeText(JSON.stringify(selectedPushDetails.details, null, 2));
+                  alert('Response copied to clipboard!');
+                }}
+              >
+                📋 Copy JSON
+              </button>
+              <button className="btn-secondary" onClick={() => setShowPushDetailsModal(false)}>
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}
