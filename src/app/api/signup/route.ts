@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
 
     // Validate required fields (NO PASSWORD REQUIRED!)
-    const { firstName, lastName, email, countryCode, phoneNumber, country, termsAccepted, language } = data;
+    const { firstName, lastName, email, countryCode, phoneNumber, country, termsAccepted, language, tradingExperience, accountSize } = data;
 
     if (!firstName || !lastName || !email || !countryCode || !phoneNumber || !country) {
       return NextResponse.json(
@@ -72,6 +72,8 @@ export async function POST(request: NextRequest) {
       phone_number: phoneNumber,
       country,
       detected_country: detectedCountry,
+      trading_experience: tradingExperience || null,
+      account_size: accountSize || null,
       terms_accepted: termsAccepted,
       ip_address: ip,
       user_agent: userAgent,

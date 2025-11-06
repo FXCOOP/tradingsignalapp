@@ -21,6 +21,10 @@ CREATE TABLE signups (
   country VARCHAR(10) NOT NULL,
   detected_country VARCHAR(10),
 
+  -- Trading Profile (Optional)
+  trading_experience VARCHAR(50),
+  account_size VARCHAR(50),
+
   -- Terms & Conditions
   terms_accepted BOOLEAN NOT NULL DEFAULT true,
   terms_accepted_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),

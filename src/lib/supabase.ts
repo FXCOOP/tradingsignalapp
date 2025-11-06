@@ -51,6 +51,8 @@ export interface SignupData {
   phone_number: string
   country: string
   detected_country?: string | null
+  trading_experience?: string | null
+  account_size?: string | null
   terms_accepted: boolean
   ip_address?: string | null
   user_agent?: string | null

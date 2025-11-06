@@ -60,6 +60,8 @@ interface SignupFormData {
   phoneNumber: string;
   country: string;
   language: string;
+  tradingExperience?: string;
+  accountSize?: string;
   termsAccepted: boolean;
 }
 
@@ -80,6 +82,8 @@ export default function SignupPopupImproved({ variant = 1, delay = 10000, onClos
     phoneNumber: '',
     country: 'AE',
     language: 'en',
+    tradingExperience: '',
+    accountSize: '',
     termsAccepted: true,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -401,6 +405,50 @@ export default function SignupPopupImproved({ variant = 1, delay = 10000, onClos
                     required
                   />
                 </div>
+              </div>
+
+              {/* Trading Experience - Optional */}
+              <div className="form-group-improved">
+                <label className="label-improved">
+                  <span className="label-icon">📊</span>
+                  Current Trading Experience
+                  <span className="optional-badge">(Optional)</span>
+                </label>
+                <select
+                  name="tradingExperience"
+                  value={formData.tradingExperience}
+                  onChange={handleChange}
+                  className="select-improved"
+                >
+                  <option value="">Select your level</option>
+                  <option value="beginner">🌱 Beginner - New to trading</option>
+                  <option value="intermediate">📈 Intermediate - Some experience</option>
+                  <option value="advanced">⭐ Advanced - Experienced trader</option>
+                  <option value="professional">💎 Professional - Full-time trader</option>
+                </select>
+              </div>
+
+              {/* Account Size - Optional */}
+              <div className="form-group-improved">
+                <label className="label-improved">
+                  <span className="label-icon">💰</span>
+                  Account Size
+                  <span className="optional-badge">(Optional)</span>
+                </label>
+                <select
+                  name="accountSize"
+                  value={formData.accountSize}
+                  onChange={handleChange}
+                  className="select-improved"
+                >
+                  <option value="">Select range</option>
+                  <option value="under-1k">Under $1,000</option>
+                  <option value="1k-5k">$1,000 - $5,000</option>
+                  <option value="5k-10k">$5,000 - $10,000</option>
+                  <option value="10k-50k">$10,000 - $50,000</option>
+                  <option value="50k-100k">$50,000 - $100,000</option>
+                  <option value="over-100k">Over $100,000</option>
+                </select>
               </div>
 
               {/* Terms */}
