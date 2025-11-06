@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Connection Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #00ff00;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            background: #2a2a2a;
+            border-left: 3px solid #00ff00;
+        }
+        .error {
+            border-left-color: #ff0000;
+            color: #ff6b6b;
+        }
+        .success {
+            border-left-color: #00ff00;
+            color: #51cf66;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 16px;
+            background: #00ff00;
+            color: #1a1a1a;
+            border: none;
+            cursor: pointer;
+            margin: 10px 5px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #00cc00;
+        }
+        pre {
+            background: #0a0a0a;
+            padding: 15px;
+            overflow-x: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Supabase Connection Diagnostic Tool</h1>
+    <p>This tool will help diagnose why your form submissions are failing.</p>
+
+    <button onclick="testConnection()">1. Test Connection</button>
+    <button onclick="testTableExists()">2. Check Table Exists</button>
+    <button onclick="testInsert()">3. Test Insert</button>
+    <button onclick="testRLSPolicies()">4. Check RLS Policies</button>
+
+    <div id="results"></div>
+
+    <script>
+        // Your Supabase credentials (from trading-mentor-site.html)
+        const SUPABASE_URL = 'https://bsupjdeayuylynsdmfdx.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzdXBqZGVheXV5bHluc2RtZmR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2NDg4OTgsImV4cCI6MjA3NTIyNDg5OH0.9GYAHxRfLjoSlxmgsb3HTDoTeLcy3pnhYNvT59obIxY';
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const resultsDiv = document.getElementById('results');
+
+        function log(message, type = 'result') {
+            const div = document.createElement('div');
+            div.className = `result ${type}`;
+            div.innerHTML = message;
+            resultsDiv.appendChild(div);
+            console.log(message);
+        }
+
+        async function testConnection() {
+            resultsDiv.innerHTML = '';
+            log('<h2>Test 1: Connection Test</h2>');
+
+            try {
+                log('📡 Testing connection to Supabase...');
+                log(`URL: ${SUPABASE_URL}`);
+                log(`Key: ${SUPABASE_ANON_KEY.substring(0, 20)}...`);
+
+                // Try a simple query
+                const { data, error } = await supabase.from('signups').select('count', { count: 'exact', head: true });
+
+                if (error) {
+                    log(`❌ Connection Error: ${error.message}`, 'error');
+                    log(`<pre>${JSON.stringify(error, null, 2)}</pre>`, 'error');
+                } else {
+                    log('✅ Successfully connected to Supabase!', 'success');
+                }
+            } catch (err) {
+                log(`❌ Unexpected error: ${err.message}`, 'error');
+            }
+        }
+
+        async function testTableExists() {
+            resultsDiv.innerHTML = '';
+            log('<h2>Test 2: Check if "signups" table exists</h2>');
+
+            try {
+                log('🔍 Checking if "signups" table exists...');
+
+                const { data, error } = await supabase.from('signups').select('*').limit(1);
+
+                if (error) {
+                    if (error.message.includes('relation') || error.message.includes('does not exist')) {
+                        log('❌ TABLE DOES NOT EXIST!', 'error');
+                        log('');
+                        log('💡 Solution: You need to create the table in Supabase:', 'error');
+                        log('1. Go to https://supabase.com/dashboard/project/bsupjdeayuylynsdmfdx/editor', 'error');
+                        log('2. Open SQL Editor', 'error');
+                        log('3. Copy and paste the contents of supabase-simple.sql', 'error');
+                        log('4. Click "Run" to create the table', 'error');
+                    } else {
+                        log(`❌ Error: ${error.message}`, 'error');
+                        log(`<pre>${JSON.stringify(error, null, 2)}</pre>`, 'error');
+                    }
+                } else {
+                    log('✅ Table "signups" exists!', 'success');
+                    log(`📊 Sample data (if any): ${data.length} records found`);
+                    if (data.length > 0) {
+                        log(`<pre>${JSON.stringify(data[0], null, 2)}</pre>`);
+                    }
+                }
+            } catch (err) {
+                log(`❌ Unexpected error: ${err.message}`, 'error');
+            }
+        }
+
+        async function testInsert() {
+            resultsDiv.innerHTML = '';
+            log('<h2>Test 3: Test INSERT operation</h2>');
+
+            try {
+                log('📝 Attempting to insert test record...');
+
+                const testData = {
+                    first_name: 'Test',
+                    last_name: 'User',
+                    email: `test_${Date.now()}@example.com`,
+                    phone_number: '+60123456789',
+                    country: 'Malaysia',
+                    country_code: '+60',
+                    trading_experience: 'beginner',
+                    account_size: '$1000-$5000',
+                    lead_source: 'test-script',
+                    lead_type: 'test',
+                    lead_status: 'new',
+                    terms_accepted: true,
+                    page_language: 'en',
+                    signup_timestamp: new Date().toISOString()
+                };
+
+                log('<pre>' + JSON.stringify(testData, null, 2) + '</pre>');
+
+                const { data, error } = await supabase
+                    .from('signups')
+                    .insert([testData])
+                    .select();
+
+                if (error) {
+                    log(`❌ INSERT FAILED: ${error.message}`, 'error');
+                    log(`<pre>${JSON.stringify(error, null, 2)}</pre>`, 'error');
+
+                    if (error.message.includes('policy')) {
+                        log('');
+                        log('💡 This is an RLS (Row Level Security) policy issue!', 'error');
+                        log('The table exists but anonymous users are not allowed to insert.', 'error');
+                        log('Run Test 4 to check RLS policies.', 'error');
+                    }
+                } else {
+                    log('✅ INSERT SUCCESSFUL!', 'success');
+                    log('Test record created:');
+                    log(`<pre>${JSON.stringify(data, null, 2)}</pre>`, 'success');
+                }
+            } catch (err) {
+                log(`❌ Unexpected error: ${err.message}`, 'error');
+            }
+        }
+
+        async function testRLSPolicies() {
+            resultsDiv.innerHTML = '';
+            log('<h2>Test 4: Check RLS Policies</h2>');
+
+            log('📋 To fix RLS policies, run this SQL in Supabase SQL Editor:');
+            log('<pre>-- Enable RLS\nALTER TABLE signups ENABLE ROW LEVEL SECURITY;\n\n-- Allow anonymous INSERT\nCREATE POLICY "Enable insert for anon users" ON signups\n    FOR INSERT TO anon WITH CHECK (true);\n\n-- Allow authenticated SELECT\nCREATE POLICY "Enable read for authenticated users" ON signups\n    FOR SELECT TO authenticated USING (true);</pre>');
+
+            log('');
+            log('🔗 Direct link to SQL Editor:');
+            log('<a href="https://supabase.com/dashboard/project/bsupjdeayuylynsdmfdx/sql/new" target="_blank" style="color: #00ff00;">Open Supabase SQL Editor</a>');
+        }
+    </script>
+</body>
+</html>

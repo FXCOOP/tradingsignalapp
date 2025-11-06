@@ -274,6 +274,29 @@
   color: #7f1d1d;
 }
 
+/* Broker Status Badges (from Trading CRM) */
+.status-broker-ftd {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.5);
+  }
+}
+
+.status-broker-active {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
 /* Buttons */
 .btn-primary {
   background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);

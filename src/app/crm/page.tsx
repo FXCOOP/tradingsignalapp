@@ -33,6 +33,12 @@ interface Lead {
   country: string;
   lead_status: string;
   assigned_broker_id: string | null;
+  assigned_broker: string | null;
+  broker_status: string | null;
+  broker_status_code: number | null;
+  ftd_exists: boolean | null;
+  tp_account: string | null;
+  last_status_check: string | null;
   created_at: string;
 }
 
@@ -318,6 +324,7 @@ export default function CRMDashboard() {
                 <th>Country</th>
                 <th>Status</th>
                 <th>Broker</th>
+                <th>Broker Status</th>
                 <th>Created</th>
                 <th>Actions</th>
               </tr>
@@ -338,9 +345,22 @@ export default function CRMDashboard() {
                       </span>
                     </td>
                     <td>
-                      {lead.assigned_broker_id
-                        ? brokers.find(b => b.id === lead.assigned_broker_id)?.name || 'Unknown'
+                      {lead.assigned_broker || lead.assigned_broker_id
+                        ? (lead.assigned_broker || brokers.find(b => b.id === lead.assigned_broker_id)?.name || 'Unknown')
                         : 'Unassigned'}
+                    </td>
+                    <td>
+                      {lead.broker_status ? (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <span className={`status-badge status-broker-${lead.broker_status_code === 9 || lead.ftd_exists ? 'ftd' : 'active'}`}>
+                            {lead.broker_status}
+                          </span>
+                          {lead.ftd_exists && <span title="First Time Deposit - Converted!">💰</span>}
+                          {lead.tp_account && <span title={`Trading Account: ${lead.tp_account}`}>📊</span>}
+                        </div>
+                      ) : (
+                        <span style={{ color: '#999', fontSize: '0.9em' }}>Not synced</span>
+                      )}
                     </td>
                     <td>{new Date(lead.created_at).toLocaleDateString()}</td>
                     <td>

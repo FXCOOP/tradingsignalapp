@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quick Supabase Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .success {
+            background: #d1fae5;
+            border: 2px solid #059669;
+            color: #065f46;
+        }
+        .error {
+            background: #fee2e2;
+            border: 2px solid #dc2626;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Quick Supabase Insert Test</h1>
+        <p>This will test if anonymous users can insert data into your signups table.</p>
+
+        <button onclick="testInsert()">🚀 Test Insert Now</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://bsupjdeayuylynsdmfdx.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzdXBqZGVheXV5bHluc2RtZmR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2NDg4OTgsImV4cCI6MjA3NTIyNDg5OH0.9GYAHxRfLjoSlxmgsb3HTDoTeLcy3pnhYNvT59obIxY';
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function testInsert() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>⏳ Testing...</p>';
+
+            try {
+                const testData = {
+                    first_name: 'Test',
+                    last_name: 'User',
+                    email: `test_${Date.now()}@example.com`,
+                    phone_number: '+60123334567',
+                    country: 'Malaysia',
+                    country_code: '+60',
+                    trading_experience: 'beginner',
+                    account_size: '$1000-$5000',
+                    lead_source: 'quick-test',
+                    lead_type: 'test',
+                    lead_status: 'new',
+                    terms_accepted: true,
+                    page_language: 'en',
+                    signup_timestamp: new Date().toISOString()
+                };
+
+                console.log('📝 Sending data:', testData);
+
+                const { data, error } = await supabase
+                    .from('signups')
+                    .insert([testData])
+                    .select();
+
+                if (error) {
+                    console.error('❌ Error:', error);
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+❌ INSERT FAILED
+
+Error Code: ${error.code || 'N/A'}
+Error Message: ${error.message}
+Error Details: ${error.details || 'N/A'}
+Error Hint: ${error.hint || 'N/A'}
+
+Full Error Object:
+${JSON.stringify(error, null, 2)}
+                    `.trim();
+                } else {
+                    console.log('✅ Success:', data);
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+✅ INSERT SUCCESSFUL!
+
+The RLS policies are working correctly!
+Your form should be working now.
+
+Inserted Data:
+${JSON.stringify(data[0], null, 2)}
+                    `.trim();
+                }
+            } catch (err) {
+                console.error('💥 Unexpected error:', err);
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+💥 UNEXPECTED ERROR
+
+${err.message}
+
+Stack Trace:
+${err.stack}
+                `.trim();
+            }
+        }
+
+        // Auto-run test on page load
+        window.addEventListener('load', () => {
+            console.log('🔧 Page loaded. Click the button to test insert.');
+        });
+    </script>
+</body>
+</html>
