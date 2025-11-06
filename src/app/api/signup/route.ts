@@ -4,7 +4,43 @@ import { createTradingCRMClient, TradingCRMClient } from '@/lib/trading-crm-api'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+// Handle OPTIONS request (CORS preflight)
+export async function OPTIONS(request: NextRequest) {
+  const origin = request.headers.get('origin');
+  const allowedOrigins = [
+    'https://trading.the-future-of-online-trading.online',
+    'https://pkpulse-crm.onrender.com',
+    'https://tradeflow.blog',
+    'http://localhost:3000'
+  ];
+
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': allowedOrigins.includes(origin || '') ? origin! : allowedOrigins[0],
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Max-Age': '86400',
+    },
+  });
+}
+
 export async function POST(request: NextRequest) {
+  // Add CORS headers to allow external domain
+  const origin = request.headers.get('origin');
+  const allowedOrigins = [
+    'https://trading.the-future-of-online-trading.online',
+    'https://pkpulse-crm.onrender.com',
+    'https://tradeflow.blog',
+    'http://localhost:3000'
+  ];
+
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': allowedOrigins.includes(origin || '') ? origin! : allowedOrigins[0],
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  };
+
   try {
     const data = await request.json();
 
@@ -14,7 +50,7 @@ export async function POST(request: NextRequest) {
     if (!firstName || !lastName || !email || !countryCode || !phoneNumber || !country) {
       return NextResponse.json(
         { error: 'All fields are required' },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -22,7 +58,7 @@ export async function POST(request: NextRequest) {
     if (!termsAccepted) {
       return NextResponse.json(
         { error: 'You must accept the terms and conditions' },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -31,7 +67,7 @@ export async function POST(request: NextRequest) {
     if (!emailRegex.test(email)) {
       return NextResponse.json(
         { error: 'Invalid email format' },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -40,7 +76,7 @@ export async function POST(request: NextRequest) {
     if (existingSignup) {
       return NextResponse.json(
         { error: 'This email has already been registered' },
-        { status: 409 }
+        { status: 409, headers: corsHeaders }
       );
     }
 
@@ -170,7 +206,7 @@ export async function POST(request: NextRequest) {
         token, // Send token for auto-login
         brokerPush: brokerPushResult // Include broker push result
       },
-      { status: 200 }
+      { status: 200, headers: corsHeaders }
     );
 
   } catch (error: any) {
@@ -183,12 +219,26 @@ export async function POST(request: NextRequest) {
       stack: error?.stack
     });
 
+    // Get CORS headers for error response
+    const origin = request.headers.get('origin');
+    const allowedOrigins = [
+      'https://trading.the-future-of-online-trading.online',
+      'https://pkpulse-crm.onrender.com',
+      'https://tradeflow.blog',
+      'http://localhost:3000'
+    ];
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': allowedOrigins.includes(origin || '') ? origin! : allowedOrigins[0],
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    };
+
     return NextResponse.json(
       {
         error: error?.message || 'Internal server error',
         details: error?.details || error?.hint || 'Please try again or contact support'
       },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
