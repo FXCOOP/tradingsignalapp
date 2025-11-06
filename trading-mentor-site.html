@@ -1322,6 +1322,28 @@
             }
         }
     </style>
+
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Supabase Configuration -->
+    <script>
+        // Initialize Supabase client
+        const SUPABASE_URL = 'https://bsupjdeayuylynsdmfdx.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzdXBqZGVheXV5bHluc2RtZmR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2NDg4OTgsImV4cCI6MjA3NTIyNDg5OH0.9GYAHxRfLjoSlxmgsb3HTDoTeLcy3pnhYNvT59obIxY';
+
+        let supabase = null;
+
+        // Wait for Supabase library to load
+        window.addEventListener('DOMContentLoaded', function() {
+            if (window.supabase) {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                console.log('✅ Supabase connected');
+            } else {
+                console.error('❌ Supabase library not loaded');
+            }
+        });
+    </script>
 </head>
 <body>
 
@@ -3441,7 +3463,7 @@
             document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
         }
 
-        function handleSignup(event) {
+        async function handleSignup(event) {
             event.preventDefault();
 
             const submitBtn = event.target.querySelector('.submit-btn');
@@ -3469,10 +3491,9 @@
                 utmCampaign: getUrlParameter('utm_campaign') || 'none'
             };
 
-            // Simulate delay for better UX
-            setTimeout(() => {
-                // 🔥 Send to broker's CRM
-                sendLeadToBroker(data);
+            try {
+                // 🔥 Send to Supabase CRM
+                await sendLeadToBroker(data);
 
                 // Show success
                 document.getElementById('signupForm').style.display = 'none';
@@ -3481,30 +3502,96 @@
                 // Track conversion
                 trackConversion(data);
 
-                // Reset button
+            } catch (error) {
+                console.error('Signup error:', error);
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
                 submitBtn.style.opacity = '1';
-            }, 1500);
+            }
         }
 
-        function sendLeadToBroker(data) {
-            // Replace with broker's actual API
-            fetch('https://your-broker-crm.com/api/leads', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer YOUR_API_KEY'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(result => {
-                console.log('Lead sent:', result);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+        async function sendLeadToBroker(data) {
+            if (!supabase) {
+                console.error('❌ Supabase not initialized');
+                alert('Connection error. Please try again.');
+                return;
+            }
+
+            try {
+                // Split full name into first and last name
+                const nameParts = data.fullName.trim().split(' ');
+                const firstName = nameParts[0];
+                const lastName = nameParts.slice(1).join(' ') || nameParts[0];
+
+                // Extract country code and phone number
+                const phoneClean = data.phone.replace(/[^\d+]/g, '');
+                const countryCode = phoneClean.startsWith('+') ? phoneClean.substring(0, phoneClean.length - 9) : '+60';
+                const phoneNumber = phoneClean.slice(phoneClean.length - 9);
+
+                // Map country code to ISO
+                const countryMap = {
+                    '+60': 'MY',
+                    '+65': 'SG',
+                    '+86': 'CN',
+                    '+886': 'TW',
+                    '+852': 'HK',
+                    '+91': 'IN',
+                    '+39': 'IT',
+                    '+33': 'FR',
+                    '+55': 'BR',
+                    '+90': 'TR'
+                };
+
+                const country = countryMap[countryCode] || 'MY';
+
+                // Get client IP
+                let ipAddress = null;
+                try {
+                    const ipResponse = await fetch('https://api.ipify.org?format=json');
+                    const ipData = await ipResponse.json();
+                    ipAddress = ipData.ip;
+                } catch (e) {
+                    console.log('Could not get IP');
+                }
+
+                // Prepare data for Supabase
+                const signupData = {
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: data.email,
+                    country_code: countryCode,
+                    phone_number: phoneNumber,
+                    country: country,
+                    trading_experience: data.experience || null,
+                    account_size: data.accountSize || null,
+                    terms_accepted: true,
+                    ip_address: ipAddress,
+                    user_agent: navigator.userAgent,
+                    referrer: document.referrer || null,
+                    utm_source: data.utmSource || null,
+                    utm_medium: data.utmMedium || null,
+                    utm_campaign: data.utmCampaign || null
+                };
+
+                // Insert into Supabase
+                const { data: result, error } = await supabase
+                    .from('signups')
+                    .insert([signupData])
+                    .select();
+
+                if (error) {
+                    console.error('❌ Supabase error:', error);
+                    throw error;
+                }
+
+                console.log('✅ Lead saved to Supabase:', result);
+                return result;
+
+            } catch (error) {
+                console.error('❌ Error saving lead:', error);
+                alert('There was an error submitting your information. Please try again or contact support.');
+                throw error;
+            }
         }
 
         function trackConversion(data) {
