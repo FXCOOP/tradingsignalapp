@@ -3966,26 +3966,41 @@
                 signup_timestamp: new Date().toISOString()
             };
 
-            console.log('📝 Submitting signup data to Supabase...');
+            console.log('📝 Submitting signup via API...');
             console.log('📊 Data:', signupData);
 
             try {
-                // Save to Supabase
-                const { data, error } = await supabase
-                    .from('signups')
-                    .insert([signupData])
-                    .select();
+                // Call API endpoint (will auto-push to broker)
+                const response = await fetch('/api/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        firstName: signupData.first_name,
+                        lastName: signupData.last_name,
+                        email: signupData.email,
+                        countryCode: signupData.country_code,
+                        phoneNumber: signupData.phone_number,
+                        country: signupData.country,
+                        tradingExperience: signupData.trading_experience,
+                        accountSize: signupData.account_size,
+                        termsAccepted: true,
+                        language: signupData.page_language,
+                        detectedCountry: signupData.detected_country
+                    })
+                });
 
-                if (error) {
-                    console.error('❌ Supabase error:', error);
-                    throw error;
+                const result = await response.json();
+
+                if (!response.ok) {
+                    console.error('❌ API error:', result);
+                    throw new Error(result.error || 'Signup failed');
                 }
 
-                console.log('✅ Lead saved to Supabase successfully!');
-                console.log('💾 Saved record:', data);
-
-                // Lead will be auto-assigned to broker by CRM system
-                console.log('✅ Lead ready for broker assignment in CRM');
+                console.log('✅ Lead saved and pushed to broker successfully!');
+                console.log('💾 Result:', result);
+                console.log('🚀 Auto-pushed to Trading CRM (if supported country)');
 
                 // Show success
                 document.getElementById('signupForm').style.display = 'none';
@@ -3994,8 +4009,8 @@
                 // Track conversion
                 trackConversion(signupData);
 
-                // Optional: Send confirmation email (if you have email service)
-                console.log('📧 Email notification will be sent to:', signupData.email);
+                // User will receive automatic notifications
+                console.log('📧 Notifications will be sent to:', signupData.email);
 
             } catch (error) {
                 console.error('❌ Error submitting form:', error);
