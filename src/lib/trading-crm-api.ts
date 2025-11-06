@@ -103,7 +103,7 @@ export class TradingCRMClient {
    * Authenticate and get bearer token
    * Trading CRM uses Basic Auth to get Bearer token
    */
-  private async authenticate(): Promise<string> {
+  async authenticate(): Promise<string> {
     // Check if we have a valid cached token
     if (this.bearerToken && this.tokenExpiry && this.tokenExpiry > new Date()) {
       return this.bearerToken;
