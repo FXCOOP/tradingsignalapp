@@ -70,8 +70,6 @@ export interface TradingCRMResponse {
 
 export class TradingCRMClient {
   private config: TradingCRMConfig;
-  private bearerToken: string | null = null;
-  private tokenExpiry: Date | null = null;
 
   constructor(config: TradingCRMConfig) {
     this.config = config;
@@ -100,47 +98,13 @@ export class TradingCRMClient {
   }
 
   /**
-   * Authenticate and get bearer token
-   * Trading CRM uses Basic Auth to get Bearer token
+   * Get Basic Auth credentials (Trading CRM uses Basic Auth directly, no token endpoint)
    */
   async authenticate(): Promise<string> {
-    // Check if we have a valid cached token
-    if (this.bearerToken && this.tokenExpiry && this.tokenExpiry > new Date()) {
-      return this.bearerToken;
-    }
-
-    try {
-      // Create Basic Auth header
-      const credentials = Buffer.from(`${this.config.username}:${this.config.password}`).toString('base64');
-
-      // Note: You may need to adjust the auth endpoint based on Trading CRM documentation
-      // This is a placeholder - replace with actual token endpoint if different
-      const authEndpoint = this.config.apiEndpoint.replace('/accounts/registrationwithsso', '/auth/token');
-
-      const response = await fetch(authEndpoint, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Basic ${credentials}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`Authentication failed: ${response.status} ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      this.bearerToken = data.token || data.access_token;
-
-      // Set token expiry (default 1 hour if not provided)
-      const expiryMinutes = data.expires_in ? data.expires_in / 60 : 60;
-      this.tokenExpiry = new Date(Date.now() + expiryMinutes * 60 * 1000);
-
-      return this.bearerToken!;
-    } catch (error) {
-      console.error('Trading CRM authentication error:', error);
-      throw new Error('Failed to authenticate with Trading CRM API');
-    }
+    // Trading CRM SSO uses Basic Auth directly, so we just return the credentials
+    // No separate token endpoint needed
+    const credentials = Buffer.from(`${this.config.username}:${this.config.password}`).toString('base64');
+    return `Basic ${credentials}`;
   }
 
   /**
@@ -188,8 +152,8 @@ export class TradingCRMClient {
         };
       }
 
-      // Get bearer token
-      const token = await this.authenticate();
+      // Get Basic Auth credentials
+      const authHeader = await this.authenticate();
 
       // Format payload
       const payload = this.formatPayload(lead);
@@ -200,16 +164,17 @@ export class TradingCRMClient {
         email: lead.email,
         country: lead.country,
         language: payload.language,
+        auth: 'Basic Auth (username: ' + this.config.username + ')',
       });
       console.log('📤 Exact Payload (JSON):', JSON.stringify(payload, null, 2));
 
-      // Send request
+      // Send request with Basic Auth
       const response = await fetch(this.config.apiEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json-patch+json',
           'Accept': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          'Authorization': authHeader,
         },
         body: JSON.stringify(payload),
       });
