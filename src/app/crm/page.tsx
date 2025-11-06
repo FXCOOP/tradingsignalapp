@@ -39,6 +39,11 @@ interface Lead {
   ftd_exists: boolean | null;
   tp_account: string | null;
   last_status_check: string | null;
+  pushed_to_crm: boolean | null;
+  push_status_code: number | null;
+  push_response: string | null;
+  pushed_at: string | null;
+  push_error: string | null;
   created_at: string;
 }
 
@@ -324,6 +329,7 @@ export default function CRMDashboard() {
                 <th>Country</th>
                 <th>Status</th>
                 <th>Broker</th>
+                <th>Push Status</th>
                 <th>Broker Status</th>
                 <th>Created</th>
                 <th>Actions</th>
@@ -348,6 +354,25 @@ export default function CRMDashboard() {
                       {lead.assigned_broker || lead.assigned_broker_id
                         ? (lead.assigned_broker || brokers.find(b => b.id === lead.assigned_broker_id)?.name || 'Unknown')
                         : 'Unassigned'}
+                    </td>
+                    <td>
+                      {lead.pushed_to_crm !== null ? (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <span
+                            className={`status-badge ${lead.push_status_code === 200 ? 'status-push-success' : 'status-push-failed'}`}
+                            title={lead.push_response || lead.push_error || 'No details'}
+                          >
+                            {lead.push_status_code === 200 ? '✅' : '❌'} {lead.push_status_code || '???'}
+                          </span>
+                          {lead.pushed_at && (
+                            <span style={{ fontSize: '0.85em', color: '#666' }}>
+                              {new Date(lead.pushed_at).toLocaleDateString()}
+                            </span>
+                          )}
+                        </div>
+                      ) : (
+                        <span style={{ color: '#999', fontSize: '0.9em' }}>Not pushed</span>
+                      )}
                     </td>
                     <td>
                       {lead.broker_status ? (

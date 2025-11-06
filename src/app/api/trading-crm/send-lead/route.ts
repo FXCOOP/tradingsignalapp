@@ -125,6 +125,18 @@ export async function POST(request: NextRequest) {
             api_response: result.rawResponse,
             error_message: result.error,
           });
+
+        // Update signup with push failure
+        await supabase
+          .from('signups')
+          .update({
+            pushed_to_crm: false,
+            push_status_code: 500,
+            push_response: result.error,
+            push_error: result.error,
+            pushed_at: new Date().toISOString(),
+          })
+          .eq('id', signupId);
       }
 
       return NextResponse.json(
@@ -151,12 +163,17 @@ export async function POST(request: NextRequest) {
           error_message: null,
         });
 
-      // Update signup status
+      // Update signup with push success
       await supabase
         .from('signups')
         .update({
           crm_status: 'sent_to_broker',
           assigned_broker: 'Trading CRM - AFF 225X',
+          pushed_to_crm: true,
+          push_status_code: 200,
+          push_response: 'Lead successfully sent to Trading CRM',
+          push_error: null,
+          pushed_at: new Date().toISOString(),
         })
         .eq('id', signupId);
     }
