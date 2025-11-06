@@ -90,26 +90,36 @@ export async function POST(request: NextRequest) {
     console.log('✅ Signup created in CRM:', signup.id);
 
     // 🚀 AUTO-PUSH TO BROKER (Trading CRM)
-    // Check if country is supported for Trading CRM
+    let brokerPushResult = null;
     if (TradingCRMClient.isSupportedCountry(country)) {
       console.log('🔄 Auto-pushing lead to Trading CRM...', { email, country });
 
-      // Push to Trading CRM in background (don't block signup)
-      pushLeadToBroker(signup, {
-        firstName,
-        lastName,
-        email,
-        phone: `${countryCode}${phoneNumber}`,
-        country,
-        language: language || 'en',
-        ip,
-        signupId: signup.id
-      }).catch(error => {
-        console.error('❌ Failed to auto-push to Trading CRM:', error);
+      try {
+        // Push to Trading CRM (SYNCHRONOUS for better error tracking)
+        await pushLeadToBroker(signup, {
+          firstName,
+          lastName,
+          email,
+          phone: `${countryCode}${phoneNumber}`,
+          country,
+          language: language || 'en',
+          ip,
+          signupId: signup.id
+        });
+        brokerPushResult = { success: true, message: 'Lead pushed to Trading CRM' };
+        console.log('✅ Lead successfully auto-pushed to Trading CRM');
+      } catch (error) {
+        console.error('❌ CRITICAL: Failed to auto-push to Trading CRM:', error);
+        console.error('❌ Error details:', error instanceof Error ? error.message : error);
+        brokerPushResult = {
+          success: false,
+          error: error instanceof Error ? error.message : 'Unknown error'
+        };
         // Don't fail the signup if broker push fails
-      });
+      }
     } else {
       console.log('ℹ️ Country not supported for Trading CRM:', country);
+      brokerPushResult = { success: false, message: `Country ${country} not supported` };
     }
 
     // Generate random password for passwordless signup
@@ -157,7 +167,8 @@ export async function POST(request: NextRequest) {
           access_level: user.access_level,
           isPremium: true
         },
-        token // Send token for auto-login
+        token, // Send token for auto-login
+        brokerPush: brokerPushResult // Include broker push result
       },
       { status: 200 }
     );
