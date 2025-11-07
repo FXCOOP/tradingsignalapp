@@ -125,37 +125,46 @@ export async function POST(request: NextRequest) {
 
     console.log('✅ Signup created in CRM:', signup.id);
 
-    // 🚀 AUTO-PUSH TO BROKER (Trading CRM)
+    // 🤖 AUTOMATED BROKER ASSIGNMENT based on YOUR RULES
+    // Step 1: Save to CRM ✅ (done above)
+    // Step 2: Apply rules and push to correct broker automatically
     let brokerPushResult = null;
-    if (TradingCRMClient.isSupportedCountry(country)) {
-      console.log('🔄 Auto-pushing lead to Trading CRM...', { email, country });
+    try {
+      console.log('🔄 Running automated broker assignment rules...');
 
-      try {
-        // Push to Trading CRM (SYNCHRONOUS for better error tracking)
-        await pushLeadToBroker(signup, {
-          firstName,
-          lastName,
-          email,
-          phone: `${countryCode}${phoneNumber}`,
-          country,
-          language: language || 'en',
-          ip,
-          signupId: signup.id
-        });
-        brokerPushResult = { success: true, message: 'Lead pushed to Trading CRM' };
-        console.log('✅ Lead successfully auto-pushed to Trading CRM');
-      } catch (error) {
-        console.error('❌ CRITICAL: Failed to auto-push to Trading CRM:', error);
-        console.error('❌ Error details:', error instanceof Error ? error.message : error);
+      // Call the broker assignment API
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://tradeflow.blog';
+      const pushResponse = await fetch(`${baseUrl}/api/push-to-broker`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ signupId: signup.id })
+      });
+
+      const pushResult = await pushResponse.json();
+
+      if (pushResult.success) {
+        console.log(`✅ Lead auto-assigned to ${pushResult.broker}`);
+        brokerPushResult = {
+          success: true,
+          broker: pushResult.broker,
+          statusCode: pushResult.statusCode,
+          message: `Automatically assigned to ${pushResult.broker}`
+        };
+      } else {
+        console.log(`⚠️ Auto-push warning: ${pushResult.error}`);
         brokerPushResult = {
           success: false,
-          error: error instanceof Error ? error.message : 'Unknown error'
+          error: pushResult.error,
+          message: 'Lead saved to CRM but broker assignment pending'
         };
-        // Don't fail the signup if broker push fails
       }
-    } else {
-      console.log('ℹ️ Country not supported for Trading CRM:', country);
-      brokerPushResult = { success: false, message: `Country ${country} not supported` };
+    } catch (error) {
+      console.error('❌ Error in automated broker assignment:', error);
+      brokerPushResult = {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        message: 'Lead saved to CRM, broker will be assigned shortly'
+      };
     }
 
     // Generate random password for passwordless signup
@@ -204,7 +213,7 @@ export async function POST(request: NextRequest) {
           isPremium: true
         },
         token, // Send token for auto-login
-        brokerPush: brokerPushResult // Include broker push result
+        brokerAssignment: brokerPushResult // Include automated broker assignment result
       },
       { status: 200, headers: corsHeaders }
     );
