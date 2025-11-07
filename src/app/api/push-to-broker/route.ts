@@ -124,6 +124,23 @@ export async function POST(request: NextRequest) {
 }
 
 /**
+ * Convert country name to ISO code for Trading CRM
+ */
+function countryNameToISO(countryName: string): string {
+  const mapping: { [key: string]: string } = {
+    'Malaysia': 'MY',
+    'Turkey': 'TR',
+    'France': 'FR',
+    'Italy': 'IT',
+    'Hong Kong': 'HK',
+    'Singapore': 'SG',
+    'Taiwan': 'TW',
+    'Brazil': 'BR',
+  };
+  return mapping[countryName] || countryName;
+}
+
+/**
  * YOUR RULES: Determine which broker to use
  * Customize this function based on your requirements
  */
@@ -164,7 +181,7 @@ async function pushToTradingCRM(signup: any) {
       lastName: signup.last_name,
       email: signup.email,
       phone: `${signup.country_code}${signup.phone_number}`,
-      country: signup.country,
+      country: countryNameToISO(signup.country), // Convert to ISO code (MY, TR, FR, etc.)
       language: 'en',
       ip: signup.ip_address,
       affiliateTransactionId: signup.id,
