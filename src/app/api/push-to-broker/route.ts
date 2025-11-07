@@ -92,7 +92,6 @@ export async function POST(request: NextRequest) {
         pushed_to_crm: pushResult.success,
         push_status_code: statusCode,
         push_response: JSON.stringify({
-          success: pushResult.success,
           broker: selectedBroker,
           timestamp: new Date().toISOString(),
           ...pushResult
