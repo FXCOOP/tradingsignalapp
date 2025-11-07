@@ -1,10 +1,12 @@
 /**
  * Trading CRM (affiliate365) API Integration
- * Broker: AFF 225X
+ * Broker: AFF 225X (Finoglob Brand)
  *
  * Handles SSO registration for leads from target countries:
  * MY (Malaysia), TR (Turkey), FR (France), IT (Italy),
  * HK (Hong Kong), SG (Singapore), TW (Taiwan), BR (Brazil)
+ *
+ * API Version: 4.0 (Bearer token authentication)
  */
 
 import crypto from 'crypto';
@@ -70,6 +72,7 @@ export interface TradingCRMResponse {
 
 export class TradingCRMClient {
   private config: TradingCRMConfig;
+  private tokenCache: { token: string; expiresAt: number } | null = null;
 
   constructor(config: TradingCRMConfig) {
     this.config = config;
@@ -98,13 +101,56 @@ export class TradingCRMClient {
   }
 
   /**
-   * Get Basic Auth credentials (Trading CRM uses Basic Auth directly, no token endpoint)
+   * Get Bearer token from Trading CRM API (with caching)
+   * Token is valid for 23 hours by default
    */
   async authenticate(): Promise<string> {
-    // Trading CRM SSO uses Basic Auth directly, so we just return the credentials
-    // No separate token endpoint needed
-    const credentials = Buffer.from(`${this.config.username}:${this.config.password}`).toString('base64');
-    return `Basic ${credentials}`;
+    // Check if we have a valid cached token
+    if (this.tokenCache && this.tokenCache.expiresAt > Date.now()) {
+      console.log('✅ Using cached Bearer token');
+      return `Bearer ${this.tokenCache.token}`;
+    }
+
+    console.log('🔄 Fetching new Bearer token from Trading CRM...');
+
+    try {
+      // Get the base URL from the API endpoint
+      const baseUrl = this.config.apiEndpoint.replace(/\/accounts\/.*$/, '');
+
+      const response = await fetch(`${baseUrl}/token`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userName: this.config.username,
+          password: this.config.password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Token request failed: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      if (!data.Token) {
+        throw new Error('No token received from Trading CRM API');
+      }
+
+      // Cache the token (expires in 23 hours by default, we'll refresh at 22 hours)
+      const expiresIn = data.ExpiresIn || 82800; // 23 hours in seconds
+      this.tokenCache = {
+        token: data.Token,
+        expiresAt: Date.now() + (expiresIn - 3600) * 1000, // Refresh 1 hour before expiry
+      };
+
+      console.log(`✅ Bearer token obtained successfully (expires in ${Math.floor(expiresIn / 3600)} hours)`);
+      return `Bearer ${data.Token}`;
+    } catch (error) {
+      console.error('❌ Failed to get Bearer token:', error);
+      throw error;
+    }
   }
 
   /**
@@ -152,7 +198,7 @@ export class TradingCRMClient {
         };
       }
 
-      // Get Basic Auth credentials
+      // Get Bearer token
       const authHeader = await this.authenticate();
 
       // Format payload
@@ -164,17 +210,19 @@ export class TradingCRMClient {
         email: lead.email,
         country: lead.country,
         language: payload.language,
-        auth: 'Basic Auth (username: ' + this.config.username + ')',
+        auth: 'Bearer Token',
+        apiVersion: '4.0',
       });
       console.log('📤 Exact Payload (JSON):', JSON.stringify(payload, null, 2));
 
-      // Send request with Basic Auth
+      // Send request with Bearer token and API version 4.0
       const response = await fetch(this.config.apiEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json-patch+json',
           'Accept': 'application/json',
           'Authorization': authHeader,
+          'api-version': '4.0', // Required for API V4
         },
         body: JSON.stringify(payload),
       });
@@ -207,20 +255,20 @@ export class TradingCRMClient {
       const language = payload.language;
       const redirectUrl = TradingCRMClient.getThankYouUrl(language);
 
-      console.log('Trading CRM lead registered successfully:', {
-        leadId: responseData?.id || responseData?.leadId,
+      console.log('✅ Trading CRM lead registered successfully:', {
+        leadId: responseData?.accountId || responseData?.id || responseData?.leadId,
         email: lead.email,
         redirectUrl,
       });
 
       return {
         success: true,
-        leadId: responseData?.id || responseData?.leadId || responseData?.accountId,
+        leadId: responseData?.accountId || responseData?.id || responseData?.leadId,
         redirectUrl,
         rawResponse: responseData,
       };
     } catch (error) {
-      console.error('Trading CRM registration error:', error);
+      console.error('❌ Trading CRM registration error:', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error occurred',
