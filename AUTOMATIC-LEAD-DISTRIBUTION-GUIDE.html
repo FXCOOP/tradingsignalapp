@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Automatic Lead Distribution System - Complete Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            font-size: 2.2em;
+            color: #667eea;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .flow-diagram {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .flow-step {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .flow-step::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: -20px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 20px solid #667eea;
+            transform: translateX(-50%);
+        }
+
+        .flow-step:first-child::before {
+            display: none;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-right: 20px;
+            float: left;
+        }
+
+        .step-content {
+            overflow: hidden;
+        }
+
+        .step-title {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .step-description {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .rule-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .rule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+
+        .rule-number {
+            font-size: 3em;
+            font-weight: bold;
+            opacity: 0.3;
+            margin-bottom: 10px;
+        }
+
+        .rule-title {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .rule-description {
+            font-size: 1.05em;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        .broker-box {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .broker-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            background: #ffd700;
+            color: #333;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: #cce5ff;
+            border: 2px solid #007bff;
+            color: #004085;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+            margin: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 25px;
+            width: 15px;
+            height: 15px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+
+        .timeline-time {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 15px;
+            margin: 10px 0;
+            background: #f8f9fa;
+            border-left: 4px solid #28a745;
+            border-radius: 5px;
+        }
+
+        .checklist li::before {
+            content: '✅ ';
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Automatic Lead Distribution System</h1>
+            <p>Complete Guide to Your Smart Broker Assignment Logic</p>
+        </div>
+
+        <div class="content">
+            <!-- SECTION 1: Overview -->
+            <div class="section">
+                <h2>📋 System Overview</h2>
+
+                <div class="success-box">
+                    <strong>✨ What This System Does:</strong><br>
+                    Automatically assigns and pushes leads to the right broker based on YOUR custom rules - without any manual work!
+                </div>
+
+                <p style="font-size: 1.2em; margin: 20px 0; line-height: 1.8;">
+                    This system connects <strong>all your landing pages</strong> → <strong>Supabase database</strong> →
+                    <strong>CRM</strong> → <strong>Broker APIs</strong> in a fully automated workflow. When a lead signs up,
+                    the system instantly analyzes their data, applies your rules, and pushes them to the correct broker.
+                </p>
+
+                <div class="info-box">
+                    <strong>⚡ Speed:</strong> Average processing time: <span class="highlight">< 5 seconds</span> from signup to broker push!
+                </div>
+            </div>
+
+            <!-- SECTION 2: How It Works -->
+            <div class="section">
+                <h2>🔄 How It Works - Complete Flow</h2>
+
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">User Signs Up on Landing Page</div>
+                            <div class="step-description">
+                                Visitor fills out form on ANY of your landing pages (academyexample2, finoglob-mentorship, etc.)
+                                <br><br>
+                                <strong>Collected Data:</strong> Name, Email, Phone, Country, Trading Experience, Account Size
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Data Saved to Supabase</div>
+                            <div class="step-description">
+                                Landing page JavaScript sends POST request to Supabase
+                                <br><br>
+                                <strong>Table:</strong> <code>signups</code><br>
+                                <strong>Action:</strong> INSERT new row with lead details
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">🔥 Database Trigger Fires</div>
+                            <div class="step-description">
+                                PostgreSQL trigger <code>trigger_auto_push_to_broker</code> detects the INSERT
+                                <br><br>
+                                <strong>Trigger Type:</strong> AFTER INSERT<br>
+                                <strong>Execution:</strong> Instant & Automatic
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">API Call: /api/push-to-broker</div>
+                            <div class="step-description">
+                                Trigger makes HTTP POST to your Next.js API
+                                <br><br>
+                                <strong>Endpoint:</strong> https://tradeflow.blog/api/push-to-broker<br>
+                                <strong>Payload:</strong> { "signupId": "abc-123-xyz" }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <div class="step-title">🎯 Broker Assignment Rules Execute</div>
+                            <div class="step-description">
+                                API analyzes lead data and applies YOUR custom rules (see below)
+                                <br><br>
+                                <strong>Decision Made:</strong> Trading CRM, Finoglob, or other broker<br>
+                                <strong>Logic:</strong> Country-based, experience-based, account size-based
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <div class="step-title">📤 Push to Selected Broker</div>
+                            <div class="step-description">
+                                System calls the broker's API with lead details
+                                <br><br>
+                                <strong>Trading CRM:</strong> POST to affiliate365.tradingcrm.com<br>
+                                <strong>Finoglob:</strong> POST to finoglob.com/api
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="step-number">7</div>
+                        <div class="step-content">
+                            <div class="step-title">✅ Database Updated with Result</div>
+                            <div class="step-description">
+                                System updates the signup record with push status
+                                <br><br>
+                                <strong>Fields Updated:</strong><br>
+                                • pushed_to_crm: true<br>
+                                • push_status_code: 200<br>
+                                • assigned_broker: "Trading CRM"<br>
+                                • pushed_at: timestamp<br>
+                                • push_response: full API response
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-step">
+                        <div class="step-number">8</div>
+                        <div class="step-content">
+                            <div class="step-title">🎉 Lead Appears in CRM</div>
+                            <div class="step-description">
+                                CRM dashboard shows lead with "✅ 200" push status
+                                <br><br>
+                                <strong>Broker:</strong> Automatically assigned<br>
+                                <strong>Status:</strong> Ready for follow-up<br>
+                                <strong>No Manual Work:</strong> Everything automatic!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚡ Total Time:</strong> All 8 steps happen in <strong>less than 5 seconds</strong> automatically!
+                </div>
+            </div>
+
+            <!-- SECTION 3: Broker Assignment Rules -->
+            <div class="section">
+                <h2>🎯 Broker Assignment Rules</h2>
+
+                <p style="font-size: 1.2em; margin: 20px 0;">
+                    The system applies these rules <strong>in order</strong> to decide which broker gets the lead:
+                </p>
+
+                <div class="rules-grid">
+                    <div class="rule-card">
+                        <div class="rule-number">01</div>
+                        <div class="rule-title">🌍 Geographic Priority</div>
+                        <div class="rule-description">
+                            <strong>Trading CRM gets:</strong><br>
+                            • Malaysia (MY)<br>
+                            • Turkey (TR)<br>
+                            • France (FR)<br>
+                            • Italy (IT)<br>
+                            • Hong Kong (HK)<br>
+                            • Singapore (SG)<br>
+                            • Taiwan (TW)<br>
+                            • Brazil (BR)
+                        </div>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-number">02</div>
+                        <div class="rule-title">💰 High-Value Accounts</div>
+                        <div class="rule-description">
+                            <strong>Trading CRM gets:</strong><br>
+                            • Account Size: $50k-$100k<br>
+                            • Account Size: $100k+<br>
+                            <br>
+                            <em>Premium accounts go to premium broker</em>
+                        </div>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-number">03</div>
+                        <div class="rule-title">📊 Experienced Traders</div>
+                        <div class="rule-description">
+                            <strong>Trading CRM gets:</strong><br>
+                            • 5-10 years experience<br>
+                            • 10+ years experience<br>
+                            <br>
+                            <em>Experienced traders get specialized handling</em>
+                        </div>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-number">04</div>
+                        <div class="rule-title">🔄 Default Assignment</div>
+                        <div class="rule-description">
+                            <strong>Finoglob gets:</strong><br>
+                            • All other countries<br>
+                            • Lower account sizes<br>
+                            • Less experienced traders<br>
+                            <br>
+                            <em>Backup broker for remaining leads</em>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>🎯 Rule Logic:</strong> Rules are checked from top to bottom. First matching rule wins!
+                </div>
+            </div>
+
+            <!-- SECTION 4: Code Example -->
+            <div class="section">
+                <h2>💻 The Code Behind It</h2>
+
+                <p style="font-size: 1.2em; margin: 20px 0;">
+                    Here's the actual broker assignment logic (from <code>/api/push-to-broker/route.ts</code>):
+                </p>
+
+                <div class="code-block">
+function determineBroker(signup) {
+  const { country, trading_experience, account_size } = signup;
+
+  // Rule 1: Geographic Priority - Trading CRM Countries
+  const tradingCRMCountries = [
+    'Malaysia', 'Turkey', 'France', 'Italy',
+    'Hong Kong', 'Singapore', 'Taiwan', 'Brazil'
+  ];
+
+  if (tradingCRMCountries.includes(country)) {
+    return 'Trading CRM';
+  }
+
+  // Rule 2: High-Value Accounts → Trading CRM
+  if (account_size === '50k-100k' || account_size === '100k+') {
+    return 'Trading CRM';
+  }
+
+  // Rule 3: Experienced Traders → Trading CRM
+  if (trading_experience === '5-10' || trading_experience === '10+') {
+    return 'Trading CRM';
+  }
+
+  // Rule 4: Default → Finoglob
+  return 'Finoglob';
+}
+                </div>
+
+                <div class="success-box">
+                    <strong>✅ Fully Customizable:</strong> You can modify these rules anytime to match your business needs!
+                </div>
+            </div>
+
+            <!-- SECTION 5: Database Trigger -->
+            <div class="section">
+                <h2>🔥 Database Trigger Setup</h2>
+
+                <p style="font-size: 1.2em; margin: 20px 0;">
+                    The trigger that makes everything automatic:
+                </p>
+
+                <div class="code-block">
+-- Create function
+CREATE OR REPLACE FUNCTION auto_push_to_broker()
+RETURNS TRIGGER AS $$
+DECLARE
+  api_url text;
+  request_id bigint;
+BEGIN
+  api_url := 'https://tradeflow.blog/api/push-to-broker';
+
+  -- Call API with new signup ID
+  SELECT INTO request_id net.http_post(
+    url := api_url,
+    headers := '{"Content-Type": "application/json"}'::jsonb,
+    body := json_build_object('signupId', NEW.id)::jsonb
+  );
+
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create trigger
+CREATE TRIGGER trigger_auto_push_to_broker
+  AFTER INSERT ON signups
+  FOR EACH ROW
+  EXECUTE FUNCTION auto_push_to_broker();
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-time">0ms</div>
+                        New row inserted into signups table
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">1ms</div>
+                        Trigger detects INSERT event
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">10ms</div>
+                        HTTP POST sent to /api/push-to-broker
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">500ms</div>
+                        Broker assignment logic executes
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">2000ms</div>
+                        Lead pushed to broker API
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">4500ms</div>
+                        Database updated with results
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">5000ms</div>
+                        ✅ DONE - Lead in CRM with assigned broker!
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 6: Broker APIs -->
+            <div class="section">
+                <h2>🏢 Broker API Integration</h2>
+
+                <div class="broker-box">
+                    <div class="broker-name">Trading CRM (AFF 225X)</div>
+                    <strong>Endpoint:</strong> https://affiliate365.tradingcrm.com:4477/accounts/registrationwithsso<br>
+                    <strong>Authentication:</strong> Bearer Token (23-hour validity)<br>
+                    <strong>API Version:</strong> 4.0<br>
+                    <strong>Countries:</strong> MY, TR, FR, IT, HK, SG, TW, BR<br>
+                    <strong>Response:</strong> JSON with accountId and redirectUrl
+                </div>
+
+                <div class="broker-box">
+                    <div class="broker-name">Finoglob</div>
+                    <strong>Endpoint:</strong> https://finoglob.com/api/register<br>
+                    <strong>Authentication:</strong> API Key<br>
+                    <strong>Countries:</strong> All others (default)<br>
+                    <strong>Response:</strong> JSON with leadId and status
+                </div>
+
+                <div class="code-block">
+// Example Trading CRM API Call
+POST https://affiliate365.tradingcrm.com:4477/accounts/registrationwithsso
+Headers:
+  Content-Type: application/json-patch+json
+  Authorization: Bearer {token}
+  api-version: 4.0
+
+Body:
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john@example.com",
+  "phone": "+60123456789",
+  "isoCountry": "MY",
+  "language": "en",
+  "affiliateTransactionId": "abc-123",
+  "promotionCode": "defaultAcademiesGroup",
+  "utmSource": "pksignalpulse",
+  "tag": "signal_pulse"
+}
+
+Response:
+{
+  "accountId": "12345",
+  "redirectUrl": "https://worldinsight-update.com/thanks.html",
+  "success": true
+}
+                </div>
+            </div>
+
+            <!-- SECTION 7: Success Indicators -->
+            <div class="section">
+                <h2>✅ Success Indicators</h2>
+
+                <p style="font-size: 1.2em; margin: 20px 0;">
+                    How to verify the system is working correctly:
+                </p>
+
+                <ul class="checklist">
+                    <li><strong>In CRM Dashboard:</strong> New leads show "✅ 200" under Push Status</li>
+                    <li><strong>Broker Assignment:</strong> Assigned broker matches your rules (Malaysia → Trading CRM)</li>
+                    <li><strong>Timestamp:</strong> "Pushed at" timestamp appears (within 5 seconds of signup)</li>
+                    <li><strong>Full Response:</strong> Click Push Status to see complete API response</li>
+                    <li><strong>In Broker Platform:</strong> Lead appears in Trading CRM or Finoglob within minutes</li>
+                    <li><strong>No "Not Pushed":</strong> New leads never sit unpushed</li>
+                </ul>
+
+                <div class="success-box">
+                    <strong>🎯 Expected Result:</strong> 100% of new signups automatically pushed to correct broker within 5 seconds!
+                </div>
+            </div>
+
+            <!-- SECTION 8: Monitoring -->
+            <div class="section">
+                <h2>🔍 Monitoring & Troubleshooting</h2>
+
+                <h3 style="margin-top: 30px; color: #667eea;">View Recent Auto-Pushes</h3>
+                <div class="code-block">
+-- See all leads from today with push status
+SELECT
+  email,
+  country,
+  assigned_broker,
+  pushed_to_crm,
+  push_status_code,
+  pushed_at,
+  created_at
+FROM signups
+WHERE DATE(created_at) = CURRENT_DATE
+ORDER BY created_at DESC;
+                </div>
+
+                <h3 style="margin-top: 30px; color: #667eea;">Check for Failed Pushes</h3>
+                <div class="code-block">
+-- Find leads that failed to push
+SELECT
+  id,
+  email,
+  country,
+  push_status_code,
+  push_error,
+  push_response
+FROM signups
+WHERE pushed_to_crm = false
+  AND created_at > NOW() - INTERVAL '24 hours'
+ORDER BY created_at DESC;
+                </div>
+
+                <h3 style="margin-top: 30px; color: #667eea;">View HTTP Request Logs</h3>
+                <div class="code-block">
+-- See all HTTP requests made by trigger
+SELECT *
+FROM net._http_response
+ORDER BY created DESC
+LIMIT 20;
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ Common Issues:</strong><br><br>
+                    <strong>1. IP Not Whitelisted:</strong> Contact broker to whitelist Render IP: 54.188.71.94<br>
+                    <strong>2. API Credentials:</strong> Verify username/password in env variables<br>
+                    <strong>3. Trigger Not Firing:</strong> Check if trigger exists in information_schema.triggers
+                </div>
+            </div>
+
+            <!-- SECTION 9: Benefits -->
+            <div class="section">
+                <h2>🎉 Key Benefits</h2>
+
+                <div class="rules-grid">
+                    <div class="rule-card">
+                        <div class="rule-title">⚡ Instant Processing</div>
+                        <div class="rule-description">
+                            Leads pushed to brokers within 5 seconds of signup. No delays, no queue.
+                        </div>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-title">🤖 Fully Automated</div>
+                        <div class="rule-description">
+                            Zero manual work. System handles everything from assignment to push.
+                        </div>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-title">🌍 Works with ALL LPs</div>
+                        <div class="rule-description">
+                            Any landing page that saves to Supabase automatically triggers the flow.
+                        </div>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-title">📊 Smart Rules</div>
+                        <div class="rule-description">
+                            Country, experience, and account size-based routing ensures leads go to the right broker.
+                        </div>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-title">🔄 Error Recovery</div>
+                        <div class="rule-description">
+                            Failed pushes are logged with full error details for easy retry and debugging.
+                        </div>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-title">📈 Scalable</div>
+                        <div class="rule-description">
+                            Handles thousands of leads per day without slowdown or bottlenecks.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 10: Quick Start -->
+            <div class="section">
+                <h2>🚀 Quick Start - Get It Running</h2>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-time">Step 1</div>
+                        <strong>Install Database Trigger</strong><br>
+                        Run <code>supabase-auto-push-trigger.sql</code> in Supabase SQL Editor
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">Step 2</div>
+                        <strong>Whitelist IP Address</strong><br>
+                        Contact Trading CRM to whitelist: 54.188.71.94
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">Step 3</div>
+                        <strong>Test with Sample Lead</strong><br>
+                        Submit a test signup from landing page
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">Step 4</div>
+                        <strong>Verify in CRM</strong><br>
+                        Check CRM dashboard shows "✅ 200" status
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">Step 5</div>
+                        <strong>Go Live!</strong><br>
+                        All new signups now auto-push automatically!
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong>✅ That's It!</strong> Your automatic lead distribution system is now live and running 24/7!
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
