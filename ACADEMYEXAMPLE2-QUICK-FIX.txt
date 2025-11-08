@@ -1,0 +1,121 @@
+=============================================================================
+ACADEMYEXAMPLE2.HTML - QUICK FIX INSTRUCTIONS
+=============================================================================
+
+PROBLEM: Form uses wrong variable names, causing "firstName is not defined" error
+
+SOLUTION: Simple search-and-replace in your HTML file
+
+=============================================================================
+STEP 1: Open academyexample2.html in Notepad or any text editor
+=============================================================================
+
+=============================================================================
+STEP 2: Press Ctrl+H (Find and Replace)
+=============================================================================
+
+=============================================================================
+STEP 3: Make these 10 replacements (do them ONE AT A TIME):
+=============================================================================
+
+Replace #1:
+-----------
+FIND:     firstName: firstName,
+REPLACE:  firstName: signupData.first_name,
+
+Replace #2:
+-----------
+FIND:     lastName: lastName,
+REPLACE:  lastName: signupData.last_name,
+
+Replace #3:
+-----------
+FIND:     email: email,
+REPLACE:  email: signupData.email,
+
+Replace #4:
+-----------
+FIND:     countryCode: countryCode,
+REPLACE:  countryCode: signupData.country_code,
+
+Replace #5:
+-----------
+FIND:     phoneNumber: phoneNumber,
+REPLACE:  phoneNumber: signupData.phone_number,
+
+Replace #6:
+-----------
+FIND:     country: country,
+REPLACE:  country: signupData.country,
+
+Replace #7:
+-----------
+FIND:     tradingExperience: tradingExperience || null,
+REPLACE:  tradingExperience: signupData.trading_experience || null,
+
+Replace #8:
+-----------
+FIND:     accountSize: accountSize || null,
+REPLACE:  accountSize: signupData.account_size || null,
+
+Replace #9:
+-----------
+FIND:     console.log('📝 Submitting signup data to Supabase...');
+REPLACE:  console.log('📝 Submitting signup via API...');
+
+Replace #10:
+------------
+FIND:     console.log('✅ Lead saved and pushed to broker successfully!');
+           console.log('🚀 Auto-pushed to Trading CRM (if supported country)');
+
+                if (error) {
+                    console.error('❌ Supabase error:', error);
+                    throw error;
+                }
+
+REPLACE:  console.log('✅ Lead saved and pushed to broker successfully!');
+           console.log('💾 Result:', result);
+           console.log('🚀 Auto-pushed to Trading CRM (if supported country)');
+
+=============================================================================
+STEP 4: Save the file
+=============================================================================
+
+=============================================================================
+STEP 5: Upload to your hosting
+=============================================================================
+Replace the old academyexample2.html file on your server
+
+=============================================================================
+STEP 6: Test
+=============================================================================
+1. Open: trading.the-future-of-online-trading.online/academyexample2
+2. Press Ctrl+Shift+R (hard refresh to clear cache)
+3. Open browser console (F12)
+4. Fill form with test data (use Malaysia as country)
+5. Submit
+
+EXPECTED CONSOLE OUTPUT:
+------------------------
+📝 Submitting signup via API...
+📊 Data: { first_name: 'test', ... }
+✅ Lead saved and pushed to broker successfully!
+💾 Result: { success: true, ... }
+🚀 Auto-pushed to Trading CRM (if supported country)
+
+=============================================================================
+STEP 7: Check CRM Dashboard
+=============================================================================
+Should show: ✅ 200 in Push Status column
+
+=============================================================================
+
+THAT'S IT! 🚀
+
+The form will now:
+✅ Call the API endpoint correctly
+✅ Auto-push to Trading CRM for supported countries
+✅ Track push status with full JSON response
+✅ Show in CRM dashboard with clickable status badges
+
+=============================================================================

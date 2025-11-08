@@ -227,23 +227,21 @@ export class TradingCRMClient {
         body: JSON.stringify(payload),
       });
 
-      // Handle both JSON and non-JSON responses
-      let responseData;
+      // Read response body as text first (can only read once)
+      const rawResponse = await response.text();
       const contentType = response.headers.get('content-type');
 
+      // Log raw response for debugging
+      console.log('📥 Trading CRM Raw Response:', rawResponse.substring(0, 500));
+
+      // Try to parse as JSON
+      let responseData;
       try {
-        if (contentType && contentType.includes('application/json')) {
-          responseData = await response.json();
-        } else {
-          // If not JSON, get as text
-          const textResponse = await response.text();
-          console.log('⚠️ Trading CRM returned non-JSON response:', textResponse);
-          responseData = { error: textResponse };
-        }
+        responseData = JSON.parse(rawResponse);
       } catch (parseError) {
-        console.error('❌ Failed to parse Trading CRM response:', parseError);
-        const rawText = await response.text();
-        responseData = { error: `Parse error: ${rawText}` };
+        // If not valid JSON, treat as plain text error
+        console.log('⚠️ Trading CRM returned non-JSON response');
+        responseData = { error: rawResponse };
       }
 
       // Log full response
