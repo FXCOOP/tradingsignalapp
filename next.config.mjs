@@ -9,6 +9,10 @@ const nextConfig = {
         source: '/finoglob',
         destination: '/finoglob.html',
       },
+      {
+        source: '/edu',
+        destination: '/edu.html',
+      },
     ]
   },
   async headers() {
