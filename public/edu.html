@@ -1380,15 +1380,28 @@
             };
 
             try {
-                const { error } = await supabase
+                // Save to Supabase
+                const { data: savedData, error } = await supabase
                     .from('signups')
-                    .insert([data]);
+                    .insert([data])
+                    .select();
 
-                if (error) throw error;
+                if (error) {
+                    console.error('Supabase error:', error);
+                    throw error;
+                }
+
+                console.log('✅ Lead saved to Supabase:', savedData);
+
+                // Send to broker's CRM (optional additional integration)
+                await sendLeadToBroker(data);
 
                 // Show success message
                 document.getElementById('formContainer').style.display = 'none';
                 document.getElementById('successContainer').classList.add('active');
+
+                // Track conversion
+                trackConversion(data);
 
             } catch (error) {
                 console.error('Error:', error);
@@ -1398,11 +1411,89 @@
             }
         }
 
+        async function sendLeadToBroker(data) {
+            try {
+                // Send to Next.js API for broker assignment
+                const response = await fetch('/api/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    console.error('Broker API returned error:', response.status);
+                    return;
+                }
+
+                const result = await response.json();
+                console.log('✅ Lead sent to broker:', result);
+
+                return result;
+            } catch (error) {
+                console.error('Error sending to broker:', error);
+                // Don't throw - we still want to show success to user even if broker integration fails
+            }
+        }
+
+        function trackConversion(data) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'broker_matching_signup', {
+                    method: 'edu_form',
+                    value: data.email
+                });
+            }
+
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', {
+                    content_name: 'Broker Matching',
+                    value: 300,
+                    currency: 'USD'
+                });
+            }
+        }
+
+        // Auto-detect country and populate form
+        async function detectCountryForForm() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+
+                const countryNames = {
+                    'IL': 'Israel', 'MY': 'Malaysia', 'SG': 'Singapore', 'CN': 'China', 'TW': 'Taiwan',
+                    'HK': 'Hong Kong', 'IT': 'Italy', 'FR': 'France', 'BR': 'Brazil',
+                    'PT': 'Portugal', 'IN': 'India', 'AE': 'United Arab Emirates',
+                    'SA': 'Saudi Arabia', 'QA': 'Qatar', 'KW': 'Kuwait', 'BH': 'Bahrain',
+                    'OM': 'Oman', 'US': 'United States', 'GB': 'United Kingdom',
+                    'AU': 'Australia', 'CA': 'Canada', 'ID': 'Indonesia', 'TH': 'Thailand',
+                    'VN': 'Vietnam', 'PH': 'Philippines', 'JP': 'Japan', 'KR': 'South Korea',
+                    'DE': 'Germany', 'ES': 'Spain', 'NL': 'Netherlands', 'CH': 'Switzerland',
+                    'TR': 'Turkey', 'PL': 'Poland', 'SE': 'Sweden', 'NO': 'Norway',
+                    'DK': 'Denmark', 'FI': 'Finland', 'GR': 'Greece'
+                };
+
+                const countrySelect = document.querySelector('select[name="country"]');
+                if (countrySelect && data.country_code && countryNames[data.country_code]) {
+                    const countryName = countryNames[data.country_code];
+                    countrySelect.value = countryName;
+                    console.log('✅ Auto-detected country:', countryName);
+                }
+            } catch (error) {
+                console.error('Error detecting country:', error);
+            }
+        }
+
         // Close modal when clicking outside
         document.getElementById('signupModal').addEventListener('click', function(event) {
             if (event.target === this) {
                 closeModal();
             }
+        });
+
+        // Initialize country detection on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            detectCountryForForm();
         });
     </script>
 
