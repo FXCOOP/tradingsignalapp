@@ -38,8 +38,18 @@
   ],
   "routes": [
     {
+      "src": "/finoglob",
+      "dest": "/finoglob.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/finoglob",
+      "destination": "/finoglob.html"
     }
   ]
 }
