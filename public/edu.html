@@ -1351,18 +1351,32 @@
             submitBtn.textContent = '⏳ Processing...';
 
             const formData = new FormData(event.target);
+
+            // Helper function to get URL parameters
+            function getUrlParameter(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+
             const data = {
-                firstname: formData.get('firstname'),
-                lastname: formData.get('lastname'),
-                fullname: `${formData.get('firstname')} ${formData.get('lastname')}`,
+                first_name: formData.get('firstname'),
+                last_name: formData.get('lastname'),
                 email: formData.get('email'),
-                phone: formData.get('phone'),
+                phone_number: formData.get('phone'),
                 country: formData.get('country'),
-                experience: formData.get('experience') || 'Not specified',
+                country_code: formData.get('phone')?.substring(0, 3) || '',
+                trading_experience: formData.get('experience') || 'Not specified',
                 account_size: formData.get('account_size') || 'Not specified',
-                language: currentLanguage,
-                source: 'TradeFlow - Personal Guidance',
-                created_at: new Date().toISOString()
+                lead_source: 'tradeflow-edu',
+                lead_type: 'broker-matching',
+                lead_status: 'new',
+                utm_source: getUrlParameter('utm_source') || 'direct',
+                utm_medium: getUrlParameter('utm_medium') || 'none',
+                utm_campaign: getUrlParameter('utm_campaign') || 'none',
+                terms_accepted: true,
+                detected_country: formData.get('country'),
+                user_agent: navigator.userAgent,
+                referrer: document.referrer || null
             };
 
             try {
