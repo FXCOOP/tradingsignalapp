@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Render IP Monitoring System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .success h3 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            background: #d1ecf1;
+            border-left: 5px solid #17a2b8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .step h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .endpoint {
+            background: #e9ecef;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+
+        ul {
+            padding-left: 30px;
+        }
+
+        ul li {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Render IP Monitoring System</h1>
+            <p>Automatic Detection & Alert System for IP Changes</p>
+        </div>
+
+        <div class="content">
+            <!-- Problem Overview -->
+            <div class="section">
+                <h2>❓ The Problem</h2>
+                <div class="warning">
+                    <h3>⚠️ Render Uses Dynamic IPs</h3>
+                    <p><strong>Render's IPs can change:</strong></p>
+                    <ul>
+                        <li>During app redeployments</li>
+                        <li>Infrastructure updates</li>
+                        <li>Region changes</li>
+                        <li>Server maintenance</li>
+                    </ul>
+                    <p><strong>Impact:</strong> When Render's IP changes, Trading CRM will BLOCK all API requests because the new IP is not whitelisted!</p>
+                </div>
+            </div>
+
+            <!-- Solution Overview -->
+            <div class="section">
+                <h2>✅ The Solution</h2>
+                <div class="success">
+                    <h3>Automatic IP Monitoring System</h3>
+                    <p>I've created a system that:</p>
+                    <ul>
+                        <li><strong>Tracks</strong> Render's current IP address</li>
+                        <li><strong>Detects</strong> when IP changes</li>
+                        <li><strong>Logs</strong> changes to database</li>
+                        <li><strong>Alerts</strong> you via server logs</li>
+                        <li><strong>Provides</strong> new IP to whitelist</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- How It Works -->
+            <div class="section">
+                <h2>⚙️ How It Works</h2>
+
+                <div class="step">
+                    <h3><span class="step-number">1</span> IP Monitoring Endpoint</h3>
+                    <p>A dedicated API endpoint that checks current server IP:</p>
+                    <div class="endpoint">
+                        GET https://tradeflow.blog/api/monitor-ip
+                    </div>
+                    <p><strong>What it does:</strong></p>
+                    <ul>
+                        <li>Reads server IP from request headers</li>
+                        <li>Compares with last known IP from database</li>
+                        <li>Logs IP to database with timestamp</li>
+                        <li>Returns current IP and change status</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">2</span> Automatic Cron Job</h3>
+                    <p>Periodically checks IP address every hour:</p>
+                    <div class="endpoint">
+                        GET https://tradeflow.blog/api/cron/check-ip
+                    </div>
+                    <p><strong>Runs automatically via:</strong></p>
+                    <ul>
+                        <li>External cron service (recommended)</li>
+                        <li>Or GitHub Actions (alternative)</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">3</span> Database Logging</h3>
+                    <p>All IP checks are logged to Supabase database:</p>
+                    <div class="code-block">
+<pre>Table: ip_monitoring
+Columns:
+- ip_address     (current IP)
+- changed        (TRUE if IP changed)
+- previous_ip    (old IP if changed)
+- headers        (all IP-related headers)
+- created_at     (timestamp)</pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">4</span> Alert System</h3>
+                    <p><strong>When IP changes, you'll see in logs:</strong></p>
+                    <div class="code-block">
+<pre>⚠️ ⚠️ ⚠️ RENDER IP CHANGED! ⚠️ ⚠️ ⚠️
+Previous IP: 54.188.71.94
+New IP: 54.190.123.45
+ACTION REQUIRED: Update Trading CRM IP whitelist!
+New IP to whitelist: 54.190.123.45</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Setup Instructions -->
+            <div class="section">
+                <h2>🚀 Setup Instructions</h2>
+
+                <div class="step">
+                    <h3><span class="step-number">1</span> Create Database Table</h3>
+                    <p>Run this SQL in Supabase SQL Editor:</p>
+                    <div class="code-block">
+<pre>-- Copy from: supabase-ip-monitoring.sql
+
+CREATE TABLE IF NOT EXISTS ip_monitoring (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  ip_address TEXT NOT NULL,
+  changed BOOLEAN DEFAULT FALSE,
+  previous_ip TEXT,
+  headers JSONB,
+  environment TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_ip_monitoring_created_at
+  ON ip_monitoring(created_at DESC);
+
+CREATE INDEX idx_ip_monitoring_changed
+  ON ip_monitoring(changed) WHERE changed = TRUE;</pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">2</span> Add Cron Secret to Render</h3>
+                    <p>Go to Render Dashboard → Your Service → Environment:</p>
+                    <div class="code-block">
+<pre>CRON_SECRET=your-random-secret-key-here</pre>
+                    </div>
+                    <p>Generate a random secret key (e.g., use: <code>openssl rand -hex 32</code>)</p>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">3</span> Set Up Cron Job</h3>
+                    <p><strong>Option A: cron-job.org (Recommended)</strong></p>
+                    <ol>
+                        <li>Go to <a href="https://cron-job.org" target="_blank">cron-job.org</a></li>
+                        <li>Create free account</li>
+                        <li>Create new cron job:
+                            <ul>
+                                <li><strong>URL:</strong> <code>https://tradeflow.blog/api/cron/check-ip</code></li>
+                                <li><strong>Schedule:</strong> Every 1 hour</li>
+                                <li><strong>HTTP Method:</strong> GET</li>
+                                <li><strong>Headers:</strong> <code>Authorization: Bearer your-cron-secret</code></li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <p><strong>Option B: EasyCron</strong></p>
+                    <ol>
+                        <li>Go to <a href="https://www.easycron.com" target="_blank">easycron.com</a></li>
+                        <li>Create free account (free tier: 20 cron jobs)</li>
+                        <li>Add cron job with same settings as above</li>
+                    </ol>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">4</span> Test the System</h3>
+                    <p>Manually test the IP monitoring:</p>
+                    <div class="code-block">
+<pre># Check current IP
+curl https://tradeflow.blog/api/monitor-ip
+
+# Expected response:
+{
+  "success": true,
+  "currentIp": "54.188.71.94",
+  "lastKnownIp": null,
+  "ipChanged": false,
+  "warning": null,
+  "timestamp": "2025-11-09T12:00:00.000Z"
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monitoring & Response -->
+            <div class="section">
+                <h2>👀 How to Monitor IP Changes</h2>
+
+                <div class="info">
+                    <h3>📊 Check IP History in Database</h3>
+                    <p>Run this query in Supabase SQL Editor:</p>
+                    <div class="code-block">
+<pre>-- View all IP checks
+SELECT
+  ip_address,
+  changed,
+  previous_ip,
+  created_at
+FROM ip_monitoring
+ORDER BY created_at DESC
+LIMIT 50;
+
+-- View only IP changes
+SELECT
+  ip_address,
+  previous_ip,
+  created_at
+FROM ip_monitoring
+WHERE changed = TRUE
+ORDER BY created_at DESC;</pre>
+                    </div>
+                </div>
+
+                <div class="warning">
+                    <h3>⚠️ When IP Changes - Action Required</h3>
+                    <p><strong>Steps to take:</strong></p>
+                    <ol>
+                        <li>Check Render logs for IP change warning</li>
+                        <li>Note the new IP address</li>
+                        <li>Contact Trading CRM support</li>
+                        <li>Request to whitelist the new IP</li>
+                        <li>Wait for confirmation</li>
+                        <li>Test lead push to verify</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- API Reference -->
+            <div class="section">
+                <h2>📚 API Reference</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Endpoint</th>
+                            <th>Method</th>
+                            <th>Purpose</th>
+                            <th>Auth Required</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>/api/monitor-ip</code></td>
+                            <td>GET</td>
+                            <td>Check current IP and detect changes</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td><code>/api/cron/check-ip</code></td>
+                            <td>GET</td>
+                            <td>Cron job endpoint (calls monitor-ip)</td>
+                            <td>Yes (Bearer token)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Current Status -->
+            <div class="section">
+                <h2>📍 Current Status</h2>
+                <div class="success">
+                    <h3>✅ Current Render IP</h3>
+                    <div class="code-block">
+<pre>IP Address: 54.188.71.94
+
+Status: NEEDS WHITELISTING
+Action: Contact Trading CRM to whitelist this IP</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Best Practices -->
+            <div class="section">
+                <h2>💡 Best Practices</h2>
+                <ul>
+                    <li><strong>Check logs regularly</strong> - Monitor Render logs for IP change warnings</li>
+                    <li><strong>Set up email alerts</strong> - Configure your cron service to email you on failures</li>
+                    <li><strong>Document process</strong> - Keep Trading CRM support contact handy</li>
+                    <li><strong>Response time</strong> - Have a process to whitelist new IPs within 1-2 hours</li>
+                    <li><strong>Test after changes</strong> - Always test lead submission after IP whitelist update</li>
+                </ul>
+            </div>
+
+            <!-- Troubleshooting -->
+            <div class="section">
+                <h2>🔧 Troubleshooting</h2>
+
+                <div class="step">
+                    <h3>❌ Cron job not running</h3>
+                    <p><strong>Solution:</strong></p>
+                    <ul>
+                        <li>Check cron service dashboard</li>
+                        <li>Verify URL is correct</li>
+                        <li>Check Authorization header is set</li>
+                        <li>Verify CRON_SECRET matches in Render</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <h3>❌ IP monitoring not detecting changes</h3>
+                    <p><strong>Solution:</strong></p>
+                    <ul>
+                        <li>Check database table exists</li>
+                        <li>Verify Supabase connection</li>
+                        <li>Check SUPABASE_SERVICE_ROLE_KEY is set</li>
+                        <li>Manually test /api/monitor-ip endpoint</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section">
+                <h2>📝 Summary</h2>
+                <div class="info">
+                    <p><strong>What you have now:</strong></p>
+                    <ul>
+                        <li>✅ Automatic IP monitoring system</li>
+                        <li>✅ Database logging of all IP checks</li>
+                        <li>✅ Automatic detection of IP changes</li>
+                        <li>✅ Clear alerts in server logs</li>
+                        <li>✅ Hourly cron job checking</li>
+                    </ul>
+                    <p><strong>What you need to do:</strong></p>
+                    <ol>
+                        <li>Run SQL migration (create ip_monitoring table)</li>
+                        <li>Add CRON_SECRET to Render environment</li>
+                        <li>Set up cron job on cron-job.org</li>
+                        <li>Whitelist current IP (54.188.71.94) with Trading CRM</li>
+                        <li>Monitor logs for IP changes</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

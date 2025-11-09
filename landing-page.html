@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Elite Trading Mentorship - Your Personal Trading Guru</title>
+    <meta name="description" content="Get personalized 1-on-1 trading guidance from expert mentors. Live signals, daily market analysis, and direct support.">
+    <meta name="theme-color" content="#2563eb">
+
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+    // Analytics tracking
+    var ravxxPostAnalyticsSessionID = new Date().getTime();
+    var ravxxPostAnalyticsSesssionIndex = 0;
+    var ravxx_analyticsPayLoads = [];
+
+    function __ravxxPostAnalytics(analyticsPayLoad) {
+        ravxxPostAnalyticsSesssionIndex++;
+        analyticsPayLoad["sessionIndex"] = ravxxPostAnalyticsSesssionIndex;
+        ravxx_analyticsPayLoads.push(analyticsPayLoad);
+    }
+
+    setInterval(ravxxPostAnalytics, 1000 * 10);
+    window.addEventListener('beforeunload', function(event) {
+        ravxxPostAnalytics();
+    });
+
+    function ravxxPostAnalytics() {
+        var analyticsPayLoads = ravxx_analyticsPayLoads;
+        if (analyticsPayLoads.length == 0) return;
+        ravxx_analyticsPayLoads = [];
+
+        const parameters = {
+            "pageId": "46ceac80486c315a110a1268aa8f71a9690723F8",
+            "analyticsId": "acebc7dd003792405b47a589167e6955_4046999_1339886485_1762419229.5874",
+            "ravxxc": "46ceac80486c315a110a1268aa8f71a9690723F8",
+            "ref": "",
+            "utmCampaign": "",
+            "utmMedium": "",
+            "utmSource": "",
+            "secret": "065a0e1065ac4108b0d297fc72ff4253"
+        };
+
+        var url = 'https://europe-west1-starry-arbor-189107.cloudfunctions.net/postAnalytics';
+        var queryString = '';
+
+        for (var key in parameters) {
+            if (parameters.hasOwnProperty(key)) {
+                if (queryString !== '') queryString += '&';
+                queryString += encodeURIComponent(key) + '=' + encodeURIComponent(parameters[key]);
+            }
+        }
+
+        var fullUrl = url + '?' + queryString + "&sessionId=" + encodeURIComponent(ravxxPostAnalyticsSessionID) + "&analyticsPayloads=";
+        var analyticsPayloadsBlob = new Blob([JSON.stringify(analyticsPayLoads)], { type: 'text/plain' });
+
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon(fullUrl, analyticsPayloadsBlob);
+        } else {
+            console.warn('navigator.sendBeacon() is not supported, falling back to fetch()');
+            fetch(fullUrl, {
+                mode: 'cors',
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain' },
+                body: JSON.stringify(analyticsPayLoads)
+            }).then(response => {
+                console.log('Response from the server:', response);
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    }
+
+    __ravxxPostAnalytics({"__action__": "time", "time": 0});
+    __ravxxPostAnalytics({"__action__": "time_active", "time": 0});
+
+    var ravxxStartTime = new Date().getTime();
+    var ravxxLastDiff = 0;
+
+    function getRavxxTimeDiff() {
+        var diff = new Date().getTime() - ravxxStartTime;
+        return __getRavxxTimeDiff(diff);
+    }
+
+    function __getRavxxTimeDiff(diff) {
+        if (diff <= 1000 * 10)
+            diff = Math.floor(diff / 500) * 500;
+        else if (diff <= 1000 * 60 * 0.5)
+            diff = Math.floor(diff / (1 * 1000)) * (1 * 1000);
+        else if (diff <= 1000 * 60 * 3)
+            diff = Math.floor(diff / (5 * 1000)) * (5 * 1000);
+        else if (diff <= 1000 * 60 * 10)
+            diff = Math.floor(diff / (30 * 1000)) * (30 * 1000);
+        else if (diff <= 1000 * 60 * 15)
+            diff = Math.floor(diff / (60 * 1000)) * (60 * 1000);
+        else if (diff <= 1000 * 60 * 60)
+            diff = Math.floor(diff / (5 * 60 * 1000)) * (5 * 60 * 1000);
+        else
+            diff = 1000 * 60 * 60;
+        return diff;
+    }
+
+    setInterval(function() {
+        var diff = getRavxxTimeDiff();
+        if (diff != ravxxLastDiff) {
+            __ravxxPostAnalytics({"__action__": "time", "time": diff});
+            ravxxLastDiff = diff;
+        }
+        if (typeof(ravxx_handleIntersection_doTime) != "undefined")
+            ravxx_handleIntersection_doTime();
+    }, 500);
+
+    function ravxx_do_time_active(diff) {
+        __ravxxPostAnalytics({"__action__": "time_active", "time": diff});
+        ravxx_lastReported = diff;
+    }
+
+    let ravxx_isThrottled = false;
+    var ravxx_lastReported = 0;
+
+    function ravxx_throttleUserInteraction() {
+        if (!ravxx_isThrottled) {
+            var diff = getRavxxTimeDiff();
+            if (diff !== ravxx_lastReported) {
+                if ((diff - ravxx_lastReported) > 1000 * 60 * 5)
+                    ravxx_lastReported = diff + 1000 * 60;
+                else {
+                    ravxx_do_time_active(diff);
+                }
+            }
+            ravxx_isThrottled = true;
+            setTimeout(() => {
+                ravxx_isThrottled = false;
+            }, 100);
+        }
+    }
+
+    // Attach event listeners
+    document.addEventListener('click', ravxx_throttleUserInteraction);
+    document.addEventListener('mousedown', ravxx_throttleUserInteraction);
+    document.addEventListener('mouseup', ravxx_throttleUserInteraction);
+    document.addEventListener('keydown', ravxx_throttleUserInteraction);
+    document.addEventListener('keyup', ravxx_throttleUserInteraction);
+    document.addEventListener('mousemove', ravxx_throttleUserInteraction);
+    document.addEventListener('mouseenter', ravxx_throttleUserInteraction);
+    document.addEventListener('mouseleave', ravxx_throttleUserInteraction);
+    document.addEventListener('touchstart', ravxx_throttleUserInteraction);
+    document.addEventListener('touchmove', ravxx_throttleUserInteraction);
+    document.addEventListener('touchend', ravxx_throttleUserInteraction);
+    document.addEventListener('scroll', ravxx_throttleUserInteraction);
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-20px) scale(1.1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid #e5e7eb;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: #1a1a1a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 350px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #1a1a1a;
+            padding: 8px;
+            transition: transform 0.3s;
+        }
+
+        .mobile-menu-btn:active {
+            transform: scale(0.95);
+        }
+
+        .cta-header-btn {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .cta-header-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+
+        /* Language Selector */
+        .language-bar {
+            position: relative;
+            z-index: 10;
+        }
+
+        .lang-selector-container {
+            position: relative;
+        }
+
+        .lang-current {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 10px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            min-width: 110px;
+            justify-content: space-between;
+        }
+
+        .lang-current:hover {
+            border-color: #2563eb;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .lang-current-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lang-flag {
+            font-size: 20px;
+        }
+
+        .lang-arrow {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+            color: #64748b;
+        }
+
+        .lang-selector-container.open .lang-arrow {
+            transform: rotate(180deg);
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            min-width: 200px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .lang-selector-container.open .lang-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .lang-btn {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4b5563;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .lang-btn:hover {
+            background: #f3f4f6;
+            color: #2563eb;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            color: #2563eb;
+        }
+
+        .lang-btn-label {
+            flex: 1;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            padding: 120px 24px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid #bfdbfe;
+            color: #1d4ed8;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+            color: #0f172a;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 22px;
+            color: #64748b;
+            margin-bottom: 50px;
+            line-height: 1.7;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            padding: 20px 48px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.5);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1a1a1a;
+            border: 2px solid #e5e7eb;
+            padding: 18px 48px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15);
+        }
+
+        /* Stats */
+        .stats-section {
+            background: #f9fafb;
+            padding: 60px 24px;
+            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 56px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #0f172a;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 70px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 24px;
+            padding: 50px;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: #2563eb;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(37, 99, 235, 0.15);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 24px;
+            transition: all 0.4s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+        }
+
+        .feature-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+
+        .feature-desc {
+            font-size: 16px;
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 550px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #9ca3af;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #1a1a1a;
+        }
+
+        .modal-title {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+
+        .modal-subtitle {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+            color: #1a1a1a;
+            transition: all 0.3s;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #059669;
+            margin-bottom: 16px;
+        }
+
+        .success-text {
+            font-size: 16px;
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            background: #f9fafb;
+            padding: 60px 24px 40px;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* Floating Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.5);
+            z-index: 999;
+            animation: pulse 2s infinite;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9998;
+            padding: 80px 24px 24px;
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background: none;
+            border: none;
+            font-size: 36px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .mobile-nav button {
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            border-radius: 12px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .header-content {
+                padding: 0 12px;
+            }
+
+            .logo {
+                font-size: 16px;
+                max-width: 200px;
+            }
+
+            .logo-finoglob {
+                display: none !important;
+            }
+
+            .cta-header-btn {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .lang-current {
+                padding: 8px 12px;
+                font-size: 13px;
+                min-width: 80px;
+            }
+
+            #currentLangName {
+                display: none;
+            }
+
+            .lang-flag {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 80px 20px 60px;
+            }
+
+            .hero h1 {
+                font-size: 36px !important;
+                letter-spacing: -1px;
+                line-height: 1.2;
+            }
+
+            .hero p {
+                font-size: 18px !important;
+                margin-bottom: 30px !important;
+            }
+
+            .hero-badge {
+                font-size: 12px;
+                padding: 8px 16px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                padding: 18px 32px;
+                font-size: 16px;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .section-subtitle {
+                font-size: 18px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+
+            .stat-value {
+                font-size: 40px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .feature-card {
+                padding: 32px 24px;
+            }
+
+            .feature-icon {
+                width: 56px;
+                height: 56px;
+                font-size: 28px;
+            }
+
+            .modal-content {
+                padding: 32px 24px;
+                width: 95%;
+            }
+
+            .modal-title {
+                font-size: 24px;
+            }
+
+            .fab {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px !important;
+            }
+
+            .hero p {
+                font-size: 16px !important;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="logo">💎 Elite Trading Mentorship</div>
+                <div class="logo-finoglob" style="border-left: 2px solid #e5e7eb; padding-left: 20px;">
+                    <div style="font-size: 12px; color: #94a3b8; margin-bottom: 2px;">Powered by</div>
+                    <div style="font-size: 18px; font-weight: 900; background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">FinoGlob</div>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <!-- Language Selector -->
+                <div class="language-bar">
+                    <div class="lang-selector-container" id="langSelector">
+                        <div class="lang-current" onclick="toggleLanguageDropdown()">
+                            <div class="lang-current-content">
+                                <span class="lang-flag" id="currentFlag">🇬🇧</span>
+                                <span id="currentLangName">English</span>
+                            </div>
+                            <span class="lang-arrow">▼</span>
+                        </div>
+                        <div class="lang-dropdown">
+                            <button class="lang-btn active" onclick="selectLanguage('en', '🇬🇧', 'English')" data-lang="en">
+                                <span class="lang-flag">🇬🇧</span>
+                                <span class="lang-btn-label">English</span>
+                            </button>
+                            <button class="lang-btn" onclick="selectLanguage('ms', '🇲🇾', 'Melayu')" data-lang="ms">
+                                <span class="lang-flag">🇲🇾</span>
+                                <span class="lang-btn-label">Melayu</span>
+                            </button>
+                            <button class="lang-btn" onclick="selectLanguage('zh-CN', '🇨🇳', '简体中文')" data-lang="zh-CN">
+                                <span class="lang-flag">🇨🇳</span>
+                                <span class="lang-btn-label">简体中文 (China)</span>
+                            </button>
+                            <button class="lang-btn" onclick="selectLanguage('zh-TW', '🇹🇼', '繁體中文')" data-lang="zh-TW">
+                                <span class="lang-flag">🇹🇼</span>
+                                <span class="lang-btn-label">繁體中文 (Taiwan)</span>
+                            </button>
+                            <button class="lang-btn" onclick="selectLanguage('zh-HK', '🇭🇰', '繁體中文')" data-lang="zh-HK">
+                                <span class="lang-flag">🇭🇰</span>
+                                <span class="lang-btn-label">繁體中文 (Hong Kong)</span>
+                            </button>
+                            <button class="lang-btn" onclick="selectLanguage('ta', '🇮🇳', 'தமிழ்')" data-lang="ta">
+                                <span class="lang-flag">🇮🇳</span>
+                                <span class="lang-btn-label">தமிழ்</span>
+                            </button>
+                            <button class="lang-btn" onclick="selectLanguage('it', '🇮🇹', 'Italiano')" data-lang="it">
+                                <span class="lang-flag">🇮🇹</span>
+                                <span class="lang-btn-label">Italiano</span>
+                            </button>
+                            <button class="lang-btn" onclick="selectLanguage('fr', '🇫🇷', 'Français')" data-lang="fr">
+                                <span class="lang-flag">🇫🇷</span>
+                                <span class="lang-btn-label">Français</span>
+                            </button>
+                            <button class="lang-btn" onclick="selectLanguage('pt', '🇧🇷', 'Português')" data-lang="pt">
+                                <span class="lang-flag">🇧🇷</span>
+                                <span class="lang-btn-label">Português</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button class="cta-header-btn" onclick="openModal()">Get Your Mentor</button>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav-close" onclick="toggleMobileMenu()">×</button>
+        <button class="btn-primary" onclick="openModal(); toggleMobileMenu();">🚀 Get Matched with a Mentor</button>
+        <button class="btn-secondary" onclick="toggleMobileMenu();">👥 Meet the Mentors</button>
+        <button class="btn-secondary" onclick="toggleMobileMenu();">📋 What's Included</button>
+        <button class="btn-secondary" onclick="toggleMobileMenu();">⭐ Testimonials</button>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🏆 VIP Trading Guidance • Powered by FinoGlob</div>
+            <h1>Your Personal <span class="hero-highlight">Trading Guru</span><br>1-on-1 Mentorship</h1>
+            <p>Stop learning alone. Get direct guidance from elite traders who've made millions. Live signals, daily analysis, and personal support. <strong>Trade with FinoGlob</strong>, our trusted broker partner.</p>
+            <div class="hero-cta">
+                <button class="btn-primary" onclick="openModal()">🚀 Get Matched with a Mentor</button>
+                <button class="btn-secondary">👥 Meet the Mentors</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value">2,847</div>
+                <div class="stat-label">Active Clients</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">15+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">87%</div>
+                <div class="stat-label">Success Rate</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">24/7</div>
+                <div class="stat-label">Support Available</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section">
+        <h2 class="section-title">What You Get</h2>
+        <p class="section-subtitle">Everything you need to become a consistently profitable trader</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3 class="feature-title">Live Trading Signals</h3>
+                <p class="feature-desc">Get real-time trade alerts directly to your phone. Entry, exit, and stop-loss levels included.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👨‍🏫</div>
+                <h3 class="feature-title">Personal Mentor</h3>
+                <p class="feature-desc">Direct 1-on-1 access to your mentor via WhatsApp, Telegram, or Zoom.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Daily Market Analysis</h3>
+                <p class="feature-desc">Comprehensive market breakdowns and trade setups every morning.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎓</div>
+                <h3 class="feature-title">Strategy Library</h3>
+                <p class="feature-desc">Access to proven trading strategies and templates used by professionals.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3 class="feature-title">Community Access</h3>
+                <p class="feature-desc">Join a private group of serious traders sharing ideas and wins.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏦</div>
+                <h3 class="feature-title">Trade with FinoGlob</h3>
+                <p class="feature-desc">Open your account with our trusted partner broker for the best execution and support.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Transform Your Trading?</h2>
+        <p>Join thousands of successful traders who have accelerated their journey with elite mentorship</p>
+        <button class="btn-primary" style="background: white; color: #2563eb;" onclick="openModal()">🚀 Get Started Now</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Elite Trading Mentorship. Powered by FinoGlob. All rights reserved.</p>
+        <p style="margin-top: 12px; font-size: 12px; color: #9ca3af;">Trading involves risk. Past performance does not guarantee future results.</p>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="openModal()">💬</button>
+
+    <!-- Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+
+            <div id="formContainer">
+                <h2 class="modal-title">Get Matched with Your Mentor</h2>
+                <p class="modal-subtitle">Fill out this form and we'll connect you with the perfect trading mentor for your goals</p>
+
+                <form id="signupForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label class="form-label">Full Name *</label>
+                        <input type="text" class="form-input" name="fullname" required placeholder="John Doe">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email *</label>
+                        <input type="email" class="form-input" name="email" required placeholder="john@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Phone *</label>
+                        <input type="tel" class="form-input" name="phone" required placeholder="+1234567890">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Country *</label>
+                        <select class="form-select" name="country" required>
+                            <option value="">Select your country</option>
+                            <option value="MY">Malaysia</option>
+                            <option value="CN">China</option>
+                            <option value="TW">Taiwan</option>
+                            <option value="HK">Hong Kong</option>
+                            <option value="IN">India</option>
+                            <option value="IT">Italy</option>
+                            <option value="FR">France</option>
+                            <option value="BR">Brazil</option>
+                            <option value="US">United States</option>
+                            <option value="UK">United Kingdom</option>
+                            <option value="SG">Singapore</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Trading Experience</label>
+                        <select class="form-select" name="experience">
+                            <option value="beginner">Beginner (0-1 year)</option>
+                            <option value="intermediate">Intermediate (1-3 years)</option>
+                            <option value="advanced">Advanced (3+ years)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">What are your trading goals?</label>
+                        <textarea class="form-textarea" name="goals" placeholder="E.g., Learn day trading, Improve risk management, Generate passive income..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        🚀 Get Matched Now
+                    </button>
+                </form>
+            </div>
+
+            <div id="successContainer" class="success-message">
+                <div class="success-icon">✅</div>
+                <h3 class="success-title">Application Received!</h3>
+                <p class="success-text">Thank you for your interest! Our team will review your application and match you with the perfect mentor. We'll contact you within 24 hours via email and phone.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://zmvxxnlsjbguirhzcmac.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inptdnh4bmxzamJndWlyaHpjbWFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU4MjI1MzIsImV4cCI6MjA1MTM5ODUzMn0.r_aPKDn-W0mBcfVSmmR6M1a2FO5X-Jl7rEhNYNqWYoA';
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Language Management
+        let currentLanguage = 'en';
+
+        function toggleLanguageDropdown() {
+            const selector = document.getElementById('langSelector');
+            selector.classList.toggle('open');
+        }
+
+        function selectLanguage(lang, flag, name) {
+            currentLanguage = lang;
+            document.getElementById('currentFlag').textContent = flag;
+            document.getElementById('currentLangName').textContent = name;
+
+            // Update active state
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            toggleLanguageDropdown();
+            // Here you would apply translations to the page
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const selector = document.getElementById('langSelector');
+            if (!selector.contains(event.target)) {
+                selector.classList.remove('open');
+            }
+        });
+
+        // Modal Functions
+        function openModal() {
+            document.getElementById('signupModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('signupModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            // Reset form
+            document.getElementById('formContainer').style.display = 'block';
+            document.getElementById('successContainer').classList.remove('active');
+            document.getElementById('signupForm').reset();
+        }
+
+        // Mobile Menu
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mobileNav');
+            nav.classList.toggle('active');
+            document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        // Form Submission
+        async function handleSubmit(event) {
+            event.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Submitting...';
+
+            const formData = new FormData(event.target);
+            const data = {
+                fullname: formData.get('fullname'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                country: formData.get('country'),
+                experience: formData.get('experience') || 'Not specified',
+                goals: formData.get('goals') || 'Not specified',
+                language: currentLanguage,
+                source: 'Landing Page',
+                created_at: new Date().toISOString()
+            };
+
+            try {
+                const { error } = await supabase
+                    .from('signups')
+                    .insert([data]);
+
+                if (error) throw error;
+
+                // Show success message
+                document.getElementById('formContainer').style.display = 'none';
+                document.getElementById('successContainer').classList.add('active');
+
+                // Track analytics
+                __ravxxPostAnalytics({
+                    "__action__": "form_submit",
+                    "form_type": "mentor_signup",
+                    "country": data.country,
+                    "language": data.language
+                });
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('There was an error submitting your application. Please try again or contact support.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 Get Matched Now';
+            }
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('signupModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
+
+        // Smooth scroll
+        function scrollToSection(id) {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔒 Safe Router Port Forwarding Guide - Port 3001</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .danger {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .info {
+            background: #d1ecf1;
+            border-left: 5px solid #17a2b8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 10px;
+            border: 2px solid #dee2e6;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .step-title {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .code-box {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .input-box {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 1.1em;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 12px;
+            margin: 8px 0;
+            background: white;
+            border-left: 4px solid #28a745;
+            border-radius: 5px;
+        }
+
+        .checklist li::before {
+            content: '☐ ';
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin: 10px 5px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .highlight {
+            background: #ffd700;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .router-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .router-card {
+            background: white;
+            border: 2px solid #dee2e6;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .router-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔒 Safe Router Port Forwarding Guide</h1>
+            <p>Configure Port 3001 for Trading CRM Proxy</p>
+            <p style="opacity: 0.9; margin-top: 10px;">✅ Secure | 📝 Step-by-Step | ⚡ Works with All Routers</p>
+        </div>
+
+        <div class="content">
+            <!-- SAFETY FIRST -->
+            <div class="danger">
+                <h2 style="margin-bottom: 15px;">⚠️ SECURITY WARNING - READ FIRST!</h2>
+                <ul style="line-height: 2;">
+                    <li><strong>ONLY open port 3001</strong> - Do NOT open other ports</li>
+                    <li><strong>ONLY forward to YOUR PC</strong> - Verify IP address carefully</li>
+                    <li><strong>Keep router admin password STRONG</strong> - Never share it</li>
+                    <li><strong>Do NOT forward ports like:</strong> 22 (SSH), 3389 (RDP), 445 (SMB)</li>
+                    <li><strong>Only the Trading CRM proxy will use port 3001</strong> - No other software needed</li>
+                </ul>
+            </div>
+
+            <!-- WHAT THIS DOES -->
+            <div class="info">
+                <h3>🎯 What This Guide Does</h3>
+                <p style="margin-top: 10px; line-height: 1.8;">
+                    This guide will configure your router to allow <strong>incoming connections on port 3001</strong>
+                    and forward them to your computer. This is ONLY for the Trading CRM proxy server to communicate
+                    with Render.
+                </p>
+                <p style="margin-top: 10px;">
+                    <strong>Flow:</strong> Internet → Router → Your PC (Port 3001) → Trading CRM Proxy → Trading CRM API
+                </p>
+            </div>
+
+            <!-- PREREQUISITES -->
+            <h2 style="color: #667eea; margin: 40px 0 20px;">📋 Before You Start</h2>
+
+            <div class="success">
+                <h3>✅ Checklist - Make Sure You Have:</h3>
+                <ul class="checklist">
+                    <li>Proxy server is running (you should see "Ready to proxy requests")</li>
+                    <li>Windows Firewall rule for port 3001 is added (already done ✅)</li>
+                    <li>Your PC's local IP address (we'll find this below)</li>
+                    <li>Router admin username and password</li>
+                    <li>15-30 minutes of time</li>
+                </ul>
+            </div>
+
+            <!-- STEP 1: FIND YOUR LOCAL IP -->
+            <div class="step">
+                <h3><span class="step-number">1</span> Find Your Computer's Local IP Address</h3>
+
+                <p style="margin: 15px 0;">Open Command Prompt or PowerShell and run:</p>
+
+                <div class="code-box">ipconfig | findstr "IPv4"</div>
+
+                <p style="margin: 15px 0;">You'll see something like:</p>
+
+                <div class="code-box">IPv4 Address. . . . . . . . . . . : 192.168.1.100</div>
+
+                <div class="warning">
+                    <strong>📝 WRITE DOWN YOUR IP:</strong>
+                    <div class="input-box">
+                        My PC's Local IP: 192.168.1._____ (write your last number)
+                    </div>
+                    <p style="margin-top: 10px;">
+                        <strong>Common formats:</strong> 192.168.1.X, 192.168.0.X, 10.0.0.X, 172.16.X.X
+                    </p>
+                </div>
+            </div>
+
+            <!-- STEP 2: FIND ROUTER IP -->
+            <div class="step">
+                <h3><span class="step-number">2</span> Find Your Router's IP Address</h3>
+
+                <p style="margin: 15px 0;">In the same Command Prompt, run:</p>
+
+                <div class="code-box">ipconfig | findstr "Default Gateway"</div>
+
+                <p style="margin: 15px 0;">You'll see:</p>
+
+                <div class="code-box">Default Gateway . . . . . . . . . : 192.168.1.1</div>
+
+                <div class="warning">
+                    <strong>📝 WRITE DOWN ROUTER IP:</strong>
+                    <div class="input-box">
+                        Router IP: 192.168.1.___ (usually .1 or .254)
+                    </div>
+                    <p style="margin-top: 10px;">
+                        <strong>Common router IPs:</strong> 192.168.1.1, 192.168.0.1, 10.0.0.1, 192.168.100.1
+                    </p>
+                </div>
+            </div>
+
+            <!-- STEP 3: ACCESS ROUTER -->
+            <div class="step">
+                <h3><span class="step-number">3</span> Access Your Router Admin Panel</h3>
+
+                <ol style="line-height: 2; margin: 15px 0 15px 30px;">
+                    <li>Open your web browser (Chrome, Firefox, Edge)</li>
+                    <li>Type your router IP in the address bar:
+                        <div class="code-box" style="margin: 10px 0;">http://192.168.1.1</div>
+                        (Use YOUR router IP from Step 2)
+                    </li>
+                    <li>Press Enter - You'll see a login page</li>
+                </ol>
+
+                <div class="info">
+                    <h4>🔑 Default Router Credentials (if you never changed them):</h4>
+                    <div class="router-types">
+                        <div class="router-card">
+                            <h4>TP-Link</h4>
+                            <p><strong>User:</strong> admin</p>
+                            <p><strong>Pass:</strong> admin</p>
+                        </div>
+                        <div class="router-card">
+                            <h4>D-Link</h4>
+                            <p><strong>User:</strong> admin</p>
+                            <p><strong>Pass:</strong> (blank)</p>
+                        </div>
+                        <div class="router-card">
+                            <h4>Netgear</h4>
+                            <p><strong>User:</strong> admin</p>
+                            <p><strong>Pass:</strong> password</p>
+                        </div>
+                        <div class="router-card">
+                            <h4>Asus</h4>
+                            <p><strong>User:</strong> admin</p>
+                            <p><strong>Pass:</strong> admin</p>
+                        </div>
+                        <div class="router-card">
+                            <h4>Linksys</h4>
+                            <p><strong>User:</strong> admin</p>
+                            <p><strong>Pass:</strong> admin</p>
+                        </div>
+                        <div class="router-card">
+                            <h4>Huawei</h4>
+                            <p><strong>User:</strong> admin</p>
+                            <p><strong>Pass:</strong> admin</p>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 15px;">
+                        <strong>Can't login?</strong> Check the sticker on the bottom of your router for default credentials.
+                    </p>
+                </div>
+            </div>
+
+            <!-- STEP 4: FIND PORT FORWARDING -->
+            <div class="step">
+                <h3><span class="step-number">4</span> Navigate to Port Forwarding Settings</h3>
+
+                <p style="margin: 15px 0;">
+                    Once logged in, look for one of these menu items (different routers use different names):
+                </p>
+
+                <table>
+                    <tr>
+                        <th>Menu Name</th>
+                        <th>Router Brands</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Port Forwarding</strong></td>
+                        <td>TP-Link, Netgear, Linksys</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Virtual Server</strong></td>
+                        <td>TP-Link, D-Link</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NAT Forwarding</strong></td>
+                        <td>Asus, Huawei</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Port Mapping</strong></td>
+                        <td>Huawei, ZTE</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Advanced → Port Forwarding</strong></td>
+                        <td>Most routers</td>
+                    </tr>
+                </table>
+
+                <div class="info">
+                    <p style="margin-top: 10px;">
+                        <strong>🔍 Navigation Path Examples:</strong>
+                    </p>
+                    <ul style="margin: 10px 0 0 20px; line-height: 2;">
+                        <li><strong>TP-Link:</strong> Advanced → NAT Forwarding → Port Forwarding</li>
+                        <li><strong>Netgear:</strong> Advanced → Advanced Setup → Port Forwarding</li>
+                        <li><strong>Asus:</strong> WAN → Virtual Server / Port Forwarding</li>
+                        <li><strong>D-Link:</strong> Advanced → Port Forwarding</li>
+                        <li><strong>Linksys:</strong> Security → Apps and Gaming → Single Port Forwarding</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- STEP 5: CREATE PORT FORWARDING RULE -->
+            <div class="step">
+                <h3><span class="step-number">5</span> Create Port Forwarding Rule for Port 3001</h3>
+
+                <p style="margin: 15px 0;">
+                    Click <strong>"Add"</strong> or <strong>"Create New Rule"</strong> and enter these values:
+                </p>
+
+                <table style="margin: 20px 0;">
+                    <tr>
+                        <th style="width: 40%;">Field Name</th>
+                        <th>What to Enter</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Service Name / Rule Name</strong></td>
+                        <td><span class="highlight">Trading_CRM_Proxy</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Service Type</strong></td>
+                        <td><span class="highlight">TCP</span> (NOT UDP)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>External Port / Start Port</strong></td>
+                        <td><span class="highlight">3001</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Internal Port / End Port</strong></td>
+                        <td><span class="highlight">3001</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Internal IP / Server IP</strong></td>
+                        <td><span class="highlight">192.168.1.XXX</span> (YOUR PC's IP from Step 1)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Protocol</strong></td>
+                        <td><span class="highlight">TCP</span> or <span class="highlight">TCP+UDP</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Status / Enable</strong></td>
+                        <td><span class="highlight">Enabled ✅</span></td>
+                    </tr>
+                </table>
+
+                <div class="danger">
+                    <h4>⚠️ IMPORTANT - Double Check Before Saving:</h4>
+                    <ul style="line-height: 2; margin-top: 10px;">
+                        <li>✅ Port is <strong>3001</strong> (both external and internal)</li>
+                        <li>✅ Protocol is <strong>TCP</strong></li>
+                        <li>✅ Internal IP matches YOUR PC's local IP from Step 1</li>
+                        <li>✅ Rule is <strong>Enabled</strong></li>
+                        <li>❌ Do NOT use port 0, 22, 80, 443, 3389, 445, or any other common port</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- STEP 6: SAVE AND APPLY -->
+            <div class="step">
+                <h3><span class="step-number">6</span> Save and Apply Settings</h3>
+
+                <ol style="line-height: 2; margin: 15px 0 15px 30px;">
+                    <li>Click <strong>"Save"</strong> or <strong>"Apply"</strong> button</li>
+                    <li>Router may ask to reboot - Click <strong>"OK"</strong> or <strong>"Reboot"</strong></li>
+                    <li>Wait 1-2 minutes for router to restart (if rebooting)</li>
+                    <li>Re-login to router admin panel to verify rule was saved</li>
+                </ol>
+
+                <div class="warning">
+                    <p><strong>⏰ Patience Required:</strong></p>
+                    <p style="margin-top: 10px;">
+                        Some routers take 2-5 minutes to fully apply port forwarding rules.
+                        Wait a few minutes before testing.
+                    </p>
+                </div>
+            </div>
+
+            <!-- STEP 7: VERIFY RULE -->
+            <div class="step">
+                <h3><span class="step-number">7</span> Verify Port Forwarding Rule</h3>
+
+                <p style="margin: 15px 0;">Go back to Port Forwarding section and check:</p>
+
+                <div class="success">
+                    <h4>✅ You Should See:</h4>
+                    <table style="margin-top: 15px;">
+                        <tr>
+                            <th>Rule Name</th>
+                            <th>External Port</th>
+                            <th>Internal IP</th>
+                            <th>Internal Port</th>
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <td>Trading_CRM_Proxy</td>
+                            <td>3001</td>
+                            <td>192.168.1.XXX</td>
+                            <td>3001</td>
+                            <td>✅ Enabled</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <p style="margin-top: 20px;">
+                    If the rule is NOT visible, repeat Step 5-6.
+                </p>
+            </div>
+
+            <!-- STEP 8: TEST -->
+            <div class="step">
+                <h3><span class="step-number">8</span> Test Port 3001 is Open</h3>
+
+                <p style="margin: 15px 0;">Use an online port checker:</p>
+
+                <div style="text-align: center; margin: 20px 0;">
+                    <a href="https://www.yougetsignal.com/tools/open-ports/" target="_blank" class="button">
+                        🔍 Open Port Checker Tool
+                    </a>
+                </div>
+
+                <ol style="line-height: 2; margin: 15px 0 15px 30px;">
+                    <li>Click the button above (opens in new tab)</li>
+                    <li>Enter:
+                        <ul style="margin-left: 20px;">
+                            <li><strong>Remote Address:</strong> <span class="highlight">85.130.211.49</span></li>
+                            <li><strong>Port Number:</strong> <span class="highlight">3001</span></li>
+                        </ul>
+                    </li>
+                    <li>Click <strong>"Check"</strong></li>
+                </ol>
+
+                <div class="success">
+                    <h4>✅ Success Message:</h4>
+                    <div class="code-box" style="background: #d4edda; color: #155724;">
+Port 3001 is open on 85.130.211.49
+                    </div>
+                    <p style="margin-top: 10px;">
+                        If you see this, <strong>port forwarding is working!</strong> 🎉
+                    </p>
+                </div>
+
+                <div class="danger">
+                    <h4>❌ Error Message:</h4>
+                    <div class="code-box" style="background: #f8d7da; color: #721c24;">
+Port 3001 is closed on 85.130.211.49
+                    </div>
+                    <p style="margin-top: 10px;">
+                        If you see this, see troubleshooting section below.
+                    </p>
+                </div>
+            </div>
+
+            <!-- TROUBLESHOOTING -->
+            <h2 style="color: #667eea; margin: 40px 0 20px;">🔧 Troubleshooting</h2>
+
+            <div class="step">
+                <h3>Port 3001 Still Shows as Closed?</h3>
+
+                <h4 style="margin: 20px 0 10px; color: #667eea;">1. Verify Proxy is Running</h4>
+                <p>Open Command Prompt and run:</p>
+                <div class="code-box">netstat -ano | findstr :3001</div>
+                <p style="margin-top: 10px;">You should see: <code>LISTENING</code></p>
+                <p style="margin-top: 5px;">If NOT, restart the proxy server.</p>
+
+                <h4 style="margin: 20px 0 10px; color: #667eea;">2. Check Your PC's IP Didn't Change</h4>
+                <p>Run again:</p>
+                <div class="code-box">ipconfig | findstr "IPv4"</div>
+                <p style="margin-top: 10px;">
+                    If IP changed from 192.168.1.100 to 192.168.1.105 (for example),
+                    you need to UPDATE the port forwarding rule with the new IP.
+                </p>
+
+                <h4 style="margin: 20px 0 10px; color: #667eea;">3. Set Static IP (Recommended)</h4>
+                <p>To prevent IP from changing:</p>
+                <ol style="margin: 10px 0 10px 30px; line-height: 2;">
+                    <li>In router admin panel, find <strong>"DHCP Settings"</strong> or <strong>"LAN Settings"</strong></li>
+                    <li>Look for <strong>"Address Reservation"</strong> or <strong>"Static IP"</strong></li>
+                    <li>Reserve your current IP (192.168.1.XXX) for your PC's MAC address</li>
+                    <li>This ensures your PC always gets the same IP</li>
+                </ol>
+
+                <h4 style="margin: 20px 0 10px; color: #667eea;">4. Wait Longer</h4>
+                <p>Some routers take 5-10 minutes to apply port forwarding. Wait and test again.</p>
+
+                <h4 style="margin: 20px 0 10px; color: #667eea;">5. Check ISP Blocking</h4>
+                <p>Some ISPs block port forwarding (CGNAT). Contact your ISP to ask if you have a "public IP" or are behind CGNAT.</p>
+            </div>
+
+            <!-- SECURITY BEST PRACTICES -->
+            <h2 style="color: #667eea; margin: 40px 0 20px;">🔒 Security Best Practices</h2>
+
+            <div class="warning">
+                <h3>After Port Forwarding is Working:</h3>
+                <ul style="line-height: 2; margin-top: 10px;">
+                    <li>✅ <strong>Change router admin password</strong> from default to something strong</li>
+                    <li>✅ <strong>Disable remote admin access</strong> to router (if enabled)</li>
+                    <li>✅ <strong>Keep proxy server running</strong> only when needed</li>
+                    <li>✅ <strong>Monitor router logs</strong> occasionally for suspicious activity</li>
+                    <li>✅ <strong>Update router firmware</strong> to latest version</li>
+                    <li>❌ <strong>Do NOT forward additional ports</strong> unless absolutely necessary</li>
+                    <li>❌ <strong>Do NOT enable DMZ</strong> (exposes all ports - very dangerous)</li>
+                </ul>
+            </div>
+
+            <!-- FINAL SUCCESS -->
+            <div class="success" style="margin-top: 40px;">
+                <h2>🎉 Success! What Happens Now?</h2>
+                <p style="margin: 15px 0; line-height: 1.8;">
+                    Once port 3001 is open and accessible:
+                </p>
+                <ol style="line-height: 2; margin: 0 0 0 30px;">
+                    <li>Render can now connect to your proxy at <code>http://85.130.211.49:3001</code></li>
+                    <li>Your proxy forwards requests to Trading CRM API</li>
+                    <li>Trading CRM sees requests from <strong>85.130.211.49</strong> (whitelisted IP)</li>
+                    <li>Leads push successfully! ✅</li>
+                </ol>
+                <p style="margin: 15px 0;">
+                    Test a new signup and check Render logs for:
+                </p>
+                <div class="code-box" style="background: #d4edda; color: #155724;">
+🔀 Using proxy: http://85.130.211.49:3001
+✅ Bearer token obtained via proxy
+📥 Trading CRM Response via Proxy: { status: 200 }
+✅ Push successful
+                </div>
+            </div>
+
+            <!-- QUICK REFERENCE -->
+            <h2 style="color: #667eea; margin: 40px 0 20px;">📝 Quick Reference Card</h2>
+
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Your Value</th>
+                </tr>
+                <tr>
+                    <td>Your PC's Local IP</td>
+                    <td class="input-box">192.168.1.___</td>
+                </tr>
+                <tr>
+                    <td>Router IP</td>
+                    <td class="input-box">192.168.1.___</td>
+                </tr>
+                <tr>
+                    <td>Port to Forward</td>
+                    <td><strong>3001</strong></td>
+                </tr>
+                <tr>
+                    <td>Protocol</td>
+                    <td><strong>TCP</strong></td>
+                </tr>
+                <tr>
+                    <td>Your Public IP</td>
+                    <td><strong>85.130.211.49</strong></td>
+                </tr>
+                <tr>
+                    <td>Test URL</td>
+                    <td><code>http://85.130.211.49:3001/health</code></td>
+                </tr>
+            </table>
+
+            <!-- PRINT BUTTON -->
+            <div style="text-align: center; margin: 40px 0;">
+                <button onclick="window.print()" class="button">
+                    🖨️ Print This Guide
+                </button>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

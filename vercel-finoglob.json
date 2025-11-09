@@ -1,0 +1,53 @@
+{
+  "version": 2,
+  "name": "finoglob-landing",
+  "alias": ["finoglob"],
+  "public": true,
+  "github": {
+    "silent": true
+  },
+  "regions": ["iad1"],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/trdflwfinoglob.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/trdflwfinoglob.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/trdflwfinoglob.html"
+    }
+  ]
+}
