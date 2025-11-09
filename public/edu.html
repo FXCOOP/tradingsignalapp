@@ -1491,9 +1491,20 @@
             }
         });
 
-        // Initialize country detection on page load
+        // Auto-open popup after 20 seconds
+        function initAutoPopup() {
+            setTimeout(() => {
+                if (!sessionStorage.getItem('edu_popup_shown')) {
+                    openModal();
+                    sessionStorage.setItem('edu_popup_shown', 'true');
+                }
+            }, 20000); // 20 seconds
+        }
+
+        // Initialize country detection and auto-popup on page load
         document.addEventListener('DOMContentLoaded', () => {
             detectCountryForForm();
+            initAutoPopup();
         });
     </script>
 
