@@ -1191,51 +1191,80 @@
 
                 <form id="signupForm" onsubmit="handleSubmit(event)">
                     <div class="form-group">
-                        <label class="form-label">Full Name *</label>
-                        <input type="text" class="form-input" name="fullname" required placeholder="John Doe">
+                        <label class="form-label">First Name *</label>
+                        <input type="text" class="form-input" name="firstname" required placeholder="John">
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Email *</label>
+                        <label class="form-label">Last Name *</label>
+                        <input type="text" class="form-input" name="lastname" required placeholder="Doe">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address *</label>
                         <input type="email" class="form-input" name="email" required placeholder="john@example.com">
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Phone *</label>
-                        <input type="tel" class="form-input" name="phone" required placeholder="+1234567890">
+                        <label class="form-label">Phone Number *</label>
+                        <input type="tel" class="form-input" name="phone" required placeholder="+972 12 345 6789">
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Country *</label>
                         <select class="form-select" name="country" required>
                             <option value="">Select your country</option>
-                            <option value="MY">Malaysia</option>
-                            <option value="CN">China</option>
-                            <option value="TW">Taiwan</option>
-                            <option value="HK">Hong Kong</option>
-                            <option value="IN">India</option>
-                            <option value="IT">Italy</option>
-                            <option value="FR">France</option>
-                            <option value="BR">Brazil</option>
-                            <option value="US">United States</option>
-                            <option value="UK">United Kingdom</option>
-                            <option value="SG">Singapore</option>
-                            <option value="OTHER">Other</option>
+                            <option value="IL">🇮🇱 Israel</option>
+                            <option value="MY">🇲🇾 Malaysia</option>
+                            <option value="CN">🇨🇳 China</option>
+                            <option value="TW">🇹🇼 Taiwan</option>
+                            <option value="HK">🇭🇰 Hong Kong</option>
+                            <option value="SG">🇸🇬 Singapore</option>
+                            <option value="IN">🇮🇳 India</option>
+                            <option value="IT">🇮🇹 Italy</option>
+                            <option value="FR">🇫🇷 France</option>
+                            <option value="DE">🇩🇪 Germany</option>
+                            <option value="ES">🇪🇸 Spain</option>
+                            <option value="BR">🇧🇷 Brazil</option>
+                            <option value="US">🇺🇸 United States</option>
+                            <option value="UK">🇬🇧 United Kingdom</option>
+                            <option value="AU">🇦🇺 Australia</option>
+                            <option value="CA">🇨🇦 Canada</option>
+                            <option value="JP">🇯🇵 Japan</option>
+                            <option value="KR">🇰🇷 South Korea</option>
+                            <option value="TH">🇹🇭 Thailand</option>
+                            <option value="ID">🇮🇩 Indonesia</option>
+                            <option value="PH">🇵🇭 Philippines</option>
+                            <option value="VN">🇻🇳 Vietnam</option>
+                            <option value="TR">🇹🇷 Turkey</option>
+                            <option value="SA">🇸🇦 Saudi Arabia</option>
+                            <option value="AE">🇦🇪 United Arab Emirates</option>
+                            <option value="OTHER">🌍 Other</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Trading Experience</label>
+                        <label class="form-label">Current Trading Experience (Optional)</label>
                         <select class="form-select" name="experience">
+                            <option value="">Select your experience level</option>
+                            <option value="no-experience">No Experience</option>
                             <option value="beginner">Beginner (0-1 year)</option>
                             <option value="intermediate">Intermediate (1-3 years)</option>
-                            <option value="advanced">Advanced (3+ years)</option>
+                            <option value="advanced">Advanced (3-5 years)</option>
+                            <option value="expert">Expert (5+ years)</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">What are your trading goals?</label>
-                        <textarea class="form-textarea" name="goals" placeholder="E.g., Generate extra income, Learn Forex trading, Build long-term wealth..."></textarea>
+                        <label class="form-label">Account Size (Optional)</label>
+                        <select class="form-select" name="account_size">
+                            <option value="">Select your account size</option>
+                            <option value="0-1000">$0 - $1,000</option>
+                            <option value="1000-5000">$1,000 - $5,000</option>
+                            <option value="5000-10000">$5,000 - $10,000</option>
+                            <option value="10000-50000">$10,000 - $50,000</option>
+                            <option value="50000+">$50,000+</option>
+                        </select>
                     </div>
 
                     <button type="submit" class="submit-btn" id="submitBtn">
@@ -1323,14 +1352,16 @@
 
             const formData = new FormData(event.target);
             const data = {
-                fullname: formData.get('fullname'),
+                firstname: formData.get('firstname'),
+                lastname: formData.get('lastname'),
+                fullname: `${formData.get('firstname')} ${formData.get('lastname')}`,
                 email: formData.get('email'),
                 phone: formData.get('phone'),
                 country: formData.get('country'),
                 experience: formData.get('experience') || 'Not specified',
-                goals: formData.get('goals') || 'Not specified',
+                account_size: formData.get('account_size') || 'Not specified',
                 language: currentLanguage,
-                source: 'TradeFlow Academy',
+                source: 'TradeFlow - Personal Guidance',
                 created_at: new Date().toISOString()
             };
 
