@@ -54,6 +54,11 @@ export async function GET(request: NextRequest) {
     const lastKnownIp = lastIpRecord?.ip_address;
     const ipChanged = lastKnownIp && lastKnownIp !== currentIp;
 
+    // Extract request headers for logging
+    const forwardedFor = request.headers.get('x-forwarded-for');
+    const realIp = request.headers.get('x-real-ip');
+    const cfConnectingIp = request.headers.get('cf-connecting-ip');
+
     // Log current IP to database
     const { error: insertError } = await supabase
       .from('ip_monitoring')
