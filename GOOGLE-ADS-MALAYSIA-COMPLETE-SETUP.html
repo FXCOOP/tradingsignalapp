@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Ads Malaysia Campaign - Complete Setup Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #202124;
+            background: linear-gradient(135deg, #1a73e8 0%, #34a853 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a73e8 0%, #34a853 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin-bottom: 15px;
+        }
+
+        .flag {
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .step-section {
+            margin-bottom: 50px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            border-left: 5px solid #1a73e8;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #1a73e8 0%, #34a853 100%);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .step-title {
+            font-size: 1.8em;
+            color: #1a73e8;
+            font-weight: 600;
+        }
+
+        .field-group {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .field-group:hover {
+            border-color: #1a73e8;
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.15);
+        }
+
+        .field-label {
+            font-weight: 600;
+            color: #5f6368;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .required-badge {
+            background: #ea4335;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .recommended-badge {
+            background: #fbbc04;
+            color: #202124;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .optional-badge {
+            background: #e8f0fe;
+            color: #1a73e8;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .field-value {
+            background: #f1f3f4;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            color: #202124;
+            border-left: 4px solid #1a73e8;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .char-count {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: #1a73e8;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            background: #34a853;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #2d8e47;
+            transform: scale(1.05);
+        }
+
+        .headline-list {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .headline-item {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .headline-item:hover {
+            border-color: #34a853;
+            transform: translateX(5px);
+        }
+
+        .headline-number {
+            background: #1a73e8;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .headline-text {
+            flex: 1;
+            margin: 0 15px;
+            font-weight: 500;
+            color: #202124;
+        }
+
+        .sitelink-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .sitelink-card:hover {
+            border-color: #fbbc04;
+            box-shadow: 0 4px 12px rgba(251, 188, 4, 0.15);
+        }
+
+        .sitelink-title {
+            font-weight: 600;
+            color: #1a73e8;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .sitelink-desc {
+            color: #5f6368;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+        }
+
+        .sitelink-url {
+            color: #34a853;
+            font-size: 0.9em;
+            font-family: 'Courier New', monospace;
+        }
+
+        .keyword-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .keyword-chip {
+            background: linear-gradient(135deg, #e8f0fe 0%, #f1f3f4 100%);
+            padding: 12px 16px;
+            border-radius: 25px;
+            border: 2px solid #1a73e8;
+            font-size: 0.9em;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .keyword-chip:hover {
+            background: linear-gradient(135deg, #1a73e8 0%, #34a853 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+        }
+
+        .info-box {
+            background: #e8f0fe;
+            border-left: 5px solid #1a73e8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: #fef7e0;
+            border-left: 5px solid #fbbc04;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: #e6f4ea;
+            border-left: 5px solid #34a853;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .callout-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .callout-item {
+            background: #34a853;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .preview-ad {
+            background: white;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .preview-url {
+            color: #34a853;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+
+        .preview-path {
+            color: #5f6368;
+            font-size: 0.85em;
+        }
+
+        .preview-headline {
+            color: #1a0dab;
+            font-size: 1.3em;
+            font-weight: 500;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+
+        .preview-headline:hover {
+            text-decoration: underline;
+        }
+
+        .preview-description {
+            color: #4d5156;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .preview-sitelinks {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .preview-sitelink {
+            color: #1a0dab;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+
+        .preview-sitelink:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: #1a73e8;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .toc {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 2px solid #1a73e8;
+        }
+
+        .toc h3 {
+            color: #1a73e8;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .toc a {
+            color: #5f6368;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            background: #e8f0fe;
+            color: #1a73e8;
+            padding-left: 25px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: #34a853;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(52, 168, 83, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #1a73e8 0%, #34a853 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #5f6368;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .keyword-grid {
+                grid-template-columns: 1fr;
+            }
+            .preview-sitelinks {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="flag">🇲🇾</div>
+            <h1>Google Ads Malaysia Campaign</h1>
+            <div class="subtitle">Complete Step-by-Step Setup Guide</div>
+            <p style="font-size: 1em; margin-top: 10px;">Trading Mentorship | Finoglob | tradeflow.blog</p>
+        </div>
+
+        <div class="content">
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>📋 Quick Navigation</h3>
+                <a href="#step1">Step 1: Campaign Settings</a>
+                <a href="#step2">Step 2: Display Path</a>
+                <a href="#step3">Step 3: Headlines (15 variations)</a>
+                <a href="#step4">Step 4: Descriptions (4 variations)</a>
+                <a href="#step5">Step 5: Sitelinks (6 links)</a>
+                <a href="#step6">Step 6: Callouts</a>
+                <a href="#step7">Step 7: Structured Snippets</a>
+                <a href="#step8">Step 8: Price Extensions</a>
+                <a href="#step9">Step 9: Call Extensions</a>
+                <a href="#step10">Step 10: Location Extensions</a>
+                <a href="#step11">Step 11: Keywords (English + Malay)</a>
+                <a href="#step12">Step 12: Negative Keywords</a>
+                <a href="#step13">Step 13: Ad Preview</a>
+                <a href="#step14">Step 14: Final Checklist</a>
+            </div>
+
+            <!-- Campaign Overview -->
+            <div class="success-box">
+                <h3 style="color: #34a853; margin-bottom: 10px;">✅ Campaign Overview</h3>
+                <p><strong>Market:</strong> Malaysia (Malay + English speakers)</p>
+                <p><strong>Landing Page:</strong> tradeflow.blog/finoglob (auto-detects language)</p>
+                <p><strong>Daily Budget:</strong> $50 USD (RM 220)</p>
+                <p><strong>Target CPA:</strong> $20-40 USD per lead</p>
+                <p><strong>Languages:</strong> Malay & English</p>
+            </div>
+
+            <!-- Step 1: Campaign Settings -->
+            <div class="step-section" id="step1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Campaign Settings</div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">
+                        Campaign Name
+                        <span class="required-badge">Required</span>
+                    </div>
+                    <div class="field-value">
+                        Trading Mentorship - Malaysia
+                        <button class="copy-btn" onclick="copyText(this, 'Trading Mentorship - Malaysia')">Copy</button>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">Campaign Goal</div>
+                    <div class="field-value">
+                        Leads
+                        <button class="copy-btn" onclick="copyText(this, 'Leads')">Copy</button>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">Campaign Type</div>
+                    <div class="field-value">
+                        Search
+                        <button class="copy-btn" onclick="copyText(this, 'Search')">Copy</button>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">Networks</div>
+                    <div class="field-value">
+                        ✅ Google Search<br>
+                        ✅ Search Partners<br>
+                        ❌ Display Network (disable initially)
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">Location</div>
+                    <div class="field-value">
+                        Malaysia - All regions<br>
+                        (Kuala Lumpur, Selangor, Penang, Johor, Perak, etc.)
+                        <button class="copy-btn" onclick="copyText(this, 'Malaysia')">Copy</button>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">Languages</div>
+                    <div class="field-value">
+                        • English<br>
+                        • Malay<br>
+                        (Select both in Google Ads interface)
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">Budget</div>
+                    <div class="field-value">
+                        Daily Budget: $50 USD (approximately RM 220)<br>
+                        Monthly Budget: $1,500 USD (approximately RM 6,600)
+                        <button class="copy-btn" onclick="copyText(this, '50')">Copy</button>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">Bidding</div>
+                    <div class="field-value">
+                        Start with: Manual CPC<br>
+                        Target CPC: $3-5 USD<br>
+                        (After 30 conversions, switch to Target CPA)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Display Path -->
+            <div class="step-section" id="step2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Display Path (Path 1 & Path 2)</div>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 What is Display Path?</strong><br>
+                    The path shown in your ad URL. Example: tradeflow.blog/<strong>mentorship</strong>/<strong>malaysia</strong>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">
+                        Path 1
+                        <span class="optional-badge">Optional</span>
+                    </div>
+                    <div class="field-value">
+                        <span class="char-count">10/15</span>
+                        mentorship
+                        <button class="copy-btn" onclick="copyText(this, 'mentorship')">Copy</button>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">
+                        Path 2
+                        <span class="optional-badge">Optional</span>
+                    </div>
+                    <div class="field-value">
+                        <span class="char-count">8/15</span>
+                        malaysia
+                        <button class="copy-btn" onclick="copyText(this, 'malaysia')">Copy</button>
+                    </div>
+                </div>
+
+                <div class="preview-ad">
+                    <div class="preview-url">
+                        <span style="color: #34a853;">tradeflow.blog</span>
+                        <span class="preview-path"> › mentorship › malaysia</span>
+                    </div>
+                    <div class="preview-headline">Elite Trading Mentor | 1-on-1 Malaysia</div>
+                    <div class="preview-description">Get personalized trading mentorship from expert traders in Malaysia...</div>
+                </div>
+            </div>
+
+            <!-- Step 3: Headlines -->
+            <div class="step-section" id="step3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Headlines (15 variations)</div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ Important:</strong> Minimum 3 headlines required. Maximum 15 allowed. Each headline max 30 characters.
+                </div>
+
+                <div class="headline-list">
+                    <div class="headline-item">
+                        <div class="headline-number">1</div>
+                        <div class="headline-text">Trading Mentor Malaysia</div>
+                        <div class="char-count">24/30</div>
+                        <button class="copy-btn" onclick="copyText(this, 'Trading Mentor Malaysia')">Copy</button>
+                    </div>
+
+                    <div class="headline-item">
+                        <div class="headline-number">2</div>
+                        <div class="headline-text">1-on-1 Forex Mentorship</div>
+                        <div class="char-count">23/30</div>
+                        <button class="copy-btn" onclick="copyText(this, '1-on-1 Forex Mentorship')">Copy</button>
+                    </div>
+
+                    <div class="headline-item">
+                        <div class="headline-number">3</div>
+                        <div class="headline-text">Expert Trading Coach MY</div>
+                        <div class="char-count">23/30</div>
+                        <button class="copy-btn" onclick="copyText(this, 'Expert Trading Coach MY')">Copy</button>
+                    </div>
+
+                    <div class="headline-item">
+                        <div class="headline-number">4</div>
+                        <div class="headline-text">Belajar Trading Forex</div>
+                        <div class="char-count">20/30</div>
+                        <button class="copy-btn" onclick="copyText(this, 'Belajar Trading Forex')">Copy</button>
+                    </div>
+
+                    <div class="headline-item">
+                        <div class="headline-number">5</div>
+                        <div class="headline-text">Mentor Trading Profesional</div>
+                        <div class="char-count">26/30</div>
+                        <button class="copy-btn" onclick="copyText(this, 'Mentor Trading Profesional')">Copy</button>
+                    </div>
+
+                    <div class="headline-item">
+                        <div class="headline-number">6</div>
+                        <div class="headline-text">Live Trading Signals</div>
+                        <div class="char-count">20/30</div>
+                        <button class="copy-btn" onclick="copyText(this, 'Live Trading Signals')">Copy</button>
+                    </div>
+
+                    <div class="headline-item">
+                        <div class="headline-number">7</div>
+                        <div class="headline-text">Personal Trading Guidance</div>
+                        <div class="char-count">25/30</div>
+                        <button class="copy-btn" onclick="copyText(this, 'Personal Trading Guidance')">Copy</button>
+                    </div>
+
+                    <div class="headline-item">
+                        <div class="headline-number">8</div>
+                        <div class="headline-text">Kursus Forex Malaysia</div>
+                        <div class="char-count">21/30</div>
+                        <button class="copy-btn" onclick="copyText(this, 'Kursus Forex Malaysia')">Copy</button>
+                    </div>
+
+                    <div class="headline-item">
+                        <div class="headline-number">9</div>
+                        <div class="headline-text">Trading Course + Mentor</div>
+                        <div class="char-count">23/30</div>
+                        <button class="copy-btn" onclick="copyText(this, 'Trading Course + Mentor')">Copy</button>
+                    </div>
+
+                    <div class="headline-item">
+                        <div class="headline-number">10</div>
+                        <div class="headline-text">Guru Trading Berpengalaman</div>
+                        <div class="char-count">26/30</div>
+                        <button class="copy-btn" onclick="copyText(this, 'Guru Trading Berpengalaman')">Copy</button>
+                    </div>
+
+                    <div class="headline-item">
+                        <div class="headline-number">11</div>
+                        <div class="headline-text">Learn Trading from Experts</div>
+                        <div class="char-count">26/30</div>
+                        <button class="copy-btn" onclick="copyText(this, 'Learn Trading from Experts')">Copy</button>
+                    </div>
+
+                    <div class="headline-item">
+                        <div class="headline-number">12</div>
+                        <div class="headline-text">Profitable Trading Secrets</div>
+                        <div class="char-count">26/30</div>
+                        <button class="copy-btn" onclick="copyText(this, 'Profitable Trading Secrets')">Copy</button>
+                    </div>
+
+                    <div class="headline-item">
+                        <div class="headline-number">13</div>
+                        <div class="headline-text">WhatsApp Trading Support</div>
+                        <div class="char-count">25/30</div>
+                        <button class="copy-btn" onclick="copyText(this, 'WhatsApp Trading Support')">Copy</button>
+                    </div>
+
+                    <div class="headline-item">
+                        <div class="headline-number">14</div>
+                        <div class="headline-text">Start Trading Today</div>
+                        <div class="char-count">19/30</div>
+                        <button class="copy-btn" onclick="copyText(this, 'Start Trading Today')">Copy</button>
+                    </div>
+
+                    <div class="headline-item">
+                        <div class="headline-number">15</div>
+                        <div class="headline-text">Proven Trading Strategies</div>
+                        <div class="char-count">25/30</div>
+                        <button class="copy-btn" onclick="copyText(this, 'Proven Trading Strategies')">Copy</button>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 Pro Tip:</strong> Google will automatically test different headline combinations to find the best-performing ones. Mix English and Malay headlines for broader reach.
+                </div>
+            </div>
+
+            <!-- Step 4: Descriptions -->
+            <div class="step-section" id="step4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Descriptions (4 variations)</div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ Important:</strong> Minimum 2 descriptions required. Maximum 4 allowed. Each description max 90 characters.
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">
+                        Description 1
+                        <span class="required-badge">Required</span>
+                    </div>
+                    <div class="field-value">
+                        <span class="char-count">89/90</span>
+                        Get personalized 1-on-1 trading mentorship. Live signals, daily analysis & direct support.
+                        <button class="copy-btn" onclick="copyText(this, 'Get personalized 1-on-1 trading mentorship. Live signals, daily analysis & direct support.')">Copy</button>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">
+                        Description 2
+                        <span class="required-badge">Required</span>
+                    </div>
+                    <div class="field-value">
+                        <span class="char-count">88/90</span>
+                        Learn from expert traders in Malaysia. Master strategies, risk management & market analysis.
+                        <button class="copy-btn" onclick="copyText(this, 'Learn from expert traders in Malaysia. Master strategies, risk management & market analysis.')">Copy</button>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">
+                        Description 3
+                        <span class="optional-badge">Optional</span>
+                    </div>
+                    <div class="field-value">
+                        <span class="char-count">87/90</span>
+                        Dapatkan panduan trading 1-on-1 dari mentor profesional. Sokongan harian & signal live.
+                        <button class="copy-btn" onclick="copyText(this, 'Dapatkan panduan trading 1-on-1 dari mentor profesional. Sokongan harian & signal live.')">Copy</button>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">
+                        Description 4
+                        <span class="optional-badge">Optional</span>
+                    </div>
+                    <div class="field-value">
+                        <span class="char-count">90/90</span>
+                        Transform your trading with expert guidance. Join successful traders. Start your journey now.
+                        <button class="copy-btn" onclick="copyText(this, 'Transform your trading with expert guidance. Join successful traders. Start your journey now.')">Copy</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Sitelinks -->
+            <div class="step-section" id="step5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Sitelinks (6 links)</div>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 What are Sitelinks?</strong><br>
+                    Additional links that appear below your ad, taking users to specific pages. They increase ad size and CTR significantly.
+                </div>
+
+                <div class="sitelink-card">
+                    <div class="sitelink-title">
+                        📊 Sitelink 1: Live Trading Signals
+                        <span class="recommended-badge">Recommended</span>
+                    </div>
+                    <div class="field-group" style="margin-top: 15px;">
+                        <div class="field-label">Sitelink Text (max 25 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">20/25</span>
+                            Live Trading Signals
+                            <button class="copy-btn" onclick="copyText(this, 'Live Trading Signals')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Description Line 1 (max 35 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">33/35</span>
+                            Real-time forex & crypto signals
+                            <button class="copy-btn" onclick="copyText(this, 'Real-time forex & crypto signals')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Description Line 2 (max 35 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">32/35</span>
+                            Daily market analysis & updates
+                            <button class="copy-btn" onclick="copyText(this, 'Daily market analysis & updates')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Final URL</div>
+                        <div class="field-value">
+                            https://tradeflow.blog/finoglob
+                            <button class="copy-btn" onclick="copyText(this, 'https://tradeflow.blog/finoglob')">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sitelink-card">
+                    <div class="sitelink-title">
+                        👨‍🏫 Sitelink 2: 1-on-1 Mentorship
+                        <span class="recommended-badge">Recommended</span>
+                    </div>
+                    <div class="field-group" style="margin-top: 15px;">
+                        <div class="field-label">Sitelink Text (max 25 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">18/25</span>
+                            1-on-1 Mentorship
+                            <button class="copy-btn" onclick="copyText(this, '1-on-1 Mentorship')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Description Line 1 (max 35 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">35/35</span>
+                            Personal trading mentor for you
+                            <button class="copy-btn" onclick="copyText(this, 'Personal trading mentor for you')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Description Line 2 (max 35 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">33/35</span>
+                            Expert guidance & strategy tips
+                            <button class="copy-btn" onclick="copyText(this, 'Expert guidance & strategy tips')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Final URL</div>
+                        <div class="field-value">
+                            https://tradeflow.blog/finoglob
+                            <button class="copy-btn" onclick="copyText(this, 'https://tradeflow.blog/finoglob')">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sitelink-card">
+                    <div class="sitelink-title">
+                        📚 Sitelink 3: Trading Course
+                        <span class="recommended-badge">Recommended</span>
+                    </div>
+                    <div class="field-group" style="margin-top: 15px;">
+                        <div class="field-label">Sitelink Text (max 25 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">14/25</span>
+                            Trading Course
+                            <button class="copy-btn" onclick="copyText(this, 'Trading Course')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Description Line 1 (max 35 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">34/35</span>
+                            Complete trading education program
+                            <button class="copy-btn" onclick="copyText(this, 'Complete trading education program')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Description Line 2 (max 35 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">35/35</span>
+                            Learn strategies & risk management
+                            <button class="copy-btn" onclick="copyText(this, 'Learn strategies & risk management')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Final URL</div>
+                        <div class="field-value">
+                            https://tradeflow.blog/finoglob
+                            <button class="copy-btn" onclick="copyText(this, 'https://tradeflow.blog/finoglob')">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sitelink-card">
+                    <div class="sitelink-title">
+                        💬 Sitelink 4: WhatsApp Support
+                        <span class="recommended-badge">Recommended</span>
+                    </div>
+                    <div class="field-group" style="margin-top: 15px;">
+                        <div class="field-label">Sitelink Text (max 25 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">16/25</span>
+                            WhatsApp Support
+                            <button class="copy-btn" onclick="copyText(this, 'WhatsApp Support')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Description Line 1 (max 35 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">28/35</span>
+                            24/7 support via WhatsApp
+                            <button class="copy-btn" onclick="copyText(this, '24/7 support via WhatsApp')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Description Line 2 (max 35 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">34/35</span>
+                            Direct access to trading mentors
+                            <button class="copy-btn" onclick="copyText(this, 'Direct access to trading mentors')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Final URL</div>
+                        <div class="field-value">
+                            https://tradeflow.blog/finoglob
+                            <button class="copy-btn" onclick="copyText(this, 'https://tradeflow.blog/finoglob')">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sitelink-card">
+                    <div class="sitelink-title">
+                        ⭐ Sitelink 5: Success Stories
+                        <span class="recommended-badge">Recommended</span>
+                    </div>
+                    <div class="field-group" style="margin-top: 15px;">
+                        <div class="field-label">Sitelink Text (max 25 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">15/25</span>
+                            Success Stories
+                            <button class="copy-btn" onclick="copyText(this, 'Success Stories')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Description Line 1 (max 35 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">33/35</span>
+                            Real results from our students
+                            <button class="copy-btn" onclick="copyText(this, 'Real results from our students')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Description Line 2 (max 35 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">35/35</span>
+                            See how traders transform careers
+                            <button class="copy-btn" onclick="copyText(this, 'See how traders transform careers')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Final URL</div>
+                        <div class="field-value">
+                            https://tradeflow.blog/finoglob
+                            <button class="copy-btn" onclick="copyText(this, 'https://tradeflow.blog/finoglob')">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sitelink-card">
+                    <div class="sitelink-title">
+                        🎯 Sitelink 6: Free Consultation
+                        <span class="recommended-badge">Recommended</span>
+                    </div>
+                    <div class="field-group" style="margin-top: 15px;">
+                        <div class="field-label">Sitelink Text (max 25 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">18/25</span>
+                            Free Consultation
+                            <button class="copy-btn" onclick="copyText(this, 'Free Consultation')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Description Line 1 (max 35 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">35/35</span>
+                            Book your free strategy session
+                            <button class="copy-btn" onclick="copyText(this, 'Book your free strategy session')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Description Line 2 (max 35 characters)</div>
+                        <div class="field-value">
+                            <span class="char-count">34/35</span>
+                            Talk to a mentor about your goals
+                            <button class="copy-btn" onclick="copyText(this, 'Talk to a mentor about your goals')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="field-label">Final URL</div>
+                        <div class="field-value">
+                            https://tradeflow.blog/finoglob
+                            <button class="copy-btn" onclick="copyText(this, 'https://tradeflow.blog/finoglob')">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Callouts -->
+            <div class="step-section" id="step6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">Callout Extensions</div>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 What are Callouts?</strong><br>
+                    Short snippets highlighting key benefits. They appear below your ad description. Add at least 4, up to 10 recommended.
+                </div>
+
+                <div class="callout-list">
+                    <div class="callout-item">
+                        ✅ Expert Mentors
+                        <button class="copy-btn" onclick="copyText(this, 'Expert Mentors')">Copy</button>
+                    </div>
+                    <div class="callout-item">
+                        ✅ 24/7 Support
+                        <button class="copy-btn" onclick="copyText(this, '24/7 Support')">Copy</button>
+                    </div>
+                    <div class="callout-item">
+                        ✅ Live Trading Signals
+                        <button class="copy-btn" onclick="copyText(this, 'Live Trading Signals')">Copy</button>
+                    </div>
+                    <div class="callout-item">
+                        ✅ Proven Strategies
+                        <button class="copy-btn" onclick="copyText(this, 'Proven Strategies')">Copy</button>
+                    </div>
+                    <div class="callout-item">
+                        ✅ Risk Management Training
+                        <button class="copy-btn" onclick="copyText(this, 'Risk Management Training')">Copy</button>
+                    </div>
+                    <div class="callout-item">
+                        ✅ Real Results
+                        <button class="copy-btn" onclick="copyText(this, 'Real Results')">Copy</button>
+                    </div>
+                    <div class="callout-item">
+                        ✅ WhatsApp & Telegram Access
+                        <button class="copy-btn" onclick="copyText(this, 'WhatsApp & Telegram Access')">Copy</button>
+                    </div>
+                    <div class="callout-item">
+                        ✅ Daily Market Analysis
+                        <button class="copy-btn" onclick="copyText(this, 'Daily Market Analysis')">Copy</button>
+                    </div>
+                    <div class="callout-item">
+                        ✅ Personalized Learning
+                        <button class="copy-btn" onclick="copyText(this, 'Personalized Learning')">Copy</button>
+                    </div>
+                    <div class="callout-item">
+                        ✅ Malaysia Based
+                        <button class="copy-btn" onclick="copyText(this, 'Malaysia Based')">Copy</button>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong>✅ Copy All Callouts at Once:</strong><br>
+                    <textarea readonly style="width: 100%; padding: 10px; margin-top: 10px; border-radius: 5px; font-family: monospace;" rows="5">Expert Mentors
+24/7 Support
+Live Trading Signals
+Proven Strategies
+Risk Management Training
+Real Results
+WhatsApp & Telegram Access
+Daily Market Analysis
+Personalized Learning
+Malaysia Based</textarea>
+                </div>
+            </div>
+
+            <!-- Step 7: Structured Snippets -->
+            <div class="step-section" id="step7">
+                <div class="step-header">
+                    <div class="step-number">7</div>
+                    <div class="step-title">Structured Snippets</div>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 What are Structured Snippets?</strong><br>
+                    Organized lists of your services, courses, or features. Choose a header type and add at least 3 values.
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">Header Type: Services</div>
+                    <div class="field-value">
+                        Services
+                        <button class="copy-btn" onclick="copyText(this, 'Services')">Copy</button>
+                    </div>
+                    <div class="field-value" style="margin-top: 10px;">
+                        <strong>Values (add these one by one):</strong><br>
+                        • Technical Analysis Training<br>
+                        • Risk Management Course<br>
+                        • Strategy Development<br>
+                        • Live Trading Signals<br>
+                        • Market Analysis<br>
+                        • 1-on-1 Mentorship<br>
+                        • WhatsApp Support<br>
+                        • Daily Trading Ideas
+                    </div>
+                </div>
+
+                <div class="field-group" style="margin-top: 20px;">
+                    <div class="field-label">Header Type: Types</div>
+                    <div class="field-value">
+                        Types
+                        <button class="copy-btn" onclick="copyText(this, 'Types')">Copy</button>
+                    </div>
+                    <div class="field-value" style="margin-top: 10px;">
+                        <strong>Values (add these one by one):</strong><br>
+                        • Forex Trading<br>
+                        • Crypto Trading<br>
+                        • Stock Trading<br>
+                        • Day Trading<br>
+                        • Swing Trading<br>
+                        • Position Trading<br>
+                        • Scalping<br>
+                        • Options Trading
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 8: Price Extensions -->
+            <div class="step-section" id="step8">
+                <div class="step-header">
+                    <div class="step-number">8</div>
+                    <div class="step-title">Price Extensions (Optional)</div>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 What are Price Extensions?</strong><br>
+                    Show pricing for different services. Great for transparency and attracting budget-conscious customers.
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ Note:</strong> Only add if you have specific pricing. If mentorship is custom-priced, you can skip this.
+                </div>
+
+                <table>
+                    <tr>
+                        <th>Header</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Final URL</th>
+                    </tr>
+                    <tr>
+                        <td>Basic Mentorship</td>
+                        <td>Weekly sessions & signals</td>
+                        <td>RM 500/month</td>
+                        <td>tradeflow.blog/finoglob</td>
+                    </tr>
+                    <tr>
+                        <td>Premium Package</td>
+                        <td>Daily support & analysis</td>
+                        <td>RM 1,000/month</td>
+                        <td>tradeflow.blog/finoglob</td>
+                    </tr>
+                    <tr>
+                        <td>VIP 1-on-1</td>
+                        <td>Personal mentor 24/7</td>
+                        <td>RM 2,500/month</td>
+                        <td>tradeflow.blog/finoglob</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Step 9: Call Extensions -->
+            <div class="step-section" id="step9">
+                <div class="step-header">
+                    <div class="step-number">9</div>
+                    <div class="step-title">Call Extensions</div>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 What are Call Extensions?</strong><br>
+                    Add your WhatsApp or phone number so users can call directly from the ad on mobile devices.
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">Phone Number</div>
+                    <div class="field-value">
+                        Add your WhatsApp business number here<br>
+                        Format: +60 12-345-6789 (Malaysia format)<br>
+                        (Get this from the WhatsApp button on finoglob page)
+                        <button class="copy-btn" onclick="copyText(this, '+60')">Copy +60</button>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">Call Reporting</div>
+                    <div class="field-value">
+                        ✅ Enable call reporting<br>
+                        Track calls as conversions (Recommended)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 10: Location Extensions -->
+            <div class="step-section" id="step10">
+                <div class="step-header">
+                    <div class="step-number">10</div>
+                    <div class="step-title">Location Extensions (Optional)</div>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 What are Location Extensions?</strong><br>
+                    Show your business address if you have a physical office. Skip if you're fully online.
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ Recommendation:</strong> Skip this for finoglob as it's an online mentorship service. No physical location needed.
+                </div>
+            </div>
+
+            <!-- Step 11: Keywords -->
+            <div class="step-section" id="step11">
+                <div class="step-header">
+                    <div class="step-number">11</div>
+                    <div class="step-title">Keywords - English + Malay (Malaysia)</div>
+                </div>
+
+                <div class="success-box">
+                    <strong>✅ Total Keywords: 120+</strong><br>
+                    Mix of English and Malay keywords optimized for Malaysian market
+                </div>
+
+                <h3 style="color: #1a73e8; margin: 30px 0 15px 0;">English Keywords (75)</h3>
+
+                <div class="keyword-grid">
+                    <div class="keyword-chip">trading mentor malaysia</div>
+                    <div class="keyword-chip">forex mentor malaysia</div>
+                    <div class="keyword-chip">trading coach malaysia</div>
+                    <div class="keyword-chip">trading education malaysia</div>
+                    <div class="keyword-chip">learn trading malaysia</div>
+                    <div class="keyword-chip">forex course malaysia</div>
+                    <div class="keyword-chip">trading course malaysia</div>
+                    <div class="keyword-chip">trading mentor KL</div>
+                    <div class="keyword-chip">forex mentor KL</div>
+                    <div class="keyword-chip">personal trading mentor</div>
+                    <div class="keyword-chip">1 on 1 trading mentor</div>
+                    <div class="keyword-chip">best trading mentor</div>
+                    <div class="keyword-chip">professional trading mentor</div>
+                    <div class="keyword-chip">online trading mentor</div>
+                    <div class="keyword-chip">trading mentorship program</div>
+                    <div class="keyword-chip">forex mentorship</div>
+                    <div class="keyword-chip">trading signals malaysia</div>
+                    <div class="keyword-chip">forex signals malaysia</div>
+                    <div class="keyword-chip">live trading signals</div>
+                    <div class="keyword-chip">day trading mentor</div>
+                    <div class="keyword-chip">swing trading mentor</div>
+                    <div class="keyword-chip">learn forex trading</div>
+                    <div class="keyword-chip">learn day trading</div>
+                    <div class="keyword-chip">how to trade forex</div>
+                    <div class="keyword-chip">how to trade stocks</div>
+                    <div class="keyword-chip">trading for beginners</div>
+                    <div class="keyword-chip">forex for beginners</div>
+                    <div class="keyword-chip">beginner trading course</div>
+                    <div class="keyword-chip">trading strategy course</div>
+                    <div class="keyword-chip">technical analysis course</div>
+                    <div class="keyword-chip">price action trading</div>
+                    <div class="keyword-chip">forex training malaysia</div>
+                    <div class="keyword-chip">trading training malaysia</div>
+                    <div class="keyword-chip">forex school malaysia</div>
+                    <div class="keyword-chip">trading school malaysia</div>
+                    <div class="keyword-chip">forex education</div>
+                    <div class="keyword-chip">trading education</div>
+                    <div class="keyword-chip">professional trader training</div>
+                    <div class="keyword-chip">become forex trader</div>
+                    <div class="keyword-chip">become day trader</div>
+                    <div class="keyword-chip">full time trader</div>
+                    <div class="keyword-chip">trading career</div>
+                    <div class="keyword-chip">forex guru</div>
+                    <div class="keyword-chip">trading guru</div>
+                    <div class="keyword-chip">expert trading mentor</div>
+                    <div class="keyword-chip">successful trader</div>
+                    <div class="keyword-chip">profitable trading</div>
+                    <div class="keyword-chip">trading tips</div>
+                    <div class="keyword-chip">forex tips</div>
+                    <div class="keyword-chip">trading strategies</div>
+                    <div class="keyword-chip">forex strategies</div>
+                    <div class="keyword-chip">risk management trading</div>
+                    <div class="keyword-chip">trading psychology</div>
+                    <div class="keyword-chip">market analysis</div>
+                    <div class="keyword-chip">technical analysis</div>
+                    <div class="keyword-chip">fundamental analysis</div>
+                    <div class="keyword-chip">chart analysis</div>
+                    <div class="keyword-chip">candlestick patterns</div>
+                    <div class="keyword-chip">support resistance</div>
+                    <div class="keyword-chip">trend trading</div>
+                    <div class="keyword-chip">breakout trading</div>
+                    <div class="keyword-chip">scalping strategy</div>
+                    <div class="keyword-chip">swing trading strategy</div>
+                    <div class="keyword-chip">intraday trading</div>
+                    <div class="keyword-chip">online trading course</div>
+                    <div class="keyword-chip">forex webinar</div>
+                    <div class="keyword-chip">trading webinar</div>
+                    <div class="keyword-chip">forex workshop malaysia</div>
+                    <div class="keyword-chip">trading workshop malaysia</div>
+                    <div class="keyword-chip">whatsapp trading signals</div>
+                    <div class="keyword-chip">telegram trading signals</div>
+                    <div class="keyword-chip">crypto trading mentor</div>
+                    <div class="keyword-chip">stock trading mentor</div>
+                    <div class="keyword-chip">options trading mentor</div>
+                    <div class="keyword-chip">trading for living</div>
+                </div>
+
+                <h3 style="color: #34a853; margin: 30px 0 15px 0;">Malay Keywords (45)</h3>
+
+                <div class="keyword-grid">
+                    <div class="keyword-chip">mentor trading</div>
+                    <div class="keyword-chip">mentor forex</div>
+                    <div class="keyword-chip">guru trading</div>
+                    <div class="keyword-chip">belajar trading</div>
+                    <div class="keyword-chip">belajar forex</div>
+                    <div class="keyword-chip">kursus trading</div>
+                    <div class="keyword-chip">kursus forex</div>
+                    <div class="keyword-chip">kursus trading malaysia</div>
+                    <div class="keyword-chip">kursus forex malaysia</div>
+                    <div class="keyword-chip">belajar trading online</div>
+                    <div class="keyword-chip">belajar forex online</div>
+                    <div class="keyword-chip">mentor trading malaysia</div>
+                    <div class="keyword-chip">mentor forex malaysia</div>
+                    <div class="keyword-chip">cara trading forex</div>
+                    <div class="keyword-chip">cara belajar trading</div>
+                    <div class="keyword-chip">panduan trading</div>
+                    <div class="keyword-chip">panduan forex</div>
+                    <div class="keyword-chip">strategi trading</div>
+                    <div class="keyword-chip">strategi forex</div>
+                    <div class="keyword-chip">signal trading</div>
+                    <div class="keyword-chip">signal forex</div>
+                    <div class="keyword-chip">trading untuk pemula</div>
+                    <div class="keyword-chip">forex untuk pemula</div>
+                    <div class="keyword-chip">belajar trading pemula</div>
+                    <div class="keyword-chip">latihan trading</div>
+                    <div class="keyword-chip">latihan forex</div>
+                    <div class="keyword-chip">kelas trading</div>
+                    <div class="keyword-chip">kelas forex</div>
+                    <div class="keyword-chip">sekolah trading</div>
+                    <div class="keyword-chip">analisis teknikal</div>
+                    <div class="keyword-chip">trading saham</div>
+                    <div class="keyword-chip">belajar saham</div>
+                    <div class="keyword-chip">pelaburan forex</div>
+                    <div class="keyword-chip">pelaburan trading</div>
+                    <div class="keyword-chip">trading online malaysia</div>
+                    <div class="keyword-chip">forex online malaysia</div>
+                    <div class="keyword-chip">guru forex berpengalaman</div>
+                    <div class="keyword-chip">mentor trading profesional</div>
+                    <div class="keyword-chip">program mentorship trading</div>
+                    <div class="keyword-chip">sokongan trading</div>
+                    <div class="keyword-chip">signal trading harian</div>
+                    <div class="keyword-chip">analisis pasaran</div>
+                    <div class="keyword-chip">pengurusan risiko trading</div>
+                    <div class="keyword-chip">belajar chart trading</div>
+                    <div class="keyword-chip">day trading malaysia</div>
+                </div>
+
+                <div class="success-box" style="margin-top: 30px;">
+                    <strong>✅ Copy All Keywords at Once:</strong><br>
+                    <textarea readonly style="width: 100%; padding: 10px; margin-top: 10px; border-radius: 5px; font-family: monospace; font-size: 0.85em;" rows="30">trading mentor malaysia
+forex mentor malaysia
+trading coach malaysia
+trading education malaysia
+learn trading malaysia
+forex course malaysia
+trading course malaysia
+trading mentor KL
+forex mentor KL
+personal trading mentor
+1 on 1 trading mentor
+best trading mentor
+professional trading mentor
+online trading mentor
+trading mentorship program
+forex mentorship
+trading signals malaysia
+forex signals malaysia
+live trading signals
+day trading mentor
+swing trading mentor
+learn forex trading
+learn day trading
+how to trade forex
+how to trade stocks
+trading for beginners
+forex for beginners
+beginner trading course
+trading strategy course
+technical analysis course
+price action trading
+forex training malaysia
+trading training malaysia
+forex school malaysia
+trading school malaysia
+forex education
+trading education
+professional trader training
+become forex trader
+become day trader
+full time trader
+trading career
+forex guru
+trading guru
+expert trading mentor
+successful trader
+profitable trading
+trading tips
+forex tips
+trading strategies
+forex strategies
+risk management trading
+trading psychology
+market analysis
+technical analysis
+fundamental analysis
+chart analysis
+candlestick patterns
+support resistance
+trend trading
+breakout trading
+scalping strategy
+swing trading strategy
+intraday trading
+online trading course
+forex webinar
+trading webinar
+forex workshop malaysia
+trading workshop malaysia
+whatsapp trading signals
+telegram trading signals
+crypto trading mentor
+stock trading mentor
+options trading mentor
+trading for living
+mentor trading
+mentor forex
+guru trading
+belajar trading
+belajar forex
+kursus trading
+kursus forex
+kursus trading malaysia
+kursus forex malaysia
+belajar trading online
+belajar forex online
+mentor trading malaysia
+mentor forex malaysia
+cara trading forex
+cara belajar trading
+panduan trading
+panduan forex
+strategi trading
+strategi forex
+signal trading
+signal forex
+trading untuk pemula
+forex untuk pemula
+belajar trading pemula
+latihan trading
+latihan forex
+kelas trading
+kelas forex
+sekolah trading
+analisis teknikal
+trading saham
+belajar saham
+pelaburan forex
+pelaburan trading
+trading online malaysia
+forex online malaysia
+guru forex berpengalaman
+mentor trading profesional
+program mentorship trading
+sokongan trading
+signal trading harian
+analisis pasaran
+pengurusan risiko trading
+belajar chart trading
+day trading malaysia</textarea>
+                </div>
+            </div>
+
+            <!-- Step 12: Negative Keywords -->
+            <div class="step-section" id="step12">
+                <div class="step-header">
+                    <div class="step-number">12</div>
+                    <div class="step-title">Negative Keywords</div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ Critical!</strong> Add these negative keywords to prevent wasted spend on irrelevant searches.
+                </div>
+
+                <div class="keyword-grid">
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">free</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">percuma</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">job</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">jobs</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">kerja</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">vacancy</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">hiring</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">salary</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">gaji</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">scam</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">penipuan</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">fraud</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">review</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">complaint</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">reddit</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">forum</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">pdf</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">download</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">torrent</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">crack</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">software</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">robot</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">bot</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">EA</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">automated</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">automatic</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">wikipedia</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">definition</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">what is</div>
+                    <div class="keyword-chip" style="background: #fce8e6; border-color: #ea4335;">apa itu</div>
+                </div>
+
+                <div class="success-box" style="margin-top: 20px;">
+                    <strong>✅ Copy All Negative Keywords:</strong><br>
+                    <textarea readonly style="width: 100%; padding: 10px; margin-top: 10px; border-radius: 5px; font-family: monospace;" rows="10">free
+percuma
+job
+jobs
+kerja
+vacancy
+hiring
+salary
+gaji
+scam
+penipuan
+fraud
+review
+complaint
+reddit
+forum
+pdf
+download
+torrent
+crack
+software
+robot
+bot
+EA
+automated
+automatic
+wikipedia
+definition
+what is
+apa itu</textarea>
+                </div>
+            </div>
+
+            <!-- Step 13: Ad Preview -->
+            <div class="step-section" id="step13">
+                <div class="step-header">
+                    <div class="step-number">13</div>
+                    <div class="step-title">Ad Preview - How Your Ad Will Look</div>
+                </div>
+
+                <h3 style="color: #1a73e8; margin-bottom: 20px;">Desktop Preview</h3>
+                <div class="preview-ad" style="max-width: 600px;">
+                    <div class="preview-url">
+                        <span style="color: #34a853;">tradeflow.blog</span>
+                        <span class="preview-path"> › mentorship › malaysia</span>
+                    </div>
+                    <div class="preview-headline">Trading Mentor Malaysia | 1-on-1 Forex Mentorship</div>
+                    <div class="preview-description">
+                        Get personalized 1-on-1 trading mentorship. Live signals, daily analysis & direct support. Learn from expert traders in Malaysia.
+                    </div>
+                    <div class="preview-sitelinks">
+                        <div class="preview-sitelink">📊 Live Trading Signals</div>
+                        <div class="preview-sitelink">👨‍🏫 1-on-1 Mentorship</div>
+                        <div class="preview-sitelink">📚 Trading Course</div>
+                        <div class="preview-sitelink">💬 WhatsApp Support</div>
+                    </div>
+                </div>
+
+                <h3 style="color: #1a73e8; margin: 40px 0 20px 0;">Mobile Preview</h3>
+                <div class="preview-ad" style="max-width: 360px;">
+                    <div class="preview-url" style="font-size: 0.8em;">
+                        <span style="color: #34a853;">tradeflow.blog</span>
+                        <span class="preview-path"> › mentorship</span>
+                    </div>
+                    <div class="preview-headline" style="font-size: 1.1em;">Belajar Trading Forex</div>
+                    <div class="preview-description" style="font-size: 0.9em;">
+                        Dapatkan panduan trading 1-on-1 dari mentor profesional. Sokongan harian & signal live.
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <button style="background: #1a73e8; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-weight: 600;">📞 Call</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 14: Final Checklist -->
+            <div class="step-section" id="step14">
+                <div class="step-header">
+                    <div class="step-number">14</div>
+                    <div class="step-title">Final Launch Checklist</div>
+                </div>
+
+                <div class="success-box">
+                    <h3 style="color: #34a853; margin-bottom: 15px;">✅ Before You Click "Publish"</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 8px 0;">☐ Campaign name: "Trading Mentorship - Malaysia"</li>
+                        <li style="padding: 8px 0;">☐ Location: Malaysia (all regions)</li>
+                        <li style="padding: 8px 0;">☐ Languages: English + Malay</li>
+                        <li style="padding: 8px 0;">☐ Daily budget: $50 USD</li>
+                        <li style="padding: 8px 0;">☐ Bidding: Manual CPC ($3-5)</li>
+                        <li style="padding: 8px 0;">☐ Display path: mentorship / malaysia</li>
+                        <li style="padding: 8px 0;">☐ Headlines: All 15 added</li>
+                        <li style="padding: 8px 0;">☐ Descriptions: All 4 added</li>
+                        <li style="padding: 8px 0;">☐ Sitelinks: All 6 added with descriptions</li>
+                        <li style="padding: 8px 0;">☐ Callouts: 10 callouts added</li>
+                        <li style="padding: 8px 0;">☐ Structured snippets: 2 types added</li>
+                        <li style="padding: 8px 0;">☐ Keywords: 120+ English + Malay keywords</li>
+                        <li style="padding: 8px 0;">☐ Negative keywords: 30 negative keywords added</li>
+                        <li style="padding: 8px 0;">☐ Final URL: https://tradeflow.blog/finoglob</li>
+                        <li style="padding: 8px 0;">☐ Call extension: WhatsApp number added</li>
+                        <li style="padding: 8px 0;">☐ Conversion tracking: Verified working</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 30px;">
+                    <h3 style="color: #1a73e8; margin-bottom: 10px;">📊 Expected Performance (Week 1)</h3>
+                    <ul>
+                        <li><strong>Impressions:</strong> 5,000-10,000</li>
+                        <li><strong>Clicks:</strong> 150-300 (CTR: 3-5%)</li>
+                        <li><strong>Cost:</strong> $350 USD ($50/day)</li>
+                        <li><strong>Conversions:</strong> 5-15 leads</li>
+                        <li><strong>CPA:</strong> $25-70 per lead</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box" style="margin-top: 30px;">
+                    <h3 style="color: #fbbc04; margin-bottom: 10px;">⚠️ First Week Action Items</h3>
+                    <ul>
+                        <li><strong>Day 1-2:</strong> Check for ad disapprovals, verify conversion tracking</li>
+                        <li><strong>Day 3-4:</strong> Review search terms, add 10-20 negative keywords</li>
+                        <li><strong>Day 5-7:</strong> Identify top 5 keywords, increase bids by 20%</li>
+                        <li><strong>Week 2:</strong> Pause keywords with CPA > $80, scale winners</li>
+                        <li><strong>Week 3-4:</strong> Test new ad variations, optimize Quality Score</li>
+                    </ul>
+                </div>
+
+                <div class="success-box" style="margin-top: 30px; text-align: center; padding: 40px;">
+                    <h2 style="color: #34a853; font-size: 2.5em; margin-bottom: 15px;">🎉 You're Ready to Launch!</h2>
+                    <p style="font-size: 1.2em; color: #5f6368; margin-bottom: 20px;">
+                        All fields are completed. Your Malaysia campaign is ready to go live!
+                    </p>
+                    <div style="background: #e8f0fe; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                        <p style="font-size: 1em; color: #1a73e8; font-weight: 600;">
+                            📌 Remember: Monitor daily for the first week, optimize weekly thereafter.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats Summary -->
+            <div style="background: linear-gradient(135deg, #1a73e8 0%, #34a853 100%); padding: 40px; border-radius: 15px; margin-top: 40px;">
+                <h2 style="color: white; text-align: center; margin-bottom: 30px;">📊 Campaign Summary</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Headlines</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Descriptions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Sitelinks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">10</div>
+                        <div class="stat-label">Callouts</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">120+</div>
+                        <div class="stat-label">Keywords</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">30</div>
+                        <div class="stat-label">Negative Keywords</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">$50</div>
+                        <div class="stat-label">Daily Budget</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">Languages</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyText(button, text) {
+            navigator.clipboard.writeText(text).then(function() {
+                const originalText = button.textContent;
+                button.textContent = '✓ Copied!';
+                button.style.background = '#34a853';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '#34a853';
+                }, 2000);
+            }, function(err) {
+                alert('Failed to copy text. Please copy manually.');
+            });
+        }
+
+        // Print function
+        function printGuide() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
