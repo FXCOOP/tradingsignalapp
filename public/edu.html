@@ -1811,19 +1811,35 @@
 
         // Auto-open popup after 20 seconds
         function initAutoPopup() {
+            console.log('🔥 Auto-popup initialized, will open in 20 seconds...');
+
             setTimeout(() => {
-                if (!sessionStorage.getItem('edu_popup_shown')) {
+                console.log('🔥 20 seconds passed, checking session storage...');
+                const hasShown = sessionStorage.getItem('edu_popup_shown');
+                console.log('🔥 Session storage "edu_popup_shown":', hasShown);
+
+                if (!hasShown) {
+                    console.log('🔥 Opening modal now!');
                     openModal();
                     sessionStorage.setItem('edu_popup_shown', 'true');
+                } else {
+                    console.log('🔥 Popup already shown this session, skipping');
                 }
             }, 20000); // 20 seconds
         }
 
         // Initialize country detection and auto-popup on page load
         document.addEventListener('DOMContentLoaded', () => {
+            console.log('🔥 Page loaded, initializing...');
             detectCountryForForm();
             initAutoPopup();
         });
+
+        // Reset popup for testing (run in console: resetPopup())
+        window.resetPopup = function() {
+            sessionStorage.removeItem('edu_popup_shown');
+            console.log('✅ Popup reset! Refresh page to test again.');
+        };
     </script>
 
 </body>
