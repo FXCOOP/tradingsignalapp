@@ -3729,6 +3729,9 @@
             // Close dropdown
             document.getElementById('langSelector').classList.remove('open');
 
+            // Mark as manually selected (so it overrides IP detection)
+            localStorage.setItem('languageManuallySelected', 'true');
+
             // Switch language
             switchLanguage(lang);
         }
@@ -3972,23 +3975,16 @@
         // Detect user location and set language
         async function detectUserLanguage() {
             try {
-                // Try to get saved preference first
-                const savedLang = localStorage.getItem('preferredLanguage');
-                if (savedLang) {
-                    switchLanguage(savedLang);
-                    return;
-                }
-
-                // Detect from IP geolocation
+                // Always detect from IP geolocation first (prioritize geo-based detection)
                 const response = await fetch('https://ipapi.co/json/');
                 const data = await response.json();
 
-                console.log('Detected country:', data.country_code);
+                console.log('🌍 Detected country:', data.country_code);
 
                 // Map countries to languages
                 const countryLanguageMap = {
                     'MY': 'ms',      // Malaysia → Malay
-                    'SG': 'zh-CN',   // Singapore → Simplified Chinese (Mandarin is widely used)
+                    'SG': 'en',      // Singapore → English
                     'CN': 'zh-CN',   // China → Simplified Chinese
                     'TW': 'zh-TW',   // Taiwan → Traditional Chinese
                     'HK': 'zh-HK',   // Hong Kong → Traditional Chinese (Cantonese)
@@ -4000,17 +3996,37 @@
                 };
 
                 const detectedLang = countryLanguageMap[data.country_code] || 'en';
-                switchLanguage(detectedLang);
+                console.log('🗣️ Auto-detected language:', detectedLang, 'for country:', data.country_code);
+
+                // Only use saved preference if manually selected by user (has 'manual' flag)
+                const savedLang = localStorage.getItem('preferredLanguage');
+                const isManualSelection = localStorage.getItem('languageManuallySelected');
+
+                if (isManualSelection === 'true' && savedLang) {
+                    console.log('✋ Using manually selected language:', savedLang);
+                    switchLanguage(savedLang);
+                } else {
+                    // Use IP-detected language
+                    switchLanguage(detectedLang);
+                }
 
             } catch (error) {
-                console.log('Geolocation detection failed, using browser language');
-                // Fallback to browser language
+                console.log('⚠️ Geolocation detection failed, using fallback');
+
+                // Fallback 1: Check saved preference
+                const savedLang = localStorage.getItem('preferredLanguage');
+                if (savedLang) {
+                    switchLanguage(savedLang);
+                    return;
+                }
+
+                // Fallback 2: Browser language
                 const browserLang = (navigator.language || navigator.userLanguage).toLowerCase();
 
                 if (browserLang.startsWith('ms') || browserLang.startsWith('may')) {
                     switchLanguage('ms');
                 } else if (browserLang.startsWith('zh') || browserLang.startsWith('cmn')) {
-                    switchLanguage('zh');
+                    switchLanguage('zh-CN');
                 } else if (browserLang.startsWith('ta') || browserLang.startsWith('tam')) {
                     switchLanguage('ta');
                 } else if (browserLang.startsWith('it') || browserLang.startsWith('ita')) {
