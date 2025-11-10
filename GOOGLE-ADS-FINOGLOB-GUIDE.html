@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Ads Campaign Guide - Finoglob Trading Mentorship</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+        }
+
+        .section h4 {
+            color: #555;
+            font-size: 1.1em;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 15px 0;
+            border: 2px solid #667eea;
+        }
+
+        .keyword-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .keyword {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .keyword:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .keyword-phrase {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            font-size: 0.85em;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .ad-example {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px solid #764ba2;
+        }
+
+        .ad-example .headline {
+            color: #1a0dab;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .ad-example .url {
+            color: #006621;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .ad-example .description {
+            color: #545454;
+            font-size: 0.95em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #667eea;
+        }
+
+        .stat-card .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .info {
+            background: #d1ecf1;
+            border-left: 5px solid #17a2b8;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 5px;
+        }
+
+        .badge-high {
+            background: #28a745;
+            color: white;
+        }
+
+        .badge-medium {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .badge-low {
+            background: #6c757d;
+            color: white;
+        }
+
+        .toc {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .toc h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .toc a {
+            color: #764ba2;
+            text-decoration: none;
+            display: block;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .toc a:hover {
+            color: #667eea;
+            padding-left: 10px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Google Ads Campaign Guide</h1>
+            <p>Complete Setup for Finoglob Trading Mentorship</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Landing Page: <strong>tradeflow.blog/finoglob</strong></p>
+        </div>
+
+        <div class="content">
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>📋 Table of Contents</h3>
+                <a href="#overview">1. Campaign Overview</a>
+                <a href="#setup">2. Initial Setup & Tracking</a>
+                <a href="#structure">3. Campaign Structure</a>
+                <a href="#keywords">4. 500 Best Keywords</a>
+                <a href="#ads">5. Ad Copy Examples</a>
+                <a href="#targeting">6. Targeting Settings</a>
+                <a href="#budget">7. Budget & Bidding</a>
+                <a href="#optimization">8. Optimization Tips</a>
+                <a href="#multilingual">9. Multilingual Campaigns</a>
+                <a href="#tracking">10. Conversion Tracking</a>
+            </div>
+
+            <!-- Overview -->
+            <div class="section" id="overview">
+                <h2>📊 Campaign Overview</h2>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="number">500</div>
+                        <div class="label">Curated Keywords</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">9</div>
+                        <div class="label">Language Markets</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">12</div>
+                        <div class="label">Ad Groups</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">36</div>
+                        <div class="label">Ad Variations</div>
+                    </div>
+                </div>
+
+                <h3>Campaign Objectives</h3>
+                <ul>
+                    <li><strong>Primary Goal:</strong> Generate high-quality mentorship signups</li>
+                    <li><strong>Target Audience:</strong> Aspiring traders seeking personalized 1-on-1 guidance</li>
+                    <li><strong>Geographic Focus:</strong> Malaysia, Singapore, Taiwan, Hong Kong, Italy, France, Brazil, Portugal, India</li>
+                    <li><strong>Expected CPA:</strong> $15-$50 per signup (varies by market)</li>
+                    <li><strong>Target ROAS:</strong> 300-500% (assuming average customer lifetime value)</li>
+                </ul>
+
+                <div class="success">
+                    <strong>✅ Conversion Tracking Already Installed!</strong><br>
+                    Google tag AW-17673979773 is active on tradeflow.blog/finoglob
+                </div>
+            </div>
+
+            <!-- Initial Setup -->
+            <div class="section" id="setup">
+                <h2>🚀 Initial Setup & Tracking</h2>
+
+                <h3>Step 1: Verify Google Tag Installation</h3>
+                <div class="code-block">
+&lt;!-- Google tag (gtag.js) - Conversion Tracking --&gt;
+&lt;script async src="https://www.googletagmanager.com/gtag/js?id=AW-17673979773"&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-17673979773');
+&lt;/script&gt;
+                </div>
+                <div class="success">✅ Already installed in finoglob.html</div>
+
+                <h3>Step 2: Create Conversion Actions</h3>
+                <p>Go to Google Ads → Tools → Conversions → + New Conversion Action</p>
+
+                <table>
+                    <tr>
+                        <th>Conversion Name</th>
+                        <th>Category</th>
+                        <th>Value</th>
+                        <th>Count</th>
+                    </tr>
+                    <tr>
+                        <td>Mentorship Signup</td>
+                        <td>Lead</td>
+                        <td>$30 (estimated)</td>
+                        <td>One per click</td>
+                    </tr>
+                    <tr>
+                        <td>Form Submission</td>
+                        <td>Submit lead form</td>
+                        <td>$20</td>
+                        <td>One</td>
+                    </tr>
+                    <tr>
+                        <td>WhatsApp Click</td>
+                        <td>Contact</td>
+                        <td>$10</td>
+                        <td>One</td>
+                    </tr>
+                    <tr>
+                        <td>Telegram Click</td>
+                        <td>Contact</td>
+                        <td>$10</td>
+                        <td>One</td>
+                    </tr>
+                </table>
+
+                <h3>Step 3: Add Conversion Tracking Code</h3>
+                <div class="info">
+                    <strong>📌 Note:</strong> The page already has gtag event tracking for 'mentorship_signup' at line 4167-4168 in finoglob.html
+                </div>
+
+                <div class="code-block">
+// Track form submission
+gtag('event', 'conversion', {
+    'send_to': 'AW-17673979773/CONVERSION_LABEL',
+    'value': 30.0,
+    'currency': 'USD'
+});
+                </div>
+
+                <h3>Step 4: Set Up Google Ads Account Structure</h3>
+                <ol>
+                    <li>Create new Search campaign</li>
+                    <li>Select "Leads" as goal</li>
+                    <li>Enable "Search Network" only (disable Display Network initially)</li>
+                    <li>Set location targeting to your 9 target markets</li>
+                    <li>Set language to match each market</li>
+                </ol>
+            </div>
+
+            <!-- Campaign Structure -->
+            <div class="section" id="structure">
+                <h2>🏗️ Campaign Structure</h2>
+
+                <h3>Recommended Campaign Organization</h3>
+
+                <div class="info">
+                    <strong>💡 Strategy:</strong> Create separate campaigns for each language/market for better control and optimization
+                </div>
+
+                <table>
+                    <tr>
+                        <th>Campaign Name</th>
+                        <th>Location</th>
+                        <th>Language</th>
+                        <th>Daily Budget</th>
+                    </tr>
+                    <tr>
+                        <td>Trading Mentorship - Malaysia</td>
+                        <td>Malaysia</td>
+                        <td>Malay, English</td>
+                        <td>$30-50</td>
+                    </tr>
+                    <tr>
+                        <td>Trading Mentorship - Singapore</td>
+                        <td>Singapore</td>
+                        <td>English, Chinese</td>
+                        <td>$50-100</td>
+                    </tr>
+                    <tr>
+                        <td>Trading Mentorship - Taiwan</td>
+                        <td>Taiwan</td>
+                        <td>Traditional Chinese</td>
+                        <td>$40-70</td>
+                    </tr>
+                    <tr>
+                        <td>Trading Mentorship - Hong Kong</td>
+                        <td>Hong Kong</td>
+                        <td>Traditional Chinese</td>
+                        <td>$40-70</td>
+                    </tr>
+                    <tr>
+                        <td>Trading Mentorship - Italy</td>
+                        <td>Italy</td>
+                        <td>Italian</td>
+                        <td>$30-60</td>
+                    </tr>
+                    <tr>
+                        <td>Trading Mentorship - France</td>
+                        <td>France</td>
+                        <td>French</td>
+                        <td>$40-80</td>
+                    </tr>
+                    <tr>
+                        <td>Trading Mentorship - Brazil</td>
+                        <td>Brazil</td>
+                        <td>Portuguese</td>
+                        <td>$25-50</td>
+                    </tr>
+                    <tr>
+                        <td>Trading Mentorship - India</td>
+                        <td>India</td>
+                        <td>Tamil, English</td>
+                        <td>$20-40</td>
+                    </tr>
+                </table>
+
+                <h3>Ad Groups per Campaign (12 Total)</h3>
+                <ol>
+                    <li><strong>Trading Mentor</strong> - Core mentor keywords</li>
+                    <li><strong>Forex Mentor</strong> - Forex-specific mentorship</li>
+                    <li><strong>Trading Coach</strong> - Coaching focused keywords</li>
+                    <li><strong>Trading Education</strong> - Learning & education</li>
+                    <li><strong>Trading Signals</strong> - Signal service keywords</li>
+                    <li><strong>Day Trading</strong> - Day trading specific</li>
+                    <li><strong>Swing Trading</strong> - Swing trading specific</li>
+                    <li><strong>Technical Analysis</strong> - TA training keywords</li>
+                    <li><strong>Trading Strategy</strong> - Strategy development</li>
+                    <li><strong>Learn Trading</strong> - Beginner focused</li>
+                    <li><strong>Professional Trader</strong> - Advanced/professional</li>
+                    <li><strong>Trading Course</strong> - Course/program keywords</li>
+                </ol>
+            </div>
+
+            <!-- 500 Keywords -->
+            <div class="section" id="keywords">
+                <h2>🎯 500 Best Keywords</h2>
+
+                <div class="warning">
+                    <strong>⚠️ Match Type Recommendations:</strong><br>
+                    • <strong>Exact Match [keyword]:</strong> Use for high-intent, proven converters<br>
+                    • <strong>Phrase Match "keyword":</strong> Use for most keywords (70% of budget)<br>
+                    • <strong>Broad Match Modified +keyword:</strong> Use sparingly for discovery (15% of budget)<br>
+                    • Add negative keywords aggressively to prevent wasted spend
+                </div>
+
+                <h3>Ad Group 1: Trading Mentor (50 keywords)</h3>
+                <span class="badge badge-high">High Priority</span>
+                <div class="keyword-grid">
+                    <div class="keyword">trading mentor</div>
+                    <div class="keyword">forex mentor</div>
+                    <div class="keyword">personal trading mentor</div>
+                    <div class="keyword">1 on 1 trading mentor</div>
+                    <div class="keyword">best trading mentor</div>
+                    <div class="keyword">professional trading mentor</div>
+                    <div class="keyword">experienced trading mentor</div>
+                    <div class="keyword">trading mentor online</div>
+                    <div class="keyword">find trading mentor</div>
+                    <div class="keyword">hire trading mentor</div>
+                    <div class="keyword">get trading mentor</div>
+                    <div class="keyword">trading mentor near me</div>
+                    <div class="keyword">trading mentor services</div>
+                    <div class="keyword">trading mentor program</div>
+                    <div class="keyword">private trading mentor</div>
+                    <div class="keyword">elite trading mentor</div>
+                    <div class="keyword">expert trading mentor</div>
+                    <div class="keyword">successful trading mentor</div>
+                    <div class="keyword">certified trading mentor</div>
+                    <div class="keyword">professional forex mentor</div>
+                    <div class="keyword">forex trading mentor</div>
+                    <div class="keyword">day trading mentor</div>
+                    <div class="keyword">swing trading mentor</div>
+                    <div class="keyword">stock trading mentor</div>
+                    <div class="keyword">crypto trading mentor</div>
+                    <div class="keyword">options trading mentor</div>
+                    <div class="keyword">futures trading mentor</div>
+                    <div class="keyword">binary options mentor</div>
+                    <div class="keyword">trading mentor for beginners</div>
+                    <div class="keyword">beginner trading mentor</div>
+                    <div class="keyword">advanced trading mentor</div>
+                    <div class="keyword">trading mentor cost</div>
+                    <div class="keyword">trading mentor price</div>
+                    <div class="keyword">affordable trading mentor</div>
+                    <div class="keyword">cheap trading mentor</div>
+                    <div class="keyword">trading mentor reviews</div>
+                    <div class="keyword">top trading mentors</div>
+                    <div class="keyword">best forex mentors</div>
+                    <div class="keyword">trading guru</div>
+                    <div class="keyword">forex guru</div>
+                    <div class="keyword">trading expert mentor</div>
+                    <div class="keyword">profitable trading mentor</div>
+                    <div class="keyword">winning trading mentor</div>
+                    <div class="keyword">trading mentor Malaysia</div>
+                    <div class="keyword">trading mentor Singapore</div>
+                    <div class="keyword">trading mentor Asia</div>
+                    <div class="keyword">online trading mentor</div>
+                    <div class="keyword">remote trading mentor</div>
+                    <div class="keyword">virtual trading mentor</div>
+                    <div class="keyword">trading mentorship</div>
+                </div>
+
+                <h3>Ad Group 2: Forex Mentor (45 keywords)</h3>
+                <span class="badge badge-high">High Priority</span>
+                <div class="keyword-grid">
+                    <div class="keyword">forex mentor</div>
+                    <div class="keyword">fx mentor</div>
+                    <div class="keyword">forex mentorship</div>
+                    <div class="keyword">forex mentor program</div>
+                    <div class="keyword">best forex mentor</div>
+                    <div class="keyword">professional forex mentor</div>
+                    <div class="keyword">experienced forex mentor</div>
+                    <div class="keyword">forex mentor online</div>
+                    <div class="keyword">personal forex mentor</div>
+                    <div class="keyword">1 on 1 forex mentor</div>
+                    <div class="keyword">private forex mentor</div>
+                    <div class="keyword">elite forex mentor</div>
+                    <div class="keyword">expert forex mentor</div>
+                    <div class="keyword">certified forex mentor</div>
+                    <div class="keyword">forex trading mentor</div>
+                    <div class="keyword">forex mentor for beginners</div>
+                    <div class="keyword">beginner forex mentor</div>
+                    <div class="keyword">advanced forex mentor</div>
+                    <div class="keyword">forex mentor cost</div>
+                    <div class="keyword">forex mentor price</div>
+                    <div class="keyword">affordable forex mentor</div>
+                    <div class="keyword">forex mentor reviews</div>
+                    <div class="keyword">top forex mentors</div>
+                    <div class="keyword">successful forex mentor</div>
+                    <div class="keyword">profitable forex mentor</div>
+                    <div class="keyword">winning forex mentor</div>
+                    <div class="keyword">forex guru</div>
+                    <div class="keyword">forex expert mentor</div>
+                    <div class="keyword">forex mentor Malaysia</div>
+                    <div class="keyword">forex mentor Singapore</div>
+                    <div class="keyword">forex mentor Asia</div>
+                    <div class="keyword">online forex mentor</div>
+                    <div class="keyword">remote forex mentor</div>
+                    <div class="keyword">virtual forex mentor</div>
+                    <div class="keyword">find forex mentor</div>
+                    <div class="keyword">hire forex mentor</div>
+                    <div class="keyword">get forex mentor</div>
+                    <div class="keyword">forex mentor services</div>
+                    <div class="keyword">forex mentorship program</div>
+                    <div class="keyword">fx mentorship</div>
+                    <div class="keyword">currency trading mentor</div>
+                    <div class="keyword">forex coach vs mentor</div>
+                    <div class="keyword">best fx mentor</div>
+                    <div class="keyword">forex mentor near me</div>
+                    <div class="keyword">forex mentoring</div>
+                </div>
+
+                <h3>Ad Group 3: Trading Coach (40 keywords)</h3>
+                <span class="badge badge-high">High Priority</span>
+                <div class="keyword-grid">
+                    <div class="keyword">trading coach</div>
+                    <div class="keyword">forex coach</div>
+                    <div class="keyword">trading coaching</div>
+                    <div class="keyword">forex coaching</div>
+                    <div class="keyword">personal trading coach</div>
+                    <div class="keyword">1 on 1 trading coach</div>
+                    <div class="keyword">best trading coach</div>
+                    <div class="keyword">professional trading coach</div>
+                    <div class="keyword">experienced trading coach</div>
+                    <div class="keyword">trading coach online</div>
+                    <div class="keyword">private trading coach</div>
+                    <div class="keyword">elite trading coach</div>
+                    <div class="keyword">expert trading coach</div>
+                    <div class="keyword">certified trading coach</div>
+                    <div class="keyword">trading coach for beginners</div>
+                    <div class="keyword">beginner trading coach</div>
+                    <div class="keyword">advanced trading coach</div>
+                    <div class="keyword">trading coach cost</div>
+                    <div class="keyword">trading coach price</div>
+                    <div class="keyword">affordable trading coach</div>
+                    <div class="keyword">trading coach reviews</div>
+                    <div class="keyword">top trading coaches</div>
+                    <div class="keyword">successful trading coach</div>
+                    <div class="keyword">profitable trading coach</div>
+                    <div class="keyword">day trading coach</div>
+                    <div class="keyword">swing trading coach</div>
+                    <div class="keyword">stock trading coach</div>
+                    <div class="keyword">forex trading coach</div>
+                    <div class="keyword">options trading coach</div>
+                    <div class="keyword">futures trading coach</div>
+                    <div class="keyword">find trading coach</div>
+                    <div class="keyword">hire trading coach</div>
+                    <div class="keyword">get trading coach</div>
+                    <div class="keyword">trading coach services</div>
+                    <div class="keyword">trading coaching program</div>
+                    <div class="keyword">online trading coach</div>
+                    <div class="keyword">remote trading coach</div>
+                    <div class="keyword">virtual trading coach</div>
+                    <div class="keyword">trading coach Malaysia</div>
+                    <div class="keyword">trading coach Singapore</div>
+                </div>
+
+                <h3>Ad Group 4: Trading Education (40 keywords)</h3>
+                <span class="badge badge-medium">Medium Priority</span>
+                <div class="keyword-grid">
+                    <div class="keyword">trading education</div>
+                    <div class="keyword">forex education</div>
+                    <div class="keyword">trading training</div>
+                    <div class="keyword">forex training</div>
+                    <div class="keyword">trading lessons</div>
+                    <div class="keyword">forex lessons</div>
+                    <div class="keyword">trading tutorials</div>
+                    <div class="keyword">forex tutorials</div>
+                    <div class="keyword">learn trading</div>
+                    <div class="keyword">learn forex</div>
+                    <div class="keyword">learn forex trading</div>
+                    <div class="keyword">learn day trading</div>
+                    <div class="keyword">trading education program</div>
+                    <div class="keyword">forex education program</div>
+                    <div class="keyword">professional trading education</div>
+                    <div class="keyword">online trading education</div>
+                    <div class="keyword">online forex education</div>
+                    <div class="keyword">trading education online</div>
+                    <div class="keyword">best trading education</div>
+                    <div class="keyword">best forex education</div>
+                    <div class="keyword">quality trading education</div>
+                    <div class="keyword">comprehensive trading education</div>
+                    <div class="keyword">trading education for beginners</div>
+                    <div class="keyword">beginner trading education</div>
+                    <div class="keyword">advanced trading education</div>
+                    <div class="keyword">trading education course</div>
+                    <div class="keyword">forex education course</div>
+                    <div class="keyword">trading school</div>
+                    <div class="keyword">forex school</div>
+                    <div class="keyword">trading academy</div>
+                    <div class="keyword">forex academy</div>
+                    <div class="keyword">trading university</div>
+                    <div class="keyword">trading institute</div>
+                    <div class="keyword">forex institute</div>
+                    <div class="keyword">trading education center</div>
+                    <div class="keyword">trading education Malaysia</div>
+                    <div class="keyword">trading education Singapore</div>
+                    <div class="keyword">trading education Asia</div>
+                    <div class="keyword">professional trader training</div>
+                    <div class="keyword">trader education</div>
+                </div>
+
+                <h3>Ad Group 5: Trading Signals (35 keywords)</h3>
+                <span class="badge badge-medium">Medium Priority</span>
+                <div class="keyword-grid">
+                    <div class="keyword">trading signals</div>
+                    <div class="keyword">forex signals</div>
+                    <div class="keyword">trading signals service</div>
+                    <div class="keyword">forex signals service</div>
+                    <div class="keyword">best trading signals</div>
+                    <div class="keyword">best forex signals</div>
+                    <div class="keyword">accurate trading signals</div>
+                    <div class="keyword">accurate forex signals</div>
+                    <div class="keyword">professional trading signals</div>
+                    <div class="keyword">professional forex signals</div>
+                    <div class="keyword">trading signals provider</div>
+                    <div class="keyword">forex signals provider</div>
+                    <div class="keyword">live trading signals</div>
+                    <div class="keyword">live forex signals</div>
+                    <div class="keyword">real time trading signals</div>
+                    <div class="keyword">real time forex signals</div>
+                    <div class="keyword">daily trading signals</div>
+                    <div class="keyword">daily forex signals</div>
+                    <div class="keyword">trading signals telegram</div>
+                    <div class="keyword">forex signals telegram</div>
+                    <div class="keyword">trading signals whatsapp</div>
+                    <div class="keyword">forex signals whatsapp</div>
+                    <div class="keyword">free trading signals</div>
+                    <div class="keyword">free forex signals</div>
+                    <div class="keyword">paid trading signals</div>
+                    <div class="keyword">paid forex signals</div>
+                    <div class="keyword">trading signals Malaysia</div>
+                    <div class="keyword">forex signals Malaysia</div>
+                    <div class="keyword">trading signals Singapore</div>
+                    <div class="keyword">forex signals Singapore</div>
+                    <div class="keyword">profitable trading signals</div>
+                    <div class="keyword">winning trading signals</div>
+                    <div class="keyword">trading signals group</div>
+                    <div class="keyword">forex signals group</div>
+                    <div class="keyword">trading signals online</div>
+                </div>
+
+                <h3>Ad Group 6: Day Trading (35 keywords)</h3>
+                <span class="badge badge-medium">Medium Priority</span>
+                <div class="keyword-grid">
+                    <div class="keyword">day trading</div>
+                    <div class="keyword">day trading mentor</div>
+                    <div class="keyword">day trading coach</div>
+                    <div class="keyword">learn day trading</div>
+                    <div class="keyword">day trading course</div>
+                    <div class="keyword">day trading education</div>
+                    <div class="keyword">day trading training</div>
+                    <div class="keyword">day trading lessons</div>
+                    <div class="keyword">day trading strategies</div>
+                    <div class="keyword">day trading tips</div>
+                    <div class="keyword">day trading for beginners</div>
+                    <div class="keyword">beginner day trading</div>
+                    <div class="keyword">day trading guide</div>
+                    <div class="keyword">how to day trade</div>
+                    <div class="keyword">day trading tutorial</div>
+                    <div class="keyword">day trading school</div>
+                    <div class="keyword">day trading academy</div>
+                    <div class="keyword">professional day trader</div>
+                    <div class="keyword">successful day trader</div>
+                    <div class="keyword">day trading signals</div>
+                    <div class="keyword">day trading forex</div>
+                    <div class="keyword">day trading stocks</div>
+                    <div class="keyword">day trading crypto</div>
+                    <div class="keyword">day trading options</div>
+                    <div class="keyword">intraday trading</div>
+                    <div class="keyword">intraday trading mentor</div>
+                    <div class="keyword">intraday trading course</div>
+                    <div class="keyword">scalping trading</div>
+                    <div class="keyword">scalping mentor</div>
+                    <div class="keyword">scalping course</div>
+                    <div class="keyword">day trading Malaysia</div>
+                    <div class="keyword">day trading Singapore</div>
+                    <div class="keyword">online day trading</div>
+                    <div class="keyword">day trading from home</div>
+                    <div class="keyword">full time day trader</div>
+                </div>
+
+                <h3>Ad Group 7: Swing Trading (30 keywords)</h3>
+                <span class="badge badge-low">Lower Priority</span>
+                <div class="keyword-grid">
+                    <div class="keyword">swing trading</div>
+                    <div class="keyword">swing trading mentor</div>
+                    <div class="keyword">swing trading coach</div>
+                    <div class="keyword">learn swing trading</div>
+                    <div class="keyword">swing trading course</div>
+                    <div class="keyword">swing trading education</div>
+                    <div class="keyword">swing trading training</div>
+                    <div class="keyword">swing trading lessons</div>
+                    <div class="keyword">swing trading strategies</div>
+                    <div class="keyword">swing trading tips</div>
+                    <div class="keyword">swing trading for beginners</div>
+                    <div class="keyword">beginner swing trading</div>
+                    <div class="keyword">swing trading guide</div>
+                    <div class="keyword">how to swing trade</div>
+                    <div class="keyword">swing trading tutorial</div>
+                    <div class="keyword">swing trading school</div>
+                    <div class="keyword">professional swing trader</div>
+                    <div class="keyword">successful swing trader</div>
+                    <div class="keyword">swing trading signals</div>
+                    <div class="keyword">swing trading forex</div>
+                    <div class="keyword">swing trading stocks</div>
+                    <div class="keyword">swing trading crypto</div>
+                    <div class="keyword">position trading</div>
+                    <div class="keyword">position trading mentor</div>
+                    <div class="keyword">swing trading Malaysia</div>
+                    <div class="keyword">swing trading Singapore</div>
+                    <div class="keyword">online swing trading</div>
+                    <div class="keyword">part time trading</div>
+                    <div class="keyword">swing trading system</div>
+                    <div class="keyword">swing trading method</div>
+                </div>
+
+                <h3>Ad Group 8: Technical Analysis (40 keywords)</h3>
+                <span class="badge badge-medium">Medium Priority</span>
+                <div class="keyword-grid">
+                    <div class="keyword">technical analysis</div>
+                    <div class="keyword">learn technical analysis</div>
+                    <div class="keyword">technical analysis course</div>
+                    <div class="keyword">technical analysis training</div>
+                    <div class="keyword">technical analysis mentor</div>
+                    <div class="keyword">technical analysis coach</div>
+                    <div class="keyword">forex technical analysis</div>
+                    <div class="keyword">stock technical analysis</div>
+                    <div class="keyword">chart analysis</div>
+                    <div class="keyword">chart patterns</div>
+                    <div class="keyword">candlestick patterns</div>
+                    <div class="keyword">price action</div>
+                    <div class="keyword">price action trading</div>
+                    <div class="keyword">price action mentor</div>
+                    <div class="keyword">price action course</div>
+                    <div class="keyword">support and resistance</div>
+                    <div class="keyword">trend analysis</div>
+                    <div class="keyword">trend trading</div>
+                    <div class="keyword">technical indicators</div>
+                    <div class="keyword">trading indicators</div>
+                    <div class="keyword">moving average</div>
+                    <div class="keyword">RSI indicator</div>
+                    <div class="keyword">MACD indicator</div>
+                    <div class="keyword">fibonacci trading</div>
+                    <div class="keyword">elliott wave</div>
+                    <div class="keyword">market structure</div>
+                    <div class="keyword">chart reading</div>
+                    <div class="keyword">learn chart reading</div>
+                    <div class="keyword">technical analysis education</div>
+                    <div class="keyword">technical analysis for beginners</div>
+                    <div class="keyword">advanced technical analysis</div>
+                    <div class="keyword">professional technical analysis</div>
+                    <div class="keyword">technical analysis tools</div>
+                    <div class="keyword">technical analysis methods</div>
+                    <div class="keyword">technical analysis strategies</div>
+                    <div class="keyword">technical trading</div>
+                    <div class="keyword">technical trader</div>
+                    <div class="keyword">technical analysis Malaysia</div>
+                    <div class="keyword">technical analysis Singapore</div>
+                    <div class="keyword">online technical analysis</div>
+                </div>
+
+                <h3>Ad Group 9: Trading Strategy (35 keywords)</h3>
+                <span class="badge badge-medium">Medium Priority</span>
+                <div class="keyword-grid">
+                    <div class="keyword">trading strategy</div>
+                    <div class="keyword">forex strategy</div>
+                    <div class="keyword">trading strategies</div>
+                    <div class="keyword">forex strategies</div>
+                    <div class="keyword">best trading strategy</div>
+                    <div class="keyword">best forex strategy</div>
+                    <div class="keyword">profitable trading strategy</div>
+                    <div class="keyword">winning trading strategy</div>
+                    <div class="keyword">learn trading strategy</div>
+                    <div class="keyword">trading strategy course</div>
+                    <div class="keyword">trading strategy mentor</div>
+                    <div class="keyword">trading strategy coach</div>
+                    <div class="keyword">develop trading strategy</div>
+                    <div class="keyword">create trading strategy</div>
+                    <div class="keyword">custom trading strategy</div>
+                    <div class="keyword">personalized trading strategy</div>
+                    <div class="keyword">trading system</div>
+                    <div class="keyword">trading method</div>
+                    <div class="keyword">trading plan</div>
+                    <div class="keyword">trading approach</div>
+                    <div class="keyword">scalping strategy</div>
+                    <div class="keyword">day trading strategy</div>
+                    <div class="keyword">swing trading strategy</div>
+                    <div class="keyword">trend following strategy</div>
+                    <div class="keyword">breakout strategy</div>
+                    <div class="keyword">momentum strategy</div>
+                    <div class="keyword">reversal strategy</div>
+                    <div class="keyword">range trading strategy</div>
+                    <div class="keyword">position trading strategy</div>
+                    <div class="keyword">trading strategy for beginners</div>
+                    <div class="keyword">advanced trading strategy</div>
+                    <div class="keyword">professional trading strategy</div>
+                    <div class="keyword">proven trading strategy</div>
+                    <div class="keyword">tested trading strategy</div>
+                    <div class="keyword">trading strategy Malaysia</div>
+                </div>
+
+                <h3>Ad Group 10: Learn Trading (40 keywords)</h3>
+                <span class="badge badge-high">High Priority</span>
+                <div class="keyword-grid">
+                    <div class="keyword">learn trading</div>
+                    <div class="keyword">learn forex</div>
+                    <div class="keyword">learn forex trading</div>
+                    <div class="keyword">learn to trade</div>
+                    <div class="keyword">learn stock trading</div>
+                    <div class="keyword">learn day trading</div>
+                    <div class="keyword">learn online trading</div>
+                    <div class="keyword">how to trade</div>
+                    <div class="keyword">how to trade forex</div>
+                    <div class="keyword">how to trade stocks</div>
+                    <div class="keyword">how to start trading</div>
+                    <div class="keyword">start trading</div>
+                    <div class="keyword">start forex trading</div>
+                    <div class="keyword">trading for beginners</div>
+                    <div class="keyword">forex for beginners</div>
+                    <div class="keyword">beginner trader</div>
+                    <div class="keyword">beginner forex trader</div>
+                    <div class="keyword">learn trading from scratch</div>
+                    <div class="keyword">trading basics</div>
+                    <div class="keyword">forex basics</div>
+                    <div class="keyword">trading fundamentals</div>
+                    <div class="keyword">forex fundamentals</div>
+                    <div class="keyword">trading introduction</div>
+                    <div class="keyword">forex introduction</div>
+                    <div class="keyword">become a trader</div>
+                    <div class="keyword">become forex trader</div>
+                    <div class="keyword">how to become trader</div>
+                    <div class="keyword">trading beginner guide</div>
+                    <div class="keyword">forex beginner guide</div>
+                    <div class="keyword">trading step by step</div>
+                    <div class="keyword">learn trading online</div>
+                    <div class="keyword">online trading lessons</div>
+                    <div class="keyword">trading learning</div>
+                    <div class="keyword">forex learning</div>
+                    <div class="keyword">easy trading guide</div>
+                    <div class="keyword">simple trading guide</div>
+                    <div class="keyword">learn trading Malaysia</div>
+                    <div class="keyword">learn trading Singapore</div>
+                    <div class="keyword">learn trading Asia</div>
+                    <div class="keyword">new trader</div>
+                </div>
+
+                <h3>Ad Group 11: Professional Trader (35 keywords)</h3>
+                <span class="badge badge-low">Lower Priority</span>
+                <div class="keyword-grid">
+                    <div class="keyword">professional trader</div>
+                    <div class="keyword">become professional trader</div>
+                    <div class="keyword">professional forex trader</div>
+                    <div class="keyword">full time trader</div>
+                    <div class="keyword">become full time trader</div>
+                    <div class="keyword">career in trading</div>
+                    <div class="keyword">trading career</div>
+                    <div class="keyword">forex career</div>
+                    <div class="keyword">professional trading</div>
+                    <div class="keyword">professional forex trading</div>
+                    <div class="keyword">expert trader</div>
+                    <div class="keyword">successful trader</div>
+                    <div class="keyword">profitable trader</div>
+                    <div class="keyword">consistent trader</div>
+                    <div class="keyword">winning trader</div>
+                    <div class="keyword">master trader</div>
+                    <div class="keyword">elite trader</div>
+                    <div class="keyword">top trader</div>
+                    <div class="keyword">best trader</div>
+                    <div class="keyword">advanced trader</div>
+                    <div class="keyword">experienced trader</div>
+                    <div class="keyword">trading professional</div>
+                    <div class="keyword">forex professional</div>
+                    <div class="keyword">professional trader training</div>
+                    <div class="keyword">advanced trader training</div>
+                    <div class="keyword">trader development</div>
+                    <div class="keyword">professional trader mentor</div>
+                    <div class="keyword">expert trader mentor</div>
+                    <div class="keyword">trading mastery</div>
+                    <div class="keyword">forex mastery</div>
+                    <div class="keyword">trading excellence</div>
+                    <div class="keyword">profitable trading</div>
+                    <div class="keyword">consistent trading</div>
+                    <div class="keyword">trading for living</div>
+                    <div class="keyword">make money trading</div>
+                </div>
+
+                <h3>Ad Group 12: Trading Course (45 keywords)</h3>
+                <span class="badge badge-high">High Priority</span>
+                <div class="keyword-grid">
+                    <div class="keyword">trading course</div>
+                    <div class="keyword">forex course</div>
+                    <div class="keyword">trading courses</div>
+                    <div class="keyword">forex courses</div>
+                    <div class="keyword">best trading course</div>
+                    <div class="keyword">best forex course</div>
+                    <div class="keyword">online trading course</div>
+                    <div class="keyword">online forex course</div>
+                    <div class="keyword">trading course online</div>
+                    <div class="keyword">forex course online</div>
+                    <div class="keyword">comprehensive trading course</div>
+                    <div class="keyword">complete trading course</div>
+                    <div class="keyword">professional trading course</div>
+                    <div class="keyword">beginner trading course</div>
+                    <div class="keyword">advanced trading course</div>
+                    <div class="keyword">trading course for beginners</div>
+                    <div class="keyword">forex course for beginners</div>
+                    <div class="keyword">day trading course</div>
+                    <div class="keyword">swing trading course</div>
+                    <div class="keyword">forex trading course</div>
+                    <div class="keyword">stock trading course</div>
+                    <div class="keyword">options trading course</div>
+                    <div class="keyword">crypto trading course</div>
+                    <div class="keyword">technical analysis course</div>
+                    <div class="keyword">price action course</div>
+                    <div class="keyword">trading course Malaysia</div>
+                    <div class="keyword">trading course Singapore</div>
+                    <div class="keyword">trading course Asia</div>
+                    <div class="keyword">trading program</div>
+                    <div class="keyword">forex program</div>
+                    <div class="keyword">trading certification</div>
+                    <div class="keyword">certified trader</div>
+                    <div class="keyword">trading workshop</div>
+                    <div class="keyword">forex workshop</div>
+                    <div class="keyword">trading seminar</div>
+                    <div class="keyword">forex seminar</div>
+                    <div class="keyword">trading bootcamp</div>
+                    <div class="keyword">forex bootcamp</div>
+                    <div class="keyword">trading masterclass</div>
+                    <div class="keyword">forex masterclass</div>
+                    <div class="keyword">trading webinar</div>
+                    <div class="keyword">live trading course</div>
+                    <div class="keyword">affordable trading course</div>
+                    <div class="keyword">quality trading course</div>
+                    <div class="keyword">practical trading course</div>
+                </div>
+
+                <h3>Negative Keywords (Important!)</h3>
+                <div class="warning">
+                    <strong>⚠️ Add these negative keywords to prevent wasted ad spend:</strong>
+                </div>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                    <span class="keyword-phrase">free</span>
+                    <span class="keyword-phrase">job</span>
+                    <span class="keyword-phrase">jobs</span>
+                    <span class="keyword-phrase">vacancy</span>
+                    <span class="keyword-phrase">hiring</span>
+                    <span class="keyword-phrase">salary</span>
+                    <span class="keyword-phrase">career</span>
+                    <span class="keyword-phrase">scam</span>
+                    <span class="keyword-phrase">fraud</span>
+                    <span class="keyword-phrase">review</span>
+                    <span class="keyword-phrase">reviews</span>
+                    <span class="keyword-phrase">complaint</span>
+                    <span class="keyword-phrase">complaints</span>
+                    <span class="keyword-phrase">reddit</span>
+                    <span class="keyword-phrase">forum</span>
+                    <span class="keyword-phrase">pdf</span>
+                    <span class="keyword-phrase">download</span>
+                    <span class="keyword-phrase">torrent</span>
+                    <span class="keyword-phrase">crack</span>
+                    <span class="keyword-phrase">pirate</span>
+                    <span class="keyword-phrase">wikipedia</span>
+                    <span class="keyword-phrase">definition</span>
+                    <span class="keyword-phrase">meaning</span>
+                    <span class="keyword-phrase">what is</span>
+                    <span class="keyword-phrase">software</span>
+                    <span class="keyword-phrase">robot</span>
+                    <span class="keyword-phrase">bot</span>
+                    <span class="keyword-phrase">EA</span>
+                    <span class="keyword-phrase">automated</span>
+                    <span class="keyword-phrase">automatic</span>
+                </div>
+            </div>
+
+            <!-- Ad Copy Examples -->
+            <div class="section" id="ads">
+                <h2>✍️ Ad Copy Examples</h2>
+
+                <div class="info">
+                    <strong>📝 Ad Writing Best Practices:</strong><br>
+                    • Include target keyword in headline<br>
+                    • Highlight unique value proposition (1-on-1, personal, expert)<br>
+                    • Use emotional triggers (success, profit, confidence)<br>
+                    • Include clear call-to-action<br>
+                    • Test multiple variations (A/B test)
+                </div>
+
+                <h3>Example Ads for "Trading Mentor" Keywords</h3>
+
+                <div class="ad-example">
+                    <div class="headline">Elite Trading Mentor | 1-on-1 Guidance</div>
+                    <div class="url">tradeflow.blog/finoglob</div>
+                    <div class="description">Get personalized trading mentorship from expert traders. Live signals, daily analysis & direct support. Start your journey to profitable trading today.</div>
+                </div>
+
+                <div class="ad-example">
+                    <div class="headline">Personal Trading Mentor | Proven Results</div>
+                    <div class="url">tradeflow.blog/finoglob</div>
+                    <div class="description">Transform your trading with 1-on-1 mentorship. Expert guidance, live market analysis & profitable strategies. Join successful traders today.</div>
+                </div>
+
+                <div class="ad-example">
+                    <div class="headline">Trading Guru | Expert Mentorship</div>
+                    <div class="url">tradeflow.blog/finoglob</div>
+                    <div class="description">Learn from experienced trading professionals. Personalized strategy development, risk management & trade execution. Get your personal mentor now.</div>
+                </div>
+
+                <h3>Example Ads for "Forex Mentor" Keywords</h3>
+
+                <div class="ad-example">
+                    <div class="headline">Forex Mentor Malaysia | 1-on-1 Training</div>
+                    <div class="url">tradeflow.blog/finoglob</div>
+                    <div class="description">Professional forex mentorship in Malaysia. Learn profitable strategies, risk management & market analysis. Start with expert guidance today.</div>
+                </div>
+
+                <div class="ad-example">
+                    <div class="headline">Best Forex Mentor | Expert Guidance</div>
+                    <div class="url">tradeflow.blog/finoglob</div>
+                    <div class="description">Get personalized forex mentorship from successful traders. Live signals, daily support & proven strategies. Transform your trading today.</div>
+                </div>
+
+                <h3>Example Ads for "Trading Course" Keywords</h3>
+
+                <div class="ad-example">
+                    <div class="headline">Trading Course + Personal Mentor</div>
+                    <div class="url">tradeflow.blog/finoglob</div>
+                    <div class="description">Comprehensive trading education with 1-on-1 mentorship. Learn strategies, technical analysis & risk management. Start your trading career today.</div>
+                </div>
+
+                <div class="ad-example">
+                    <div class="headline">Online Trading Course | Expert Support</div>
+                    <div class="url">tradeflow.blog/finoglob</div>
+                    <div class="description">Professional trading course with personal guidance. Master technical analysis, strategy development & trade execution. Join successful students today.</div>
+                </div>
+
+                <h3>Example Ads for "Learn Trading" Keywords</h3>
+
+                <div class="ad-example">
+                    <div class="headline">Learn Trading From Experts | 1-on-1</div>
+                    <div class="url">tradeflow.blog/finoglob</div>
+                    <div class="description">Start your trading journey with personal mentorship. Learn strategies, risk management & market analysis. Get expert guidance from day one.</div>
+                </div>
+
+                <div class="ad-example">
+                    <div class="headline">Trading for Beginners | Expert Mentor</div>
+                    <div class="url">tradeflow.blog/finoglob</div>
+                    <div class="description">Learn to trade with personalized guidance. Beginner-friendly approach, proven strategies & daily support. Your trading mentor is waiting.</div>
+                </div>
+
+                <h3>Ad Extensions to Include</h3>
+                <table>
+                    <tr>
+                        <th>Extension Type</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>Sitelink</td>
+                        <td>Live Trading Signals | 1-on-1 Mentorship | Success Stories | Free Consultation</td>
+                    </tr>
+                    <tr>
+                        <td>Callout</td>
+                        <td>24/7 Support | Expert Mentors | Proven Strategies | Real Results</td>
+                    </tr>
+                    <tr>
+                        <td>Structured Snippet</td>
+                        <td>Services: Technical Analysis, Risk Management, Strategy Development, Live Signals</td>
+                    </tr>
+                    <tr>
+                        <td>Call Extension</td>
+                        <td>Add WhatsApp business number (from finoglob page)</td>
+                    </tr>
+                    <tr>
+                        <td>Location Extension</td>
+                        <td>Target market locations (Malaysia, Singapore, etc.)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Targeting Settings -->
+            <div class="section" id="targeting">
+                <h2>🎯 Targeting Settings</h2>
+
+                <h3>Geographic Targeting</h3>
+                <table>
+                    <tr>
+                        <th>Market</th>
+                        <th>Location</th>
+                        <th>Language</th>
+                        <th>Priority</th>
+                    </tr>
+                    <tr>
+                        <td>Malaysia</td>
+                        <td>Malaysia (all regions)</td>
+                        <td>Malay, English</td>
+                        <td><span class="badge badge-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>Singapore</td>
+                        <td>Singapore</td>
+                        <td>English, Chinese (Simplified)</td>
+                        <td><span class="badge badge-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>Taiwan</td>
+                        <td>Taiwan</td>
+                        <td>Chinese (Traditional)</td>
+                        <td><span class="badge badge-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>Hong Kong</td>
+                        <td>Hong Kong</td>
+                        <td>Chinese (Traditional)</td>
+                        <td><span class="badge badge-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>Italy</td>
+                        <td>Italy (all regions)</td>
+                        <td>Italian</td>
+                        <td><span class="badge badge-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>France</td>
+                        <td>France (all regions)</td>
+                        <td>French</td>
+                        <td><span class="badge badge-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>Brazil</td>
+                        <td>Brazil (all regions)</td>
+                        <td>Portuguese</td>
+                        <td><span class="badge badge-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>Portugal</td>
+                        <td>Portugal</td>
+                        <td>Portuguese</td>
+                        <td><span class="badge badge-low">Low</span></td>
+                    </tr>
+                    <tr>
+                        <td>India</td>
+                        <td>Tamil Nadu, Kerala</td>
+                        <td>Tamil, English</td>
+                        <td><span class="badge badge-medium">Medium</span></td>
+                    </tr>
+                </table>
+
+                <h3>Demographic Targeting</h3>
+                <ul>
+                    <li><strong>Age:</strong> 25-65 (primary: 30-50)</li>
+                    <li><strong>Gender:</strong> All (slight male skew expected)</li>
+                    <li><strong>Household Income:</strong> Top 30% and above</li>
+                    <li><strong>Parental Status:</strong> All</li>
+                </ul>
+
+                <h3>Audience Targeting (Add after initial data)</h3>
+                <ul>
+                    <li>In-Market: Investing & Finance</li>
+                    <li>Affinity: Business Professionals, Investors</li>
+                    <li>Custom Intent: Create audiences based on competitor domains</li>
+                    <li>Remarketing: Visitors who didn't convert (30-day window)</li>
+                </ul>
+
+                <h3>Device Targeting</h3>
+                <table>
+                    <tr>
+                        <th>Device</th>
+                        <th>Bid Adjustment</th>
+                        <th>Reason</th>
+                    </tr>
+                    <tr>
+                        <td>Mobile</td>
+                        <td>+20%</td>
+                        <td>Page is mobile-optimized, WhatsApp/Telegram clicks</td>
+                    </tr>
+                    <tr>
+                        <td>Desktop</td>
+                        <td>Baseline</td>
+                        <td>Standard conversion rate</td>
+                    </tr>
+                    <tr>
+                        <td>Tablet</td>
+                        <td>-10%</td>
+                        <td>Lower conversion rate typically</td>
+                    </tr>
+                </table>
+
+                <h3>Ad Schedule</h3>
+                <div class="info">
+                    <strong>💡 Recommended Schedule:</strong><br>
+                    Run ads 24/7 initially, then adjust based on performance data.<br>
+                    Expected peak times: 7-10 AM, 12-2 PM, 7-11 PM (local time)
+                </div>
+
+                <table>
+                    <tr>
+                        <th>Time Period</th>
+                        <th>Bid Adjustment</th>
+                        <th>Reason</th>
+                    </tr>
+                    <tr>
+                        <td>Weekday Morning (7-10 AM)</td>
+                        <td>+15%</td>
+                        <td>High engagement, commute time</td>
+                    </tr>
+                    <tr>
+                        <td>Weekday Lunch (12-2 PM)</td>
+                        <td>+10%</td>
+                        <td>Break time browsing</td>
+                    </tr>
+                    <tr>
+                        <td>Weekday Evening (7-11 PM)</td>
+                        <td>+20%</td>
+                        <td>Peak conversion time</td>
+                    </tr>
+                    <tr>
+                        <td>Weekday Night (11 PM - 7 AM)</td>
+                        <td>-30%</td>
+                        <td>Lower quality traffic</td>
+                    </tr>
+                    <tr>
+                        <td>Weekend</td>
+                        <td>+5%</td>
+                        <td>More research time</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Budget & Bidding -->
+            <div class="section" id="budget">
+                <h2>💰 Budget & Bidding Strategy</h2>
+
+                <h3>Recommended Starting Budget</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="number">$300</div>
+                        <div class="label">Daily Budget (All Campaigns)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">$9,000</div>
+                        <div class="label">Monthly Budget</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">$2-8</div>
+                        <div class="label">Target CPC</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">$15-50</div>
+                        <div class="label">Target CPA</div>
+                    </div>
+                </div>
+
+                <h3>Budget Allocation by Market</h3>
+                <table>
+                    <tr>
+                        <th>Market</th>
+                        <th>Daily Budget</th>
+                        <th>Monthly Budget</th>
+                        <th>% of Total</th>
+                    </tr>
+                    <tr>
+                        <td>Malaysia</td>
+                        <td>$50</td>
+                        <td>$1,500</td>
+                        <td>17%</td>
+                    </tr>
+                    <tr>
+                        <td>Singapore</td>
+                        <td>$80</td>
+                        <td>$2,400</td>
+                        <td>27%</td>
+                    </tr>
+                    <tr>
+                        <td>Taiwan</td>
+                        <td>$40</td>
+                        <td>$1,200</td>
+                        <td>13%</td>
+                    </tr>
+                    <tr>
+                        <td>Hong Kong</td>
+                        <td>$40</td>
+                        <td>$1,200</td>
+                        <td>13%</td>
+                    </tr>
+                    <tr>
+                        <td>Italy</td>
+                        <td>$30</td>
+                        <td>$900</td>
+                        <td>10%</td>
+                    </tr>
+                    <tr>
+                        <td>France</td>
+                        <td>$30</td>
+                        <td>$900</td>
+                        <td>10%</td>
+                    </tr>
+                    <tr>
+                        <td>Brazil</td>
+                        <td>$20</td>
+                        <td>$600</td>
+                        <td>7%</td>
+                    </tr>
+                    <tr>
+                        <td>India</td>
+                        <td>$10</td>
+                        <td>$300</td>
+                        <td>3%</td>
+                    </tr>
+                    <tr>
+                        <th>Total</th>
+                        <th>$300</th>
+                        <th>$9,000</th>
+                        <th>100%</th>
+                    </tr>
+                </table>
+
+                <h3>Bidding Strategy Recommendations</h3>
+
+                <h4>Phase 1: Learning Phase (First 2 weeks)</h4>
+                <ul>
+                    <li><strong>Bidding:</strong> Manual CPC</li>
+                    <li><strong>Starting Bid:</strong> $3-5 per click</li>
+                    <li><strong>Goal:</strong> Gather data on which keywords convert</li>
+                    <li><strong>Adjustments:</strong> Daily monitoring and bid adjustments</li>
+                </ul>
+
+                <h4>Phase 2: Optimization Phase (Weeks 3-4)</h4>
+                <ul>
+                    <li><strong>Bidding:</strong> Enhanced CPC (eCPC)</li>
+                    <li><strong>Goal:</strong> Improve conversion rate while maintaining volume</li>
+                    <li><strong>Adjustments:</strong> Pause low performers, increase budget on winners</li>
+                </ul>
+
+                <h4>Phase 3: Scaling Phase (Month 2+)</h4>
+                <ul>
+                    <li><strong>Bidding:</strong> Target CPA or Maximize Conversions</li>
+                    <li><strong>Target CPA:</strong> Set to $30-40 initially, adjust based on performance</li>
+                    <li><strong>Goal:</strong> Scale volume while maintaining profitability</li>
+                    <li><strong>Adjustments:</strong> Weekly optimization, A/B testing new ad copy</li>
+                </ul>
+
+                <div class="warning">
+                    <strong>⚠️ Important Budget Notes:</strong><br>
+                    • Google needs ~30-50 conversions to optimize Target CPA effectively<br>
+                    • Don't switch bidding strategies too frequently (wait 2 weeks minimum)<br>
+                    • Budget at least $500-1000 for testing phase to gather meaningful data<br>
+                    • Higher budgets = faster learning = better optimization
+                </div>
+
+                <h3>Expected Performance Metrics</h3>
+                <table>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Target</th>
+                        <th>Good</th>
+                        <th>Excellent</th>
+                    </tr>
+                    <tr>
+                        <td>CTR (Click-Through Rate)</td>
+                        <td>3-5%</td>
+                        <td>5-8%</td>
+                        <td>8%+</td>
+                    </tr>
+                    <tr>
+                        <td>Conversion Rate</td>
+                        <td>3-5%</td>
+                        <td>5-10%</td>
+                        <td>10%+</td>
+                    </tr>
+                    <tr>
+                        <td>CPC (Cost Per Click)</td>
+                        <td>$2-8</td>
+                        <td>$1-4</td>
+                        <td>$1-2</td>
+                    </tr>
+                    <tr>
+                        <td>CPA (Cost Per Acquisition)</td>
+                        <td>$15-50</td>
+                        <td>$10-30</td>
+                        <td>$5-20</td>
+                    </tr>
+                    <tr>
+                        <td>Quality Score</td>
+                        <td>5-7</td>
+                        <td>7-9</td>
+                        <td>9-10</td>
+                    </tr>
+                    <tr>
+                        <td>Impression Share</td>
+                        <td>50-70%</td>
+                        <td>70-85%</td>
+                        <td>85%+</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Optimization -->
+            <div class="section" id="optimization">
+                <h2>📈 Optimization Tips</h2>
+
+                <h3>Daily Tasks</h3>
+                <ul>
+                    <li>✅ Check for any disapproved ads and fix issues</li>
+                    <li>✅ Monitor CPA and pause keywords over $80 CPA</li>
+                    <li>✅ Add 5-10 new negative keywords based on search terms</li>
+                    <li>✅ Check budget pacing (are campaigns spending evenly?)</li>
+                    <li>✅ Respond to any form submissions within 5 minutes</li>
+                </ul>
+
+                <h3>Weekly Tasks</h3>
+                <ul>
+                    <li>📊 Review search terms report and add negative keywords</li>
+                    <li>📊 Identify top 10 converting keywords and increase bids by 10-20%</li>
+                    <li>📊 Identify bottom 10 keywords and decrease bids by 20% or pause</li>
+                    <li>📊 Test new ad copy variations (2-3 new ads per week)</li>
+                    <li>📊 Review device performance and adjust mobile bid modifier</li>
+                    <li>📊 Check Quality Scores and optimize landing page if below 7</li>
+                    <li>📊 Review geographic performance and adjust location bids</li>
+                </ul>
+
+                <h3>Monthly Tasks</h3>
+                <ul>
+                    <li>📈 Comprehensive performance review of all campaigns</li>
+                    <li>📈 Analyze conversion patterns (time, device, location)</li>
+                    <li>📈 Expand to new keywords based on search terms data</li>
+                    <li>📈 Test new ad groups with different angles/offers</li>
+                    <li>📈 Review and update audience targeting</li>
+                    <li>📈 Competitor analysis - what are they doing?</li>
+                    <li>📈 Budget reallocation based on performance</li>
+                </ul>
+
+                <h3>Quality Score Optimization</h3>
+                <div class="info">
+                    <strong>💡 Quality Score Formula:</strong><br>
+                    Quality Score = Expected CTR (40%) + Ad Relevance (30%) + Landing Page Experience (30%)
+                </div>
+
+                <h4>Improve Expected CTR:</h4>
+                <ul>
+                    <li>Use keyword in headline (Dynamic Keyword Insertion)</li>
+                    <li>Write compelling ad copy with clear CTA</li>
+                    <li>Use ad extensions (sitelinks, callouts, structured snippets)</li>
+                    <li>Test emojis in ad copy (use sparingly)</li>
+                </ul>
+
+                <h4>Improve Ad Relevance:</h4>
+                <ul>
+                    <li>Tightly themed ad groups (5-15 closely related keywords)</li>
+                    <li>Multiple ads per ad group (3-5 variations)</li>
+                    <li>Use keyword in ad headline and description</li>
+                    <li>Match ad message to search intent</li>
+                </ul>
+
+                <h4>Improve Landing Page Experience:</h4>
+                <ul>
+                    <li>Fast page load time (finoglob page is already optimized)</li>
+                    <li>Mobile-friendly design (already responsive)</li>
+                    <li>Clear value proposition above the fold</li>
+                    <li>Easy-to-find contact form</li>
+                    <li>Relevant content matching ad message</li>
+                    <li>Trust signals (testimonials, reviews)</li>
+                </ul>
+
+                <h3>A/B Testing Framework</h3>
+                <table>
+                    <tr>
+                        <th>Test Element</th>
+                        <th>Variation Ideas</th>
+                        <th>Test Duration</th>
+                    </tr>
+                    <tr>
+                        <td>Headlines</td>
+                        <td>Keyword-focused vs Benefit-focused vs Question-based</td>
+                        <td>2 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>CTAs</td>
+                        <td>"Get Started" vs "Contact Now" vs "Join Today"</td>
+                        <td>2 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>Value Props</td>
+                        <td>"1-on-1" vs "Expert" vs "Proven Results"</td>
+                        <td>2 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>Landing Pages</td>
+                        <td>Form placement, headline copy, images</td>
+                        <td>4 weeks</td>
+                    </tr>
+                    <tr>
+                        <td>Ad Extensions</td>
+                        <td>Different sitelinks, callouts, snippets</td>
+                        <td>2 weeks</td>
+                    </tr>
+                </table>
+
+                <div class="success">
+                    <strong>✅ Pro Tip:</strong> Only test ONE element at a time. If you change multiple things, you won't know what caused the performance change.
+                </div>
+            </div>
+
+            <!-- Multilingual Campaigns -->
+            <div class="section" id="multilingual">
+                <h2>🌍 Multilingual Campaign Setup</h2>
+
+                <div class="info">
+                    <strong>🎯 Strategy:</strong> The finoglob page auto-detects language by IP, so you can send traffic from all markets to the same URL. Google Ads will handle the targeting.
+                </div>
+
+                <h3>Language-Specific Keywords</h3>
+
+                <h4>Malay (Malaysia)</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                    <span class="keyword-phrase">mentor trading</span>
+                    <span class="keyword-phrase">belajar trading</span>
+                    <span class="keyword-phrase">kursus trading</span>
+                    <span class="keyword-phrase">guru trading</span>
+                    <span class="keyword-phrase">belajar forex</span>
+                    <span class="keyword-phrase">kursus forex</span>
+                    <span class="keyword-phrase">trading forex Malaysia</span>
+                    <span class="keyword-phrase">cara trading</span>
+                    <span class="keyword-phrase">strategi trading</span>
+                    <span class="keyword-phrase">belajar saham</span>
+                    <span class="keyword-phrase">trading online Malaysia</span>
+                    <span class="keyword-phrase">signal trading</span>
+                    <span class="keyword-phrase">pelaburan forex</span>
+                    <span class="keyword-phrase">mentor forex Malaysia</span>
+                </div>
+
+                <h4>Italian (Italy)</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                    <span class="keyword-phrase">mentor trading</span>
+                    <span class="keyword-phrase">corso trading</span>
+                    <span class="keyword-phrase">coach trading</span>
+                    <span class="keyword-phrase">imparare trading</span>
+                    <span class="keyword-phrase">formazione trading</span>
+                    <span class="keyword-phrase">mentor forex</span>
+                    <span class="keyword-phrase">corso forex</span>
+                    <span class="keyword-phrase">trading online Italia</span>
+                    <span class="keyword-phrase">strategie trading</span>
+                    <span class="keyword-phrase">trading per principianti</span>
+                    <span class="keyword-phrase">segnali trading</span>
+                    <span class="keyword-phrase">analisi tecnica</span>
+                    <span class="keyword-phrase">day trading Italia</span>
+                </div>
+
+                <h4>French (France)</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                    <span class="keyword-phrase">mentor trading</span>
+                    <span class="keyword-phrase">formation trading</span>
+                    <span class="keyword-phrase">coach trading</span>
+                    <span class="keyword-phrase">apprendre trading</span>
+                    <span class="keyword-phrase">cours trading</span>
+                    <span class="keyword-phrase">mentor forex</span>
+                    <span class="keyword-phrase">formation forex</span>
+                    <span class="keyword-phrase">trading en ligne France</span>
+                    <span class="keyword-phrase">stratégies trading</span>
+                    <span class="keyword-phrase">trading pour débutants</span>
+                    <span class="keyword-phrase">signaux trading</span>
+                    <span class="keyword-phrase">analyse technique</span>
+                    <span class="keyword-phrase">day trading France</span>
+                </div>
+
+                <h4>Portuguese (Brazil)</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                    <span class="keyword-phrase">mentor trading</span>
+                    <span class="keyword-phrase">curso trading</span>
+                    <span class="keyword-phrase">coach trading</span>
+                    <span class="keyword-phrase">aprender trading</span>
+                    <span class="keyword-phrase">treinamento trading</span>
+                    <span class="keyword-phrase">mentor forex</span>
+                    <span class="keyword-phrase">curso forex</span>
+                    <span class="keyword-phrase">trading online Brasil</span>
+                    <span class="keyword-phrase">estratégias trading</span>
+                    <span class="keyword-phrase">trading para iniciantes</span>
+                    <span class="keyword-phrase">sinais trading</span>
+                    <span class="keyword-phrase">análise técnica</span>
+                    <span class="keyword-phrase">day trade Brasil</span>
+                </div>
+
+                <h4>Chinese Simplified (Singapore)</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                    <span class="keyword-phrase">交易导师</span>
+                    <span class="keyword-phrase">外汇导师</span>
+                    <span class="keyword-phrase">学习交易</span>
+                    <span class="keyword-phrase">交易课程</span>
+                    <span class="keyword-phrase">外汇课程</span>
+                    <span class="keyword-phrase">交易培训</span>
+                    <span class="keyword-phrase">外汇培训</span>
+                    <span class="keyword-phrase">新加坡交易</span>
+                    <span class="keyword-phrase">交易策略</span>
+                    <span class="keyword-phrase">日内交易</span>
+                    <span class="keyword-phrase">交易信号</span>
+                    <span class="keyword-phrase">技术分析</span>
+                </div>
+
+                <h4>Chinese Traditional (Taiwan/Hong Kong)</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                    <span class="keyword-phrase">交易導師</span>
+                    <span class="keyword-phrase">外匯導師</span>
+                    <span class="keyword-phrase">學習交易</span>
+                    <span class="keyword-phrase">交易課程</span>
+                    <span class="keyword-phrase">外匯課程</span>
+                    <span class="keyword-phrase">交易培訓</span>
+                    <span class="keyword-phrase">外匯培訓</span>
+                    <span class="keyword-phrase">台灣交易</span>
+                    <span class="keyword-phrase">香港交易</span>
+                    <span class="keyword-phrase">交易策略</span>
+                    <span class="keyword-phrase">日內交易</span>
+                    <span class="keyword-phrase">交易信號</span>
+                    <span class="keyword-phrase">技術分析</span>
+                </div>
+
+                <h4>Tamil (India)</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                    <span class="keyword-phrase">வர்த்தக வழிகாட்டி</span>
+                    <span class="keyword-phrase">forex வழிகாட்டி</span>
+                    <span class="keyword-phrase">வர்த்தகம் கற்றல்</span>
+                    <span class="keyword-phrase">வர்த்தக பாடநெறி</span>
+                    <span class="keyword-phrase">forex பாடநெறி</span>
+                    <span class="keyword-phrase">வர்த்தக பயிற்சி</span>
+                </div>
+
+                <h3>Ad Copy Translation Guidelines</h3>
+                <div class="warning">
+                    <strong>⚠️ Important:</strong> Always use native speakers to review translations. Google Translate is not sufficient for ad copy!
+                </div>
+
+                <ul>
+                    <li>Hire professional translators for each language</li>
+                    <li>Maintain brand voice and tone across languages</li>
+                    <li>Consider cultural nuances and sensitivities</li>
+                    <li>Test different CTAs in each language</li>
+                    <li>Use local testimonials when possible</li>
+                    <li>Include local currency and pricing if applicable</li>
+                </ul>
+            </div>
+
+            <!-- Conversion Tracking -->
+            <div class="section" id="tracking">
+                <h2>📊 Conversion Tracking Setup</h2>
+
+                <div class="success">
+                    <strong>✅ Already Installed!</strong> Google tag (AW-17673979773) is live on finoglob.html
+                </div>
+
+                <h3>Create Conversion Actions in Google Ads</h3>
+                <ol>
+                    <li>Go to Google Ads → Tools & Settings → Measurement → Conversions</li>
+                    <li>Click "+ New conversion action"</li>
+                    <li>Select "Website"</li>
+                    <li>Create the following conversion actions:</li>
+                </ol>
+
+                <h3>Conversion Action 1: Form Submission</h3>
+                <div class="code-block">
+Name: Mentorship Form Submission
+Category: Submit lead form
+Value: $30 (adjust based on your metrics)
+Count: One
+Conversion window: 30 days
+Include in "Conversions": Yes
+Attribution model: Data-driven
+                </div>
+
+                <h3>Conversion Action 2: WhatsApp Click</h3>
+                <div class="code-block">
+Name: WhatsApp Contact Click
+Category: Contact
+Value: $15
+Count: One
+Conversion window: 7 days
+Include in "Conversions": Yes
+                </div>
+
+                <h3>Conversion Action 3: Telegram Click</h3>
+                <div class="code-block">
+Name: Telegram Contact Click
+Category: Contact
+Value: $15
+Count: One
+Conversion window: 7 days
+Include in "Conversions": Yes
+                </div>
+
+                <h3>Implement Conversion Tracking Code</h3>
+                <p>Add this code to the form submission success event in finoglob.html:</p>
+
+                <div class="code-block">
+// After successful form submission
+gtag('event', 'conversion', {
+    'send_to': 'AW-17673979773/XXXXX',  // Replace XXXXX with your conversion label
+    'value': 30.0,
+    'currency': 'USD',
+    'transaction_id': ''
+});
+                </div>
+
+                <p>For WhatsApp button click:</p>
+                <div class="code-block">
+// On WhatsApp button click
+document.querySelector('.whatsapp-button').addEventListener('click', function() {
+    gtag('event', 'conversion', {
+        'send_to': 'AW-17673979773/YYYYY',  // Replace YYYYY with your conversion label
+        'value': 15.0,
+        'currency': 'USD'
+    });
+});
+                </div>
+
+                <h3>Test Conversion Tracking</h3>
+                <ol>
+                    <li>Install Google Tag Assistant Chrome extension</li>
+                    <li>Visit tradeflow.blog/finoglob</li>
+                    <li>Open Tag Assistant and verify tags are firing</li>
+                    <li>Submit test form and check if conversion appears in Google Ads</li>
+                    <li>Note: Test conversions may take 3-24 hours to appear</li>
+                </ol>
+
+                <h3>Set Up Enhanced Conversions (Optional but Recommended)</h3>
+                <p>Enhanced conversions improve accuracy by sending hashed customer data:</p>
+                <div class="code-block">
+gtag('config', 'AW-17673979773', {
+    'allow_enhanced_conversions': true
+});
+
+// On form submission
+gtag('event', 'conversion', {
+    'send_to': 'AW-17673979773/XXXXX',
+    'value': 30.0,
+    'currency': 'USD',
+    'email': userEmail,  // Will be hashed automatically
+    'phone_number': userPhone  // Will be hashed automatically
+});
+                </div>
+            </div>
+
+            <!-- Final Checklist -->
+            <div class="section">
+                <h2>✅ Launch Checklist</h2>
+
+                <div style="background: white; padding: 20px; border-radius: 10px;">
+                    <h3>Pre-Launch (Complete before spending any budget)</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>☐ Google tag installed on finoglob.html (✅ Done)</li>
+                        <li>☐ Conversion actions created in Google Ads</li>
+                        <li>☐ Conversion tracking code added to form</li>
+                        <li>☐ Test conversion tracking with Google Tag Assistant</li>
+                        <li>☐ Landing page loads fast on mobile (&lt;3 seconds)</li>
+                        <li>☐ Form works correctly on all devices</li>
+                        <li>☐ WhatsApp/Telegram buttons work correctly</li>
+                        <li>☐ All campaigns created with correct settings</li>
+                        <li>☐ All 12 ad groups created with keywords</li>
+                        <li>☐ 3+ ads per ad group written and approved</li>
+                        <li>☐ Ad extensions added (sitelinks, callouts, etc.)</li>
+                        <li>☐ Negative keywords added</li>
+                        <li>☐ Budget set correctly for each campaign</li>
+                        <li>☐ Billing information added to Google Ads</li>
+                    </ul>
+
+                    <h3>Week 1 (Learning Phase)</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>☐ Check campaigns daily for disapprovals</li>
+                        <li>☐ Monitor cost and conversions closely</li>
+                        <li>☐ Add negative keywords from search terms report</li>
+                        <li>☐ Pause any keywords with CPA &gt; $80</li>
+                        <li>☐ Verify conversion tracking is working</li>
+                    </ul>
+
+                    <h3>Week 2-4 (Optimization Phase)</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>☐ Identify top 10 converting keywords</li>
+                        <li>☐ Increase bids on top performers by 20%</li>
+                        <li>☐ Pause bottom 10% of keywords</li>
+                        <li>☐ Test new ad variations</li>
+                        <li>☐ Add more negative keywords</li>
+                        <li>☐ Adjust device and time bid modifiers</li>
+                        <li>☐ Review Quality Scores and optimize</li>
+                    </ul>
+
+                    <h3>Month 2+ (Scaling Phase)</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>☐ Switch to automated bidding (Target CPA)</li>
+                        <li>☐ Expand to new keywords from search terms</li>
+                        <li>☐ Test new ad groups with different angles</li>
+                        <li>☐ Increase budget on profitable campaigns</li>
+                        <li>☐ Set up remarketing campaigns</li>
+                        <li>☐ Launch Display campaigns (if performance is good)</li>
+                        <li>☐ Explore YouTube ads for brand awareness</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Support -->
+            <div class="section">
+                <h2>📞 Need Help?</h2>
+
+                <div class="info">
+                    <strong>Resources:</strong><br>
+                    • Google Ads Support: <a href="https://support.google.com/google-ads" target="_blank">support.google.com/google-ads</a><br>
+                    • Google Ads Community: <a href="https://support.google.com/google-ads/community" target="_blank">support.google.com/google-ads/community</a><br>
+                    • Google Skillshop (Free Training): <a href="https://skillshop.withgoogle.com" target="_blank">skillshop.withgoogle.com</a>
+                </div>
+
+                <h3>Recommended Learning Path</h3>
+                <ol>
+                    <li>Complete "Google Ads Search Certification" on Skillshop (free)</li>
+                    <li>Read official Google Ads Best Practices guide</li>
+                    <li>Join Google Ads subreddit (r/PPC) for community help</li>
+                    <li>Subscribe to Google Ads YouTube channel for updates</li>
+                </ol>
+
+                <div class="success">
+                    <strong>🎉 You're Ready to Launch!</strong><br>
+                    Follow this guide step by step, and you'll be running successful Google Ads campaigns for your trading mentorship in no time. Remember: patience and consistent optimization are key to success!
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
