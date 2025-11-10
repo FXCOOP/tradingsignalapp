@@ -13,9 +13,37 @@ import { saveDailyContent, getDailyContent } from '@/lib/cache'
  */
 export async function POST(request: NextRequest) {
   try {
+    // ✅ CHECK CACHE FIRST - Prevent duplicate generations
+    const cachedContent = await getDailyContent()
+
+    if (cachedContent) {
+      const timeLeft = Math.floor((new Date(cachedContent.expiresAt).getTime() - Date.now()) / 1000 / 60 / 60)
+      console.log(`✅ Using cached content (${timeLeft}h until expiry) - skipping generation`)
+
+      return NextResponse.json({
+        success: true,
+        cached: true,
+        generated: cachedContent.generatedAt,
+        content: {
+          signals: {
+            count: cachedContent.signals.length,
+            data: cachedContent.signals
+          },
+          news: {
+            count: cachedContent.news?.length || 0,
+            data: cachedContent.news || []
+          },
+          analysis: cachedContent.analysis
+        },
+        message: 'Content already generated today. Using cache to save API costs.',
+        expiresAt: cachedContent.expiresAt,
+        nextGeneration: cachedContent.expiresAt
+      })
+    }
+
     const baseUrl = process.env.APP_BASE_URL || 'http://localhost:3000'
 
-    console.log('🚀 Starting daily content generation...')
+    console.log('🚀 Starting daily content generation (no cache found)...')
 
     // Generate all content in parallel for speed
     const [signalsRes, newsRes, analysisRes] = await Promise.all([

@@ -64,23 +64,36 @@ export class TradingCRMStatusSync {
   }
 
   /**
-   * Fetch status for a single lead by affiliateTransactionId
+   * Fetch status for a single lead by affiliateTransactionId or email
    */
-  async fetchLeadStatus(affiliateTransactionId: string): Promise<LeadStatus | null> {
+  async fetchLeadStatus(affiliateTransactionId: string, email?: string): Promise<LeadStatus | null> {
     try {
-      // Get Bearer token
-      const token = await this.client.authenticate();
+      console.log('🔍 Fetching lead status from Trading CRM...', { affiliateTransactionId, email });
 
-      // Build filter query: WHERE[affiliateTransactionId]=xxx
-      const filterQuery = `?WHERE[affiliateTransactionId]=${encodeURIComponent(affiliateTransactionId)}`;
+      // Get Bearer token (this will use direct connection if no proxy is set)
+      const authHeader = await this.client.authenticate();
 
-      const response = await fetch(
-        `${process.env.TRADING_CRM_API_ENDPOINT!.replace('/accounts/registrationwithsso', '')}/accounts${filterQuery}`,
+      // Remove 'Bearer ' prefix if present to get just the token
+      const token = authHeader.replace('Bearer ', '');
+
+      // Try searching by affiliateTransactionId first
+      let filterQuery = `?WHERE[affiliateTransactionId]=${encodeURIComponent(affiliateTransactionId)}`;
+
+      console.log('📡 Calling Trading CRM GET /accounts API...', {
+        filterQuery,
+        hasProxy: !!process.env.TRADING_CRM_PROXY_URL,
+      });
+
+      const baseUrl = process.env.TRADING_CRM_API_ENDPOINT!.replace('/accounts/registrationwithsso', '');
+
+      let response = await fetch(
+        `${baseUrl}/accounts${filterQuery}`,
         {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
             'Accept': 'application/json',
+            'api-version': '4.0',
           },
         }
       );
@@ -89,16 +102,49 @@ export class TradingCRMStatusSync {
         throw new Error(`Trading CRM API returned ${response.status}`);
       }
 
-      const data = await response.json();
+      let data = await response.json();
+
+      // If not found by affiliateTransactionId and email is provided, try email
+      if ((!Array.isArray(data) || data.length === 0) && email) {
+        console.log('⚠️ Not found by affiliateTransactionId, trying email search...', { email });
+
+        filterQuery = `?WHERE[email]=${encodeURIComponent(email)}`;
+
+        response = await fetch(
+          `${baseUrl}/accounts${filterQuery}`,
+          {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Accept': 'application/json',
+              'api-version': '4.0',
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Trading CRM API returned ${response.status}`);
+        }
+
+        data = await response.json();
+      }
 
       // API returns array, get first result
       if (Array.isArray(data) && data.length > 0) {
+        console.log('✅ Lead found in Trading CRM:', {
+          id: data[0].id,
+          email: data[0].email,
+          leadStatus: data[0].leadStatus,
+          leadStatusCode: data[0].leadStatusCode,
+          ftdExists: data[0].ftdExists,
+        });
         return data[0] as LeadStatus;
       }
 
+      console.log('⚠️ Lead not found in Trading CRM');
       return null;
     } catch (error) {
-      console.error('Error fetching lead status:', error);
+      console.error('❌ Error fetching lead status:', error);
       return null;
     }
   }

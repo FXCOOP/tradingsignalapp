@@ -12,7 +12,9 @@
       "Bash(npm install:*)",
       "Bash(node:*)",
       "Bash(powershell:*)",
-      "Bash(vercel ls:*)"
+      "Bash(vercel ls:*)",
+      "Bash(start EDU-PAGE-DEPLOYED.md)",
+      "Bash(start 32-LANGUAGE-AUTO-DETECTION.md)"
     ],
     "deny": [],
     "ask": []

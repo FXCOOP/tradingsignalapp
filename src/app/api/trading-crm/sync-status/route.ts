@@ -25,8 +25,22 @@ export async function POST(request: NextRequest) {
     if (signupId) {
       console.log('📥 Syncing status for lead:', signupId);
 
-      // Fetch status from Trading CRM
-      const status = await statusSync.fetchLeadStatus(signupId);
+      // Get lead email from database
+      const { data: leadData } = await supabase
+        .from('signups')
+        .select('email, id')
+        .eq('id', signupId)
+        .single();
+
+      if (!leadData) {
+        return NextResponse.json({
+          success: false,
+          error: 'Lead not found in database',
+        }, { status: 404 });
+      }
+
+      // Fetch status from Trading CRM (pass both signupId and email)
+      const status = await statusSync.fetchLeadStatus(signupId, leadData.email);
 
       if (!status) {
         return NextResponse.json({
