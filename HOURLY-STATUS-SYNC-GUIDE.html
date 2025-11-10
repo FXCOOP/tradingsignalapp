@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⏰ Hourly Broker Status Sync Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .info {
+            background: #d1ecf1;
+            border-left: 5px solid #17a2b8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .step h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        ul {
+            padding-left: 30px;
+        }
+
+        ul li {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⏰ Automatic Hourly Status Sync</h1>
+            <p>Keep CRM Data in Sync with Trading CRM Every Hour</p>
+        </div>
+
+        <div class="content">
+            <!-- Overview -->
+            <div class="section">
+                <h2>📊 What This Does</h2>
+                <div class="success">
+                    <h3>✅ Automatic Status Updates</h3>
+                    <p>Every hour during working hours (9 AM - 6 PM UTC), the system automatically:</p>
+                    <ul>
+                        <li>Fetches latest status for all recent leads (last 7 days)</li>
+                        <li>Updates broker status in your CRM database</li>
+                        <li>Detects new FTD conversions</li>
+                        <li>Logs status changes for tracking</li>
+                        <li>Records sync results for monitoring</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Setup Instructions -->
+            <div class="section">
+                <h2>🚀 Setup Instructions</h2>
+
+                <div class="step">
+                    <h3><span class="step-number">1</span> Create Database Table</h3>
+                    <p>Run this SQL in Supabase SQL Editor:</p>
+                    <div class="code-block">
+<pre>-- File: supabase-sync-logs.sql
+
+CREATE TABLE IF NOT EXISTS sync_logs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  sync_type TEXT NOT NULL,
+  total_leads INTEGER DEFAULT 0,
+  synced INTEGER DEFAULT 0,
+  failed INTEGER DEFAULT 0,
+  conversions INTEGER DEFAULT 0,
+  status_changes INTEGER DEFAULT 0,
+  executed_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);</pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">2</span> Set Up Cron Job on cron-job.org</h3>
+                    <p>Create hourly cron job to sync statuses:</p>
+                    <ol>
+                        <li>Go to <a href="https://cron-job.org" target="_blank">cron-job.org</a></li>
+                        <li>Create new cron job with these settings:</li>
+                    </ol>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Setting</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Title</strong></td>
+                                <td>Hourly Broker Status Sync</td>
+                            </tr>
+                            <tr>
+                                <td><strong>URL</strong></td>
+                                <td><code>https://tradeflow.blog/api/cron/sync-statuses</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Schedule</strong></td>
+                                <td>Every 1 hour</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Method</strong></td>
+                                <td>GET</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Headers</strong></td>
+                                <td><code>Authorization: Bearer your-cron-secret</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Time Zone</strong></td>
+                                <td>UTC</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">3</span> Verify CRON_SECRET in Render</h3>
+                    <p>Make sure this environment variable exists in Render:</p>
+                    <div class="code-block">
+<pre>CRON_SECRET=your-random-secret-key-here</pre>
+                    </div>
+                    <p>Use the same secret key in the cron job Authorization header!</p>
+                </div>
+            </div>
+
+            <!-- How It Works -->
+            <div class="section">
+                <h2>⚙️ How It Works</h2>
+
+                <div class="info">
+                    <h3>🔄 Sync Process (Every Hour)</h3>
+                    <ol>
+                        <li><strong>Check Time:</strong> Is it working hours (9 AM - 6 PM UTC)?</li>
+                        <li><strong>Fetch Leads:</strong> Get all Trading CRM leads from last 7 days</li>
+                        <li><strong>For Each Lead:</strong>
+                            <ul>
+                                <li>Query Trading CRM API by email or affiliateTransactionId</li>
+                                <li>Get current status (New, FTD, Deposited, etc.)</li>
+                                <li>Compare with database</li>
+                                <li>Update if changed</li>
+                                <li>Log status changes</li>
+                                <li>Detect new conversions</li>
+                            </ul>
+                        </li>
+                        <li><strong>Save Results:</strong> Log sync stats to sync_logs table</li>
+                    </ol>
+                </div>
+
+                <div class="warning">
+                    <h3>⏰ Working Hours Only</h3>
+                    <p>Sync runs only during <strong>9 AM - 6 PM UTC</strong> to avoid:</p>
+                    <ul>
+                        <li>Unnecessary API calls during off-hours</li>
+                        <li>Trading CRM rate limiting</li>
+                        <li>Database load during quiet periods</li>
+                    </ul>
+                    <p>Outside these hours, the cron job returns "skipped" status.</p>
+                </div>
+            </div>
+
+            <!-- Monitoring -->
+            <div class="section">
+                <h2>👀 Monitoring & Logs</h2>
+
+                <div class="step">
+                    <h3>📊 View Sync History</h3>
+                    <p>Query sync results in Supabase:</p>
+                    <div class="code-block">
+<pre>-- Recent syncs
+SELECT
+  sync_type,
+  total_leads,
+  synced,
+  failed,
+  conversions,
+  status_changes,
+  executed_at
+FROM sync_logs
+ORDER BY executed_at DESC
+LIMIT 50;
+
+-- Stats for last 7 days
+SELECT
+  DATE(executed_at) as date,
+  COUNT(*) as syncs_per_day,
+  SUM(synced) as total_synced,
+  SUM(conversions) as total_conversions,
+  SUM(status_changes) as total_changes
+FROM sync_logs
+WHERE executed_at > NOW() - INTERVAL '7 days'
+GROUP BY DATE(executed_at)
+ORDER BY date DESC;</pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>🔍 Check Individual Lead Status</h3>
+                    <div class="code-block">
+<pre>-- See lead status history
+SELECT
+  created_at,
+  email,
+  broker_status,
+  broker_status_code,
+  ftd_exists,
+  tp_account,
+  last_status_check
+FROM signups
+WHERE broker = 'Trading CRM'
+ORDER BY last_status_check DESC NULLS LAST;</pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>📈 View Conversions</h3>
+                    <div class="code-block">
+<pre>-- All conversions
+SELECT
+  l.lead_id,
+  s.email,
+  l.broker_name,
+  l.conversion_type,
+  l.tp_account,
+  l.converted_at
+FROM conversions l
+JOIN signups s ON s.id = l.lead_id
+ORDER BY l.converted_at DESC;</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What Gets Updated -->
+            <div class="section">
+                <h2>📝 What Gets Updated</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Description</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>broker_status</code></td>
+                            <td>Status name (New, FTD, etc.)</td>
+                            <td>Trading CRM leadStatus</td>
+                        </tr>
+                        <tr>
+                            <td><code>broker_status_code</code></td>
+                            <td>Status code (1-12)</td>
+                            <td>Trading CRM leadStatusCode</td>
+                        </tr>
+                        <tr>
+                            <td><code>ftd_exists</code></td>
+                            <td>Has FTD conversion</td>
+                            <td>Trading CRM ftdExists</td>
+                        </tr>
+                        <tr>
+                            <td><code>tp_account</code></td>
+                            <td>Trading Platform account ID</td>
+                            <td>Trading CRM tpAccount</td>
+                        </tr>
+                        <tr>
+                            <td><code>broker_account_id</code></td>
+                            <td>Broker account ID</td>
+                            <td>Trading CRM id</td>
+                        </tr>
+                        <tr>
+                            <td><code>broker_modified_at</code></td>
+                            <td>Last modified in broker</td>
+                            <td>Trading CRM modifiedOn</td>
+                        </tr>
+                        <tr>
+                            <td><code>last_status_check</code></td>
+                            <td>Last sync timestamp</td>
+                            <td>Current time</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Status Codes -->
+            <div class="section">
+                <h2>🏷️ Trading CRM Status Codes</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Status Name</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>New</td>
+                            <td>Fresh lead, not contacted yet</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Attempted Contact</td>
+                            <td>Contact attempted, no answer</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>In Contact</td>
+                            <td>Currently in communication</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>No Answer</td>
+                            <td>No response from lead</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Callback Scheduled</td>
+                            <td>Follow-up call scheduled</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Not Interested</td>
+                            <td>Lead declined</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Invalid Number</td>
+                            <td>Phone number invalid</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Demo Account</td>
+                            <td>Created demo trading account</td>
+                        </tr>
+                        <tr style="background: #d4edda;">
+                            <td><strong>9</strong></td>
+                            <td><strong>FTD - Converted</strong></td>
+                            <td><strong>✅ First Time Deposit (CONVERSION!)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Retention</td>
+                            <td>In retention process</td>
+                        </tr>
+                        <tr style="background: #d4edda;">
+                            <td><strong>11</strong></td>
+                            <td><strong>Deposited</strong></td>
+                            <td><strong>✅ Made deposit (CONVERSION!)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>Withdrawn</td>
+                            <td>Withdrew funds</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Testing -->
+            <div class="section">
+                <h2>🧪 Testing</h2>
+
+                <div class="step">
+                    <h3>Manual Test Sync</h3>
+                    <p>Test the sync manually before setting up cron:</p>
+                    <div class="code-block">
+<pre>curl -H "Authorization: Bearer your-cron-secret" \
+  https://tradeflow.blog/api/cron/sync-statuses</pre>
+                    </div>
+
+                    <p><strong>Expected Response:</strong></p>
+                    <div class="code-block">
+<pre>{
+  "success": true,
+  "cronJob": "sync-statuses",
+  "executedAt": "2025-11-10T12:00:00.000Z",
+  "results": {
+    "total": 10,
+    "synced": 9,
+    "failed": 1,
+    "conversions": 2,
+    "statusChanges": 5
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section">
+                <h2>📋 Summary</h2>
+
+                <div class="success">
+                    <h3>✅ What You Get</h3>
+                    <ul>
+                        <li>Automatic status updates every hour</li>
+                        <li>Real-time conversion tracking (FTD)</li>
+                        <li>Status change history</li>
+                        <li>Sync logs for monitoring</li>
+                        <li>Works only during business hours (9 AM - 6 PM UTC)</li>
+                        <li>No manual refresh needed!</li>
+                    </ul>
+                </div>
+
+                <div class="info">
+                    <h3>🔧 Setup Checklist</h3>
+                    <ol>
+                        <li>✅ Run <code>supabase-sync-logs.sql</code> in Supabase</li>
+                        <li>✅ Set <code>CRON_SECRET</code> in Render environment</li>
+                        <li>✅ Create cron job on cron-job.org (hourly)</li>
+                        <li>✅ Test with manual curl request</li>
+                        <li>✅ Monitor sync_logs table</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

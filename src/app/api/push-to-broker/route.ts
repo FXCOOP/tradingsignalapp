@@ -182,7 +182,8 @@ async function pushToTradingCRM(signup: any) {
       email: signup.email,
       phone: `${signup.country_code}${signup.phone_number}`,
       country: countryNameToISO(signup.country), // Convert to ISO code (MY, TR, FR, etc.)
-      language: 'en',
+      // language: auto-detected from country in trading-crm-api.ts
+      // MY→ms, TR→tr, FR→fr, IT→it, HK→zh, SG→en, TW→zh, BR→pt
       ip: signup.ip_address,
       affiliateTransactionId: signup.id,
       utmSource: 'pksignalpulse',
