@@ -1255,19 +1255,86 @@
                 .percentage-badge {
                     animation: badgeBounce 2s ease-in-out infinite;
                 }
+
+                /* Mobile Responsive Styles */
+                @media (max-width: 768px) {
+                    .chart-container {
+                        height: 220px !important;
+                        gap: 10px !important;
+                        padding: 0 10px !important;
+                    }
+                    .chart-bar {
+                        max-width: 50px !important;
+                    }
+                    .bar-inner {
+                        min-height: 50px !important;
+                        border-radius: 10px 10px 0 0 !important;
+                    }
+                    .percentage-badge {
+                        padding: 4px 8px !important;
+                        font-size: 13px !important;
+                        border-width: 1px !important;
+                    }
+                    .day-label {
+                        font-size: 12px !important;
+                        margin-top: 12px !important;
+                    }
+                    .chart-header-title {
+                        font-size: 22px !important;
+                    }
+                    .chart-wrapper {
+                        padding: 30px 20px !important;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .chart-container {
+                        height: 180px !important;
+                        gap: 6px !important;
+                        overflow-x: auto !important;
+                        justify-content: flex-start !important;
+                        padding: 0 5px !important;
+                    }
+                    .chart-bar {
+                        max-width: 40px !important;
+                        min-width: 40px !important;
+                    }
+                    .bar-inner {
+                        min-height: 40px !important;
+                        border-radius: 8px 8px 0 0 !important;
+                    }
+                    .percentage-badge {
+                        padding: 3px 6px !important;
+                        font-size: 11px !important;
+                    }
+                    .day-label {
+                        font-size: 10px !important;
+                        margin-top: 10px !important;
+                    }
+                    .chart-header-title {
+                        font-size: 20px !important;
+                    }
+                    .chart-wrapper {
+                        padding: 20px 15px !important;
+                    }
+                    .trend-badge {
+                        padding: 6px 14px !important;
+                        font-size: 10px !important;
+                    }
+                }
             </style>
 
-            <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(6, 78, 59, 0.05) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 24px; padding: 50px; margin-bottom: 60px; position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(16, 185, 129, 0.15);">
+            <div class="chart-wrapper" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(6, 78, 59, 0.05) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 24px; padding: 50px; margin-bottom: 60px; position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(16, 185, 129, 0.15);">
 
                 <!-- Animated background glow -->
                 <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%); animation: shimmer 8s linear infinite; pointer-events: none;"></div>
 
                 <div style="position: relative; z-index: 1;">
                     <div style="text-align: center; margin-bottom: 40px;">
-                        <div style="display: inline-block; background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.1) 100%); padding: 8px 20px; border-radius: 20px; margin-bottom: 16px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                        <div class="trend-badge" style="display: inline-block; background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.1) 100%); padding: 8px 20px; border-radius: 20px; margin-bottom: 16px; border: 1px solid rgba(16, 185, 129, 0.3);">
                             <span style="color: #10b981; font-size: 12px; font-weight: 700; letter-spacing: 1px;">✨ TRENDING UP</span>
                         </div>
-                        <h3 style="color: white; font-size: 32px; font-weight: 900; margin: 0; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);">📊 Weekly Performance</h3>
+                        <h3 class="chart-header-title" style="color: white; font-size: 32px; font-weight: 900; margin: 0; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);">📊 Weekly Performance</h3>
                     </div>
 
                     <!-- Grid Lines Background -->
@@ -1280,12 +1347,12 @@
                 </div>
 
                 <!-- Chart Container -->
-                <div style="display: flex; align-items: flex-end; justify-content: space-around; height: 320px; gap: 20px; padding: 0 20px; position: relative; z-index: 1;">
+                <div class="chart-container" style="display: flex; align-items: flex-end; justify-content: space-around; height: 320px; gap: 20px; padding: 0 20px; position: relative; z-index: 1;">
                     <!-- Monday -->
                     <div class="chart-bar" style="flex: 1; max-width: 130px; display: flex; flex-direction: column; align-items: center; position: relative;">
                         <div class="percentage-badge" style="position: absolute; top: 0; left: 50%; background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%); padding: 8px 16px; border-radius: 10px; font-size: 18px; color: #10b981; font-weight: 900; white-space: nowrap; border: 2px solid rgba(16, 185, 129, 0.4); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">78% ↗</div>
                         <div class="bar-inner" style="width: 100%; height: 78%; min-height: 80px; background: linear-gradient(180deg, #10b981 0%, #059669 50%, #047857 100%); border-radius: 16px 16px 0 0; position: relative; box-shadow: 0 -8px 24px rgba(16, 185, 129, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.2), 0 0 0 2px rgba(16, 185, 129, 0.2); transition: all 0.3s ease; cursor: pointer; overflow: hidden;" onmouseover="this.style.transform='scale(1.08) translateY(-5px)'; this.style.boxShadow='0 -16px 40px rgba(16, 185, 129, 0.7), inset 0 2px 4px rgba(255, 255, 255, 0.3), 0 0 0 3px rgba(16, 185, 129, 0.4)';" onmouseout="this.style.transform='scale(1) translateY(0)'; this.style.boxShadow='0 -8px 24px rgba(16, 185, 129, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.2), 0 0 0 2px rgba(16, 185, 129, 0.2)';"><div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%); border-radius: 16px 16px 0 0;"></div></div>
-                        <div style="margin-top: 18px; font-size: 16px; color: #e2e8f0; font-weight: 700; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);">Mon</div>
+                        <div class="day-label" style="margin-top: 18px; font-size: 16px; color: #e2e8f0; font-weight: 700; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);">Mon</div>
                     </div>
 
                     <!-- Tuesday -->
