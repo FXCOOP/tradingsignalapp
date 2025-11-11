@@ -1758,6 +1758,19 @@
                 🔥 <strong>10,247 traders</strong> matched with mentors this month  •  <span style="color: #dc2626;">⚠️ Only 5 spots left this week!</span>
             </div>
 
+            <!-- Countdown Timer -->
+            <div style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; padding: 24px; border-radius: 12px; text-align: center; margin: 20px 0; box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4); border: 2px solid #b91c1c;">
+                <div style="font-size: 18px; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">
+                    ⏰ FREE SPOTS CLOSING IN:
+                </div>
+                <div id="countdown-finoglob" style="font-size: 48px; font-weight: 900; font-family: 'Courier New', monospace; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); margin: 10px 0;">
+                    23:59:47
+                </div>
+                <div style="font-size: 15px; margin-top: 10px; opacity: 0.95;">
+                    This week's spots are limited. Register now before they're gone!
+                </div>
+            </div>
+
             <div class="hero-cta">
                 <button class="btn-primary" onclick="openModal()">✅ Yes! Get My Free Mentor →</button>
                 <button class="btn-secondary" onclick="scrollToMentors()">👥 Meet the Mentors</button>
@@ -4428,6 +4441,53 @@
             initExitIntent();      // Open when user tries to leave
             initScrollTrigger();   // Open after 50% scroll
         });
+
+        // ⏰ COUNTDOWN TIMER - Resets daily at midnight
+        function updateCountdownFinoglob() {
+            const now = new Date();
+            const midnight = new Date();
+            midnight.setHours(23, 59, 59, 999);
+
+            const diff = midnight - now;
+
+            if (diff <= 0) {
+                // Reset to next day
+                midnight.setDate(midnight.getDate() + 1);
+                midnight.setHours(23, 59, 59, 999);
+            }
+
+            const hours = Math.floor(diff / 3600000);
+            const mins = Math.floor((diff % 3600000) / 60000);
+            const secs = Math.floor((diff % 60000) / 1000);
+
+            const countdownEl = document.getElementById('countdown-finoglob');
+            if (countdownEl) {
+                countdownEl.textContent =
+                    `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdownFinoglob, 1000);
+        updateCountdownFinoglob(); // Initial call
+    </script>
+
+    <!-- 💬 TAWK.TO LIVE CHAT WIDGET -->
+    <!-- Free live chat to answer questions instantly and boost conversions -->
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/674b8e574304e3196ae1d0f5/1idovph8h';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+
     </script>
 
 	<script>
