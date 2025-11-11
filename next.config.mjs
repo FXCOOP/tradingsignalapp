@@ -13,6 +13,10 @@ const nextConfig = {
         source: '/edu',
         destination: '/edu.html',
       },
+      {
+        source: '/broker',
+        destination: '/broker.html',
+      },
     ]
   },
   async headers() {
