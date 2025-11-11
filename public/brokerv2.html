@@ -1581,23 +1581,46 @@
                 return;
             }
 
-            // Set the dropdown to show the detected language
+            // Update dropdown value
             selectElement.value = langCode;
+            console.log('📝 Dropdown value set to:', selectElement.value);
 
-            // Trigger the translation with multiple event types for compatibility
-            selectElement.dispatchEvent(new Event('change', { bubbles: true }));
-            selectElement.dispatchEvent(new Event('input', { bubbles: true }));
+            // Try to access Google Translate's internal function
+            // The iframe created by Google Translate handles the actual translation
+            const frame = document.querySelector('.goog-te-menu-frame');
+            console.log('🖼️ Google Translate frame:', frame ? 'found' : 'not found');
 
-            // Also try triggering the click event on the select
+            // Trigger multiple event types to ensure Google Translate picks it up
+            const events = ['change', 'click', 'input'];
+            events.forEach(function(eventType) {
+                const event = new Event(eventType, {
+                    bubbles: true,
+                    cancelable: true
+                });
+                selectElement.dispatchEvent(event);
+                console.log('✅ Dispatched:', eventType);
+            });
+
+            // Also try jQuery-style trigger if available
+            if (window.jQuery) {
+                jQuery(selectElement).trigger('change');
+                console.log('✅ jQuery trigger executed');
+            }
+
+            // Simulate user interaction by focusing then changing
+            selectElement.focus();
             setTimeout(function() {
-                selectElement.dispatchEvent(new Event('change', { bubbles: true }));
-            }, 100);
+                selectElement.blur();
+                const changeEvent = document.createEvent('HTMLEvents');
+                changeEvent.initEvent('change', true, true);
+                selectElement.dispatchEvent(changeEvent);
+                console.log('✅ Focus/blur cycle + change event completed');
+            }, 50);
 
             window.googleTranslateTriggered = true;
             window.currentDisplayLanguage = langCode;
 
-            console.log('✅ Google Translate triggered:', langCode);
-            console.log('✅ Dropdown set to:', selectElement.value);
+            console.log('✅ Translation trigger sequence completed for:', langCode);
         }
 
         async function detectLanguageFromIP() {
@@ -1850,7 +1873,7 @@
 
                 const selectElement = document.querySelector('.goog-te-combo');
                 if (selectElement) {
-                    console.log('✅ Google Translate dropdown found and ready!');
+                    console.log('✅ Google Translate dropdown found!');
                     clearInterval(waitForGoogleTranslate);
                     window.googleTranslateReady = true;
 
@@ -1901,8 +1924,13 @@
                         console.log('✅ Manual language change listener attached');
                     }
 
-                    // Now trigger auto-translation
-                    detectLanguageFromIP();
+                    // Wait an additional 1 second for Google Translate to fully bind its event handlers
+                    console.log('⏳ Waiting 1 second for Google Translate to fully initialize...');
+                    setTimeout(function() {
+                        console.log('✅ Google Translate should be fully ready now');
+                        detectLanguageFromIP();
+                    }, 1000);
+
                 } else if (translationAttempts >= maxTranslationAttempts) {
                     console.error('❌ Google Translate failed to load after', maxTranslationAttempts, 'attempts');
                     clearInterval(waitForGoogleTranslate);
