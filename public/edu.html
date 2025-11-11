@@ -68,6 +68,17 @@
             to { opacity: 1; }
         }
 
+        @keyframes pulse-button {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 12px 40px rgba(16, 185, 129, 0.6);
+            }
+        }
+
         @keyframes float {
             0%, 100% {
                 transform: translateY(0) scale(1);
@@ -1118,6 +1129,11 @@
             <h1>Get a Free Trading Mentor + <span class="hero-highlight">Make $500-$2000/Week</span></h1>
             <p>Connect with professional traders who guide you personally through your trading journey. Get matched with our trusted broker partners and receive daily signals, market analysis, and direct mentorship. <strong>No generic courses - real one-on-one guidance. 100% FREE consultation.</strong></p>
 
+            <!-- CTA Button - MOVED HIGHER for better visibility -->
+            <div class="hero-cta" style="margin: 30px 0;">
+                <button class="btn-primary" onclick="openModal()" style="font-size: 20px; padding: 18px 40px; box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4); animation: pulse-button 2s infinite;">✅ Yes! Get My Free Mentor →</button>
+            </div>
+
             <!-- Trust Signals -->
             <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin: 24px 0; padding: 20px; background: rgba(16, 185, 129, 0.05); border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.2);">
                 <div style="display: flex; align-items: center; gap: 8px; color: white; font-weight: 600;">
@@ -1147,11 +1163,6 @@
                 <div style="font-size: 15px; margin-top: 10px; opacity: 0.95;">
                     This week's spots are limited. Register now before they're gone!
                 </div>
-            </div>
-
-            <div class="hero-cta">
-                <button class="btn-primary" onclick="openModal()">✅ Yes! Get My Free Mentor →</button>
-                <button class="btn-secondary">💬 Talk to a Trading Advisor</button>
             </div>
         </div>
     </section>
@@ -2056,12 +2067,12 @@
             }
         });
 
-        // Auto-open popup after 5 seconds (FASTER for better conversion)
+        // Auto-open popup after 3 seconds (ULTRA AGGRESSIVE for maximum conversion)
         function initAutoPopup() {
-            console.log('🔥 Auto-popup initialized, will open in 5 seconds...');
+            console.log('🔥 Auto-popup initialized, will open in 3 seconds...');
 
             setTimeout(() => {
-                console.log('🔥 5 seconds passed, checking if modal should open...');
+                console.log('🔥 3 seconds passed, checking if modal should open...');
                 const hasShown = sessionStorage.getItem('edu_popup_shown');
                 console.log('🔥 Session storage "edu_popup_shown":', hasShown);
 
@@ -2072,7 +2083,7 @@
                 } else {
                     console.log('🔥 Popup already shown this session, skipping');
                 }
-            }, 5000); // 5 seconds (changed from 20)
+            }, 3000); // 3 seconds (changed from 5)
         }
 
         // Exit Intent Detection - Show popup when user tries to leave (FIXED)
@@ -2146,7 +2157,7 @@
             console.log('🔥 Page loaded, initializing...');
             detectUserLanguage();  // Auto-detect and set language based on IP
             detectCountryForForm();
-            initAutoPopup();       // Open after 5 seconds
+            initAutoPopup();       // Open after 3 seconds
             initExitIntent();      // Open when user tries to leave
             initScrollTrigger();   // Open after 50% scroll
         });
