@@ -18,13 +18,15 @@
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
                 pageLanguage: 'en',
-                includedLanguages: 'es,fr,de,it,pt,ru,ar,zh-CN,zh-TW,ja,ko,th,vi,id,tr,pl,nl,sv,no,da,fi,el,he,hi',
+                includedLanguages: 'es,fr,de,it,pt,ru,ar,zh-CN,zh-TW,ja,ko,th,vi,id,tr,pl,nl,sv,no,da,fi,el,he,hi,ro,hu,cs,bg,hr,sk,sl,lt,lv,et,sr,uk,ms,bn,ta,te,ur,fa,sw,fil,af,sq,am,az,eu,be,bs,ca,ceb,co,cy,eo,et,tl,fy,gl,ka,gu,ht,ha,haw,hmn,is,ig,ga,jw,kn,kk,km,rw,ku,ky,lo,la,lv,lb,mk,mg,ml,mt,mi,mr,mn,my,ne,ny,or,ps,pa,sm,gd,sn,sd,si,so,st,su,tg,tt,uz,xh,yi,yo,zu',
                 autoDisplay: false
             }, 'google_translate_element');
 
             setTimeout(function() {
                 window.googleTranslateReady = true;
+                console.log('✅ Google Translate ready');
                 if (window.pendingTranslation) {
+                    console.log('🔄 Triggering pending translation:', window.pendingTranslation);
                     triggerGoogleTranslate(window.pendingTranslation);
                 }
             }, 1000);
@@ -1330,57 +1332,220 @@
         let currentLanguage = 'en';
 
         const countryToLang = {
-            'US': 'en', 'CA': 'en', 'GB': 'en', 'AU': 'en', 'NZ': 'en', 'IE': 'en',
-            'ES': 'es', 'MX': 'es', 'AR': 'es', 'CO': 'es', 'CL': 'es', 'PE': 'es', 'VE': 'es',
-            'FR': 'fr', 'BE': 'fr', 'CH': 'fr', 'LU': 'fr',
+            // English-speaking countries
+            'US': 'en', 'CA': 'en', 'GB': 'en', 'AU': 'en', 'NZ': 'en', 'IE': 'en', 'ZA': 'en', 'NG': 'en', 'KE': 'en', 'GH': 'en', 'UG': 'en', 'ZW': 'en', 'TZ': 'en', 'JM': 'en', 'TT': 'en', 'BB': 'en', 'BS': 'en', 'BZ': 'en', 'GY': 'en', 'MT': 'en', 'FJ': 'en', 'PG': 'en', 'SB': 'en', 'VU': 'en',
+
+            // Spanish-speaking countries
+            'ES': 'es', 'MX': 'es', 'AR': 'es', 'CO': 'es', 'CL': 'es', 'PE': 'es', 'VE': 'es', 'EC': 'es', 'GT': 'es', 'CU': 'es', 'BO': 'es', 'DO': 'es', 'HN': 'es', 'PY': 'es', 'SV': 'es', 'NI': 'es', 'CR': 'es', 'PA': 'es', 'UY': 'es', 'PR': 'es', 'GQ': 'es',
+
+            // French-speaking countries
+            'FR': 'fr', 'BE': 'fr', 'CH': 'fr', 'LU': 'fr', 'MC': 'fr', 'CD': 'fr', 'CI': 'fr', 'CM': 'fr', 'MG': 'fr', 'SN': 'fr', 'ML': 'fr', 'BF': 'fr', 'NE': 'fr', 'TG': 'fr', 'BJ': 'fr', 'BI': 'fr', 'RW': 'fr', 'DJ': 'fr', 'KM': 'fr', 'GA': 'fr', 'CG': 'fr', 'CF': 'fr', 'TD': 'fr', 'HT': 'fr', 'VU': 'fr', 'SC': 'fr',
+
+            // German-speaking countries
             'DE': 'de', 'AT': 'de', 'LI': 'de',
+
+            // Italian-speaking countries
             'IT': 'it', 'SM': 'it', 'VA': 'it',
-            'PT': 'pt', 'BR': 'pt', 'AO': 'pt', 'MZ': 'pt',
-            'RU': 'ru', 'BY': 'ru', 'KZ': 'ru', 'UA': 'ru',
-            'SA': 'ar', 'AE': 'ar', 'EG': 'ar', 'JO': 'ar', 'KW': 'ar', 'LB': 'ar', 'OM': 'ar', 'QA': 'ar',
-            'CN': 'zh-CN', 'SG': 'zh-CN',
-            'TW': 'zh-TW', 'HK': 'zh-TW',
+
+            // Portuguese-speaking countries
+            'PT': 'pt', 'BR': 'pt', 'AO': 'pt', 'MZ': 'pt', 'GW': 'pt', 'TL': 'pt', 'ST': 'pt', 'CV': 'pt',
+
+            // Russian-speaking countries
+            'RU': 'ru', 'BY': 'ru', 'KZ': 'ru', 'KG': 'ru', 'TJ': 'ru', 'TM': 'ru', 'AM': 'ru', 'AZ': 'ru', 'GE': 'ru', 'MD': 'ru',
+
+            // Ukrainian
+            'UA': 'uk',
+
+            // Arabic-speaking countries
+            'SA': 'ar', 'AE': 'ar', 'EG': 'ar', 'JO': 'ar', 'KW': 'ar', 'LB': 'ar', 'OM': 'ar', 'QA': 'ar', 'BH': 'ar', 'IQ': 'ar', 'SY': 'ar', 'YE': 'ar', 'LY': 'ar', 'SD': 'ar', 'TN': 'ar', 'DZ': 'ar', 'MA': 'ar', 'MR': 'ar', 'PS': 'ar', 'SO': 'ar',
+
+            // Chinese
+            'CN': 'zh-CN',
+            'TW': 'zh-TW', 'HK': 'zh-TW', 'MO': 'zh-TW',
+
+            // Japanese
             'JP': 'ja',
-            'KR': 'ko',
+
+            // Korean
+            'KR': 'ko', 'KP': 'ko',
+
+            // Thai
             'TH': 'th',
+
+            // Vietnamese
             'VN': 'vi',
-            'ID': 'id', 'MY': 'id',
-            'TR': 'tr',
+
+            // Indonesian/Malay
+            'ID': 'id', 'MY': 'ms', 'BN': 'ms', 'SG': 'en',
+
+            // Turkish
+            'TR': 'tr', 'CY': 'tr',
+
+            // Polish
             'PL': 'pl',
-            'NL': 'nl',
+
+            // Dutch
+            'NL': 'nl', 'SR': 'nl',
+
+            // Swedish
             'SE': 'sv',
+
+            // Norwegian
             'NO': 'no',
+
+            // Danish
             'DK': 'da',
+
+            // Finnish
             'FI': 'fi',
+
+            // Greek
             'GR': 'el',
+
+            // Hebrew
             'IL': 'he',
-            'IN': 'hi'
+
+            // Hindi & Indian languages
+            'IN': 'hi', 'NP': 'hi', 'PK': 'ur', 'BD': 'bn', 'LK': 'si',
+
+            // Romanian
+            'RO': 'ro', 'MD': 'ro',
+
+            // Hungarian
+            'HU': 'hu',
+
+            // Czech
+            'CZ': 'cs',
+
+            // Bulgarian
+            'BG': 'bg',
+
+            // Croatian
+            'HR': 'hr',
+
+            // Slovak
+            'SK': 'sk',
+
+            // Slovenian
+            'SI': 'sl',
+
+            // Lithuanian
+            'LT': 'lt',
+
+            // Latvian
+            'LV': 'lv',
+
+            // Estonian
+            'EE': 'et',
+
+            // Serbian
+            'RS': 'sr', 'BA': 'sr', 'ME': 'sr',
+
+            // Albanian
+            'AL': 'sq', 'XK': 'sq',
+
+            // Macedonian
+            'MK': 'mk',
+
+            // Persian
+            'IR': 'fa', 'AF': 'fa',
+
+            // Filipino
+            'PH': 'fil',
+
+            // Swahili
+            'KE': 'sw', 'TZ': 'sw', 'UG': 'sw',
+
+            // Icelandic
+            'IS': 'is',
+
+            // Mongolian
+            'MN': 'mn',
+
+            // Burmese
+            'MM': 'my',
+
+            // Khmer
+            'KH': 'km',
+
+            // Lao
+            'LA': 'lo',
+
+            // Kazakh
+            'KZ': 'kk',
+
+            // Uzbek
+            'UZ': 'uz',
+
+            // Azerbaijani
+            'AZ': 'az',
+
+            // Georgian
+            'GE': 'ka',
+
+            // Armenian
+            'AM': 'hy',
+
+            // Sinhala
+            'LK': 'si',
+
+            // Nepali
+            'NP': 'ne',
+
+            // Bengali
+            'BD': 'bn'
         };
 
         function triggerGoogleTranslate(langCode) {
             if (!window.googleTranslateReady) {
+                console.log('⏳ Google Translate not ready, queuing:', langCode);
                 window.pendingTranslation = langCode;
                 return;
             }
 
-            setTimeout(function() {
+            if (window.googleTranslateTriggered) {
+                console.log('ℹ️ Translation already triggered, skipping');
+                return;
+            }
+
+            console.log('🔄 Attempting to trigger translation to:', langCode);
+
+            // Try multiple times to ensure it works
+            let attempts = 0;
+            const maxAttempts = 5;
+
+            const tryTranslate = setInterval(function() {
                 const selectElement = document.querySelector('.goog-te-combo');
                 if (selectElement) {
                     selectElement.value = langCode;
                     selectElement.dispatchEvent(new Event('change'));
-                    console.log('✅ Google Translate triggered:', langCode);
+                    window.googleTranslateTriggered = true;
+                    console.log('✅ Google Translate triggered successfully:', langCode, '(attempt', attempts + 1, ')');
+                    clearInterval(tryTranslate);
+                } else {
+                    attempts++;
+                    console.log('⏳ Waiting for Google Translate element... attempt', attempts, 'of', maxAttempts);
+                    if (attempts >= maxAttempts) {
+                        console.error('❌ Google Translate element not found after', maxAttempts, 'attempts');
+                        clearInterval(tryTranslate);
+                    }
                 }
             }, 500);
         }
 
         async function detectLanguageFromIP() {
             try {
+                console.log('🔍 Detecting language from IP...');
+
                 if (detectedIPData && detectedIPData.country_code) {
                     const detectedLang = countryToLang[detectedIPData.country_code] || 'en';
                     currentLanguage = detectedLang;
 
+                    console.log('🌍 Country detected:', detectedIPData.country_code);
+                    console.log('🌐 Language mapped to:', detectedLang);
+
                     if (detectedLang !== 'en') {
-                        console.log('🌍 Auto-translating to:', detectedLang);
+                        console.log('🔄 Initiating auto-translation to:', detectedLang);
                         triggerGoogleTranslate(detectedLang);
 
                         // Track in GTM
@@ -1391,7 +1556,11 @@
                                 'country': detectedIPData.country_code
                             });
                         }
+                    } else {
+                        console.log('✅ English detected, no translation needed');
                     }
+                } else {
+                    console.log('⚠️ No IP data available for language detection');
                 }
             } catch (error) {
                 console.error('❌ Language detection error:', error);
@@ -1550,13 +1719,27 @@
         };
 
         // Initialize
-        window.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('DOMContentLoaded', async function() {
             console.log('🚀 BrokerV2 Enhanced page loaded');
-            detectAndPopulate();
-            calculateProfit(); // Initialize calculator with default values
+            console.log('📍 Starting IP detection and auto-translation...');
+
+            // First detect and populate form fields
+            await detectAndPopulate();
+
+            // Initialize calculator with default values
+            calculateProfit();
 
             // Detect language after IP detection completes
-            setTimeout(detectLanguageFromIP, 1000);
+            // Give more time for Google Translate to fully load
+            setTimeout(detectLanguageFromIP, 1500);
+
+            // Also try again after 3 seconds as backup
+            setTimeout(function() {
+                if (!window.googleTranslateTriggered && currentLanguage !== 'en') {
+                    console.log('🔄 Retry: Attempting translation again...');
+                    detectLanguageFromIP();
+                }
+            }, 3000);
 
             // Track page view in GTM
             if (typeof dataLayer !== 'undefined') {
@@ -1565,6 +1748,8 @@
                     'page_type': 'broker_landing_v2'
                 });
             }
+
+            console.log('✅ Page initialization complete');
         });
     </script>
 
