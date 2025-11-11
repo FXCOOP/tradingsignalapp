@@ -2967,6 +2967,45 @@
         }, 8000); // After 8 seconds, force it
     </script>
 
+    <!-- Debug Panel - VISIBLE on page to see what's happening -->
+    <div id="debugPanel" style="position: fixed; bottom: 10px; right: 10px; background: rgba(0,0,0,0.9); color: #10b981; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 11px; max-width: 350px; z-index: 999999; border: 2px solid #10b981;">
+        <div style="font-weight: bold; margin-bottom: 10px; color: #fff;">🔍 Translation Debug Panel</div>
+        <div id="debugContent">Loading...</div>
+        <button onclick="window.forceTranslation()" style="margin-top: 10px; padding: 8px 12px; background: #10b981; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">🔄 Force Translation Now</button>
+        <button onclick="document.getElementById('debugPanel').remove()" style="margin-top: 10px; margin-left: 5px; padding: 8px 12px; background: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer;">✕ Close</button>
+    </div>
+
+    <script>
+        // Update debug panel
+        function updateDebugPanel() {
+            const panel = document.getElementById('debugContent');
+            if (!panel) return;
+
+            const html = `
+                <div style="margin-bottom: 5px;">🌍 Detected IP: <span style="color: #fff;">${detectedIPData ? detectedIPData.country_code + ' - ' + detectedIPData.country_name : 'Not yet'}</span></div>
+                <div style="margin-bottom: 5px;">🗣️ Current Lang: <span style="color: #fff;">${currentLanguage || 'en'}</span></div>
+                <div style="margin-bottom: 5px;">✅ GT Ready: <span style="color: ${window.googleTranslateReady ? '#10b981' : '#ef4444'};">${window.googleTranslateReady || false}</span></div>
+                <div style="margin-bottom: 5px;">⏳ Pending: <span style="color: #fff;">${window.pendingTranslation || 'None'}</span></div>
+                <div style="margin-bottom: 5px;">🔧 GT Object: <span style="color: ${typeof google !== 'undefined' ? '#10b981' : '#ef4444'};">${typeof google !== 'undefined'}</span></div>
+                <div style="margin-bottom: 5px;">🎯 Selector: <span style="color: ${!!document.querySelector('.goog-te-combo') ? '#10b981' : '#ef4444'};">${!!document.querySelector('.goog-te-combo')}</span></div>
+            `;
+            panel.innerHTML = html;
+        }
+
+        // Force translation manually
+        window.forceTranslation = function() {
+            console.log('🔧 MANUAL FORCE TRANSLATION');
+            const lang = currentLanguage || window.pendingTranslation || 'de';
+            console.log('🔧 Forcing translation to:', lang);
+            window.googleTranslateReady = true;
+            triggerGoogleTranslate(lang);
+        };
+
+        // Update debug panel every second
+        setInterval(updateDebugPanel, 1000);
+        setTimeout(updateDebugPanel, 100);
+    </script>
+
     <!-- Hide Google Translate banner -->
     <style>
         .goog-te-banner-frame {
