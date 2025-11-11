@@ -2355,7 +2355,7 @@
                             if (typeof triggerGoogleTranslate === 'function') {
                                 triggerGoogleTranslate(savedLang);
                             }
-                        }, 1500); // Wait for Google Translate API to load
+                        }, 2500); // Wait 2.5 seconds for Google Translate API to fully load
                     }
 
                     return;
@@ -2454,7 +2454,7 @@
                         if (typeof triggerGoogleTranslate === 'function') {
                             triggerGoogleTranslate(detectedLang);
                         }
-                    }, 1500); // Wait for Google Translate API to load
+                    }, 2500); // Wait 2.5 seconds for Google Translate API to fully load
                 }
 
                 // Don't save to localStorage yet - only save when user manually selects
@@ -2829,6 +2829,8 @@
 
         // Trigger Google Translate when language is selected
         function triggerGoogleTranslate(langCode) {
+            console.log('🌍 triggerGoogleTranslate called with:', langCode);
+
             // Map our language codes to Google Translate codes
             const langMap = {
                 'en': 'en', 'es': 'es', 'fr': 'fr', 'de': 'de', 'it': 'it', 'pt': 'pt',
@@ -2840,24 +2842,41 @@
             };
 
             const googleLang = langMap[langCode] || 'en';
+            console.log('🌍 Mapped to Google Translate language:', googleLang);
 
-            // Wait for Google Translate to load
+            // Don't translate if already English
+            if (googleLang === 'en') {
+                console.log('⏩ Language is English, skipping translation');
+                return;
+            }
+
+            let attempts = 0;
+            const maxAttempts = 50; // Check for up to 5 seconds (50 * 100ms)
+
+            // Wait for Google Translate to load with retry logic
             const checkGoogleTranslate = setInterval(function() {
+                attempts++;
+
                 if (typeof google !== 'undefined' && google.translate && google.translate.TranslateElement) {
+                    console.log('✅ Google Translate API loaded after', attempts * 100, 'ms');
                     clearInterval(checkGoogleTranslate);
 
-                    // Find and trigger the Google Translate selector
-                    const selectElement = document.querySelector('.goog-te-combo');
-                    if (selectElement) {
-                        selectElement.value = googleLang;
-                        selectElement.dispatchEvent(new Event('change'));
-                        console.log('✅ Page translated to:', googleLang);
-                    }
+                    // Wait a bit more for the selector to be ready
+                    setTimeout(function() {
+                        const selectElement = document.querySelector('.goog-te-combo');
+                        if (selectElement) {
+                            selectElement.value = googleLang;
+                            selectElement.dispatchEvent(new Event('change'));
+                            console.log('✅✅✅ PAGE TRANSLATED TO:', googleLang.toUpperCase());
+                        } else {
+                            console.error('❌ Google Translate selector not found');
+                        }
+                    }, 500); // Wait 500ms for selector to be ready
+                } else if (attempts >= maxAttempts) {
+                    clearInterval(checkGoogleTranslate);
+                    console.error('❌ Google Translate failed to load after', maxAttempts * 100, 'ms');
                 }
             }, 100);
-
-            // Stop checking after 5 seconds
-            setTimeout(() => clearInterval(checkGoogleTranslate), 5000);
         }
 
         // Override the selectLanguage function to use Google Translate
