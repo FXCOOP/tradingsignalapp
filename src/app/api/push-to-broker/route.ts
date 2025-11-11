@@ -7,11 +7,16 @@ import { createTradingCRMClient } from '@/lib/trading-crm-api';
  * Called from CRM dashboard based on YOUR rules
  *
  * POST /api/push-to-broker
- * Body: { signupId: string, brokerName?: string }
+ * Body: { signupId: string, brokerName?: string, forceImmediate?: boolean }
+ *
+ * Queue System:
+ * - Working Hours: 04:00-13:00 GMT+2 (Monday-Friday)
+ * - Daily Cap: 10 leads per day
+ * - Natural spacing: 5-15 minutes between queued pushes
  */
 export async function POST(request: NextRequest) {
   try {
-    const { signupId, brokerName } = await request.json();
+    const { signupId, brokerName, forceImmediate } = await request.json();
 
     if (!signupId) {
       return NextResponse.json(
@@ -62,57 +67,98 @@ export async function POST(request: NextRequest) {
 
     console.log(`📍 Selected broker: ${selectedBroker} for ${signup.country}`);
 
-    let pushResult;
-    let statusCode;
-    let errorMessage = null;
-
-    // Push to the selected broker
-    if (selectedBroker === 'Trading CRM') {
-      pushResult = await pushToTradingCRM(signup);
-      statusCode = pushResult.success ? 200 : 500;
-      errorMessage = pushResult.success ? null : pushResult.error;
-    } else if (selectedBroker === 'Finoglob') {
-      // Add Finoglob integration here
-      pushResult = { success: false, error: 'Finoglob integration coming soon' };
-      statusCode = 501;
-      errorMessage = 'Finoglob integration not implemented';
-    } else {
-      return NextResponse.json({
-        success: false,
-        error: `Unknown broker: ${selectedBroker}`
-      }, { status: 400 });
+    // If not Trading CRM, push immediately (no queue)
+    if (selectedBroker !== 'Trading CRM') {
+      return await pushImmediately(supabase, signup, selectedBroker);
     }
 
-    // Update CRM with push result
-    await supabase
-      .from('signups')
-      .update({
-        assigned_broker: selectedBroker,
-        crm_status: pushResult.success ? 'sent_to_broker' : 'push_failed',
-        pushed_to_crm: pushResult.success,
-        push_status_code: statusCode,
-        push_response: JSON.stringify({
-          broker: selectedBroker,
-          timestamp: new Date().toISOString(),
-          ...pushResult
-        }),
-        push_error: errorMessage,
-        pushed_at: new Date().toISOString(),
-      })
-      .eq('id', signupId);
+    // For Trading CRM: Check queue rules (unless forceImmediate is true)
+    if (!forceImmediate) {
+      // Check working hours
+      const { data: isWorkingHours } = await supabase.rpc('is_working_hours');
 
-    console.log(pushResult.success ? '✅ Push successful' : '❌ Push failed');
+      if (!isWorkingHours) {
+        // Outside working hours - queue the lead
+        const { data: nextWorkingHours } = await supabase.rpc('next_working_hours_start');
 
-    return NextResponse.json({
-      success: pushResult.success,
-      broker: selectedBroker,
-      statusCode,
-      message: pushResult.success
-        ? `Lead successfully pushed to ${selectedBroker}`
-        : `Failed to push to ${selectedBroker}`,
-      details: pushResult,
-      error: errorMessage
-    });
+        await supabase
+          .from('signups')
+          .update({
+            assigned_broker: 'Trading CRM',
+            push_queue_status: 'waiting_working_hours',
+            push_queue_comment: `Waiting for working hours (04:00-13:00 GMT+2, Mon-Fri). Next: ${new Date(nextWorkingHours).toLocaleString('en-US', { timeZone: 'GMT' })}`,
+            push_scheduled_at: nextWorkingHours
+          })
+          .eq('id', signupId);
+
+        // Log queue action
+        await supabase
+          .from('push_queue_log')
+          .insert({
+            signup_id: signupId,
+            action: 'queued',
+            reason: 'Outside working hours',
+            working_hours: false
+          });
+
+        console.log('⏰ Lead queued - outside working hours');
+
+        return NextResponse.json({
+          success: true,
+          queued: true,
+          broker: 'Trading CRM',
+          message: 'Lead queued - outside working hours (04:00-13:00 GMT+2, Mon-Fri)',
+          scheduledFor: nextWorkingHours,
+          queueStatus: 'waiting_working_hours'
+        });
+      }
+
+      // Check daily cap
+      const { data: todayCount } = await supabase.rpc('get_today_push_count');
+
+      if ((todayCount || 0) >= 10) {
+        // Daily cap reached - queue for tomorrow
+        const { data: nextWorkingHours } = await supabase.rpc('next_working_hours_start');
+        const tomorrow = new Date(nextWorkingHours);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        await supabase
+          .from('signups')
+          .update({
+            assigned_broker: 'Trading CRM',
+            push_queue_status: 'waiting_daily_cap',
+            push_queue_comment: `Waiting for daily cap reset (10 leads/day limit reached). Next: ${tomorrow.toLocaleString('en-US', { timeZone: 'GMT' })}`,
+            push_scheduled_at: tomorrow.toISOString()
+          })
+          .eq('id', signupId);
+
+        // Log queue action
+        await supabase
+          .from('push_queue_log')
+          .insert({
+            signup_id: signupId,
+            action: 'queued',
+            reason: 'Daily cap reached (10/day)',
+            push_count_today: todayCount,
+            working_hours: true
+          });
+
+        console.log('📊 Lead queued - daily cap reached');
+
+        return NextResponse.json({
+          success: true,
+          queued: true,
+          broker: 'Trading CRM',
+          message: 'Lead queued - daily cap reached (10 leads per day)',
+          scheduledFor: tomorrow.toISOString(),
+          queueStatus: 'waiting_daily_cap',
+          pushedToday: todayCount
+        });
+      }
+    }
+
+    // Within working hours and under cap - push immediately
+    return await pushImmediately(supabase, signup, selectedBroker);
 
   } catch (error: any) {
     console.error('❌ Error in push-to-broker:', error);
@@ -121,6 +167,86 @@ export async function POST(request: NextRequest) {
       error: error.message || 'Internal server error'
     }, { status: 500 });
   }
+}
+
+/**
+ * Push lead immediately (skip queue)
+ */
+async function pushImmediately(supabase: any, signup: any, selectedBroker: string) {
+  let pushResult;
+  let statusCode;
+  let errorMessage = null;
+
+  // Push to the selected broker
+  if (selectedBroker === 'Trading CRM') {
+    pushResult = await pushToTradingCRM(signup);
+    statusCode = pushResult.success ? 200 : 500;
+    errorMessage = pushResult.success ? null : pushResult.error;
+
+    // If successful, increment daily count
+    if (pushResult.success) {
+      await supabase.rpc('increment_daily_push_count');
+    }
+  } else if (selectedBroker === 'Finoglob') {
+    // Add Finoglob integration here
+    pushResult = { success: false, error: 'Finoglob integration coming soon' };
+    statusCode = 501;
+    errorMessage = 'Finoglob integration not implemented';
+  } else {
+    return NextResponse.json({
+      success: false,
+      error: `Unknown broker: ${selectedBroker}`
+    }, { status: 400 });
+  }
+
+  // Update CRM with push result
+  await supabase
+    .from('signups')
+    .update({
+      assigned_broker: selectedBroker,
+      crm_status: pushResult.success ? 'sent_to_broker' : 'push_failed',
+      pushed_to_crm: pushResult.success,
+      push_status_code: statusCode,
+      push_response: JSON.stringify({
+        broker: selectedBroker,
+        timestamp: new Date().toISOString(),
+        ...pushResult
+      }),
+      push_error: errorMessage,
+      pushed_at: new Date().toISOString(),
+      push_queue_status: pushResult.success ? 'pushed' : 'failed',
+      push_queue_comment: pushResult.success
+        ? `Successfully pushed to ${selectedBroker} at ${new Date().toLocaleString('en-US', { timeZone: 'GMT' })}`
+        : `Push failed: ${errorMessage}`
+    })
+    .eq('id', signup.id);
+
+  // Log push action
+  if (selectedBroker === 'Trading CRM') {
+    const { data: todayCount } = await supabase.rpc('get_today_push_count');
+    await supabase
+      .from('push_queue_log')
+      .insert({
+        signup_id: signup.id,
+        action: pushResult.success ? 'pushed' : 'failed',
+        reason: pushResult.success ? 'Immediate push successful' : errorMessage,
+        push_count_today: todayCount || 0,
+        working_hours: true
+      });
+  }
+
+  console.log(pushResult.success ? '✅ Push successful' : '❌ Push failed');
+
+  return NextResponse.json({
+    success: pushResult.success,
+    broker: selectedBroker,
+    statusCode,
+    message: pushResult.success
+      ? `Lead successfully pushed to ${selectedBroker}`
+      : `Failed to push to ${selectedBroker}`,
+    details: pushResult,
+    error: errorMessage
+  });
 }
 
 /**

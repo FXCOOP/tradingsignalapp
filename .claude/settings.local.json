@@ -14,7 +14,8 @@
       "Bash(powershell:*)",
       "Bash(vercel ls:*)",
       "Bash(start EDU-PAGE-DEPLOYED.md)",
-      "Bash(start 32-LANGUAGE-AUTO-DETECTION.md)"
+      "Bash(start 32-LANGUAGE-AUTO-DETECTION.md)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
