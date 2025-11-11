@@ -2333,6 +2333,17 @@
                     }
 
                     updatePageLanguage();
+
+                    // Trigger Google Translate for full page translation
+                    if (savedLang !== 'en') {
+                        console.log('🌍 Triggering translation for saved language:', savedLang);
+                        setTimeout(() => {
+                            if (typeof triggerGoogleTranslate === 'function') {
+                                triggerGoogleTranslate(savedLang);
+                            }
+                        }, 1500); // Wait for Google Translate API to load
+                    }
+
                     return;
                 }
 
@@ -2420,6 +2431,16 @@
 
                 // Update page content
                 updatePageLanguage();
+
+                // Trigger Google Translate for full page translation
+                if (detectedLang !== 'en') {
+                    console.log('🌍 Triggering auto-translation to:', detectedLang);
+                    setTimeout(() => {
+                        if (typeof triggerGoogleTranslate === 'function') {
+                            triggerGoogleTranslate(detectedLang);
+                        }
+                    }, 1500); // Wait for Google Translate API to load
+                }
 
                 // Don't save to localStorage yet - only save when user manually selects
 
@@ -2809,18 +2830,9 @@
             originalSelectLanguage(lang, flag, name);
 
             // Trigger Google Translate for full page translation
+            console.log('🌍 User selected language:', lang);
             triggerGoogleTranslate(lang);
         };
-
-        // Auto-translate on page load based on detected language
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                if (currentLanguage && currentLanguage !== 'en') {
-                    console.log('🌍 Auto-translating page to:', currentLanguage);
-                    triggerGoogleTranslate(currentLanguage);
-                }
-            }, 1500); // Wait for Google Translate to fully load
-        });
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
