@@ -43,8 +43,34 @@
                         // Track manual language changes
                         if (!selectElement.hasAttribute('data-listener')) {
                             selectElement.setAttribute('data-listener', 'true');
-                            selectElement.addEventListener('change', function(e) {
+                            selectElement.addEventListener('change', async function(e) {
                                 console.log('🌍 Manual language change to:', e.target.value);
+
+                                // Track in Supabase
+                                try {
+                                    const { error } = await supabase
+                                        .from('language_tracking')
+                                        .insert([{
+                                            event_type: 'manual_change',
+                                            country_code: detectedIPData?.country_code || 'Unknown',
+                                            language_code: e.target.value,
+                                            ip_address: detectedIPData?.ip || 'Unknown',
+                                            user_agent: navigator.userAgent,
+                                            referrer: document.referrer || 'Direct',
+                                            landing_page: window.location.href,
+                                            created_at: new Date().toISOString()
+                                        }]);
+
+                                    if (error) {
+                                        console.error('❌ Failed to track manual language change:', error);
+                                    } else {
+                                        console.log('✅ Manual language change tracked in Supabase');
+                                    }
+                                } catch (err) {
+                                    console.error('❌ Supabase tracking error:', err);
+                                }
+
+                                // Track in GTM
                                 if (typeof dataLayer !== 'undefined') {
                                     dataLayer.push({
                                         'event': 'manual_language_change',
@@ -1647,6 +1673,30 @@
                     if (detectedLang !== 'en') {
                         console.log('🔄 Initiating auto-translation to:', detectedLang);
                         triggerGoogleTranslate(detectedLang);
+
+                        // Track in Supabase
+                        try {
+                            const { error } = await supabase
+                                .from('language_tracking')
+                                .insert([{
+                                    event_type: 'auto_detect',
+                                    country_code: detectedIPData.country_code,
+                                    language_code: detectedLang,
+                                    ip_address: detectedIPData.ip,
+                                    user_agent: navigator.userAgent,
+                                    referrer: document.referrer || 'Direct',
+                                    landing_page: window.location.href,
+                                    created_at: new Date().toISOString()
+                                }]);
+
+                            if (error) {
+                                console.error('❌ Failed to track auto-detected language:', error);
+                            } else {
+                                console.log('✅ Auto-detected language tracked in Supabase');
+                            }
+                        } catch (err) {
+                            console.error('❌ Supabase tracking error:', err);
+                        }
 
                         // Track in GTM
                         if (typeof dataLayer !== 'undefined') {
