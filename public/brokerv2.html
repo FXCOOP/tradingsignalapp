@@ -18,6 +18,13 @@
         function googleTranslateElementInit() {
             console.log('🔧 Initializing Google Translate...');
 
+            // Check if Google Translate API is available
+            if (typeof google === 'undefined' || !google.translate) {
+                console.error('❌ Google Translate API not loaded (blocked by ad blocker or network?)');
+                hideLanguageSelector();
+                return;
+            }
+
             try {
                 new google.translate.TranslateElement({
                     pageLanguage: 'en',
@@ -27,19 +34,35 @@
                 }, 'google_translate_element');
 
                 console.log('✅ Google Translate widget created');
+                window.googleTranslateLoaded = true;
             } catch (error) {
                 console.error('❌ Error initializing Google Translate:', error);
+                hideLanguageSelector();
             }
         }
 
-        // Fallback if Google Translate doesn't load
+        // Hide language selector if Google Translate fails
+        function hideLanguageSelector() {
+            const selector = document.querySelector('.language-selector-wrapper');
+            if (selector) {
+                selector.style.display = 'none';
+                console.log('🚫 Language selector hidden (Google Translate unavailable)');
+            }
+        }
+
+        // Detect if script fails to load (ad blocker, network issue, etc.)
         setTimeout(function() {
-            if (!window.googleTranslateReady) {
-                console.warn('⚠️ Google Translate failed to load after 5 seconds');
+            if (!window.googleTranslateLoaded && typeof google === 'undefined') {
+                console.warn('⚠️ Google Translate blocked or unavailable (ad blocker or network restriction)');
+                hideLanguageSelector();
             }
         }, 5000);
     </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script
+        type="text/javascript"
+        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+        onerror="console.error('❌ Failed to load Google Translate script'); hideLanguageSelector();"
+    ></script>
 
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
