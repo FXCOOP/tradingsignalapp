@@ -1625,6 +1625,18 @@
                     <div style="display: flex; gap: 4px; font-size: 20px;">⭐⭐⭐⭐⭐</div>
                 </div>
             </div>
+
+            <!-- CTA After Success Stories -->
+            <div style="text-align: center; margin-top: 60px;">
+                <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 50px 40px; border-radius: 24px; box-shadow: 0 20px 60px rgba(16,185,129,0.3);">
+                    <h3 style="font-size: 32px; font-weight: 900; color: white; margin-bottom: 16px;">Want Results Like These?</h3>
+                    <p style="font-size: 18px; color: white; margin-bottom: 30px; opacity: 0.95;">Get matched with your personal trading advisor in 60 seconds</p>
+                    <button class="btn-primary" onclick="openModal()" style="font-size: 20px; padding: 18px 45px; background: white; color: #10b981; box-shadow: 0 8px 30px rgba(0,0,0,0.2); animation: pulse-button 2s infinite; font-weight: 800;">
+                        🎯 YES! GET ME A TRADING ADVISOR
+                    </button>
+                    <div style="margin-top: 16px; font-size: 14px; color: white; font-weight: 600;">✅ 100% Free • ✅ No Credit Card • ✅ Instant Matching</div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1744,6 +1756,141 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Interactive Profit Calculator -->
+    <section style="background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%); padding: 100px 24px;">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div style="display: inline-block; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #fbbf24; padding: 10px 24px; border-radius: 30px; margin-bottom: 20px;">
+                    <span style="color: #d97706; font-size: 14px; font-weight: 700; letter-spacing: 1px;">💰 CALCULATE YOUR POTENTIAL EARNINGS</span>
+                </div>
+                <h2 style="font-size: 48px; font-weight: 900; color: #0f172a; margin-bottom: 16px;">How Much Could You Make?</h2>
+                <p style="font-size: 20px; color: #64748b;">Adjust the sliders to see your potential monthly profits</p>
+            </div>
+
+            <!-- Calculator Card -->
+            <div style="background: white; border-radius: 24px; padding: 50px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); border: 2px solid #e5e7eb;">
+                <!-- Starting Capital Input -->
+                <div style="margin-bottom: 40px;">
+                    <label style="display: block; font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 16px;">
+                        💵 Starting Capital: $<span id="capitalValue" style="color: #10b981;">1000</span>
+                    </label>
+                    <input type="range" id="capitalSlider" min="500" max="10000" value="1000" step="500"
+                           style="width: 100%; height: 12px; border-radius: 6px; background: linear-gradient(90deg, #10b981 0%, #34d399 100%); outline: none; cursor: pointer;"
+                           oninput="calculateProfit()">
+                    <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 14px; color: #64748b;">
+                        <span>$500</span>
+                        <span>$10,000</span>
+                    </div>
+                </div>
+
+                <!-- Risk Level Input -->
+                <div style="margin-bottom: 40px;">
+                    <label style="display: block; font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 16px;">
+                        ⚡ Risk Level: <span id="riskValue" style="color: #f59e0b;">Medium</span>
+                    </label>
+                    <input type="range" id="riskSlider" min="1" max="3" value="2" step="1"
+                           style="width: 100%; height: 12px; border-radius: 6px; background: linear-gradient(90deg, #10b981 0%, #f59e0b 50%, #ef4444 100%); outline: none; cursor: pointer;"
+                           oninput="calculateProfit()">
+                    <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 14px; color: #64748b;">
+                        <span>Low (5-8%)</span>
+                        <span>Medium (10-15%)</span>
+                        <span>High (15-25%)</span>
+                    </div>
+                </div>
+
+                <!-- Results Display -->
+                <div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border-radius: 20px; padding: 40px; text-align: center; border: 3px solid #86efac; margin-top: 40px;">
+                    <div style="font-size: 16px; color: #059669; font-weight: 600; margin-bottom: 12px;">YOUR POTENTIAL MONTHLY PROFIT</div>
+                    <div id="monthlyProfit" style="font-size: 64px; font-weight: 900; color: #047857; margin-bottom: 20px;">$120 - $150</div>
+                    <div style="font-size: 18px; color: #059669; font-weight: 600; margin-bottom: 30px;">
+                        💎 That's <span id="yearlyProfit" style="font-size: 24px; font-weight: 900;">$1,440 - $1,800</span> per year!
+                    </div>
+
+                    <!-- Profit Breakdown -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-top: 30px;">
+                        <div style="background: white; padding: 20px; border-radius: 12px;">
+                            <div style="font-size: 14px; color: #64748b; margin-bottom: 8px;">Weekly</div>
+                            <div id="weeklyProfit" style="font-size: 24px; font-weight: 800; color: #047857;">$30 - $37</div>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 12px;">
+                            <div style="font-size: 14px; color: #64748b; margin-bottom: 8px;">6 Months</div>
+                            <div id="sixMonthProfit" style="font-size: 24px; font-weight: 800; color: #047857;">$720 - $900</div>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 12px;">
+                            <div style="font-size: 14px; color: #64748b; margin-bottom: 8px;">1 Year</div>
+                            <div id="oneYearProfit" style="font-size: 24px; font-weight: 800; color: #047857;">$1.4k - $1.8k</div>
+                        </div>
+                    </div>
+
+                    <!-- CTA in Calculator -->
+                    <div style="margin-top: 40px;">
+                        <button class="btn-primary" onclick="openModal()" style="font-size: 20px; padding: 18px 40px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); animation: pulse-button 2s infinite;">
+                            💰 START MAKING THIS PROFIT NOW!
+                        </button>
+                        <div style="margin-top: 12px; font-size: 14px; color: #059669; font-weight: 600;">✅ 100% Free • No Credit Card • Takes 60 Seconds</div>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div style="margin-top: 30px; padding: 20px; background: rgba(251, 191, 36, 0.1); border-radius: 12px; border: 1px solid #fbbf24;">
+                    <div style="font-size: 13px; color: #92400e; text-align: center;">
+                        ⚠️ <strong>Disclaimer:</strong> These are potential profit estimates based on historical averages from our trader network. Individual results may vary. Trading involves risk and past performance does not guarantee future results.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator JavaScript -->
+    <script>
+        function calculateProfit() {
+            const capital = parseInt(document.getElementById('capitalSlider').value);
+            const risk = parseInt(document.getElementById('riskSlider').value);
+
+            // Update display values
+            document.getElementById('capitalValue').textContent = capital.toLocaleString();
+
+            // Risk level names and percentages
+            const riskLevels = {
+                1: { name: 'Low', min: 0.05, max: 0.08, color: '#10b981' },
+                2: { name: 'Medium', min: 0.10, max: 0.15, color: '#f59e0b' },
+                3: { name: 'High', min: 0.15, max: 0.25, color: '#ef4444' }
+            };
+
+            const currentRisk = riskLevels[risk];
+            document.getElementById('riskValue').textContent = currentRisk.name;
+            document.getElementById('riskValue').style.color = currentRisk.color;
+
+            // Calculate monthly profit range
+            const monthlyMin = Math.round(capital * currentRisk.min);
+            const monthlyMax = Math.round(capital * currentRisk.max);
+
+            // Update all displays
+            document.getElementById('monthlyProfit').textContent = `$${monthlyMin.toLocaleString()} - $${monthlyMax.toLocaleString()}`;
+            document.getElementById('yearlyProfit').textContent = `$${(monthlyMin * 12).toLocaleString()} - $${(monthlyMax * 12).toLocaleString()}`;
+            document.getElementById('weeklyProfit').textContent = `$${Math.round(monthlyMin / 4).toLocaleString()} - $${Math.round(monthlyMax / 4).toLocaleString()}`;
+            document.getElementById('sixMonthProfit').textContent = `$${(monthlyMin * 6).toLocaleString()} - $${(monthlyMax * 6).toLocaleString()}`;
+            document.getElementById('oneYearProfit').textContent = `$${((monthlyMin * 12) / 1000).toFixed(1)}k - $${((monthlyMax * 12) / 1000).toFixed(1)}k`;
+        }
+
+        // Initialize calculator on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateProfit();
+        });
+    </script>
+
+    <!-- Mid-Page CTA Section -->
+    <section style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); padding: 80px 24px; text-align: center;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h2 style="font-size: 42px; font-weight: 900; color: white; margin-bottom: 20px;">🚀 Ready to Transform Your Financial Future?</h2>
+            <p style="font-size: 20px; color: white; margin-bottom: 30px; opacity: 0.95;">Join 10,247 traders who've already started their journey to financial freedom</p>
+            <button class="btn-primary" onclick="openModal()" style="font-size: 22px; padding: 20px 50px; background: white; color: #ef4444; box-shadow: 0 10px 40px rgba(0,0,0,0.3); animation: pulse-button 2s infinite; font-weight: 900;">
+                💎 CLAIM YOUR FREE SPOT NOW
+            </button>
+            <div style="margin-top: 20px; font-size: 16px; color: white; font-weight: 600;">⏰ Last 2 Spots Available • Closes in Hours • 100% FREE Forever</div>
         </div>
     </section>
 
