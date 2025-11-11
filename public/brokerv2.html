@@ -16,46 +16,60 @@
     <!-- Google Translate -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'es,fr,de,it,pt,ru,ar,zh-CN,zh-TW,ja,ko,th,vi,id,tr,pl,nl,sv,no,da,fi,el,he,hi,ro,hu,cs,bg,hr,sk,sl,lt,lv,et,sr,uk,ms,bn,ta,te,ur,fa,sw,fil,af,sq,am,az,eu,be,bs,ca,ceb,co,cy,eo,et,tl,fy,gl,ka,gu,ht,ha,haw,hmn,is,ig,ga,jw,kn,kk,km,rw,ku,ky,lo,la,lv,lb,mk,mg,ml,mt,mi,mr,mn,my,ne,ny,or,ps,pa,sm,gd,sn,sd,si,so,st,su,tg,tt,uz,xh,yi,yo,zu',
-                autoDisplay: false,
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
+            console.log('🔧 Initializing Google Translate...');
 
-            setTimeout(function() {
-                window.googleTranslateReady = true;
-                console.log('✅ Google Translate ready and visible');
-                if (window.pendingTranslation) {
-                    console.log('🔄 Triggering pending translation:', window.pendingTranslation);
-                    triggerGoogleTranslate(window.pendingTranslation);
-                }
+            try {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: 'es,fr,de,it,pt,ru,ar,zh-CN,zh-TW,ja,ko,th,vi,id,tr,pl,nl,sv,no,da,fi,el,he,hi,ro,hu,cs,bg,hr,sk,sl,lt,lv,et,sr,uk,ms,bn,ta,te,ur,fa,sw,fil,af,sq,am,az,eu,be,bs,ca,ceb,co,cy,eo,et,tl,fy,gl,ka,gu,ht,ha,haw,hmn,is,ig,ga,jw,kn,kk,km,rw,ku,ky,lo,la,lv,lb,mk,mg,ml,mt,mi,mr,mn,my,ne,ny,or,ps,pa,sm,gd,sn,sd,si,so,st,su,tg,tt,uz,xh,yi,yo,zu',
+                    autoDisplay: false,
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                }, 'google_translate_element');
 
-                // Track manual language changes
-                const observer = new MutationObserver(function() {
+                console.log('✅ Google Translate widget created');
+
+                // Wait for the dropdown to render
+                setTimeout(function() {
                     const selectElement = document.querySelector('.goog-te-combo');
-                    if (selectElement && !selectElement.hasAttribute('data-listener')) {
-                        selectElement.setAttribute('data-listener', 'true');
-                        selectElement.addEventListener('change', function(e) {
-                            console.log('🌍 Manual language change to:', e.target.value);
-                            if (typeof dataLayer !== 'undefined') {
-                                dataLayer.push({
-                                    'event': 'manual_language_change',
-                                    'language': e.target.value
-                                });
-                            }
-                        });
-                    }
-                });
+                    if (selectElement) {
+                        console.log('✅ Google Translate dropdown found');
+                        window.googleTranslateReady = true;
 
-                observer.observe(document.getElementById('google_translate_element'), {
-                    childList: true,
-                    subtree: true
-                });
-            }, 1000);
+                        if (window.pendingTranslation) {
+                            console.log('🔄 Triggering pending translation:', window.pendingTranslation);
+                            triggerGoogleTranslate(window.pendingTranslation);
+                        }
+
+                        // Track manual language changes
+                        if (!selectElement.hasAttribute('data-listener')) {
+                            selectElement.setAttribute('data-listener', 'true');
+                            selectElement.addEventListener('change', function(e) {
+                                console.log('🌍 Manual language change to:', e.target.value);
+                                if (typeof dataLayer !== 'undefined') {
+                                    dataLayer.push({
+                                        'event': 'manual_language_change',
+                                        'language': e.target.value
+                                    });
+                                }
+                            });
+                        }
+                    } else {
+                        console.error('❌ Google Translate dropdown not found');
+                    }
+                }, 1500);
+            } catch (error) {
+                console.error('❌ Error initializing Google Translate:', error);
+            }
         }
+
+        // Fallback if Google Translate doesn't load
+        setTimeout(function() {
+            if (!window.googleTranslateReady) {
+                console.warn('⚠️ Google Translate failed to load after 5 seconds');
+            }
+        }, 5000);
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1815,17 +1829,23 @@
             // Initialize calculator with default values
             calculateProfit();
 
-            // Detect language after IP detection completes
-            // Give more time for Google Translate to fully load
-            setTimeout(detectLanguageFromIP, 1500);
+            // Wait longer for Google Translate to fully load
+            setTimeout(detectLanguageFromIP, 2500);
 
-            // Also try again after 3 seconds as backup
-            setTimeout(function() {
-                if (!window.googleTranslateTriggered && currentLanguage !== 'en') {
-                    console.log('🔄 Retry: Attempting translation again...');
+            // Retry mechanism - try up to 3 times
+            let retryCount = 0;
+            const retryInterval = setInterval(function() {
+                if (!window.googleTranslateTriggered && currentLanguage !== 'en' && retryCount < 3) {
+                    retryCount++;
+                    console.log('🔄 Retry attempt', retryCount, ': Attempting translation again...');
                     detectLanguageFromIP();
+                } else if (retryCount >= 3 || window.googleTranslateTriggered) {
+                    clearInterval(retryInterval);
+                    if (!window.googleTranslateTriggered && currentLanguage !== 'en') {
+                        console.error('❌ Auto-translation failed after 3 retries');
+                    }
                 }
-            }, 3000);
+            }, 2000);
 
             // Track page view in GTM
             if (typeof dataLayer !== 'undefined') {
