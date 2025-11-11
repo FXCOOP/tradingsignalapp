@@ -2404,7 +2404,7 @@
                     'NO': 'no',
                     'DK': 'da',
                     'FI': 'fi',
-                    'GR': 'gr',
+                    'GR': 'el',
                     'IL': 'he',
                     'PK': 'ur',
                     'IR': 'fa', 'AF': 'fa'
@@ -2412,6 +2412,11 @@
 
                 const detectedLang = countryToLang[data.country_code] || 'en';
                 console.log('✅ Auto-detected language:', detectedLang);
+                console.log('✅ Country code from IP:', data.country_code);
+
+                // CRITICAL: Set currentLanguage IMMEDIATELY
+                currentLanguage = detectedLang;
+                console.log('✅ currentLanguage SET TO:', currentLanguage);
 
                 // Get flag and name for detected language
                 const langMap = {
@@ -2430,38 +2435,63 @@
 
                 const [flag, name] = langMap[detectedLang] || ['🌍', 'Auto'];
 
-                // Set language without closing dropdown (user didn't click)
-                currentLanguage = detectedLang;
-                document.getElementById('currentFlag').textContent = flag;
-                document.getElementById('currentLangName').textContent = name;
+                // Update UI elements
+                try {
+                    document.getElementById('currentFlag').textContent = flag;
+                    document.getElementById('currentLangName').textContent = name;
+                } catch (e) {
+                    console.warn('⚠️ Could not update language selector UI:', e);
+                }
 
                 // Update active state in dropdown
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                    if (btn.dataset.lang === detectedLang) {
-                        btn.classList.add('active');
-                    }
-                });
+                try {
+                    document.querySelectorAll('.lang-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.dataset.lang === detectedLang) {
+                            btn.classList.add('active');
+                        }
+                    });
+                } catch (e) {
+                    console.warn('⚠️ Could not update dropdown active state:', e);
+                }
 
                 // Update page content
-                updatePageLanguage();
+                try {
+                    updatePageLanguage();
+                } catch (e) {
+                    console.warn('⚠️ Could not update page language:', e);
+                }
 
                 // Trigger Google Translate for full page translation
                 if (detectedLang !== 'en') {
                     console.log('🌍 Triggering auto-translation to:', detectedLang);
-                    // Use new queueing system - no delay needed!
+                    console.log('🌍 triggerGoogleTranslate exists?', typeof triggerGoogleTranslate);
+
+                    // Queue translation immediately - will execute when Google Translate loads
                     if (typeof triggerGoogleTranslate === 'function') {
                         triggerGoogleTranslate(detectedLang);
+                        console.log('✅ triggerGoogleTranslate CALLED with:', detectedLang);
+                    } else {
+                        console.error('❌ triggerGoogleTranslate function not found! Queueing manually...');
+                        window.pendingTranslation = detectedLang;
+                        console.log('✅ Manually queued translation:', detectedLang);
                     }
+                } else {
+                    console.log('⏩ Language is English, no translation needed');
                 }
 
                 // Don't save to localStorage yet - only save when user manually selects
 
             } catch (error) {
                 console.error('❌ Error detecting language:', error);
+                console.error('❌ Error stack:', error.stack);
                 console.log('⚠️ Falling back to English');
                 currentLanguage = 'en';
-                updatePageLanguage();
+                try {
+                    updatePageLanguage();
+                } catch (e) {
+                    console.error('❌ Could not update page language in error handler:', e);
+                }
             }
         }
 
