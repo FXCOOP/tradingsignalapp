@@ -16,7 +16,7 @@ ALTER TABLE signups ADD COLUMN IF NOT EXISTS last_push_attempt_at TIMESTAMP WITH
 -- 2. Create push_queue_log table for tracking
 CREATE TABLE IF NOT EXISTS push_queue_log (
     id BIGSERIAL PRIMARY KEY,
-    signup_id BIGINT REFERENCES signups(id),
+    signup_id UUID REFERENCES signups(id),
     action TEXT NOT NULL, -- 'queued', 'pushed', 'failed', 'skipped'
     reason TEXT,
     push_count_today INTEGER,

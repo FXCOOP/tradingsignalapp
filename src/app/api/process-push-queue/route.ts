@@ -14,7 +14,7 @@ import { createTradingCRMClient } from '@/lib/trading-crm-api';
  *
  * Set up cron job:
  * - Every 10 minutes during working hours
- * - Or use Render Cron Job: "*/10 4-13 * * 1-5" (GMT+2)
+ * - Cron expression: every 10 minutes from 4-13 GMT+2, Mon-Fri
  */
 export async function GET(request: NextRequest) {
   return processQueue();
