@@ -150,7 +150,8 @@ function determinebroker(signup: any): string {
   // EXAMPLE RULES - Customize these!
 
   // Rule 1: Specific countries go to Trading CRM
-  const tradingCRMCountries = ['Malaysia', 'Turkey', 'France', 'Italy', 'Hong Kong', 'Singapore', 'Taiwan', 'Brazil'];
+  // Accept both country names and ISO codes
+  const tradingCRMCountries = ['Malaysia', 'MY', 'Turkey', 'TR', 'France', 'FR', 'Italy', 'IT', 'Hong Kong', 'HK', 'Singapore', 'SG', 'Taiwan', 'TW', 'Brazil', 'BR'];
   if (tradingCRMCountries.includes(country)) {
     return 'Trading CRM';
   }
