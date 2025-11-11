@@ -2411,7 +2411,7 @@
                     'ur': ['🇵🇰', 'اردو'], 'fa': ['🇮🇷', 'فارسی']
                 };
 
-                const [flag, name] = langMap[detectedLang] || ['🌍', 'Auto'];
+                const [flag, name] = langMap[currentLanguage] || ['🌍', 'Auto'];
 
                 // Update UI elements
                 try {
@@ -2425,7 +2425,7 @@
                 try {
                     document.querySelectorAll('.lang-btn').forEach(btn => {
                         btn.classList.remove('active');
-                        if (btn.dataset.lang === detectedLang) {
+                        if (btn.dataset.lang === currentLanguage) {
                             btn.classList.add('active');
                         }
                     });
@@ -2441,18 +2441,18 @@
                 }
 
                 // Trigger Google Translate for full page translation
-                if (detectedLang !== 'en') {
-                    console.log('🌍 Triggering auto-translation to:', detectedLang);
+                if (currentLanguage !== 'en') {
+                    console.log('🌍 Triggering auto-translation to:', currentLanguage);
                     console.log('🌍 triggerGoogleTranslate exists?', typeof triggerGoogleTranslate);
 
                     // Queue translation immediately - will execute when Google Translate loads
                     if (typeof triggerGoogleTranslate === 'function') {
-                        triggerGoogleTranslate(detectedLang);
-                        console.log('✅ triggerGoogleTranslate CALLED with:', detectedLang);
+                        triggerGoogleTranslate(currentLanguage);
+                        console.log('✅ triggerGoogleTranslate CALLED with:', currentLanguage);
                     } else {
                         console.error('❌ triggerGoogleTranslate function not found! Queueing manually...');
-                        window.pendingTranslation = detectedLang;
-                        console.log('✅ Manually queued translation:', detectedLang);
+                        window.pendingTranslation = currentLanguage;
+                        console.log('✅ Manually queued translation:', currentLanguage);
                     }
                 } else {
                     console.log('⏩ Language is English, no translation needed');
