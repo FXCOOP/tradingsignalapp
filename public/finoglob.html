@@ -4247,14 +4247,63 @@
             }
         });
 
-        // Auto-open popup after 20 seconds
+        // Auto-open popup after 5 seconds (FASTER for better conversion)
         function initAutoPopup() {
+            console.log('🔥 Auto-popup initialized, will open in 5 seconds...');
+
             setTimeout(() => {
-                if (!sessionStorage.getItem('mentorship_popup_shown')) {
+                console.log('🔥 5 seconds passed, checking if modal should open...');
+                const hasShown = sessionStorage.getItem('mentorship_popup_shown');
+
+                if (!hasShown) {
+                    console.log('🔥 Opening modal now!');
                     openModal();
                     sessionStorage.setItem('mentorship_popup_shown', 'true');
+                } else {
+                    console.log('🔥 Popup already shown this session, skipping');
                 }
-            }, 20000);
+            }, 5000); // 5 seconds (changed from 20)
+        }
+
+        // Exit Intent Detection - Show popup when user tries to leave
+        function initExitIntent() {
+            let exitShown = false;
+
+            document.addEventListener('mouseleave', (e) => {
+                // Check if mouse is leaving from the top of the page
+                if (e.clientY <= 0 && !exitShown) {
+                    const hasShown = sessionStorage.getItem('mentorship_popup_shown');
+
+                    if (!hasShown) {
+                        console.log('🚪 Exit intent detected! Opening modal...');
+                        openModal();
+                        sessionStorage.setItem('mentorship_popup_shown', 'true');
+                        exitShown = true;
+                    }
+                }
+            });
+        }
+
+        // Scroll Trigger - Show popup after 50% page scroll
+        function initScrollTrigger() {
+            let scrollShown = false;
+
+            window.addEventListener('scroll', () => {
+                if (scrollShown) return;
+
+                const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+
+                if (scrollPercentage >= 50) {
+                    const hasShown = sessionStorage.getItem('mentorship_popup_shown');
+
+                    if (!hasShown) {
+                        console.log('📜 User scrolled 50%! Opening modal...');
+                        openModal();
+                        sessionStorage.setItem('mentorship_popup_shown', 'true');
+                        scrollShown = true;
+                    }
+                }
+            });
         }
 
         // Intersection Observer for scroll animations
@@ -4346,11 +4395,13 @@
             }
         });
 
-        // Initialize language, country detection, and auto-popup on page load
+        // Initialize language, country detection, and all popup triggers
         document.addEventListener('DOMContentLoaded', () => {
             detectUserLanguage();
             detectCountryForForm();
-            initAutoPopup();
+            initAutoPopup();       // Open after 5 seconds
+            initExitIntent();      // Open when user tries to leave
+            initScrollTrigger();   // Open after 50% scroll
         });
     </script>
 
