@@ -2141,22 +2141,23 @@
                         <label class="form-label">Country *</label>
                         <select class="form-select" name="country" required>
                             <option value="">Select your country</option>
+                            <option value="US">🇺🇸 United States</option>
+                            <option value="UK">🇬🇧 United Kingdom</option>
+                            <option value="CA">🇨🇦 Canada</option>
+                            <option value="AU">🇦🇺 Australia</option>
+                            <option value="SG">🇸🇬 Singapore</option>
                             <option value="IL">🇮🇱 Israel</option>
                             <option value="MY">🇲🇾 Malaysia</option>
                             <option value="CN">🇨🇳 China</option>
                             <option value="TW">🇹🇼 Taiwan</option>
                             <option value="HK">🇭🇰 Hong Kong</option>
-                            <option value="SG">🇸🇬 Singapore</option>
                             <option value="IN">🇮🇳 India</option>
                             <option value="IT">🇮🇹 Italy</option>
                             <option value="FR">🇫🇷 France</option>
                             <option value="DE">🇩🇪 Germany</option>
                             <option value="ES">🇪🇸 Spain</option>
                             <option value="BR">🇧🇷 Brazil</option>
-                            <option value="US">🇺🇸 United States</option>
-                            <option value="UK">🇬🇧 United Kingdom</option>
-                            <option value="AU">🇦🇺 Australia</option>
-                            <option value="CA">🇨🇦 Canada</option>
+                            <option value="PT">🇵🇹 Portugal</option>
                             <option value="JP">🇯🇵 Japan</option>
                             <option value="KR">🇰🇷 South Korea</option>
                             <option value="TH">🇹🇭 Thailand</option>
@@ -2166,6 +2167,19 @@
                             <option value="TR">🇹🇷 Turkey</option>
                             <option value="SA">🇸🇦 Saudi Arabia</option>
                             <option value="AE">🇦🇪 United Arab Emirates</option>
+                            <option value="RU">🇷🇺 Russia</option>
+                            <option value="PL">🇵🇱 Poland</option>
+                            <option value="NL">🇳🇱 Netherlands</option>
+                            <option value="SE">🇸🇪 Sweden</option>
+                            <option value="NO">🇳🇴 Norway</option>
+                            <option value="DK">🇩🇰 Denmark</option>
+                            <option value="FI">🇫🇮 Finland</option>
+                            <option value="GR">🇬🇷 Greece</option>
+                            <option value="MX">🇲🇽 Mexico</option>
+                            <option value="AR">🇦🇷 Argentina</option>
+                            <option value="CO">🇨🇴 Colombia</option>
+                            <option value="CL">🇨🇱 Chile</option>
+                            <option value="PE">🇵🇪 Peru</option>
                             <option value="OTHER">🌍 Other</option>
                         </select>
                     </div>
@@ -2349,7 +2363,8 @@
 
                 // Detect from IP using ipapi.co
                 const response = await fetch('https://ipapi.co/json/');
-                const data = await response.json();
+                detectedIPData = await response.json(); // Store in global for form reuse
+                const data = detectedIPData;
 
                 console.log('🌍 IP detection result:', data.country_code, data.country_name);
 
@@ -2595,32 +2610,54 @@
         }
 
         // Auto-detect country and populate form
+        // Global variable to store IP detection data
+        let detectedIPData = null;
+
         async function detectCountryForForm() {
             try {
-                const response = await fetch('https://ipapi.co/json/');
-                const data = await response.json();
+                // If we already have IP data from language detection, reuse it
+                if (!detectedIPData) {
+                    const response = await fetch('https://ipapi.co/json/');
+                    detectedIPData = await response.json();
+                }
 
-                const countryNames = {
-                    'IL': 'Israel', 'MY': 'Malaysia', 'SG': 'Singapore', 'CN': 'China', 'TW': 'Taiwan',
-                    'HK': 'Hong Kong', 'IT': 'Italy', 'FR': 'France', 'BR': 'Brazil',
-                    'PT': 'Portugal', 'IN': 'India', 'AE': 'United Arab Emirates',
-                    'SA': 'Saudi Arabia', 'QA': 'Qatar', 'KW': 'Kuwait', 'BH': 'Bahrain',
-                    'OM': 'Oman', 'US': 'United States', 'GB': 'United Kingdom',
-                    'AU': 'Australia', 'CA': 'Canada', 'ID': 'Indonesia', 'TH': 'Thailand',
-                    'VN': 'Vietnam', 'PH': 'Philippines', 'JP': 'Japan', 'KR': 'South Korea',
-                    'DE': 'Germany', 'ES': 'Spain', 'NL': 'Netherlands', 'CH': 'Switzerland',
-                    'TR': 'Turkey', 'PL': 'Poland', 'SE': 'Sweden', 'NO': 'Norway',
-                    'DK': 'Denmark', 'FI': 'Finland', 'GR': 'Greece'
+                const data = detectedIPData;
+                console.log('🌍 IP detection for form:', data.country_code, data.country_name);
+
+                // Map country codes to form values (handling special cases)
+                const countryCodeMap = {
+                    'GB': 'UK', // UK in form, but GB from API
+                    'KR': 'KR', // South Korea
                 };
 
+                // List of supported countries in the form (expanded to match all options)
+                const supportedCountries = [
+                    'US', 'UK', 'CA', 'AU', 'SG', 'IL', 'MY', 'CN', 'TW', 'HK', 'IN', 'IT', 'FR', 'DE', 'ES',
+                    'BR', 'PT', 'JP', 'KR', 'TH', 'ID', 'PH', 'VN', 'TR', 'SA', 'AE', 'RU', 'PL', 'NL', 'SE',
+                    'NO', 'DK', 'FI', 'GR', 'MX', 'AR', 'CO', 'CL', 'PE'
+                ];
+
+                let countryCode = data.country_code;
+
+                // Handle special mappings
+                if (countryCodeMap[countryCode]) {
+                    countryCode = countryCodeMap[countryCode];
+                }
+
                 const countrySelect = document.querySelector('select[name="country"]');
-                if (countrySelect && data.country_code && countryNames[data.country_code]) {
-                    const countryName = countryNames[data.country_code];
-                    countrySelect.value = countryName;
-                    console.log('✅ Auto-detected country:', countryName);
+                if (countrySelect && countryCode) {
+                    // Check if country is in our supported list
+                    if (supportedCountries.includes(countryCode)) {
+                        countrySelect.value = countryCode;
+                        console.log('✅ Auto-selected country in form:', countryCode, '(' + data.country_name + ')');
+                    } else {
+                        // Set to OTHER if not in list
+                        countrySelect.value = 'OTHER';
+                        console.log('⚠️ Country not in list, set to OTHER:', countryCode, '(' + data.country_name + ')');
+                    }
                 }
             } catch (error) {
-                console.error('Error detecting country:', error);
+                console.error('❌ Error detecting country for form:', error);
             }
         }
 
