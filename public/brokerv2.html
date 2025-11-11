@@ -19,16 +19,39 @@
             new google.translate.TranslateElement({
                 pageLanguage: 'en',
                 includedLanguages: 'es,fr,de,it,pt,ru,ar,zh-CN,zh-TW,ja,ko,th,vi,id,tr,pl,nl,sv,no,da,fi,el,he,hi,ro,hu,cs,bg,hr,sk,sl,lt,lv,et,sr,uk,ms,bn,ta,te,ur,fa,sw,fil,af,sq,am,az,eu,be,bs,ca,ceb,co,cy,eo,et,tl,fy,gl,ka,gu,ht,ha,haw,hmn,is,ig,ga,jw,kn,kk,km,rw,ku,ky,lo,la,lv,lb,mk,mg,ml,mt,mi,mr,mn,my,ne,ny,or,ps,pa,sm,gd,sn,sd,si,so,st,su,tg,tt,uz,xh,yi,yo,zu',
-                autoDisplay: false
+                autoDisplay: false,
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
             }, 'google_translate_element');
 
             setTimeout(function() {
                 window.googleTranslateReady = true;
-                console.log('✅ Google Translate ready');
+                console.log('✅ Google Translate ready and visible');
                 if (window.pendingTranslation) {
                     console.log('🔄 Triggering pending translation:', window.pendingTranslation);
                     triggerGoogleTranslate(window.pendingTranslation);
                 }
+
+                // Track manual language changes
+                const observer = new MutationObserver(function() {
+                    const selectElement = document.querySelector('.goog-te-combo');
+                    if (selectElement && !selectElement.hasAttribute('data-listener')) {
+                        selectElement.setAttribute('data-listener', 'true');
+                        selectElement.addEventListener('change', function(e) {
+                            console.log('🌍 Manual language change to:', e.target.value);
+                            if (typeof dataLayer !== 'undefined') {
+                                dataLayer.push({
+                                    'event': 'manual_language_change',
+                                    'language': e.target.value
+                                });
+                            }
+                        });
+                    }
+                });
+
+                observer.observe(document.getElementById('google_translate_element'), {
+                    childList: true,
+                    subtree: true
+                });
             }, 1000);
         }
     </script>
@@ -41,7 +64,67 @@
         /* Hide Google Translate banner */
         .goog-te-banner-frame.skiptranslate { display: none !important; }
         body { top: 0px !important; }
-        #google_translate_element { display: none; }
+
+        /* Language Selector Styling */
+        .language-selector-wrapper {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9998;
+            background: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .language-selector-wrapper .globe-icon {
+            font-size: 20px;
+        }
+
+        #google_translate_element {
+            display: inline-block;
+        }
+
+        /* Style the Google Translate dropdown */
+        #google_translate_element select {
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2937;
+            cursor: pointer;
+            padding: 0;
+            outline: none;
+        }
+
+        #google_translate_element select:hover {
+            color: #10b981;
+        }
+
+        /* Hide Google Translate attribution */
+        .goog-te-gadget {
+            font-size: 0;
+        }
+
+        .goog-te-gadget > span {
+            display: none !important;
+        }
+
+        .goog-te-gadget > div {
+            display: inline-block;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .language-selector-wrapper {
+                top: 10px;
+                right: 10px;
+                padding: 10px 16px;
+            }
+        }
 
     <style>
         * {
@@ -789,8 +872,11 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-    <!-- Hidden Google Translate Element -->
-    <div id="google_translate_element"></div>
+    <!-- Language Selector (Top Right) -->
+    <div class="language-selector-wrapper">
+        <span class="globe-icon">🌐</span>
+        <div id="google_translate_element"></div>
+    </div>
 
     <!-- Exit Intent Popup -->
     <div class="exit-intent-overlay" id="exitIntentOverlay">
