@@ -2351,11 +2351,10 @@
                     // Trigger Google Translate for full page translation
                     if (savedLang !== 'en') {
                         console.log('🌍 Triggering translation for saved language:', savedLang);
-                        setTimeout(() => {
-                            if (typeof triggerGoogleTranslate === 'function') {
-                                triggerGoogleTranslate(savedLang);
-                            }
-                        }, 2500); // Wait 2.5 seconds for Google Translate API to fully load
+                        // Use new queueing system - no delay needed!
+                        if (typeof triggerGoogleTranslate === 'function') {
+                            triggerGoogleTranslate(savedLang);
+                        }
                     }
 
                     return;
@@ -2450,11 +2449,10 @@
                 // Trigger Google Translate for full page translation
                 if (detectedLang !== 'en') {
                     console.log('🌍 Triggering auto-translation to:', detectedLang);
-                    setTimeout(() => {
-                        if (typeof triggerGoogleTranslate === 'function') {
-                            triggerGoogleTranslate(detectedLang);
-                        }
-                    }, 2500); // Wait 2.5 seconds for Google Translate API to fully load
+                    // Use new queueing system - no delay needed!
+                    if (typeof triggerGoogleTranslate === 'function') {
+                        triggerGoogleTranslate(detectedLang);
+                    }
                 }
 
                 // Don't save to localStorage yet - only save when user manually selects
@@ -2630,6 +2628,17 @@
                     'KR': 'KR', // South Korea
                 };
 
+                // Map country codes to phone prefixes
+                const countryPhonePrefixes = {
+                    'US': '+1', 'CA': '+1', 'UK': '+44', 'AU': '+61', 'SG': '+65', 'IL': '+972',
+                    'MY': '+60', 'CN': '+86', 'TW': '+886', 'HK': '+852', 'IN': '+91', 'IT': '+39',
+                    'FR': '+33', 'DE': '+49', 'ES': '+34', 'BR': '+55', 'PT': '+351', 'JP': '+81',
+                    'KR': '+82', 'TH': '+66', 'ID': '+62', 'PH': '+63', 'VN': '+84', 'TR': '+90',
+                    'SA': '+966', 'AE': '+971', 'RU': '+7', 'PL': '+48', 'NL': '+31', 'SE': '+46',
+                    'NO': '+47', 'DK': '+45', 'FI': '+358', 'GR': '+30', 'MX': '+52', 'AR': '+54',
+                    'CO': '+57', 'CL': '+56', 'PE': '+51'
+                };
+
                 // List of supported countries in the form (expanded to match all options)
                 const supportedCountries = [
                     'US', 'UK', 'CA', 'AU', 'SG', 'IL', 'MY', 'CN', 'TW', 'HK', 'IN', 'IT', 'FR', 'DE', 'ES',
@@ -2638,12 +2647,14 @@
                 ];
 
                 let countryCode = data.country_code;
+                const originalCountryCode = data.country_code; // Keep original for phone prefix
 
                 // Handle special mappings
                 if (countryCodeMap[countryCode]) {
                     countryCode = countryCodeMap[countryCode];
                 }
 
+                // Auto-select country in dropdown
                 const countrySelect = document.querySelector('select[name="country"]');
                 if (countrySelect && countryCode) {
                     // Check if country is in our supported list
@@ -2655,6 +2666,15 @@
                         countrySelect.value = 'OTHER';
                         console.log('⚠️ Country not in list, set to OTHER:', countryCode, '(' + data.country_name + ')');
                     }
+                }
+
+                // Auto-populate phone number with country prefix
+                const phoneInput = document.querySelector('input[name="phone"]');
+                if (phoneInput && countryPhonePrefixes[originalCountryCode]) {
+                    const phonePrefix = countryPhonePrefixes[originalCountryCode];
+                    phoneInput.value = phonePrefix + ' ';
+                    phoneInput.placeholder = phonePrefix + ' 12 345 6789';
+                    console.log('📞 Auto-populated phone prefix:', phonePrefix);
                 }
             } catch (error) {
                 console.error('❌ Error detecting country for form:', error);
@@ -2818,13 +2838,31 @@
     <!-- 🌍 GOOGLE TRANSLATE - Automatic Full Page Translation -->
     <div id="google_translate_element" style="display:none;"></div>
     <script type="text/javascript">
+        // Flag to track if Google Translate is ready
+        window.googleTranslateReady = false;
+        window.pendingTranslation = null;
+
         function googleTranslateElementInit() {
+            console.log('🌍 Google Translate initializing...');
             new google.translate.TranslateElement({
                 pageLanguage: 'en',
                 includedLanguages: 'es,fr,de,it,pt,ru,ar,zh-CN,zh-TW,ja,ko,hi,ta,bn,tr,id,ms,th,vi,tl,pl,nl,sv,no,da,fi,el,iw,ur,fa',
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
                 autoDisplay: false
             }, 'google_translate_element');
+
+            // Wait for Google Translate to be fully ready
+            setTimeout(function() {
+                window.googleTranslateReady = true;
+                console.log('✅ Google Translate is READY');
+
+                // If there's a pending translation, execute it now
+                if (window.pendingTranslation) {
+                    console.log('🚀 Executing pending translation:', window.pendingTranslation);
+                    triggerGoogleTranslate(window.pendingTranslation);
+                    window.pendingTranslation = null;
+                }
+            }, 1000); // Wait 1 second after init
         }
 
         // Trigger Google Translate when language is selected
@@ -2850,33 +2888,37 @@
                 return;
             }
 
-            let attempts = 0;
-            const maxAttempts = 50; // Check for up to 5 seconds (50 * 100ms)
+            // If Google Translate isn't ready yet, queue the translation
+            if (!window.googleTranslateReady) {
+                console.log('⏳ Google Translate not ready yet, queueing translation for:', googleLang);
+                window.pendingTranslation = langCode;
+                return;
+            }
 
-            // Wait for Google Translate to load with retry logic
-            const checkGoogleTranslate = setInterval(function() {
-                attempts++;
+            console.log('🚀 Google Translate is ready, executing translation NOW');
 
-                if (typeof google !== 'undefined' && google.translate && google.translate.TranslateElement) {
-                    console.log('✅ Google Translate API loaded after', attempts * 100, 'ms');
-                    clearInterval(checkGoogleTranslate);
+            // Find and trigger the Google Translate selector
+            const selectElement = document.querySelector('.goog-te-combo');
+            if (selectElement) {
+                selectElement.value = googleLang;
+                selectElement.dispatchEvent(new Event('change'));
+                console.log('✅✅✅ PAGE TRANSLATED TO:', googleLang.toUpperCase());
+            } else {
+                console.error('❌ Google Translate selector not found');
 
-                    // Wait a bit more for the selector to be ready
-                    setTimeout(function() {
-                        const selectElement = document.querySelector('.goog-te-combo');
-                        if (selectElement) {
-                            selectElement.value = googleLang;
-                            selectElement.dispatchEvent(new Event('change'));
-                            console.log('✅✅✅ PAGE TRANSLATED TO:', googleLang.toUpperCase());
-                        } else {
-                            console.error('❌ Google Translate selector not found');
-                        }
-                    }, 500); // Wait 500ms for selector to be ready
-                } else if (attempts >= maxAttempts) {
-                    clearInterval(checkGoogleTranslate);
-                    console.error('❌ Google Translate failed to load after', maxAttempts * 100, 'ms');
-                }
-            }, 100);
+                // Retry after a short delay
+                setTimeout(function() {
+                    console.log('🔄 Retrying translation...');
+                    const retryElement = document.querySelector('.goog-te-combo');
+                    if (retryElement) {
+                        retryElement.value = googleLang;
+                        retryElement.dispatchEvent(new Event('change'));
+                        console.log('✅✅✅ PAGE TRANSLATED TO (RETRY):', googleLang.toUpperCase());
+                    } else {
+                        console.error('❌ Translation failed - selector still not found');
+                    }
+                }, 1000);
+            }
         }
 
         // Override the selectLanguage function to use Google Translate
