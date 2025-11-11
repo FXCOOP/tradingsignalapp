@@ -1372,6 +1372,12 @@
 
             const formData = new FormData(event.target);
 
+            // Helper function to get URL parameters
+            function getUrlParameter(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+
             const data = {
                 first_name: formData.get('firstname'),
                 last_name: formData.get('lastname'),
@@ -1384,20 +1390,27 @@
                 lead_source: 'tradeflow-brokerv2',
                 lead_type: 'broker-matching',
                 lead_status: 'new',
-                ip_address: detectedIPData?.ip || 'Unknown',
+                utm_source: getUrlParameter('utm_source') || 'direct',
+                utm_medium: getUrlParameter('utm_medium') || 'none',
+                utm_campaign: getUrlParameter('utm_campaign') || 'none',
+                terms_accepted: true,
+                detected_country: formData.get('country'),
                 user_agent: navigator.userAgent,
-                referrer: document.referrer || 'Direct',
-                landing_page: window.location.href,
-                created_at: new Date().toISOString()
+                referrer: document.referrer || null
             };
 
             try {
+                console.log('📤 Submitting to Supabase:', data);
+
                 const { data: result, error } = await supabase
                     .from('signups')
                     .insert([data])
                     .select();
 
-                if (error) throw error;
+                if (error) {
+                    console.error('❌ Supabase error:', error);
+                    throw error;
+                }
 
                 console.log('✅ Lead submitted successfully:', result);
 
@@ -1416,6 +1429,7 @@
 
             } catch (error) {
                 console.error('❌ Submission error:', error);
+                console.error('Error details:', error.message, error.details, error.hint);
                 alert('Oops! Something went wrong. Please try again or contact support.');
                 submitBtn.disabled = false;
                 submitBtn.textContent = '✅ Get My Free Mentor Now →';
