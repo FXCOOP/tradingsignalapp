@@ -916,6 +916,7 @@
     <div class="language-selector-wrapper">
         <span class="globe-icon">🌐</span>
         <div id="google_translate_element"></div>
+        <span id="detectedLanguageLabel" style="display: none; font-size: 11px; color: #10b981; margin-left: 8px; font-weight: 600;"></span>
     </div>
 
     <!-- Exit Intent Popup -->
@@ -1643,10 +1644,18 @@
             const tryTranslate = setInterval(function() {
                 const selectElement = document.querySelector('.goog-te-combo');
                 if (selectElement) {
+                    // Set the dropdown to show the detected language
                     selectElement.value = langCode;
+
+                    // Trigger the translation
                     selectElement.dispatchEvent(new Event('change'));
+
                     window.googleTranslateTriggered = true;
+                    window.currentDisplayLanguage = langCode;
+
                     console.log('✅ Google Translate triggered successfully:', langCode, '(attempt', attempts + 1, ')');
+                    console.log('✅ Dropdown now displaying:', langCode);
+
                     clearInterval(tryTranslate);
                 } else {
                     attempts++;
@@ -1670,9 +1679,29 @@
                     console.log('🌍 Country detected:', detectedIPData.country_code);
                     console.log('🌐 Language mapped to:', detectedLang);
 
+                    // Language name mapping for display
+                    const languageNames = {
+                        'es': 'Spanish', 'fr': 'French', 'de': 'German', 'it': 'Italian',
+                        'pt': 'Portuguese', 'ru': 'Russian', 'ar': 'Arabic', 'zh-CN': 'Chinese (Simplified)',
+                        'zh-TW': 'Chinese (Traditional)', 'ja': 'Japanese', 'ko': 'Korean',
+                        'th': 'Thai', 'vi': 'Vietnamese', 'id': 'Indonesian', 'tr': 'Turkish',
+                        'pl': 'Polish', 'nl': 'Dutch', 'sv': 'Swedish', 'no': 'Norwegian',
+                        'da': 'Danish', 'fi': 'Finnish', 'el': 'Greek', 'he': 'Hebrew',
+                        'hi': 'Hindi', 'ms': 'Malay', 'en': 'English'
+                    };
+
                     if (detectedLang !== 'en') {
                         console.log('🔄 Initiating auto-translation to:', detectedLang);
                         triggerGoogleTranslate(detectedLang);
+
+                        // Show detected language label
+                        const label = document.getElementById('detectedLanguageLabel');
+                        if (label) {
+                            const langName = languageNames[detectedLang] || detectedLang.toUpperCase();
+                            label.textContent = '(' + langName + ' detected)';
+                            label.style.display = 'inline';
+                            console.log('✅ Showing language label:', langName);
+                        }
 
                         // Track in Supabase
                         try {
