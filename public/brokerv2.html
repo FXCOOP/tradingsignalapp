@@ -1401,13 +1401,19 @@
                 return urlParams.get(name);
             }
 
+            // Parse phone number to separate country code and number
+            const fullPhone = formData.get('phone') || '';
+            const phoneMatch = fullPhone.match(/^(\+\d{1,4})\s*(.+)$/);
+            const countryCode = phoneMatch ? phoneMatch[1] : '';
+            const phoneNumber = phoneMatch ? phoneMatch[2].replace(/\s/g, '') : fullPhone;
+
             const data = {
                 first_name: formData.get('firstname'),
                 last_name: formData.get('lastname'),
                 email: formData.get('email'),
-                phone_number: formData.get('phone'),
+                phone_number: phoneNumber, // Just the number without prefix
                 country: formData.get('country'),
-                country_code: formData.get('phone')?.substring(0, 4) || '',
+                country_code: countryCode, // Just the country code like "+60"
                 trading_experience: 'Not specified',
                 account_size: 'Not specified',
                 lead_source: 'tradeflow-brokerv2',
@@ -1436,6 +1442,33 @@
                 }
 
                 console.log('✅ Lead submitted successfully:', result);
+
+                // Auto-push to broker (respects working hours & daily cap queue system)
+                const signupId = result[0].id;
+                console.log('🚀 Auto-pushing lead to broker...', signupId);
+
+                try {
+                    const pushResponse = await fetch('/api/push-to-broker', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ signupId })
+                    });
+
+                    const pushResult = await pushResponse.json();
+
+                    if (pushResult.success) {
+                        if (pushResult.queued) {
+                            console.log('📋 Lead queued:', pushResult.queueStatus, pushResult.message);
+                        } else {
+                            console.log('✅ Lead pushed immediately to', pushResult.broker);
+                        }
+                    } else {
+                        console.warn('⚠️ Push to broker failed:', pushResult.error);
+                    }
+                } catch (pushError) {
+                    console.error('❌ Auto-push error:', pushError);
+                    // Don't block user success message if push fails
+                }
 
                 // Show success message
                 document.getElementById('signupForm').style.display = 'none';
