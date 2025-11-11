@@ -6,8 +6,40 @@
     <title>Get Your Free Trading Mentor - TradeFlow</title>
     <meta name="description" content="Connect with elite professional traders. Get matched with a premium broker and receive daily signals, market analysis, and 1-on-1 mentorship - 100% FREE.">
 
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+
+    <!-- Google Translate -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'es,fr,de,it,pt,ru,ar,zh-CN,zh-TW,ja,ko,th,vi,id,tr,pl,nl,sv,no,da,fi,el,he,hi',
+                autoDisplay: false
+            }, 'google_translate_element');
+
+            setTimeout(function() {
+                window.googleTranslateReady = true;
+                if (window.pendingTranslation) {
+                    triggerGoogleTranslate(window.pendingTranslation);
+                }
+            }, 1000);
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        /* Hide Google Translate banner */
+        .goog-te-banner-frame.skiptranslate { display: none !important; }
+        body { top: 0px !important; }
+        #google_translate_element { display: none; }
 
     <style>
         * {
@@ -381,9 +413,406 @@
                 cursor: pointer;
             }
         }
+
+        /* Exit Intent Popup */
+        .exit-intent-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .exit-intent-overlay.show {
+            display: flex;
+        }
+
+        .exit-popup {
+            background: white;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        .exit-popup .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #9ca3af;
+        }
+
+        .exit-popup h3 {
+            font-size: 32px;
+            margin-bottom: 16px;
+            color: #1f2937;
+        }
+
+        .exit-popup p {
+            font-size: 18px;
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .exit-popup .offer {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .exit-popup button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Live Social Proof Notification */
+        .social-proof-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            border-radius: 12px;
+            padding: 16px 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 9999;
+            max-width: 350px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        .social-proof-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .social-proof-notification .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .social-proof-notification .content {
+            flex: 1;
+        }
+
+        .social-proof-notification .name {
+            font-weight: 700;
+            color: #1f2937;
+            font-size: 14px;
+        }
+
+        .social-proof-notification .text {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .social-proof-notification .time {
+            color: #10b981;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Profit Calculator */
+        .calculator {
+            background: white;
+            padding: 80px 20px;
+        }
+
+        .calculator h2 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 48px;
+            color: #1f2937;
+        }
+
+        .calculator-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .calculator-result {
+            text-align: center;
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 32px;
+        }
+
+        .calculator-result .label {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .calculator-result .amount {
+            font-size: 48px;
+            font-weight: 800;
+            color: #10b981;
+        }
+
+        .slider-group {
+            margin-bottom: 24px;
+        }
+
+        .slider-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #374151;
+        }
+
+        .slider-group input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #d1d5db;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #10b981;
+            cursor: pointer;
+        }
+
+        .slider-value {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-top: 8px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: #f9fafb;
+            padding: 80px 20px;
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 48px;
+            color: #1f2937;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .testimonial-info h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .testimonial-info .stars {
+            color: #fbbf24;
+            font-size: 16px;
+        }
+
+        .testimonial-text {
+            color: #4b5563;
+            font-size: 15px;
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        /* FAQ Section */
+        .faq {
+            background: white;
+            padding: 80px 20px;
+        }
+
+        .faq h2 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 48px;
+            color: #1f2937;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: #f9fafb;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 24px;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question:hover {
+            color: #10b981;
+        }
+
+        .faq-question .icon {
+            font-size: 24px;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question .icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 24px 24px;
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <!-- Hidden Google Translate Element -->
+    <div id="google_translate_element"></div>
+
+    <!-- Exit Intent Popup -->
+    <div class="exit-intent-overlay" id="exitIntentOverlay">
+        <div class="exit-popup">
+            <button class="close-btn" onclick="closeExitPopup()">×</button>
+            <h3>⏰ Wait! Before You Go...</h3>
+            <p>Don't miss this opportunity to connect with elite traders</p>
+            <div class="offer">
+                🎁 Get Priority Matching
+            </div>
+            <p style="font-size: 16px;">Join now and get matched with a mentor within 24 hours</p>
+            <button onclick="closeExitPopupAndScroll()">✅ Yes, I Want Priority Matching!</button>
+        </div>
+    </div>
+
+    <!-- Live Social Proof Notification -->
+    <div class="social-proof-notification" id="socialProofNotification">
+        <div class="avatar">👤</div>
+        <div class="content">
+            <div class="name" id="notificationName">Michael</div>
+            <div class="text" id="notificationText">from United States just signed up!</div>
+            <div class="time">Just now</div>
+        </div>
+    </div>
 
     <!-- Hero Section with Inline Form -->
     <section class="hero">
@@ -610,6 +1039,152 @@
         </div>
     </section>
 
+    <!-- Profit Calculator -->
+    <section class="calculator">
+        <div class="container">
+            <h2>💰 Calculate Your Potential Profit</h2>
+            <div class="calculator-card">
+                <div class="calculator-result">
+                    <div class="label">Estimated Monthly Profit</div>
+                    <div class="amount" id="monthlyProfit">$1,500</div>
+                </div>
+
+                <div class="slider-group">
+                    <label>Initial Capital</label>
+                    <input type="range" id="capitalSlider" min="500" max="50000" value="10000" step="500" oninput="calculateProfit()">
+                    <div class="slider-value" id="capitalValue">$10,000</div>
+                </div>
+
+                <div class="slider-group">
+                    <label>Risk Level</label>
+                    <input type="range" id="riskSlider" min="1" max="3" value="2" step="1" oninput="calculateProfit()">
+                    <div class="slider-value" id="riskValue">Medium</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>⭐ What Our Traders Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👨</div>
+                        <div class="testimonial-info">
+                            <h4>Michael Chen</h4>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"I went from losing trades to consistent profits in just 3 months. My mentor taught me risk management and how to read market patterns. Now I make $3,500/month on average!"</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👩</div>
+                        <div class="testimonial-info">
+                            <h4>Sarah Thompson</h4>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"The daily signals are incredibly accurate. I've hit a 73% win rate following my mentor's advice. This service completely changed my trading career!"</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👨</div>
+                        <div class="testimonial-info">
+                            <h4>David Martinez</h4>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Best decision I ever made! The broker they matched me with has the best spreads and the mentor is always available. Already made back my initial investment and more!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2>❓ Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Is this really 100% free?</span>
+                        <span class="icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes! We make our money through broker partnerships, not from you. You get matched with a premium broker and receive mentorship completely free. No hidden fees, no credit card required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How quickly will I get matched?</span>
+                        <span class="icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Most traders are matched within 24 hours. Our team reviews your profile and connects you with a broker and mentor that fits your experience level and goals.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What if I'm a complete beginner?</span>
+                        <span class="icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Perfect! We specialize in helping beginners. Your mentor will teach you everything from basics to advanced strategies. You'll also get access to educational resources and a supportive community.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Are the brokers regulated and safe?</span>
+                        <span class="icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Absolutely! We only partner with regulated brokers that meet strict security and compliance standards. Your funds are always safe and protected.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How much money do I need to start?</span>
+                        <span class="icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Most brokers require a minimum deposit of $250-$500. However, your mentor will help you understand proper capital allocation and risk management based on your budget.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What kind of returns can I expect?</span>
+                        <span class="icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Our traders average 10-15% monthly returns with our signals and mentorship. However, results vary based on capital, risk tolerance, and how closely you follow the guidance. Trading involves risk.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Sticky Mobile CTA -->
     <div class="sticky-cta" id="stickyCta">
         <button onclick="scrollToForm()">🚀 Claim Your Free Mentor</button>
@@ -751,10 +1326,245 @@
             }
         });
 
+        // Google Translate Integration
+        let currentLanguage = 'en';
+
+        const countryToLang = {
+            'US': 'en', 'CA': 'en', 'GB': 'en', 'AU': 'en', 'NZ': 'en', 'IE': 'en',
+            'ES': 'es', 'MX': 'es', 'AR': 'es', 'CO': 'es', 'CL': 'es', 'PE': 'es', 'VE': 'es',
+            'FR': 'fr', 'BE': 'fr', 'CH': 'fr', 'LU': 'fr',
+            'DE': 'de', 'AT': 'de', 'LI': 'de',
+            'IT': 'it', 'SM': 'it', 'VA': 'it',
+            'PT': 'pt', 'BR': 'pt', 'AO': 'pt', 'MZ': 'pt',
+            'RU': 'ru', 'BY': 'ru', 'KZ': 'ru', 'UA': 'ru',
+            'SA': 'ar', 'AE': 'ar', 'EG': 'ar', 'JO': 'ar', 'KW': 'ar', 'LB': 'ar', 'OM': 'ar', 'QA': 'ar',
+            'CN': 'zh-CN', 'SG': 'zh-CN',
+            'TW': 'zh-TW', 'HK': 'zh-TW',
+            'JP': 'ja',
+            'KR': 'ko',
+            'TH': 'th',
+            'VN': 'vi',
+            'ID': 'id', 'MY': 'id',
+            'TR': 'tr',
+            'PL': 'pl',
+            'NL': 'nl',
+            'SE': 'sv',
+            'NO': 'no',
+            'DK': 'da',
+            'FI': 'fi',
+            'GR': 'el',
+            'IL': 'he',
+            'IN': 'hi'
+        };
+
+        function triggerGoogleTranslate(langCode) {
+            if (!window.googleTranslateReady) {
+                window.pendingTranslation = langCode;
+                return;
+            }
+
+            setTimeout(function() {
+                const selectElement = document.querySelector('.goog-te-combo');
+                if (selectElement) {
+                    selectElement.value = langCode;
+                    selectElement.dispatchEvent(new Event('change'));
+                    console.log('✅ Google Translate triggered:', langCode);
+                }
+            }, 500);
+        }
+
+        async function detectLanguageFromIP() {
+            try {
+                if (detectedIPData && detectedIPData.country_code) {
+                    const detectedLang = countryToLang[detectedIPData.country_code] || 'en';
+                    currentLanguage = detectedLang;
+
+                    if (detectedLang !== 'en') {
+                        console.log('🌍 Auto-translating to:', detectedLang);
+                        triggerGoogleTranslate(detectedLang);
+
+                        // Track in GTM
+                        if (typeof dataLayer !== 'undefined') {
+                            dataLayer.push({
+                                'event': 'auto_translate',
+                                'language': detectedLang,
+                                'country': detectedIPData.country_code
+                            });
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('❌ Language detection error:', error);
+            }
+        }
+
+        // Exit Intent Detection
+        let exitIntentShown = false;
+
+        document.addEventListener('mouseout', function(e) {
+            if (!exitIntentShown && e.clientY <= 0) {
+                exitIntentShown = true;
+                document.getElementById('exitIntentOverlay').classList.add('show');
+
+                // Track in GTM
+                if (typeof dataLayer !== 'undefined') {
+                    dataLayer.push({
+                        'event': 'exit_intent_trigger'
+                    });
+                }
+            }
+        });
+
+        function closeExitPopup() {
+            document.getElementById('exitIntentOverlay').classList.remove('show');
+        }
+
+        function closeExitPopupAndScroll() {
+            closeExitPopup();
+            scrollToForm();
+
+            // Track in GTM
+            if (typeof dataLayer !== 'undefined') {
+                dataLayer.push({
+                    'event': 'exit_intent_accept'
+                });
+            }
+        }
+
+        // Live Social Proof Notifications
+        const names = ['Michael', 'Sarah', 'James', 'Emma', 'David', 'Lisa', 'John', 'Anna', 'Robert', 'Maria'];
+        const countries = ['United States', 'United Kingdom', 'Germany', 'France', 'Spain', 'Italy', 'Canada', 'Australia', 'Singapore', 'Japan'];
+
+        function showSocialProof() {
+            const notification = document.getElementById('socialProofNotification');
+            const name = names[Math.floor(Math.random() * names.length)];
+            const country = countries[Math.floor(Math.random() * countries.length)];
+
+            document.getElementById('notificationName').textContent = name;
+            document.getElementById('notificationText').textContent = `from ${country} just signed up!`;
+
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        // Show first notification after 5 seconds, then every 15 seconds
+        setTimeout(function() {
+            showSocialProof();
+            setInterval(showSocialProof, 15000);
+        }, 5000);
+
+        // Profit Calculator
+        function calculateProfit() {
+            const capital = parseInt(document.getElementById('capitalSlider').value);
+            const risk = parseInt(document.getElementById('riskSlider').value);
+
+            // Update slider displays
+            document.getElementById('capitalValue').textContent = '$' + capital.toLocaleString();
+
+            const riskLabels = {1: 'Low', 2: 'Medium', 3: 'High'};
+            document.getElementById('riskValue').textContent = riskLabels[risk];
+
+            // Calculate profit based on risk multipliers
+            const riskMultipliers = {
+                1: {min: 0.05, max: 0.08},   // Low risk: 5-8% monthly
+                2: {min: 0.10, max: 0.15},   // Medium risk: 10-15% monthly
+                3: {min: 0.15, max: 0.25}    // High risk: 15-25% monthly
+            };
+
+            const multiplier = riskMultipliers[risk];
+            const monthlyMin = Math.round(capital * multiplier.min);
+            const monthlyMax = Math.round(capital * multiplier.max);
+
+            document.getElementById('monthlyProfit').textContent =
+                '$' + monthlyMin.toLocaleString() + ' - $' + monthlyMax.toLocaleString();
+
+            // Track in GTM
+            if (typeof dataLayer !== 'undefined') {
+                dataLayer.push({
+                    'event': 'calculator_used',
+                    'capital': capital,
+                    'risk_level': risk
+                });
+            }
+        }
+
+        // FAQ Toggle
+        function toggleFAQ(button) {
+            const item = button.parentElement;
+            const isActive = item.classList.contains('active');
+
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(faq => {
+                faq.classList.remove('active');
+            });
+
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+
+                // Track in GTM
+                if (typeof dataLayer !== 'undefined') {
+                    dataLayer.push({
+                        'event': 'faq_opened',
+                        'question': button.querySelector('span').textContent
+                    });
+                }
+            }
+        }
+
+        // Enhanced Form Submission with GTM Tracking
+        const originalHandleSubmit = handleSubmit;
+        handleSubmit = async function(event) {
+            // Track form submission attempt
+            if (typeof dataLayer !== 'undefined') {
+                dataLayer.push({
+                    'event': 'form_submit_attempt'
+                });
+            }
+
+            try {
+                await originalHandleSubmit(event);
+
+                // Track successful submission
+                if (typeof dataLayer !== 'undefined') {
+                    dataLayer.push({
+                        'event': 'conversion',
+                        'conversion_type': 'lead_submit',
+                        'value': 1.0,
+                        'currency': 'USD'
+                    });
+                }
+            } catch (error) {
+                // Track failed submission
+                if (typeof dataLayer !== 'undefined') {
+                    dataLayer.push({
+                        'event': 'form_submit_error',
+                        'error_message': error.message
+                    });
+                }
+                throw error;
+            }
+        };
+
         // Initialize
         window.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 BrokerV2 page loaded');
+            console.log('🚀 BrokerV2 Enhanced page loaded');
             detectAndPopulate();
+            calculateProfit(); // Initialize calculator with default values
+
+            // Detect language after IP detection completes
+            setTimeout(detectLanguageFromIP, 1000);
+
+            // Track page view in GTM
+            if (typeof dataLayer !== 'undefined') {
+                dataLayer.push({
+                    'event': 'page_view',
+                    'page_type': 'broker_landing_v2'
+                });
+            }
         });
     </script>
 
