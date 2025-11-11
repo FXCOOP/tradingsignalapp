@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Your Free Trading Mentor - Match with Elite Brokers | TradeFlow</title>
+    <meta name="description" content="Connect with elite professional traders. Get matched with premium brokers and receive daily signals, market analysis, and 1-on-1 mentorship - 100% FREE.">
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: #f9fafb;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Language Selector */
+        .lang-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .lang-selector:hover {
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 80px 20px 60px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (max-width: 968px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .hero-content h1 .highlight {
+            color: #10b981;
+            display: block;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            color: #cbd5e1;
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .trust-badge .icon {
+            font-size: 32px;
+        }
+
+        .trust-badge .number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #10b981;
+        }
+
+        .trust-badge .text {
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        /* Multi-Step Form Card */
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .form-header .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e5e7eb;
+            z-index: 0;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            height: 2px;
+            background: #10b981;
+            z-index: 1;
+            transition: width 0.3s;
+        }
+
+        .progress-bar.step-1::after { width: 0%; }
+        .progress-bar.step-2::after { width: 50%; }
+        .progress-bar.step-3::after { width: 100%; }
+
+        .progress-step {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #9ca3af;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s;
+        }
+
+        .progress-step.active {
+            border-color: #10b981;
+            background: #10b981;
+            color: white;
+        }
+
+        .progress-step.completed {
+            border-color: #10b981;
+            background: #10b981;
+            color: white;
+        }
+
+        /* Form Steps */
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .form-group input.error,
+        .form-group select.error {
+            border-color: #ef4444;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .privacy-note {
+            font-size: 12px;
+            color: #10b981;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-back {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .btn-back:hover {
+            background: #e5e7eb;
+        }
+
+        .checkmarks {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .checkmark {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #4b5563;
+        }
+
+        .checkmark .icon {
+            color: #10b981;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .success-message.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .success-message .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .success-message h3 {
+            font-size: 24px;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+
+        .success-message p {
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Social Proof Section */
+        .social-proof {
+            background: white;
+            padding: 80px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1f2937;
+        }
+
+        .section-header p {
+            color: #6b7280;
+            font-size: 18px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            padding: 32px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: #10b981;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #6b7280;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .testimonial-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .testimonial-info p {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .testimonial-stars {
+            color: #fbbf24;
+            margin-bottom: 12px;
+        }
+
+        .testimonial-text {
+            color: #4b5563;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        /* Comparison Table */
+        .comparison {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 80px 20px;
+        }
+
+        .comparison-table {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-cell {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .comparison-cell:first-child {
+            text-align: left;
+        }
+
+        .comparison-header {
+            background: rgba(16, 185, 129, 0.1);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .comparison-check {
+            color: #10b981;
+            font-size: 24px;
+        }
+
+        .comparison-cross {
+            color: #ef4444;
+            font-size: 24px;
+        }
+
+        /* Calculator Section */
+        .calculator {
+            background: white;
+            padding: 80px 20px;
+        }
+
+        .calculator-card {
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            padding: 48px;
+            border-radius: 16px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .calculator-inputs {
+            margin-bottom: 40px;
+        }
+
+        .calculator-input-group {
+            margin-bottom: 32px;
+        }
+
+        .calculator-input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1f2937;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .slider {
+            flex: 1;
+            height: 8px;
+            border-radius: 4px;
+            background: #e5e7eb;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #10b981;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #10b981;
+            cursor: pointer;
+            border: none;
+        }
+
+        .slider-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #10b981;
+            min-width: 100px;
+            text-align: right;
+        }
+
+        .calculator-results {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .calculator-result {
+            margin-bottom: 24px;
+        }
+
+        .calculator-result-label {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .calculator-result-value {
+            font-size: 40px;
+            font-weight: 800;
+            color: #10b981;
+        }
+
+        /* FAQ Section */
+        .faq {
+            background: #f9fafb;
+            padding: 80px 20px;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 24px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .faq-question:hover {
+            background: #f9fafb;
+        }
+
+        .faq-icon {
+            font-size: 24px;
+            color: #10b981;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 24px 24px;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* Trust Badges */
+        .trust-badges-section {
+            background: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .trust-badges-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .trust-badge-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .trust-badge-icon {
+            font-size: 48px;
+            color: #10b981;
+        }
+
+        .trust-badge-text {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        /* Live Social Proof Notification */
+        .social-proof-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 9999;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .social-proof-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .social-proof-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .social-proof-text {
+            font-size: 14px;
+        }
+
+        .social-proof-text strong {
+            color: #1f2937;
+            font-weight: 600;
+        }
+
+        .social-proof-text span {
+            color: #6b7280;
+        }
+
+        /* Exit Intent Popup */
+        .exit-intent-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .exit-intent-overlay.show {
+            display: flex;
+        }
+
+        .exit-intent-popup {
+            background: white;
+            border-radius: 16px;
+            padding: 48px;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+
+        .exit-intent-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #9ca3af;
+        }
+
+        .exit-intent-close:hover {
+            color: #1f2937;
+        }
+
+        .exit-intent-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .exit-intent-popup h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+
+        .exit-intent-popup p {
+            color: #6b7280;
+            margin-bottom: 24px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .exit-intent-btn {
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .exit-intent-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Sticky Mobile CTA */
+        @media (max-width: 768px) {
+            .sticky-cta {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 16px 20px;
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+                z-index: 1000;
+                display: none;
+            }
+
+            .sticky-cta.visible {
+                display: block;
+            }
+
+            .sticky-cta button {
+                width: 100%;
+                padding: 16px;
+                background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+        }
+
+        /* Google Translate Styles */
+        .goog-te-banner-frame {
+            display: none !important;
+        }
+        body {
+            top: 0 !important;
+        }
+        .goog-te-combo {
+            display: none !important;
+        }
+        #google_translate_element {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+        .skiptranslate {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Language Selector -->
+    <div class="lang-selector" id="langSelector">
+        <span id="currentFlag">🇬🇧</span>
+        <span id="currentLang">English</span>
+    </div>
+
+    <!-- Google Translate Element -->
+    <div id="google_translate_element"></div>
+
+    <!-- Hero Section with Multi-Step Form -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <!-- Left: Value Proposition -->
+                <div class="hero-content">
+                    <h1>
+                        Turn $500 into $5,000
+                        <span class="highlight">With Your Personal Trading Mentor</span>
+                    </h1>
+                    <p>
+                        Stop trading alone. Get matched with elite professional traders who've made millions.
+                        Receive daily signals, market analysis, and 1-on-1 guidance - completely FREE.
+                    </p>
+
+                    <div class="trust-badges">
+                        <div class="trust-badge">
+                            <div class="icon">✅</div>
+                            <div>
+                                <div class="number">10,000+</div>
+                                <div class="text">Active Traders</div>
+                            </div>
+                        </div>
+                        <div class="trust-badge">
+                            <div class="icon">💰</div>
+                            <div>
+                                <div class="number">$2.5M+</div>
+                                <div class="text">Profits Generated</div>
+                            </div>
+                        </div>
+                        <div class="trust-badge">
+                            <div class="icon">⭐</div>
+                            <div>
+                                <div class="number">4.9/5</div>
+                                <div class="text">Average Rating</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Multi-Step Form -->
+                <div class="form-card">
+                    <div class="form-header">
+                        <div class="badge">🔥 Limited Spots Available</div>
+                        <h2>Claim Your Free Mentor</h2>
+                        <p>Takes 60 seconds · No credit card required</p>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-bar step-1" id="progressBar">
+                        <div class="progress-step active">1</div>
+                        <div class="progress-step">2</div>
+                        <div class="progress-step">3</div>
+                    </div>
+
+                    <form id="signupForm">
+                        <!-- Step 1: Personal Info -->
+                        <div class="form-step active" data-step="1">
+                            <div class="form-group">
+                                <label>First Name *</label>
+                                <input type="text" name="firstname" required placeholder="John" id="firstname">
+                                <div class="error-message" id="firstname-error">Please enter your first name</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Last Name *</label>
+                                <input type="text" name="lastname" required placeholder="Doe" id="lastname">
+                                <div class="error-message" id="lastname-error">Please enter your last name</div>
+                            </div>
+
+                            <div class="form-buttons">
+                                <button type="button" class="btn btn-next" onclick="nextStep()">
+                                    Next Step →
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Contact Info -->
+                        <div class="form-step" data-step="2">
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input type="email" name="email" required placeholder="john@example.com" id="email">
+                                <div class="error-message" id="email-error">Please enter a valid email</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" name="phone" required placeholder="+1 234 567 8900" id="phone">
+                                <div class="privacy-note">
+                                    🔒 Your number is 100% private. We'll never spam or sell your info.
+                                </div>
+                                <div class="error-message" id="phone-error">Please enter a valid phone number</div>
+                            </div>
+
+                            <div class="form-buttons">
+                                <button type="button" class="btn btn-back" onclick="prevStep()">
+                                    ← Back
+                                </button>
+                                <button type="button" class="btn btn-next" onclick="nextStep()">
+                                    Next Step →
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Country & Submit -->
+                        <div class="form-step" data-step="3">
+                            <div class="form-group">
+                                <label>Country *</label>
+                                <select name="country" required id="country">
+                                    <option value="">Select your country</option>
+                                    <option value="US">🇺🇸 United States</option>
+                                    <option value="UK">🇬🇧 United Kingdom</option>
+                                    <option value="CA">🇨🇦 Canada</option>
+                                    <option value="AU">🇦🇺 Australia</option>
+                                    <option value="SG">🇸🇬 Singapore</option>
+                                    <option value="IL">🇮🇱 Israel</option>
+                                    <option value="MY">🇲🇾 Malaysia</option>
+                                    <option value="CN">🇨🇳 China</option>
+                                    <option value="TW">🇹🇼 Taiwan</option>
+                                    <option value="HK">🇭🇰 Hong Kong</option>
+                                    <option value="IN">🇮🇳 India</option>
+                                    <option value="IT">🇮🇹 Italy</option>
+                                    <option value="FR">🇫🇷 France</option>
+                                    <option value="DE">🇩🇪 Germany</option>
+                                    <option value="ES">🇪🇸 Spain</option>
+                                    <option value="BR">🇧🇷 Brazil</option>
+                                    <option value="PT">🇵🇹 Portugal</option>
+                                    <option value="JP">🇯🇵 Japan</option>
+                                    <option value="KR">🇰🇷 South Korea</option>
+                                    <option value="TH">🇹🇭 Thailand</option>
+                                    <option value="ID">🇮🇩 Indonesia</option>
+                                    <option value="PH">🇵🇭 Philippines</option>
+                                    <option value="VN">🇻🇳 Vietnam</option>
+                                    <option value="TR">🇹🇷 Turkey</option>
+                                    <option value="SA">🇸🇦 Saudi Arabia</option>
+                                    <option value="AE">🇦🇪 United Arab Emirates</option>
+                                    <option value="RU">🇷🇺 Russia</option>
+                                    <option value="PL">🇵🇱 Poland</option>
+                                    <option value="NL">🇳🇱 Netherlands</option>
+                                    <option value="SE">🇸🇪 Sweden</option>
+                                    <option value="NO">🇳🇴 Norway</option>
+                                    <option value="DK">🇩🇰 Denmark</option>
+                                    <option value="FI">🇫🇮 Finland</option>
+                                    <option value="GR">🇬🇷 Greece</option>
+                                    <option value="MX">🇲🇽 Mexico</option>
+                                    <option value="AR">🇦🇷 Argentina</option>
+                                    <option value="CO">🇨🇴 Colombia</option>
+                                    <option value="CL">🇨🇱 Chile</option>
+                                    <option value="PE">🇵🇪 Peru</option>
+                                    <option value="OTHER">🌍 Other</option>
+                                </select>
+                                <div class="error-message" id="country-error">Please select your country</div>
+                            </div>
+
+                            <div class="checkmarks">
+                                <div class="checkmark">
+                                    <span class="icon">✓</span>
+                                    <span>100% Free · No Credit Card Required</span>
+                                </div>
+                                <div class="checkmark">
+                                    <span class="icon">✓</span>
+                                    <span>Match with Elite Professional Traders</span>
+                                </div>
+                                <div class="checkmark">
+                                    <span class="icon">✓</span>
+                                    <span>Daily Trading Signals + Market Analysis</span>
+                                </div>
+                                <div class="checkmark">
+                                    <span class="icon">✓</span>
+                                    <span>Personal 1-on-1 Mentorship</span>
+                                </div>
+                            </div>
+
+                            <div class="form-buttons">
+                                <button type="button" class="btn btn-back" onclick="prevStep()">
+                                    ← Back
+                                </button>
+                                <button type="submit" class="btn btn-next" id="submitBtn">
+                                    ✅ Get My Free Mentor Now
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="success-message" id="successMessage">
+                        <div class="icon">✅</div>
+                        <h3>You're All Set!</h3>
+                        <p>Thank you for your interest! Our team will contact you within 24 hours to match you with a trusted broker and personal trading advisor. Check your email and phone for our call!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof + Testimonials -->
+    <section class="social-proof">
+        <div class="container">
+            <div class="section-header">
+                <h2>Join 10,000+ Successful Traders</h2>
+                <p>Real results from real people who started just like you</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">73%</div>
+                    <div class="stat-label">Average Win Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$3,420</div>
+                    <div class="stat-label">Average Monthly Profit</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support & Guidance</div>
+                </div>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">M</div>
+                        <div class="testimonial-info">
+                            <h4>Michael Chen</h4>
+                            <p>Singapore · 2 months ago</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <div class="testimonial-text">
+                        "I was skeptical at first, but after getting matched with my mentor, I made my first $1,000 profit within 3 weeks! The daily signals are incredibly accurate."
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">S</div>
+                        <div class="testimonial-info">
+                            <h4>Sarah Mueller</h4>
+                            <p>Germany · 1 month ago</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <div class="testimonial-text">
+                        "Best decision I ever made! My mentor taught me everything about risk management. Now I'm consistently profitable every month."
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">J</div>
+                        <div class="testimonial-info">
+                            <h4>James Rodriguez</h4>
+                            <p>Spain · 3 weeks ago</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <div class="testimonial-text">
+                        "The broker they matched me with has amazing spreads and the platform is super easy to use. Combined with the mentorship, I'm finally winning!"
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison">
+        <div class="container">
+            <div class="section-header">
+                <h2>Trading Alone vs With a Mentor</h2>
+                <p>See the difference professional guidance makes</p>
+            </div>
+
+            <div class="comparison-table">
+                <div class="comparison-row comparison-header">
+                    <div class="comparison-cell">Feature</div>
+                    <div class="comparison-cell">Without Mentor</div>
+                    <div class="comparison-cell">With Mentor</div>
+                </div>
+
+                <div class="comparison-row">
+                    <div class="comparison-cell">Daily Trading Signals</div>
+                    <div class="comparison-cell"><span class="comparison-cross">✗</span></div>
+                    <div class="comparison-cell"><span class="comparison-check">✓</span></div>
+                </div>
+
+                <div class="comparison-row">
+                    <div class="comparison-cell">1-on-1 Personal Guidance</div>
+                    <div class="comparison-cell"><span class="comparison-cross">✗</span></div>
+                    <div class="comparison-cell"><span class="comparison-check">✓</span></div>
+                </div>
+
+                <div class="comparison-row">
+                    <div class="comparison-cell">Market Analysis & Insights</div>
+                    <div class="comparison-cell"><span class="comparison-cross">✗</span></div>
+                    <div class="comparison-cell"><span class="comparison-check">✓</span></div>
+                </div>
+
+                <div class="comparison-row">
+                    <div class="comparison-cell">Risk Management Strategy</div>
+                    <div class="comparison-cell"><span class="comparison-cross">✗</span></div>
+                    <div class="comparison-cell"><span class="comparison-check">✓</span></div>
+                </div>
+
+                <div class="comparison-row">
+                    <div class="comparison-cell">24/7 Support Access</div>
+                    <div class="comparison-cell"><span class="comparison-cross">✗</span></div>
+                    <div class="comparison-cell"><span class="comparison-check">✓</span></div>
+                </div>
+
+                <div class="comparison-row">
+                    <div class="comparison-cell">Premium Broker Match</div>
+                    <div class="comparison-cell"><span class="comparison-cross">✗</span></div>
+                    <div class="comparison-cell"><span class="comparison-check">✓</span></div>
+                </div>
+
+                <div class="comparison-row">
+                    <div class="comparison-cell">Average Win Rate</div>
+                    <div class="comparison-cell">35-45%</div>
+                    <div class="comparison-cell">70-80%</div>
+                </div>
+
+                <div class="comparison-row">
+                    <div class="comparison-cell">Monthly Profit</div>
+                    <div class="comparison-cell">-$500</div>
+                    <div class="comparison-cell">+$3,420</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profit Calculator -->
+    <section class="calculator">
+        <div class="container">
+            <div class="section-header">
+                <h2>Calculate Your Potential Profits</h2>
+                <p>See how much you could earn with professional guidance</p>
+            </div>
+
+            <div class="calculator-card">
+                <div class="calculator-inputs">
+                    <div class="calculator-input-group">
+                        <label>Starting Capital</label>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="500" max="10000" step="500" value="1000" id="capitalSlider" oninput="calculateProfit()">
+                            <div class="slider-value" id="capitalValue">$1,000</div>
+                        </div>
+                    </div>
+
+                    <div class="calculator-input-group">
+                        <label>Risk Level</label>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="1" max="3" step="1" value="2" id="riskSlider" oninput="calculateProfit()">
+                            <div class="slider-value" id="riskValue">Medium</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calculator-results">
+                    <div class="calculator-result">
+                        <div class="calculator-result-label">Estimated Monthly Profit</div>
+                        <div class="calculator-result-value" id="monthlyProfit">$100 - $150</div>
+                    </div>
+
+                    <div class="calculator-result">
+                        <div class="calculator-result-label">Estimated Yearly Profit</div>
+                        <div class="calculator-result-value" id="yearlyProfit">$1,200 - $1,800</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know</p>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Is this really 100% free?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes! There's absolutely no cost to you. We earn a small commission from the brokers when you start trading, but you never pay anything. You get free mentorship, signals, and support.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How quickly will I be matched with a mentor?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Usually within 24 hours! Our team reviews your profile and matches you with the best mentor for your goals and experience level. You'll receive an email and phone call from us.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What if I'm a complete beginner?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Perfect! Most of our successful traders started as complete beginners. Your mentor will teach you everything from scratch, including how to read charts, manage risk, and execute profitable trades.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How much money do I need to start?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Most brokers allow you to start with as little as $250-$500. However, we recommend starting with at least $1,000 to give yourself more flexibility and better profit potential.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What's the catch?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            No catch! We partner with regulated brokers who pay us a small commission when you trade. This allows us to provide you with free mentorship and support. You pay nothing extra - in fact, you get better spreads and tools than if you signed up directly.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Badges -->
+    <section class="trust-badges-section">
+        <div class="container">
+            <div class="trust-badges-grid">
+                <div class="trust-badge-item">
+                    <div class="trust-badge-icon">🔒</div>
+                    <div class="trust-badge-text">SSL Secured</div>
+                </div>
+                <div class="trust-badge-item">
+                    <div class="trust-badge-icon">✅</div>
+                    <div class="trust-badge-text">Verified Brokers</div>
+                </div>
+                <div class="trust-badge-item">
+                    <div class="trust-badge-icon">🏆</div>
+                    <div class="trust-badge-text">Award Winning</div>
+                </div>
+                <div class="trust-badge-item">
+                    <div class="trust-badge-icon">💰</div>
+                    <div class="trust-badge-text">100% Free</div>
+                </div>
+                <div class="trust-badge-item">
+                    <div class="trust-badge-icon">🌍</div>
+                    <div class="trust-badge-text">Global Coverage</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Social Proof Notification -->
+    <div class="social-proof-notification" id="socialProofNotification">
+        <div class="social-proof-avatar">K</div>
+        <div class="social-proof-text">
+            <strong id="notificationName">Kevin</strong>
+            <span id="notificationText">from United States just signed up!</span>
+        </div>
+    </div>
+
+    <!-- Exit Intent Popup -->
+    <div class="exit-intent-overlay" id="exitIntentOverlay">
+        <div class="exit-intent-popup">
+            <button class="exit-intent-close" onclick="closeExitIntent()">×</button>
+            <div class="exit-intent-icon">⚠️</div>
+            <h3>Wait! Don't Leave Empty-Handed</h3>
+            <p>You're just 60 seconds away from getting matched with a professional trading mentor who can help you achieve financial freedom. This opportunity won't last forever.</p>
+            <button class="exit-intent-btn" onclick="scrollToForm(); closeExitIntent();">
+                Claim My Free Mentor Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Sticky Mobile CTA -->
+    <div class="sticky-cta" id="stickyCta">
+        <button onclick="scrollToForm()">🚀 Get Your Free Mentor</button>
+    </div>
+
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://bsupjdeayuylynsdmfdx.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzdXBqZGVheXV5bHluc2RtZmR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2NDg4OTgsImV4cCI6MjA3NTIyNDg5OH0.9GYAHxRfLjoSlxmgsb3HTDoTeLcy3pnhYNvT59obIxY';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Global variables
+        let detectedIPData = null;
+        let currentStep = 1;
+        let currentLanguage = 'en';
+
+        // Multi-Step Form Navigation
+        function nextStep() {
+            if (!validateStep(currentStep)) return;
+
+            // Hide current step
+            document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.remove('active');
+
+            // Mark current step as completed
+            document.querySelectorAll('.progress-step')[currentStep - 1].classList.add('completed');
+
+            // Move to next step
+            currentStep++;
+
+            // Show next step
+            document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
+
+            // Update progress bar
+            document.querySelectorAll('.progress-step')[currentStep - 1].classList.add('active');
+            document.getElementById('progressBar').className = `progress-bar step-${currentStep}`;
+
+            // Track in GTM
+            if (typeof dataLayer !== 'undefined') {
+                dataLayer.push({
+                    'event': 'form_step_complete',
+                    'step': currentStep - 1
+                });
+            }
+        }
+
+        function prevStep() {
+            // Hide current step
+            document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.remove('active');
+
+            // Remove active from current step indicator
+            document.querySelectorAll('.progress-step')[currentStep - 1].classList.remove('active');
+
+            // Move to previous step
+            currentStep--;
+
+            // Show previous step
+            document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
+
+            // Update progress bar
+            document.getElementById('progressBar').className = `progress-bar step-${currentStep}`;
+        }
+
+        function validateStep(step) {
+            let isValid = true;
+
+            if (step === 1) {
+                // Validate firstname and lastname
+                const firstname = document.getElementById('firstname');
+                const lastname = document.getElementById('lastname');
+
+                if (firstname.value.trim() === '') {
+                    showError('firstname');
+                    isValid = false;
+                } else {
+                    hideError('firstname');
+                }
+
+                if (lastname.value.trim() === '') {
+                    showError('lastname');
+                    isValid = false;
+                } else {
+                    hideError('lastname');
+                }
+            }
+
+            if (step === 2) {
+                // Validate email and phone
+                const email = document.getElementById('email');
+                const phone = document.getElementById('phone');
+
+                if (!email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                    showError('email');
+                    isValid = false;
+                } else {
+                    hideError('email');
+                }
+
+                if (phone.value.trim().length < 8) {
+                    showError('phone');
+                    isValid = false;
+                } else {
+                    hideError('phone');
+                }
+            }
+
+            return isValid;
+        }
+
+        function showError(fieldId) {
+            document.getElementById(fieldId).classList.add('error');
+            document.getElementById(fieldId + '-error').classList.add('show');
+        }
+
+        function hideError(fieldId) {
+            document.getElementById(fieldId).classList.remove('error');
+            document.getElementById(fieldId + '-error').classList.remove('show');
+        }
+
+        // Form Submission
+        document.getElementById('signupForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            if (!validateStep(3)) return;
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Processing...';
+
+            const formData = new FormData(event.target);
+
+            const data = {
+                first_name: formData.get('firstname'),
+                last_name: formData.get('lastname'),
+                email: formData.get('email'),
+                phone_number: formData.get('phone'),
+                country: formData.get('country'),
+                country_code: formData.get('phone')?.substring(0, 4) || '',
+                trading_experience: 'Not specified',
+                account_size: 'Not specified',
+                lead_source: 'tradeflow-brokerv3',
+                lead_type: 'broker-matching',
+                lead_status: 'new',
+                ip_address: detectedIPData?.ip || 'Unknown',
+                user_agent: navigator.userAgent,
+                referrer: document.referrer || 'Direct',
+                landing_page: window.location.href,
+                language: currentLanguage,
+                created_at: new Date().toISOString()
+            };
+
+            try {
+                const { data: result, error } = await supabase
+                    .from('signups')
+                    .insert([data])
+                    .select();
+
+                if (error) throw error;
+
+                console.log('✅ Lead submitted successfully:', result);
+
+                // Hide form, show success message
+                document.getElementById('signupForm').style.display = 'none';
+                document.getElementById('progressBar').style.display = 'none';
+                document.getElementById('successMessage').classList.add('active');
+
+                // Track conversion in GTM
+                if (typeof dataLayer !== 'undefined') {
+                    dataLayer.push({
+                        'event': 'conversion',
+                        'conversion_type': 'lead_submit',
+                        'value': 1.0,
+                        'currency': 'USD'
+                    });
+                }
+
+            } catch (error) {
+                console.error('❌ Submission error:', error);
+                alert('Oops! Something went wrong. Please try again or contact support.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = '✅ Get My Free Mentor Now';
+            }
+        });
+
+        // IP Detection and Auto-Population
+        async function detectAndPopulate() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                detectedIPData = await response.json();
+
+                console.log('🌍 IP detected:', detectedIPData.country_code, detectedIPData.country_name);
+
+                // Language mapping
+                const countryToLang = {
+                    'US': 'en', 'GB': 'en', 'CA': 'en', 'AU': 'en', 'ES': 'es', 'MX': 'es',
+                    'AR': 'es', 'FR': 'fr', 'DE': 'de', 'IT': 'it', 'BR': 'pt', 'PT': 'pt',
+                    'RU': 'ru', 'JP': 'ja', 'KR': 'ko', 'CN': 'zh-CN', 'TW': 'zh-TW', 'HK': 'zh-TW'
+                };
+
+                const detectedLang = countryToLang[detectedIPData.country_code] || 'en';
+                currentLanguage = detectedLang;
+
+                // Update language selector
+                const langNames = {
+                    'en': ['🇬🇧', 'English'], 'es': ['🇪🇸', 'Español'], 'fr': ['🇫🇷', 'Français'],
+                    'de': ['🇩🇪', 'Deutsch'], 'it': ['🇮🇹', 'Italiano'], 'pt': ['🇵🇹', 'Português'],
+                    'ru': ['🇷🇺', 'Русский'], 'ja': ['🇯🇵', '日本語'], 'ko': ['🇰🇷', '한국어'],
+                    'zh-CN': ['🇨🇳', '中文'], 'zh-TW': ['🇹🇼', '中文']
+                };
+
+                if (langNames[detectedLang]) {
+                    document.getElementById('currentFlag').textContent = langNames[detectedLang][0];
+                    document.getElementById('currentLang').textContent = langNames[detectedLang][1];
+                }
+
+                // Trigger Google Translate
+                if (detectedLang !== 'en' && typeof triggerGoogleTranslate === 'function') {
+                    setTimeout(() => triggerGoogleTranslate(detectedLang), 2000);
+                }
+
+                // Phone prefix mapping
+                const phonePrefixes = {
+                    'US': '+1', 'CA': '+1', 'GB': '+44', 'AU': '+61', 'SG': '+65', 'IL': '+972',
+                    'MY': '+60', 'CN': '+86', 'TW': '+886', 'HK': '+852', 'IN': '+91', 'IT': '+39',
+                    'FR': '+33', 'DE': '+49', 'ES': '+34', 'BR': '+55', 'PT': '+351', 'JP': '+81',
+                    'KR': '+82', 'TH': '+66', 'ID': '+62', 'PH': '+63', 'VN': '+84', 'TR': '+90',
+                    'SA': '+966', 'AE': '+971', 'RU': '+7', 'PL': '+48', 'NL': '+31', 'SE': '+46',
+                    'NO': '+47', 'DK': '+45', 'FI': '+358', 'GR': '+30', 'MX': '+52', 'AR': '+54',
+                    'CO': '+57', 'CL': '+56', 'PE': '+51'
+                };
+
+                // Auto-populate country
+                const countrySelect = document.getElementById('country');
+                let countryCode = detectedIPData.country_code;
+                if (countryCode === 'GB') countryCode = 'UK';
+
+                const supportedCountries = ['US', 'UK', 'CA', 'AU', 'SG', 'IL', 'MY', 'CN', 'TW', 'HK', 'IN', 'IT', 'FR', 'DE', 'ES', 'BR', 'PT', 'JP', 'KR', 'TH', 'ID', 'PH', 'VN', 'TR', 'SA', 'AE', 'RU', 'PL', 'NL', 'SE', 'NO', 'DK', 'FI', 'GR', 'MX', 'AR', 'CO', 'CL', 'PE'];
+
+                if (supportedCountries.includes(countryCode)) {
+                    countrySelect.value = countryCode;
+                    console.log('✅ Country auto-selected:', countryCode);
+                } else {
+                    countrySelect.value = 'OTHER';
+                }
+
+                // Auto-populate phone prefix
+                const phoneInput = document.getElementById('phone');
+                const prefix = phonePrefixes[detectedIPData.country_code];
+                if (prefix) {
+                    phoneInput.value = prefix + ' ';
+                    phoneInput.placeholder = prefix + ' 123 456 7890';
+                    console.log('📞 Phone prefix auto-populated:', prefix);
+                }
+
+            } catch (error) {
+                console.error('❌ IP detection failed:', error);
+            }
+        }
+
+        // Google Translate Integration
+        window.googleTranslateReady = false;
+        window.pendingTranslation = null;
+
+        function googleTranslateElementInit() {
+            console.log('🌍 Google Translate initializing...');
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'es,fr,de,it,pt,ru,ar,zh-CN,zh-TW,ja,ko',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+
+            setTimeout(function() {
+                window.googleTranslateReady = true;
+                console.log('✅ Google Translate is READY');
+
+                if (window.pendingTranslation) {
+                    console.log('🚀 Executing pending translation:', window.pendingTranslation);
+                    triggerGoogleTranslate(window.pendingTranslation);
+                    window.pendingTranslation = null;
+                }
+            }, 1000);
+        }
+
+        function triggerGoogleTranslate(langCode) {
+            console.log('🌍 triggerGoogleTranslate called with:', langCode);
+
+            const langMap = {
+                'en': 'en', 'es': 'es', 'fr': 'fr', 'de': 'de', 'it': 'it', 'pt': 'pt',
+                'ru': 'ru', 'ar': 'ar', 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', 'ja': 'ja', 'ko': 'ko'
+            };
+
+            const googleLang = langMap[langCode] || 'en';
+
+            if (googleLang === 'en') {
+                console.log('⏩ Language is English, skipping translation');
+                return;
+            }
+
+            if (!window.googleTranslateReady) {
+                console.log('⏳ Google Translate not ready yet, queueing translation for:', googleLang);
+                window.pendingTranslation = langCode;
+                return;
+            }
+
+            console.log('🚀 Google Translate is ready, executing translation NOW');
+
+            const selectElement = document.querySelector('.goog-te-combo');
+            if (selectElement) {
+                selectElement.value = googleLang;
+                selectElement.dispatchEvent(new Event('change'));
+                console.log('✅✅✅ PAGE TRANSLATED TO:', googleLang.toUpperCase());
+            } else {
+                setTimeout(function() {
+                    const retryElement = document.querySelector('.goog-te-combo');
+                    if (retryElement) {
+                        retryElement.value = googleLang;
+                        retryElement.dispatchEvent(new Event('change'));
+                        console.log('✅✅✅ PAGE TRANSLATED TO (RETRY):', googleLang.toUpperCase());
+                    }
+                }, 1000);
+            }
+        }
+
+        // Profit Calculator
+        function calculateProfit() {
+            const capital = parseInt(document.getElementById('capitalSlider').value);
+            const risk = parseInt(document.getElementById('riskSlider').value);
+
+            document.getElementById('capitalValue').textContent = '$' + capital.toLocaleString();
+
+            const riskLevels = { 1: 'Low', 2: 'Medium', 3: 'High' };
+            document.getElementById('riskValue').textContent = riskLevels[risk];
+
+            const riskMultipliers = {
+                1: { min: 0.05, max: 0.08 },
+                2: { min: 0.10, max: 0.15 },
+                3: { min: 0.15, max: 0.25 }
+            };
+
+            const multiplier = riskMultipliers[risk];
+            const monthlyMin = Math.round(capital * multiplier.min);
+            const monthlyMax = Math.round(capital * multiplier.max);
+            const yearlyMin = monthlyMin * 12;
+            const yearlyMax = monthlyMax * 12;
+
+            document.getElementById('monthlyProfit').textContent = `$${monthlyMin.toLocaleString()} - $${monthlyMax.toLocaleString()}`;
+            document.getElementById('yearlyProfit').textContent = `$${yearlyMin.toLocaleString()} - $${yearlyMax.toLocaleString()}`;
+        }
+
+        // FAQ Toggle
+        function toggleFAQ(element) {
+            const item = element.parentElement;
+            const isOpen = item.classList.contains('open');
+
+            // Close all
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+
+            // Open clicked if it was closed
+            if (!isOpen) {
+                item.classList.add('open');
+            }
+        }
+
+        // Social Proof Notifications
+        const names = ['Michael', 'Sarah', 'James', 'Emma', 'David', 'Sophia', 'Daniel', 'Olivia', 'Kevin', 'Maria'];
+        const countries = ['United States', 'Germany', 'Spain', 'France', 'Italy', 'Brazil', 'Australia', 'Canada', 'Singapore', 'United Kingdom'];
+
+        function showSocialProof() {
+            const notification = document.getElementById('socialProofNotification');
+            const name = names[Math.floor(Math.random() * names.length)];
+            const country = countries[Math.floor(Math.random() * countries.length)];
+
+            document.getElementById('notificationName').textContent = name;
+            document.getElementById('notificationText').textContent = `from ${country} just signed up!`;
+
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        // Show social proof every 15 seconds
+        setInterval(showSocialProof, 15000);
+        setTimeout(showSocialProof, 5000); // First one after 5s
+
+        // Exit Intent Detection
+        let exitIntentShown = false;
+
+        document.addEventListener('mouseout', function(e) {
+            if (e.clientY <= 0 && !exitIntentShown) {
+                exitIntentShown = true;
+                document.getElementById('exitIntentOverlay').classList.add('show');
+
+                // Track in GTM
+                if (typeof dataLayer !== 'undefined') {
+                    dataLayer.push({
+                        'event': 'exit_intent_trigger'
+                    });
+                }
+            }
+        });
+
+        function closeExitIntent() {
+            document.getElementById('exitIntentOverlay').classList.remove('show');
+        }
+
+        // Scroll to Form
+        function scrollToForm() {
+            document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Sticky Mobile CTA
+        window.addEventListener('scroll', function() {
+            const stickyCta = document.getElementById('stickyCta');
+            const formCard = document.querySelector('.form-card');
+            const formRect = formCard.getBoundingClientRect();
+
+            if (window.innerWidth <= 768) {
+                if (formRect.bottom < 0 || formRect.top > window.innerHeight) {
+                    stickyCta.classList.add('visible');
+                } else {
+                    stickyCta.classList.remove('visible');
+                }
+            }
+        });
+
+        // Initialize Everything
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 BrokerV3 page loaded');
+            detectAndPopulate();
+            calculateProfit();
+
+            // Track page view in GTM
+            if (typeof dataLayer !== 'undefined') {
+                dataLayer.push({
+                    'event': 'page_view',
+                    'page_path': window.location.pathname
+                });
+            }
+        });
+    </script>
+
+    <!-- Google Translate Script -->
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
