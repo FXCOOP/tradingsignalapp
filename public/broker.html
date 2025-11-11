@@ -2477,6 +2477,12 @@
         function openModal() {
             document.getElementById('signupModal').classList.add('active');
             document.body.style.overflow = 'hidden';
+
+            // Auto-populate country and phone when modal opens
+            console.log('🔥 Modal opened, populating country and phone...');
+            setTimeout(() => {
+                detectCountryForForm();
+            }, 100); // Small delay to ensure DOM is ready
         }
 
         function closeModal() {
@@ -2776,11 +2782,22 @@
         // Initialize language detection, country detection and all popup triggers
         document.addEventListener('DOMContentLoaded', () => {
             console.log('🔥 Page loaded, initializing...');
+            console.log('🔥 Current language at start:', currentLanguage);
+
             detectUserLanguage();  // Auto-detect and set language based on IP
             detectCountryForForm();
             initAutoPopup();       // Open after 2 SECONDS!
             initExitIntent();      // Open when user tries to leave
             initScrollTrigger();   // Open after 50% scroll
+
+            // Debug: Check if Google Translate script loaded
+            setTimeout(() => {
+                console.log('🔍 Google Translate status check:');
+                console.log('  - window.googleTranslateReady:', window.googleTranslateReady);
+                console.log('  - window.pendingTranslation:', window.pendingTranslation);
+                console.log('  - google object exists:', typeof google !== 'undefined');
+                console.log('  - .goog-te-combo exists:', !!document.querySelector('.goog-te-combo'));
+            }, 5000);
         });
 
         // Reset popup for testing (run in console: resetPopup())
@@ -2932,7 +2949,23 @@
             triggerGoogleTranslate(lang);
         };
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- Watchdog: Force translation if Google Translate is slow -->
+    <script type="text/javascript">
+        setTimeout(function() {
+            if (window.pendingTranslation && !window.googleTranslateReady) {
+                console.log('⏰ WATCHDOG: Google Translate taking too long, forcing retry...');
+                console.log('⏰ Pending translation:', window.pendingTranslation);
+
+                // Try to execute pending translation anyway
+                if (typeof triggerGoogleTranslate === 'function') {
+                    window.googleTranslateReady = true; // Force it
+                    triggerGoogleTranslate(window.pendingTranslation);
+                }
+            }
+        }, 8000); // After 8 seconds, force it
+    </script>
 
     <!-- Hide Google Translate banner -->
     <style>
