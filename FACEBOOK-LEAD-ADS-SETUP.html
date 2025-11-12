@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Facebook Lead Ads → CRM Integration Setup</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+  line-height: 1.6;
+}
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+.header {
+  background: linear-gradient(135deg, #1877f2, #0c63d4);
+  color: white;
+  padding: 40px;
+  text-align: center;
+}
+.header h1 { font-size: 36px; margin-bottom: 10px; }
+.header p { font-size: 18px; opacity: 0.9; }
+.content { padding: 40px; }
+.section { margin-bottom: 40px; }
+.section h2 {
+  color: #1877f2;
+  font-size: 24px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #1877f2;
+}
+.step {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border-left: 4px solid #1877f2;
+}
+.step-number {
+  background: #1877f2;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.step h3 {
+  display: inline-block;
+  color: #333;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+.step ul {
+  margin: 15px 0 15px 30px;
+}
+.step li {
+  margin: 8px 0;
+}
+.code-block {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 20px;
+  border-radius: 8px;
+  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+  font-size: 14px;
+  overflow-x: auto;
+  margin: 15px 0;
+  position: relative;
+}
+.code-block code { white-space: pre; }
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #1877f2;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+.copy-btn:hover { background: #0c63d4; }
+.important {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 20px 0;
+}
+.important strong { color: #856404; }
+.success {
+  background: #d4edda;
+  border-left: 4px solid #28a745;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 20px 0;
+}
+.link {
+  color: #1877f2;
+  text-decoration: none;
+  font-weight: 600;
+}
+.link:hover { text-decoration: underline; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+table th {
+  background: #1877f2;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+table td {
+  padding: 12px;
+  border-bottom: 1px solid #dee2e6;
+}
+table tr:hover {
+  background: #f8f9fa;
+}
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #28a745;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  display: none;
+  z-index: 1000;
+}
+</style>
+</head>
+<body>
+
+<div class="notification" id="notification"></div>
+
+<div class="container">
+  <div class="header">
+    <h1>🚀 Facebook Lead Ads → CRM Integration</h1>
+    <p>Automatically sync leads from Facebook Lead Ads to your Supabase CRM</p>
+  </div>
+
+  <div class="content">
+
+    <!-- Overview -->
+    <div class="section">
+      <h2>📋 Overview</h2>
+      <p>This integration automatically fetches leads from your Facebook Lead Ads campaigns and imports them directly into your Supabase CRM system. No manual CSV exports needed!</p>
+
+      <div class="success">
+        <strong>✅ What This Does:</strong>
+        <ul>
+          <li>Auto-fetches leads from Facebook Lead Ads in real-time</li>
+          <li>Saves leads to your Supabase <code>signups</code> table</li>
+          <li>Automatically assigns leads to brokers based on your rules</li>
+          <li>Tracks lead source as "facebook_lead_ads" for analytics</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Step 1: Environment Variables -->
+    <div class="section">
+      <h2>⚙️ Step 1: Add Environment Variables</h2>
+
+      <div class="step">
+        <span class="step-number">1</span>
+        <h3>Add to your <code>.env.local</code> file:</h3>
+
+        <div class="code-block" id="code1">
+          <button class="copy-btn" onclick="copyCode('code1')">Copy</button>
+          <code># Facebook Lead Ads Integration
+FACEBOOK_VERIFY_TOKEN=tradeflow_webhook_verify_token_2025
+FACEBOOK_APP_SECRET=your_facebook_app_secret_here
+FACEBOOK_PAGE_ACCESS_TOKEN=your_facebook_page_access_token_here</code>
+        </div>
+
+        <div class="important">
+          <strong>⚠️ Important:</strong> You can use the default <code>FACEBOOK_VERIFY_TOKEN</code> or change it to any random string. You'll need the <code>APP_SECRET</code> and <code>PAGE_ACCESS_TOKEN</code> from Facebook (see Step 2).
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Create Facebook App -->
+    <div class="section">
+      <h2>📱 Step 2: Create Facebook App</h2>
+
+      <div class="step">
+        <span class="step-number">1</span>
+        <h3>Go to Facebook Developers Console</h3>
+        <ul>
+          <li>Visit: <a href="https://developers.facebook.com/apps" class="link" target="_blank">https://developers.facebook.com/apps</a></li>
+          <li>Click <strong>"Create App"</strong></li>
+          <li>Choose <strong>"Business"</strong> as app type</li>
+          <li>Fill in app name (e.g., "TradeFlow CRM Integration")</li>
+          <li>Click <strong>"Create App"</strong></li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <span class="step-number">2</span>
+        <h3>Add Webhooks Product</h3>
+        <ul>
+          <li>In your app dashboard, click <strong>"Add Product"</strong></li>
+          <li>Find <strong>"Webhooks"</strong> and click <strong>"Set Up"</strong></li>
+          <li>Under <strong>"Page"</strong>, click <strong>"Subscribe to this object"</strong></li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <span class="step-number">3</span>
+        <h3>Configure Webhook URL</h3>
+        <p>Enter these details:</p>
+
+        <table>
+          <tr>
+            <th>Field</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td><strong>Callback URL</strong></td>
+            <td><code>https://tradeflow.blog/api/facebook/leads</code></td>
+          </tr>
+          <tr>
+            <td><strong>Verify Token</strong></td>
+            <td><code>tradeflow_webhook_verify_token_2025</code><br>(or your custom token from .env)</td>
+          </tr>
+        </table>
+
+        <ul>
+          <li>Click <strong>"Verify and Save"</strong></li>
+          <li>Subscribe to <strong>"leadgen"</strong> field (check the box next to it)</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <span class="step-number">4</span>
+        <h3>Get App Secret</h3>
+        <ul>
+          <li>Go to <strong>Settings → Basic</strong> in your app dashboard</li>
+          <li>Click <strong>"Show"</strong> next to <strong>"App Secret"</strong></li>
+          <li>Copy the secret and add it to your <code>.env.local</code> as <code>FACEBOOK_APP_SECRET</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Step 3: Get Page Access Token -->
+    <div class="section">
+      <h2>🔑 Step 3: Get Page Access Token</h2>
+
+      <div class="step">
+        <span class="step-number">1</span>
+        <h3>Add Pages Product to Your App</h3>
+        <ul>
+          <li>In your app dashboard, click <strong>"Add Product"</strong></li>
+          <li>Find <strong>"Facebook Login"</strong> and add it</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <span class="step-number">2</span>
+        <h3>Use Graph API Explorer</h3>
+        <ul>
+          <li>Visit: <a href="https://developers.facebook.com/tools/explorer/" class="link" target="_blank">https://developers.facebook.com/tools/explorer/</a></li>
+          <li>Select your app from the dropdown</li>
+          <li>Click <strong>"Generate Access Token"</strong></li>
+          <li>Grant these permissions:
+            <ul>
+              <li><code>pages_manage_metadata</code></li>
+              <li><code>pages_read_engagement</code></li>
+              <li><code>leads_retrieval</code></li>
+            </ul>
+          </li>
+          <li>Click <strong>"Generate Access Token"</strong></li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <span class="step-number">3</span>
+        <h3>Get Long-Lived Page Token</h3>
+        <p>The token from Graph Explorer expires in 1 hour. Convert it to a long-lived token:</p>
+
+        <ol>
+          <li>Copy the short-lived token from Graph Explorer</li>
+          <li>Make this API call (replace YOUR_APP_ID, YOUR_APP_SECRET, and SHORT_LIVED_TOKEN):</li>
+        </ol>
+
+        <div class="code-block" id="code2">
+          <button class="copy-btn" onclick="copyCode('code2')">Copy</button>
+          <code>https://graph.facebook.com/v21.0/oauth/access_token?
+  grant_type=fb_exchange_token&
+  client_id=YOUR_APP_ID&
+  client_secret=YOUR_APP_SECRET&
+  fb_exchange_token=SHORT_LIVED_TOKEN</code>
+        </div>
+
+        <ol start="3">
+          <li>Copy the returned long-lived token</li>
+          <li>Get your Page ID: Visit your Facebook Page → About → Page ID</li>
+          <li>Exchange for Page Token:</li>
+        </ol>
+
+        <div class="code-block" id="code3">
+          <button class="copy-btn" onclick="copyCode('code3')">Copy</button>
+          <code>https://graph.facebook.com/v21.0/YOUR_PAGE_ID?
+  fields=access_token&
+  access_token=LONG_LIVED_USER_TOKEN</code>
+        </div>
+
+        <ol start="6">
+          <li>Copy the <code>access_token</code> from response and add to <code>.env.local</code> as <code>FACEBOOK_PAGE_ACCESS_TOKEN</code></li>
+        </ol>
+
+        <div class="important">
+          <strong>💡 Pro Tip:</strong> Page tokens don't expire unless you change your Facebook password or revoke app access. This is a one-time setup!
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Subscribe Page to App -->
+    <div class="section">
+      <h2>🔗 Step 4: Subscribe Your Page to the App</h2>
+
+      <div class="step">
+        <span class="step-number">1</span>
+        <h3>Subscribe Page to Webhooks</h3>
+        <p>Make this API call to subscribe your page to the app:</p>
+
+        <div class="code-block" id="code4">
+          <button class="copy-btn" onclick="copyCode('code4')">Copy</button>
+          <code>curl -X POST "https://graph.facebook.com/v21.0/YOUR_PAGE_ID/subscribed_apps?subscribed_fields=leadgen&access_token=YOUR_PAGE_ACCESS_TOKEN"</code>
+        </div>
+
+        <p>You should get response:</p>
+        <div class="code-block">
+          <code>{ "success": true }</code>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5: Create Lead Form -->
+    <div class="section">
+      <h2>📝 Step 5: Create Facebook Lead Form</h2>
+
+      <div class="step">
+        <span class="step-number">1</span>
+        <h3>Create Lead Form in Ads Manager</h3>
+        <ul>
+          <li>Go to <a href="https://www.facebook.com/adsmanager" class="link" target="_blank">Facebook Ads Manager</a></li>
+          <li>Click <strong>"Create"</strong> → Choose <strong>"Leads"</strong> objective</li>
+          <li>Create new lead form with these fields:
+            <ul>
+              <li><strong>First Name</strong> (required)</li>
+              <li><strong>Last Name</strong> (required)</li>
+              <li><strong>Email</strong> (required)</li>
+              <li><strong>Phone Number</strong> (required)</li>
+            </ul>
+          </li>
+          <li>Customize form design and privacy policy</li>
+          <li>Complete ad creation</li>
+        </ul>
+      </div>
+
+      <div class="important">
+        <strong>⚠️ Required Fields:</strong> Make sure your lead form includes at minimum: <strong>email</strong>. First name, last name, and phone are highly recommended for broker assignment.
+      </div>
+    </div>
+
+    <!-- Step 6: Test Integration -->
+    <div class="section">
+      <h2>🧪 Step 6: Test the Integration</h2>
+
+      <div class="step">
+        <span class="step-number">1</span>
+        <h3>Test with Facebook Test Lead</h3>
+        <ul>
+          <li>Go to your Lead Form in Ads Manager</li>
+          <li>Click <strong>"Test Form"</strong></li>
+          <li>Fill out the form and submit</li>
+          <li>Facebook will send a test webhook to your endpoint</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <span class="step-number">2</span>
+        <h3>Check Your CRM</h3>
+        <ul>
+          <li>Visit: <a href="https://tradeflow.blog/crm" class="link" target="_blank">https://tradeflow.blog/crm</a></li>
+          <li>Look for the test lead with source <strong>"facebook_lead_ads"</strong></li>
+          <li>Verify it was auto-assigned to a broker</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <span class="step-number">3</span>
+        <h3>Check Logs</h3>
+        <p>Monitor your application logs for:</p>
+        <div class="code-block">
+          <code>✅ Lead saved to CRM: [lead_id]
+✅ Facebook lead auto-assigned to [broker_name]</code>
+        </div>
+      </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="section">
+      <h2>⚙️ How It Works</h2>
+
+      <div class="step">
+        <h3>Automatic Lead Flow</h3>
+        <ol style="margin-left: 30px;">
+          <li><strong>User fills Facebook Lead Form</strong> → User submits form on Facebook</li>
+          <li><strong>Facebook sends webhook</strong> → Webhook sent to <code>/api/facebook/leads</code></li>
+          <li><strong>Webhook fetches full data</strong> → Your server fetches complete lead data via Graph API</li>
+          <li><strong>Lead saved to CRM</strong> → Lead automatically saved to Supabase <code>signups</code> table</li>
+          <li><strong>Auto-assign to broker</strong> → Lead automatically assigned based on country/rules</li>
+          <li><strong>Push to Trading CRM</strong> → Lead pushed to broker's Trading CRM (if applicable)</li>
+        </ol>
+      </div>
+
+      <div class="success">
+        <strong>✅ Benefits:</strong>
+        <ul>
+          <li>Real-time lead sync (within seconds)</li>
+          <li>No manual CSV exports</li>
+          <li>Automatic broker assignment</li>
+          <li>Full lead tracking and analytics</li>
+          <li>Lead source attribution</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Troubleshooting -->
+    <div class="section">
+      <h2>🔧 Troubleshooting</h2>
+
+      <div class="step">
+        <h3>Webhook Verification Fails</h3>
+        <ul>
+          <li>Check that <code>FACEBOOK_VERIFY_TOKEN</code> in .env matches the token you entered in Facebook</li>
+          <li>Verify your webhook URL is publicly accessible: <code>https://tradeflow.blog/api/facebook/leads</code></li>
+          <li>Check application logs for errors</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3>Leads Not Appearing in CRM</h3>
+        <ul>
+          <li>Verify <code>FACEBOOK_PAGE_ACCESS_TOKEN</code> has <code>leads_retrieval</code> permission</li>
+          <li>Check that your page is subscribed to the app</li>
+          <li>Verify Supabase connection is working</li>
+          <li>Check application logs for specific errors</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3>Check Webhook Status</h3>
+        <p>Verify your webhook is receiving data:</p>
+        <ul>
+          <li>Go to your Facebook App → Webhooks</li>
+          <li>Check <strong>"Recent Deliveries"</strong> to see webhook attempts</li>
+          <li>Look for any error codes or failed deliveries</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- API Endpoint Reference -->
+    <div class="section">
+      <h2>📡 API Endpoint Reference</h2>
+
+      <table>
+        <tr>
+          <th>Endpoint</th>
+          <th>Method</th>
+          <th>Purpose</th>
+        </tr>
+        <tr>
+          <td><code>/api/facebook/leads</code></td>
+          <td>GET</td>
+          <td>Webhook verification (Facebook sends this to verify URL)</td>
+        </tr>
+        <tr>
+          <td><code>/api/facebook/leads</code></td>
+          <td>POST</td>
+          <td>Receive lead data from Facebook webhooks</td>
+        </tr>
+      </table>
+
+      <div class="step">
+        <h3>Webhook Payload Example</h3>
+        <p>Facebook sends this format:</p>
+        <div class="code-block" id="code5">
+          <button class="copy-btn" onclick="copyCode('code5')">Copy</button>
+          <code>{
+  "object": "page",
+  "entry": [{
+    "id": "PAGE_ID",
+    "time": 1234567890,
+    "changes": [{
+      "field": "leadgen",
+      "value": {
+        "leadgen_id": "LEAD_ID",
+        "page_id": "PAGE_ID",
+        "form_id": "FORM_ID",
+        "created_time": 1234567890
+      }
+    }]
+  }]
+}</code>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="section">
+      <div class="success">
+        <h3 style="margin-bottom: 10px;">🎉 You're All Set!</h3>
+        <p>Your Facebook Lead Ads are now automatically syncing to your CRM. Every lead will be:</p>
+        <ul style="margin-top: 10px;">
+          <li>✅ Saved to Supabase in real-time</li>
+          <li>✅ Auto-assigned to the right broker</li>
+          <li>✅ Tracked with source "facebook_lead_ads"</li>
+          <li>✅ Pushed to Trading CRM automatically</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function copyCode(elementId) {
+  const codeBlock = document.getElementById(elementId);
+  const code = codeBlock.querySelector('code').textContent;
+
+  navigator.clipboard.writeText(code).then(() => {
+    showNotification('✓ Copied to clipboard!');
+  });
+}
+
+function showNotification(message) {
+  const notification = document.getElementById('notification');
+  notification.textContent = message;
+  notification.style.display = 'block';
+
+  setTimeout(() => {
+    notification.style.display = 'none';
+  }, 2000);
+}
+</script>
+
+</body>
+</html>
