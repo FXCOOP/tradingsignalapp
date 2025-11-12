@@ -6,12 +6,23 @@
     <title>Get Your Free Trading Mentor - TradeFlow</title>
     <meta name="description" content="Connect with elite professional traders. Get matched with a premium broker and receive daily signals, market analysis, and 1-on-1 mentorship - 100% FREE.">
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+    <!-- Google tag (gtag.js) - Conversion Tracking -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17673979773"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-17673979773');
+    </script>
+
+    <!-- Google tag (gtag.js) - Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M28C4GZ5WF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-M28C4GZ5WF');
+    </script>
 
     <!-- NO GOOGLE TRANSLATE - Using Built-in Translation System -->
 
@@ -1376,10 +1387,17 @@
 
                 // Track conversion
                 if (typeof gtag !== 'undefined') {
+                    // Track to Google Ads
                     gtag('event', 'conversion', {
-                        'send_to': 'AW-CONVERSION_ID',
+                        'send_to': 'AW-17673979773/CONVERSION_LABEL',
                         'value': 1.0,
                         'currency': 'USD'
+                    });
+                    // Track to Google Analytics
+                    gtag('event', 'broker_matching_signup', {
+                        method: 'brokerv2_form',
+                        value: data.email,
+                        country: data.country
                     });
                 }
 
@@ -1886,11 +1904,12 @@
             // Initialize calculator with default values
             calculateProfit();
 
-            // Track page view in GTM
-            if (typeof dataLayer !== 'undefined') {
-                dataLayer.push({
-                    'event': 'page_view',
-                    'page_type': 'broker_landing_v2'
+            // Track page view
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'page_view', {
+                    page_title: 'BrokerV2 Landing Page',
+                    page_location: window.location.href,
+                    page_path: '/brokerv2'
                 });
             }
 
