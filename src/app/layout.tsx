@@ -61,6 +61,7 @@ export const metadata = {
 
 import './globals.css'
 import { UserProvider } from '@/contexts/UserContext'
+import Analytics from '@/components/Analytics'
 
 export default function RootLayout({
   children,
@@ -70,16 +71,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google Tag Manager */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KH3MPKT9');`,
-          }}
-        />
 
         {/* TradeFlow Tracking Snippets - GCLID/GBRAID/WBRAID Capture */}
         <script src="/tracking_snippets.js" async></script>
@@ -107,15 +98,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <meta name="coverage" content="Worldwide, Global Markets" />
       </head>
       <body style={{ margin: 0, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-KH3MPKT9"
-            height="0"
-            width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
-          />
-        </noscript>
+        {/* Analytics Component - Auto-excludes CRM/Admin pages */}
+        <Analytics />
 
         {/* Schema.org JSON-LD */}
         <script
