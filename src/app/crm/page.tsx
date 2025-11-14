@@ -117,11 +117,76 @@ export default function CRMDashboard() {
       setAnalytics(analyticsData.analytics);
       setLeads(leadsData.leads || []);
       setBrokers(brokersData.brokers || []);
+
+      // Auto-refresh broker status for Trading CRM leads
+      await refreshAllBrokerStatuses(leadsData.leads || []);
     } catch (error) {
       console.error('❌ Failed to fetch data:', error);
       alert('Error loading CRM data. Check console for details.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const refreshAllBrokerStatuses = async (leadsData: Lead[]) => {
+    try {
+      console.log('🔄 Auto-refreshing ALL broker statuses...');
+
+      // Filter ALL Trading CRM leads (including failed/pending pushes)
+      const tradingCRMLeads = leadsData.filter(lead =>
+        (lead.assigned_broker?.includes('Trading CRM') ||
+         lead.assigned_broker?.includes('AFF 225X') ||
+         lead.assigned_broker?.includes('225X'))
+      );
+
+      if (tradingCRMLeads.length === 0) {
+        console.log('ℹ️ No Trading CRM leads to sync');
+        return;
+      }
+
+      console.log(`📤 Syncing ${tradingCRMLeads.length} Trading CRM leads (all statuses)...`);
+
+      // Sync in batches of 5 to avoid overloading the API
+      const batchSize = 5;
+      for (let i = 0; i < tradingCRMLeads.length; i += batchSize) {
+        const batch = tradingCRMLeads.slice(i, i + batchSize);
+
+        await Promise.all(batch.map(async (lead) => {
+          try {
+            console.log(`🔄 Syncing ${lead.email}...`);
+            const response = await fetch('/api/trading-crm/sync-status', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ signupId: lead.id })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+              console.log(`✅ Synced ${lead.email}: ${data.status}`);
+            } else {
+              console.warn(`⚠️ Failed to sync ${lead.email}:`, data.error);
+            }
+          } catch (error) {
+            console.error(`❌ Error syncing ${lead.email}:`, error);
+          }
+        }));
+
+        // Small delay between batches
+        if (i + batchSize < tradingCRMLeads.length) {
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+      }
+
+      console.log('✅ All broker statuses refreshed!');
+
+      // Refresh the leads to show updated data
+      const leadsRes = await fetch('/api/crm/leads?limit=100');
+      const updatedLeadsData = await leadsRes.json();
+      setLeads(updatedLeadsData.leads || []);
+
+    } catch (error) {
+      console.error('❌ Error refreshing broker statuses:', error);
     }
   };
 
