@@ -56,33 +56,46 @@ export async function POST(request: NextRequest) {
     const userAgent = request.headers.get('user-agent') || 'unknown';
 
     // Insert lead into Supabase
+    const insertData: any = {
+      first_name,
+      last_name,
+      email,
+      phone_number: phone_number || null,
+      country: country || null,
+      source,
+      language,
+      ip_address: clientIp,
+      user_agent: userAgent,
+      crm_status: 'new',
+      status: 'active',
+    };
+
+    // Only add optional fields if they exist
+    if (trading_experience) insertData.trading_experience = trading_experience;
+    if (account_size) insertData.account_size = account_size;
+
+    console.log('[send-lead] Inserting to Supabase:', { email, source, country });
+
     const { data: signup, error: insertError } = await supabase
       .from('signups')
-      .insert({
-        first_name,
-        last_name,
-        email,
-        phone_number: phone_number || null,
-        country: country || null,
-        trading_experience: trading_experience || null,
-        account_size: account_size || null,
-        source,
-        language,
-        ip_address: clientIp,
-        user_agent: userAgent,
-        crm_status: 'new',
-        status: 'active',
-      })
+      .insert(insertData)
       .select()
       .single();
 
     if (insertError) {
-      console.error('Supabase insert error:', insertError);
+      console.error('[send-lead] Supabase insert error:', {
+        error: insertError,
+        message: insertError.message,
+        details: insertError.details,
+        hint: insertError.hint,
+        code: insertError.code,
+      });
       return NextResponse.json(
         {
           success: false,
           error: 'Failed to save lead',
-          details: insertError.message,
+          message: insertError.message,
+          details: insertError.details || insertError.hint || 'Unknown error',
         },
         { status: 500 }
       );
