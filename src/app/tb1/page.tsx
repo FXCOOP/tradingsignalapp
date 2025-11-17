@@ -408,9 +408,113 @@ export default function TaboolaLandingPage() {
           <div className="hero-badge">{t.badge}</div>
           <h1 className="hero-title">{t.headline}</h1>
           <p className="hero-subtitle">{t.subheadline}</p>
-          <a href="#signup" className="cta-button">
-            {t.cta}
-          </a>
+        </section>
+
+        {/* Signup Form - TOP POSITION */}
+        <section id="signup" className="signup-form-section">
+          <div className="form-container">
+            <div className="form-header">
+              <h2 className="form-title">{t.formTitle}</h2>
+              <p className="form-subtitle">{t.formSubtitle}</p>
+              {autoDetected && (
+                <p className="auto-detected">✓ {formData.country}</p>
+              )}
+            </div>
+
+            <form onSubmit={handleSubmit} className="signup-form">
+              <div className="form-row">
+                <div className="form-group">
+                  <label>{t.firstName}</label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    required
+                    className="form-input"
+                    placeholder={t.firstName}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>{t.lastName}</label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    required
+                    className="form-input"
+                    placeholder={t.lastName}
+                  />
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>{t.email}</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="form-input"
+                    placeholder={t.email}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>{t.phone}</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    required
+                    className="form-input"
+                    placeholder={t.phone}
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>{t.country}</label>
+                <select
+                  name="country"
+                  value={formData.country}
+                  onChange={handleInputChange}
+                  required
+                  className="form-select"
+                >
+                  <option value="">{t.selectCountry}</option>
+                  {countries.map((country) => (
+                    <option key={country} value={country}>
+                      {country}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <button
+                type="submit"
+                className="submit-button"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? t.submitting : t.submitButton}
+              </button>
+
+              {submitMessage && (
+                <div className={`submit-message ${submitSuccess ? 'success' : 'error'}`}>
+                  {submitMessage}
+                </div>
+              )}
+            </form>
+
+            <div className="form-trust">
+              <div className="trust-item">✓ {t.trustBadge1}</div>
+              <div className="trust-item">✓ {t.trustBadge2}</div>
+              <div className="trust-item">✓ {t.trustBadge3}</div>
+            </div>
+          </div>
         </section>
 
         {/* Stats Section */}
@@ -524,113 +628,6 @@ export default function TaboolaLandingPage() {
                 <strong>Michael R.</strong>
                 <span>United States</span>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Signup Form */}
-        <section id="signup" className="signup-form-section">
-          <div className="form-container">
-            <div className="form-header">
-              <h2 className="form-title">{t.formTitle}</h2>
-              <p className="form-subtitle">{t.formSubtitle}</p>
-              {autoDetected && (
-                <p className="auto-detected">✓ {formData.country}</p>
-              )}
-            </div>
-
-            <form onSubmit={handleSubmit} className="signup-form">
-              <div className="form-row">
-                <div className="form-group">
-                  <label>{t.firstName}</label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    required
-                    className="form-input"
-                    placeholder={t.firstName}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>{t.lastName}</label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    required
-                    className="form-input"
-                    placeholder={t.lastName}
-                  />
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label>{t.email}</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="form-input"
-                    placeholder={t.email}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>{t.phone}</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    required
-                    className="form-input"
-                    placeholder={t.phone}
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label>{t.country}</label>
-                <select
-                  name="country"
-                  value={formData.country}
-                  onChange={handleInputChange}
-                  required
-                  className="form-select"
-                >
-                  <option value="">{t.selectCountry}</option>
-                  {countries.map((country) => (
-                    <option key={country} value={country}>
-                      {country}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <button
-                type="submit"
-                className="submit-button"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? t.submitting : t.submitButton}
-              </button>
-
-              {submitMessage && (
-                <div className={`submit-message ${submitSuccess ? 'success' : 'error'}`}>
-                  {submitMessage}
-                </div>
-              )}
-            </form>
-
-            <div className="form-trust">
-              <div className="trust-item">✓ {t.trustBadge1}</div>
-              <div className="trust-item">✓ {t.trustBadge2}</div>
-              <div className="trust-item">✓ {t.trustBadge3}</div>
             </div>
           </div>
         </section>
