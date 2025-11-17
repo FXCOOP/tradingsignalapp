@@ -413,6 +413,121 @@ export default function TaboolaLandingPage() {
           </a>
         </section>
 
+        {/* Stats Section */}
+        <section className="stats-section">
+          <div className="stats-container">
+            <div className="stat-item">
+              <div className="stat-number">50,000+</div>
+              <div className="stat-label">Active Traders</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-number">98%</div>
+              <div className="stat-label">Success Rate</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-number">24/7</div>
+              <div className="stat-label">Support</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-number">195+</div>
+              <div className="stat-label">Countries</div>
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section className="how-it-works">
+          <h2 className="section-title">How It Works</h2>
+          <div className="steps-container">
+            <div className="step-item">
+              <div className="step-number">1</div>
+              <div className="step-icon">📝</div>
+              <h3 className="step-title">Sign Up Free</h3>
+              <p className="step-description">Create your account in less than 2 minutes</p>
+            </div>
+            <div className="step-item">
+              <div className="step-number">2</div>
+              <div className="step-icon">🎯</div>
+              <h3 className="step-title">Get Matched</h3>
+              <p className="step-description">Our algorithm finds your perfect broker</p>
+            </div>
+            <div className="step-item">
+              <div className="step-number">3</div>
+              <div className="step-icon">🚀</div>
+              <h3 className="step-title">Start Trading</h3>
+              <p className="step-description">Begin your trading journey today</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="features">
+          <h2 className="section-title">Why Choose Us</h2>
+          <div className="features-grid">
+            <div className="feature-item">
+              <div className="feature-icon">⚡</div>
+              <h3 className="feature-title">Lightning Fast</h3>
+              <p className="feature-description">Instant broker matching in seconds</p>
+            </div>
+            <div className="feature-item">
+              <div className="feature-icon">🔒</div>
+              <h3 className="feature-title">100% Secure</h3>
+              <p className="feature-description">Bank-level encryption & security</p>
+            </div>
+            <div className="feature-item">
+              <div className="feature-icon">💎</div>
+              <h3 className="feature-title">Premium Brokers</h3>
+              <p className="feature-description">Only regulated & trusted brokers</p>
+            </div>
+            <div className="feature-item">
+              <div className="feature-icon">📱</div>
+              <h3 className="feature-title">Mobile Ready</h3>
+              <p className="feature-description">Trade anywhere, anytime</p>
+            </div>
+            <div className="feature-item">
+              <div className="feature-icon">🎓</div>
+              <h3 className="feature-title">Expert Support</h3>
+              <p className="feature-description">24/7 professional assistance</p>
+            </div>
+            <div className="feature-item">
+              <div className="feature-icon">🌍</div>
+              <h3 className="feature-title">Global Access</h3>
+              <p className="feature-description">Available in 195+ countries</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="testimonials">
+          <h2 className="section-title">What Traders Say</h2>
+          <div className="testimonials-grid">
+            <div className="testimonial-item">
+              <div className="testimonial-stars">⭐⭐⭐⭐⭐</div>
+              <p className="testimonial-text">"Best broker matching service I've ever used. Got matched with a top-tier broker in minutes!"</p>
+              <div className="testimonial-author">
+                <strong>Sarah M.</strong>
+                <span>Singapore</span>
+              </div>
+            </div>
+            <div className="testimonial-item">
+              <div className="testimonial-stars">⭐⭐⭐⭐⭐</div>
+              <p className="testimonial-text">"The support team is amazing. They helped me every step of the way. Highly recommended!"</p>
+              <div className="testimonial-author">
+                <strong>Ahmad K.</strong>
+                <span>Malaysia</span>
+              </div>
+            </div>
+            <div className="testimonial-item">
+              <div className="testimonial-stars">⭐⭐⭐⭐⭐</div>
+              <p className="testimonial-text">"Finally found a reliable broker. The matching process was quick and professional."</p>
+              <div className="testimonial-author">
+                <strong>Michael R.</strong>
+                <span>United States</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Signup Form */}
         <section id="signup" className="signup-form-section">
           <div className="form-container">
@@ -517,6 +632,48 @@ export default function TaboolaLandingPage() {
               <div className="trust-item">✓ {t.trustBadge2}</div>
               <div className="trust-item">✓ {t.trustBadge3}</div>
             </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="faq">
+          <h2 className="section-title">Frequently Asked Questions</h2>
+          <div className="faq-container">
+            <div className="faq-item">
+              <h3 className="faq-question">Is it really free?</h3>
+              <p className="faq-answer">Yes! Our broker matching service is 100% free. No hidden fees, no credit card required.</p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">How long does it take to get matched?</h3>
+              <p className="faq-answer">Our algorithm matches you with the best broker in under 2 minutes after you submit the form.</p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">Are the brokers regulated?</h3>
+              <p className="faq-answer">Absolutely. We only work with fully licensed and regulated brokers from trusted jurisdictions.</p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">Can I change my broker later?</h3>
+              <p className="faq-answer">Yes, you can request a new broker match anytime if you're not satisfied with your current match.</p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">What countries do you support?</h3>
+              <p className="faq-answer">We support traders from 195+ countries worldwide, including Malaysia, Singapore, Hong Kong, and more.</p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">Is my personal information safe?</h3>
+              <p className="faq-answer">Yes, we use bank-level encryption to protect your data. Your information is never shared without your consent.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA Section */}
+        <section className="final-cta">
+          <div className="final-cta-content">
+            <h2 className="final-cta-title">Ready to Start Trading?</h2>
+            <p className="final-cta-subtitle">Join 50,000+ traders and get matched with your perfect broker today</p>
+            <a href="#signup" className="cta-button">
+              {t.cta}
+            </a>
           </div>
         </section>
       </div>
@@ -837,6 +994,308 @@ export default function TaboolaLandingPage() {
           font-weight: 600;
         }
 
+        /* Stats Section */
+        .stats-section {
+          padding: 60px 20px;
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(20px);
+        }
+
+        .stats-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 40px;
+        }
+
+        .stat-item {
+          text-align: center;
+          animation: fadeInUp 0.8s ease forwards;
+          opacity: 0;
+        }
+
+        .stat-item:nth-child(1) { animation-delay: 0.1s; }
+        .stat-item:nth-child(2) { animation-delay: 0.2s; }
+        .stat-item:nth-child(3) { animation-delay: 0.3s; }
+        .stat-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .stat-number {
+          font-size: clamp(42px, 6vw, 58px);
+          font-weight: 900;
+          color: white;
+          margin-bottom: 10px;
+          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-label {
+          font-size: 16px;
+          color: rgba(255, 255, 255, 0.9);
+          font-weight: 600;
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* How It Works */
+        .how-it-works {
+          padding: 100px 20px;
+          background: white;
+        }
+
+        .section-title {
+          text-align: center;
+          font-size: clamp(36px, 5.5vw, 52px);
+          font-weight: 900;
+          background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          margin-bottom: 70px;
+        }
+
+        .steps-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 50px;
+        }
+
+        .step-item {
+          text-align: center;
+          padding: 45px 30px;
+          background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(240, 147, 251, 0.05));
+          border-radius: 25px;
+          position: relative;
+          transition: all 0.4s ease;
+          border: 2px solid transparent;
+        }
+
+        .step-item:hover {
+          transform: translateY(-10px);
+          border-color: #667eea;
+          box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
+        }
+
+        .step-number {
+          position: absolute;
+          top: -20px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 50px;
+          height: 50px;
+          background: linear-gradient(135deg, #667eea, #764ba2);
+          color: white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          font-weight: 900;
+          box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .step-icon {
+          font-size: 62px;
+          margin-bottom: 25px;
+        }
+
+        .step-title {
+          font-size: 26px;
+          font-weight: 800;
+          color: #2d3748;
+          margin-bottom: 15px;
+        }
+
+        .step-description {
+          font-size: 16px;
+          color: #4a5568;
+          line-height: 1.6;
+        }
+
+        /* Features */
+        .features {
+          padding: 100px 20px;
+          background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .features-grid {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 35px;
+        }
+
+        .feature-item {
+          background: white;
+          padding: 40px 30px;
+          border-radius: 22px;
+          text-align: center;
+          transition: all 0.4s ease;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-item:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 20px 55px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+          font-size: 56px;
+          margin-bottom: 22px;
+          display: inline-block;
+          animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+
+        .feature-title {
+          font-size: 22px;
+          font-weight: 800;
+          color: #2d3748;
+          margin-bottom: 12px;
+        }
+
+        .feature-description {
+          font-size: 15px;
+          color: #4a5568;
+          line-height: 1.6;
+        }
+
+        /* Testimonials */
+        .testimonials {
+          padding: 100px 20px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+
+        .testimonials-grid {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+          gap: 35px;
+        }
+
+        .testimonial-item {
+          background: rgba(255, 255, 255, 0.95);
+          padding: 40px 35px;
+          border-radius: 22px;
+          transition: all 0.4s ease;
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .testimonial-item:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 22px 60px rgba(0, 0, 0, 0.25);
+        }
+
+        .testimonial-stars {
+          font-size: 22px;
+          margin-bottom: 20px;
+        }
+
+        .testimonial-text {
+          font-size: 16px;
+          color: #2d3748;
+          line-height: 1.7;
+          margin-bottom: 25px;
+          font-style: italic;
+        }
+
+        .testimonial-author {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+
+        .testimonial-author strong {
+          font-size: 17px;
+          color: #667eea;
+          font-weight: 800;
+        }
+
+        .testimonial-author span {
+          font-size: 14px;
+          color: #4a5568;
+        }
+
+        /* FAQ */
+        .faq {
+          padding: 100px 20px;
+          background: white;
+        }
+
+        .faq-container {
+          max-width: 900px;
+          margin: 0 auto;
+        }
+
+        .faq-item {
+          background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(240, 147, 251, 0.05));
+          padding: 35px 40px;
+          border-radius: 18px;
+          margin-bottom: 22px;
+          border-left: 5px solid #667eea;
+          transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+          transform: translateX(8px);
+          box-shadow: 0 8px 30px rgba(102, 126, 234, 0.15);
+        }
+
+        .faq-question {
+          font-size: 20px;
+          font-weight: 800;
+          color: #2d3748;
+          margin-bottom: 15px;
+        }
+
+        .faq-answer {
+          font-size: 16px;
+          color: #4a5568;
+          line-height: 1.7;
+        }
+
+        /* Final CTA */
+        .final-cta {
+          padding: 100px 20px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+
+        .final-cta-content {
+          text-align: center;
+          max-width: 800px;
+          margin: 0 auto;
+        }
+
+        .final-cta-title {
+          font-size: clamp(40px, 6vw, 62px);
+          font-weight: 900;
+          color: white;
+          margin-bottom: 25px;
+          text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .final-cta-subtitle {
+          font-size: clamp(18px, 3.5vw, 24px);
+          color: rgba(255, 255, 255, 0.95);
+          margin-bottom: 45px;
+        }
+
         /* Mobile */
         @media (max-width: 768px) {
           .language-selector {
@@ -872,6 +1331,21 @@ export default function TaboolaLandingPage() {
             flex-direction: column;
             gap: 18px;
             align-items: center;
+          }
+
+          .stats-container {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+          }
+
+          .steps-container,
+          .features-grid,
+          .testimonials-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .faq-item {
+            padding: 25px 20px;
           }
         }
       `}</style>
