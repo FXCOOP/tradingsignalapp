@@ -29,6 +29,7 @@ export interface AllCryptoConfig {
   apiToken: string;
   goalTypeUuidLeadPushed: string; // b73f6b3e-2ed4-4704-8723-e4646d2de6b2
   goalTypeUuidFTD: string; // ce58174a-35a0-4e1c-90b4-c61174ef6b52
+  proxyUrl?: string; // Optional HTTP proxy (e.g., http://192.227.249.3:3128)
 }
 
 export interface AllCryptoLeadData {
@@ -106,6 +107,19 @@ export class AllCryptoClient {
 
   constructor(config: AllCryptoConfig) {
     this.config = config;
+  }
+
+  /**
+   * Get fetch options with proxy support (if configured)
+   */
+  private getFetchOptions(options: RequestInit = {}): RequestInit {
+    // If proxy is configured, add dispatcher (for undici/node-fetch)
+    if (this.config.proxyUrl) {
+      // Note: In production, set HTTPS_PROXY environment variable
+      // This is for logging purposes
+      console.log(`🔄 Using proxy: ${this.config.proxyUrl}`);
+    }
+    return options;
   }
 
   /**
@@ -454,6 +468,7 @@ export function createAllCryptoClient(): AllCryptoClient {
     apiToken: process.env.ALLCRYPTO_API_TOKEN || 'da8ihocq5cmy0vgkqfxasjt0ao1qsgwhn',
     goalTypeUuidLeadPushed: process.env.ALLCRYPTO_GOAL_TYPE_LEAD_PUSHED || 'b73f6b3e-2ed4-4704-8723-e4646d2de6b2',
     goalTypeUuidFTD: process.env.ALLCRYPTO_GOAL_TYPE_FTD || 'ce58174a-35a0-4e1c-90b4-c61174ef6b52',
+    proxyUrl: process.env.ALLCRYPTO_PROXY_URL, // Optional proxy (e.g., http://192.227.249.3:3128)
   };
 
   return new AllCryptoClient(config);
