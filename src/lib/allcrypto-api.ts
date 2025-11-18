@@ -206,7 +206,7 @@ export class AllCryptoClient {
       const response = await fetch(this.config.apiEndpoint, this.getFetchOptions({
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${this.config.apiToken}`,
+          'Authorization': this.config.apiToken,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
@@ -328,7 +328,7 @@ export class AllCryptoClient {
       const response = await fetch(url, this.getFetchOptions({
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${this.config.apiToken}`,
+          'Authorization': this.config.apiToken,
         },
       }));
 
@@ -391,7 +391,7 @@ export class AllCryptoClient {
       const response = await fetch(baseUrl, this.getFetchOptions({
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${this.config.apiToken}`,
+          'Authorization': this.config.apiToken,
         },
       }));
 
