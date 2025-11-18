@@ -5,6 +5,7 @@
  * - Stores lead in Supabase 'signups' table
  * - Supports all landing pages (TB1, LP1, etc.)
  * - Auto-pushes to Trading CRM for supported countries
+ * - Auto-pushes to AllCrypto for supported countries (with fallback)
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -18,6 +19,9 @@ const supabase = createClient(
 
 // Supported countries for Trading CRM auto-push
 const TRADING_CRM_COUNTRIES = ['MY', 'TR', 'FR', 'IT', 'HK', 'SG', 'TW', 'BR'];
+
+// Supported countries for AllCrypto auto-push
+const ALLCRYPTO_COUNTRIES = ['AU', 'KR', 'SG', 'HK', 'TR', 'NL', 'BE', 'IT', 'ES', 'FR', 'CA'];
 
 export async function POST(request: NextRequest) {
   try {
@@ -108,9 +112,13 @@ export async function POST(request: NextRequest) {
       country,
     });
 
+    let pushedSuccessfully = false;
+
     // Auto-push to Trading CRM for supported countries
     if (country && TRADING_CRM_COUNTRIES.includes(country.toUpperCase())) {
       try {
+        console.log(`[send-lead] Attempting to push to Trading CRM for country: ${country}`);
+
         const pushResponse = await fetch(
           `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/trading-crm/send-lead`,
           {
@@ -140,9 +148,57 @@ export async function POST(request: NextRequest) {
           success: pushResult.success,
           leadId: pushResult.leadId,
         });
+
+        if (pushResult.success) {
+          pushedSuccessfully = true;
+        }
       } catch (pushError) {
-        console.error('Trading CRM push failed (non-blocking):', pushError);
-        // Don't fail the main request if push fails
+        console.error('Trading CRM push failed:', pushError);
+      }
+    }
+
+    // If Trading CRM push failed OR country is AllCrypto-only, try AllCrypto
+    if (!pushedSuccessfully && country && ALLCRYPTO_COUNTRIES.includes(country.toUpperCase())) {
+      try {
+        console.log(`[send-lead] Attempting to push to AllCrypto for country: ${country}`);
+
+        const allCryptoPushResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/allcrypto/send-lead`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              signupId: signup.id,
+              firstName: first_name,
+              lastName: last_name,
+              email,
+              phone: phone_number,
+              country,
+              language,
+              ip: clientIp,
+              tag: source,
+              utmSource: source,
+              additionalInfo1: trading_experience,
+              isTest: false,
+            }),
+          }
+        );
+
+        const allCryptoPushResult = await allCryptoPushResponse.json();
+
+        console.log('AllCrypto push result:', {
+          success: allCryptoPushResult.success,
+          lead_uuid: allCryptoPushResult.lead_uuid,
+          advertiser: allCryptoPushResult.advertiser_name,
+        });
+
+        if (allCryptoPushResult.success) {
+          pushedSuccessfully = true;
+        }
+      } catch (allCryptoPushError) {
+        console.error('AllCrypto push failed (non-blocking):', allCryptoPushError);
       }
     }
 
