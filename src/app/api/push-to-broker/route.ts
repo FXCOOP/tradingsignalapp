@@ -361,7 +361,7 @@ async function pushToAllCrypto(signup: any) {
     const client = createAllCryptoClient();
 
     const result = await client.pushLead({
-      ip: signup.ip_address || '1.1.1.1',
+      ip: signup.ip_address || '192.227.249.3', // Fallback to VPS IP (whitelisted with AllCrypto)
       country_code: countryNameToISO(signup.country), // Convert to ISO code (AU, KR, etc.)
       lead_language: signup.language || 'en',
       email: signup.email,
