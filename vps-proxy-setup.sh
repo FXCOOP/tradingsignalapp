@@ -17,27 +17,23 @@ cp /etc/squid/squid.conf /etc/squid/squid.conf.backup
 cat > /etc/squid/squid.conf << 'EOF'
 # Squid HTTP Proxy Configuration for AllCrypto API
 # Port to listen on
-http_port 3128
+http_port 3001
 
-# Allow access from Render servers
-# Add Render's IP ranges (you'll update these)
-acl render_servers src 44.229.227.142/32
-acl render_servers src 54.188.71.94/32
-acl render_servers src 52.13.128.108/32
-acl render_servers src 74.220.48.0/24
-acl render_servers src 74.220.56.0/24
+# Allow access from any IP (since requests come from Render)
+acl all_sources src 0.0.0.0/0
 
 # Allow access to AllCrypto API only
 acl allcrypto_api dstdomain yourleads.org
 acl SSL_ports port 443
 acl Safe_ports port 443
+acl CONNECT method CONNECT
 
-# Deny all other requests
+# Security rules
 http_access deny !Safe_ports
 http_access deny CONNECT !SSL_ports
 
-# Allow Render servers to access AllCrypto
-http_access allow render_servers allcrypto_api
+# Allow all sources to access AllCrypto
+http_access allow allcrypto_api
 http_access deny all
 
 # Logging
@@ -47,7 +43,7 @@ cache_log /var/log/squid/cache.log
 # No caching for API requests
 cache deny all
 
-# Forwarded for header (optional)
+# Forwarded for header
 forwarded_for on
 EOF
 
@@ -55,8 +51,8 @@ EOF
 systemctl restart squid
 systemctl enable squid
 
-# Configure firewall
-ufw allow 3128/tcp
+# Configure firewall (open port 3001)
+ufw allow 3001/tcp
 ufw allow 22/tcp
 ufw --force enable
 
@@ -65,9 +61,9 @@ systemctl status squid
 
 echo "✅ Proxy setup complete!"
 echo "📍 VPS IP: 192.227.249.3"
-echo "📍 Proxy Port: 3128"
+echo "📍 Proxy Port: 3001"
 echo ""
 echo "Next steps:"
 echo "1. Contact AllCrypto to whitelist: 192.227.249.3"
-echo "2. Update your Render app to use this proxy"
-echo "3. Test with: curl -x http://192.227.249.3:3128 https://yourleads.org/api/affiliates/v2/goal-types -H 'Authorization: Bearer da8ihocq5cmy0vgkqfxasjt0ao1qsgwhn'"
+echo "2. Update your Render environment with HTTPS_PROXY=http://192.227.249.3:3001"
+echo "3. Test with: curl -x http://192.227.249.3:3001 https://yourleads.org/api/affiliates/v2/goal-types -H 'Authorization: Bearer da8ihocq5cmy0vgkqfxasjt0ao1qsgwhn'"

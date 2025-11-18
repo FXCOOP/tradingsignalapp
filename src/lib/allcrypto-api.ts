@@ -9,6 +9,8 @@
  * ES (Spain), FR (France), CA (Canada)
  */
 
+import { HttpsProxyAgent } from 'https-proxy-agent';
+
 // Country to ISO code mapping for AllCrypto markets
 export const ALLCRYPTO_COUNTRIES = {
   'AU': { iso: 'AU', name: 'Australia', language: 'en' },
@@ -113,11 +115,15 @@ export class AllCryptoClient {
    * Get fetch options with proxy support (if configured)
    */
   private getFetchOptions(options: RequestInit = {}): RequestInit {
-    // If proxy is configured, add dispatcher (for undici/node-fetch)
+    // If proxy is configured, create HttpsProxyAgent
     if (this.config.proxyUrl) {
-      // Note: In production, set HTTPS_PROXY environment variable
-      // This is for logging purposes
       console.log(`🔄 Using proxy: ${this.config.proxyUrl}`);
+      const agent = new HttpsProxyAgent(this.config.proxyUrl);
+      return {
+        ...options,
+        // @ts-ignore - agent is valid for Node.js fetch
+        agent,
+      };
     }
     return options;
   }
@@ -196,15 +202,15 @@ export class AllCryptoClient {
       });
       console.log('📤 Exact Payload (JSON):', JSON.stringify(payload, null, 2));
 
-      // Make API request
-      const response = await fetch(this.config.apiEndpoint, {
+      // Make API request with proxy support
+      const response = await fetch(this.config.apiEndpoint, this.getFetchOptions({
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${this.config.apiToken}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
-      });
+      }));
 
       // Read response
       const responseData = await response.json();
@@ -284,13 +290,13 @@ export class AllCryptoClient {
 
       console.log('📤 AllCrypto Get Leads Request:', url);
 
-      // Make API request
-      const response = await fetch(url, {
+      // Make API request with proxy support
+      const response = await fetch(url, this.getFetchOptions({
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${this.config.apiToken}`,
         },
-      });
+      }));
 
       const responseData = await response.json();
 
@@ -333,12 +339,12 @@ export class AllCryptoClient {
 
       console.log('📤 AllCrypto Get Goal Types Request:', baseUrl);
 
-      const response = await fetch(baseUrl, {
+      const response = await fetch(baseUrl, this.getFetchOptions({
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${this.config.apiToken}`,
         },
-      });
+      }));
 
       const responseData = await response.json();
 
