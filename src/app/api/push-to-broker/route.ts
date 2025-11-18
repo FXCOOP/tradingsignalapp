@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { createTradingCRMClient } from '@/lib/trading-crm-api';
+import { createAllCryptoClient } from '@/lib/allcrypto-api';
 
 /**
  * API Endpoint: Push lead from CRM to broker
@@ -9,7 +10,11 @@ import { createTradingCRMClient } from '@/lib/trading-crm-api';
  * POST /api/push-to-broker
  * Body: { signupId: string, brokerName?: string, forceImmediate?: boolean }
  *
- * Queue System:
+ * Supported Brokers:
+ * - Trading CRM: MY, TR, FR, IT, HK, SG, TW, BR
+ * - AllCrypto: AU, KR, SG, HK, TR, NL, BE, IT, ES, FR, CA
+ *
+ * Queue System (Trading CRM only):
  * - Working Hours: 04:00-13:00 GMT+2 (Monday-Friday)
  * - Daily Cap: 10 leads per day
  * - Natural spacing: 5-15 minutes between queued pushes
@@ -67,7 +72,7 @@ export async function POST(request: NextRequest) {
 
     console.log(`📍 Selected broker: ${selectedBroker} for ${signup.country}`);
 
-    // If not Trading CRM, push immediately (no queue)
+    // If AllCrypto or other broker, push immediately (no queue)
     if (selectedBroker !== 'Trading CRM') {
       return await pushImmediately(supabase, signup, selectedBroker);
     }
@@ -187,6 +192,10 @@ async function pushImmediately(supabase: any, signup: any, selectedBroker: strin
     if (pushResult.success) {
       await supabase.rpc('increment_daily_push_count');
     }
+  } else if (selectedBroker === 'AllCrypto') {
+    pushResult = await pushToAllCrypto(signup);
+    statusCode = pushResult.success ? 200 : 500;
+    errorMessage = pushResult.success ? null : pushResult.error;
   } else if (selectedBroker === 'Finoglob') {
     // Add Finoglob integration here
     pushResult = { success: false, error: 'Finoglob integration coming soon' };
@@ -273,27 +282,32 @@ function countryNameToISO(countryName: string): string {
 function determinebroker(signup: any): string {
   const { country, trading_experience, account_size } = signup;
 
-  // EXAMPLE RULES - Customize these!
+  // BROKER ROUTING RULES
 
-  // Rule 1: Specific countries go to Trading CRM
-  // Accept both country names and ISO codes
+  // Rule 1: Trading CRM Countries (Priority)
   const tradingCRMCountries = ['Malaysia', 'MY', 'Turkey', 'TR', 'France', 'FR', 'Italy', 'IT', 'Hong Kong', 'HK', 'Singapore', 'SG', 'Taiwan', 'TW', 'Brazil', 'BR'];
   if (tradingCRMCountries.includes(country)) {
     return 'Trading CRM';
   }
 
-  // Rule 2: High-value accounts go to specific broker
-  if (account_size === '50k-100k' || account_size === '100k+') {
-    return 'Trading CRM'; // Or premium broker
+  // Rule 2: AllCrypto Countries
+  const allCryptoCountries = ['Australia', 'AU', 'South Korea', 'KR', 'Korea', 'Netherlands', 'NL', 'Belgium', 'BE', 'Spain', 'ES', 'Canada', 'CA'];
+  if (allCryptoCountries.includes(country)) {
+    return 'AllCrypto';
   }
 
-  // Rule 3: Experienced traders
+  // Rule 3: High-value accounts go to Trading CRM
+  if (account_size === '50k-100k' || account_size === '100k+') {
+    return 'Trading CRM';
+  }
+
+  // Rule 4: Experienced traders go to Trading CRM
   if (trading_experience === '5-10' || trading_experience === '10+') {
     return 'Trading CRM';
   }
 
-  // Default broker
-  return 'Finoglob';
+  // Default broker: Try AllCrypto, fallback to Finoglob
+  return 'AllCrypto';
 }
 
 /**
@@ -335,6 +349,52 @@ async function pushToTradingCRM(signup: any) {
     return {
       success: false,
       error: error.message || 'Failed to connect to Trading CRM'
+    };
+  }
+}
+
+/**
+ * Push lead to AllCrypto
+ */
+async function pushToAllCrypto(signup: any) {
+  try {
+    const client = createAllCryptoClient();
+
+    const result = await client.pushLead({
+      ip: signup.ip_address || '1.1.1.1',
+      country_code: countryNameToISO(signup.country), // Convert to ISO code (AU, KR, etc.)
+      lead_language: signup.language || 'en',
+      email: signup.email,
+      first_name: signup.first_name,
+      last_name: signup.last_name,
+      phone: `${signup.country_code}${signup.phone_number}`,
+      password: 'Auto' + Math.random().toString(36).substr(2, 9), // Auto-generate password
+      aff_sub: signup.lead_source || 'pksignalpulse',
+      aff_sub2: signup.utm_source || 'direct',
+      aff_sub3: signup.utm_campaign || 'none',
+      aff_sub4: signup.trading_experience || 'not_specified',
+    }, false); // isTest = false for real leads
+
+    if (result.success) {
+      return {
+        success: true,
+        leadId: result.lead_uuid,
+        redirectUrl: result.auto_login_url,
+        advertiserName: result.advertiser_name,
+        rawResponse: result.rawResponse
+      };
+    } else {
+      return {
+        success: false,
+        error: result.error || 'AllCrypto API failed',
+        errorType: result.errorType,
+        rawResponse: result.rawResponse
+      };
+    }
+  } catch (error: any) {
+    return {
+      success: false,
+      error: error.message || 'Failed to connect to AllCrypto'
     };
   }
 }
