@@ -212,15 +212,49 @@ export class AllCryptoClient {
         body: JSON.stringify(payload),
       }));
 
-      // Read response
-      const responseData = await response.json();
-
-      // Log full response
-      console.log('📥 AllCrypto API Response:', {
+      // Log response headers and status
+      console.log('📥 AllCrypto API Response Headers:', {
         status: response.status,
         statusText: response.statusText,
-        data: responseData,
+        contentType: response.headers.get('content-type'),
+        headers: Object.fromEntries(response.headers.entries()),
       });
+
+      // Read response as text first to capture any HTML error pages
+      const responseText = await response.text();
+
+      // Log raw response (first 1000 chars)
+      console.log('📥 AllCrypto Raw Response Body (first 1000 chars):', responseText.substring(0, 1000));
+
+      // Try to parse as JSON
+      let responseData: any;
+      try {
+        responseData = JSON.parse(responseText);
+        console.log('📥 AllCrypto API Response (Parsed JSON):', {
+          status: response.status,
+          statusText: response.statusText,
+          data: responseData,
+        });
+      } catch (parseError) {
+        console.error('❌ Failed to parse AllCrypto response as JSON:', {
+          status: response.status,
+          statusText: response.statusText,
+          contentType: response.headers.get('content-type'),
+          bodyPreview: responseText.substring(0, 500),
+          parseError: parseError instanceof Error ? parseError.message : 'Unknown parse error',
+        });
+
+        return {
+          success: false,
+          error: `Invalid response from AllCrypto API (status ${response.status}): ${responseText.substring(0, 200)}`,
+          rawResponse: {
+            status: response.status,
+            statusText: response.statusText,
+            contentType: response.headers.get('content-type'),
+            body: responseText.substring(0, 1000),
+          },
+        };
+      }
 
       // Handle success (status 200)
       if (response.ok && responseData.lead_uuid) {
@@ -298,12 +332,27 @@ export class AllCryptoClient {
         },
       }));
 
-      const responseData = await response.json();
+      // Read response as text first
+      const responseText = await response.text();
 
-      console.log('📥 AllCrypto Get Leads Response:', {
-        status: response.status,
-        count: Array.isArray(responseData) ? responseData.length : 0,
-      });
+      // Try to parse as JSON
+      let responseData: any;
+      try {
+        responseData = JSON.parse(responseText);
+        console.log('📥 AllCrypto Get Leads Response:', {
+          status: response.status,
+          count: Array.isArray(responseData) ? responseData.length : 0,
+        });
+      } catch (parseError) {
+        console.error('❌ Failed to parse Get Leads response as JSON:', {
+          status: response.status,
+          bodyPreview: responseText.substring(0, 500),
+        });
+        return {
+          success: false,
+          error: `Invalid response (status ${response.status}): ${responseText.substring(0, 200)}`,
+        };
+      }
 
       if (response.ok && Array.isArray(responseData)) {
         return {
@@ -346,12 +395,27 @@ export class AllCryptoClient {
         },
       }));
 
-      const responseData = await response.json();
+      // Read response as text first
+      const responseText = await response.text();
 
-      console.log('📥 AllCrypto Get Goal Types Response:', {
-        status: response.status,
-        data: responseData,
-      });
+      // Try to parse as JSON
+      let responseData: any;
+      try {
+        responseData = JSON.parse(responseText);
+        console.log('📥 AllCrypto Get Goal Types Response:', {
+          status: response.status,
+          data: responseData,
+        });
+      } catch (parseError) {
+        console.error('❌ Failed to parse Goal Types response as JSON:', {
+          status: response.status,
+          bodyPreview: responseText.substring(0, 500),
+        });
+        return {
+          success: false,
+          error: `Invalid response (status ${response.status}): ${responseText.substring(0, 200)}`,
+        };
+      }
 
       if (response.ok && Array.isArray(responseData)) {
         return {
