@@ -447,20 +447,48 @@ export class AllCryptoClient {
     error?: string;
   }> {
     try {
+      console.log('🔍 Searching for AllCrypto lead:', leadUuid);
+
       // Get leads filtered by created date range around the lead
       const today = new Date();
-      const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const monthAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
 
-      const result = await this.getLeads({
-        created_from: weekAgo.toISOString(),
+      // Try searching for test leads first (since all our leads are marked as test during integration)
+      console.log('📋 Attempting to fetch test leads from last 30 days...');
+      let result = await this.getLeads({
+        created_from: monthAgo.toISOString(),
         created_to: today.toISOString(),
-        per_page: 500,
+        per_page: 1000,
+        is_test: true, // Search test leads specifically
       });
+
+      console.log('📊 AllCrypto returned', result.leads?.length || 0, 'test leads');
+
+      // If not found in test leads, try all leads
+      if (result.success && result.leads) {
+        let lead = result.leads.find(l => l.uuid === leadUuid);
+
+        if (lead) {
+          console.log('✅ Found lead in test leads:', lead.uuid);
+          return { success: true, lead };
+        }
+      }
+
+      // Fallback: Try all leads (not just test)
+      console.log('📋 Lead not found in test leads, searching all leads...');
+      result = await this.getLeads({
+        created_from: monthAgo.toISOString(),
+        created_to: today.toISOString(),
+        per_page: 1000,
+        // is_test not specified - get all leads
+      });
+
+      console.log('📊 AllCrypto returned', result.leads?.length || 0, 'total leads');
 
       if (!result.success || !result.leads) {
         return {
           success: false,
-          error: result.error || 'Failed to fetch leads',
+          error: result.error || 'Failed to fetch leads from AllCrypto',
         };
       }
 
@@ -468,12 +496,15 @@ export class AllCryptoClient {
       const lead = result.leads.find(l => l.uuid === leadUuid);
 
       if (!lead) {
+        console.error('❌ Lead UUID not found in AllCrypto system. UUIDs available:',
+          result.leads.slice(0, 10).map(l => l.uuid));
         return {
           success: false,
-          error: `Lead with UUID ${leadUuid} not found`,
+          error: `Lead with UUID ${leadUuid} not found in AllCrypto system. This may be because: (1) Test rotation is CLOSED, (2) Lead was rejected, or (3) There's a delay in AllCrypto's indexing.`,
         };
       }
 
+      console.log('✅ Found lead in all leads:', lead.uuid);
       return {
         success: true,
         lead,
