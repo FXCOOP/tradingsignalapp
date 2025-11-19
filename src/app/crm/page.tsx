@@ -227,12 +227,13 @@ export default function CRMDashboard() {
       });
       setShowBrokerStatusModal(true);
 
-      // Check if lead is with Trading CRM or other broker
+      // Check which broker this lead is assigned to
       const isTradingCRM = lead.assigned_broker?.includes('Trading CRM') ||
                           lead.assigned_broker?.includes('AFF 225X');
+      const isAllCrypto = lead.assigned_broker?.includes('AllCrypto');
 
-      if (!isTradingCRM) {
-        // For Finoglob and other brokers, show current status only
+      // If not Trading CRM or AllCrypto, show current status only
+      if (!isTradingCRM && !isAllCrypto) {
         console.log('ℹ️ Lead assigned to:', lead.assigned_broker, '- Showing current status');
         setSelectedBrokerStatus({
           lead,
@@ -243,13 +244,17 @@ export default function CRMDashboard() {
           tpAccount: lead.tp_account,
           lastCheck: lead.last_status_check,
           liveData: null,
-          info: `This lead is assigned to ${lead.assigned_broker || 'external broker'}. Live status sync is only available for Trading CRM leads.`
+          info: `This lead is assigned to ${lead.assigned_broker || 'external broker'}. Live status sync is only available for Trading CRM and AllCrypto leads.`
         });
         return;
       }
 
-      // Fetch live status from Trading CRM
-      const response = await fetch('/api/trading-crm/sync-status', {
+      // Determine which API endpoint to use
+      const syncEndpoint = isAllCrypto ? '/api/allcrypto/sync-status' : '/api/trading-crm/sync-status';
+      console.log(`🔄 Fetching live status from: ${isAllCrypto ? 'AllCrypto' : 'Trading CRM'}`);
+
+      // Fetch live status from broker API
+      const response = await fetch(syncEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ signupId: lead.id })
