@@ -4,6 +4,61 @@ import { createTradingCRMClient } from '@/lib/trading-crm-api';
 import { createAllCryptoClient } from '@/lib/allcrypto-api';
 
 /**
+ * Deduplication lock to prevent duplicate pushes within 5 seconds
+ * Key: signupId + broker, Value: timestamp
+ */
+const pushLocks = new Map<string, number>();
+const LOCK_DURATION_MS = 5000; // 5 seconds
+
+/**
+ * Clean up expired locks (older than LOCK_DURATION_MS)
+ */
+function cleanupExpiredLocks() {
+  const now = Date.now();
+  for (const [key, timestamp] of pushLocks.entries()) {
+    if (now - timestamp > LOCK_DURATION_MS) {
+      pushLocks.delete(key);
+    }
+  }
+}
+
+/**
+ * Check if a push is already in progress
+ */
+function isPushLocked(signupId: string, broker: string): boolean {
+  const lockKey = `${signupId}-${broker}`;
+  const lockTimestamp = pushLocks.get(lockKey);
+
+  if (lockTimestamp && Date.now() - lockTimestamp < LOCK_DURATION_MS) {
+    return true; // Lock is still active
+  }
+
+  return false;
+}
+
+/**
+ * Acquire a lock for this push
+ */
+function acquirePushLock(signupId: string, broker: string): boolean {
+  const lockKey = `${signupId}-${broker}`;
+
+  if (isPushLocked(signupId, broker)) {
+    return false; // Already locked
+  }
+
+  pushLocks.set(lockKey, Date.now());
+  return true;
+}
+
+/**
+ * Release a lock for this push
+ */
+function releasePushLock(signupId: string, broker: string) {
+  const lockKey = `${signupId}-${broker}`;
+  pushLocks.delete(lockKey);
+}
+
+/**
  * API Endpoint: Push lead from CRM to broker
  * Called from CRM dashboard based on YOUR rules
  *
@@ -21,6 +76,9 @@ import { createAllCryptoClient } from '@/lib/allcrypto-api';
  */
 export async function POST(request: NextRequest) {
   try {
+    // Clean up expired locks at the start of each request
+    cleanupExpiredLocks();
+
     const { signupId, brokerName, forceImmediate } = await request.json();
 
     if (!signupId) {
@@ -72,98 +130,137 @@ export async function POST(request: NextRequest) {
 
     console.log(`📍 Selected broker: ${selectedBroker} for ${signup.country}`);
 
-    // If AllCrypto or other broker, push immediately (no queue)
-    if (selectedBroker !== 'Trading CRM') {
-      return await pushImmediately(supabase, signup, selectedBroker);
+    // DEDUPLICATION: Check if this push is already in progress
+    if (isPushLocked(signupId, selectedBroker)) {
+      console.log(`⚠️ Duplicate push blocked: ${signup.email} → ${selectedBroker}`);
+      return NextResponse.json({
+        success: false,
+        error: `Push to ${selectedBroker} already in progress for this lead`,
+        duplicate: true,
+        message: 'This lead is already being pushed to the broker. Please wait.'
+      }, { status: 409 }); // 409 Conflict
     }
 
-    // For Trading CRM: Check queue rules (unless forceImmediate is true)
-    if (!forceImmediate) {
-      // Check working hours
-      const { data: isWorkingHours } = await supabase.rpc('is_working_hours');
-
-      if (!isWorkingHours) {
-        // Outside working hours - queue the lead
-        const { data: nextWorkingHours } = await supabase.rpc('next_working_hours_start');
-
-        await supabase
-          .from('signups')
-          .update({
-            assigned_broker: 'Trading CRM',
-            push_queue_status: 'waiting_working_hours',
-            push_queue_comment: `Waiting for working hours (04:00-13:00 GMT+2, Mon-Fri). Next: ${new Date(nextWorkingHours).toLocaleString('en-US', { timeZone: 'GMT' })}`,
-            push_scheduled_at: nextWorkingHours
-          })
-          .eq('id', signupId);
-
-        // Log queue action
-        await supabase
-          .from('push_queue_log')
-          .insert({
-            signup_id: signupId,
-            action: 'queued',
-            reason: 'Outside working hours',
-            working_hours: false
-          });
-
-        console.log('⏰ Lead queued - outside working hours');
-
-        return NextResponse.json({
-          success: true,
-          queued: true,
-          broker: 'Trading CRM',
-          message: 'Lead queued - outside working hours (04:00-13:00 GMT+2, Mon-Fri)',
-          scheduledFor: nextWorkingHours,
-          queueStatus: 'waiting_working_hours'
-        });
-      }
-
-      // Check daily cap
-      const { data: todayCount } = await supabase.rpc('get_today_push_count');
-
-      if ((todayCount || 0) >= 10) {
-        // Daily cap reached - queue for tomorrow
-        const { data: nextWorkingHours } = await supabase.rpc('next_working_hours_start');
-        const tomorrow = new Date(nextWorkingHours);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-
-        await supabase
-          .from('signups')
-          .update({
-            assigned_broker: 'Trading CRM',
-            push_queue_status: 'waiting_daily_cap',
-            push_queue_comment: `Waiting for daily cap reset (10 leads/day limit reached). Next: ${tomorrow.toLocaleString('en-US', { timeZone: 'GMT' })}`,
-            push_scheduled_at: tomorrow.toISOString()
-          })
-          .eq('id', signupId);
-
-        // Log queue action
-        await supabase
-          .from('push_queue_log')
-          .insert({
-            signup_id: signupId,
-            action: 'queued',
-            reason: 'Daily cap reached (10/day)',
-            push_count_today: todayCount,
-            working_hours: true
-          });
-
-        console.log('📊 Lead queued - daily cap reached');
-
-        return NextResponse.json({
-          success: true,
-          queued: true,
-          broker: 'Trading CRM',
-          message: 'Lead queued - daily cap reached (10 leads per day)',
-          scheduledFor: tomorrow.toISOString(),
-          queueStatus: 'waiting_daily_cap',
-          pushedToday: todayCount
-        });
-      }
+    // Acquire lock for this push
+    if (!acquirePushLock(signupId, selectedBroker)) {
+      console.log(`⚠️ Failed to acquire lock: ${signup.email} → ${selectedBroker}`);
+      return NextResponse.json({
+        success: false,
+        error: 'Failed to acquire push lock',
+        duplicate: true
+      }, { status: 409 });
     }
 
-    // Within working hours and under cap - push immediately
-    return await pushImmediately(supabase, signup, selectedBroker);
+    console.log(`🔒 Lock acquired for: ${signup.email} → ${selectedBroker}`);
+
+    try {
+      // If AllCrypto or other broker, push immediately (no queue)
+      if (selectedBroker !== 'Trading CRM') {
+        const result = await pushImmediately(supabase, signup, selectedBroker);
+        releasePushLock(signupId, selectedBroker);
+        console.log(`🔓 Lock released for: ${signup.email} → ${selectedBroker}`);
+        return result;
+      }
+
+      // For Trading CRM: Check queue rules (unless forceImmediate is true)
+      if (!forceImmediate) {
+        // Check working hours
+        const { data: isWorkingHours } = await supabase.rpc('is_working_hours');
+
+        if (!isWorkingHours) {
+          // Outside working hours - queue the lead
+          const { data: nextWorkingHours } = await supabase.rpc('next_working_hours_start');
+
+          await supabase
+            .from('signups')
+            .update({
+              assigned_broker: 'Trading CRM',
+              push_queue_status: 'waiting_working_hours',
+              push_queue_comment: `Waiting for working hours (04:00-13:00 GMT+2, Mon-Fri). Next: ${new Date(nextWorkingHours).toLocaleString('en-US', { timeZone: 'GMT' })}`,
+              push_scheduled_at: nextWorkingHours
+            })
+            .eq('id', signupId);
+
+          // Log queue action
+          await supabase
+            .from('push_queue_log')
+            .insert({
+              signup_id: signupId,
+              action: 'queued',
+              reason: 'Outside working hours',
+              working_hours: false
+            });
+
+          console.log('⏰ Lead queued - outside working hours');
+          releasePushLock(signupId, selectedBroker);
+
+          return NextResponse.json({
+            success: true,
+            queued: true,
+            broker: 'Trading CRM',
+            message: 'Lead queued - outside working hours (04:00-13:00 GMT+2, Mon-Fri)',
+            scheduledFor: nextWorkingHours,
+            queueStatus: 'waiting_working_hours'
+          });
+        }
+
+        // Check daily cap
+        const { data: todayCount } = await supabase.rpc('get_today_push_count');
+
+        if ((todayCount || 0) >= 10) {
+          // Daily cap reached - queue for tomorrow
+          const { data: nextWorkingHours } = await supabase.rpc('next_working_hours_start');
+          const tomorrow = new Date(nextWorkingHours);
+          tomorrow.setDate(tomorrow.getDate() + 1);
+
+          await supabase
+            .from('signups')
+            .update({
+              assigned_broker: 'Trading CRM',
+              push_queue_status: 'waiting_daily_cap',
+              push_queue_comment: `Waiting for daily cap reset (10 leads/day limit reached). Next: ${tomorrow.toLocaleString('en-US', { timeZone: 'GMT' })}`,
+              push_scheduled_at: tomorrow.toISOString()
+            })
+            .eq('id', signupId);
+
+          // Log queue action
+          await supabase
+            .from('push_queue_log')
+            .insert({
+              signup_id: signupId,
+              action: 'queued',
+              reason: 'Daily cap reached (10/day)',
+              push_count_today: todayCount,
+              working_hours: true
+            });
+
+          console.log('📊 Lead queued - daily cap reached');
+          releasePushLock(signupId, selectedBroker);
+
+          return NextResponse.json({
+            success: true,
+            queued: true,
+            broker: 'Trading CRM',
+            message: 'Lead queued - daily cap reached (10 leads per day)',
+            scheduledFor: tomorrow.toISOString(),
+            queueStatus: 'waiting_daily_cap',
+            pushedToday: todayCount
+          });
+        }
+      }
+
+      // Within working hours and under cap - push immediately
+      const result = await pushImmediately(supabase, signup, selectedBroker);
+      releasePushLock(signupId, selectedBroker);
+      console.log(`🔓 Lock released for: ${signup.email} → ${selectedBroker}`);
+      return result;
+
+    } catch (pushError: any) {
+      // Release lock on error
+      releasePushLock(signupId, selectedBroker);
+      console.log(`🔓 Lock released (error) for: ${signup.email} → ${selectedBroker}`);
+      throw pushError; // Re-throw to outer catch
+    }
 
   } catch (error: any) {
     console.error('❌ Error in push-to-broker:', error);
