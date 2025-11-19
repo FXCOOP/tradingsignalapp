@@ -455,10 +455,16 @@ export class AllCryptoClient {
 
       // Try searching for test leads first (since all our leads are marked as test during integration)
       console.log('📋 Attempting to fetch test leads from last 30 days...');
+
+      // Format dates for AllCrypto API (YYYY-MM-DDTHH:mm:ssZ without milliseconds)
+      const formatDate = (date: Date) => {
+        return date.toISOString().split('.')[0] + 'Z';
+      };
+
       let result = await this.getLeads({
-        created_from: monthAgo.toISOString(),
-        created_to: today.toISOString(),
-        per_page: 1000,
+        created_from: formatDate(monthAgo),
+        created_to: formatDate(today),
+        per_page: 500, // Max allowed by AllCrypto
         is_test: true, // Search test leads specifically
       });
 
@@ -477,9 +483,9 @@ export class AllCryptoClient {
       // Fallback: Try all leads (not just test)
       console.log('📋 Lead not found in test leads, searching all leads...');
       result = await this.getLeads({
-        created_from: monthAgo.toISOString(),
-        created_to: today.toISOString(),
-        per_page: 1000,
+        created_from: formatDate(monthAgo),
+        created_to: formatDate(today),
+        per_page: 500, // Max allowed by AllCrypto
         // is_test not specified - get all leads
       });
 
