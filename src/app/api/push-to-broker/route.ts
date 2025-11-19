@@ -360,6 +360,9 @@ async function pushToAllCrypto(signup: any) {
   try {
     const client = createAllCryptoClient();
 
+    // Determine if this is a test lead (check if lead_source contains "test")
+    const isTestLead = signup.lead_source?.toLowerCase().includes('test') || false;
+
     const result = await client.pushLead({
       ip: signup.ip_address || '192.227.249.3', // Fallback to VPS IP (whitelisted with AllCrypto)
       country_code: countryNameToISO(signup.country), // Convert to ISO code (AU, KR, etc.)
@@ -373,7 +376,7 @@ async function pushToAllCrypto(signup: any) {
       aff_sub2: signup.utm_source || 'direct',
       aff_sub3: signup.utm_campaign || 'none',
       aff_sub4: signup.trading_experience || 'not_specified',
-    }, false); // isTest = false for real leads
+    }, isTestLead); // isTest = true if lead_source contains "test"
 
     if (result.success) {
       return {
