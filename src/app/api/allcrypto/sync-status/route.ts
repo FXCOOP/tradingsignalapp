@@ -101,7 +101,6 @@ export async function POST(request: NextRequest) {
       leadUuid: lead.uuid,
       advertiserName: lead.advertiserName,
       createdAt: lead.createdAt,
-      updatedAt: lead.updatedAt,
     });
 
     return NextResponse.json({
@@ -134,7 +133,6 @@ async function updateLeadStatus(signupId: string, statusData: {
   leadUuid: string;
   advertiserName?: string;
   createdAt?: string;
-  updatedAt?: string;
 }) {
   try {
     // Get current status
@@ -187,7 +185,7 @@ async function updateLeadStatus(signupId: string, statusData: {
         lead_id: signupId,
         broker_name: statusData.advertiserName || 'AllCrypto',
         conversion_type: 'FTD',
-        converted_at: statusData.updatedAt || new Date().toISOString(),
+        converted_at: new Date().toISOString(),
       });
     }
 
