@@ -360,8 +360,9 @@ async function pushToAllCrypto(signup: any) {
   try {
     const client = createAllCryptoClient();
 
-    // Determine if this is a test lead (check if lead_source contains "test")
-    const isTestLead = signup.lead_source?.toLowerCase().includes('test') || false;
+    // TESTING: Force all AllCrypto leads as test until integration verified
+    // This ensures aff_sub5: "test" is added to ALL leads during testing period
+    const isTestLead = true;
 
     const result = await client.pushLead({
       ip: signup.ip_address || '192.227.249.3', // Fallback to VPS IP (whitelisted with AllCrypto)
