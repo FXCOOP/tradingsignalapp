@@ -51,7 +51,12 @@ export async function POST(request: NextRequest) {
           ? JSON.parse(leadData.push_response)
           : leadData.push_response;
 
-        leadUuid = pushResponse.lead_uuid || pushResponse.leadUuid || null;
+        // Check multiple possible locations for lead_uuid
+        leadUuid = pushResponse.lead_uuid ||           // Top-level lead_uuid
+                   pushResponse.leadUuid ||            // Top-level leadUuid
+                   pushResponse.leadId ||              // Top-level leadId (used in our response)
+                   pushResponse.rawResponse?.lead_uuid || // Nested in rawResponse
+                   null;
       } catch (parseError) {
         console.error('Failed to parse push_response:', parseError);
       }
