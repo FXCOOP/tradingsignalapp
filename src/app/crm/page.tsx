@@ -694,7 +694,7 @@ export default function CRMDashboard() {
             {selectedBrokerStatus.loading && (
               <div style={{ textAlign: 'center', padding: '40px' }}>
                 <div className="spinner" style={{ margin: '0 auto 20px' }}></div>
-                <p>Fetching live status from Trading CRM...</p>
+                <p>Fetching live status from {selectedBrokerStatus.lead?.assigned_broker?.includes('AllCrypto') ? 'AllCrypto' : 'Trading CRM'}...</p>
               </div>
             )}
 
