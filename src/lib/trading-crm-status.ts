@@ -81,7 +81,6 @@ export class TradingCRMStatusSync {
 
       console.log('📡 Calling Trading CRM GET /accounts API...', {
         filterQuery,
-        hasProxy: !!process.env.TRADING_CRM_PROXY_URL,
       });
 
       const baseUrl = process.env.TRADING_CRM_API_ENDPOINT!.replace('/accounts/registrationwithsso', '');

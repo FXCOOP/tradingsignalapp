@@ -116,78 +116,37 @@ export class TradingCRMClient {
     try {
       // Get the base URL from the API endpoint
       const baseUrl = this.config.apiEndpoint.replace(/\/accounts\/.*$/, '');
-      const proxyUrl = process.env.TRADING_CRM_PROXY_URL;
 
-      let response;
+      const response = await fetch(`${baseUrl}/token`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userName: this.config.username,
+          password: this.config.password,
+        }),
+      });
 
-      if (proxyUrl) {
-        // Route through proxy (YOUR server with whitelisted IP)
-        console.log('🔀 Using proxy:', proxyUrl);
-        response = await fetch(`${proxyUrl}/proxy/trading-crm/token`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            tokenEndpoint: `${baseUrl}/token`,
-            username: this.config.username,
-            password: this.config.password,
-          }),
-        });
-
-        const proxyResult = await response.json();
-        if (!proxyResult.success) {
-          throw new Error(`Proxy token request failed: ${proxyResult.error}`);
-        }
-
-        const data = proxyResult.data;
-
-        if (!data.Token) {
-          throw new Error('No token received from Trading CRM API via proxy');
-        }
-
-        // Cache the token
-        const expiresIn = data.ExpiresIn || 82800;
-        this.tokenCache = {
-          token: data.Token,
-          expiresAt: Date.now() + (expiresIn - 3600) * 1000,
-        };
-
-        console.log(`✅ Bearer token obtained via proxy (expires in ${Math.floor(expiresIn / 3600)} hours)`);
-        return `Bearer ${data.Token}`;
-      } else {
-        // Direct connection (no proxy)
-        response = await fetch(`${baseUrl}/token`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userName: this.config.username,
-            password: this.config.password,
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error(`Token request failed: ${response.status} ${response.statusText}`);
-        }
-
-        const data = await response.json();
-
-        if (!data.Token) {
-          throw new Error('No token received from Trading CRM API');
-        }
-
-        // Cache the token (expires in 23 hours by default, we'll refresh at 22 hours)
-        const expiresIn = data.ExpiresIn || 82800; // 23 hours in seconds
-        this.tokenCache = {
-          token: data.Token,
-          expiresAt: Date.now() + (expiresIn - 3600) * 1000, // Refresh 1 hour before expiry
-        };
-
-        console.log(`✅ Bearer token obtained successfully (expires in ${Math.floor(expiresIn / 3600)} hours)`);
-        return `Bearer ${data.Token}`;
+      if (!response.ok) {
+        throw new Error(`Token request failed: ${response.status} ${response.statusText}`);
       }
+
+      const data = await response.json();
+
+      if (!data.Token) {
+        throw new Error('No token received from Trading CRM API');
+      }
+
+      // Cache the token (expires in 23 hours by default, we'll refresh at 22 hours)
+      const expiresIn = data.ExpiresIn || 82800; // 23 hours in seconds
+      this.tokenCache = {
+        token: data.Token,
+        expiresAt: Date.now() + (expiresIn - 3600) * 1000, // Refresh 1 hour before expiry
+      };
+
+      console.log(`✅ Bearer token obtained successfully (expires in ${Math.floor(expiresIn / 3600)} hours)`);
+      return `Bearer ${data.Token}`;
     } catch (error) {
       console.error('❌ Failed to get Bearer token:', error);
       throw error;
@@ -256,78 +215,35 @@ export class TradingCRMClient {
       });
       console.log('📤 Exact Payload (JSON):', JSON.stringify(payload, null, 2));
 
-      const proxyUrl = process.env.TRADING_CRM_PROXY_URL;
-      let response;
       let rawResponse;
       let responseData;
       let contentType;
 
-      if (proxyUrl) {
-        // Route through proxy (YOUR server with whitelisted IP)
-        console.log('🔀 Routing through proxy:', proxyUrl);
+      const response = await fetch(this.config.apiEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json-patch+json',
+          'Accept': 'application/json',
+          'Authorization': authHeader,
+          'api-version': '4.0', // Required for API V4
+        },
+        body: JSON.stringify(payload),
+      });
 
-        response = await fetch(`${proxyUrl}/proxy/trading-crm`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            endpoint: this.config.apiEndpoint,
-            method: 'POST',
-            headers: {
-              'Authorization': authHeader,
-              'api-version': '4.0',
-            },
-            body: payload,
-          }),
-        });
+      // Read response body as text first (can only read once)
+      rawResponse = await response.text();
+      contentType = response.headers.get('content-type');
 
-        const proxyResult = await response.json();
-        rawResponse = proxyResult.rawResponse || JSON.stringify(proxyResult.data);
-        responseData = proxyResult.data;
-        contentType = proxyResult.headers?.['content-type'] || null;
+      // Log raw response for debugging
+      console.log('📥 Trading CRM Raw Response:', rawResponse.substring(0, 500));
 
-        console.log('📥 Trading CRM Response via Proxy:', {
-          status: proxyResult.status,
-          statusText: proxyResult.statusText,
-          data: responseData,
-        });
-
-        // Update response for consistent handling below
-        response = {
-          ok: proxyResult.success,
-          status: proxyResult.status,
-          statusText: proxyResult.statusText,
-        } as Response;
-
-      } else {
-        // Direct connection (no proxy)
-        response = await fetch(this.config.apiEndpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json-patch+json',
-            'Accept': 'application/json',
-            'Authorization': authHeader,
-            'api-version': '4.0', // Required for API V4
-          },
-          body: JSON.stringify(payload),
-        });
-
-        // Read response body as text first (can only read once)
-        rawResponse = await response.text();
-        const contentType = response.headers.get('content-type');
-
-        // Log raw response for debugging
-        console.log('📥 Trading CRM Raw Response:', rawResponse.substring(0, 500));
-
-        // Try to parse as JSON
-        try {
-          responseData = JSON.parse(rawResponse);
-        } catch (parseError) {
-          // If not valid JSON, treat as plain text error
-          console.log('⚠️ Trading CRM returned non-JSON response');
-          responseData = { error: rawResponse };
-        }
+      // Try to parse as JSON
+      try {
+        responseData = JSON.parse(rawResponse);
+      } catch (parseError) {
+        // If not valid JSON, treat as plain text error
+        console.log('⚠️ Trading CRM returned non-JSON response');
+        responseData = { error: rawResponse };
       }
 
       // Log full response
