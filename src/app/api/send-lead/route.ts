@@ -4,6 +4,7 @@
  * Universal lead submission endpoint
  * - Stores lead in Supabase 'signups' table
  * - Supports all landing pages (TB1, LP1, etc.)
+ * - Auto-pushes to NAX (Airtable) for AU leads (primary)
  * - Auto-pushes to Trading CRM for supported countries
  * - Auto-pushes to AllCrypto for supported countries (with fallback)
  */
@@ -17,11 +18,14 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+// Supported countries for NAX broker (Airtable) - PRIMARY for AU
+const NAX_COUNTRIES = ['AU'];
+
 // Supported countries for Trading CRM auto-push
 const TRADING_CRM_COUNTRIES = ['MY', 'TR', 'FR', 'IT', 'HK', 'SG', 'TW', 'BR'];
 
-// Supported countries for AllCrypto auto-push
-const ALLCRYPTO_COUNTRIES = ['AU', 'KR', 'SG', 'HK', 'TR', 'NL', 'BE', 'IT', 'ES', 'FR', 'CA'];
+// Supported countries for AllCrypto auto-push (AU removed - now goes to NAX)
+const ALLCRYPTO_COUNTRIES = ['KR', 'SG', 'HK', 'TR', 'NL', 'BE', 'IT', 'ES', 'FR', 'CA'];
 
 export async function POST(request: NextRequest) {
   try {
@@ -114,8 +118,56 @@ export async function POST(request: NextRequest) {
 
     let pushedSuccessfully = false;
 
-    // Auto-push to Trading CRM for supported countries
-    if (country && TRADING_CRM_COUNTRIES.includes(country.toUpperCase())) {
+    // AUTO-PUSH PRIORITY ORDER:
+    // 1. NAX (Airtable) for AU leads - PRIMARY
+    // 2. Trading CRM for supported countries
+    // 3. AllCrypto for remaining supported countries (fallback)
+
+    // 1. Auto-push to NAX (Airtable) for AU leads - PRIMARY
+    if (country && NAX_COUNTRIES.includes(country.toUpperCase())) {
+      try {
+        console.log(`[send-lead] Attempting to push to NAX for country: ${country}`);
+
+        const naxPushResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/nax/send-lead`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              signupId: signup.id,
+              firstName: first_name,
+              lastName: last_name,
+              email,
+              phone: phone_number,
+              country,
+              language,
+              ip: clientIp,
+              tag: source,
+              utmSource: source,
+              additionalInfo1: trading_experience,
+            }),
+          }
+        );
+
+        const naxPushResult = await naxPushResponse.json();
+
+        console.log('NAX push result:', {
+          success: naxPushResult.success,
+          record_id: naxPushResult.record_id,
+        });
+
+        if (naxPushResult.success) {
+          pushedSuccessfully = true;
+        }
+      } catch (naxPushError) {
+        console.error('NAX push failed:', naxPushError);
+      }
+    }
+
+    // 2. Auto-push to Trading CRM for supported countries
+    if (!pushedSuccessfully && country && TRADING_CRM_COUNTRIES.includes(country.toUpperCase())) {
       try {
         console.log(`[send-lead] Attempting to push to Trading CRM for country: ${country}`);
 
