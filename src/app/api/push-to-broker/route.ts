@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { createTradingCRMClient } from '@/lib/trading-crm-api';
 import { createAllCryptoClient } from '@/lib/allcrypto-api';
+import { createNaxClient } from '@/lib/nax-airtable-api';
 
 /**
  * Deduplication lock to prevent duplicate pushes within 5 seconds
@@ -67,7 +68,8 @@ function releasePushLock(signupId: string, broker: string) {
  *
  * Supported Brokers:
  * - Trading CRM: MY, TR, FR, IT, HK, SG, TW, BR
- * - AllCrypto: AU, KR, SG, HK, TR, NL, BE, IT, ES, FR, CA
+ * - NAX Capital: AU (Australia)
+ * - AllCrypto: KR, NL, BE, ES, CA
  *
  * Queue System (Trading CRM only):
  * - Working Hours: 04:00-13:00 GMT+2 (Monday-Friday)
@@ -293,6 +295,10 @@ async function pushImmediately(supabase: any, signup: any, selectedBroker: strin
     pushResult = await pushToAllCrypto(signup);
     statusCode = pushResult.success ? 200 : 500;
     errorMessage = pushResult.success ? null : pushResult.error;
+  } else if (selectedBroker === 'NAX') {
+    pushResult = await pushToNAX(signup);
+    statusCode = pushResult.success ? 200 : 500;
+    errorMessage = pushResult.success ? null : pushResult.error;
   } else if (selectedBroker === 'Finoglob') {
     // Add Finoglob integration here
     pushResult = { success: false, error: 'Finoglob integration coming soon' };
@@ -387,8 +393,14 @@ function determinebroker(signup: any): string {
     return 'Trading CRM';
   }
 
-  // Rule 2: AllCrypto Countries
-  const allCryptoCountries = ['Australia', 'AU', 'South Korea', 'KR', 'Korea', 'Netherlands', 'NL', 'Belgium', 'BE', 'Spain', 'ES', 'Canada', 'CA'];
+  // Rule 2: NAX Countries (Australia)
+  const naxCountries = ['Australia', 'AU'];
+  if (naxCountries.includes(country)) {
+    return 'NAX';
+  }
+
+  // Rule 3: AllCrypto Countries
+  const allCryptoCountries = ['South Korea', 'KR', 'Korea', 'Netherlands', 'NL', 'Belgium', 'BE', 'Spain', 'ES', 'Canada', 'CA'];
   if (allCryptoCountries.includes(country)) {
     return 'AllCrypto';
   }
@@ -496,6 +508,44 @@ async function pushToAllCrypto(signup: any) {
     return {
       success: false,
       error: error.message || 'Failed to connect to AllCrypto'
+    };
+  }
+}
+
+/**
+ * Push lead to NAX Capital (Australia)
+ */
+async function pushToNAX(signup: any) {
+  try {
+    const client = createNaxClient();
+
+    const result = await client.pushLead({
+      partner_id: process.env.NAX_PARTNER_ID || '',
+      name: `${signup.first_name} ${signup.last_name}`,
+      email: signup.email,
+      phone: `${signup.country_code}${signup.phone_number}`,
+      source: signup.lead_source || 'pksignalpulse',
+      interested_in: 'Trading Signals',
+      message: `Trading experience: ${signup.trading_experience || 'not specified'}, Account size: ${signup.account_size || 'not specified'}`,
+    });
+
+    if (result.success) {
+      return {
+        success: true,
+        rawResponse: result.rawResponse
+      };
+    } else {
+      return {
+        success: false,
+        error: result.error || 'NAX API failed',
+        errorType: result.errorType,
+        rawResponse: result.rawResponse
+      };
+    }
+  } catch (error: any) {
+    return {
+      success: false,
+      error: error.message || 'Failed to connect to NAX'
     };
   }
 }
