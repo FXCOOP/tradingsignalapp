@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { createTradingCRMClient } from '@/lib/trading-crm-api';
-import { createAllCryptoClient } from '@/lib/allcrypto-api';
+// AllCrypto disabled - no longer routing leads to this broker
+// import { createAllCryptoClient } from '@/lib/allcrypto-api';
 import { createNaxClient } from '@/lib/nax-airtable-api';
+import { createNTrafficClient, NTrafficClient } from '@/lib/ntraffic-api';
 
 /**
  * Deduplication lock to prevent duplicate pushes within 5 seconds
@@ -67,9 +69,9 @@ function releasePushLock(signupId: string, broker: string) {
  * Body: { signupId: string, brokerName?: string, forceImmediate?: boolean }
  *
  * Supported Brokers:
- * - Trading CRM: MY, TR, FR, IT, HK, SG, TW, BR
+ * - Trading CRM: MY, TR, FR, HK, SG, TW, BR
  * - NAX Capital: AU (Australia)
- * - AllCrypto: KR, NL, BE, ES, CA
+ * - N_Traffic: IT (Italy) - PRIMARY for Italian leads
  *
  * Queue System (Trading CRM only):
  * - Working Hours: 04:00-13:00 GMT+2 (Monday-Friday)
@@ -128,7 +130,15 @@ export async function POST(request: NextRequest) {
     }
 
     // YOUR RULES: Determine which broker to use
-    const selectedBroker = brokerName || determinebroker(signup);
+    // If broker name is provided but doesn't match country routing, use the correct broker
+    let selectedBroker = brokerName || determinebroker(signup);
+
+    // Auto-correct broker assignment based on country (override old assignments)
+    const correctBroker = determinebroker(signup);
+    if (selectedBroker !== correctBroker && !brokerName) {
+      console.log(`🔄 Auto-correcting broker: ${selectedBroker} → ${correctBroker} for ${signup.country}`);
+      selectedBroker = correctBroker;
+    }
 
     console.log(`📍 Selected broker: ${selectedBroker} for ${signup.country}`);
 
@@ -291,12 +301,17 @@ async function pushImmediately(supabase: any, signup: any, selectedBroker: strin
     if (pushResult.success) {
       await supabase.rpc('increment_daily_push_count');
     }
-  } else if (selectedBroker === 'AllCrypto') {
-    pushResult = await pushToAllCrypto(signup);
-    statusCode = pushResult.success ? 200 : 500;
-    errorMessage = pushResult.success ? null : pushResult.error;
+  // AllCrypto disabled - no longer routing leads to this broker
+  // } else if (selectedBroker === 'AllCrypto') {
+  //   pushResult = await pushToAllCrypto(signup);
+  //   statusCode = pushResult.success ? 200 : 500;
+  //   errorMessage = pushResult.success ? null : pushResult.error;
   } else if (selectedBroker === 'NAX') {
     pushResult = await pushToNAX(signup);
+    statusCode = pushResult.success ? 200 : 500;
+    errorMessage = pushResult.success ? null : pushResult.error;
+  } else if (selectedBroker === 'N_Traffic') {
+    pushResult = await pushToNTraffic(signup);
     statusCode = pushResult.success ? 200 : 500;
     errorMessage = pushResult.success ? null : pushResult.error;
   } else if (selectedBroker === 'Finoglob') {
@@ -387,10 +402,10 @@ function determinebroker(signup: any): string {
 
   // BROKER ROUTING RULES
 
-  // Rule 1: Trading CRM Countries (Priority)
-  const tradingCRMCountries = ['Malaysia', 'MY', 'Turkey', 'TR', 'France', 'FR', 'Italy', 'IT', 'Hong Kong', 'HK', 'Singapore', 'SG', 'Taiwan', 'TW', 'Brazil', 'BR'];
-  if (tradingCRMCountries.includes(country)) {
-    return 'Trading CRM';
+  // Rule 1: N_Traffic Countries (Italy) - PRIMARY for IT
+  const ntrafficCountries = ['Italy', 'IT'];
+  if (ntrafficCountries.includes(country)) {
+    return 'N_Traffic';
   }
 
   // Rule 2: NAX Countries (Australia)
@@ -399,24 +414,30 @@ function determinebroker(signup: any): string {
     return 'NAX';
   }
 
-  // Rule 3: AllCrypto Countries
-  const allCryptoCountries = ['South Korea', 'KR', 'Korea', 'Netherlands', 'NL', 'Belgium', 'BE', 'Spain', 'ES', 'Canada', 'CA'];
-  if (allCryptoCountries.includes(country)) {
-    return 'AllCrypto';
+  // Rule 3: Trading CRM Countries (IT removed - now goes to N_Traffic)
+  const tradingCRMCountries = ['Malaysia', 'MY', 'Turkey', 'TR', 'France', 'FR', 'Hong Kong', 'HK', 'Singapore', 'SG', 'Taiwan', 'TW', 'Brazil', 'BR'];
+  if (tradingCRMCountries.includes(country)) {
+    return 'Trading CRM';
   }
 
-  // Rule 3: High-value accounts go to Trading CRM
+  // AllCrypto disabled - no longer routing leads to this broker
+  // const allCryptoCountries = ['South Korea', 'KR', 'Korea', 'Netherlands', 'NL', 'Belgium', 'BE', 'Spain', 'ES', 'Canada', 'CA'];
+  // if (allCryptoCountries.includes(country)) {
+  //   return 'AllCrypto';
+  // }
+
+  // Rule 4: High-value accounts go to Trading CRM
   if (account_size === '50k-100k' || account_size === '100k+') {
     return 'Trading CRM';
   }
 
-  // Rule 4: Experienced traders go to Trading CRM
+  // Rule 5: Experienced traders go to Trading CRM
   if (trading_experience === '5-10' || trading_experience === '10+') {
     return 'Trading CRM';
   }
 
-  // Default broker: Try AllCrypto, fallback to Finoglob
-  return 'AllCrypto';
+  // Default broker: Trading CRM (AllCrypto disabled)
+  return 'Trading CRM';
 }
 
 /**
@@ -462,55 +483,8 @@ async function pushToTradingCRM(signup: any) {
   }
 }
 
-/**
- * Push lead to AllCrypto
- */
-async function pushToAllCrypto(signup: any) {
-  try {
-    const client = createAllCryptoClient();
-
-    // TESTING: Force all AllCrypto leads as test until integration verified
-    // This ensures aff_sub5: "test" is added to ALL leads during testing period
-    const isTestLead = true;
-
-    const result = await client.pushLead({
-      ip: signup.ip_address || '192.227.249.3', // Fallback to VPS IP (whitelisted with AllCrypto)
-      country_code: countryNameToISO(signup.country), // Convert to ISO code (AU, KR, etc.)
-      lead_language: signup.language || 'en',
-      email: signup.email,
-      first_name: signup.first_name,
-      last_name: signup.last_name,
-      phone: `${signup.country_code}${signup.phone_number}`,
-      password: 'Auto' + Math.random().toString(36).substr(2, 9), // Auto-generate password
-      aff_sub: signup.lead_source || 'pksignalpulse',
-      aff_sub2: signup.utm_source || 'direct',
-      aff_sub3: signup.utm_campaign || 'none',
-      aff_sub4: signup.trading_experience || 'not_specified',
-    }, isTestLead); // isTest = true if lead_source contains "test"
-
-    if (result.success) {
-      return {
-        success: true,
-        leadId: result.lead_uuid,
-        redirectUrl: result.auto_login_url,
-        advertiserName: result.advertiser_name,
-        rawResponse: result.rawResponse
-      };
-    } else {
-      return {
-        success: false,
-        error: result.error || 'AllCrypto API failed',
-        errorType: result.errorType,
-        rawResponse: result.rawResponse
-      };
-    }
-  } catch (error: any) {
-    return {
-      success: false,
-      error: error.message || 'Failed to connect to AllCrypto'
-    };
-  }
-}
+// AllCrypto disabled - no longer routing leads to this broker
+// async function pushToAllCrypto(signup: any) { ... }
 
 /**
  * Push lead to NAX Capital (Australia)
@@ -546,6 +520,69 @@ async function pushToNAX(signup: any) {
     return {
       success: false,
       error: error.message || 'Failed to connect to NAX'
+    };
+  }
+}
+
+/**
+ * Push lead to N_Traffic (Italy)
+ */
+async function pushToNTraffic(signup: any) {
+  try {
+    const client = createNTrafficClient();
+
+    // Extract phone without country code if present
+    let phoneNumber = signup.phone_number || '';
+    let areaCode = '';
+
+    // If phone starts with Italy country code (39)
+    if (phoneNumber.startsWith('39')) {
+      areaCode = '39';
+      phoneNumber = phoneNumber.substring(2);
+    } else if (phoneNumber.startsWith('+39')) {
+      areaCode = '39';
+      phoneNumber = phoneNumber.substring(3);
+    }
+
+    const result = await client.pushLead({
+      email: signup.email,
+      firstName: signup.first_name,
+      lastName: signup.last_name,
+      password: NTrafficClient.generatePassword(), // Auto-generate strong password
+      ip: signup.ip_address || '127.0.0.1',
+      phone: phoneNumber,
+      areaCode: areaCode || undefined,
+      locale: 'it_IT', // Italian locale
+      custom1: signup.id, // Our signup ID for reference
+      custom2: signup.lead_source || 'pksignalpulse', // Campaign source
+      custom3: signup.trading_experience || undefined, // Trading experience
+      custom4: signup.account_size || undefined, // Account size
+      custom5: 'pksignalpulse', // Our identifier
+      comment: signup.trading_experience ? `Trading experience: ${signup.trading_experience}` : undefined,
+      offerWebsite: process.env.NEXT_PUBLIC_APP_URL || undefined,
+    });
+
+    if (result.success) {
+      return {
+        success: true,
+        leadRequestId: result.leadRequestId,
+        redirectUrl: result.redirectUrl,
+        advertiserName: result.advertiserName,
+        offerName: result.offerName,
+        rawResponse: result.rawResponse
+      };
+    } else {
+      return {
+        success: false,
+        error: result.error || 'N_Traffic API failed',
+        httpCode: result.httpCode,
+        rawResponse: result.rawResponse
+      };
+    }
+  } catch (error: any) {
+    return {
+      success: false,
+      error: error.message || 'Failed to connect to N_Traffic'
     };
   }
 }

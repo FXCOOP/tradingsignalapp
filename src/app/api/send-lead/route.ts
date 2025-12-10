@@ -21,11 +21,14 @@ const supabase = createClient(
 // Supported countries for NAX broker (Airtable) - PRIMARY for AU
 const NAX_COUNTRIES = ['AU'];
 
-// Supported countries for Trading CRM auto-push
-const TRADING_CRM_COUNTRIES = ['MY', 'TR', 'FR', 'IT', 'HK', 'SG', 'TW', 'BR'];
+// Supported countries for N_Traffic auto-push - PRIMARY for IT (Italy)
+const NTRAFFIC_COUNTRIES = ['IT'];
 
-// Supported countries for AllCrypto auto-push (AU removed - now goes to NAX)
-const ALLCRYPTO_COUNTRIES = ['KR', 'SG', 'HK', 'TR', 'NL', 'BE', 'IT', 'ES', 'FR', 'CA'];
+// Supported countries for Trading CRM auto-push (IT removed - now goes to N_Traffic)
+const TRADING_CRM_COUNTRIES = ['MY', 'TR', 'FR', 'HK', 'SG', 'TW', 'BR'];
+
+// AllCrypto disabled - no longer routing leads to this broker
+// const ALLCRYPTO_COUNTRIES = ['KR', 'SG', 'HK', 'TR', 'NL', 'BE', 'ES', 'FR', 'CA'];
 
 export async function POST(request: NextRequest) {
   try {
@@ -120,8 +123,9 @@ export async function POST(request: NextRequest) {
 
     // AUTO-PUSH PRIORITY ORDER:
     // 1. NAX (Airtable) for AU leads - PRIMARY
-    // 2. Trading CRM for supported countries
-    // 3. AllCrypto for remaining supported countries (fallback)
+    // 2. N_Traffic for IT leads - PRIMARY for Italy
+    // 3. Trading CRM for supported countries
+    // 4. AllCrypto for remaining supported countries (fallback)
 
     // 1. Auto-push to NAX (Airtable) for AU leads - PRIMARY
     if (country && NAX_COUNTRIES.includes(country.toUpperCase())) {
@@ -166,7 +170,52 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 2. Auto-push to Trading CRM for supported countries
+    // 2. Auto-push to N_Traffic for IT leads - PRIMARY for Italy
+    if (!pushedSuccessfully && country && NTRAFFIC_COUNTRIES.includes(country.toUpperCase())) {
+      try {
+        console.log(`[send-lead] Attempting to push to N_Traffic for country: ${country}`);
+
+        const ntrafficPushResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/ntraffic/send-lead`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              signupId: signup.id,
+              firstName: first_name,
+              lastName: last_name,
+              email,
+              phone: phone_number,
+              country,
+              language,
+              ip: clientIp,
+              tag: source,
+              utmSource: source,
+              additionalInfo1: trading_experience,
+              additionalInfo2: account_size,
+            }),
+          }
+        );
+
+        const ntrafficPushResult = await ntrafficPushResponse.json();
+
+        console.log('N_Traffic push result:', {
+          success: ntrafficPushResult.success,
+          leadRequestId: ntrafficPushResult.leadRequestId,
+          advertiser: ntrafficPushResult.advertiserName,
+        });
+
+        if (ntrafficPushResult.success) {
+          pushedSuccessfully = true;
+        }
+      } catch (ntrafficPushError) {
+        console.error('N_Traffic push failed:', ntrafficPushError);
+      }
+    }
+
+    // 3. Auto-push to Trading CRM for supported countries
     if (!pushedSuccessfully && country && TRADING_CRM_COUNTRIES.includes(country.toUpperCase())) {
       try {
         console.log(`[send-lead] Attempting to push to Trading CRM for country: ${country}`);
@@ -209,50 +258,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // If Trading CRM push failed OR country is AllCrypto-only, try AllCrypto
-    if (!pushedSuccessfully && country && ALLCRYPTO_COUNTRIES.includes(country.toUpperCase())) {
-      try {
-        console.log(`[send-lead] Attempting to push to AllCrypto for country: ${country}`);
-
-        const allCryptoPushResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/allcrypto/send-lead`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              signupId: signup.id,
-              firstName: first_name,
-              lastName: last_name,
-              email,
-              phone: phone_number,
-              country,
-              language,
-              ip: clientIp,
-              tag: source,
-              utmSource: source,
-              additionalInfo1: trading_experience,
-              isTest: false,
-            }),
-          }
-        );
-
-        const allCryptoPushResult = await allCryptoPushResponse.json();
-
-        console.log('AllCrypto push result:', {
-          success: allCryptoPushResult.success,
-          lead_uuid: allCryptoPushResult.lead_uuid,
-          advertiser: allCryptoPushResult.advertiser_name,
-        });
-
-        if (allCryptoPushResult.success) {
-          pushedSuccessfully = true;
-        }
-      } catch (allCryptoPushError) {
-        console.error('AllCrypto push failed (non-blocking):', allCryptoPushError);
-      }
-    }
+    // AllCrypto disabled - no longer routing leads to this broker
 
     return NextResponse.json({
       success: true,
