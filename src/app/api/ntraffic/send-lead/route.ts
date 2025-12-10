@@ -74,12 +74,18 @@ export async function POST(request: NextRequest) {
     phoneNumber = phoneNumber.replace(/[\s+\-()]/g, '');
 
     // Remove country code 39 if present (areaCode sent separately)
-    if (phoneNumber.startsWith('39')) {
+    if (phoneNumber.startsWith('39') && phoneNumber.length > 10) {
       phoneNumber = phoneNumber.substring(2);
     }
 
-    // Italian mobile: should be 9-10 digits starting with 3
-    console.log(`📞 Phone for N_Traffic: areaCode=39, phone=${phoneNumber}`);
+    // Fix: If phone doesn't start with 3, prepend 3 (Italian mobile prefix was stripped)
+    // Italian mobile numbers are 10 digits starting with 3
+    if (!phoneNumber.startsWith('3')) {
+      phoneNumber = '3' + phoneNumber;
+    }
+
+    // Italian mobile: should be 10 digits starting with 3
+    console.log(`📞 Phone for N_Traffic: areaCode=39, phone=${phoneNumber} (${phoneNumber.length} digits)`);
 
     // Prepare lead data for N_Traffic
     const leadData: NTrafficLeadData = {
