@@ -312,7 +312,7 @@ async function pushImmediately(supabase: any, signup: any, selectedBroker: strin
     errorMessage = pushResult.success ? null : pushResult.error;
   } else if (selectedBroker === 'N_Traffic') {
     pushResult = await pushToNTraffic(signup);
-    statusCode = pushResult.success ? 200 : 500;
+    statusCode = pushResult.success ? 200 : (pushResult.httpCode || 500);
     errorMessage = pushResult.success ? null : pushResult.error;
   } else if (selectedBroker === 'Finoglob') {
     // Add Finoglob integration here
@@ -326,7 +326,26 @@ async function pushImmediately(supabase: any, signup: any, selectedBroker: strin
     }, { status: 400 });
   }
 
-  // Update CRM with push result
+  // Update CRM with push result - ALWAYS save response (success or failure)
+  const pushResponseData = {
+    success: pushResult.success,
+    broker: selectedBroker,
+    timestamp: new Date().toISOString(),
+    httpCode: statusCode,
+    error: errorMessage,
+    message: pushResult.success
+      ? `Successfully pushed to ${selectedBroker}`
+      : `Failed: ${errorMessage}`,
+    // Include broker-specific response data
+    leadId: pushResult.leadId,
+    leadRequestId: pushResult.leadRequestId,
+    redirectUrl: pushResult.redirectUrl,
+    advertiserName: pushResult.advertiserName,
+    offerName: pushResult.offerName,
+    // Full raw response from broker API
+    rawResponse: pushResult.rawResponse
+  };
+
   await supabase
     .from('signups')
     .update({
@@ -334,11 +353,7 @@ async function pushImmediately(supabase: any, signup: any, selectedBroker: strin
       crm_status: pushResult.success ? 'sent_to_broker' : 'push_failed',
       pushed_to_crm: pushResult.success,
       push_status_code: statusCode,
-      push_response: JSON.stringify({
-        broker: selectedBroker,
-        timestamp: new Date().toISOString(),
-        ...pushResult
-      }),
+      push_response: JSON.stringify(pushResponseData),
       push_error: errorMessage,
       pushed_at: new Date().toISOString(),
       push_queue_status: pushResult.success ? 'pushed' : 'failed',
