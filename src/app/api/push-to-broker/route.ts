@@ -548,17 +548,20 @@ async function pushToNTraffic(signup: any) {
 
     // Extract phone - clean symbols only
     let phoneNumber = signup.phone_number || '';
+    console.log(`📞 Original phone from DB: "${phoneNumber}"`);
 
     // Clean phone number - remove symbols only (keep digits)
     phoneNumber = phoneNumber.replace(/[\s+\-()]/g, '');
+    console.log(`📞 After cleaning symbols: "${phoneNumber}"`);
 
     // Remove country code 39 if present (areaCode sent separately)
     if (phoneNumber.startsWith('39')) {
       phoneNumber = phoneNumber.substring(2);
+      console.log(`📞 After removing 39 prefix: "${phoneNumber}"`);
     }
 
     // Italian mobile: should be 9-10 digits starting with 3
-    console.log(`📞 Phone for N_Traffic: areaCode=39, phone=${phoneNumber}`);
+    console.log(`📞 FINAL Phone for N_Traffic: areaCode=39, phone="${phoneNumber}" (${phoneNumber.length} digits)`);
 
     // Generate random Italian IP for geo-validation
     const italianIP = NTrafficClient.generateItalianIP();
