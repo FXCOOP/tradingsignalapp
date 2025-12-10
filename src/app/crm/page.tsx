@@ -519,7 +519,7 @@ export default function CRMDashboard() {
                         : 'Unassigned'}
                     </td>
                     <td>
-                      {lead.pushed_to_crm === true && lead.push_status_code ? (
+                      {lead.push_status_code || lead.push_response || lead.push_error ? (
                         <div
                           style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}
                           onClick={() => {
@@ -548,7 +548,7 @@ export default function CRMDashboard() {
                           <span
                             className={`status-badge ${lead.push_status_code === 200 ? 'status-push-success' : 'status-push-failed'}`}
                           >
-                            {lead.push_status_code === 200 ? '✅' : '❌'} {lead.push_status_code}
+                            {lead.push_status_code === 200 ? '✅' : '❌'} {lead.push_status_code || 'ERR'}
                           </span>
                           {lead.pushed_at && (
                             <span style={{ fontSize: '0.85em', color: '#666' }}>
@@ -901,28 +901,56 @@ export default function CRMDashboard() {
             </div>
 
             {/* API Response Details */}
-            {selectedPushDetails.details.success !== undefined && (
-              <div style={{ marginBottom: '20px' }}>
-                <h4 style={{ fontSize: '16px', marginBottom: '10px' }}>Response Summary</h4>
-                <div style={{ display: 'grid', gap: '10px', fontSize: '14px' }}>
-                  {selectedPushDetails.details.leadId && (
-                    <div style={{ background: '#f8f9fa', padding: '10px', borderRadius: '6px' }}>
-                      <strong>Lead ID:</strong> {selectedPushDetails.details.leadId}
-                    </div>
-                  )}
-                  {selectedPushDetails.details.redirectUrl && (
-                    <div style={{ background: '#f8f9fa', padding: '10px', borderRadius: '6px' }}>
-                      <strong>Redirect URL:</strong> <a href={selectedPushDetails.details.redirectUrl} target="_blank" rel="noopener noreferrer">{selectedPushDetails.details.redirectUrl}</a>
-                    </div>
-                  )}
-                  {selectedPushDetails.details.timestamp && (
-                    <div style={{ background: '#f8f9fa', padding: '10px', borderRadius: '6px' }}>
-                      <strong>Timestamp:</strong> {new Date(selectedPushDetails.details.timestamp).toLocaleString()}
-                    </div>
-                  )}
-                </div>
+            <div style={{ marginBottom: '20px' }}>
+              <h4 style={{ fontSize: '16px', marginBottom: '10px' }}>Response Summary</h4>
+              <div style={{ display: 'grid', gap: '10px', fontSize: '14px' }}>
+                {selectedPushDetails.details.broker && (
+                  <div style={{ background: '#e7f3ff', padding: '10px', borderRadius: '6px' }}>
+                    <strong>Broker:</strong> {selectedPushDetails.details.broker}
+                  </div>
+                )}
+                {selectedPushDetails.details.leadId && (
+                  <div style={{ background: '#f8f9fa', padding: '10px', borderRadius: '6px' }}>
+                    <strong>Lead ID:</strong> {selectedPushDetails.details.leadId}
+                  </div>
+                )}
+                {selectedPushDetails.details.leadRequestId && (
+                  <div style={{ background: '#f8f9fa', padding: '10px', borderRadius: '6px' }}>
+                    <strong>N_Traffic Lead Request ID:</strong> {selectedPushDetails.details.leadRequestId}
+                  </div>
+                )}
+                {selectedPushDetails.details.advertiserName && (
+                  <div style={{ background: '#f8f9fa', padding: '10px', borderRadius: '6px' }}>
+                    <strong>Advertiser:</strong> {selectedPushDetails.details.advertiserName}
+                  </div>
+                )}
+                {selectedPushDetails.details.offerName && (
+                  <div style={{ background: '#f8f9fa', padding: '10px', borderRadius: '6px' }}>
+                    <strong>Offer:</strong> {selectedPushDetails.details.offerName}
+                  </div>
+                )}
+                {selectedPushDetails.details.redirectUrl && (
+                  <div style={{ background: '#f8f9fa', padding: '10px', borderRadius: '6px' }}>
+                    <strong>Redirect URL:</strong> <a href={selectedPushDetails.details.redirectUrl} target="_blank" rel="noopener noreferrer">{selectedPushDetails.details.redirectUrl}</a>
+                  </div>
+                )}
+                {selectedPushDetails.details.timestamp && (
+                  <div style={{ background: '#f8f9fa', padding: '10px', borderRadius: '6px' }}>
+                    <strong>Timestamp:</strong> {new Date(selectedPushDetails.details.timestamp).toLocaleString()}
+                  </div>
+                )}
+                {selectedPushDetails.details.rawResponse && (
+                  <div style={{ background: '#fff3cd', padding: '10px', borderRadius: '6px' }}>
+                    <strong>Raw API Response:</strong>
+                    <pre style={{ margin: '5px 0 0 0', fontSize: '11px', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
+                      {typeof selectedPushDetails.details.rawResponse === 'string'
+                        ? selectedPushDetails.details.rawResponse
+                        : JSON.stringify(selectedPushDetails.details.rawResponse, null, 2)}
+                    </pre>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
 
             {/* Full JSON Response */}
             <div>
