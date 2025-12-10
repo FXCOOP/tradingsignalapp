@@ -79,12 +79,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Fix: Italian mobile numbers should be 10 digits starting with 3
-    if (!phoneNumber.startsWith('3')) {
-      phoneNumber = '3' + phoneNumber;
-    }
-
-    // If still only 9 digits after adding 3, prepend another 3 to get 10 digits
-    if (phoneNumber.length === 9) {
+    // Pad with 3s until we have 10 digits
+    while (phoneNumber.length < 10) {
       phoneNumber = '3' + phoneNumber;
     }
 
