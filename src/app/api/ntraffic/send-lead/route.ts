@@ -67,19 +67,18 @@ export async function POST(request: NextRequest) {
     const italianIP = NTrafficClient.generateItalianIP();
     console.log(`🇮🇹 Generated Italian IP for N_Traffic: ${italianIP}`);
 
-    // Extract phone - clean symbols only, send as-is
+    // Extract phone - clean symbols only
     let phoneNumber = phone;
-    let areaCode = '39'; // Italy country code
 
     // Clean phone number - remove symbols only (keep digits)
     phoneNumber = phoneNumber.replace(/[\s+\-()]/g, '');
 
-    // If phone starts with country code 39, remove it (areaCode is sent separately)
-    if (phoneNumber.startsWith('39') && phoneNumber.length > 10) {
-      phoneNumber = phoneNumber.substring(2);
+    // Ensure phone has country code 39 prefix
+    if (!phoneNumber.startsWith('39')) {
+      phoneNumber = '39' + phoneNumber;
     }
 
-    console.log(`📞 Phone for N_Traffic: areaCode=${areaCode}, phone=${phoneNumber}`);
+    console.log(`📞 Phone for N_Traffic (full): ${phoneNumber}`);
 
     // Prepare lead data for N_Traffic
     const leadData: NTrafficLeadData = {
@@ -88,8 +87,8 @@ export async function POST(request: NextRequest) {
       lastName,
       password: NTrafficClient.generatePassword(), // Auto-generate strong password
       ip: italianIP, // Use generated Italian IP for geo-validation
-      phone: phoneNumber,
-      areaCode: areaCode, // Always send Italy country code
+      phone: phoneNumber, // Full phone with country code (393312046468)
+      // areaCode not needed when sending full international number
       locale: country ? NTrafficClient.getLocaleForCountry(country) : 'it_IT',
       custom1: signupId || undefined, // Store our signup ID for reference
       custom2: utmSource || tag || undefined, // Store campaign source
