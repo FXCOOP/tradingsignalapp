@@ -25,6 +25,10 @@ const nextConfig = {
         source: '/brokerv3',
         destination: '/brokerv3.html',
       },
+      {
+        source: '/brokervit1',
+        destination: '/brokervit1.html',
+      },
     ]
   },
   async headers() {
