@@ -310,6 +310,7 @@ export class NTrafficClient {
         firstName: lead.firstName,
         lastName: lead.lastName,
         phone: lead.phone,
+        areaCode: lead.areaCode,
         locale: lead.locale,
       });
       console.log('📤 Exact Payload (URLSearchParams):', payload.toString());

@@ -552,12 +552,13 @@ async function pushToNTraffic(signup: any) {
     // Clean phone number - remove symbols only (keep digits)
     phoneNumber = phoneNumber.replace(/[\s+\-()]/g, '');
 
-    // Ensure phone has country code 39 prefix
-    if (!phoneNumber.startsWith('39')) {
-      phoneNumber = '39' + phoneNumber;
+    // Remove country code 39 if present (areaCode sent separately)
+    if (phoneNumber.startsWith('39')) {
+      phoneNumber = phoneNumber.substring(2);
     }
 
-    console.log(`📞 Phone for N_Traffic (full): ${phoneNumber}`);
+    // Italian mobile: should be 9-10 digits starting with 3
+    console.log(`📞 Phone for N_Traffic: areaCode=39, phone=${phoneNumber}`);
 
     // Generate random Italian IP for geo-validation
     const italianIP = NTrafficClient.generateItalianIP();
@@ -569,8 +570,8 @@ async function pushToNTraffic(signup: any) {
       lastName: signup.last_name,
       password: NTrafficClient.generatePassword(), // Auto-generate strong password
       ip: italianIP, // Use generated Italian IP for geo-validation
-      phone: phoneNumber, // Full phone with country code (393312046468)
-      // areaCode not needed when sending full international number
+      phone: phoneNumber, // National format without country code
+      areaCode: '39', // Italy country code
       locale: 'it_IT', // Italian locale
       custom1: signup.id, // Our signup ID for reference
       custom2: signup.lead_source || 'pksignalpulse', // Campaign source

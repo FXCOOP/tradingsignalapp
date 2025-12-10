@@ -73,12 +73,13 @@ export async function POST(request: NextRequest) {
     // Clean phone number - remove symbols only (keep digits)
     phoneNumber = phoneNumber.replace(/[\s+\-()]/g, '');
 
-    // Ensure phone has country code 39 prefix
-    if (!phoneNumber.startsWith('39')) {
-      phoneNumber = '39' + phoneNumber;
+    // Remove country code 39 if present (areaCode sent separately)
+    if (phoneNumber.startsWith('39')) {
+      phoneNumber = phoneNumber.substring(2);
     }
 
-    console.log(`📞 Phone for N_Traffic (full): ${phoneNumber}`);
+    // Italian mobile: should be 9-10 digits starting with 3
+    console.log(`📞 Phone for N_Traffic: areaCode=39, phone=${phoneNumber}`);
 
     // Prepare lead data for N_Traffic
     const leadData: NTrafficLeadData = {
@@ -87,8 +88,8 @@ export async function POST(request: NextRequest) {
       lastName,
       password: NTrafficClient.generatePassword(), // Auto-generate strong password
       ip: italianIP, // Use generated Italian IP for geo-validation
-      phone: phoneNumber, // Full phone with country code (393312046468)
-      // areaCode not needed when sending full international number
+      phone: phoneNumber, // National format without country code
+      areaCode: '39', // Italy country code
       locale: country ? NTrafficClient.getLocaleForCountry(country) : 'it_IT',
       custom1: signupId || undefined, // Store our signup ID for reference
       custom2: utmSource || tag || undefined, // Store campaign source
