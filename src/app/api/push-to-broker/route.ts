@@ -327,7 +327,7 @@ async function pushImmediately(supabase: any, signup: any, selectedBroker: strin
   }
 
   // Update CRM with push result - ALWAYS save response (success or failure)
-  const pushResponseData = {
+  const pushResponseData: Record<string, any> = {
     success: pushResult.success,
     broker: selectedBroker,
     timestamp: new Date().toISOString(),
@@ -336,14 +336,14 @@ async function pushImmediately(supabase: any, signup: any, selectedBroker: strin
     message: pushResult.success
       ? `Successfully pushed to ${selectedBroker}`
       : `Failed: ${errorMessage}`,
-    // Include broker-specific response data
-    leadId: pushResult.leadId,
-    leadRequestId: pushResult.leadRequestId,
-    redirectUrl: pushResult.redirectUrl,
-    advertiserName: pushResult.advertiserName,
-    offerName: pushResult.offerName,
+    // Include broker-specific response data (if available)
+    leadId: (pushResult as any).leadId,
+    leadRequestId: (pushResult as any).leadRequestId,
+    redirectUrl: (pushResult as any).redirectUrl,
+    advertiserName: (pushResult as any).advertiserName,
+    offerName: (pushResult as any).offerName,
     // Full raw response from broker API
-    rawResponse: pushResult.rawResponse
+    rawResponse: (pushResult as any).rawResponse
   };
 
   await supabase
