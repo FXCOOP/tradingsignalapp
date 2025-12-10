@@ -560,11 +560,19 @@ async function pushToNTraffic(signup: any) {
       console.log(`📞 After removing 39 prefix: "${phoneNumber}"`);
     }
 
-    // Fix: If phone doesn't start with 3, prepend 3 (Italian mobile prefix was stripped)
-    // Italian mobile numbers are 10 digits starting with 3
+    // Fix: Italian mobile numbers should be 10 digits starting with 3
+    // The form strips +39 and sometimes the leading 3, so we need to reconstruct
+    // Phone format: user enters +393331263849 → stored as 31263849 (missing 33 prefix!)
+    // We prepend '3' to make it start with 3, giving us 331263849 (9 digits)
     if (!phoneNumber.startsWith('3')) {
       phoneNumber = '3' + phoneNumber;
       console.log(`📞 Added missing '3' prefix: "${phoneNumber}"`);
+    }
+
+    // If still only 9 digits after adding 3, prepend another 3 to get 10 digits
+    if (phoneNumber.length === 9) {
+      phoneNumber = '3' + phoneNumber;
+      console.log(`📞 Padded to 10 digits: "${phoneNumber}"`);
     }
 
     // Italian mobile: should be 9-10 digits starting with 3
