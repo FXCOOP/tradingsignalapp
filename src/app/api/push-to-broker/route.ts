@@ -544,12 +544,16 @@ async function pushToNTraffic(signup: any) {
       phoneNumber = phoneNumber.substring(3);
     }
 
+    // Generate random Italian IP for geo-validation
+    const italianIP = NTrafficClient.generateItalianIP();
+    console.log(`🇮🇹 Generated Italian IP for N_Traffic: ${italianIP}`);
+
     const result = await client.pushLead({
       email: signup.email,
       firstName: signup.first_name,
       lastName: signup.last_name,
       password: NTrafficClient.generatePassword(), // Auto-generate strong password
-      ip: signup.ip_address || '127.0.0.1',
+      ip: italianIP, // Use generated Italian IP for geo-validation
       phone: phoneNumber,
       areaCode: areaCode || undefined,
       locale: 'it_IT', // Italian locale

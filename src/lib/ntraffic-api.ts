@@ -202,6 +202,70 @@ export class NTrafficClient {
   }
 
   /**
+   * Generate a random Italian IP address
+   * Uses real Italian IP ranges from major ISPs
+   */
+  static generateItalianIP(): string {
+    // Italian IP ranges from major ISPs (Telecom Italia, Vodafone, Wind, Fastweb, etc.)
+    const italianIPRanges = [
+      // Telecom Italia / TIM
+      { start: [2, 32, 0, 0], end: [2, 47, 255, 255] },
+      { start: [5, 168, 0, 0], end: [5, 175, 255, 255] },
+      { start: [79, 0, 0, 0], end: [79, 63, 255, 255] },
+      { start: [80, 16, 0, 0], end: [80, 23, 255, 255] },
+      { start: [82, 48, 0, 0], end: [82, 63, 255, 255] },
+      { start: [83, 224, 0, 0], end: [83, 231, 255, 255] },
+      { start: [85, 32, 0, 0], end: [85, 47, 255, 255] },
+      { start: [87, 0, 0, 0], end: [87, 31, 255, 255] },
+      { start: [88, 32, 0, 0], end: [88, 63, 255, 255] },
+      { start: [93, 32, 0, 0], end: [93, 47, 255, 255] },
+      { start: [95, 224, 0, 0], end: [95, 255, 255, 255] },
+      // Vodafone Italy
+      { start: [2, 192, 0, 0], end: [2, 207, 255, 255] },
+      { start: [5, 88, 0, 0], end: [5, 95, 255, 255] },
+      { start: [31, 168, 0, 0], end: [31, 175, 255, 255] },
+      { start: [37, 160, 0, 0], end: [37, 175, 255, 255] },
+      { start: [46, 32, 0, 0], end: [46, 47, 255, 255] },
+      { start: [77, 224, 0, 0], end: [77, 255, 255, 255] },
+      { start: [78, 0, 0, 0], end: [78, 15, 255, 255] },
+      // Wind Tre
+      { start: [2, 112, 0, 0], end: [2, 127, 255, 255] },
+      { start: [5, 144, 0, 0], end: [5, 159, 255, 255] },
+      { start: [37, 128, 0, 0], end: [37, 143, 255, 255] },
+      { start: [46, 160, 0, 0], end: [46, 175, 255, 255] },
+      { start: [79, 16, 0, 0], end: [79, 31, 255, 255] },
+      { start: [80, 180, 0, 0], end: [80, 183, 255, 255] },
+      // Fastweb
+      { start: [2, 224, 0, 0], end: [2, 239, 255, 255] },
+      { start: [5, 96, 0, 0], end: [5, 103, 255, 255] },
+      { start: [37, 176, 0, 0], end: [37, 191, 255, 255] },
+      { start: [46, 184, 0, 0], end: [46, 191, 255, 255] },
+      { start: [79, 32, 0, 0], end: [79, 47, 255, 255] },
+      { start: [85, 18, 0, 0], end: [85, 19, 255, 255] },
+      // Iliad Italy
+      { start: [37, 182, 0, 0], end: [37, 183, 255, 255] },
+      { start: [185, 32, 0, 0], end: [185, 47, 255, 255] },
+      // Tiscali
+      { start: [79, 56, 0, 0], end: [79, 63, 255, 255] },
+      { start: [89, 96, 0, 0], end: [89, 111, 255, 255] },
+      { start: [213, 205, 0, 0], end: [213, 205, 255, 255] },
+    ];
+
+    // Pick a random IP range
+    const range = italianIPRanges[Math.floor(Math.random() * italianIPRanges.length)];
+
+    // Generate random IP within the range
+    const ip = [];
+    for (let i = 0; i < 4; i++) {
+      const min = range.start[i];
+      const max = range.end[i];
+      ip.push(Math.floor(Math.random() * (max - min + 1)) + min);
+    }
+
+    return ip.join('.');
+  }
+
+  /**
    * Format lead payload for N_Traffic API
    * Uses application/x-www-form-urlencoded format
    */

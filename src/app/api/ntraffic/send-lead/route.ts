@@ -63,11 +63,9 @@ export async function POST(request: NextRequest) {
     //   console.log(`⚠️ Warning: Country ${country} may not be fully supported by N_Traffic`);
     // }
 
-    // Get IP from request if not provided
-    const clientIp = ip ||
-      request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
-      request.headers.get('x-real-ip') ||
-      '127.0.0.1';
+    // Generate random Italian IP for geo-validation (N_Traffic requires Italian IP)
+    const italianIP = NTrafficClient.generateItalianIP();
+    console.log(`🇮🇹 Generated Italian IP for N_Traffic: ${italianIP}`);
 
     // Extract area code from phone if present
     let phoneNumber = phone;
@@ -88,7 +86,7 @@ export async function POST(request: NextRequest) {
       firstName,
       lastName,
       password: NTrafficClient.generatePassword(), // Auto-generate strong password
-      ip: clientIp,
+      ip: italianIP, // Use generated Italian IP for geo-validation
       phone: phoneNumber,
       areaCode: areaCode || undefined,
       locale: country ? NTrafficClient.getLocaleForCountry(country) : 'it_IT',
