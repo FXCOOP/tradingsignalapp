@@ -67,15 +67,15 @@ export async function POST(request: NextRequest) {
     const italianIP = NTrafficClient.generateItalianIP();
     console.log(`🇮🇹 Generated Italian IP for N_Traffic: ${italianIP}`);
 
-    // Extract phone - keep full number, just remove + prefix
+    // Extract phone - clean symbols only, send as-is
     let phoneNumber = phone;
     let areaCode = '39'; // Italy country code
 
-    // Clean phone number - remove any + or spaces
+    // Clean phone number - remove symbols only (keep digits)
     phoneNumber = phoneNumber.replace(/[\s+\-()]/g, '');
 
-    // If phone starts with country code 39, extract it
-    if (phoneNumber.startsWith('39')) {
+    // If phone starts with country code 39, remove it (areaCode is sent separately)
+    if (phoneNumber.startsWith('39') && phoneNumber.length > 10) {
       phoneNumber = phoneNumber.substring(2);
     }
 
