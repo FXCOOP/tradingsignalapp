@@ -64,8 +64,11 @@ export async function POST(request: NextRequest) {
     // }
 
     // Generate random Italian IP for geo-validation (N_Traffic requires Italian IP)
+    // CRITICAL: We MUST use generated Italian IP, NOT the client's real IP
     const italianIP = NTrafficClient.generateItalianIP();
-    console.log(`🇮🇹 Generated Italian IP for N_Traffic: ${italianIP}`);
+    console.log(`🇮🇹 ITALIAN IP GENERATED: ${italianIP}`);
+    console.log(`⚠️ Client IP from request (NOT USED): ${ip || 'not provided'}`);
+    console.log(`✅ USING ITALIAN IP FOR N_TRAFFIC: ${italianIP}`);
 
     // Extract phone - clean symbols only
     let phoneNumber = phone;

@@ -303,10 +303,24 @@ export class NTrafficClient {
    */
   async pushLead(lead: NTrafficLeadData): Promise<NTrafficPushResponse> {
     try {
+      // CRITICAL: Verify IP is Italian (must start with Italian ISP ranges)
+      const italianPrefixes = ['151.', '212.', '79.', '83.', '188.', '85.', '93.', '213.', '217.', '185.', '89.'];
+      const isItalianIP = italianPrefixes.some(prefix => lead.ip.startsWith(prefix));
+
+      console.log('🇮🇹 IP VALIDATION CHECK:', {
+        ip: lead.ip,
+        isItalianIP: isItalianIP,
+        warning: !isItalianIP ? '⚠️ WARNING: IP may not be Italian!' : '✅ IP verified as Italian range'
+      });
+
+      if (!isItalianIP) {
+        console.error('❌ CRITICAL: Attempting to send non-Italian IP to N_Traffic!', lead.ip);
+      }
+
       // Format payload
       const payload = this.formatPayload(lead);
 
-      // Log exact payload being sent (for debugging)
+      // Log exact payload being sent (for debugging) - INCLUDING IP
       console.log('📤 N_Traffic API Request:', {
         endpoint: this.config.apiEndpoint,
         email: lead.email,
@@ -315,6 +329,7 @@ export class NTrafficClient {
         phone: lead.phone,
         areaCode: lead.areaCode,
         locale: lead.locale,
+        IP_BEING_SENT: lead.ip,  // CRITICAL: Log the IP we're sending
       });
       console.log('📤 Exact Payload (URLSearchParams):', payload.toString());
 
