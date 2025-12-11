@@ -128,6 +128,40 @@ export default function CRMDashboard() {
     }
   };
 
+  // Helper function to sync leads in batches
+  const syncLeadBatch = async (leads: Lead[], endpoint: string, brokerName: string) => {
+    const batchSize = 5;
+    for (let i = 0; i < leads.length; i += batchSize) {
+      const batch = leads.slice(i, i + batchSize);
+
+      await Promise.all(batch.map(async (lead) => {
+        try {
+          console.log(`🔄 Syncing ${lead.email} from ${brokerName}...`);
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ signupId: lead.id })
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            console.log(`✅ Synced ${lead.email}: ${data.status}`);
+          } else {
+            console.warn(`⚠️ Failed to sync ${lead.email}:`, data.error);
+          }
+        } catch (error) {
+          console.error(`❌ Error syncing ${lead.email}:`, error);
+        }
+      }));
+
+      // Small delay between batches
+      if (i + batchSize < leads.length) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+    }
+  };
+
   const refreshAllBrokerStatuses = async (leadsData: Lead[]) => {
     try {
       console.log('🔄 Auto-refreshing ALL broker statuses...');
@@ -139,43 +173,26 @@ export default function CRMDashboard() {
          lead.assigned_broker?.includes('225X'))
       );
 
-      if (tradingCRMLeads.length === 0) {
-        console.log('ℹ️ No Trading CRM leads to sync');
+      // Filter N_Traffic leads
+      const ntrafficLeads = leadsData.filter(lead =>
+        lead.assigned_broker?.includes('N_Traffic')
+      );
+
+      if (tradingCRMLeads.length === 0 && ntrafficLeads.length === 0) {
+        console.log('ℹ️ No leads to sync');
         return;
       }
 
-      console.log(`📤 Syncing ${tradingCRMLeads.length} Trading CRM leads (all statuses)...`);
+      // Sync Trading CRM leads
+      if (tradingCRMLeads.length > 0) {
+        console.log(`📤 Syncing ${tradingCRMLeads.length} Trading CRM leads...`);
+        await syncLeadBatch(tradingCRMLeads, '/api/trading-crm/sync-status', 'Trading CRM');
+      }
 
-      // Sync in batches of 5 to avoid overloading the API
-      const batchSize = 5;
-      for (let i = 0; i < tradingCRMLeads.length; i += batchSize) {
-        const batch = tradingCRMLeads.slice(i, i + batchSize);
-
-        await Promise.all(batch.map(async (lead) => {
-          try {
-            console.log(`🔄 Syncing ${lead.email}...`);
-            const response = await fetch('/api/trading-crm/sync-status', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ signupId: lead.id })
-            });
-
-            const data = await response.json();
-
-            if (data.success) {
-              console.log(`✅ Synced ${lead.email}: ${data.status}`);
-            } else {
-              console.warn(`⚠️ Failed to sync ${lead.email}:`, data.error);
-            }
-          } catch (error) {
-            console.error(`❌ Error syncing ${lead.email}:`, error);
-          }
-        }));
-
-        // Small delay between batches
-        if (i + batchSize < tradingCRMLeads.length) {
-          await new Promise(resolve => setTimeout(resolve, 1000));
-        }
+      // Sync N_Traffic leads
+      if (ntrafficLeads.length > 0) {
+        console.log(`📤 Syncing ${ntrafficLeads.length} N_Traffic leads...`);
+        await syncLeadBatch(ntrafficLeads, '/api/ntraffic/sync-status', 'N_Traffic');
       }
 
       console.log('✅ All broker statuses refreshed!');
@@ -231,9 +248,10 @@ export default function CRMDashboard() {
       const isTradingCRM = lead.assigned_broker?.includes('Trading CRM') ||
                           lead.assigned_broker?.includes('AFF 225X');
       const isAllCrypto = lead.assigned_broker?.includes('AllCrypto');
+      const isNTraffic = lead.assigned_broker?.includes('N_Traffic');
 
-      // If not Trading CRM or AllCrypto, show current status only
-      if (!isTradingCRM && !isAllCrypto) {
+      // If not Trading CRM, AllCrypto, or N_Traffic, show current status only
+      if (!isTradingCRM && !isAllCrypto && !isNTraffic) {
         console.log('ℹ️ Lead assigned to:', lead.assigned_broker, '- Showing current status');
         setSelectedBrokerStatus({
           lead,
@@ -244,14 +262,22 @@ export default function CRMDashboard() {
           tpAccount: lead.tp_account,
           lastCheck: lead.last_status_check,
           liveData: null,
-          info: `This lead is assigned to ${lead.assigned_broker || 'external broker'}. Live status sync is only available for Trading CRM and AllCrypto leads.`
+          info: `This lead is assigned to ${lead.assigned_broker || 'external broker'}. Live status sync is only available for Trading CRM, AllCrypto, and N_Traffic leads.`
         });
         return;
       }
 
       // Determine which API endpoint to use
-      const syncEndpoint = isAllCrypto ? '/api/allcrypto/sync-status' : '/api/trading-crm/sync-status';
-      console.log(`🔄 Fetching live status from: ${isAllCrypto ? 'AllCrypto' : 'Trading CRM'}`);
+      let syncEndpoint = '/api/trading-crm/sync-status';
+      let brokerName = 'Trading CRM';
+      if (isAllCrypto) {
+        syncEndpoint = '/api/allcrypto/sync-status';
+        brokerName = 'AllCrypto';
+      } else if (isNTraffic) {
+        syncEndpoint = '/api/ntraffic/sync-status';
+        brokerName = 'N_Traffic';
+      }
+      console.log(`🔄 Fetching live status from: ${brokerName}`);
 
       // Fetch live status from broker API
       const response = await fetch(syncEndpoint, {
@@ -694,7 +720,7 @@ export default function CRMDashboard() {
             {selectedBrokerStatus.loading && (
               <div style={{ textAlign: 'center', padding: '40px' }}>
                 <div className="spinner" style={{ margin: '0 auto 20px' }}></div>
-                <p>Fetching live status from {selectedBrokerStatus.lead?.assigned_broker?.includes('AllCrypto') ? 'AllCrypto' : 'Trading CRM'}...</p>
+                <p>Fetching live status from {selectedBrokerStatus.lead?.assigned_broker?.includes('AllCrypto') ? 'AllCrypto' : selectedBrokerStatus.lead?.assigned_broker?.includes('N_Traffic') ? 'N_Traffic' : 'Trading CRM'}...</p>
               </div>
             )}
 
